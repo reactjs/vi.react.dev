@@ -51,7 +51,7 @@ class Home extends Component {
     return (
       <Layout location={location}>
         <TitleAndMetaTags
-          title="React &ndash; Một thư viện xây dựng giao diện từ JavaScript"
+          title="React &ndash; Một thư viện JavaScript giúp xây dựng giao diện người dùng"
           ogUrl={createOgUrl('index.html')}
         />
         <div css={{width: '100%'}}>
@@ -134,7 +134,7 @@ class Home extends Component {
                         fontSize: 30,
                       },
                     }}>
-                    A JavaScript library for building user interfaces
+                    Một thư viện JavaScript giúp xây dựng giao diện người dùng
                   </p>
                   <Flex
                     valign="center"
@@ -154,7 +154,7 @@ class Home extends Component {
                     </CtaItem>
                     <CtaItem>
                       <ButtonLink to="/tutorial/tutorial.html" type="secondary">
-                        Hướng Dẫn
+                        Xem Hướng Dẫn
                       </ButtonLink>
                     </CtaItem>
                   </Flex>
@@ -291,7 +291,7 @@ class Home extends Component {
                 </CtaItem>
                 <CtaItem>
                   <ButtonLink to="/tutorial/tutorial.html" type="secondary">
-                    Hướng Dẫn
+                    Xem Hướng Dẫn
                   </ButtonLink>
                 </CtaItem>
               </Flex>
@@ -312,7 +312,7 @@ Home.propTypes = {
 
 function renderExamplePlaceholder(containerId) {
   ReactDOM.render(
-    <h4>Loading code example...</h4>,
+    <h4>Đang tải code mẫu...</h4>,
     document.getElementById(containerId),
   );
 }
