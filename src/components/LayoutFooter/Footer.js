@@ -132,7 +132,7 @@ const Footer = ({layoutHasSidebar = false}: {layoutHasSidebar: boolean}) => (
             <FooterLink to="/tutorial/tutorial.html">Hướng Dẫn</FooterLink>
             <FooterLink to="/blog/">Blog</FooterLink>
             <FooterLink to="/acknowledgements.html">
-              Lởi Cảm Ơn
+              Lời Cảm Ơn
             </FooterLink>
             <ExternalFooterLink
               href="https://facebook.github.io/react-native/"
