@@ -1,8 +1,8 @@
 ---
-title: Declarative
+title: Định nghĩa
 order: 0
 ---
 
-React makes it painless to create interactive UIs. Design simple views for each state in your application, and React will efficiently update and render just the right components when your data changes.
+React giúp cho việc tạo giao diện có thể tương tác một cách dễ dàng. Trước tiên, hãy thiết kế các thành phần giao diện đơn giản trong ứng dụng của bạn trước, và React sẽ cập nhật giao diện tuỳ theo sự thay đổi của dữ liệu trong các thành phần đó.
 
-Declarative views make your code more predictable and easier to debug.
+Giao diện được viết cách rõ ràng sẽ làm cho code của bạn dễ quan sát và dễ gỡ lỗi hơn.
