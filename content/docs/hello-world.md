@@ -6,7 +6,7 @@ prev: cdn-links.html
 next: introducing-jsx.html
 ---
 
-The smallest React example looks like this:
+Một ví dụ đơn giản nhất của React trông như thế này:
 
 ```js
 ReactDOM.render(
@@ -15,36 +15,36 @@ ReactDOM.render(
 );
 ```
 
-It displays a heading saying "Hello, world!" on the page.
+Nó hiển thị một tiêu đề với dòng chữ "Hello, world!" trên trang web.
 
 [](codepen://hello-world)
 
-Click the link above to open an online editor. Feel free to make some changes, and see how they affect the output. Most pages in this guide will have editable examples like this one.
+Nhấn vào link bên trên để mở một trình soạn thảo trực tuyến. Hãy tự nhiên để làm vài sự thay đổi và thấy nó ảnh hưởng đến kết quả như thế nào. Hầu hết các trang trong hướng dẫn này sẽ có những ví dụ mà bạn có thể thay đổi được giống như ví dụ này.
 
 
-## How to Read This Guide {#how-to-read-this-guide}
+## Làm sao để đọc hướng dẫn này {#how-to-read-this-guide}
 
-In this guide, we will examine the building blocks of React apps: elements and components. Once you master them, you can create complex apps from small reusable pieces.
+Trong hướng dẫn này, chúng ta sẽ xem xét các khối xây dựng của các ứng dụng React: elements và components. Một khi bạn đã nắm vững chúng, bạn có thể tạo ra những ứng dụng phức tạp từ những mảnh ghép tái sử dụng nhỏ.
 
->Tip
+>Mẹo nhỏ
 >
->This guide is designed for people who prefer **learning concepts step by step**. If you prefer to learn by doing, check out our [practical tutorial](/tutorial/tutorial.html). You might find this guide and the tutorial complementary to each other.
+>Hướng dẫn này được thiết kế cho những người dự định **tiếp cận các khái niệm từng bước một**. Nếu bạn có dự định tiếp cận theo cách thực hành, bạn nên tham khảo [hướng dẫn thực hành](/tutorial/tutorial.html) của chúng tôi. Bạn có thể tìm hướng dẫn này và chỉ dẫn thực hành bổ sung cho nhau.
 
-This is the first chapter in a step-by-step guide about main React concepts. You can find a list of all its chapters in the navigation sidebar. If you're reading this from a mobile device, you can access the navigation by pressing the button in the bottom right corner of your screen.
+Đây là chương đầu tiên trong hướng dẫn từng bước về các khái niệm cơ bản của React. Bạn có thể tìm thấy một danh sách tất cả các chương của nó trong navigation sidebar. Nếu bạn đang đọc cái này trên điện thoại, bạn cũng có thể truy cập navigation bằng cách nhấn cái nút ở bên phải phía dưới góc màn hình của bạn.
 
-Every chapter in this guide builds on the knowledge introduced in earlier chapters. **You can learn most of React by reading the “Main Concepts” guide chapters in the order they appear in the sidebar.** For example, [“Introducing JSX”](/docs/introducing-jsx.html) is the next chapter after this one.
+Mỗi chương trong hướng dẫn này xây dựng trên kiến thức đã giới thiệu trong những chương trước. **Bạn có thể học phần lớn React bằng cách đọc các chương hướng dẫn “Các khái niệm chính” theo thứ tự của chúng ở trong sidebar**. Ví dụ, [“Giới thiệu JSX”](/docs/introducing-jsx.html) là chương kế tiếp của chương này.
 
-## Knowledge Level Assumptions {#knowledge-level-assumptions}
+## Kiến thức cơ bản {#knowledge-level-assumptions}
 
-React is a JavaScript library, and so we'll assume you have a basic understanding of the JavaScript language. **If you don't feel very confident, we recommend [going through a JavaScript tutorial](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript) to check your knowledge level** and enable you to follow along this guide without getting lost. It might take you between 30 minutes and an hour, but as a result you won't have to feel like you're learning both React and JavaScript at the same time.
+React là một thư viện JavaScript, và vì thế chúng tôi giả định là bạn có một sự hiểu biết cơ bản về ngôn ngữ JavaScript. **Nếu bạn cảm thấy không tự tin, chúng tôi khuyên bạn [lướt qua một hướng dẫn về JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript) để kiểm tra kiến thức của bạn** và điều đó sẽ giúp bạn tiếp tục hướng dẫn này mà không bị lạc hướng. Nó có thể mất 30 phút hoặc một tiếng đồng hồ, nhưng với kết quả cuối cùng thì bạn sẽ không phải cảm thấy giống như bạn đang học React và JavaScript cùng một thời điểm.
 
->Note
+>Ghi chú
 >
->This guide occasionally uses some of the newer JavaScript syntax in the examples. If you haven't worked with JavaScript in the last few years, [these three points](https://gist.github.com/gaearon/683e676101005de0add59e8bb345340c) should get you most of the way.
+>Hướng dẫn này thỉnh thoảng sử dụng một vài cấu trúc JavaScript mới trong các ví dụ. Nếu bạn chưa từng làm việc với JavaScript trong vài năm trước đây, [Ba điểm này](https://gist.github.com/gaearon/683e676101005de0add59e8bb345340c) sẽ mang cho bạn kiến thức để bạn cảm thấy thoải mái hơn khi đọc các tài liệu của React.
 
 
-## Let's Get Started! {#lets-get-started}
+## Hãy cùng bắt đầu nhé! {#lets-get-started}
 
-Keep scrolling down, and you'll find the link to the [next chapter of this guide](/docs/introducing-jsx.html) right before the website footer.
+Tiếp tục kéo xuống bên dưới, và bạn sẽ tìm thấy đường dẫn đến [chương kế tiếp của hướng dẫn này](/docs/introducing-jsx.html) ngay mép bên phải trên cái chân của website.
 
 
