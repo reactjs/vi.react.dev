@@ -16,11 +16,11 @@ Cú pháp thẻ kì cục trên không phải là chuỗi cũng như HTML.
 
 Nó được gọi là JSX, là một cú pháp mở rộng cho JavaScript. Chúng tôi khuyến khích sử dụng JSX với React để mô tả giao diện (UI). JSX có thể trông giống Ngôn ngữ Khuôn mẫu (Template language), nhưng JSX đi kèm với toàn bộ tính năng của Javascript.
 
-JSX cho ra những "phần tử"(Element) React. Chúng ta sẽ khám phá việc chúng được đưa vào DOM như thế nào ở [phần tiếp theo](/docs/rendering-elements.html). Dưới đây là những điều cần thiết cơ bản của JSX để có thể bắt đầu.
+JSX cho ra những "phần tử"(Element) React. Chúng ta sẽ khám phá việc chúng được render vô DOM như thế nào ở [phần tiếp theo](/docs/rendering-elements.html). Dưới đây là những điều cần thiết cơ bản của JSX để có thể bắt đầu.
 
 ### Tại sao lại là JSX? {#why-jsx}
 
-React khuyến khích việc kết hợp lại của giao diện trình bày (UI) và những logic khác liên quan tới giao diện: Các sự kiện được xử lý thế nào, Trạng thái (state) thay đổi thế nào theo thời gian, và dữ liệu được chuẩn bị thế nào cho việc hiển thị.
+React khuyến khích thực tế rằng là render logic và những logic khác liên quan tới UI là liên quan với nhau một cách tự nhiên: Các sự kiện được xử lý thế nào, state thay đổi thế nào theo thời gian, và dữ liệu được chuẩn bị thế nào cho việc hiển thị.
 
 Thay vì tách biệt các *công nghệ* một cách giả tạo bằng cách đưa định nghĩa giao diện và logic vào những tệp khác nhau, React [tách bạch *mối quan hệ*](https://en.wikipedia.org/wiki/Separation_of_concerns) bằng những đơn vị rời rạc gọi là "components" chứa cả hai cái trên. Chúng ta sẽ bàn về components trong một [phần khác](/docs/components-and-props.html), nếu bạn vẫn chưa cảm thấy thoải mái việc đưa các định nghĩa giao diện vào trong JS, [buổi nói chuyện này](https://www.youtube.com/watch?v=x7cQ3mrcKaY) có thể thuyết phục bạn.
 
@@ -76,7 +76,7 @@ Chúng ta có thể tách JSX vào những tệp khác nhau cho dễ đọc. Vi�
 
 Sau khi biên soạn (compile), biểu thức JSX là những gọi hàm bình thường của Javascript và thành những đối tượng Javascript sau khi được gọi.
 
-Điều này có nghĩa là bạn có thể dùng JSX bên trong mệnh đề `if` cũng như vòng lặp `for`, gán nó cho biến, dùng như đầu vào, và trả về JSX từ hàm.
+Điều này có nghĩa là bạn có thể dùng JSX bên trong mệnh đề `if` cũng như vòng lặp `for`, gán nó cho biến, dùng như đầu vào của hàm, và trả về JSX từ hàm.
 
 ```js{3,5}
 function getGreeting(user) {
@@ -95,7 +95,7 @@ Bạn có thể dùng dấu nháy để khai báo một chuỗi như là thuộc
 const element = <div tabIndex="0"></div>;
 ```
 
-Bạn co thể dùng dấu ngặp ngoặc nhọn để nhúng một biểu thức Javascript vào trong thuộc tính:
+Bạn có thể dùng dấu ngặp ngoặc nhọn để nhúng một biểu thức Javascript vào trong thuộc tính:
 
 ```js
 const element = <img src={user.avatarUrl}></img>;
@@ -138,7 +138,7 @@ const title = response.potentiallyMaliciousInput;
 const element = <h1>{title}</h1>;
 ```
 
-Mặc định, React DOM [loại bỏ những kí tự đặc biệt](http://stackoverflow.com/questions/7381974/which-characters-need-to-be-escaped-on-html) ở bên trong bất kì giá trị nào được nhúng vào JSX trước khi đưa vào DOM. Việc này đảm bảo không có giá trị xấu nào được vô tình được đưa vào ứng dụng. Mọi thứ đều được chuyển thành chuỗi trước khi đưa vào DOM. Việc này giúp ngăn chặn phương thức [tấn công XSS (cross-site-scripting)](https://en.wikipedia.org/wiki/Cross-site_scripting).
+Mặc định, React DOM [loại bỏ những kí tự đặc biệt](http://stackoverflow.com/questions/7381974/which-characters-need-to-be-escaped-on-html) ở bên trong bất kì giá trị nào được nhúng vào JSX trước khi render chúng. Việc này đảm bảo không có giá trị xấu nào được vô tình được đưa vào ứng dụng. Mọi thứ đều được chuyển thành chuỗi trước khi được render. Việc này giúp ngăn chặn phương thức [tấn công XSS (cross-site-scripting)](https://en.wikipedia.org/wiki/Cross-site_scripting).
 
 ### JSX là đối tượng {#jsx-represents-objects}
 
@@ -177,7 +177,7 @@ const element = {
 
 Những đối tượng này được gọi là "Những phần tử React" (React elements). Bạn có thể xem chúng như là mô tả những gì gì bạn muốn thấy trên màn hình. React đọc những đối tượng này và dùng chúng để xây dựng DOM và cập nhật nó.
 
-Chúng ta sẽ khám phá cách các React Element được đưa vào trong DOM trong phần kế tiếp.
+Chúng ta sẽ khám phá cách các React Element được render vào DOM thế nào trong phần kế tiếp.
 
 >**Gợi ý:**
 >
