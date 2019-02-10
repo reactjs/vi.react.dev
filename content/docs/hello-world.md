@@ -6,7 +6,7 @@ prev: cdn-links.html
 next: introducing-jsx.html
 ---
 
-Một ví dụ đơn giản nhất của React trông như thế này:
+Một ví dụ nhỏ nhất của React trông như thế này:
 
 ```js
 ReactDOM.render(
@@ -24,13 +24,13 @@ Nhấn vào link bên trên để mở một trình soạn thảo trực tuyến
 
 ## Làm sao để đọc hướng dẫn này {#how-to-read-this-guide}
 
-Trong hướng dẫn này, chúng ta sẽ xem xét các khối xây dựng của các ứng dụng React: elements và components. Một khi bạn đã nắm vững chúng, bạn có thể tạo ra những ứng dụng phức tạp từ những mảnh ghép tái sử dụng nhỏ.
+Trong hướng dẫn này, chúng ta sẽ xem xét các khối xây dựng của các ứng dụng React: elements và components. Một khi bạn đã nắm vững chúng, bạn có thể tạo ra những ứng dụng phức tạp từ những mảnh ghép nhỏ tái sử dụng.
 
 >Mẹo nhỏ
 >
 >Hướng dẫn này được thiết kế cho những người dự định **tiếp cận các khái niệm từng bước một**. Nếu bạn có dự định tiếp cận theo cách thực hành, bạn nên tham khảo [hướng dẫn thực hành](/tutorial/tutorial.html) của chúng tôi. Bạn có thể tìm hướng dẫn này và chỉ dẫn thực hành bổ sung cho nhau.
 
-Đây là chương đầu tiên trong hướng dẫn từng bước về các khái niệm cơ bản của React. Bạn có thể tìm thấy một danh sách tất cả các chương của nó trong navigation sidebar. Nếu bạn đang đọc cái này trên điện thoại, bạn cũng có thể truy cập navigation bằng cách nhấn cái nút ở bên phải phía dưới góc màn hình của bạn.
+Đây là chương đầu tiên trong hướng dẫn từng bước về các khái niệm cơ bản của React. Bạn có thể tìm thấy một danh sách tất cả các chương của nó trong thanh công cụ điều hướng. Nếu bạn đang đọc cái này trên điện thoại, bạn cũng có thể truy cập điều hướng bằng cách nhấn cái nút ở bên phải phía dưới góc màn hình của bạn.
 
 Mỗi chương trong hướng dẫn này xây dựng trên kiến thức đã giới thiệu trong những chương trước. **Bạn có thể học phần lớn React bằng cách đọc các chương hướng dẫn “Các khái niệm chính” theo thứ tự của chúng ở trong sidebar**. Ví dụ, [“Giới thiệu JSX”](/docs/introducing-jsx.html) là chương kế tiếp của chương này.
 
