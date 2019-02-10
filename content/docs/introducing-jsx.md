@@ -109,15 +109,15 @@ const element = <img src={user.avatarUrl}></img>;
 >
 >Ví dụ, `class` trở thành [`className`](https://developer.mozilla.org/en-US/docs/Web/API/Element/className) trong JSX, và `tabindex` trở thành [`tabIndex`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/tabIndex).
 
-### Specifying Children with JSX {#specifying-children-with-jsx}
+### Dùng thẻ con trong JSX {#specifying-children-with-jsx}
 
-If a tag is empty, you may close it immediately with `/>`, like XML:
+Nếu tag rỗng (không có thẻ con), bạn có thể đóng nó ngay lập tức với `/>`, giống XML:
 
 ```js
 const element = <img src={user.avatarUrl} />;
 ```
 
-JSX tags may contain children:
+Thẻ JSX có thể chứa thẻ con:
 
 ```js
 const element = (
@@ -128,17 +128,17 @@ const element = (
 );
 ```
 
-### JSX Prevents Injection Attacks {#jsx-prevents-injection-attacks}
+### JSX chống tấn công kiểu Injection {#jsx-prevents-injection-attacks}
 
-It is safe to embed user input in JSX:
+Việc nhúng đầu vào của người dùng trong JSX là an toàn:
 
 ```js
 const title = response.potentiallyMaliciousInput;
-// This is safe:
+// Việc này an toàn:
 const element = <h1>{title}</h1>;
 ```
 
-By default, React DOM [escapes](http://stackoverflow.com/questions/7381974/which-characters-need-to-be-escaped-on-html) any values embedded in JSX before rendering them. Thus it ensures that you can never inject anything that's not explicitly written in your application. Everything is converted to a string before being rendered. This helps prevent [XSS (cross-site-scripting)](https://en.wikipedia.org/wiki/Cross-site_scripting) attacks.
+Mặc định, React DOM [loại bỏ những kí tự đặc biệt](http://stackoverflow.com/questions/7381974/which-characters-need-to-be-escaped-on-html) ở bên trong bất kì giá trị nào được nhúng vào JSX trước khi đưa vào DOM. Việc này đảm bảo không có giá trị xấu nào được vô tình được đưa vào ứng dụng. Mọi thứ đều được chuyển thành chuỗi trước khi đưa vào DOM. Việc này giúp ngăn chặn phương thức [tấn công XSS (cross-site-scripting)](https://en.wikipedia.org/wiki/Cross-site_scripting).
 
 ### JSX Represents Objects {#jsx-represents-objects}
 
