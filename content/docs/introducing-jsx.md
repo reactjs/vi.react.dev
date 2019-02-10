@@ -72,11 +72,11 @@ ReactDOM.render(
 
 Chúng ta có thể tách JSX vào những tệp khác nhau cho dễ đọc. Việc đấy không bắt buộc, nhưng khi làm như vậy, chúng tôi cũng khuyến khích nhúng trong cặp dấu ngoặc để tránh rơi vào trường hợp JS Engines [tự thêm chấm phẩy](http://stackoverflow.com/q/2846283).
 
-### JSX is an Expression Too {#jsx-is-an-expression-too}
+### JSX is cũng là một biểu thức {#jsx-is-an-expression-too}
 
-After compilation, JSX expressions become regular JavaScript function calls and evaluate to JavaScript objects.
+Sau khi biên soạn (compile), biểu thức JSX là những gọi hàm bình thường của Javascript và thành những đối tượng Javascript sau khi được thực thi.
 
-This means that you can use JSX inside of `if` statements and `for` loops, assign it to variables, accept it as arguments, and return it from functions:
+Điều này có nghĩa là bạn có thể dùng JSX bên trong mệnh đề `if` cũng như vòng lặp `for`, gán nó cho biến, dùng như đầu vào, và trả về JSX từ hàm.
 
 ```js{3,5}
 function getGreeting(user) {
