@@ -1,6 +1,6 @@
 ---
 id: introducing-jsx
-title: Introducing JSX
+title: Giới thiệu JSX
 permalink: docs/introducing-jsx.html
 prev: hello-world.html
 next: rendering-elements.html
@@ -42,7 +42,7 @@ ReactDOM.render(
 );
 ```
 
-Bạn có thể nhúng bất kỳ [biểu thức Javascript hợp quy] nào(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Expressions) bên trong JSX bằng cặp dấu ngoặc nhọn. Ví dụ, `2 + 2`, `user.firstName`, hoặc `formatName(user)` đều là các biểu thức hợp quy của Javascript.
+Bạn có thể nhúng bất kỳ [biểu thức Javascript hợp quy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Expressions) bên trong JSX bằng cặp dấu ngoặc nhọn. Ví dụ, `2 + 2`, `user.firstName`, hoặc `formatName(user)` đều là các biểu thức hợp quy của Javascript.
 
 Ở ví dụ dưới, chúng ta nhúng kết quả của một hàm JavaScript, `formatName(user)`, vào bên trong phần tử `<h1>`.
 
@@ -72,9 +72,9 @@ ReactDOM.render(
 
 Chúng ta có thể tách JSX vào những tệp khác nhau cho dễ đọc. Việc đấy không bắt buộc, nhưng khi làm như vậy, chúng tôi cũng khuyến khích nhúng trong cặp dấu ngoặc để tránh rơi vào trường hợp JS Engines [tự thêm chấm phẩy](http://stackoverflow.com/q/2846283).
 
-### JSX is cũng là một biểu thức {#jsx-is-an-expression-too}
+### JSX cũng là một biểu thức {#jsx-is-an-expression-too}
 
-Sau khi biên soạn (compile), biểu thức JSX là những gọi hàm bình thường của Javascript và thành những đối tượng Javascript sau khi được thực thi.
+Sau khi biên soạn (compile), biểu thức JSX là những gọi hàm bình thường của Javascript và thành những đối tượng Javascript sau khi được gọi.
 
 Điều này có nghĩa là bạn có thể dùng JSX bên trong mệnh đề `if` cũng như vòng lặp `for`, gán nó cho biến, dùng như đầu vào, và trả về JSX từ hàm.
 
@@ -140,11 +140,11 @@ const element = <h1>{title}</h1>;
 
 Mặc định, React DOM [loại bỏ những kí tự đặc biệt](http://stackoverflow.com/questions/7381974/which-characters-need-to-be-escaped-on-html) ở bên trong bất kì giá trị nào được nhúng vào JSX trước khi đưa vào DOM. Việc này đảm bảo không có giá trị xấu nào được vô tình được đưa vào ứng dụng. Mọi thứ đều được chuyển thành chuỗi trước khi đưa vào DOM. Việc này giúp ngăn chặn phương thức [tấn công XSS (cross-site-scripting)](https://en.wikipedia.org/wiki/Cross-site_scripting).
 
-### JSX Represents Objects {#jsx-represents-objects}
+### JSX là đối tượng {#jsx-represents-objects}
 
-Babel compiles JSX down to `React.createElement()` calls.
+Babel biên dịch JSX thành những câu gọi hàm `React.createElement()`.
 
-These two examples are identical:
+Hai ví dụ dưới đây là tương tự:
 
 ```js
 const element = (
@@ -162,10 +162,10 @@ const element = React.createElement(
 );
 ```
 
-`React.createElement()` performs a few checks to help you write bug-free code but essentially it creates an object like this:
+`React.createElement()` thực hiện một số kiểm tra để giúp bạn viết mã không bị lỗi nhưng cơ bản nó tạo một đối tượng giống thế này:
 
 ```js
-// Note: this structure is simplified
+// Lưu ý: cấu trúc nãy đã được đơn giản hoá
 const element = {
   type: 'h1',
   props: {
@@ -175,10 +175,10 @@ const element = {
 };
 ```
 
-These objects are called "React elements". You can think of them as descriptions of what you want to see on the screen. React reads these objects and uses them to construct the DOM and keep it up to date.
+Những đối tượng này được gọi là "Những phần tử React" (React elements). Bạn có thể xem chúng như là mô tả những gì gì bạn muốn thấy trên màn hình. React đọc những đối tượng này và dùng chúng để xây dựng DOM và cập nhật nó.
 
-We will explore rendering React elements to the DOM in the next section.
+Chúng ta sẽ khám phá cách các React Element được đưa vào trong DOM trong phần kế tiếp.
 
->**Tip:**
+>**Gợi ý:**
 >
->We recommend using the ["Babel" language definition](http://babeljs.io/docs/editors) for your editor of choice so that both ES6 and JSX code is properly highlighted. This website uses the [Oceanic Next](https://labs.voronianski.com/oceanic-next-color-scheme/) color scheme which is compatible with it.
+>Chúng tôi khuyến khích sử dụng [Định nghĩa ngôn ngữ "Babel"](http://babeljs.io/docs/editors) cho trình soạn thảo của bạn như vậy cả mã ES6 và JSX đều có thể được tô sáng rõ ràng. Trang web này dùng tập màu [Oceanic Next](https://labs.voronianski.com/oceanic-next-color-scheme/).
