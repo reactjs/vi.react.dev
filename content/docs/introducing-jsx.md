@@ -22,15 +22,15 @@ JSX cho ra những "phần tử"(Element) React. Chúng ta sẽ khám phá việ
 
 React khuyến khích việc kết hợp lại của giao diện trình bày (UI) và những logic khác liên quan tới giao diện: Các sự kiện được xử lý thế nào, Trạng thái (state) thay đổi thế nào theo thời gian, và dữ liệu được chuẩn bị thế nào cho việc hiển thị.
 
-Thay vì tách biệt các *công nghệ* một cách giả tạo bằng cách đưa định nghĩa giao diện và logic vào những tệp khác nhau, React [tách bạch *mối quan hệ*](https://en.wikipedia.org/wiki/Separation_of_concerns) bằng những đơn vị rời rạc gọi là "components" chứa cả hai cái trên. Chúng ta sẽ nói về `components` trong một [phần khác](/docs/components-and-props.html), nếu bạn vẫn chưa cảm thấy thoải mái việc đưa các định nghĩa giao diện vào trong JS, [buổi nói chuyện này](https://www.youtube.com/watch?v=x7cQ3mrcKaY) có thể thuyết phục bạn.
+Thay vì tách biệt các *công nghệ* một cách giả tạo bằng cách đưa định nghĩa giao diện và logic vào những tệp khác nhau, React [tách bạch *mối quan hệ*](https://en.wikipedia.org/wiki/Separation_of_concerns) bằng những đơn vị rời rạc gọi là "components" chứa cả hai cái trên. Chúng ta sẽ bàn về components trong một [phần khác](/docs/components-and-props.html), nếu bạn vẫn chưa cảm thấy thoải mái việc đưa các định nghĩa giao diện vào trong JS, [buổi nói chuyện này](https://www.youtube.com/watch?v=x7cQ3mrcKaY) có thể thuyết phục bạn.
 
 React [Không bắt buộc](/docs/react-without-jsx.html) sử dụng JSX, nhưng phần lớn mọi người đều cho rằng nó hữu dụng khi làm việc với giao diện (UI) trong mã JavaScript. JSX cũng cho phép React hiển thị những lỗi cũng như những lưu ý bổ ích.
 
 Vậy bắt đầu thôi!
 
-### Embedding Expressions in JSX {#embedding-expressions-in-jsx}
+### Nhúng Biểu thức trong JSX {#embedding-expressions-in-jsx}
 
-In the example below, we declare a variable called `name` and then use it inside JSX by wrapping it in curly braces:
+Ở ví dụ dưới, chúng ta khai báo một biến tên là `name` và dùng bên trong JSX bằng cách bao trong cặp dấu ngoặc nhọn:
 
 ```js{1,2}
 const name = 'Josh Perez';
@@ -42,9 +42,9 @@ ReactDOM.render(
 );
 ```
 
-You can put any valid [JavaScript expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Expressions) inside the curly braces in JSX. For example, `2 + 2`, `user.firstName`, or `formatName(user)` are all valid JavaScript expressions.
+Bạn có thể nhúng bất kỳ [biểu thức Javascript hợp quy] nào(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Expressions) bên trong JSX bằng cặp dấu ngoặc nhọn. Ví dụ, `2 + 2`, `user.firstName`, hoặc `formatName(user)` đều là các biểu thức hợp quy của Javascript.
 
-In the example below, we embed the result of calling a JavaScript function, `formatName(user)`, into an `<h1>` element.
+Ở ví dụ dưới, chúng ta nhúng kết quả của một hàm JavaScript, `formatName(user)`, vào bên trong phần tử `<h1>`.
 
 ```js{12}
 function formatName(user) {
@@ -70,7 +70,7 @@ ReactDOM.render(
 
 [](codepen://introducing-jsx)
 
-We split JSX over multiple lines for readability. While it isn't required, when doing this, we also recommend wrapping it in parentheses to avoid the pitfalls of [automatic semicolon insertion](http://stackoverflow.com/q/2846283).
+Chúng ta có thể tách JSX vào những tệp khác nhau cho dễ đọc. Việc đấy không bắt buộc, nhưng khi làm như vậy, chúng tôi cũng khuyến khích nhúng trong cặp dấu ngoặc để tránh rơi vào trường hợp JS Engines [tự thêm chấm phẩy](http://stackoverflow.com/q/2846283).
 
 ### JSX is an Expression Too {#jsx-is-an-expression-too}
 
