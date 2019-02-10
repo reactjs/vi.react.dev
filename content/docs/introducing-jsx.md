@@ -87,27 +87,27 @@ function getGreeting(user) {
 }
 ```
 
-### Specifying Attributes with JSX {#specifying-attributes-with-jsx}
+### Liệt kê thuộc tính của thẻ với JSX {#specifying-attributes-with-jsx}
 
-You may use quotes to specify string literals as attributes:
+Bạn có thể dùng dấu nháy để khai báo một chuỗi như là thuộc tính của thẻ:
 
 ```js
 const element = <div tabIndex="0"></div>;
 ```
 
-You may also use curly braces to embed a JavaScript expression in an attribute:
+Bạn co thể dùng dấu ngặp ngoặc nhọn để nhúng một biểu thức Javascript vào trong thuộc tính:
 
 ```js
 const element = <img src={user.avatarUrl}></img>;
 ```
 
-Don't put quotes around curly braces when embedding a JavaScript expression in an attribute. You should either use quotes (for string values) or curly braces (for expressions), but not both in the same attribute.
+Đừng để giấu nháy xung quanh ngoặc nhọn khi nhúng biểu thức Javascript vào trong một thuộc tính. Bạn có thể dùng dấu nháy (cho giá trị chuỗi) hoặc ngoặc nhọn (cho biểu thức), nhưng không được dùng cả hai cho cùng 1 thuộc tính.
 
->**Warning:**
+>**CẢNH BÁO:**
 >
->Since JSX is closer to JavaScript than to HTML, React DOM uses `camelCase` property naming convention instead of HTML attribute names.
+>Vì JSX gần với Javascript hơn là so với HTML, React DOM sử dụng chuẩn quy tắc đặt tên `camelCase` cho thuộc tính thay vì dùng tên thuộc tính gốc của HTML.
 >
->For example, `class` becomes [`className`](https://developer.mozilla.org/en-US/docs/Web/API/Element/className) in JSX, and `tabindex` becomes [`tabIndex`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/tabIndex).
+>Ví dụ, `class` trở thành [`className`](https://developer.mozilla.org/en-US/docs/Web/API/Element/className) trong JSX, và `tabindex` trở thành [`tabIndex`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/tabIndex).
 
 ### Specifying Children with JSX {#specifying-children-with-jsx}
 
