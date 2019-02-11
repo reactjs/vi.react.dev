@@ -12,19 +12,19 @@ Xem xét khai báo biến dưới đây:
 const element = <h1>Hello, world!</h1>;
 ```
 
-Cú pháp thẻ kì cục trên không phải là chuỗi cũng như HTML.
+Cú pháp thẻ này không phải là một chuỗi kí tự cũng không phải là một thẻ HTML
 
-Nó được gọi là JSX, là một cú pháp mở rộng cho JavaScript. Chúng tôi khuyến khích sử dụng JSX với React để mô tả giao diện (UI). JSX có thể trông giống Ngôn ngữ Khuôn mẫu (Template language), nhưng JSX đi kèm với toàn bộ tính năng của Javascript.
+Nó được gọi là JSX, là một cú pháp mở rộng cho JavaScript. Chúng tôi khuyến khích sử dụng JSX với React để mô tả giao diện (UI). JSX có thể trông giống Ngôn ngữ Khuôn mẫu (Template language), nhưng JSX đi kèm với toàn bộ tính năng của JavaScript.
 
-JSX cho ra những "phần tử"(Element) React. Chúng ta sẽ khám phá việc chúng được render vô DOM như thế nào ở [phần tiếp theo](/docs/rendering-elements.html). Dưới đây là những điều cần thiết cơ bản của JSX để có thể bắt đầu.
+JSX cho ra những "phần tử"(Element) React. Chúng ta sẽ khám phá việc chúng được render vào DOM như thế nào ở [phần tiếp theo](/docs/rendering-elements.html). Dưới đây là những kiến thức cần thiết cơ bản của JSX để có thể bắt đầu.
 
 ### Tại sao lại là JSX? {#why-jsx}
 
-React khuyến khích thực tế rằng là render logic và những logic khác liên quan tới UI là liên quan với nhau một cách tự nhiên: Các sự kiện được xử lý thế nào, state thay đổi thế nào theo thời gian, và dữ liệu được chuẩn bị thế nào cho việc hiển thị.
+React khuyến khích một thực tế là logic của render được kết hợp một cách tự nhiên với những logic khác liên quan tới UI: Các sự kiện được xử lý như thế nào, state thay đổi như thế nào theo thời gian và dữ liệu được chuẩn bị như thế nào cho việc hiển thị.
 
 Thay vì tách biệt các *công nghệ* một cách giả tạo bằng cách đưa định nghĩa giao diện và logic vào những tệp khác nhau, React [tách bạch *mối quan hệ*](https://en.wikipedia.org/wiki/Separation_of_concerns) bằng những đơn vị rời rạc gọi là "components" chứa cả hai cái trên. Chúng ta sẽ bàn về components trong một [phần khác](/docs/components-and-props.html), nếu bạn vẫn chưa cảm thấy thoải mái việc đưa các định nghĩa giao diện vào trong JS, [buổi nói chuyện này](https://www.youtube.com/watch?v=x7cQ3mrcKaY) có thể thuyết phục bạn.
 
-React [Không bắt buộc](/docs/react-without-jsx.html) sử dụng JSX, nhưng phần lớn mọi người đều cho rằng nó hữu dụng khi làm việc với giao diện (UI) trong mã JavaScript. JSX cũng cho phép React hiển thị những lỗi cũng như những lưu ý bổ ích.
+React [Không bắt buộc](/docs/react-without-jsx.html) sử dụng JSX, nhưng phần lớn mọi người đều cho rằng nó hữu dụng khi làm việc với giao diện (UI) trong mã JavaScript. JSX cũng cho phép React hiển thị những thông báo lỗi và "lời cảnh báo" (warning) hữu ích hơn.
 
 Vậy bắt đầu thôi!
 
@@ -42,7 +42,7 @@ ReactDOM.render(
 );
 ```
 
-Bạn có thể nhúng bất kỳ [biểu thức Javascript hợp quy](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Expressions) bên trong JSX bằng cặp dấu ngoặc nhọn. Ví dụ, `2 + 2`, `user.firstName`, hoặc `formatName(user)` đều là các biểu thức hợp quy của Javascript.
+Bạn có thể nhúng bất kỳ [biểu thức JavaScript hợp lệ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators#Expressions) bên trong JSX bằng cặp dấu ngoặc nhọn. Ví dụ, `2 + 2`, `user.firstName`, hoặc `formatName(user)` đều là các biểu thức hợp lệ của JavaScript.
 
 Ở ví dụ dưới, chúng ta nhúng kết quả của một hàm JavaScript, `formatName(user)`, vào bên trong phần tử `<h1>`.
 
@@ -70,13 +70,13 @@ ReactDOM.render(
 
 [](codepen://introducing-jsx)
 
-Chúng ta có thể tách JSX vào những tệp khác nhau cho dễ đọc. Việc đấy không bắt buộc, nhưng khi làm như vậy, chúng tôi cũng khuyến khích nhúng trong cặp dấu ngoặc để tránh rơi vào trường hợp JS Engines [tự thêm chấm phẩy](http://stackoverflow.com/q/2846283).
+Chúng ta có thể tách JSX vào những tệp khác nhau cho dễ đọc. Việc này không bắt buộc, nhưng khi làm như vậy, chúng tôi cũng khuyến khích nhúng trong cặp dấu ngoặc để tránh rơi vào trường hợp JS Engines [tự thêm chấm phẩy](http://stackoverflow.com/q/2846283).
 
 ### JSX cũng là một biểu thức {#jsx-is-an-expression-too}
 
-Sau khi biên soạn (compile), biểu thức JSX là những gọi hàm bình thường của Javascript và thành những đối tượng Javascript sau khi được gọi.
+Sau khi biên dịch (compile), biểu thức JSX là những gọi hàm bình thường của JavaScript và thành những đối tượng JavaScript sau khi được gọi.
 
-Điều này có nghĩa là bạn có thể dùng JSX bên trong mệnh đề `if` cũng như vòng lặp `for`, gán nó cho biến, dùng như đầu vào của hàm, và trả về JSX từ hàm.
+Điều này có nghĩa là bạn có thể dùng JSX bên trong câu lệnh `if` cũng như vòng lặp `for`, gán nó cho biến, dùng như tham số hàm, và trả về JSX từ hàm.
 
 ```js{3,5}
 function getGreeting(user) {
@@ -87,7 +87,7 @@ function getGreeting(user) {
 }
 ```
 
-### Liệt kê thuộc tính của thẻ với JSX {#specifying-attributes-with-jsx}
+### Xác định thuộc tính của thẻ với JSX {#specifying-attributes-with-jsx}
 
 Bạn có thể dùng dấu nháy để khai báo một chuỗi như là thuộc tính của thẻ:
 
@@ -95,17 +95,17 @@ Bạn có thể dùng dấu nháy để khai báo một chuỗi như là thuộc
 const element = <div tabIndex="0"></div>;
 ```
 
-Bạn có thể dùng dấu ngặp ngoặc nhọn để nhúng một biểu thức Javascript vào trong thuộc tính:
+Bạn có thể dùng dấu ngoặc nhọn để nhúng một biểu thức Javascript vào trong thuộc tính:
 
 ```js
 const element = <img src={user.avatarUrl}></img>;
 ```
 
-Đừng để giấu nháy xung quanh ngoặc nhọn khi nhúng biểu thức Javascript vào trong một thuộc tính. Bạn có thể dùng dấu nháy (cho giá trị chuỗi) hoặc ngoặc nhọn (cho biểu thức), nhưng không được dùng cả hai cho cùng 1 thuộc tính.
+Đừng để dấu nháy xung quanh ngoặc nhọn khi nhúng biểu thức JavaScript vào trong một thuộc tính. Bạn có thể dùng dấu nháy (cho giá trị chuỗi) hoặc ngoặc nhọn (cho biểu thức), nhưng không được dùng cả hai cho cùng 1 thuộc tính.
 
 >**CẢNH BÁO:**
 >
->Vì JSX gần với Javascript hơn là so với HTML, React DOM sử dụng chuẩn quy tắc đặt tên `camelCase` cho thuộc tính thay vì dùng tên thuộc tính gốc của HTML.
+>Vì JSX gần với JavaScript hơn là so với HTML, React DOM sử dụng chuẩn quy tắc đặt tên `camelCase` cho thuộc tính thay vì dùng tên thuộc tính gốc của HTML.
 >
 >Ví dụ, `class` trở thành [`className`](https://developer.mozilla.org/en-US/docs/Web/API/Element/className) trong JSX, và `tabindex` trở thành [`tabIndex`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/tabIndex).
 
@@ -175,10 +175,10 @@ const element = {
 };
 ```
 
-Những đối tượng này được gọi là "Những phần tử React" (React elements). Bạn có thể xem chúng như là mô tả những gì gì bạn muốn thấy trên màn hình. React đọc những đối tượng này và dùng chúng để xây dựng DOM và cập nhật nó.
+Những đối tượng này được gọi là "Những phần tử React" (React elements). Bạn có thể xem chúng như là mô tả những gì bạn muốn thấy trên màn hình. React đọc những đối tượng này và dùng chúng để xây dựng DOM và cập nhật nó.
 
 Chúng ta sẽ khám phá cách các React Element được render vào DOM thế nào trong phần kế tiếp.
 
 >**Gợi ý:**
 >
->Chúng tôi khuyến khích sử dụng [Định nghĩa ngôn ngữ "Babel"](http://babeljs.io/docs/editors) cho trình soạn thảo của bạn như vậy cả mã ES6 và JSX đều có thể được tô sáng rõ ràng. Trang web này dùng tập màu [Oceanic Next](https://labs.voronianski.com/oceanic-next-color-scheme/).
+>Chúng tôi khuyến khích sử dụng [Định nghĩa ngôn ngữ "Babel"](http://babeljs.io/docs/editors) cho trình soạn thảo của bạn như vậy cả mã ES6 và JSX đều có thể được tô sáng rõ ràng. Trang web này dùng tập màu [Oceanic Next](https://labs.voronianski.com/oceanic-next-color-scheme/) cái mà phù hợp cho việc này.
