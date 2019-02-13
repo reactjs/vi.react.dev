@@ -1,6 +1,6 @@
 ---
 id: rendering-elements
-title: Rendering Elements
+title: Việc render các element
 permalink: docs/rendering-elements.html
 redirect_from:
   - "docs/displaying-data.html"
@@ -8,68 +8,69 @@ prev: introducing-jsx.html
 next: components-and-props.html
 ---
 
-Elements are the smallest building blocks of React apps.
+Element là những khối xây dựng nhỏ nhất của các ứng dụng React.
 
-An element describes what you want to see on the screen:
+Một element mô tả những gì bạn muốn nhiền thấy trên màn hình:
 
 ```js
 const element = <h1>Hello, world</h1>;
 ```
 
-Unlike browser DOM elements, React elements are plain objects, and are cheap to create. React DOM takes care of updating the DOM to match the React elements.
+Không giống như những element DOM của trình duyệt, React element là những "đối tượng đơn giản" (plain object) và rất dễ để tạo ra. React DOM giữ vai trò cập nhật DOM để phù hợp với các React element.
 
->**Note:**
+>**Ghi chú:**
 >
->One might confuse elements with a more widely known concept of "components". We will introduce components in the [next section](/docs/components-and-props.html). Elements are what components are "made of", and we encourage you to read this section before jumping ahead.
+>Người ta có thể nhầm lẫn các element với một khái niệm được biết rộng hơn về các "component". Chúng tôi sẽ giới thiệu các "component" trong [phần tới](/docs/components-and-props.html). Các element là những gì mà các component được "làm bằng", và chúng tôi khuyến khích bạn đọc phần này trước khi đi đến phần kế tiếp.
 
-## Rendering an Element into the DOM {#rendering-an-element-into-the-dom}
+## Việc render một element vào trong DOM {#rendering-an-element-into-the-dom}
 
-Let's say there is a `<div>` somewhere in your HTML file:
+Hãy nói rằng có một thẻ `<div>` ở đâu đó trong "tệp" (file) HTML:
 
 ```html
 <div id="root"></div>
 ```
 
-We call this a "root" DOM node because everything inside it will be managed by React DOM.
+Chúng tôi gọi cái này là một nốt (node) DOM gốc "root" bởi về mọi thứ bên trong nó sẽ được quản lý bởi React DOM.
 
-Applications built with just React usually have a single root DOM node. If you are integrating React into an existing app, you may have as many isolated root DOM nodes as you like.
+Các ứng dụng đã xây dựng với React thường có duy nhất một nốt (node) DOM "gốc" (root). Nếu bạn kết hợp React vào trong một ứng dụng đã tồn tại, bạn có thể có nhiều "nốt" (node) DOM gốc "bị cô lập" (isolated) như bạn muốn.
 
-To render a React element into a root DOM node, pass both to `ReactDOM.render()`:
+Để render một React element vào bên trong một "nốt" (node) DOM gốc, truyền tất cả vào `ReactDOM.render()`:
 
 `embed:rendering-elements/render-an-element.js`
 
 [](codepen://rendering-elements/render-an-element)
 
-It displays "Hello, world" on the page.
+Ví dụ trên hiển thị dòng chữ "Hello, world" trên trang web.
 
-## Updating the Rendered Element {#updating-the-rendered-element}
+## Việc cập nhật element đã được render {#updating-the-rendered-element}
 
-React elements are [immutable](https://en.wikipedia.org/wiki/Immutable_object). Once you create an element, you can't change its children or attributes. An element is like a single frame in a movie: it represents the UI at a certain point in time.
+Các React element là [bất biến](https://vi.wikipedia.org/wiki/%C4%90%E1%BB%91i_t%C6%B0%E1%BB%A3ng_b%E1%BA%A5t_bi%E1%BA%BFn). Một khi bạn tạo ra một element, bạn không thể thay đổi các "con" (children) hoặc các "thuộc tính" (attribute) của nó. Một element giống như một khung hình duy nhất trong một bộ phim: nó đại diện cho "giao diện" (UI) tại một thời điểm nhất định.
 
-With our knowledge so far, the only way to update the UI is to create a new element, and pass it to `ReactDOM.render()`.
+Với sự hiểu biết của chúng tôi cho đến thời điểm này, thì chỉ có một cách duy nhất để cập nhật "giao diện" (UI) đó là tạo ra một element mới và truyền nó vào `ReactDOM.render()`.
 
-Consider this ticking clock example:
+Hãy xem xét ví dụ đồng hồ "đánh dấu" (tick) này:
 
 `embed:rendering-elements/update-rendered-element.js`
 
 [](codepen://rendering-elements/update-rendered-element)
 
-It calls `ReactDOM.render()` every second from a [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval) callback.
+Nó gọi `ReactDOM.render()` mỗi giây từ một "lời gọi lại" (callback) [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval).
 
->**Note:**
+>**Ghi chú:**
 >
->In practice, most React apps only call `ReactDOM.render()` once. In the next sections we will learn how such code gets encapsulated into [stateful components](/docs/state-and-lifecycle.html).
+>Trong thực tế, hầu hết các ứng dụng React chỉ gọi `ReactDOM.render()` một lần duy nhất. Trong những phần tiếp theo, chúng ta sẽ tìm hiểu làm thế nào để "mã" (code) được đóng gói vào ["những component có trạng thái" (stateful components)](/docs/state-and-lifecycle.html).
 >
->We recommend that you don't skip topics because they build on each other.
+>Chúng tôi khuyên bạn đừng bỏ qua các "chủ đề" (topic) vì chúng có tính xây dựng lẫn nhau.
 
-## React Only Updates What's Necessary {#react-only-updates-whats-necessary}
+## React Chỉ Cập Nhật Những Gì Cần Thiết {#react-only-updates-whats-necessary}
 
-React DOM compares the element and its children to the previous one, and only applies the DOM updates necessary to bring the DOM to the desired state.
+React DOM so sánh element và các thành phần con của nó với cái trước đó, và chỉ áp dụng những cập nhật DOM cần thiết để đưa DOM đến trạng thái được mong muốn.
 
-You can verify by inspecting the [last example](codepen://rendering-elements/update-rendered-element) with the browser tools:
+Bạn có thể xác minh điều trên bằng cách kiểm tra [ví dụ cuối](codepen://rendering-elements/update-rendered-element) với các công cụ của trình duyệt:
 
 ![DOM inspector showing granular updates](../images/docs/granular-dom-updates.gif)
+!["thanh kiểm tra" (inspector) DOM chỉ ra những cập nhật cần thiết](../images/docs/granular-dom-updates.gif)
 
-Even though we create an element describing the whole UI tree on every tick, only the text node whose contents has changed gets updated by React DOM.
+Mặc dù chúng ta tạo ra một element miêu tả toàn bộ cây "giao diện" (UI) trên mỗi "đánh dấu" (tick), chỉ những "nốt văn bản" (text node) có nội dung thay đổi mới nhận sự cập nhật bởi React DOM.
 
-In our experience, thinking about how the UI should look at any given moment rather than how to change it over time eliminates a whole class of bugs.
+Với kinh nghiệm của chúng tôi thì chúng ta nên suy nghĩ về cách "giao diện" (UI) nên trông như thế nào tại mọi thời điểm hơn là suy nghĩ làm thế nào để thay đổi "giao diện" (UI) qua thời gian sẽ loại bỏ được rất nhiều "lỗi" (bug).
