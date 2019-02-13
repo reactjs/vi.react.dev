@@ -6,7 +6,7 @@ prev: cdn-links.html
 next: introducing-jsx.html
 ---
 
-Một ví dụ nhỏ nhất của React trông như thế này:
+Một ví dụ đơn giản nhất của React trông như thế này:
 
 ```js
 ReactDOM.render(
