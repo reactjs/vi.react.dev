@@ -24,7 +24,7 @@ Nhấn vào link bên trên để mở một trình soạn thảo trực tuyến
 
 ## Làm sao để đọc hướng dẫn này {#how-to-read-this-guide}
 
-Trong hướng dẫn này, chúng ta sẽ xem xét các khối xây dựng của các ứng dụng React: elements và components. Một khi bạn đã nắm vững chúng, bạn có thể tạo ra những ứng dụng phức tạp từ những mảnh ghép nhỏ tái sử dụng.
+Trong hướng dẫn này, chúng ta sẽ xem xét các khối xây dựng của các ứng dụng React: element và component. Một khi bạn đã nắm vững chúng, bạn có thể tạo ra những ứng dụng lớn hơn từ những component nhỏ có tính tái sử dụng.
 
 >Mẹo nhỏ
 >
