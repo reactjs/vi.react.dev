@@ -73,4 +73,4 @@ Bạn có thể xác minh điều trên bằng cách kiểm tra [ví dụ cuối
 
 Mặc dù chúng ta tạo ra một element miêu tả toàn bộ cây "giao diện" (UI) trên mỗi "đánh dấu" (tick), chỉ những "nốt văn bản" (text node) có nội dung thay đổi mới nhận sự cập nhật bởi React DOM.
 
-Với kinh nghiệm của chúng tôi thì chúng ta nên suy nghĩ về cách "giao diện" (UI) nên trông như thế nào tại mọi thời điểm hơn là suy nghĩ làm thế nào để thay đổi "giao diện" (UI) qua thời gian sẽ loại bỏ được rất nhiều "lỗi" (bug).
+Với kinh nghiệm của chúng tôi thì chúng ta nên suy nghĩ về cách "giao diện" (UI) nên trông như thế nào tại mọi thời điểm hơn là suy nghĩ làm thế nào để thay đổi "giao diện" (UI) qua thời gian, điều này sẽ loại bỏ được rất nhiều "lỗi" (bug).
