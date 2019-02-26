@@ -91,7 +91,7 @@ ReactDOM.render(
 );
 ```
 
-[**Thử trên CodePen**](http://codepen.io/gaearon/pen/xEmzGg?editors=0010)
+[**Try it on CodePen**](https://codepen.io/gaearon/pen/xEmzGg?editors=0010)
 
 Bạn phải cẩn thận về ý nghĩa của `this` trong những callback JSX. Trong JavaScript, những phương thức của class mặc định không bị [ràng buộc](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind). Nếu bạn quên ràng buộc `this.handleClick` và truyền nó vào `onClick`, `this` sẽ có giá trị là `undefined` khi phương thức này được thực thi.
 
