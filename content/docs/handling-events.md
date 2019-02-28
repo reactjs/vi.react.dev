@@ -58,7 +58,7 @@ function ActionLink() {
 
 Khi làm việc với React, bạn thường không phải gọi `addEventListener` để gắn listener cho element DOM khi nó được khởi tạo. Thay vào đó, bạn chỉ cần gắn listener ngay lần đầu element được render.
 
-Khi bạn định nghĩa component bằng [class ES6](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes), một mẫu thiết kế phổ biến là sử dụng phương thức của class để bắt sự kiện. Ví dụ, component `Toggle` dưới đây render một chiếc nút để người dùng thay đổi giữa state “ON” và “OFF":
+Khi bạn định nghĩa component bằng [class ES6](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Classes), một mẫu thiết kế phổ biến là sử dụng phương thức của class để bắt sự kiện. Ví dụ, component `Toggle` dưới đây render một chiếc nút để người dùng thay đổi giữa state “ON” và “OFF":
 
 ```js{6,7,10-14,18}
 class Toggle extends React.Component {
@@ -102,7 +102,7 @@ Nếu bạn thấy việc gọi `bind` phiền phức thì có hai giải pháp.
 ```js{2-6}
 class LoggingButton extends React.Component {
   // Cú pháp này đảm bảo `this` được ràng buộc trong handleClick.
-  // Cảnh báo: đây là cú pháp *thử nghiệm*.
+  // Lưu ý: đây là cú pháp *thử nghiệm*.
   handleClick = () => {
     console.log('this is:', this);
   }
