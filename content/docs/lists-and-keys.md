@@ -6,9 +6,9 @@ prev: conditional-rendering.html
 next: forms.html
 ---
 
-First, let's review how you transform lists in JavaScript.
+Đầu tiên, hãy xem lại cách bạn thao tác với các danh sách trong Javascript.
 
-Given the code below, we use the [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) function to take an array of `numbers` and double their values. We assign the new array returned by `map()` to the variable `doubled` and log it:
+Trong đoạn code bên dưới, chúng ta sử dụng hàm [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) để nhân đôi giá trị của từng phần tử trong mảng `numbers`. Chúng ta gán mảng mới là kết quả trả về từ hàm `map()` vào biến `doubled` và xuất kết quả đó ra:
 
 ```javascript{2}
 const numbers = [1, 2, 3, 4, 5];
@@ -16,15 +16,15 @@ const doubled = numbers.map((number) => number * 2);
 console.log(doubled);
 ```
 
-This code logs `[2, 4, 6, 8, 10]` to the console.
+Đoạn code trên xuất kết quả `[2, 4, 6, 8, 10]` ra màn hình console.
 
-In React, transforming arrays into lists of [elements](/docs/rendering-elements.html) is nearly identical.
+Trong React, việc chuyển đổi arrays thành lists của các [element](/docs/rendering-elements.html) là gần như giống hệt nhau.
 
 ### Rendering Multiple Components {#rendering-multiple-components}
 
-You can build collections of elements and [include them in JSX](/docs/introducing-jsx.html#embedding-expressions-in-jsx) using curly braces `{}`.
+Bạn có thể tạo mảng các element và [nhúng những element này vào JSX](/docs/introducing-jsx.html#embedding-expressions-in-jsx) bằng việc sử dụng dấu ngoặc nhọn `{}`.
 
-Below, we loop through the `numbers` array using the JavaScript [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) function. We return a `<li>` element for each item. Finally, we assign the resulting array of elements to `listItems`:
+Dưới đây, chúng ta sử dụng vòng lặp trên mảng `numbers` và sử dụng hàm [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) trong JavaScript. Kết quả trả về là một thẻ `<li>` cho mỗi vòng lặp. Cuối cùng, chúng ta gán mảng kết quả của các element cho `listItems`:
 
 ```javascript{2-4}
 const numbers = [1, 2, 3, 4, 5];
@@ -33,7 +33,7 @@ const listItems = numbers.map((number) =>
 );
 ```
 
-We include the entire `listItems` array inside a `<ul>` element, and [render it to the DOM](/docs/rendering-elements.html#rendering-an-element-into-the-dom):
+Chúng ta nhúng toàn bộ mảng `listItems` vào trong thẻ `<ul>` , và [render mảng này ra DOM](/docs/rendering-elements.html#rendering-an-element-into-the-dom):
 
 ```javascript{2}
 ReactDOM.render(
@@ -44,7 +44,7 @@ ReactDOM.render(
 
 [**Try it on CodePen**](https://codepen.io/gaearon/pen/GjPyQr?editors=0011)
 
-This code displays a bullet list of numbers between 1 and 5.
+Đoạn code trên hiển thị một danh sách dấu chấm tròn đứng trước các số từ 1 đến 5.
 
 ### Basic List Component {#basic-list-component}
 
