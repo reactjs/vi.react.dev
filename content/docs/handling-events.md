@@ -1,6 +1,6 @@
 ---
 id: handling-events
-title: Bắt Sự kiện
+title: Việc Bắt các Sự kiện
 permalink: docs/handling-events.html
 prev: state-and-lifecycle.html
 next: conditional-rendering.html
@@ -11,7 +11,7 @@ redirect_from:
 Việc bắt sự kiện của những element React rất giống với những element DOM. Có một số khác biệt về cú pháp như:
 
 * Những sự kiện của React được đặt tên theo dạng camelCase, thay vì lowercase.
-* Với JSX, bạn có thể sử dụng hàm để bắt sự kiện thay vì phải truyền vào một chuỗi.
+* Với JSX, bạn có thể sử dụng "hàm" (function) để bắt sự kiện thay vì phải truyền vào một chuỗi.
 
 Ví dụ, đoạn HTML sau:
 
@@ -66,7 +66,7 @@ class Toggle extends React.Component {
     super(props);
     this.state = {isToggleOn: true};
 
-    // Phép ràng buộc (bind) này là cần thiết để `this` hoạt động trong callback
+    // Phép "ràng buộc" (bind) này là cần thiết để `this` hoạt động trong callback
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -119,7 +119,7 @@ class LoggingButton extends React.Component {
 
 Cú pháp này được bật theo mặc định trong [Create React App](https://github.com/facebookincubator/create-react-app).
 
-Nếu bạn không sử dụng cú pháp thuộc tính class, bạn có thể dùng [hàm rút gọn](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Functions/Arrow_functions) trong callback:
+Nếu bạn không sử dụng cú pháp thuộc tính class, bạn có thể dùng "hàm rút gọn" [arrow function](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Functions/Arrow_functions) trong callback:
 
 ```js{7-9}
 class LoggingButton extends React.Component {
