@@ -50,7 +50,7 @@ ReactDOM.render(
 
 Thông thường bạn sẽ render các danh sách trong một [component](/docs/components-and-props.html).
 
-Chúng ta có thể điều chỉnh để đưa đoạn code trong ví dụ trước vào một component mà trong component đó nhận một mảng `numbers` và xuất ra danh sách các element.
+Chúng ta có thể điều chỉnh để đưa đoạn code trong ví dụ trước vào một component và trong component đó nhận một mảng `numbers` và xuất ra danh sách các element.
 
 ```javascript{3-5,7,13}
 function NumberList(props) {
@@ -100,7 +100,7 @@ ReactDOM.render(
 
 ## Keys {#keys}
 
-Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity:
+Các key giúp React xác định những phần tử nào đã thay đổi, được thêm, hay bị xóa. Các key nên được truyền vào các element bên trong một mảng để cho các element này có một định danh ổn định:
 
 ```js{3}
 const numbers = [1, 2, 3, 4, 5];
@@ -111,7 +111,7 @@ const listItems = numbers.map((number) =>
 );
 ```
 
-The best way to pick a key is to use a string that uniquely identifies a list item among its siblings. Most often you would use IDs from your data as keys:
+Các tốt nhất để chọn một key là sử dụng một chuỗi mà được xác định là duy nhất trong một danh sách các phần tử. Cách thông thường nhất mà bạn sẽ sử dụng là dùng các ID từ dữ liệu của bạn như là key:
 
 ```js{2}
 const todoItems = todos.map((todo) =>
@@ -121,7 +121,7 @@ const todoItems = todos.map((todo) =>
 );
 ```
 
-When you don't have stable IDs for rendered items, you may use the item index as a key as a last resort:
+Khi bạn không có các ID ổn định cho việc render các phần tử, bạn có thể sử dụng thứ tự của phần tử đó trong danh sách như là một key cũng như là một phương án cuối cùng:
 
 ```js{2,3}
 const todoItems = todos.map((todo, index) =>
@@ -132,9 +132,9 @@ const todoItems = todos.map((todo, index) =>
 );
 ```
 
-We don't recommend using indexes for keys if the order of items may change. This can negatively impact performance and may cause issues with component state. Check out Robin Pokorny's article for an [in-depth explanation on the negative impacts of using an index as a key](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318). If you choose not to assign an explicit key to list items then React will default to using indexes as keys.
+Chúng tôi không khuyến khích sử dụng các thứ tự của phần tử cho các key nếu thứ tự của các phần tử có thể thay đổi. Điều này có thể ảnh hưởng đến hiệu suất và có thể gây ra một vài vấn đề với state của component. Xem qua bài viết của Robin Pokorny về việc [giải thích ảnh hưởng tiêu cực của việc sử dụng thứ tự phần tử cho key](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318). Nếu bạn lựa chọn việc không gán cho key một định danh rõ ràng thì mặc định React sẽ sử dựng thứ tự của phần tử cho key.
 
-Here is an [in-depth explanation about why keys are necessary](/docs/reconciliation.html#recursing-on-children) if you're interested in learning more.
+Đây là một [giải thích về việc tại sao các key là cần thiết](/docs/reconciliation.html#recursing-on-children) nếu bạn quan tâm nhiều về vấn đề này.
 
 ### Extracting Components with Keys {#extracting-components-with-keys}
 
