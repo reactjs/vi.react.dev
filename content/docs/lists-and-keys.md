@@ -1,12 +1,12 @@
 ---
 id: lists-and-keys
-title: Lists and Keys
+title: Lists và Keys
 permalink: docs/lists-and-keys.html
 prev: conditional-rendering.html
 next: forms.html
 ---
 
-Đầu tiên, hãy xem lại cách bạn thao tác với các danh sách trong Javascript.
+Đầu tiên, hãy xem lại cách bạn chuyển đổi danh sách trong Javascript.
 
 Trong đoạn code bên dưới, chúng ta sử dụng hàm [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) để nhân đôi giá trị của từng phần tử trong mảng `numbers`. Chúng ta gán mảng mới là kết quả trả về từ hàm `map()` vào biến `doubled` và xuất kết quả đó ra:
 
@@ -18,13 +18,13 @@ console.log(doubled);
 
 Đoạn code trên xuất kết quả `[2, 4, 6, 8, 10]` ra màn hình console.
 
-Trong React, việc chuyển đổi arrays thành lists của các [element](/docs/rendering-elements.html) là gần như giống hệt nhau.
+Trong React, việc chuyển đổi mảng các phần tử thành danh sách của các [element](/docs/rendering-elements.html) là gần như giống hệt nhau.
 
-### Rendering Multiple Components {#rendering-multiple-components}
+### Render Nhiều Component {#rendering-multiple-components}
 
-Bạn có thể tạo mảng các element và [nhúng những element này vào JSX](/docs/introducing-jsx.html#embedding-expressions-in-jsx) bằng việc sử dụng dấu ngoặc nhọn `{}`.
+Bạn có thể xây dựng các tập hợp của các element và [nhúng những tập hợp element này vào JSX](/docs/introducing-jsx.html#embedding-expressions-in-jsx) bằng việc sử dụng dấu ngoặc nhọn `{}`.
 
-Dưới đây, chúng ta sử dụng vòng lặp trên mảng `numbers` và sử dụng hàm [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) trong JavaScript. Kết quả trả về là một thẻ `<li>` cho mỗi vòng lặp. Cuối cùng, chúng ta gán mảng kết quả của các element cho `listItems`:
+Dưới đây, chúng ta sử dụng vòng lặp trên mảng `numbers` và sử dụng hàm [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) trong JavaScript. Kết quả trả về là một thẻ `<li>` cho mỗi vòng lặp. Cuối cùng, chúng ta gán mảng kết quả gồm những element cho `listItems`:
 
 ```javascript{2-4}
 const numbers = [1, 2, 3, 4, 5];
@@ -33,7 +33,7 @@ const listItems = numbers.map((number) =>
 );
 ```
 
-Chúng ta nhúng toàn bộ mảng `listItems` vào trong thẻ `<ul>` , và [render mảng này ra DOM](/docs/rendering-elements.html#rendering-an-element-into-the-dom):
+Chúng ta nhúng toàn bộ `listItems` vào trong thẻ `<ul>` , và [render mảng này ra DOM](/docs/rendering-elements.html#rendering-an-element-into-the-dom):
 
 ```javascript{2}
 ReactDOM.render(
@@ -46,11 +46,11 @@ ReactDOM.render(
 
 Đoạn code trên hiển thị một danh sách dấu chấm tròn đứng trước các số từ 1 đến 5.
 
-### Basic List Component {#basic-list-component}
+### Danh Sách Component cơ bản {#basic-list-component}
 
-Usually you would render lists inside a [component](/docs/components-and-props.html).
+Thông thường bạn sẽ render các danh sách trong một [component](/docs/components-and-props.html).
 
-We can refactor the previous example into a component that accepts an array of `numbers` and outputs a list of elements.
+Chúng ta có thể điều chỉnh để đưa đoạn code trong ví dụ trước vào một component mà trong component đó nhận một mảng `numbers` và xuất ra danh sách các element.
 
 ```javascript{3-5,7,13}
 function NumberList(props) {
@@ -59,7 +59,9 @@ function NumberList(props) {
     <li>{number}</li>
   );
   return (
-    <ul>{listItems}</ul>
+    <ul>{listItems}</u
+    
+    l>
   );
 }
 
@@ -70,9 +72,9 @@ ReactDOM.render(
 );
 ```
 
-When you run this code, you'll be given a warning that a key should be provided for list items. A "key" is a special string attribute you need to include when creating lists of elements. We'll discuss why it's important in the next section.
+Khi bạn chạy đoạn code này, bạn sẽ nhận một thông báo lưu ý rằng một thuộc tính key nên được truyền vào cho mỗi phần tử. Một "key" là một thuộc tính chuỗi đặc biệt bạn cần phải đưa vào khi tạo danh sách các element. Chúng ta sẽ thảo luận tại sao điều này lại quan trọng trong mục kế tiếp.
 
-Let's assign a `key` to our list items inside `numbers.map()` and fix the missing key issue.
+Hãy gán một `key` vào danh sách các phần tử của chúng ta bên trong `numbers.map()` và sửa cảnh báo bị thiếu key lúc nãy.
 
 ```javascript{4}
 function NumberList(props) {
