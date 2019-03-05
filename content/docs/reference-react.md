@@ -276,7 +276,7 @@ Trả về "cấu trúc dữ liệu ẩn" (opaque data structure) của `childre
 
 ### `React.Fragment` {#reactfragment}
 
-The `React.Fragment` component lets you return multiple elements in a `render()` method without creating an additional DOM element:
+`React.Fragment` component cho phép bạn trả về nhiều "phần tử" (elements) trong một phương thức `render()` mà không cần tạo "phần tử" (element) DOM:
 
 ```javascript
 render() {
@@ -289,51 +289,51 @@ render() {
 }
 ```
 
-You can also use it with the shorthand `<></>` syntax. For more information, see [React v16.2.0: Improved Support for Fragments](/blog/2017/11/28/react-v16.2.0-fragment-support.html).
+Bạn cũng có thể sử dụng nó với cú pháp ngắn gọn sau đây `<></>`. Để có thêm thông tin, xem thêm [React v16.2.0: Cải thiện hỗ trợ cho Fragments](/blog/2017/11/28/react-v16.2.0-fragment-support.html) (Improved Support for Fragments).
 
 
 ### `React.createRef` {#reactcreateref}
 
-`React.createRef` creates a [ref](/docs/refs-and-the-dom.html) that can be attached to React elements via the ref attribute.
+`React.createRef` tạo ra một [ref](/docs/refs-and-the-dom.html) có thể được gắng vào các phần tử (elements) của React thông qua "thuộc tính" (attribute) ref.
 `embed:16-3-release-blog-post/create-ref-example.js`
 
 ### `React.forwardRef` {#reactforwardref}
 
-`React.forwardRef` creates a React component that forwards the [ref](/docs/refs-and-the-dom.html) attribute it receives to another component below in the tree. This technique is not very common but is particularly useful in two scenarios:
+`React.forwardRef` tạo ra một "thành phần" (component) React, giúp "chuyển tiếp" (forwards) "thuộc tính" (attribute) [ref](/docs/refs-and-the-dom.html) mà nó nhận được cho các thành phần khác bên dưới "cây" (tree). Kỹ thuật này không thật sự phổ biến nhưng lại đặc biệt hữu ích trong hai tình huống sau:
 
-* [Forwarding refs to DOM components](/docs/forwarding-refs.html#forwarding-refs-to-dom-components)
-* [Forwarding refs in higher-order-components](/docs/forwarding-refs.html#forwarding-refs-in-higher-order-components)
+* [Chuyển tiếp refs tới các "thành phần" DOM](/docs/forwarding-refs.html#forwarding-refs-to-dom-components) (Forwarding refs to DOM components)
+* [Chuyển tiếp refs trong các "thành phần" bậc cao](/docs/forwarding-refs.html#forwarding-refs-in-higher-order-components) (Forwarding refs in higher-order-components)
 
-`React.forwardRef` accepts a rendering function as an argument. React will call this function with `props` and `ref` as two arguments. This function should return a React node.
+`React.forwardRef` chấp nhận một "hàm biểu diễn" (rendering function) là một đối số. React sẽ gọi đến hàm này với hai đối số là `props` và `ref`. Hàm này nên trả về một "nút" (node) React.
 
 `embed:reference-react-forward-ref.js`
 
-In the above example, React passes a `ref` given to `<FancyButton ref={ref}>` element as a second argument to the rendering function inside the `React.forwardRef` call. This rendering function passes the `ref` to the `<button ref={ref}>` element.
+Trong ví dụ trên, React chuyển một `ref` truyền vào "phần tử" (element) `<FancyButton ref={ref}>` ở đối số thứ hai cho "hàm biểu diễn" (rendering function) bên trong lệnh gọi `React.forwardRef`. "Hàm biểu diễn" (rendering function) này chuyển `ref` cho "phần tử" (element) `<button ref={ref}>`.
 
-As a result, after React attaches the ref, `ref.current` will point directly to the `<button>` DOM element instance.
+Kết quả là, sau khi React đính kèm ref, `ref.current` sẽ trỏ trực tiếp tới "phần tử" (element) "đối tượng" (instance) `<button>` DOM.
 
-For more information, see [forwarding refs](/docs/forwarding-refs.html).
+Để có thểm thông tin, xem thêm ["chuyển tiếp" refs](/docs/forwarding-refs.html) (forwarding refs).
 
 ### `React.lazy` {#reactlazy}
 
-`React.lazy()` lets you define a component that is loaded dynamically. This helps reduce the bundle size to delay loading components that aren't used during the initial render.
+`React.lazy()` cho phép bạn định nghĩa một "thành phần" (component) được "tải" (load) một cách "năng động" (dynamically). Nó giúp giảm kích thước `bundle` để trì hoãn việc tải các "thành phần" (components) mà nó không sử dụng trong thời điểm "biểu diễn" (render) ban đầu.
 
-You can learn how to use it from our [code splitting documentation](/docs/code-splitting.html#reactlazy). You might also want to check out [this article](https://medium.com/@pomber/lazy-loading-and-preloading-components-in-react-16-6-804de091c82d) explaining how to use it in more detail.
+Bạn có thể tìm hiểu cách sử dụng nó từ [tài liệu chia nhỏ mã](/docs/code-splitting.html#reactlazy) (code splitting documentation) của chúng tôi. Bạn có thể cũng muốn xem [bài viết này](https://medium.com/@pomber/lazy-loading-and-preloading-components-in-react-16-6-804de091c82d) giải thích làm thế nào để sử dụng nó chi tiết hơn.
 
 ```js
 // This component is loaded dynamically
 const SomeComponent = React.lazy(() => import('./SomeComponent'));
 ```
 
-Note that rendering `lazy` components requires that there's a `<React.Suspense>` component higher in the rendering tree. This is how you specify a loading indicator.
+Lưu ý rằng việc "biểu diễn" (rendering) các "thành phần" (components) `lazy` đòi hỏi phải có một "thành phần" (component) `<React.Suspense>` cao hơn trong "cây biểu diễn" (rendering tree). Đây là cách bạn chỉ định một "chỉ thị tải" (loading indicator).
 
-> **Note**
+> **Lưu ý rằng**
 >
-> Using `React.lazy`with dynamic import requires Promises to be available in the JS environment. This requires a polyfill on IE11 and below.
+> Sử dụng `React.lazy` với "nạp động" (dynamic import) đòi hỏi phải có Promises trong môi trường JS. Điều này đỏi hỏi một polyfill trên IE11 hoặc thấp hơn.
 
 ### `React.Suspense` {#reactsuspense}
 
-`React.Suspense` let you specify the loading indicator in case some components in the tree below it are not yet ready to render. Today, lazy loading components is the **only** use case supported by `<React.Suspense>`:
+`React.Suspense` cho phép bạn chỉ định "chỉ thị tải" trong trường hợp một số "thành phần" (component) trong cây bên dưới chưa sẵn sàng để "biểu diễn" (render). Ngày nay, lazy loading components is the **only** use case supported by `<React.Suspense>`:
 
 ```js
 // This component is loaded dynamically
