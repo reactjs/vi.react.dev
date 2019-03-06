@@ -333,7 +333,7 @@ Lưu ý rằng việc "biểu diễn" (rendering) các "thành phần" (componen
 
 ### `React.Suspense` {#reactsuspense}
 
-`React.Suspense` cho phép bạn chỉ định "chỉ thị tải" trong trường hợp một số "thành phần" (component) trong cây bên dưới chưa sẵn sàng để "biểu diễn" (render). Ngày nay, lazy loading components is the **only** use case supported by `<React.Suspense>`:
+`React.Suspense` cho phép bạn chỉ định "chỉ thị tải" trong trường hợp một số "thành phần" (component) trong cây bên dưới chưa sẵn sàng để "biểu diễn" (render). Hiện tại, các "thành phần" (component) lazy loading là trường hợp sử dụng **duy nhất** được hỗ trợ bởi `<React.Suspense>`:
 
 ```js
 // This component is loaded dynamically
@@ -351,10 +351,10 @@ function MyComponent() {
 }
 ```
 
-It is documented in our [code splitting guide](/docs/code-splitting.html#reactlazy). Note that `lazy` components can be deep inside the `Suspense` tree -- it doesn't have to wrap every one of them. The best practice is to place `<Suspense>` where you want to see a loading indicator, but to use `lazy()` wherever you want to do code splitting.
+Nó được ghi lại trong [hướng dẫn tách mã](/docs/code-splitting.html#reactlazy) của chúng tôi. Lưu ý rằng các "thành phần" (component)`lazy` có thể nằm sâu bên trong cây `Suspense` -- nó không cần phải bọc từng cái một. Thói quen tốt nhất là đặt  `<Suspense>` nơi bạn muốn xem một sự kiện báo "tải" (loading), nhưng không dùng `lazy()` ở bất cứ nơi nào bạn muốn chia nhỏ mã.
 
-While this is not supported today, in the future we plan to let `Suspense` handle more scenarios such as data fetching. You can read about this in [our roadmap](/blog/2018/11/27/react-16-roadmap.html).
+Mặc dù điều này chưa được hỗ trợ hiện nay, nhưng trong tương lai chúng tôi có kế hoạch để cho `Suspense` xử lý nhiều kịch bản hơn như "nạp dữ liệu" (data fetching). Bạn có thể đọc về điều này trong [lộ trình của chúng tôi](/blog/2018/11/27/react-16-roadmap.html).
 
->Note:
+>Lưu ý rằng:
 >
->`React.lazy()` and `<React.Suspense>` are not yet supported by `ReactDOMServer`. This is a known limitation that will be resolved in the future.
+>`React.lazy()` và `<React.Suspense>` chưa được `ReactDOMServer` hỗ trợ. Đây là một điểm hạn chế sẽ được giải quyết trong tương lai.
