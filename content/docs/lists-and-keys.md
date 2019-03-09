@@ -6,9 +6,9 @@ prev: conditional-rendering.html
 next: forms.html
 ---
 
-Đầu tiên, hãy xem lại cách bạn chuyển đổi danh sách (lists) trong Javascript.
+Đầu tiên, hãy xem lại cách bạn chuyển đổi "danh sách" (lists) trong Javascript.
 
-Trong đoạn code bên dưới, chúng ta sử dụng hàm [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) để nhân đôi giá trị của từng phần tử trong mảng `numbers`. Chúng ta gán mảng mới là kết quả trả về từ hàm `map()` vào biến `doubled` và xuất kết quả đó ra:
+Trong đoạn code bên dưới, chúng ta sử dụng hàm [`map()`](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Global_Objects/Array/map) để nhân đôi giá trị của từng phần tử trong mảng `numbers`. Chúng ta gán mảng mới là kết quả trả về từ hàm `map()` vào biến `doubled` và xuất kết quả đó ra:
 
 ```javascript{2}
 const numbers = [1, 2, 3, 4, 5];
@@ -24,7 +24,7 @@ Trong React, việc chuyển đổi mảng các phần tử thành danh sách (a
 
 Bạn có thể xây dựng nhiều tập hợp (collections) của các element và [nhúng những tập hợp element này vào JSX](/docs/introducing-jsx.html#embedding-expressions-in-jsx) bằng việc sử dụng dấu ngoặc nhọn `{}`.
 
-Dưới đây, chúng ta sử dụng vòng lặp trên mảng `numbers` và sử dụng hàm [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) trong JavaScript. Kết quả trả về là một thẻ `<li>` cho mỗi vòng lặp. Cuối cùng, chúng ta gán mảng kết quả gồm những element (thẻ `<li>`) cho `listItems`:
+Dưới đây, chúng ta sử dụng vòng lặp trên mảng `numbers` và sử dụng hàm [`map()`](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Global_Objects/Array/map) trong JavaScript. Kết quả trả về là một thẻ `<li>` cho mỗi vòng lặp. Cuối cùng, chúng ta gán mảng kết quả gồm những element (thẻ `<li>`) cho `listItems`:
 
 ```javascript{2-4}
 const numbers = [1, 2, 3, 4, 5];
@@ -42,7 +42,7 @@ ReactDOM.render(
 );
 ```
 
-[**Chạy thử trên CodePen**](https://codepen.io/gaearon/pen/GjPyQr?editors=0011)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/GjPyQr?editors=0011)
 
 Đoạn code trên hiển thị một danh sách từ 1 đến 5 và có chứa các dấu chấm tròn trước mỗi số.
 
@@ -96,7 +96,7 @@ ReactDOM.render(
 );
 ```
 
-[**Chạy thử trên CodePen**](https://codepen.io/gaearon/pen/jrXYRR?editors=0011)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/jrXYRR?editors=0011)
 
 ## Keys {#keys}
 
@@ -204,7 +204,7 @@ ReactDOM.render(
 );
 ```
 
-[**Chạy thử trên CodePen**](https://codepen.io/gaearon/pen/ZXeOGM?editors=0010)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/ZXeOGM?editors=0010)
 
 Một nguyên tắc nhỏ đó là các element bên trong hàm gọi `map()` cần các key.
 
@@ -248,7 +248,7 @@ ReactDOM.render(
 );
 ```
 
-[**Chạy thử trên CodePen**](https://codepen.io/gaearon/pen/NRZYGN?editors=0010)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/NRZYGN?editors=0010)
 
 Các key được sử dụng để gợi ý cho React nhưng chúng không được truyền vào cho các component (Nghĩa là các component con sẽ không đọc được prop.key). Nếu bạn cần đọc giá trị giống với giá trị của key bên trong component của bạn, truyền giá trị đó như một prop với một cái tên khác:
 
@@ -298,6 +298,6 @@ function NumberList(props) {
 }
 ```
 
-[**Chạy thử trên CodePen**](https://codepen.io/gaearon/pen/BLvYrB?editors=0010)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/BLvYrB?editors=0010)
 
 Thỉnh thoảng cách làm như trên làm code gọn gàng hơn, nhưng kiểu này cũng có thể bị lạm dụng. Như trong JavaScript, đôi khi bạn phải quyết định xem có cần phải tạo thêm một biến để cho dễ đọc hay không. Hãy nhớ rằng nếu bên trong hàm `map()` bị lồng (nested) quá nhiều, đó có thể là lúc thích hợp để [chia nhỏ một component](/docs/components-and-props.html#extracting-components).
