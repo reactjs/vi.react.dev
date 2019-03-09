@@ -1,6 +1,6 @@
 ---
 id: conditional-rendering
-title: Conditional Rendering
+title: Render Có Điều Kiện
 permalink: docs/conditional-rendering.html
 prev: handling-events.html
 next: lists-and-keys.html
@@ -8,11 +8,11 @@ redirect_from:
   - "tips/false-in-jsx.html"
 ---
 
-In React, you can create distinct components that encapsulate behavior you need. Then, you can render only some of them, depending on the state of your application.
+Trong React, bạn có thể tạo ra các component riêng biệt chứa đựng hành vi mà bạn cần. Tiếp đến, dựa trên trạng thái (state) hiện tại của ứng dụng (application), bạn sẽ chỉ định việc các component đó có nên xuất hiện hay không.
 
-Conditional rendering in React works the same way conditions work in JavaScript. Use JavaScript operators like [`if`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else) or the [conditional operator](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) to create elements representing the current state, and let React update the UI to match them.
+Render có điều kiện trong React hoạt động tương tự như cách mà chúng ta vẫn thường thấy trong Javascript. Đó là dùng câu lệnh [`if`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else) hay [conditional operator](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) trong Javascript để tạo ra các element ứng với state hiện tại, React sau đó sẽ cập nhật giao diện người dùng (UI) phù hợp với state đó.
 
-Consider these two components:
+Thử xét đến hai component bên dưới:
 
 ```js
 function UserGreeting(props) {
@@ -24,7 +24,7 @@ function GuestGreeting(props) {
 }
 ```
 
-We'll create a `Greeting` component that displays either of these components depending on whether a user is logged in:
+Ta tạo một component với tên `Greeting`, nhiệm vụ của nó là hiển thị một trong hai component phía trên dựa vào trạng thái của người dùng (đã đăng nhập hay chưa).
 
 ```javascript{3-7,11,12}
 function Greeting(props) {
@@ -36,21 +36,22 @@ function Greeting(props) {
 }
 
 ReactDOM.render(
-  // Try changing to isLoggedIn={true}:
+  // Thử thay đổi prop isLoggedIn={true}:
   <Greeting isLoggedIn={false} />,
   document.getElementById('root')
 );
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/ZpVxNq?editors=0011)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/ZpVxNq?editors=0011)
 
-This example renders a different greeting depending on the value of `isLoggedIn` prop.
+Ví dụ này sẽ hiển thị nội dung lời chào khác nhau dựa trên giá trị của prop `isLoggedIn`.
 
-### Element Variables {#element-variables}
+### Gán giá trị element vào biến {#element-variables}
 
-You can use variables to store elements. This can help you conditionally render a part of the component while the rest of the output doesn't change.
+Bạn có thể dùng biến để lưu lại các element. Điều này giúp cho bạn có thể render có điều kiện một phần của component trong khi phần còn lại của component sẽ không bị thay đổi.
 
-Consider these two new components representing Logout and Login buttons:
+Thử khởi tạo hai component thể hiện nút đăng nhập (Login) và đăng xuất (Logout):
+
 
 ```js
 function LoginButton(props) {
@@ -70,9 +71,9 @@ function LogoutButton(props) {
 }
 ```
 
-In the example below, we will create a [stateful component](/docs/state-and-lifecycle.html#adding-local-state-to-a-class) called `LoginControl`.
+Trong ví dụ phía dưới, chúng ta sẽ tạo một [stateful component](/docs/state-and-lifecycle.html#adding-local-state-to-a-class) với tên gọi `LoginControl`.
 
-It will render either `<LoginButton />` or `<LogoutButton />` depending on its current state. It will also render a `<Greeting />` from the previous example:
+Component ta vừa tạo sẽ hiển thị hoặc `<LoginButton />` hoặc `<LogoutButton />` dựa theo state hiện tại. Nó cũng sẽ hiển thị component `<Greeting />` từ ví dụ trước đó.
 
 ```javascript{20-25,29,30}
 class LoginControl extends React.Component {
@@ -116,13 +117,13 @@ ReactDOM.render(
 );
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/QKzAgB?editors=0010)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/QKzAgB?editors=0010)
 
-While declaring a variable and using an `if` statement is a fine way to conditionally render a component, sometimes you might want to use a shorter syntax. There are a few ways to inline conditions in JSX, explained below.
+Trong khi việc khởi tạo một biến và sử dụng lệnh `if` là cách làm khá ổn để render có điều kiện một component, nhưng đôi khi, bạn sẽ muốn dùng những cú pháp ngắn hơn. Thật may là chúng ta vẫn có một số ít lựa chọn khác để có thể thực hiện render có điều kiện trực tiếp trên JSX. Chúng sẽ được giải thích rõ bên dưới.
 
-### Inline If with Logical && Operator {#inline-if-with-logical--operator}
+### Thay thế If bằng toán tử logic && {#inline-if-with-logical--operator}
 
-You may [embed any expressions in JSX](/docs/introducing-jsx.html#embedding-expressions-in-jsx) by wrapping them in curly braces. This includes the JavaScript logical `&&` operator. It can be handy for conditionally including an element:
+Bạn có thể nhúng toán tử logic `&&` cũng như [nhúng các biểu thức vào JSX](/docs/introducing-jsx.html#embedding-expressions-in-jsx) bằng cách bọc chúng lại trong cặp ngoặc nhọn `{}`. Việc này rất hữu ích khi xử lí các điều kiện có element bên trong.
 
 ```js{6-10}
 function Mailbox(props) {
@@ -146,17 +147,18 @@ ReactDOM.render(
 );
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/ozJddz?editors=0010)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/ozJddz?editors=0010)
 
-It works because in JavaScript, `true && expression` always evaluates to `expression`, and `false && expression` always evaluates to `false`.
+Đoạn code vừa rồi sẽ hoạt động vì trong Javascript, giá trị của `true && expression` luôn dựa vào `expression`, còn `false && expression` thì sẽ luôn được hiểu là `false`.
 
-Therefore, if the condition is `true`, the element right after `&&` will appear in the output. If it is `false`, React will ignore and skip it.
+Vì thế, nếu điều kiện trả về giá trị là `true`, element phía sau toán tử logic `&&` sẽ xuất hiện ở màn hình. Nếu giá trị trả về là `false`, React sẽ bỏ qua nó.
 
-### Inline If-Else with Conditional Operator {#inline-if-else-with-conditional-operator}
+### Thay thế If-Else bằng toán tử điều kiện {#inline-if-else-with-conditional-operator}
 
-Another method for conditionally rendering elements inline is to use the JavaScript conditional operator [`condition ? true : false`](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Conditional_Operator).
+Một phương thức khác dùng để thực hiện render có điều kiện trực tiếp trên JSX là dùng toán tử điều kiện (ba ngôi) [`condition ? true : false`](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Operators/Conditional_Operator).
 
-In the example below, we use it to conditionally render a small block of text.
+
+Trong ví dụ phía dưới, ta sử dụng phương thức đã được nêu ở trên để render có điều kiện một đoạn văn bản nhỏ.
 
 ```javascript{5}
 render() {
@@ -169,7 +171,7 @@ render() {
 }
 ```
 
-It can also be used for larger expressions although it is less obvious what's going on:
+Nó cũng có thể được sử dụng ở các biểu thức (expressions) lớn hơn, mặc dù điều đó có thể làm cho chúng ta khó hiểu rõ việc gì đang xảy ra.
 
 ```js{5,7,9}
 render() {
@@ -186,13 +188,13 @@ render() {
 }
 ```
 
-Just like in JavaScript, it is up to you to choose an appropriate style based on what you and your team consider more readable. Also remember that whenever conditions become too complex, it might be a good time to [extract a component](/docs/components-and-props.html#extracting-components).
+Giống hệt như Javascript, việc sử dụng cách thức nào sẽ dựa trên những gì mà bạn và nhóm của bạn thấy dễ đọc hơn. Và nên lưu ý, khi các điều kiện trở nên quá phức tạp thì nên cân nhắc đến việc thực hiện [tách component](/docs/components-and-props.html#extracting-components).
 
-### Preventing Component from Rendering {#preventing-component-from-rendering}
+### Ngăn chặn component thực hiện render {#preventing-component-from-rendering}
 
-In rare cases you might want a component to hide itself even though it was rendered by another component. To do this return `null` instead of its render output.
+Trong một số trường hợp hiếm gặp, bạn sẽ muốn một component tự ẩn đi dù nó được render bởi một component khác. Để làm được điều đó, ta sẽ trả về `null` thay vì trả về những gì cần hiện lên màn hình.
 
-In the example below, the `<WarningBanner />` is rendered depending on the value of the prop called `warn`. If the value of the prop is `false`, then the component does not render:
+Ở ví dụ phía dưới, component `<WarningBanner />` được render dựa trên giá trị của prop `warn`. Nếu giá trị của prop là `false` thì component đó sẽ không được render.
 
 ```javascript{2-4,29}
 function WarningBanner(props) {
@@ -238,6 +240,6 @@ ReactDOM.render(
 );
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/Xjoqwm?editors=0010)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/Xjoqwm?editors=0010)
 
-Returning `null` from a component's `render` method does not affect the firing of the component's lifecycle methods. For instance `componentDidUpdate` will still be called.
+Trả về `null` bên trong hàm `render` của component không gây ảnh hưởng đến các phương thức của lifecycle. Ví dụ như `componentDidUpdate` vẫn sẽ được gọi.
