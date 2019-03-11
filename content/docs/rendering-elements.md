@@ -8,7 +8,7 @@ prev: introducing-jsx.html
 next: components-and-props.html
 ---
 
-Element là những khối xây dựng nhỏ nhất của các ứng dụng React.
+Element là những mảnh ghép nhỏ nhất của các ứng dụng React.
 
 Một element mô tả những gì bạn muốn nhìn thấy trên màn hình:
 
