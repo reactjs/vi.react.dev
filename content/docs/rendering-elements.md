@@ -10,7 +10,7 @@ next: components-and-props.html
 
 Element là những khối xây dựng nhỏ nhất của các ứng dụng React.
 
-Một element mô tả những gì bạn muốn nhiền thấy trên màn hình:
+Một element mô tả những gì bạn muốn nhìn thấy trên màn hình:
 
 ```js
 const element = <h1>Hello, world</h1>;
@@ -20,11 +20,11 @@ Không giống như những element DOM của trình duyệt, React element là 
 
 >**Ghi chú:**
 >
->Người ta có thể nhầm lẫn các element với một khái niệm được biết rộng hơn về các "component". Chúng tôi sẽ giới thiệu các "component" trong [phần tới](/docs/components-and-props.html). Các element là những gì mà các component được "làm bằng", và chúng tôi khuyến khích bạn đọc phần này trước khi đi đến phần kế tiếp.
+>Người ta có thể nhầm lẫn các element với một khái niệm được biết rộng hơn về các "component". Chúng tôi sẽ giới thiệu các "component" trong [phần tới](/docs/components-and-props.html). Các element là những gì mà các component được "làm từ", và chúng tôi khuyến khích bạn đọc phần này trước khi đi đến phần kế tiếp.
 
 ## Việc render một element vào trong DOM {#rendering-an-element-into-the-dom}
 
-Hãy nói rằng có một thẻ `<div>` ở đâu đó trong "tệp" (file) HTML:
+Hãy hình dung có một thẻ `<div>` ở đâu đó trong "tệp" (file) HTML:
 
 ```html
 <div id="root"></div>
@@ -73,4 +73,4 @@ Bạn có thể xác minh điều trên bằng cách kiểm tra [ví dụ cuối
 
 Mặc dù chúng ta tạo ra một element miêu tả toàn bộ cây "giao diện" (UI) trên mỗi "đánh dấu" (tick), chỉ những "nốt văn bản" (text node) có nội dung thay đổi mới nhận sự cập nhật bởi React DOM.
 
-Với kinh nghiệm của chúng tôi thì chúng ta nên suy nghĩ về cách "giao diện" (UI) nên trông như thế nào tại mọi thời điểm hơn là suy nghĩ làm thế nào để thay đổi "giao diện" (UI) qua thời gian, điều này sẽ loại bỏ được rất nhiều "lỗi" (bug).
+Với kinh nghiệm của chúng tôi thì chúng ta nên suy nghĩ về cách "giao diện" (UI) nên trông như thế nào tại mọi thời điểm hơn là suy nghĩ làm thế nào để thay đổi "giao diện" (UI) theo thời gian, điều này sẽ loại bỏ được rất nhiều "lỗi" (bug).
