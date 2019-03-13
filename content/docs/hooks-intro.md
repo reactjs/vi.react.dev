@@ -1,22 +1,22 @@
 ---
 id: hooks-intro
-title: Introducing Hooks
+title: Giới thiệu về Hooks
 permalink: docs/hooks-intro.html
 next: hooks-overview.html
 ---
 
-*Hooks* are a new addition in React 16.8. They let you use state and other React features without writing a class.
+*Hooks* mới được thêm ở phiên bản React 16.8. Cho phép bạn sử dụng state và các chức năng khác của React mà không cần tạo class.
 
 ```js{4,5}
 import React, { useState } from 'react';
 
 function Example() {
-  // Declare a new state variable, which we'll call "count"
+  // Khai báo 1 biến trạng thái mới đặt tên là "count"
   const [count, setCount] = useState(0);
 
   return (
     <div>
-      <p>You clicked {count} times</p>
+      <p>Bận đã bấm {count} lần</p>
       <button onClick={() => setCount(count + 1)}>
         Click me
       </button>
@@ -25,86 +25,86 @@ function Example() {
 }
 ```
 
-This new function `useState` is the first "Hook" we'll learn about, but this example is just a teaser. Don't worry if it doesn't make sense yet!
+Tính năng mới `useState` này là "Hook" đầu tiên chúng ta học, nhưng ví dụ này chỉ để giới thiệu. Đừng lo nếu nó chưa dễ hình dung!
 
-**You can start learning Hooks [on the next page](/docs/hooks-overview.html).** On this page, we'll continue by explaining why we're adding Hooks to React and how they can help you write great applications.
+**Bạn có thể bắt đầu học Hooks [ở trang tiếp theo](/docs/hooks-overview.html).** Tại trang này, chúng tôi tiếp tục giải thích tại sao thêm Hooks vào React và cách chúng giúp bạn viết ứng dụng tuyệt vời hơn.
 
->Note
+>Chú ý
 >
->React 16.8.0 is the first release to support Hooks. When upgrading, don't forget to update all packages, including React DOM. React Native will support Hooks in the next stable release.
+>React 16.8.0 là phiên bản đầu tiên hỗ trợ Hook. Khi nâng cấp, đừng quên cập nhật tất cả các gói, bao gồm cả React DOM. React Native sẽ hỗ trợ Hooks trong phiên bản ổn định tiếp theo.
 
-## Video Introduction {#video-introduction}
+## Video Giới Thiệu {#video-introduction}
 
-At React Conf 2018, Sophie Alpert and Dan Abramov introduced Hooks, followed by Ryan Florence demonstrating how to refactor an application to use them. Watch the video here:
+Tại React Conf 2018, Sophie Alpert và Dan Abramov đã giới thiệu Hooks, tiếp theo Ryan Florence trình bày cách để tái cấu trúc một ứng dụng để sử dụng chúng. Xem video tại đây:
 
 <br>
 
 <iframe width="650" height="366" src="//www.youtube.com/embed/dpw9EHDh2bM" frameborder="0" allowfullscreen></iframe>
 
-## No Breaking Changes {#no-breaking-changes}
+## Không Có Thay Đổi Phá Vỡ {#no-breaking-changes}
 
-Before we continue, note that Hooks are:
+Trước khi chúng ta tiếp tục, chú ý rằng Hooks:
 
-* **Completely opt-in.** You can try Hooks in a few components without rewriting any existing code. But you don't have to learn or use Hooks right now if you don't want to.
-* **100% backwards-compatible.** Hooks don't contain any breaking changes.
-* **Available now.** Hooks are now available with the release of v16.8.0.
+* **Hoàn toàn opt-in.** Bạn có thể dùng Hooks trong một vài thành phần mà không phải viết lại bất cứ đoạn code hiện tại nào. Bạn không buộc phải học hoặc sử dụng Hooks bây giờ nếu bạn không muốn.
+* **100% tương thích phiên bản cũ.** Hooks không chứa bất kì thay đổi phá vỡ nào.
+* **Đã ra mắt.** Hooks đã sẵn sàng với phiên bản v16.8.0.
 
-**There are no plans to remove classes from React.** You can read more about the gradual adoption strategy for Hooks in the [bottom section](#gradual-adoption-strategy) of this page.
+**Không có kế hoạch xoá classes khỏi React.** Bạn có thể đọc thêm về chiến lược áp dụng dần dần cho Hook trong [phần dưới](#gradual-adoption-strategy) của trang này.
 
-**Hooks don't replace your knowledge of React concepts.** Instead, Hooks provide a more direct API to the React concepts you already know: props, state, context, refs, and lifecycle. As we will show later, Hooks also offer a new powerful way to combine them.
+**Hooks không thay thế kiến thức của bạn về các khái niệm của React.** Thay vì thế Hooks cung cấp các API trực tiếp tới các khái niệm React mà bạn đã biết: props, state, context, refs, và vòng đời. Chúng tôi sẽ chỉ ra sau, Hooks cũng đưa ra 1 cách mới và mạnh mẽ để kết hợp chúng.
 
-**If you just want to start learning Hooks, feel free to [jump directly to the next page!](/docs/hooks-overview.html)** You can also keep reading this page to learn more about why we're adding Hooks, and how we're going to start using them without rewriting our applications.
+**Nếu bạn chỉ muốn tìm hiểu Hook, bạn có thể [xem luôn trang tiếp theo!](/docs/hooks-overview.html)** Bạn cũng có thể tiếp tục đọc để biết thêm tại sao chúng tôi thêm Hooks, và cách chúng tôi bắt đầu sử dụng mà không phải viết lại các ứng dụng của chúng tôi.
 
-## Motivation {#motivation}
+## Nguồn cảm hứng {#motivation}
 
-Hooks solve a wide variety of seemingly unconnected problems in React that we've encountered over five years of writing and maintaining tens of thousands of components. Whether you're learning React, use it daily, or even prefer a different library with a similar component model, you might recognize some of these problems.
+Hooks giải quyết rộng và nhiều các vấn đề có vẻ không liên quan trong React mà chúng tôi gặp phải trong hơn 5 năm qua với việc viết và phát triển 10 nghìn thành phần giao diện. Kể cả bạn đang học React, sử dụng nó hàng ngày hoặc ngay cả bạn thích 1 thư viện khác tương tự với component model, bạn có thể nhận ra một số vấn đề.
 
-### It's hard to reuse stateful logic between components {#its-hard-to-reuse-stateful-logic-between-components}
+### Khó để sử dụng lại logic có trạng thái giữa các components{#its-hard-to-reuse-stateful-logic-between-components}
 
-React doesn't offer a way to "attach" reusable behavior to a component (for example, connecting it to a store). If you've worked with React for a while, you may be familiar with patterns like [render props](/docs/render-props.html) and [higher-order components](/docs/higher-order-components.html) that try to solve this. But these patterns require you to restructure your components when you use them, which can be cumbersome and make code harder to follow. If you look at a typical React application in React DevTools, you will likely find a "wrapper hell" of components surrounded by layers of providers, consumers, higher-order components, render props, and other abstractions. While we could [filter them out in DevTools](https://github.com/facebook/react-devtools/pull/503), this points to a deeper underlying problem: React needs a better primitive for sharing stateful logic.
+React không đưa ra cách nào để "gắn" các thao thác sử dụng lại tới một component (ví dụ, kết nối với store). Nếu bạn đã làm việc với React một thời gian, bạn có thể thấy quen thuộc với patterns như [render props](/docs/render-props.html) và [higher-order components](/docs/higher-order-components.html) đã cố để xử lý vấn đề này. Nhưng các patterns đó yêu cầu bạn phải cấu trúc lại components của bạn khi sử dụng, có thể làm cho code dài dòng khó theo dõi. Nếu bạn xem cấu trúc của một ứng dụng React bằng React DevTools bạn sẽ thấy "wrapper hell" (lồng nhau nhiều lớp) của các components bọc bởi các lớp của providers, consumers, higher-order components, render props, và các abstractions khác. Trong khi chúng ta có thể [lọc chúng khỏi DevTools](https://github.com/facebook/react-devtools/pull/503), điều này chỉ ra một vấn đề sâu hơn nằm bên dưới: React cần một kiểu nguyên thuỷ tốt hơn để chia sẻ logic có trạng thái.
 
-With Hooks, you can extract stateful logic from a component so it can be tested independently and reused. **Hooks allow you to reuse stateful logic without changing your component hierarchy.** This makes it easy to share Hooks among many components or with the community.
+Với Hooks, bạn có thể tách logic có trạng thái từ component, nó có thể test độc lập và sử dụng lại. **Hooks cho phép sử dụng lại logic có trạng thái mà không phải thay đổi cấu trúc component.** Điều này cho phép chia sẻ Hooks qua nhiều components hoặc với cộng đồng.
 
-We'll discuss this more in [Building Your Own Hooks](/docs/hooks-custom.html).
+Chúng tôi sẽ thảo luận về điều này nhiều hơn tại [Xây dựng Hooks của bạn](/docs/hooks-custom.html).
 
-### Complex components become hard to understand {#complex-components-become-hard-to-understand}
+### Components phức tạp trở nên khó hiểu {#complex-components-become-hard-to-understand}
 
-We've often had to maintain components that started out simple but grew into an unmanageable mess of stateful logic and side effects. Each lifecycle method often contains a mix of unrelated logic. For example, components might perform some data fetching in `componentDidMount` and `componentDidUpdate`. However, the same `componentDidMount` method might also contain some unrelated logic that sets up event listeners, with cleanup performed in `componentWillUnmount`. Mutually related code that changes together gets split apart, but completely unrelated code ends up combined in a single method. This makes it too easy to introduce bugs and inconsistencies.
+Chúng tôi thường phải làm những components mà bắt đầu đơn giản nhưng trở nên khó quản lý bừa bộn logic có trạng thái và side effects. Mỗi phương thức vòng đời chứa kết hợp những logic không liên quan. Ví dụ, components có thể thực hiện lấy dữ liệu trong `componentDidMount` và `componentDidUpdate`. Tuy nhiên, cùng phương thức `componentDidMount` có thể chứa vài logic không liên quan để cài đặt event listeners, và dọn dẹp trong `componentWillUnmount`. Những đoạn code liên quan và hỗ trợ lẫn nhau bị chia ra, và đoạn code không liên quan lại nằm trong cùng một phương thức. Điều này dễ dàng gây ra bugs và không nhất quán.
 
-In many cases it's not possible to break these components into smaller ones because the stateful logic is all over the place. It's also difficult to test them. This is one of the reasons many people prefer to combine React with a separate state management library. However, that often introduces too much abstraction, requires you to jump between different files, and makes reusing components more difficult.
+Trong nhiều trường hợp không thể chia nhỏ các components bởi vì logic có trạng thái dùng ở tất cả các chỗ. Khó để test. Đây là một trong những nguyên nhân nhiều người chọn kết hợp React với một thư viện quản lý trạng thái khác. Tuy nhiên nó thường bị quá nhiều trìu tượng và yêu cầu phải chuyển qua nhiều files khác nhau và khó sẻ dụng lại các components.
 
-To solve this, **Hooks let you split one component into smaller functions based on what pieces are related (such as setting up a subscription or fetching data)**, rather than forcing a split based on lifecycle methods. You may also opt into managing the component's local state with a reducer to make it more predictable.
+Để giải quyết vấn đề này, **Hooks cho phép bạn chia một component thành các hàm nhỏ hơn dựa trên các phần liên quan (chẳng hạn như cài đặt subscription hoặc lấy dữ liệu)**, hơn là buộc phải chia theo các phương thức vòng đời. Bạn cũng có thể quản lý trạng thái của component với reducer để dễ dự đoán hơn.
 
-We'll discuss this more in [Using the Effect Hook](/docs/hooks-effect.html#tip-use-multiple-effects-to-separate-concerns).
+Chúng tôi sẽ thảo luận thêm tại [Sử dụng Hook hiệu quả](/docs/hooks-effect.html#tip-use-multiple-effects-to-separate-concerns).
 
-### Classes confuse both people and machines {#classes-confuse-both-people-and-machines}
+### Classes khiến cả con người và máy thấy bối rối {#classes-confuse-both-people-and-machines}
 
-In addition to making code reuse and code organization more difficult, we've found that classes can be a large barrier to learning React. You have to understand how `this` works in JavaScript, which is very different from how it works in most languages. You have to remember to bind the event handlers. Without unstable [syntax proposals](https://babeljs.io/docs/en/babel-plugin-transform-class-properties/), the code is very verbose. People can understand props, state, and top-down data flow perfectly well but still struggle with classes. The distinction between function and class components in React and when to use each one leads to disagreements even between experienced React developers.
+Không chỉ làm cho việc sử dụng lại và tổ chức code khó hơn, chúng tôi thấy rằng classes là rào cản lớn để học React. Bạn phải hiểu cách `this` hoạt động trong Javascript, cái mà rất khác về cách hoạt động trong đa số các ngôn ngữ khác. Bạn phải nhớ bind các event handlers. Nếu không sử dụng [cú pháp đề xuất](https://babeljs.io/docs/en/babel-plugin-transform-class-properties/), code sẽ rất dài dòng. Mọi người có thể hiểu props, state, và luồng dữ liệu từ trên xuống tốt nhưng vẫn vật lộn với classes. Sự khác biết giữa hàm và class components trong React và khi nào sử dụng chúng dẫn đến sự bất đồng kể cả những người phát triển React có kinh nghiệm.
 
-Additionally, React has been out for about five years, and we want to make sure it stays relevant in the next five years. As [Svelte](https://svelte.technology/), [Angular](https://angular.io/), [Glimmer](https://glimmerjs.com/), and others show, [ahead-of-time compilation](https://en.wikipedia.org/wiki/Ahead-of-time_compilation) of components has a lot of future potential. Especially if it's not limited to templates. Recently, we've been experimenting with [component folding](https://github.com/facebook/react/issues/7323) using [Prepack](https://prepack.io/), and we've seen promising early results. However, we found that class components can encourage unintentional patterns that make these optimizations fall back to a slower path. Classes present issues for today's tools, too. For example, classes don't minify very well, and they make hot reloading flaky and unreliable. We want to present an API that makes it more likely for code to stay on the optimizable path.
+Hơn nữa, React đã ra mắt được khoảng 5 năm, và chúng tôi muốn đảm bảo nó vẫn liên quan trong 5 năm tới. [Svelte](https://svelte.technology/), [Angular](https://angular.io/), [Glimmer](https://glimmerjs.com/), và nhiều chỗ khác chỉ ra, [ahead-of-time compilation](https://en.wikipedia.org/wiki/Ahead-of-time_compilation) của các components có rất nhiều tiềm năng tương lai. Đặc biệt nếu nó không giới hạn các mẫu. Gần đây chúng tôi đã thử nghiệm [component folding](https://github.com/facebook/react/issues/7323) sử dụng [Prepack](https://prepack.io/), và chúng tôi đã thấy nhiều kết quả hứa hẹn. Chúng tôi thấy rằng class components có thể khuyến khích các patterns không chủ ý nhưng làm cho các tối ưu chậm hơn. Classes cũng xuất nhiện nhiều vấn đề cho các công cụ hôm nay. Ví dụ class không giảm dung lượng tốt, và chúng làm cho hot reloading flaky và không tin cậy. Chúng tôi muốn giới thiệu một API mà vẫn tối ưu được.
 
-To solve these problems, **Hooks let you use more of React's features without classes.** Conceptually, React components have always been closer to functions. Hooks embrace functions, but without sacrificing the practical spirit of React. Hooks provide access to imperative escape hatches and don't require you to learn complex functional or reactive programming techniques.
+Để xử lý các vấn đề, **Hooks cho phép bạn sử dụng nhiều tính năng của React mà không cần classes.** Về mặt khái niệm, React components luôn luôn gần như các hàm. Hooks áp dụng functions, nhưng không phải hi sinh tinh thần thực hành của React. Hooks cung cấp truy cập đến escape hatches nguyên thuỷ và không yêu cầu bạn phải học các kĩ thuật functional hoặc reactive programming.
 
->Examples
+>Ví dụ
 >
->[Hooks at a Glance](/docs/hooks-overview.html) is a good place to start learning Hooks.
+>[Cái nhìn đầu tiên về Hooks](/docs/hooks-overview.html) là một nơi tốt để bắt đầu học Hooks.
 
-## Gradual Adoption Strategy {#gradual-adoption-strategy}
+## Chiến lược áp dụng dần dần {#gradual-adoption-strategy}
 
->**TLDR: There are no plans to remove classes from React.**
+>**TLDR: Không có kế hoạch xoá classes khỏi React.**
 
-We know that React developers are focused on shipping products and don't have time to look into every new API that's being released. Hooks are very new, and it might be better to wait for more examples and tutorials before considering learning or adopting them.
+Chúng tôi biết lập tình viên React tập trung vào phát triển sản phẩm và không có thời gian để xem tất cả các API mới đang được ra mắt. Hooks rất mới và có thể tốt hơn để chờ cho nhiều ví dụ và hướng dẫn trước khi cân nhắc học hoặc áp dụng chúng.
 
-We also understand that the bar for adding a new primitive to React is extremely high. For curious readers, we have prepared a [detailed RFC](https://github.com/reactjs/rfcs/pull/68) that dives into motivation with more details, and provides extra perspective on the specific design decisions and related prior art.
+Chúng tôi cũng hiểu rằng cản trở cho việc thêm một điều nguyên thuỷ mới vào React là rất cao. Cho những người đọc tò mò, chúng tôi đã chuẩn bị một [RFC chi tiết](https://github.com/reactjs/rfcs/pull/68) cho nguồn cảm hứng với nhiều chi tiết hơn, và cung cấp thêm quan điểm về quyết định thiết kế và nghệ thuật nguyên thuỷ.
 
-**Crucially, Hooks work side-by-side with existing code so you can adopt them gradually.** There is no rush to migrate to Hooks. We recommend avoiding any "big rewrites", especially for existing, complex class components. It takes a bit of a mindshift to start "thinking in Hooks". In our experience, it's best to practice using Hooks in new and non-critical components first, and ensure that everybody on your team feels comfortable with them. After you give Hooks a try, please feel free to [send us feedback](https://github.com/facebook/react/issues/new), positive or negative.
+**Chủ yếu, Hooks hoạt động bên cạnh code hiện tại nên bạn có thể áp dụng dần dần.** Không quá mất thời gian để chuyển sang dùng Hooks. Chúng tôi gợi ý hạn chế bất kì việc "viết lại lớn" nào, đặc biệt cho những class component phức tạp. Nó cần một chút thay đổi tư duy để bắt đầu "suy nghĩ về Hooks". Theo kinh nghiệm của chúng tôi thì cách tốt nhất để sử dụng Hooks là ở trong các components mới và không quan trọng, và đảm bảo mọi người trong nhóm của bạn cảm thấy thoải mái với chúng. Sau khi bạn thử Hooks, hãy thoải mái [gửi phản hồi](https://github.com/facebook/react/issues/new), kể cả tích cực hay tiêu cực.
 
-We intend for Hooks to cover all existing use cases for classes, but **we will keep supporting class components for the foreseeable future.** At Facebook, we have tens of thousands of components written as classes, and we have absolutely no plans to rewrite them. Instead, we are starting to use Hooks in the new code side by side with classes.
+Chúng tôi dự định cho Hooks bao hàm tất cả các trường hợp dùng classes, nhưng **chúng tôi sẽ tiếp tục hỗ trợ class components cho tương lai thấy trước.** Tại Facebook, chúng tôi có hàng mười nghìn components viết dưới dạng classes, và chúng tôi tuyệt đối không có kế hoạch viết lại chúng. Thay vì thế, chúng tôi bắt đầu sử dụng Hooks cho code mới bên cạnh với classes.
 
-## Frequently Asked Questions {#frequently-asked-questions}
+## Các câu hỏi thường gặp {#frequently-asked-questions}
 
-We've prepared a [Hooks FAQ page](/docs/hooks-faq.html) that answers the most common questions about Hooks.
+Chúng tôi đã chuẩn bị [câu hỏi thường gặp về Hooks](/docs/hooks-faq.html) để trả lời những câu hỏi phổ biến nhất về Hooks.
 
-## Next Steps {#next-steps}
+## Bước tiếp theo {#next-steps}
 
-By the end of this page, you should have a rough idea of what problems Hooks are solving, but many details are probably unclear. Don't worry! **Let's now go to [the next page](/docs/hooks-overview.html) where we start learning about Hooks by example.**
+Cuối trang này, bạn phần nào có được ý tưởng mà Hooks đang giải quyết, nhưng nhiều chi tiết chắc chắn là chưa rõ ràng. Đừng lo! **Bắt đầu [trang tiếp theo](/docs/hooks-overview.html) để bắt đầu học Hooks qua những ví dụ**
