@@ -16,9 +16,9 @@ function Example() {
 
   return (
     <div>
-      <p>Bận đã bấm {count} lần</p>
+      <p>Bạn đã bấm {count} lần</p>
       <button onClick={() => setCount(count + 1)}>
-        Click me
+        Bấm vào tôi
       </button>
     </div>
   );
@@ -71,7 +71,7 @@ Chúng tôi sẽ thảo luận về điều này nhiều hơn tại [Xây dựng
 
 Chúng tôi thường phải làm những components mà bắt đầu đơn giản nhưng trở nên khó quản lý bừa bộn logic có trạng thái và side effects. Mỗi phương thức vòng đời chứa kết hợp những logic không liên quan. Ví dụ, components có thể thực hiện lấy dữ liệu trong `componentDidMount` và `componentDidUpdate`. Tuy nhiên, cùng phương thức `componentDidMount` có thể chứa vài logic không liên quan để cài đặt event listeners, và dọn dẹp trong `componentWillUnmount`. Những đoạn code liên quan và hỗ trợ lẫn nhau bị chia ra, và đoạn code không liên quan lại nằm trong cùng một phương thức. Điều này dễ dàng gây ra bugs và không nhất quán.
 
-Trong nhiều trường hợp không thể chia nhỏ các components bởi vì logic có trạng thái dùng ở tất cả các chỗ. Khó để test. Đây là một trong những nguyên nhân nhiều người chọn kết hợp React với một thư viện quản lý trạng thái khác. Tuy nhiên nó thường bị quá nhiều trìu tượng và yêu cầu phải chuyển qua nhiều files khác nhau và khó sẻ dụng lại các components.
+Trong nhiều trường hợp không thể chia nhỏ các components bởi vì logic có trạng thái dùng ở tất cả các chỗ. Khó để test. Đây là một trong những nguyên nhân nhiều người chọn kết hợp React với một thư viện quản lý trạng thái khác. Tuy nhiên nó thường bị quá nhiều trìu tượng và yêu cầu phải chuyển qua nhiều files khác nhau và khó sử dụng lại các components.
 
 Để giải quyết vấn đề này, **Hooks cho phép bạn chia một component thành các hàm nhỏ hơn dựa trên các phần liên quan (chẳng hạn như cài đặt subscription hoặc lấy dữ liệu)**, hơn là buộc phải chia theo các phương thức vòng đời. Bạn cũng có thể quản lý trạng thái của component với reducer để dễ dự đoán hơn.
 
