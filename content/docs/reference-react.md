@@ -13,7 +13,7 @@ redirect_from:
   - "docs/top-level-api-zh-CN.html"
 ---
 
-Để bắt đầu tìm hiểu về bộ thư viện React thì `React` package chính là nguồn cội của mọi thứ. Nếu bạn load React trực tiếp trong thẻ `script`, bạn sẽ có một biến `React` cao nhất ở lớp global. Nếu bạn sử dụng ES6 và npm, bạn có thể nhúng bằng cách `import React from 'react'`. Nếu bạn vẫn đang sử dụng ES5, hãy sử dụng `var React = require('react')` để nhúng React vào dự án.
+Để bắt đầu tìm hiểu về bộ thư viện React thì `React` package chính là điểm xuất phát. Nếu bạn load React trực tiếp từ một thẻ `script`, những API ở cấp cao nhất sẽ có sẵn trên React 'global'. Nếu bạn dùng ES6 và npm, bạn có dùng câu lệnh `import React from 'react'`. Nếu bạn dùng ES5 và npm, bạn có thể khai báo `var React = require('react')`.
 
 ## Giới thiệu chung {#overview}
 
@@ -26,22 +26,22 @@ React components dùng để chia UI thành những thành phần nhỏ độc l
 
 Nếu bạn không sử dụng classes trong ES6, thì có thể dùng `create-react-class` module thay thế. Xem thêm [Không sử dụng ES6 trong React](/docs/react-without-es6.html) để hiểu rõ hơn.
 
-React components cũng có thể được định nghĩa như là functions được bao bởi:
+Các React component cũng có thể được định nghĩa như là những function được bao bọc bởi:
 
 - [`React.memo`](#reactmemo)
 
 ### Tạo React Elements {#creating-react-elements}
 
-Chúng tôi khuyến khích bạn nên [sử dụng JSX](/docs/introducing-jsx.html) để cấu trúc phần UI (nó tương tự như HTML vậy). Mỗi JSX element được tạo ra bằng cách gọi hàm [`React.createElement()`](#createelement). Thông thường, bạn sẽ không cần phải gọi các phương thức sau nếu không muốn dùng JSX.
+Chúng tôi khuyến khích bạn nên [sử dụng JSX](/docs/introducing-jsx.html) để cấu trúc phần UI (nó tương tự như HTML vậy). Mỗi JSX element được tạo ra bằng cách gọi hàm [`React.createElement()`](#createelement). Thông thường, bạn sẽ không cần gọi các "phương thức" (method) sau nếu bạn đang sử dụng JSX.
 
 - [`createElement()`](#createelement)
 - [`createFactory()`](#createfactory)
 
 Xem thêm [Không sử dụng JSX trong React](/docs/react-without-jsx.html) để hiểu rõ hơn.
 
-### Hỗ trợ cho React Elements {#transforming-elements}
+### Việc chuyển đổi các element {#transforming-elements}
 
-`React` cung cấp một số APIs để thao tác với React elements:
+`React` cung cấp nhiều API để thao tác với các React element:
 
 - [`cloneElement()`](#cloneelement)
 - [`isValidElement()`](#isvalidelement)
@@ -88,7 +88,7 @@ Suspense giúp cho components "chờ" để xử lý một việc gì đó trư�
 
 ### `React.Component` {#reactcomponent}
 
-`React.Component` là lớp cơ sở cho các React components khi ta định nghĩa một component với [ES6 classes](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes):
+`React.Component` là lớp cơ sở cho các React components khi ta định nghĩa một component với [ES6 classes](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Classes):
 
 ```javascript
 class Greeting extends React.Component {
@@ -108,11 +108,11 @@ Xem thêm [React.Component API Reference](/docs/react-component.html) để tìm
 
 Nếu như những React components của bạn gọi đến `render()` function để biểu diễn cùng kết quả với cùng props và state, bạn có thể sử dụng `React.PureComponent` để tăng hiệu suất cho ứng dụng trong một số trường hợp.
 
-> Lưu ý rằng
+> Lưu ý
 >
 > Phương thức `shouldComponentUpdate()` của `React.PureComponent` chỉ so sánh nông (shallow) các đối tượng. Nếu chúng có cấu trúc dữ liệu phức tạp, có thể xảy ra trường hợp bỏ sót nếu sự khác biệt nằm sâu bên trong. Chỉ kế thừa `PureComponent` khi bạn có props và state đơn giản, hoặc sử dụng [`forceUpdate()`](/docs/react-component.html#forceupdate) nếu bạn chắc chắc rằng cấu trúc dữ liệu đã bị thay đổi. Hoặc, bạn có thể sử dụng  [immutable objects](https://facebook.github.io/immutable-js/) để dễ dàng so sánh nhanh các dữ liệu lồng nhau.
 >
-> Hơn nữa, method `shouldComponentUpdate()` của `React.PureComponent` bỏ qua việc cập nhật prop cho toàn bộ các component con. Nên hãy chắc chắn rằng các component con cũng là "pure".
+> Hơn nữa, "phương thức" (method) `shouldComponentUpdate()` của `React.PureComponent` bỏ qua việc cập nhật prop cho toàn bộ các component con. Nên hãy chắc chắn rằng các component con cũng là "pure".
 
 * * *
 
@@ -126,7 +126,7 @@ const MyComponent = React.memo(function MyComponent(props) {
 
 `React.memo` là một [component bậc cao](/docs/higher-order-components.html) (higher order component). Nó tương tự như [`React.PureComponent`](#reactpurecomponent) nhưng là dạng function components chứ không phải là classes.
 
-Nếu function component của bạn biểu diễn cùng kết quả với cùng props, bạn có thể gói chúng lại và gọi đến `React.memo` để tăng hiệu năng trong một số trường hợp bằng cách ghi nhớ kết quả. Điểu này có nghĩa là React sẽ bỏ qua việc render component, và sử dụng lại kết quả đã render lần cuối cùng.
+Nếu function component của bạn biểu diễn cùng kết quả với cùng props, bạn có thể gói chúng lại và gọi đến `React.memo` để tăng hiệu năng trong một số trường hợp bằng cách ghi nhớ kết quả. Điều này có nghĩa là React sẽ bỏ qua việc render component, và sử dụng lại kết quả đã render lần cuối cùng.
 
 Mặc định nó sẽ chỉ so sánh nông (shallow) các đối tượng phức tạp bên trong đối tượng props. Nếu bạn muốn kiểm soát toàn bộ việc so sánh, bạn cũng có thể cung cấp một hàm so sánh tuỳ chỉnh ở đối số thứ hai.
 
@@ -144,9 +144,9 @@ function areEqual(prevProps, nextProps) {
 export default React.memo(MyComponent, areEqual);
 ```
 
-Phương thức này tốn tại như một cách **[tối ưu hiệu suất](/docs/optimizing-performance.html)** (performance optimization). Đừng dựa vào nó để "ngăn" việc render component, vì rất dễ gây ra lỗi.
+Phương thức này tồn tại như một cách **[tối ưu hiệu suất](/docs/optimizing-performance.html)** (performance optimization). Đừng dựa vào nó để "ngăn" việc render component, vì rất dễ gây ra lỗi.
 
-> Lưu ý rằng
+> Lưu ý
 >
 > Không giống như method [`shouldComponentUpdate()`](/docs/react-component.html#shouldcomponentupdate) trong class components, hàm `areEqual` trả về `true` nếu các props bằng nhau và trả về `false` nếu các props không bằng nhau. Nó ngược lại với hàm `shouldComponentUpdate`.
 
@@ -202,7 +202,7 @@ Trả về một hàm tạo ra các React element theo kiểu truyền vào. Gi�
 
 Hàm này được coi là di sản, và chúng tôi khuyến khích bạn sử dụng JSX hoặc sử dụng trực tiếp `React.createElement()`.
 
-Thông thường, bạn sẽ không gọi trực tiếp `React.createFactory()` nếu bạn sử dụng JSX. Xem thêm [Không sử dụng JSX trong React](/docs/react-without-jsx.html) to learn more.
+Thông thường, bạn sẽ không gọi trực tiếp `React.createFactory()` nếu bạn sử dụng JSX. Xem thêm [Không sử dụng JSX trong React](/docs/react-without-jsx.html) để tìm hiểu thêm.
 
 * * *
 
@@ -228,7 +228,7 @@ React.Children.map(children, function[(thisArg)])
 
 Gọi ngay một hàm trên mỗi thành phần con, bên trong là `children` cùng với `this` được gáng cho `thisArg`. Nếu `children` là một mảng nó sẽ duyệt mảng đó và hàm sẽ được thực thi cho mỗi thành phần con trong mảng. Nếu `children` là `null` hoặc `undefined`, phương thức này sẽ trả về  `null` hoặc `undefined` thay vì là một mảng.
 
-> Lưu ý rằng
+> Lưu ý
 >
 > Nếu `children` là một `Fragment` nó sẽ được xem như là một thành phần con đơn lẻ và không đi qua.
 
@@ -256,7 +256,7 @@ React.Children.only(children)
 
 Xác thực rằng `children` có duy nhất một thành phần con (một React element) và trả về element đó. Nếu không phương thức này sẽ đưa ra lỗi.
 
-> Lưu ý rằng:
+> Lưu ý:
 >
 >`React.Children.only()` không cho phép trả về giá trị của [`React.Children.map()`](#reactchildrenmap) bởi vì nó là một mảng thay vì là một React element.
 
@@ -266,9 +266,9 @@ Xác thực rằng `children` có duy nhất một thành phần con (một Reac
 React.Children.toArray(children)
 ```
 
-Trả về "cấu trúc dữ liệu ẩn" (opaque data structure) của `children` dưới dạng mảng một chiều với "khoá" (keys) được gắng cho mỗi "thành phần con" (child). Điều này sẽ hữu ích nếu bạn muốn vận dụng "bộ sưu tập" (collections) trong phương thức render của bạn, đặt biệt nếu bạn muốn sắp xếp lại hoặc cắt `this.props.children` trước khi trả về.
+Trả về "cấu trúc dữ liệu ẩn" (opaque data structure) của `children` dưới dạng mảng một chiều với "khoá" (keys) được gắn cho mỗi "thành phần con" (child). Điều này sẽ hữu ích nếu bạn muốn vận dụng "bộ sưu tập" (collections) trong phương thức render của bạn, đặt biệt nếu bạn muốn sắp xếp lại hoặc cắt `this.props.children` trước khi trả về.
 
-> Lưu ý rằng:
+> Lưu ý:
 >
 > `React.Children.toArray()` thay đổi các khoá để giữ nguyên ngữ nghĩa của các mảng lồng nhau khi làm phẳng "flattening" danh sách của children. Nghĩa là, tiền tố `toArray` mỗi "khoá" (key) trong mảng được trả về sao cho mỗi phần thử khoá đặt trong mảng đầu vào có chứa nó.
 
@@ -294,7 +294,7 @@ Bạn cũng có thể sử dụng nó với cú pháp ngắn gọn sau đây `<>
 
 ### `React.createRef` {#reactcreateref}
 
-`React.createRef` tạo ra một [ref](/docs/refs-and-the-dom.html) có thể được gắng vào các phần tử (elements) của React thông qua "thuộc tính" (attribute) ref.
+`React.createRef` tạo ra một [ref](/docs/refs-and-the-dom.html) có thể được gắn vào các phần tử (elements) của React thông qua "thuộc tính" (attribute) ref.
 `embed:16-3-release-blog-post/create-ref-example.js`
 
 ### `React.forwardRef` {#reactforwardref}
@@ -316,7 +316,7 @@ Kết quả là, sau khi React đính kèm ref, `ref.current` sẽ trỏ trực 
 
 ### `React.lazy` {#reactlazy}
 
-`React.lazy()` cho phép bạn định nghĩa một "thành phần" (component) được "tải" (load) một cách "năng động" (dynamically). Nó giúp giảm kích thước `bundle` để trì hoãn việc tải các "thành phần" (components) mà nó không sử dụng trong thời điểm "biểu diễn" (render) ban đầu.
+`React.lazy()` cho phép bạn định nghĩa một "thành phần" (component) được "tải" (load) một cách "linh động" (dynamically). Nó giúp giảm kích thước `bundle` để trì hoãn việc tải các "thành phần" (components) mà nó không sử dụng trong thời điểm "biểu diễn" (render) ban đầu.
 
 Bạn có thể tìm hiểu cách sử dụng nó từ [tài liệu chia nhỏ mã](/docs/code-splitting.html#reactlazy) (code splitting documentation) của chúng tôi. Bạn có thể cũng muốn xem [bài viết này](https://medium.com/@pomber/lazy-loading-and-preloading-components-in-react-16-6-804de091c82d) giải thích làm thế nào để sử dụng nó chi tiết hơn.
 
@@ -325,9 +325,9 @@ Bạn có thể tìm hiểu cách sử dụng nó từ [tài liệu chia nhỏ m
 const SomeComponent = React.lazy(() => import('./SomeComponent'));
 ```
 
-Lưu ý rằng việc "biểu diễn" (rendering) các "thành phần" (components) `lazy` đòi hỏi phải có một "thành phần" (component) `<React.Suspense>` cao hơn trong "cây biểu diễn" (rendering tree). Đây là cách bạn chỉ định một "chỉ thị tải" (loading indicator).
+Lưu ý việc "biểu diễn" (rendering) các "thành phần" (components) `lazy` đòi hỏi phải có một "thành phần" (component) `<React.Suspense>` cao hơn trong "cây biểu diễn" (rendering tree). Đây là cách bạn chỉ định một "chỉ thị tải" (loading indicator).
 
-> **Lưu ý rằng**
+> **Lưu ý**
 >
 > Sử dụng `React.lazy` với "nạp động" (dynamic import) đòi hỏi phải có Promises trong môi trường JS. Điều này đỏi hỏi một polyfill trên IE11 hoặc thấp hơn.
 
@@ -351,10 +351,10 @@ function MyComponent() {
 }
 ```
 
-Nó được ghi lại trong [hướng dẫn tách mã](/docs/code-splitting.html#reactlazy) của chúng tôi. Lưu ý rằng các "thành phần" (component)`lazy` có thể nằm sâu bên trong cây `Suspense` -- nó không cần phải bọc từng cái một. Thói quen tốt nhất là đặt  `<Suspense>` nơi bạn muốn xem một sự kiện báo "tải" (loading), nhưng không dùng `lazy()` ở bất cứ nơi nào bạn muốn chia nhỏ mã.
+Nó được ghi lại trong [hướng dẫn tách mã](/docs/code-splitting.html#reactlazy) của chúng tôi. Lưu ý các "thành phần" (component)`lazy` có thể nằm sâu bên trong cây `Suspense` -- nó không cần phải bọc từng cái một. Thói quen tốt nhất là đặt  `<Suspense>` nơi bạn muốn xem một sự kiện báo "tải" (loading), nhưng không dùng `lazy()` ở bất cứ nơi nào bạn muốn chia nhỏ mã.
 
 Mặc dù điều này chưa được hỗ trợ hiện nay, nhưng trong tương lai chúng tôi có kế hoạch để cho `Suspense` xử lý nhiều kịch bản hơn như "nạp dữ liệu" (data fetching). Bạn có thể đọc về điều này trong [lộ trình của chúng tôi](/blog/2018/11/27/react-16-roadmap.html).
 
->Lưu ý rằng:
+>Lưu ý:
 >
 >`React.lazy()` và `<React.Suspense>` chưa được `ReactDOMServer` hỗ trợ. Đây là một điểm hạn chế sẽ được giải quyết trong tương lai.
