@@ -1,6 +1,6 @@
 ---
 id: react-api
-title: React Top-Level API
+title: React API cấp cao nhất
 layout: docs
 category: Reference
 permalink: docs/react-api.html
@@ -13,35 +13,35 @@ redirect_from:
   - "docs/top-level-api-zh-CN.html"
 ---
 
-`React` is the entry point to the React library. If you load React from a `<script>` tag, these top-level APIs are available on the `React` global. If you use ES6 with npm, you can write `import React from 'react'`. If you use ES5 with npm, you can write `var React = require('react')`.
+Để bắt đầu tìm hiểu về bộ thư viện React thì `React` package chính là điểm xuất phát. Nếu bạn load React trực tiếp từ một thẻ `script`, những API ở cấp cao nhất sẽ có sẵn trên React 'global'. Nếu bạn dùng ES6 và npm, bạn có dùng câu lệnh `import React from 'react'`. Nếu bạn dùng ES5 và npm, bạn có thể khai báo `var React = require('react')`.
 
-## Overview {#overview}
+## Giới thiệu chung {#overview}
 
 ### Components {#components}
 
-React components let you split the UI into independent, reusable pieces, and think about each piece in isolation. React components can be defined by subclassing `React.Component` or `React.PureComponent`.
+React components dùng để chia UI thành những thành phần nhỏ độc lập, có tính tái sử dụng, và xem xét chúng như một mảnh riêng biệt. Bạn có thể định nghĩa React components bằng cách kế thừa các lớp con của `React`: `React.Component` hay `React.PureComponent`.
 
  - [`React.Component`](#reactcomponent)
  - [`React.PureComponent`](#reactpurecomponent)
 
-If you don't use ES6 classes, you may use the `create-react-class` module instead. See [Using React without ES6](/docs/react-without-es6.html) for more information.
+Nếu bạn không sử dụng classes trong ES6, thì có thể dùng `create-react-class` module thay thế. Xem thêm [Không sử dụng ES6 trong React](/docs/react-without-es6.html) để hiểu rõ hơn.
 
-React components can also be defined as functions which can be wrapped:
+Các React component cũng có thể được định nghĩa như là những function được bao bọc bởi:
 
 - [`React.memo`](#reactmemo)
 
-### Creating React Elements {#creating-react-elements}
+### Tạo React Elements {#creating-react-elements}
 
-We recommend [using JSX](/docs/introducing-jsx.html) to describe what your UI should look like. Each JSX element is just syntactic sugar for calling [`React.createElement()`](#createelement). You will not typically invoke the following methods directly if you are using JSX.
+Chúng tôi khuyến khích bạn nên [sử dụng JSX](/docs/introducing-jsx.html) để cấu trúc phần UI (nó tương tự như HTML vậy). Mỗi JSX element được tạo ra bằng cách gọi hàm [`React.createElement()`](#createelement). Thông thường, bạn sẽ không cần gọi các "phương thức" (method) sau nếu bạn đang sử dụng JSX.
 
 - [`createElement()`](#createelement)
 - [`createFactory()`](#createfactory)
 
-See [Using React without JSX](/docs/react-without-jsx.html) for more information.
+Xem thêm [Không sử dụng JSX trong React](/docs/react-without-jsx.html) để hiểu rõ hơn.
 
-### Transforming Elements {#transforming-elements}
+### Việc chuyển đổi các element {#transforming-elements}
 
-`React` provides several APIs for manipulating elements:
+`React` cung cấp nhiều API để thao tác với các React element:
 
 - [`cloneElement()`](#cloneelement)
 - [`isValidElement()`](#isvalidelement)
@@ -49,7 +49,7 @@ See [Using React without JSX](/docs/react-without-jsx.html) for more information
 
 ### Fragments {#fragments}
 
-`React` also provides a component for rendering multiple elements without a wrapper.
+`React` cũng cung cấp một component cho việc render nhiều elements mà không cần thành phần bao bọc (giống như bạn phải có 1 thẻ `div` để bọc các thành phần con trong HTML).
 
 - [`React.Fragment`](#reactfragment)
 
@@ -60,20 +60,20 @@ See [Using React without JSX](/docs/react-without-jsx.html) for more information
 
 ### Suspense {#suspense}
 
-Suspense lets components "wait" for something before rendering. Today, Suspense only supports one use case: [loading components dynamically with `React.lazy`](/docs/code-splitting.html#reactlazy). In the future, it will support other use cases like data fetching.
+Suspense giúp cho components "chờ" để xử lý một việc gì đó trước khi rendering. Hiện tại, Suspense chỉ hỗ trợ trong một trường hợp duy nhất: [loading components linh hoạt với `React.lazy`](/docs/code-splitting.html#reactlazy). Trong tương lai, nó sẽ hỗ trợ các trường hợp khác như fetch dữ liệu từ bên ngoài (API, Socket, ...).
 
 - [`React.lazy`](#reactlazy)
 - [`React.Suspense`](#reactsuspense)
 
 ### Hooks {#hooks}
 
-*Hooks* are a new addition in React 16.8. They let you use state and other React features without writing a class. Hooks have a [dedicated docs section](/docs/hooks-intro.html) and a separate API reference:
+*Hooks* là một sự bổ sung từ phiên bản React 16.8. Chúng giúp cho bạn có thể sử dụng state và những features khác của React mà không cần phải viết một class. Hooks có hẳn một [chương tài liệu chuyên biệt](/docs/hooks-intro.html) và một bộ API riêng biệt:
 
-- [Basic Hooks](/docs/hooks-reference.html#basic-hooks)
+- [Các Hooks cơ bản](/docs/hooks-reference.html#basic-hooks)
   - [`useState`](/docs/hooks-reference.html#usestate)
   - [`useEffect`](/docs/hooks-reference.html#useeffect)
   - [`useContext`](/docs/hooks-reference.html#usecontext)
-- [Additional Hooks](/docs/hooks-reference.html#additional-hooks)
+- [Các Hooks bổ trợ](/docs/hooks-reference.html#additional-hooks)
   - [`useReducer`](/docs/hooks-reference.html#usereducer)
   - [`useCallback`](/docs/hooks-reference.html#usecallback)
   - [`useMemo`](/docs/hooks-reference.html#usememo)
@@ -88,7 +88,7 @@ Suspense lets components "wait" for something before rendering. Today, Suspense 
 
 ### `React.Component` {#reactcomponent}
 
-`React.Component` is the base class for React components when they are defined using [ES6 classes](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes):
+`React.Component` là lớp cơ sở cho các React components khi ta định nghĩa một component với [ES6 classes](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Classes):
 
 ```javascript
 class Greeting extends React.Component {
@@ -98,21 +98,21 @@ class Greeting extends React.Component {
 }
 ```
 
-See the [React.Component API Reference](/docs/react-component.html) for a list of methods and properties related to the base `React.Component` class.
+Xem thêm [React.Component API Reference](/docs/react-component.html) để tìm hiểu thêm danh sách các phương thức và thuộc tính liên quan đến lớp `React.Component` cơ sở.
 
 * * *
 
 ### `React.PureComponent` {#reactpurecomponent}
 
-`React.PureComponent` is similar to [`React.Component`](#reactcomponent). The difference between them is that [`React.Component`](#reactcomponent) doesn't implement [`shouldComponentUpdate()`](/docs/react-component.html#shouldcomponentupdate), but `React.PureComponent` implements it with a shallow prop and state comparison. 
+`React.PureComponent` cũng giống như [`React.Component`](#reactcomponent). Điểm khác biệt giữa chúng là [`React.Component`](#reactcomponent) không thực hiện hàm [`shouldComponentUpdate()`](/docs/react-component.html#shouldcomponentupdate), trong khi đó `React.PureComponent` thì có, nó sẽ so sánh nông (shallow) tất cả các thuộc tính của props và state để quyết định xem component này có cần update hay không.
 
-If your React component's `render()` function renders the same result given the same props and state, you can use `React.PureComponent` for a performance boost in some cases.
+Nếu như những React components của bạn gọi đến `render()` function để biểu diễn cùng kết quả với cùng props và state, bạn có thể sử dụng `React.PureComponent` để tăng hiệu suất cho ứng dụng trong một số trường hợp.
 
-> Note
+> Lưu ý
 >
-> `React.PureComponent`'s `shouldComponentUpdate()` only shallowly compares the objects. If these contain complex data structures, it may produce false-negatives for deeper differences. Only extend `PureComponent` when you expect to have simple props and state, or use [`forceUpdate()`](/docs/react-component.html#forceupdate) when you know deep data structures have changed. Or, consider using [immutable objects](https://facebook.github.io/immutable-js/) to facilitate fast comparisons of nested data.
+> Phương thức `shouldComponentUpdate()` của `React.PureComponent` chỉ so sánh nông (shallow) các đối tượng. Nếu chúng có cấu trúc dữ liệu phức tạp, có thể xảy ra trường hợp bỏ sót nếu sự khác biệt nằm sâu bên trong. Chỉ kế thừa `PureComponent` khi bạn có props và state đơn giản, hoặc sử dụng [`forceUpdate()`](/docs/react-component.html#forceupdate) nếu bạn chắc chắc rằng cấu trúc dữ liệu đã bị thay đổi. Hoặc, bạn có thể sử dụng  [immutable objects](https://facebook.github.io/immutable-js/) để dễ dàng so sánh nhanh các dữ liệu lồng nhau.
 >
-> Furthermore, `React.PureComponent`'s `shouldComponentUpdate()` skips prop updates for the whole component subtree. Make sure all the children components are also "pure".
+> Hơn nữa, "phương thức" (method) `shouldComponentUpdate()` của `React.PureComponent` bỏ qua việc cập nhật prop cho toàn bộ các component con. Nên hãy chắc chắn rằng các component con cũng là "pure".
 
 * * *
 
@@ -124,11 +124,11 @@ const MyComponent = React.memo(function MyComponent(props) {
 });
 ```
 
-`React.memo` is a [higher order component](/docs/higher-order-components.html). It's similar to [`React.PureComponent`](#reactpurecomponent) but for function components instead of classes.
+`React.memo` là một [component bậc cao](/docs/higher-order-components.html) (higher order component). Nó tương tự như [`React.PureComponent`](#reactpurecomponent) nhưng là dạng function components chứ không phải là classes.
 
-If your function component renders the same result given the same props, you can wrap it in a call to `React.memo` for a performance boost in some cases by memoizing the result. This means that React will skip rendering the component, and reuse the last rendered result.
+Nếu function component của bạn biểu diễn cùng kết quả với cùng props, bạn có thể gói chúng lại và gọi đến `React.memo` để tăng hiệu năng trong một số trường hợp bằng cách ghi nhớ kết quả. Điều này có nghĩa là React sẽ bỏ qua việc render component, và sử dụng lại kết quả đã render lần cuối cùng.
 
-By default it will only shallowly compare complex objects in the props object. If you want control over the comparison, you can also provide a custom comparison function as the second argument.
+Mặc định nó sẽ chỉ so sánh nông (shallow) các đối tượng phức tạp bên trong đối tượng props. Nếu bạn muốn kiểm soát toàn bộ việc so sánh, bạn cũng có thể cung cấp một hàm so sánh tuỳ chỉnh ở đối số thứ hai.
 
 ```javascript
 function MyComponent(props) {
@@ -144,11 +144,11 @@ function areEqual(prevProps, nextProps) {
 export default React.memo(MyComponent, areEqual);
 ```
 
-This method only exists as a **[performance optimization](/docs/optimizing-performance.html).** Do not rely on it to "prevent" a render, as this can lead to bugs.
+Phương thức này tồn tại như một cách **[tối ưu hiệu suất](/docs/optimizing-performance.html)** (performance optimization). Đừng dựa vào nó để "ngăn" việc render component, vì rất dễ gây ra lỗi.
 
-> Note
+> Lưu ý
 >
-> Unlike the [`shouldComponentUpdate()`](/docs/react-component.html#shouldcomponentupdate) method on class components, the `areEqual` function returns `true` if the props are equal and `false` if the props are not equal. This is the inverse from `shouldComponentUpdate`.
+> Không giống như method [`shouldComponentUpdate()`](/docs/react-component.html#shouldcomponentupdate) trong class components, hàm `areEqual` trả về `true` nếu các props bằng nhau và trả về `false` nếu các props không bằng nhau. Nó ngược lại với hàm `shouldComponentUpdate`.
 
 * * *
 
@@ -162,9 +162,9 @@ React.createElement(
 )
 ```
 
-Create and return a new [React element](/docs/rendering-elements.html) of the given type. The type argument can be either a tag name string (such as `'div'` or `'span'`), a [React component](/docs/components-and-props.html) type (a class or a function), or a [React fragment](#reactfragment) type.
+Tạo và trả về một [React element](/docs/rendering-elements.html) mới theo kiểu truyền vào. Đối số `type` có thể là tên của thẻ dạng ký tự (ví dụ như `'div'` hay `'span'`), một kiểu [React component](/docs/components-and-props.html) (class hay function), hoặc là một loại [React fragment](#reactfragment).
 
-Code written with [JSX](/docs/introducing-jsx.html) will be converted to use `React.createElement()`. You will not typically invoke `React.createElement()` directly if you are using JSX. See [React Without JSX](/docs/react-without-jsx.html) to learn more.
+Mã được viết bằng [JSX](/docs/introducing-jsx.html) sẽ được chuyển đổi để sử dụng `React.createElement()`. Thông thường, bạn sẽ không cần gọi trực tiếp `React.createElement()` nếu bạn sử dụng JSX. Xem thêm [Không sử dụng JSX trong React](/docs/react-without-jsx.html) để hiểu rõ hơn.
 
 * * *
 
@@ -178,17 +178,17 @@ React.cloneElement(
 )
 ```
 
-Clone and return a new React element using `element` as the starting point. The resulting element will have the original element's props with the new props merged in shallowly. New children will replace existing children. `key` and `ref` from the original element will be preserved.
+Sao chép và trả về một React element mới bằng cách sử dụng `element` làm điểm bắt đầu. Element kết quả có các props của element gốc kết hợp nông (shallowly) với các props mới. Thành phần con mới sẽ thay thế thành phần con hiện có. `key` và `ref` từ element gốc sẽ được giữ nguyên.
 
-`React.cloneElement()` is almost equivalent to:
+`React.cloneElement()` gần như là tương đương với:
 
 ```js
 <element.type {...element.props} {...props}>{children}</element.type>
 ```
 
-However, it also preserves `ref`s. This means that if you get a child with a `ref` on it, you won't accidentally steal it from your ancestor. You will get the same `ref` attached to your new element.
+Tuy nhiên, nó cũng sẽ giữ lại các `ref`. Điều này có nghĩa rằng nếu bạn có một thành phần con cùng với một `ref` trên nó, bạn đã vô tình đánh cắp nó từ các thành phần cha. Bạn sẽ nhận được cùng `ref` đính kèm trên element mới của bạn.
 
-This API was introduced as a replacement of the deprecated `React.addons.cloneWithProps()`.
+API này được giới thiệu như là một giải pháp thay thế cho `React.addons.cloneWithProps()` không được dùng nữa.
 
 * * *
 
@@ -198,11 +198,11 @@ This API was introduced as a replacement of the deprecated `React.addons.cloneWi
 React.createFactory(type)
 ```
 
-Return a function that produces React elements of a given type. Like [`React.createElement()`](#createElement), the type argument can be either a tag name string (such as `'div'` or `'span'`), a [React component](/docs/components-and-props.html) type (a class or a function), or a [React fragment](#reactfragment) type.
+Trả về một hàm tạo ra các React element theo kiểu truyền vào. Giống như [`React.createElement()`](#createElement), đối số `type` có thể là tên của thẻ dạng ký tự (ví dụ như `'div'` hay `'span'`), một kiểu [React component](/docs/components-and-props.html) (class hay function), hoặc là một loại [React fragment](#reactfragment).
 
-This helper is considered legacy, and we encourage you to either use JSX or use `React.createElement()` directly instead.
+Hàm này được coi là di sản, và chúng tôi khuyến khích bạn sử dụng JSX hoặc sử dụng trực tiếp `React.createElement()`.
 
-You will not typically invoke `React.createFactory()` directly if you are using JSX. See [React Without JSX](/docs/react-without-jsx.html) to learn more.
+Thông thường, bạn sẽ không gọi trực tiếp `React.createFactory()` nếu bạn sử dụng JSX. Xem thêm [Không sử dụng JSX trong React](/docs/react-without-jsx.html) để tìm hiểu thêm.
 
 * * *
 
@@ -212,13 +212,13 @@ You will not typically invoke `React.createFactory()` directly if you are using 
 React.isValidElement(object)
 ```
 
-Verifies the object is a React element. Returns `true` or `false`.
+Để xác thực đối tượng là một React element. Trả về `true` hoặc `false`.
 
 * * *
 
 ### `React.Children` {#reactchildren}
 
-`React.Children` provides utilities for dealing with the `this.props.children` opaque data structure.
+`React.Children` cung cấp các tiện ích để tương tác với "cấu trúc dữ liệu ẩn" (opaque data structure) `this.props.children`.
 
 #### `React.Children.map` {#reactchildrenmap}
 
@@ -226,11 +226,11 @@ Verifies the object is a React element. Returns `true` or `false`.
 React.Children.map(children, function[(thisArg)])
 ```
 
-Invokes a function on every immediate child contained within `children` with `this` set to `thisArg`. If `children` is an array it will be traversed and the function will be called for each child in the array. If children is `null` or `undefined`, this method will return `null` or `undefined` rather than an array.
+Gọi ngay một hàm trên mỗi thành phần con, bên trong là `children` cùng với `this` được gáng cho `thisArg`. Nếu `children` là một mảng nó sẽ duyệt mảng đó và hàm sẽ được thực thi cho mỗi thành phần con trong mảng. Nếu `children` là `null` hoặc `undefined`, phương thức này sẽ trả về  `null` hoặc `undefined` thay vì là một mảng.
 
-> Note
+> Lưu ý
 >
-> If `children` is a `Fragment` it will be treated as a single child and not traversed.
+> Nếu `children` là một `Fragment` nó sẽ được xem như là một thành phần con đơn lẻ và không đi qua.
 
 #### `React.Children.forEach` {#reactchildrenforeach}
 
@@ -238,7 +238,7 @@ Invokes a function on every immediate child contained within `children` with `th
 React.Children.forEach(children, function[(thisArg)])
 ```
 
-Like [`React.Children.map()`](#reactchildrenmap) but does not return an array.
+Giống như [`React.Children.map()`](#reactchildrenmap) nhưng không trả về một mảng.
 
 #### `React.Children.count` {#reactchildrencount}
 
@@ -246,7 +246,7 @@ Like [`React.Children.map()`](#reactchildrenmap) but does not return an array.
 React.Children.count(children)
 ```
 
-Returns the total number of components in `children`, equal to the number of times that a callback passed to `map` or `forEach` would be invoked.
+Trả về tổng số lượng các component trong `children`, bằng đúng với số lần hàm callback sẽ được gọi trong `map` hay `forEach`.
 
 #### `React.Children.only` {#reactchildrenonly}
 
@@ -254,11 +254,11 @@ Returns the total number of components in `children`, equal to the number of tim
 React.Children.only(children)
 ```
 
-Verifies that `children` has only one child (a React element) and returns it. Otherwise this method throws an error.
+Xác thực rằng `children` có duy nhất một thành phần con (một React element) và trả về element đó. Nếu không phương thức này sẽ đưa ra lỗi.
 
-> Note:
+> Lưu ý:
 >
->`React.Children.only()` does not accept the return value of [`React.Children.map()`](#reactchildrenmap) because it is an array rather than a React element.
+>`React.Children.only()` không cho phép trả về giá trị của [`React.Children.map()`](#reactchildrenmap) bởi vì nó là một mảng thay vì là một React element.
 
 #### `React.Children.toArray` {#reactchildrentoarray}
 
@@ -266,17 +266,17 @@ Verifies that `children` has only one child (a React element) and returns it. Ot
 React.Children.toArray(children)
 ```
 
-Returns the `children` opaque data structure as a flat array with keys assigned to each child. Useful if you want to manipulate collections of children in your render methods, especially if you want to reorder or slice `this.props.children` before passing it down.
+Trả về "cấu trúc dữ liệu ẩn" (opaque data structure) của `children` dưới dạng mảng một chiều với "khoá" (keys) được gắn cho mỗi "thành phần con" (child). Điều này sẽ hữu ích nếu bạn muốn vận dụng "bộ sưu tập" (collections) trong phương thức render của bạn, đặt biệt nếu bạn muốn sắp xếp lại hoặc cắt `this.props.children` trước khi trả về.
 
-> Note:
+> Lưu ý:
 >
-> `React.Children.toArray()` changes keys to preserve the semantics of nested arrays when flattening lists of children. That is, `toArray` prefixes each key in the returned array so that each element's key is scoped to the input array containing it.
+> `React.Children.toArray()` thay đổi các khoá để giữ nguyên ngữ nghĩa của các mảng lồng nhau khi làm phẳng "flattening" danh sách của children. Nghĩa là, tiền tố `toArray` mỗi "khoá" (key) trong mảng được trả về sao cho mỗi phần thử khoá đặt trong mảng đầu vào có chứa nó.
 
 * * *
 
 ### `React.Fragment` {#reactfragment}
 
-The `React.Fragment` component lets you return multiple elements in a `render()` method without creating an additional DOM element:
+`React.Fragment` component cho phép bạn trả về nhiều "phần tử" (elements) trong một phương thức `render()` mà không cần tạo "phần tử" (element) DOM:
 
 ```javascript
 render() {
@@ -289,51 +289,51 @@ render() {
 }
 ```
 
-You can also use it with the shorthand `<></>` syntax. For more information, see [React v16.2.0: Improved Support for Fragments](/blog/2017/11/28/react-v16.2.0-fragment-support.html).
+Bạn cũng có thể sử dụng nó với cú pháp ngắn gọn sau đây `<></>`. Để có thêm thông tin, xem thêm [React v16.2.0: Cải thiện hỗ trợ cho Fragments](/blog/2017/11/28/react-v16.2.0-fragment-support.html) (Improved Support for Fragments).
 
 
 ### `React.createRef` {#reactcreateref}
 
-`React.createRef` creates a [ref](/docs/refs-and-the-dom.html) that can be attached to React elements via the ref attribute.
+`React.createRef` tạo ra một [ref](/docs/refs-and-the-dom.html) có thể được gắn vào các phần tử (elements) của React thông qua "thuộc tính" (attribute) ref.
 `embed:16-3-release-blog-post/create-ref-example.js`
 
 ### `React.forwardRef` {#reactforwardref}
 
-`React.forwardRef` creates a React component that forwards the [ref](/docs/refs-and-the-dom.html) attribute it receives to another component below in the tree. This technique is not very common but is particularly useful in two scenarios:
+`React.forwardRef` tạo ra một "thành phần" (component) React, giúp "chuyển tiếp" (forwards) "thuộc tính" (attribute) [ref](/docs/refs-and-the-dom.html) mà nó nhận được cho các thành phần khác bên dưới "cây" (tree). Kỹ thuật này không thật sự phổ biến nhưng lại đặc biệt hữu ích trong hai tình huống sau:
 
-* [Forwarding refs to DOM components](/docs/forwarding-refs.html#forwarding-refs-to-dom-components)
-* [Forwarding refs in higher-order-components](/docs/forwarding-refs.html#forwarding-refs-in-higher-order-components)
+* [Chuyển tiếp refs tới các "thành phần" DOM](/docs/forwarding-refs.html#forwarding-refs-to-dom-components) (Forwarding refs to DOM components)
+* [Chuyển tiếp refs trong các "thành phần" bậc cao](/docs/forwarding-refs.html#forwarding-refs-in-higher-order-components) (Forwarding refs in higher-order-components)
 
-`React.forwardRef` accepts a rendering function as an argument. React will call this function with `props` and `ref` as two arguments. This function should return a React node.
+`React.forwardRef` chấp nhận một "hàm biểu diễn" (rendering function) là một đối số. React sẽ gọi đến hàm này với hai đối số là `props` và `ref`. Hàm này nên trả về một "nút" (node) React.
 
 `embed:reference-react-forward-ref.js`
 
-In the above example, React passes a `ref` given to `<FancyButton ref={ref}>` element as a second argument to the rendering function inside the `React.forwardRef` call. This rendering function passes the `ref` to the `<button ref={ref}>` element.
+Trong ví dụ trên, React chuyển một `ref` truyền vào "phần tử" (element) `<FancyButton ref={ref}>` ở đối số thứ hai cho "hàm biểu diễn" (rendering function) bên trong lệnh gọi `React.forwardRef`. "Hàm biểu diễn" (rendering function) này chuyển `ref` cho "phần tử" (element) `<button ref={ref}>`.
 
-As a result, after React attaches the ref, `ref.current` will point directly to the `<button>` DOM element instance.
+Kết quả là, sau khi React đính kèm ref, `ref.current` sẽ trỏ trực tiếp tới "phần tử" (element) "đối tượng" (instance) `<button>` DOM.
 
-For more information, see [forwarding refs](/docs/forwarding-refs.html).
+Để có thểm thông tin, xem thêm ["chuyển tiếp" refs](/docs/forwarding-refs.html) (forwarding refs).
 
 ### `React.lazy` {#reactlazy}
 
-`React.lazy()` lets you define a component that is loaded dynamically. This helps reduce the bundle size to delay loading components that aren't used during the initial render.
+`React.lazy()` cho phép bạn định nghĩa một "thành phần" (component) được "tải" (load) một cách "linh động" (dynamically). Nó giúp giảm kích thước `bundle` để trì hoãn việc tải các "thành phần" (components) mà nó không sử dụng trong thời điểm "biểu diễn" (render) ban đầu.
 
-You can learn how to use it from our [code splitting documentation](/docs/code-splitting.html#reactlazy). You might also want to check out [this article](https://medium.com/@pomber/lazy-loading-and-preloading-components-in-react-16-6-804de091c82d) explaining how to use it in more detail.
+Bạn có thể tìm hiểu cách sử dụng nó từ [tài liệu chia nhỏ mã](/docs/code-splitting.html#reactlazy) (code splitting documentation) của chúng tôi. Bạn có thể cũng muốn xem [bài viết này](https://medium.com/@pomber/lazy-loading-and-preloading-components-in-react-16-6-804de091c82d) giải thích làm thế nào để sử dụng nó chi tiết hơn.
 
 ```js
 // This component is loaded dynamically
 const SomeComponent = React.lazy(() => import('./SomeComponent'));
 ```
 
-Note that rendering `lazy` components requires that there's a `<React.Suspense>` component higher in the rendering tree. This is how you specify a loading indicator.
+Lưu ý việc "biểu diễn" (rendering) các "thành phần" (components) `lazy` đòi hỏi phải có một "thành phần" (component) `<React.Suspense>` cao hơn trong "cây biểu diễn" (rendering tree). Đây là cách bạn chỉ định một "chỉ thị tải" (loading indicator).
 
-> **Note**
+> **Lưu ý**
 >
-> Using `React.lazy`with dynamic import requires Promises to be available in the JS environment. This requires a polyfill on IE11 and below.
+> Sử dụng `React.lazy` với "nạp động" (dynamic import) đòi hỏi phải có Promises trong môi trường JS. Điều này đỏi hỏi một polyfill trên IE11 hoặc thấp hơn.
 
 ### `React.Suspense` {#reactsuspense}
 
-`React.Suspense` let you specify the loading indicator in case some components in the tree below it are not yet ready to render. Today, lazy loading components is the **only** use case supported by `<React.Suspense>`:
+`React.Suspense` cho phép bạn chỉ định "chỉ thị tải" trong trường hợp một số "thành phần" (component) trong cây bên dưới chưa sẵn sàng để "biểu diễn" (render). Hiện tại, các "thành phần" (component) lazy loading là trường hợp sử dụng **duy nhất** được hỗ trợ bởi `<React.Suspense>`:
 
 ```js
 // This component is loaded dynamically
@@ -351,10 +351,10 @@ function MyComponent() {
 }
 ```
 
-It is documented in our [code splitting guide](/docs/code-splitting.html#reactlazy). Note that `lazy` components can be deep inside the `Suspense` tree -- it doesn't have to wrap every one of them. The best practice is to place `<Suspense>` where you want to see a loading indicator, but to use `lazy()` wherever you want to do code splitting.
+Nó được ghi lại trong [hướng dẫn tách mã](/docs/code-splitting.html#reactlazy) của chúng tôi. Lưu ý các "thành phần" (component)`lazy` có thể nằm sâu bên trong cây `Suspense` -- nó không cần phải bọc từng cái một. Thói quen tốt nhất là đặt  `<Suspense>` nơi bạn muốn xem một sự kiện báo "tải" (loading), nhưng không dùng `lazy()` ở bất cứ nơi nào bạn muốn chia nhỏ mã.
 
-While this is not supported today, in the future we plan to let `Suspense` handle more scenarios such as data fetching. You can read about this in [our roadmap](/blog/2018/11/27/react-16-roadmap.html).
+Mặc dù điều này chưa được hỗ trợ hiện nay, nhưng trong tương lai chúng tôi có kế hoạch để cho `Suspense` xử lý nhiều kịch bản hơn như "nạp dữ liệu" (data fetching). Bạn có thể đọc về điều này trong [lộ trình của chúng tôi](/blog/2018/11/27/react-16-roadmap.html).
 
->Note:
+>Lưu ý:
 >
->`React.lazy()` and `<React.Suspense>` are not yet supported by `ReactDOMServer`. This is a known limitation that will be resolved in the future.
+>`React.lazy()` và `<React.Suspense>` chưa được `ReactDOMServer` hỗ trợ. Đây là một điểm hạn chế sẽ được giải quyết trong tương lai.
