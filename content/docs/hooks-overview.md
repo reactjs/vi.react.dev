@@ -14,7 +14,7 @@ Hooks [tương thích với các phiên bản trước](/docs/hooks-intro.html#n
 >
 >Đọc phần [nguồn cảm hứng](/docs/hooks-intro.html#motivation) để biết tại sao chúng tôi giới thiệu Hooks tới React.
 
-**↑↑↑ Mỗi phần sẽ kết thúc với một phần đóng khung vàng như này..** Chúng dẫn đến diễn giải chi tiết.
+**↑↑↑ Mỗi phần sẽ kết thúc với một phần đóng khung vàng như này.** Chúng dẫn đến trang diễn giải chi tiết.
 
 ## 📌 State Hook {#state-hook}
 
