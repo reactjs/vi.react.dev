@@ -1,80 +1,80 @@
 ---
 id: hooks-overview
-title: Hooks at a Glance
+title: Cái nhìn đầu tiên về Hooks
 permalink: docs/hooks-overview.html
 next: hooks-state.html
 prev: hooks-intro.html
 ---
 
-*Hooks* are a new addition in React 16.8. They let you use state and other React features without writing a class.
+*Hooks* mới được thêm ở phiên bản React 16.8. Cho phép bạn sử dụng state và các chức năng khác của React mà không cần tạo class.
 
-Hooks are [backwards-compatible](/docs/hooks-intro.html#no-breaking-changes). This page provides an overview of Hooks for experienced React users. This is a fast-paced overview. If you get confused, look for a yellow box like this:
+Hooks [tương thích với các phiên bản trước](/docs/hooks-intro.html#no-breaking-changes). Trang này cung cấp thông tin tổng quan về Hooks cho người dùng React có kinh nghiệm. Trang này giới thiệu nhanh. Nếu bạn thấy bối rối, hãy tìm phần đóng khung vàng như này:
 
->Detailed Explanation
+>Diễn giải chi tiết
 >
->Read the [Motivation](/docs/hooks-intro.html#motivation) to learn why we're introducing Hooks to React.
+>Đọc phần [nguồn cảm hứng](/docs/hooks-intro.html#motivation) để biết tại sao chúng tôi giới thiệu Hooks tới React.
 
-**↑↑↑ Each section ends with a yellow box like this.** They link to detailed explanations.
+**↑↑↑ Mỗi phần sẽ kết thúc với một phần đóng khung vàng như này..** Chúng dẫn đến diễn giải chi tiết.
 
 ## 📌 State Hook {#state-hook}
 
-This example renders a counter. When you click the button, it increments the value:
+Ví dụ này làm một bộ đếm. Khi bạn bấm vào nút, giá trị sẽ tăng 1:
 
 ```js{1,4,5}
 import React, { useState } from 'react';
 
 function Example() {
-  // Declare a new state variable, which we'll call "count"
+  // Khai báo 1 biến số đếm, gọi là "count"
   const [count, setCount] = useState(0);
 
   return (
     <div>
-      <p>You clicked {count} times</p>
+      <p>Bạn đã bấm {count} lần</p>
       <button onClick={() => setCount(count + 1)}>
-        Click me
+        Bấm vào tôi
       </button>
     </div>
   );
 }
 ```
 
-Here, `useState` is a *Hook* (we'll talk about what this means in a moment). We call it inside a function component to add some local state to it. React will preserve this state between re-renders. `useState` returns a pair: the *current* state value and a function that lets you update it. You can call this function from an event handler or somewhere else. It's similar to `this.setState` in a class, except it doesn't merge the old and new state together. (We'll show an example comparing `useState` to `this.state` in [Using the State Hook](/docs/hooks-state.html).)
+Tại đây, `useState` là một *Hook* (chúng tôi sẽ nói về ý nghĩa của nó lát nữa). Chúng tôi gọi nó trong một function component để thêm local state cho nó. React sẽ giữ trạng thái này giữa các lần render lại. `useState` trả về một cặp: giá trị state *hiện tại* và một hàm cho phép bạn cập nhật trạng thái đó. Bạn có thể gọi hàm này từ một event handler hoặc nơi nào đó khác. Nó tương tự như `this.setState` trong một class, ngoại trừ việc nó không gộp trạng thái cũ với trạng thái mới. (Chúng tôi sẽ đưa ra một ví dụ so sánh `useState` với `this.state` trong [Sử dụng State Hook](/docs/hooks-state.html).)
 
-The only argument to `useState` is the initial state. In the example above, it is `0` because our counter starts from zero. Note that unlike `this.state`, the state here doesn't have to be an object -- although it can be if you want. The initial state argument is only used during the first render.
+Đối số duy nhất của `useState` là trạng thái khởi tạo. Trong ví dụ trên, nó là `0` bởi vì bộ đếm của chúng ta bắt đầu từ số không. Chú ý rằng không giống `this.state`, trạng thái ở đây không cần phải là 1 đối tượng -- mặc dù nó có thể nếu bạn muốn. Đối số trạng thái khởi tạo chỉ sử dụng trong lần render đầu tiên.
 
-#### Declaring multiple state variables {#declaring-multiple-state-variables}
+#### Khai báo nhiều biến trạng thái {#declaring-multiple-state-variables}
 
-You can use the State Hook more than once in a single component:
+Bạn có thể sử dụng State Hook nhiều hơn một lần trên một component:
 
 ```js
 function ExampleWithManyStates() {
-  // Declare multiple state variables!
+  // Khai báo nhiều biến trạng thái!
   const [age, setAge] = useState(42);
-  const [fruit, setFruit] = useState('banana');
-  const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
+  const [fruit, setFruit] = useState('chuối');
+  const [todos, setTodos] = useState([{ text: 'Học Hooks' }]);
   // ...
 }
 ```
 
-The [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring) syntax lets us give different names to the state variables we declared by calling `useState`. These names aren't a part of the `useState` API. Instead, React assumes that if you call `useState` many times, you do it in the same order during every render. We'll come back to why this works and when this is useful later.
+Cú pháp [array destructuring](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring) cho phép chúng ta dùng các tên khác nhau cho các biến trạng thái khi khai báo gọi hàm `useState`. Các tên đó không thuộc về `useState` API. Thay vì thế, React giả sử nếu bạn gọi `useState` nhiều lần, bạn làm thế trên cùng thứ tự mọi lần render. Chúng tôi sẽ giải thích tại sao cái này hoạt động và khi nào nó hữu ích sau.
 
-#### But what is a Hook? {#but-what-is-a-hook}
+#### Nhưng Hook là gì? {#but-what-is-a-hook}
 
-Hooks are functions that let you “hook into” React state and lifecycle features from function components. Hooks don't work inside classes -- they let you use React without classes. (We [don't recommend](/docs/hooks-intro.html#gradual-adoption-strategy) rewriting your existing components overnight but you can start using Hooks in the new ones if you'd like.)
+Hooks là các hàm mà cho phép bạn "hook into (móc vào)" trạng thái của React và các tính năng vòng đời  từ các hàm components. Hooks không hoạt động bên trong classes -- chúng cho phép bạn sử dụng React không cần classes. (Chúng tôi [không khuyến khích](/docs/hooks-intro.html#gradual-adoption-strategy) viết lại các components hiện tại của bạn qua đêm nhưng bạn có thể sử dụng Hooks trong những cái mới nếu bạn thích.)
 
-React provides a few built-in Hooks like `useState`. You can also create your own Hooks to reuse stateful behavior between different components. We'll look at the built-in Hooks first.
+React cung cấp một vài Hooks sẵn có như `useState`. Bạn cũng có thể tạo Hooks của bạn để sử dụng lại những hành vi có trạng thái giữa các components khác nhau. Chúng tôi sẽ xem các Hooks có sẵn trước.
 
->Detailed Explanation
+>Diễn giải chi tiết
 >
->You can learn more about the State Hook on a dedicated page: [Using the State Hook](/docs/hooks-state.html).
+>Bạn có thể học thêm về State Hook tại: [Sử dụng State Hook](/docs/hooks-state.html).
 
 ## ⚡️ Effect Hook {#effect-hook}
 
-You've likely performed data fetching, subscriptions, or manually changing the DOM from React components before. We call these operations "side effects" (or "effects" for short) because they can affect other components and can't be done during rendering.
+Bạn thực hiện lấy dữ liệu, đăng ký, hoặc thay đổi DOM thủ công từ React components trước đây. Chúng tôi gọi các hoạt động đó là "side effects" (hoặc "effects" cho ngắn) bởi vì chúng có thể ảnh hưởng các components khác và không để xong trong qua trình render.
 
-The Effect Hook, `useEffect`, adds the ability to perform side effects from a function component. It serves the same purpose as `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` in React classes, but unified into a single API. (We'll show examples comparing `useEffect` to these methods in [Using the Effect Hook](/docs/hooks-effect.html).)
+Effect Hook, `useEffect`, thêm khả năng để thực hiện side effects từ các components dạng hàm. Nó phục vụ cùng mục đích như `componentDidMount`, `componentDidUpdate`, và `componentWillUnmount` trong React classes, nhưng thống nhất lại trong một API duy nhất. (Chúng tôi sẽ đưa ra ví dụ so sánh `useEffect` cùng các phương thức trong [Sử dụng Effect Hook](/docs/hooks-effect.html).)
 
-For example, this component sets the document title after React updates the DOM:
+Ví dụ, các components này cài đặt tiêu đề của trang web sau khi React cập nhật DOM:
 
 ```js{1,6-10}
 import React, { useState, useEffect } from 'react';
@@ -82,26 +82,26 @@ import React, { useState, useEffect } from 'react';
 function Example() {
   const [count, setCount] = useState(0);
 
-  // Similar to componentDidMount and componentDidUpdate:
+  // Giống componentDidMount và componentDidUpdate:
   useEffect(() => {
-    // Update the document title using the browser API
-    document.title = `You clicked ${count} times`;
+    // Cập nhật tiêu đề trang web sử dụng API trình duyệt
+    document.title = `Bạn đã bấm ${count} lần`;
   });
 
   return (
     <div>
-      <p>You clicked {count} times</p>
+      <p>Bạn đã bấm {count} lần</p>
       <button onClick={() => setCount(count + 1)}>
-        Click me
+        Bấm vào tôi
       </button>
     </div>
   );
 }
 ```
 
-When you call `useEffect`, you're telling React to run your "effect" function after flushing changes to the DOM. Effects are declared inside the component so they have access to its props and state. By default, React runs the effects after every render -- *including* the first render. (We'll talk more about how this compares to class lifecycles in [Using the Effect Hook](/docs/hooks-effect.html).)
+Khi bạn gọi `useEffect`, bạn đã nói với React chạy hàm "effect" của bạn sau khi đẩy những thay đổi tới DOM. Effects được khai báo bên trong component vây chúng có truy cập đến props và state. Mặc định, React chạy các effects sau mỗi render -- *bao gồm* lần render đầu tiên. (Chúng tôi sẽ nói thêm về cách chúng so sánh với vòng đời trong class trong [Sử dụng Effect Hook](/docs/hooks-effect.html).)
 
-Effects may also optionally specify how to "clean up" after them by returning a function. For example, this component uses an effect to subscribe to a friend's online status, and cleans up by unsubscribing from it:
+Effects có thể tuỳ chọn xác định cách "dọn dẹp" bằng cách trả về một hàm. Ví dụ, component này sử dụng một effect để đăng ký theo dõi trạng thái online của bạn bè, và dọn dẹp bằng cách huỷ theo dõi:
 
 ```js{10-16}
 import React, { useState, useEffect } from 'react';
@@ -122,21 +122,21 @@ function FriendStatus(props) {
   });
 
   if (isOnline === null) {
-    return 'Loading...';
+    return 'Đang tải...';
   }
   return isOnline ? 'Online' : 'Offline';
 }
 ```
 
-In this example, React would unsubscribe from our `ChatAPI` when the component unmounts, as well as before re-running the effect due to a subsequent render. (If you want, there's a way to [tell React to skip re-subscribing](/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects) if the `props.friend.id` we passed to `ChatAPI` didn’t change.)
+Trong ví dụ này, React huỷ đăng ký `ChatAPI` khi component unmount, cũng như trước việc chạy lại effect vì subsequent render. (Nếu bạn muốn, có một cách để [React bỏ qua việc đăng ký lại](/docs/hooks-effect.html#tip-optimizing-performance-by-skipping-effects) nếu `props.friend.id` chúng ta truyền vào `ChatAPI` đã không thay đổi.)
 
-Just like with `useState`, you can use more than a single effect in a component:
+Giống như `useState`, bạn có thể sử dụng nhiều hơn một effect trong một component:
 
 ```js{3,8}
 function FriendStatusWithCounter(props) {
   const [count, setCount] = useState(0);
   useEffect(() => {
-    document.title = `You clicked ${count} times`;
+    document.title = `Bạn đã bấm ${count} lần`;
   });
 
   const [isOnline, setIsOnline] = useState(null);
@@ -153,32 +153,33 @@ function FriendStatusWithCounter(props) {
   // ...
 ```
 
-Hooks let you organize side effects in a component by what pieces are related (such as adding and removing a subscription), rather than forcing a split based on lifecycle methods.
+Hooks cho phép bạn tổ chức side effects trong một component bằng những phần được liên quan (chẳng hạn như thêm hoặc xoá đăng ký), hơn là ép chia theo các hàm vòng đời.
 
->Detailed Explanation
+>Diễn giải chi tiết
 >
->You can learn more about `useEffect` on a dedicated page: [Using the Effect Hook](/docs/hooks-effect.html).
+>Bạn có thể học thêm về `useEffect` trên trang: [Sử dụng Effect Hook](/docs/hooks-effect.html).
 
-## ✌️ Rules of Hooks {#rules-of-hooks}
+## ✌️ Quy tắc của Hooks {#rules-of-hooks}
 
-Hooks are JavaScript functions, but they impose two additional rules:
+Hooks là các hàm Javascript, nhưng nó bắt buộc thêm hai quy tắc:
 
-* Only call Hooks **at the top level**. Don’t call Hooks inside loops, conditions, or nested functions.
-* Only call Hooks **from React function components**. Don’t call Hooks from regular JavaScript functions. (There is just one other valid place to call Hooks -- your own custom Hooks. We'll learn about them in a moment.)
+* Chỉ gọi Hooks **trên cùng**. Không gọi Hooks bên trong vòng lặp, điều kiện, hoặc các hàm lồng nhau.
+* Chỉ gọi Hooks **từ các React components dạng hàm**. Không gọi Hooks từ hàm JavaScript bình thường. (Chỉ có một chỗ khác đúng để gọi Hooks -- Hooks tuỳ chọn của bạn. Chúng ta sẽ học vào chúng sau.)
 
-We provide a [linter plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks) to enforce these rules automatically. We understand these rules might seem limiting or confusing at first, but they are essential to making Hooks work well.
+Chúng tôi cung cấp [linter plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks) để ép những quy tắc trên tự động. Chúng tôi hiểu là những quy tắc trên dường như có giới hạn và bối rối lần đầu, nhưng nó là những điều bản chất để Hooks làm việc tốt.
 
->Detailed Explanation
+>Diễn giải chi tiết
 >
->You can learn more about these rules on a dedicated page: [Rules of Hooks](/docs/hooks-rules.html).
+>Bạn có thể học thêm về các quy tắc ở trang: [Quy tắc của Hooks](/docs/hooks-rules.html).
 
-## 💡 Building Your Own Hooks {#building-your-own-hooks}
+## 💡 Xây dựng Hooks của bạn {#building-your-own-hooks}
 
-Sometimes, we want to reuse some stateful logic between components. Traditionally, there were two popular solutions to this problem: [higher-order components](/docs/higher-order-components.html) and [render props](/docs/render-props.html). Custom Hooks let you do this, but without adding more components to your tree.
+Thỉnh thoảng, chúng ta muốn sử dụng lại vài logic có trạng thái giữa các components. 
+Sometimes, we want to reuse some stateful logic between components. Theo truyền thống, có hai cách phổ biến cho vấn đề này: [higher-order components](/docs/higher-order-components.html) và [render props](/docs/render-props.html). Tuỳ chọn Hooks cho phép bạn làm việc nàu, mà không cần phải add thêm components vào cây components của bạn.
 
-Earlier on this page, we introduced a `FriendStatus` component that calls the `useState` and `useEffect` Hooks to subscribe to a friend's online status. Let's say we also want to reuse this subscription logic in another component.
+Phần trước của trang này, chúng tôi giới thiệu `FriendStatus` component cái mà gọi `useState` và `useEffect` Hooks để đăng ký vào trạng thái online của bạn bè. Chúng ta muốn sử dụng logic đăng ký nàu trong một component khác.
 
-First, we'll extract this logic into a custom Hook called `useFriendStatus`:
+Đầu tiên chúng ta sẽ tách logic thành một Hook tuỳ chọn gọi là `useFriendStatus`:
 
 ```js{3}
 import React, { useState, useEffect } from 'react';
@@ -201,9 +202,9 @@ function useFriendStatus(friendID) {
 }
 ```
 
-It takes `friendID` as an argument, and returns whether our friend is online.
+Nó lấy `friendID` như một đối số, và trả về khi nào bạn bè của chúng ta online.
 
-Now we can use it from both components:
+Bây giờ chúng ta có thể sử dụng nó trong các components:
 
 
 ```js{2}
@@ -211,7 +212,7 @@ function FriendStatus(props) {
   const isOnline = useFriendStatus(props.friend.id);
 
   if (isOnline === null) {
-    return 'Loading...';
+    return 'Đang tải...';
   }
   return isOnline ? 'Online' : 'Offline';
 }
@@ -229,19 +230,19 @@ function FriendListItem(props) {
 }
 ```
 
-The state of these components is completely independent. Hooks are a way to reuse *stateful logic*, not state itself. In fact, each *call* to a Hook has a completely isolated state -- so you can even use the same custom Hook twice in one component.
+Trạng thái của các components hoàn toàn độc lập. Hooks là một cách để sử dụng lại *logic có trạng thái*, không chỉ bản thân state. Thực tế, mỗi lần *gọi* vào một Hook có hoàn toàn một trạng thái độc lập -- bạn có thể sử dụng cùng một Hook hai lần trong một component.
 
-Custom Hooks are more of a convention than a feature. If a function's name starts with "`use`" and it calls other Hooks, we say it is a custom Hook. The `useSomething` naming convention is how our linter plugin is able to find bugs in the code using Hooks.
+Tuỳ chọn Hooks nhiều về quy ước(convention) hơn là một tính năng. Nếu một tên hàm bắt đầu với "`use`" và nó gọi các Hooks khác, chúng tôi gọi đó là một Hook tuỳ chọn. `useSomething` quy ước đặt tên là cách linter plugin của chúng tôi có khả năng để tìm bugs trong code sử dụng Hooks.
 
-You can write custom Hooks that cover a wide range of use cases like form handling, animation, declarative subscriptions, timers, and probably many more we haven't considered. We are excited to see what custom Hooks the React community will come up with.
+Bạn có thể viết Hooks tuỳ chọn mà xử lý được rộng các trường hợp như xử lý form, animation, khai báo đăng ký, timers, và cũng có thể nhiều hơn những cái chúng tôi cân nhắc. Chúng tôi hào hứng để xem những Hook tuỳ chọn của cộng đồng React.
 
->Detailed Explanation
+>Diễn giải chi tiết
 >
->You can learn more about custom Hooks on a dedicated page: [Building Your Own Hooks](/docs/hooks-custom.html).
+>Bạn có thể học thêm về Hooks tại trang: [Xây dựng Hooks tuỳ chọn của bạn](/docs/hooks-custom.html).
 
-## 🔌 Other Hooks {#other-hooks}
+## 🔌 Các Hooks khác {#other-hooks}
 
-There are a few less commonly used built-in Hooks that you might find useful. For example, [`useContext`](/docs/hooks-reference.html#usecontext) lets you subscribe to React context without introducing nesting:
+Có một số ít phổ biết Hooks có sẵn được sử dụng mà bạn có thể thấy hữu ích. Ví dụ, [`useContext`](/docs/hooks-reference.html#usecontext) cho phép bạn đăng ký vào React context mà không cần lồng thêm vào nhau (introducing nesting):
 
 ```js{2,3}
 function Example() {
@@ -251,7 +252,7 @@ function Example() {
 }
 ```
 
-And [`useReducer`](/docs/hooks-reference.html#usereducer) lets you manage local state of complex components with a reducer:
+Và [`useReducer`](/docs/hooks-reference.html#usereducer) cho phép bạn quản lý trạng trái của một components phức tạp với một reducer:
 
 ```js{2}
 function Todos() {
@@ -259,14 +260,14 @@ function Todos() {
   // ...
 ```
 
->Detailed Explanation
+>Diễn giải chi tiết
 >
->You can learn more about all the built-in Hooks on a dedicated page: [Hooks API Reference](/docs/hooks-reference.html).
+>Bạn có thể học về tất cả các Hooks có sẵn tại trang: [Tham chiếu Hooks API](/docs/hooks-reference.html).
 
-## Next Steps {#next-steps}
+## Bước tiếp theo {#next-steps}
 
-Phew, that was fast! If some things didn't quite make sense or you'd like to learn more in detail, you can read the next pages, starting with the [State Hook](/docs/hooks-state.html) documentation.
+Phew, thật là nhanh! Nếu điều gì đó không quá gợi hình dễ hiểu hoặc bạn muốn học chi tiết hơn, bạn hãy đọc trang tiếp theo, bắt đầu với tài liệu [State Hook](/docs/hooks-state.html).
 
-You can also check out the [Hooks API reference](/docs/hooks-reference.html) and the [Hooks FAQ](/docs/hooks-faq.html).
+Bạn cũng có thể xem [tham chiếu Hooks API](/docs/hooks-reference.html) và [Hooks FAQ](/docs/hooks-faq.html).
 
-Finally, don't miss the [introduction page](/docs/hooks-intro.html) which explains *why* we're adding Hooks and how we'll start using them side by side with classes -- without rewriting our apps.
+Cuối cùng, đừng bỏ qua [trang giới thiệu](/docs/hooks-intro.html) để giải thích *tại sao* chúng tôi thêm Hooks và cách chugns tôi bắt đầu sử dụng chúng bên cạnh classes -- mà không cần viết lại apps của bạn.
