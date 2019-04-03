@@ -41,10 +41,9 @@ console.log(add(16, 26)); // 42
 
 > Chú ý:
 >
-> Bundle của bạn có thể sẽ trông rất khác phía trên.
+> Bundle của bạn có thể sẽ trông rất khác bên trên.
 
-Nếu bạn đang sử dụng [Create React App](https://github.com/facebookincubator/create-react-app), [Next.js]
-(https://github.com/zeit/next.js/), [Gatsby](https://www.gatsbyjs.org/), hay một công cụ tương tự, 
+Nếu bạn đang sử dụng [Create React App](https://github.com/facebookincubator/create-react-app), [Next.js](https://github.com/zeit/next.js/), [Gatsby](https://www.gatsbyjs.org/), hay một công cụ tương tự, 
 bạn sẽ được thiết lập sẵn webpack để đóng gói ứng dụng của mình.
 
 Nếu không, bạn sẽ cần phải tự thiết lập. Ví dụ, tham khảo
@@ -56,7 +55,7 @@ hướng dẫn ở tài liệu Webpack.
 
 Đóng gói hẵn rất tuyệt vời, nhưng khi ứng dụng của bạn trở nên lớn hơn,
 file đóng gói của bạn cũng sẽ lớn theo. Đặc biệt khi bạn sử dụng third-party library (thư viện bên thứ 3) lớn.
-Bạn cần phải cẩn thận với những đoạn code mà bạn đang include vào bundle của mình, bằng cách đó bạn sẽ không
+Bạn cần phải cẩn thận với những đoạn code bạn đang include vào bundle của mình, bằng cách đó bạn sẽ không
 vô tình làm nó trở nên quá lớn khiến ứng dụng mất nhiều thời gian để tải.
 
 Để tránh việc hỏng bundle vì file đóng gói quá lớn. Bạn nên chủ động bắt đầu "phân chia" bundle của mình ngay từ đầu.
@@ -109,7 +108,7 @@ bị biến đổi. Bạn sẽ cần [babel-plugin-syntax-dynamic-import](https:
 > Chú ý:
 >
 > `React.lazy` và Suspense chưa có sẵn cho server-side rendering. Nếu bạn muốn phân chia code ở những ứng dụng render tại server,
-chúng tôi giới thiệu [Loadable Components](https://github.com/smooth-code/loadable-components). Nó có [hướng dẫn phân chia code với 
+chúng tôi xin giới thiệu [Loadable Components](https://github.com/smooth-code/loadable-components). Nó có [hướng dẫn phân chia code với 
 server-side rendering](https://github.com/smooth-code/loadable-components/blob/master/packages/server/README.md).
 
 Chức năng `React.lazy` cho phép bạn render một import động như một component bình thường.
