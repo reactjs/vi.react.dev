@@ -141,7 +141,7 @@ Nếu bạn thử gõ hoặc lựa chọn giá trị trong ví dụ hiện thờ
 
 Hãy nghĩ xem chúng ta muốn thực hiện điều gì. Chúng ta muốn chắc chắn rằng khi nào người dùng thay đổi form, chúng ta cập nhật state dựa trên dữ liệu đầu vào. Vì những component chỉ nên cập nhật state cuả chúng, `FilterableProductTable` sẽ truyền vào callbacks tới `SearchBar` để kích hoạt mỗi khi dữ liệu cần cập nhật. Chúng ta có thể sử dụng sự kiện `onChange` trong input để nhận được thông báo. Callbacks truyền xuống bởi `FilterableProductTable` sẽ gọi hàm `setState()`, và ứng dụng sẽ được cập nhật.
 
-Mặc dù nó nghe thì phức tạp, nhưng thật ra chỉ cần vài dòng lệnh. Và nó chỉ ra rất rõ ràng luồng dữ liệu truyền đi trong ứng dụng.
+Mặc dù nó nghe phức tạp, nhưng thật ra chỉ cần vài dòng lệnh. Và nó chỉ ra rất rõ ràng luồng dữ liệu được truyền đi trong ứng dụng như thế nào.
 
 ## Và kết thúc {#and-thats-it}
 
