@@ -145,4 +145,4 @@ Mặc dù nó nghe thì phức tạp, nhưng thật ra chỉ cần vài dòng l�
 
 ## Và kết thúc {#and-thats-it}
 
-Hy vọng rằng nó sẽ cho bạn một ý tưởng về cách tư duy khi tạo ra những component và ứng dụng với React. Trong khi nó cần gõ nhiều hơn bạn từng làm, nhớ rằng code này rất rõ ràng và dễ đọc. Khi bạn bắt đầu xây dựng những thư viện component lớn, bạn sẽ thấy sự hữu dụng khi đọc những code module hoá và rõ ràng, với code tái sử dụng số lượng code sẽ giảm xuống.
+Hy vọng rằng nó sẽ cho bạn một ý tưởng về cách tư duy khi tạo ra những component và ứng dụng với React. Trong khi nó yêu cầu phải gõ nhiều hơn bạn từng làm, nhưng code này rất rõ ràng và dễ đọc. Khi bạn bắt đầu xây dựng những thư viện component lớn, bạn sẽ thấy sự hữu dụng khi đọc những code module hoá và rõ ràng, thêm nữa số lượng code sẽ giảm xuống khi code được tái sử dụng .
