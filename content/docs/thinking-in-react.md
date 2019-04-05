@@ -3,8 +3,8 @@ id: thinking-in-react
 title: Tư duy trong React
 permalink: docs/thinking-in-react.html
 redirect_from:
-- 'blog/2013/11/05/thinking-in-react.html'
-- 'docs/thinking-in-react-zh-CN.html'
+  - 'blog/2013/11/05/thinking-in-react.html'
+  - 'docs/thinking-in-react-zh-CN.html'
 prev: composition-vs-inheritance.html
 ---
 
@@ -22,12 +22,12 @@ Dữ liệu trả về từ JSON API như sau:
 
 ```
 [
-{category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
-{category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
-{category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
-{category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
-{category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
-{category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
+  {category: "Sporting Goods", price: "$49.99", stocked: true, name: "Football"},
+  {category: "Sporting Goods", price: "$9.99", stocked: true, name: "Baseball"},
+  {category: "Sporting Goods", price: "$29.99", stocked: false, name: "Basketball"},
+  {category: "Electronics", price: "$99.99", stocked: true, name: "iPod Touch"},
+  {category: "Electronics", price: "$399.99", stocked: false, name: "iPhone 5"},
+  {category: "Electronics", price: "$199.99", stocked: true, name: "Nexus 7"}
 ];
 ```
 
@@ -43,21 +43,21 @@ Vì mô hình dữ liệu thường hiển thị dưới dạng chuỗi JSON, n�
 
 Có năm component trong ứng dựng, dữ liệu mà component hiển thị sẽ được in nghiêng
 
-1. **`FilterableProductTable` (orange):** chứa toàn bộ cả ứng dụng
-2. **`SearchBar` (blue):** nơi *người dùng nhập dữ liệu*
-3. **`ProductTable` (green):** lọc và hiển thị *kết quả* dựa trên *dữ liệu đầu vào*
-4. **`ProductCategoryRow` (turquoise):** hiển thị trương mục theo *thể loại*
-5. **`ProductRow` (red):** hiển thị *sản phẩm* theo từng dòng
+  1. **`FilterableProductTable` (orange):** chứa toàn bộ cả ứng dụng
+  2. **`SearchBar` (blue):** nơi *người dùng nhập dữ liệu*
+  3. **`ProductTable` (green):** lọc và hiển thị *kết quả* dựa trên *dữ liệu đầu vào*
+  4. **`ProductCategoryRow` (turquoise):** hiển thị trương mục theo *thể loại*
+  5. **`ProductRow` (red):** hiển thị *sản phẩm* theo từng dòng
 
 Nhìn vào `ProductTable`, bạn sẽ thấy rằng tiêu đề cuả bảng (bao gồm những tiêu đề như "Name" và "Price") không được chia nhỏ thành các component. Đây là một tuỳ chọn mang tính cá nhânnhân, đã có những cuộc thảo luận về vấn đề này. Trong ví dụ, chúng ta để nó như là một phần của `ProductTable` bởi vì nó là một phần khi hiển thị *bảng dữ liệu* thuộc về `ProductTable`. Tuy nhiên, nếu như phần tiêu đề trở nên phức tạp (ví dụ nếu chúng ta thêm chức năng sắp xếp phân loại), thì tất nhiên sẽ hơp lí hơn khi có component `ProductTableHeader` cho phần tiêu đề.
 
 Bây giờ khi xác định các component trong bản mock, hãy sắp xếp nó theo một hệ thống phân chia cấp bậc. Những component cùng nằm bên trong một component trong bản mock thì nó nên là component con trong hệ thống cấp bậc:
 
-* `FilterableProductTable`
-* `SearchBar`
-* `ProductTable`
-* `ProductCategoryRow`
-* `ProductRow`
+  * `FilterableProductTable`
+    * `SearchBar`
+    * `ProductTable`
+      * `ProductCategoryRow`
+      * `ProductRow`
 
 ## Bước 2: Xây dựng một bản tĩnh trong React {#step-2-build-a-static-version-in-react}
 
@@ -86,23 +86,23 @@ Có hai kiểu "mô hình" dữ liệu trong React: props và state. Hãy chắc
 
 Suy tính về các thành phần dữ liệu trong ví dụ ứng dựng, nó bao gồm:
 
-* Danh sách gốc các sản phẩm
-* Từ khoá tìm kiếm từ phía người dùng
-* Giá trị của checkbox
-* Danh sách sản phẩm sau khi phân loại
+  * Danh sách gốc các sản phẩm
+  * Từ khoá tìm kiếm từ phía người dùng
+  * Giá trị của checkbox
+  * Danh sách sản phẩm sau khi phân loại
 
 Hãy cùng tìm hiểu xem thành phần nào là trạng thái bằng cách đặt ra 3 câu hổi cho mỗi phần:
 
-1. Có phải nó được truyền từ component cha qua props không? Nếu có thì nó có thể không phải là state.
-2. Dữ liệu có thay đổi không? nếu không thì nó không phải là state.
-3. Bạn có thể tính toán nó từ các state hay props khác trong component cuả bạn không? nếu có thì nó không phải là state.
+  1. Có phải nó được truyền từ component cha qua props không? Nếu có thì nó có thể không phải là state.
+  2. Dữ liệu có thay đổi không? nếu không thì nó không phải là state.
+  3. Bạn có thể tính toán nó từ các state hay props khác trong component cuả bạn không? nếu có thì nó không phải là state.
 
 Danh sách gốc của sản phẩm được truyền vào thông qua props, vậy nó không phải state. Từ khoá tìm kiếm và checkbox có vẻ là state bởi vì chúng sẽ bị thay đổi và không thể tính toán dựa trên phần còn lại. Cuối cùng, danh sách phân loại sản phẩm không phải là state bởi vì nó có thể được tìm ra dựa vào danh sách gốc với từ khoá tìm kiếm và giá trị của checkbox.
 
 Cuối cùng, state của chúng ta là:
 
-* Từ khoá tìm kiếm người dùng nhập vào
-* Giá trị của checkbox
+  * Từ khoá tìm kiếm người dùng nhập vào
+  * Giá trị của checkbox
 
 ## Bước 4: Xác định state của bạn ở đâu {#step-4-identify-where-your-state-should-live}
 
@@ -114,16 +114,16 @@ Lưu ý: React truyền dữ liệu một chiều xuống trong hệ thống ph�
 
 Cho mỗi phần của state trong ứng dụng của bạn:
 
-* Xác định tất cả các component sẽ hiển thị dựa trên state.
-* Tìm ra một component cha ( component ở phía trên các component cần state ở trong hệ thống phân chia cấp bậc).
-* Hoặc là component cha hay component khác ở phía trên nên giữ state.¨
-* Nếu bạn không thể tìm ra component hợp lí, thì hãy tạo ra một component mới nắm giữ state và thêm nó vào trong hệ thông phân chia cấp bậc ở phía trên component cha.
+  * Xác định tất cả các component sẽ hiển thị dựa trên state.
+  * Tìm ra một component cha ( component ở phía trên các component cần state ở trong hệ thống phân chia cấp bậc).
+  * Hoặc là component cha hay component khác ở phía trên nên giữ state.¨
+  * Nếu bạn không thể tìm ra component hợp lí, thì hãy tạo ra một component mới nắm giữ state và thêm nó vào trong hệ thông phân chia cấp bậc ở phía trên component cha.
 
 Hãy cùng điểm lại kế hoạch cho ứng dụng của chúng ta:
 
-* `ProductTable` cần để lọc danh sách các sản phẩm dựa trên state và `SearchBar` cần hiển thị từ khoá tìm kiếm và state đã được lựa chọn.
-* Component cha là `FilterableProductTable`.
-* Theo lí thuyết thì từ khoá tìm kiếm và giá trị lưạ chọn nên nằm trong `FilterableProductTable`.
+  * `ProductTable` cần lọc danh sách các sản phẩm dựa trên state và `SearchBar` cần hiển thị từ khoá tìm kiếm và state đã được lựa chọn.
+  * Component cha là `FilterableProductTable`.
+  * Theo lí thuyết thì từ khoá tìm kiếm và giá trị lưạ chọn nên nằm trong `FilterableProductTable`.
 
 Vậy chúng ta đã quyết định rằng state của chúng ta sẽ nằm trong `FilterableProductTable`. Đầu tiên, thêm một thuộc tính của instance `this.state = {filterText: '', inStockOnly: false}` vào hàm khởi tạo của `FilterableProductTable` để khai báo trạng thái ban đầu của ứng dụng. Sau đó, truyền các tham số `filterText` và `inStockOnly` tới `ProductTable` và `SearchBar` như là một prop. Cuối cùng, sử dụng những props này để lọc những hàng ở trong `ProductTable` và gán những giá trị vào các trường của form trong `SearchBar`.
 
