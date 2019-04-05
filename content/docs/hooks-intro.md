@@ -69,7 +69,7 @@ Chúng tôi sẽ thảo luận về điều này nhiều hơn tại [Xây dựng
 
 ### Components phức tạp trở nên khó hiểu {#complex-components-become-hard-to-understand}
 
-Chúng tôi thường phải làm những components mà bắt đầu đơn giản nhưng trở nên khó quản lý bừa bộn logic có trạng thái và side effects. Mỗi phương thức vòng đời chứa kết hợp những logic không liên quan. Ví dụ, components có thể thực hiện lấy dữ liệu trong `componentDidMount` và `componentDidUpdate`. Tuy nhiên, cùng phương thức `componentDidMount` có thể chứa vài logic không liên quan để cài đặt event listeners, và dọn dẹp trong `componentWillUnmount`. Những đoạn code liên quan và hỗ trợ lẫn nhau bị chia ra, và đoạn code không liên quan lại nằm trong cùng một phương thức. Điều này dễ dàng gây ra bugs và không nhất quán.
+Chúng ta thường phải làm những components mà bắt đầu đơn giản nhưng trở nên khó quản lý và bừa bộn các logic có trạng thái và side effects. Mỗi phương thức vòng đời chứa kết hợp những logic không liên quan. Ví dụ, components có thể thực hiện lấy dữ liệu trong `componentDidMount` và `componentDidUpdate`. Tuy nhiên, cùng phương thức `componentDidMount` có thể chứa vài logic không liên quan để cài đặt event listeners, và dọn dẹp trong `componentWillUnmount`. Những đoạn code liên quan và hỗ trợ lẫn nhau bị chia ra, và đoạn code không liên quan lại nằm trong cùng một phương thức. Điều này dễ dàng gây ra bugs và không nhất quán.
 
 Trong nhiều trường hợp không thể chia nhỏ các components bởi vì logic có trạng thái dùng ở tất cả các chỗ. Khó để test. Đây là một trong những nguyên nhân nhiều người chọn kết hợp React với một thư viện quản lý trạng thái khác. Tuy nhiên nó thường bị quá nhiều trìu tượng và yêu cầu phải chuyển qua nhiều files khác nhau và khó sử dụng lại các components.
 
