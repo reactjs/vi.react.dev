@@ -14,7 +14,7 @@ Một trong những điểm tuyệt vời của React là nó giúp bạn phát 
 
 ## Bắt đầu với Mock {#start-with-a-mock}
 
-Tưởng tượng rằng chúng ta có một API và một bản mock từ người thiết kế. Bản mock trông như sau:
+Tưởng tượng rằng chúng ta có một JSON API và một bản mock từ người thiết kế. Bản mock trông như sau:
 
 ![Mockup](../images/blog/thinking-in-react-mock.png)
 
@@ -41,7 +41,7 @@ Vì mô hình dữ liệu thường hiển thị dưới dạng chuỗi JSON, n�
 
 ![Sơ đồ Component](../images/blog/thinking-in-react-components.png)
 
-Có năm component trong ứng dựng, dữ liệu mà component hiển thị sẽ được in nghiêng
+Trong ứng dụng đơn giản dưới đây, bạn sẽ thấy chúng ta có 5 component, dữ liệu mà mỗi component hiển thị sẽ được in nghiêng
 
   1. **`FilterableProductTable` (orange):** chứa toàn bộ cả ứng dụng
   2. **`SearchBar` (blue):** nơi *người dùng nhập dữ liệu*
@@ -49,7 +49,7 @@ Có năm component trong ứng dựng, dữ liệu mà component hiển thị s�
   4. **`ProductCategoryRow` (turquoise):** hiển thị trương mục theo *thể loại*
   5. **`ProductRow` (red):** hiển thị *sản phẩm* theo từng dòng
 
-Nhìn vào `ProductTable`, bạn sẽ thấy rằng tiêu đề cuả bảng (bao gồm những tiêu đề như "Name" và "Price") không được chia nhỏ thành các component. Đây là một tuỳ chọn mang tính cá nhânnhân, đã có những cuộc thảo luận về vấn đề này. Trong ví dụ, chúng ta để nó như là một phần của `ProductTable` bởi vì nó là một phần khi hiển thị *bảng dữ liệu* thuộc về `ProductTable`. Tuy nhiên, nếu như phần tiêu đề trở nên phức tạp (ví dụ nếu chúng ta thêm chức năng sắp xếp phân loại), thì tất nhiên sẽ hơp lí hơn khi có component `ProductTableHeader` cho phần tiêu đề.
+Nhìn vào `ProductTable`, bạn sẽ thấy rằng tiêu đề cuả bảng (bao gồm những tiêu đề như "Name" và "Price") không được chia nhỏ thành các component. Đây là một tuỳ chọn mang tính cá nhân, đã có những cuộc thảo luận về vấn đề này. Trong ví dụ, chúng ta để nó như là một phần của `ProductTable` bởi vì nó là một phần khi hiển thị *bảng dữ liệu* thuộc về `ProductTable`. Tuy nhiên, nếu như phần tiêu đề trở nên phức tạp (ví dụ nếu chúng ta thêm chức năng sắp xếp phân loại), thì tất nhiên sẽ hơp lí hơn khi có component `ProductTableHeader` cho phần tiêu đề.
 
 Bây giờ khi xác định các component trong bản mock, hãy sắp xếp nó theo một hệ thống phân chia cấp bậc. Những component cùng nằm bên trong một component trong bản mock thì nó nên là component con trong hệ thống cấp bậc:
 
