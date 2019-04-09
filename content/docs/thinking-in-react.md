@@ -44,8 +44,8 @@ Vì mô hình dữ liệu thường hiển thị dưới dạng chuỗi JSON, n�
 Trong ứng dụng đơn giản dưới đây, bạn sẽ thấy chúng ta có 5 component, dữ liệu mà mỗi component hiển thị sẽ được in nghiêng
 
   1. **`FilterableProductTable` (orange):** chứa toàn bộ cả ứng dụng
-  2. **`SearchBar` (blue):** nơi *người dùng nhập dữ liệu*
-  3. **`ProductTable` (green):** lọc và hiển thị *kết quả* dựa trên *dữ liệu đầu vào*
+  2. **`SearchBar` (blue):** nơi *người dùng nhập từ khoá tìm kiếm*
+  3. **`ProductTable` (green):** lọc và hiển thị *kết quả* dựa trên *từ khoá tìm kiếm*
   4. **`ProductCategoryRow` (turquoise):** hiển thị trương mục theo *thể loại*
   5. **`ProductRow` (red):** hiển thị *sản phẩm* theo từng dòng
 
