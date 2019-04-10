@@ -35,7 +35,7 @@ Dữ liệu trả về từ JSON API như sau:
 
 Điều đầu tiên cần làm là khoanh tròn và đặt tên cho tất cả các component (và cả component con) trong bản mock. Thảo luận với người thiết kế, họ có thể đã đặt tên cho chúng. Tên của các layer trong bản vẽ photoshop có thể thành tên các react component của bạn!
 
-Nhưng làm thế nào để chia nhỏ giao diện thành những component? Hãy sử dụng những quy tắc khi bạn quyết định nên viết thêm một hàm hay tạo ra một object mới. Một trong những quy tắc đó là [quy tắc đơn nhiệm](https://en.wikipedia.org/wiki/Single_responsibility_principle)
+Nhưng làm thế nào để chia nhỏ giao diện thành những component? Hãy sử dụng những kỹ thuật khi quyết định nên viết thêm một hàm hay tạo ra một object mới. Một trong những kỹ thuật đó là [nguyên tắc đơn nhiệm](https://en.wikipedia.org/wiki/Single_responsibility_principle)
 
 Vì mô hình dữ liệu thường hiển thị dưới dạng chuỗi JSON, nếu mô hình của bạn được thực hiện đúng, giao diện người dùng (và vì thế cấu trúc component) sẽ hoàn toàn tương thích. Đó là bởi vì giao diện người dùng và mô hình dữ liệu thường có xu hướng tuân thủ cùng một kiểu *thông tin kiến trúc*, có nghĩa rằng bạn sẽ không phải dành nhiều thời gian cho việc chia nhỏ giao diện người dùng. Mỗi component sẽ tượng trưng cho một phần mô hình dữ liệu.
 
