@@ -8,7 +8,7 @@
       title: Create a New React App
     - id: cdn-links
       title: CDN Links
-- title: Khái niệm
+- title: Khái niệm chính
   isOrdered: true
   items:
     - id: hello-world
