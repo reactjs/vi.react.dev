@@ -1,4 +1,4 @@
-- title: Installation
+- title: Cài đặt
   items:
     - id: getting-started
       title: Getting Started
@@ -8,7 +8,7 @@
       title: Create a New React App
     - id: cdn-links
       title: CDN Links
-- title: Main Concepts
+- title: Khái niệm chính
   isOrdered: true
   items:
     - id: hello-world
@@ -35,7 +35,7 @@
       title: Composition vs Inheritance
     - id: thinking-in-react
       title: Thinking In React
-- title: Advanced Guides
+- title: Hướng dẫn nâng cao
   items:
     - id: accessibility
       title: Accessibility
@@ -79,7 +79,7 @@
       title: Uncontrolled Components
     - id: web-components
       title: Web Components
-- title: API Reference
+- title: API Tham khảo
   items:
     - id: react-api
       title: React
@@ -123,7 +123,7 @@
         title: Tham chiếu Hooks API
       - id: hooks-faq
         title: Hooks FAQ
-- title: Contributing
+- title: Đóng góp
   items:
   - id: how-to-contribute
     title: How to Contribute
@@ -136,7 +136,7 @@
 - title: FAQ
   items:
     - id: faq-ajax
-      title: AJAX and APIs
+      title: AJAX và APIs
     - id: faq-build
       title: Babel, JSX, and Build Steps
     - id: faq-functions
@@ -144,7 +144,7 @@
     - id: faq-state
       title: Component State
     - id: faq-styling
-      title: Styling and CSS
+      title: Styling và CSS
     - id: faq-structure
       title: File Structure
     - id: faq-versioning

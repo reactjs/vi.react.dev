@@ -122,12 +122,12 @@ const Header = ({location}: {location: Location}) => (
           }}>
           <HeaderLink
             isActive={location.pathname.includes('/docs/')}
-            title="Docs"
+            title="Tài liệu"
             to="/docs/getting-started.html"
           />
           <HeaderLink
             isActive={location.pathname.includes('/tutorial/')}
-            title="Tutorial"
+            title="Hướng dẫn"
             to="/tutorial/tutorial.html"
           />
           <HeaderLink
@@ -137,7 +137,8 @@ const Header = ({location}: {location: Location}) => (
           />
           <HeaderLink
             isActive={location.pathname.includes('/community/')}
-            title="Community"
+            title="Dev"
+            // Community => "Cộng đồng" in Vietnamese but error layout when change it!
             to="/community/support.html"
           />
         </nav>
@@ -209,7 +210,7 @@ const Header = ({location}: {location: Location}) => (
                   display: 'none',
                 },
               }}>
-              Languages
+              Ngôn ngữ
             </span>
           </Link>
           <a
