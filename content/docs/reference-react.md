@@ -198,7 +198,11 @@ API này được giới thiệu như là một giải pháp thay thế cho `Rea
 React.createFactory(type)
 ```
 
+<<<<<<< HEAD
 Trả về một hàm tạo ra các React element theo kiểu truyền vào. Giống như [`React.createElement()`](#createElement), đối số `type` có thể là tên của thẻ dạng ký tự (ví dụ như `'div'` hay `'span'`), một kiểu [React component](/docs/components-and-props.html) (class hay function), hoặc là một loại [React fragment](#reactfragment).
+=======
+Return a function that produces React elements of a given type. Like [`React.createElement()`](#createelement), the type argument can be either a tag name string (such as `'div'` or `'span'`), a [React component](/docs/components-and-props.html) type (a class or a function), or a [React fragment](#reactfragment) type.
+>>>>>>> 6bc6e7b1411d4befc3ecfbe45b898ca474116020
 
 Hàm này được coi là di sản, và chúng tôi khuyến khích bạn sử dụng JSX hoặc sử dụng trực tiếp `React.createElement()`.
 
