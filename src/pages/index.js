@@ -50,7 +50,7 @@ class Home extends Component {
     return (
       <Layout location={location}>
         <TitleAndMetaTags
-          title="React &ndash; A JavaScript library for building user interfaces"
+          title="React &ndash; Một thư viện JavaScript xây dựng giao diện người dùng"
           ogUrl={createOgUrl('index.html')}
         />
         <div css={{width: '100%'}}>
@@ -62,7 +62,7 @@ class Home extends Component {
             <div
               css={{
                 paddingTop: 45,
-                paddingBottom: 20,
+                paddingBottom: 10,
 
                 [media.greaterThan('small')]: {
                   paddingTop: 60,
@@ -133,12 +133,15 @@ class Home extends Component {
                         fontSize: 30,
                       },
                     }}>
-                    A JavaScript library for building user interfaces
+                    Một thư viện JavaScript xây dựng giao diện người dùng
                   </p>
                   <Flex
                     valign="center"
+                    halign="center"
                     css={{
                       paddingTop: 40,
+                      flexWrap: 'wrap',
+                      justifyContent: 'center',
 
                       [media.greaterThan('xlarge')]: {
                         paddingTop: 65,
@@ -148,12 +151,12 @@ class Home extends Component {
                       <ButtonLink
                         to="/docs/getting-started.html"
                         type="primary">
-                        Get Started
+                        Bắt đầu
                       </ButtonLink>
                     </CtaItem>
                     <CtaItem>
                       <ButtonLink to="/tutorial/tutorial.html" type="secondary">
-                        Take the Tutorial
+                        Xem hướng dẫn
                       </ButtonLink>
                     </CtaItem>
                   </Flex>
@@ -279,18 +282,24 @@ class Home extends Component {
               background: colors.dark,
               color: colors.white,
               paddingTop: 45,
-              paddingBottom: 45,
+              paddingBottom: 25,
             }}>
             <Container>
-              <Flex valign="center">
+              <Flex
+                valign="center"
+                halign="center"
+                css={{
+                  flexWrap: 'wrap',
+                  justifyContent: 'center',
+                }}>
                 <CtaItem>
                   <ButtonLink to="/docs/getting-started.html" type="primary">
-                    Get Started
+                    Bắt đầu
                   </ButtonLink>
                 </CtaItem>
                 <CtaItem>
                   <ButtonLink to="/tutorial/tutorial.html" type="secondary">
-                    Take the Tutorial
+                    Xem hướng dẫn
                   </ButtonLink>
                 </CtaItem>
               </Flex>
@@ -312,8 +321,6 @@ Home.propTypes = {
 const CtaItem = ({children, primary = false}) => (
   <div
     css={{
-      width: '50%',
-
       [media.between('small', 'large')]: {
         paddingLeft: 20,
       },
@@ -324,12 +331,21 @@ const CtaItem = ({children, primary = false}) => (
 
       '&:first-child': {
         textAlign: 'right',
-        paddingRight: 15,
+        paddingRight: 7,
+        paddingLeft: 7,
+        [media.lessThan('small')]: {
+          marginBottom: 10,
+        },
       },
 
       '&:nth-child(2)': {
+        paddingRight: 7,
+        paddingLeft: 7,
         [media.greaterThan('small')]: {
           paddingLeft: 15,
+        },
+        [media.lessThan('small')]: {
+          marginBottom: 10,
         },
       },
     }}>
