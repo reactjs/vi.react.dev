@@ -26,7 +26,7 @@ function BoilingVerdict(props) {
 
 Tiếp theo, chúng ta sẽ tạo ra một component khác là `Calculator`. Nó sẽ có một `<input>` để người dùng nhập dữ liệu, và giữ giá trị đó trong `this.state.temperature`.
 
-Thêm vào đó, nó sẽ tạo ra component `BoilingVerdict` với giá trị hiện tại của input
+Thêm vào đó, nó sẽ tạo ra component `BoilingVerdict` với giá trị hiện tại của input.
 
 ```js{5,9,13,17-21}
 class Calculator extends React.Component {
@@ -169,11 +169,11 @@ class TemperatureInput extends React.Component {
     // ...  
 ```
 
-Tuy nhiên, chúng ta muốn hai input này được đồng bộ hoá. Khi chúng ta cập nhật cho Celsius input, Fahrênhit input cũng phải được cập nhật nhiệt độ sau khi đã chuyển đổi và ngược lại.
+Tuy nhiên, chúng ta muốn hai input này được đồng bộ hoá. Khi chúng ta cập nhật nhiệt độ cho Celsius input, Fahrenheit input cũng phải được cập nhật nhiệt độ sau khi đã chuyển đổi và ngược lại.
 
 Trong React, chia sẻ state được thực hiện bằng cách chuyển nó lên component cha gần nhất cần state này. Việc này được gọi là "chuyển state lên trên". Chúng ta sẽ xoá state cục bộ từ  `TemperatureInput` và chuyển nó tới `Calculator`.
 
-Nếu `Calculator` nắm giữ state chia sẻ, nó sẽ trở thành "nguồn dữ liệu tin cậy" về nhiệt độ hiện tại cho cả hai input. Nó có thể cung cấp cho cả hai những giá trị phù hợp cho chúng. Vì các prop của cả hai component `TemperatureInput`đều đến từ một component cha `Calculator`, nên chúng luôn luôn được đồng bộ hoá.
+Nếu `Calculator` nắm giữ state chia sẻ, nó sẽ trở thành "nguồn dữ liệu tin cậy" về nhiệt độ hiện tại cho cả hai input. Nó có thể cung cấp cho cả hai những giá trị phù hợp cho chúng. Vì các prop của cả hai component `TemperatureInput` đều đến từ cùng một component cha `Calculator`, nên chúng luôn luôn được đồng bộ hoá.
 
 Hãy xem nó hoạt động thế nào qua từng bước.
 
@@ -202,7 +202,7 @@ Bây giờ, khi `TemperatureInput` muốn cập nhật nhiệt độ, nó gọi 
 >
 >Tên của `temperature` hoặc `onTemperatureChange` prop không mang một ý nghĩa đặc biệt nào trong những component tuỳ chỉnh này. Chúng ta có thể gọi chúng bằng những cái tên khác, theo một cách phổ biến hơn, như đặt tên chúng là `value` và `onChange`.
 
-Prop `onTemperatureChange` sẽ được truyền vào cùng với prop `temperature` bởi component cha `Calculator`. Khi prop thay đổi, nó sẽ sửa lại chính state cục bộ của nó, vì thế sẽ render lại cả hai input với các giá trị mới. Chúng ta sẽ cùng xem component `Calculator` được triển khai lại sau đây.
+Prop `onTemperatureChange` sẽ được truyền vào cùng với prop `temperature` bởi component cha `Calculator`. Khi prop thay đổi, nó sẽ sửa lại chính state cục bộ của nó, vì thế sẽ tạo lại cả hai input với các giá trị mới. Chúng ta sẽ cùng xem component `Calculator` được triển khai lại sau đây.
 
 Trước khi tìm hiểu những thay đổi trong `Calculator`, hãy cùng điểm lại những thay đổi trong component `TemperatureInput`. Chúng ta đã xoá đi state cục bộ, và sử dụng `this.props.temperature` thay vì `this.state.temperature`. Khi chúng ta muốn thay đổi, việc gọi hàm `this.setState()` được thay bằng hàm `this.props.onTemperatureChange()` từ component cha `Calculator`:
 
@@ -232,7 +232,7 @@ class TemperatureInput extends React.Component {
 ```
 Bây giờ hãy cùng chuyển sang component `Calculator`.
 
-Chúng ta sẽ lưu trữ giá trị hiện thời của `temperature` và `scale` từ input vào trong state cục bộ của nó. Đây là state mà chúng ta muốn chuyển lên từ những input, và nó sẽ được cung cấp như là "nguồn dữ liệu tin cậy" cho cả hai. Nó là đại diện nhỏ cho tất cả những dữ liệu chúng ta cần biết để tạo ra cả hai input.
+Chúng ta sẽ lưu trữ giá trị hiện thời của `temperature` và `scale` từ input vào trong state cục bộ của nó. Đây là state mà chúng ta muốn chuyển lên từ những input, và nó sẽ được sử dụng như là "nguồn dữ liệu tin cậy" cho cả hai. Nó là đại diện tối thiểu cho tất cả những dữ liệu chúng ta cần biết để tạo ra cả hai input.
 
 Ví dụ, nếu chúng ta nhập 37 vào trong Celsius input, state của component `Calculator` sẽ là:
 
@@ -252,7 +252,7 @@ Nếu chúng ta nhập 212 cho Fahrenheit, state của component `Calculator` s�
 }
 ```
 
-Chúng ta có thể lưu trữ giá trị của cả hai input nhưng điều này là không cần thiết. Chúng ta chỉ cần lưu lại giá trị của input được thay đổi gần nhất, và đơn vị của nó. Chúng ta có thể tính ra giá của của input còn lại dựa trên giá trị của `temperature` và `scale` hiện tại.
+Chúng ta có thể lưu trữ giá trị của cả hai input nhưng điều này là không cần thiết. Chúng ta chỉ cần lưu lại giá trị của input được thay đổi gần nhất, và đơn vị của nó. Chúng ta có thể tính ra giá trị của input còn lại dựa trên giá trị của `temperature` và `scale` hiện tại.
 
 Các giá trị input sẽ được đồng bộ hoá bởi nó được tính toán từ cùng một state:
 
@@ -299,7 +299,7 @@ class Calculator extends React.Component {
 
 [**làm thử trên CodePen**](https://codepen.io/gaearon/pen/WZpxpz?editors=0010)
 
-Bây giờ, bạn có thể thay đổi bất kì input nào, `this.state.temperature` và `this.state.scale` trong component `Calculator`sẽ được cập nhật. Giá trị của một input sẽ được giữ nguyên, như giá trị người dùng đã nhập vào, và giá trị của input còn lại sẽ được tính toán dựa trên giá trị đó.
+Bây giờ, bạn có thể thay đổi bất kì input nào, thì `this.state.temperature` và `this.state.scale` trong component `Calculator` sẽ được cập nhật. Giá trị của một input sẽ được giữ nguyên, như giá trị người dùng đã nhập vào, và giá trị của input còn lại sẽ được tính toán dựa trên giá trị đó.
 
 Hãy cùng điểm lại điều gì sẽ xảy ra khi bạn thay đổi giá trị của một input:
 
@@ -308,21 +308,21 @@ Hãy cùng điểm lại điều gì sẽ xảy ra khi bạn thay đổi giá tr
 * Trước đây, khi nó được tạo ra, component `Calculator` đã được lập trình rằng `onTemperatureChange` của Celsius `TemperatureInput` là hàm `handleCelsiusChange` của component `Calculator`, và `onTemperatureChange` của Fahrenheit `TemperatureInput` là hàm `handleFahrenheitChange` từ component `Calculator`. Vì thế nên một trong hai hàm của `Calculator` sẽ được gọi dựa trên input nào bị thay đổi.
 * Bên trong các hàm này, component `Calculator` sẽ yêu cầu React để tạo lại chính nó bằng cách gọi `this.setState()` với giá trị mới từ input và đơn vị hiện tại của input bị thay đổi.
 * React gọi hàm `render` từ component `Calculator` để xem giao diện người dùng trông như thế nào. Giá trị của cả hai input sẽ được tính toán lại dựa trên nhiệt độ hiện thời và đơn vị đo đang được sử dụng. Nhiệt độ được chuyển đổi tại đây.
-*React gọi hàm `render` của mỗi component `TemperatureInput` riêng với giá trị mới của props được truyền từ `Calculator`. Nó sẽ hiểu được giao diện người dùng như thế nào.
-* React gọ hàm `render` từ component `BoilingVerdict`, truyền nhiệt độ bằng Celsius như là một props của nó.
-* React DOM cập nhật DOM với quyết định ngay tức khác và để phù hợp với những giá trị mong muốn của input. Input chúng ta vừa thay đổi sẽ nhận giá trij hiện thời, và nhũng input khác được cập nhật với nhiệt độ được chuyển đổi.
+* React gọi hàm `render` của mỗi component `TemperatureInput` riêng với giá trị mới của props được truyền từ `Calculator`. Nó sẽ hiểu được giao diện người dùng như thế nào.
+* React gọi hàm `render` từ component `BoilingVerdict`, truyền nhiệt độ bằng Celsius như là một props của nó.
+* React DOM cập nhật DOM với nhiệt độ sôi và để phù hợp với những giá trị mong muốn của input. Input chúng ta vừa thay đổi sẽ nhận giá trị hiện thời, và những input khác được cập nhật với nhiệt độ sau khi chuyển đổi.
 
 Tất cả những cập nhật đi qua cùng một lộ trình nên các input sẽ luôn được đồng bộ hoá.
 
 ## Bài học rút ra {#lessons-learned}
 
-Cần có một nguồn "dữ liệu đáng tin cậy" cho bất kì một dữ liệu nào cần thay đổi trong ứng dụng React. Thường thì, state là cái đầu tiên mà component cần thêm vào để có thể render. Vì thế, nếu các component khác cũng cần nó, bạn có thể chuyển nó lên component cha gần nhất. Thay vì thử đồng bộ hoá state giữa những component khác nhau, bạn nên dựa trên [luồng dữ liệu từ trên xuống dưới](/docs/state-and-lifecycle.html#the-data-flows-down)
+Cần có một nguồn "dữ liệu đáng tin cậy" cho bất kì một dữ liệu nào cần thay đổi trong ứng dụng React. Thường thì, state là cái đầu tiên mà component cần thêm vào để có thể tạo ra. Vì thế, nếu các component khác cũng cần nó, bạn có thể chuyển nó lên component cha gần nhất. Thay vì thử đồng bộ hoá state giữa những component khác nhau, bạn nên dựa trên [luồng dữ liệu từ trên xuống dưới](/docs/state-and-lifecycle.html#the-data-flows-down)
 
-Chuyển state liên quan tới thêm vào nhiều code "chuẩn" hơn là phương pháp ràng buộc 2 chiều, nhưng nó có một ích là việc tìm và cô lập các lỗi sẽ dễ dàng hơn. Bởi vì bất kì một state "nằm" trong một vài component và chỉ mình component đó có thể thay đổi nó, phạm vi tìm kiếm lỗi sẽ giảm đi một cách đáng kể. Thêm vào đó, bạn có thể thêm vào bất kì tuỳ chỉnh logic nhằm từ chối hoặc chuyển đổi giá trị người dùng nhập vào.
+Chuyển state liên quan tới thêm vào nhiều code "chuẩn" hơn là phương pháp ràng buộc 2 chiều, nhưng nó có một ích là việc tìm và cô lập các lỗi sẽ dễ dàng hơn. Bởi vì bất kì một state "tồn tại" trong một vài component và chỉ mình component đó có thể thay đổi nó, phạm vi tìm kiếm lỗi sẽ giảm đi một cách đáng kể. Thêm vào đó, bạn có thể thêm vào bất kì tuỳ chỉnh logic nhằm từ chối hoặc chuyển đổi giá trị người dùng nhập vào.
 
 Nếu một vài thứ có thể bắt nguồn từ props hoặc state, nó có thể không nên là state. Ví dụ, thay vì lưu trữ cả `celsiusValue` và `fahrenheitValue`, chúng ta sẽ lưu trữ giá trị được thay đổi gần nhất của `temperature` và `scale` của nó. Giá trị của input khác có thể được tính toán từ chúng trong hàm `render()`. Nó sẽ cho phép chúng ta dọn dẹp hoặc áp dụng để làm tròn giá trị của trường khác mà không làm mất đi tính chính xác của giá trị người dùng nhập vào.
 
-Khi bạn thấy có gì sai với giao diện người dùng, bạn có thể dùng [Công cụ phát triển React](https://github.com/facebook/react-devtools) để kiểm tra props và di chuyển lên theo cây component cho tới khi bạn có thể tìm thấy component chịu trách nhiệm cho việc cập nhật state. Nó sẽ giúp bạn theo dõi nguồn gốc của các lỗi:
+Khi bạn thấy giao diện người dùng không chính xác, bạn có thể dùng [Công cụ phát triển React](https://github.com/facebook/react-devtools) để kiểm tra props và di chuyển lên theo cây component cho tới khi bạn có thể tìm thấy component chịu trách nhiệm cho việc cập nhật state. Nó sẽ giúp bạn theo dõi nguồn gốc của các lỗi:
 
 <img src="../images/docs/react-devtools-state.gif" alt="Monitoring State in React DevTools" max-width="100%" height="100%">
 
