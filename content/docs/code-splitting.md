@@ -8,7 +8,7 @@ permalink: docs/code-splitting.html
 
 Hầu hết files trong các ứng dụng React sẽ được "đóng gói" bằng cách
 sử dụng những công cụ như [Webpack](https://webpack.js.org/) hay [Browserify](http://browserify.org/).
-Đóng gói là quá trình xử lý những files đã được import và kết hợp chúng thành một file duy nhất: File đóng gói này 
+Đóng gói là quá trình xử lý những files đã được import và kết hợp chúng thành một file duy nhất: File đóng gói này
 sau đó có thể được trang web tải lên chỉ một lần.
 
 #### Ví Dụ {#example}
@@ -43,7 +43,7 @@ console.log(add(16, 26)); // 42
 >
 > Bundle của bạn có thể sẽ trông rất khác bên trên.
 
-Nếu bạn đang sử dụng [Create React App](https://github.com/facebookincubator/create-react-app), [Next.js](https://github.com/zeit/next.js/), [Gatsby](https://www.gatsbyjs.org/), hay một công cụ tương tự, 
+Nếu bạn đang sử dụng [Create React App](https://github.com/facebookincubator/create-react-app), [Next.js](https://github.com/zeit/next.js/), [Gatsby](https://www.gatsbyjs.org/), hay một công cụ tương tự,
 bạn sẽ được thiết lập sẵn webpack để đóng gói ứng dụng của mình.
 
 Nếu không, bạn sẽ cần phải tự thiết lập. Ví dụ, tham khảo
@@ -60,7 +60,7 @@ vô tình làm nó trở nên quá lớn khiến ứng dụng mất nhiều th�
 
 Để tránh việc hỏng bundle vì file đóng gói quá lớn. Bạn nên chủ động bắt đầu "phân chia" bundle của mình ngay từ đầu.
  [Code-Splitting](https://webpack.js.org/guides/code-splitting/) là một tính năng được hỗ trợ bởi nhiều bundlers như Webpack và
- Browserfy (bằng [factor-bundle](https://github.com/browserify/factor-bundle)) có thể tạo ra nhiều bundles để load động tại thời điểm 
+ Browserfy (bằng [factor-bundle](https://github.com/browserify/factor-bundle)) có thể tạo ra nhiều bundles để load động tại thời điểm
  runtime.
 
 Phân chia code cho ứng dụng giúp "lazy-load" chỉ những phần người dùng đang cần, tăng đáng kể hiệu suất mà không cần phải giảm số lượng
@@ -108,7 +108,7 @@ bị biến đổi. Bạn sẽ cần [babel-plugin-syntax-dynamic-import](https:
 > Chú ý:
 >
 > `React.lazy` và Suspense chưa có sẵn cho server-side rendering. Nếu bạn muốn phân chia code ở những ứng dụng render tại server,
-chúng tôi xin giới thiệu [Loadable Components](https://github.com/smooth-code/loadable-components). Nó có [hướng dẫn phân chia code với 
+chúng tôi xin giới thiệu [Loadable Components](https://github.com/smooth-code/loadable-components). Nó có [hướng dẫn phân chia code với
 server-side rendering](https://github.com/smooth-code/loadable-components/blob/master/packages/server/README.md).
 
 Chức năng `React.lazy` cho phép bạn render một import động như một component bình thường.
@@ -216,8 +216,8 @@ const MyComponent = () => (
 ## Phân chia code dựa vào định tuyến(Route-based) {#route-based-code-splitting}
 
 Việc quyết định nơi nào cần phân chia code trong ứng dụng của bạn có thể sẽ gặp một chút khó khăn.
-Bạn muốn chắc chắn những nơi bạn chọn sẽ đều nhau, nhưng không phá vỡ 
-trải nghiệm người dùng. 
+Bạn muốn chắc chắn những nơi bạn chọn sẽ đều nhau, nhưng không phá vỡ
+trải nghiệm người dùng.
 
 Một nơi tốt để bắt đầu là với routes. Hầu hết mọi người trên web
 đã quen với việc chuyển trang sẽ mất một khoảng thời gian nhất định.
