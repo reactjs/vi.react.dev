@@ -26,8 +26,8 @@ const PageNotFound = ({location}: Props) => (
           <div css={sharedStyles.markdown}>
             <p>Chúng tôi không thể tìm thấy trang bạn đang tìm kiếm.</p>
             <p>
-              Vui lòng liên hệ với chủ sở hữu của trang web đã liên kết với 
-              URL gốc và cho họ biết liên kết của họ bị hỏng.
+              Vui lòng liên hệ với chủ sở hữu của trang web đã liên kết với URL
+              gốc và cho họ biết liên kết của họ bị hỏng.
             </p>
           </div>
         </div>
