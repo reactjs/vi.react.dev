@@ -167,6 +167,7 @@ như hình dưới đây:
 
 <img src="../images/docs/keyboard-focus.png" alt="Blue keyboard focus outline around a selected link." />
 
+<<<<<<< HEAD
 Chỉ khi sử dụng CSS mới có thể remove outline này, ví dụ như
 chỉnh `outline: 0`, nếu bạn muốn thay thế nó với một focus outline khác.
 ### Cơ chế skip đến nội dung mong muốn {#mechanisms-to-skip-to-desired-content}
@@ -200,6 +201,34 @@ widgets](https://developer.mozilla.org/en-US/docs/Web/Accessibility/Keyboard-nav
 DOM elements](/docs/refs-and-the-dom.html).
 Sử dụng nó, chúng ta đầu tiên tạo một ref đến một element
 trong JSX của một component class:
+=======
+Only ever use CSS that removes this outline, for example by setting `outline: 0`, if you are replacing it with another focus outline implementation.
+
+### Mechanisms to skip to desired content {#mechanisms-to-skip-to-desired-content}
+
+Provide a mechanism to allow users to skip past navigation sections in your application as this assists and speeds up keyboard navigation.
+
+Skiplinks or Skip Navigation Links are hidden navigation links that only become visible when keyboard users interact with the page. They are very easy to implement with internal page anchors and some styling:
+
+- [WebAIM - Skip Navigation Links](https://webaim.org/techniques/skipnav/)
+
+Also use landmark elements and roles, such as `<main>` and `<aside>`, to demarcate page regions as assistive technology allow the user to quickly navigate to these sections.
+
+Read more about the use of these elements to enhance accessibility here:
+
+- [Accessible Landmarks](https://www.scottohara.me/blog/2018/03/03/landmarks.html)
+
+### Programmatically managing focus {#programmatically-managing-focus}
+
+Our React applications continuously modify the HTML DOM during runtime, sometimes leading to keyboard focus being lost or set to an unexpected element. In order to repair this, we need to programmatically nudge the keyboard focus in the right direction. For example, by resetting keyboard focus to a button that opened a modal window after that modal window is closed.
+
+MDN Web Docs takes a look at this and describes how we can build [keyboard-navigable JavaScript widgets](https://developer.mozilla.org/en-US/docs/Web/Accessibility/Keyboard-navigable_JavaScript_widgets).
+
+To set focus in React, we can use [Refs to DOM elements](/docs/refs-and-the-dom.html).
+
+Using this, we first create a ref to an element in the JSX of a component class:
+
+>>>>>>> 23b242edc4c7eeee5798953ba205e36cc71016b8
 ```javascript{4-5,8-9,13}
 class CustomTextInput extends React.Component {
   constructor(props) {
@@ -230,11 +259,15 @@ input một cách rõ ràng bằng cách sử dụng DOM API nguyên bản
 this.textInput.current.focus();
  }
 
+<<<<<<< HEAD
  ```
 Đôi khi một component cha cần được set focus vào một element
 trong component con. Chúng ta có thể thực hiện bằng cách [phơi bày DOM refs tới
 component
 cha](/docs/refs-and-the-dom.html#exposing-dom-refs-to-parent-components)
+=======
+Sometimes a parent component needs to set focus to an element in a child component. We can do this by [exposing DOM refs to parent components](/docs/refs-and-the-dom.html#exposing-dom-refs-to-parent-components) through a special prop on the child component that forwards the parent's ref to the child's DOM node.
+>>>>>>> 23b242edc4c7eeee5798953ba205e36cc71016b8
 
 thông qua một prop đặc biệt ở component con để chuyển tiếp
 ref của component cha đến DOM node của component con.
@@ -260,6 +293,30 @@ class Parent extends React.Component {
 
 // Bây giờ bạn có thể set focus khi cần thiết.
 this.inputElement.current.focus();
+<<<<<<< HEAD
+=======
+```
+
+When using a HOC to extend components, it is recommended to [forward the ref](/docs/forwarding-refs.html) to the wrapped component using the `forwardRef` function of React. If a third party HOC does not implement ref forwarding, the above pattern can still be used as a fallback.
+
+A great focus management example is the [react-aria-modal](https://github.com/davidtheclark/react-aria-modal). This is a relatively rare example of a fully accessible modal window. Not only does it set initial focus on
+the cancel button (preventing the keyboard user from accidentally activating the success action) and trap keyboard focus inside the modal, it also resets focus back to the element that initially triggered the modal.
+
+>Note:
+>
+>While this is a very important accessibility feature, it is also a technique that should be used judiciously. Use it to repair the keyboard focus flow when it is disturbed, not to try and anticipate how
+>users want to use applications.
+
+## Mouse and pointer events {#mouse-and-pointer-events}
+
+Ensure that all functionality exposed through a mouse or pointer event can also be accessed using the keyboard alone. Depending only on the pointer device will lead to many cases where keyboard users cannot use your application.
+
+To illustrate this, let's look at a prolific example of broken accessibility caused by click events. This is the outside click pattern, where a user can disable an opened popover by clicking outside the element.
+
+<img src="../images/docs/outerclick-with-mouse.gif" alt="A toggle button opening a popover list implemented with the click outside pattern and operated with a mouse showing that the close action works." />
+
+This is typically implemented by attaching a `click` event to the `window` object that closes the popover:
+>>>>>>> 23b242edc4c7eeee5798953ba205e36cc71016b8
 
 ```
 Khi sử dụng HOC để mở rộng components, [chuyển tiếp
@@ -338,6 +395,7 @@ constructor(props) {
   }
 }
 ```
+<<<<<<< HEAD
 Điều này có thể hoạt động tốt cho người dùng với những thiết
 bị pointer, như chuột, nhưng thao tác nó với chỉ bàn phím sẽ khiến chức năng bị
 hư hỏng khi tab sang element tiếp theo
@@ -351,6 +409,15 @@ obscuring other screen elements." />
 
 Chúng ta cũng có thể đạt được chức năng tương tự bằng cách sử
 dụng những event handlers thích hợp, như `onBlur` và `onFocus`:
+=======
+
+This may work fine for users with pointer devices, such as a mouse, but operating this with the keyboard alone leads to broken functionality when tabbing to the next element as the `window` object never receives a `click` event. This can lead to obscured functionality which blocks users from using your application.
+
+<img src="../images/docs/outerclick-with-keyboard.gif" alt="A toggle button opening a popover list implemented with the click outside pattern and operated with the keyboard showing the popover not being closed on blur and it obscuring other screen elements." />
+
+The same functionality can be achieved by using an appropriate event handlers instead, such as `onBlur` and `onFocus`:
+
+>>>>>>> 23b242edc4c7eeee5798953ba205e36cc71016b8
 ```javascript{19-29,31-34,37-38,40-41}
 class BlurExample extends React.Component {
   constructor(props) {
@@ -404,6 +471,7 @@ class BlurExample extends React.Component {
   }
 }
 ```
+<<<<<<< HEAD
 Đoạn code cho thấy chức năng của cả con trỏ
 và bàn phím của người dùng. Cũng lưu ý rằng thêm thuộc tính `aria-*` vào để hỗ trợ
 người dùng. Đơn giãn hơn là để sự kiện bàn phím cho phép `arrow key` tương tác với
@@ -415,12 +483,24 @@ tùy chọn popover chưa được implement.
 phụ thuộc vào con trỏ và sự kiện từ chuột sẽ làm hỏng chức năng cho người dùng bàn phím. Luôn luôn
 test với bàn phím sẽ ngay lập tức phát hiện được những khu vực có vấn đề, sau đó
 có thể sửa bằng cách dùng những handler để nhận input từ bàn phím.
+=======
+
+This code exposes the functionality to both pointer device and keyboard users. Also note the added `aria-*` props to support screen-reader users. For simplicity's sake the keyboard events to enable `arrow key` interaction of the popover options have not been implemented.
+
+<img src="../images/docs/blur-popover-close.gif" alt="A popover list correctly closing for both mouse and keyboard users." />
+
+This is one example of many cases where depending on only pointer and mouse events will break functionality for keyboard users. Always testing with the keyboard will immediately highlight the problem areas which can then be fixed by using keyboard aware event handlers.
+>>>>>>> 23b242edc4c7eeee5798953ba205e36cc71016b8
 
 ## Những Widgets phức tạp hơn {#more-complex-widgets}
 
+<<<<<<< HEAD
 Trải nghiệm người dùng phức tạp không nên khiến mức độ accessibilty bị giảm đi.
 Trong khi đó accessibility dễ đạt được nhất bằng cách code sát với HTML nhất có thể,
 Ngay cả với widget phức tạp nhất.
+=======
+A more complex user experience should not mean a less accessible one. Whereas accessibility is most easily achieved by coding as close to HTML as possible, even the most complex widget can be coded accessibly.
+>>>>>>> 23b242edc4c7eeee5798953ba205e36cc71016b8
 
 Ở đây chúng ta cần kiến thức từ [ARIA Roles](https://www.w3.org/TR/wai-aria/#roles) cũng như [ARIA States and Properties](https://www.w3.org/TR/wai-aria/#states_and_properties). Đây là những công cụ có sẵn những thuộc tính HTML đã được hỗ trợ đầy đủ trong JSX và cho phép chúng ta xây dựng một trang web accessibility đầy đủ, những React component có chức năng cao cấp.
 
@@ -482,6 +562,7 @@ Cho đến thời điểm hiện tại, cách dễ nhất và cũng là một tr
 là kiểm tra toàn bộ trang web của bạn có thể tương tác và sử dụng được 
 chỉ bằng bàn phím hay không. Chúng ta thực hiện điều này bằng cách:
 
+<<<<<<< HEAD
 1. Tháo chuột của bạn ra khỏi máy tính.
 2. Sử dụng `Tab` và `Shift+Tab` để duyệt web.
 3. Sử dụng `Enter` để tương tác với những phần tử trong trang web.
@@ -492,13 +573,31 @@ chỉ bằng bàn phím hay không. Chúng ta thực hiện điều này bằng 
 Chúng ta có thể kiểm tra một số chức năng accessibility trực tiếp trong code JSX.
 Thường thì bộ kiểm tra intellisense sẽ được cung cấp sẵn trong IDE cho những vai trò
 ARIA, states và properties. Chúng ta cũng có thể truy cập bằng những công cụ dưới đây:
+=======
+1. Disconnecting your mouse.
+1. Using `Tab` and `Shift+Tab` to browse.
+1. Using `Enter` to activate elements.
+1. Where required, using your keyboard arrow keys to interact with some elements, such as menus and dropdowns.
+
+### Development assistance {#development-assistance}
+
+We can check some accessibility features directly in our JSX code. Often intellisense checks are already provided in JSX aware IDE's for the ARIA roles, states and properties. We also have access to the following tool:
+
+>>>>>>> 23b242edc4c7eeee5798953ba205e36cc71016b8
 #### eslint-plugin-jsx-a11y {#eslint-plugin-jsx-a11y}
 [eslint-plugin-jsx-a11y](https://github.com/evcohen/eslint-plugin-jsx-a11y)
 plugin cho ESLint cung cấp AST phản hồi AST về những vấn đề liên quan đến accessibility trong JSX của bạn. Nhiều IDE's cho phép bạn tích hợp trực tiếp vào code analysis và source code windows.
 
+<<<<<<< HEAD
 [Create React App](https://github.com/facebookincubator/create-react-app) có plugin này
 với một tập hợp về những quy tắc kích hoạt. Nếu bạn muốn cho phép quy tắc accessibility hơn nữa,
 bạn có thể tạo một `.eslintrc` file trong root của project bằng nội dung sau đây:
+=======
+The [eslint-plugin-jsx-a11y](https://github.com/evcohen/eslint-plugin-jsx-a11y) plugin for ESLint provides AST linting feedback regarding accessibility issues in your JSX. Many IDE's allow you to integrate these findings directly into code analysis and source code windows.
+
+[Create React App](https://github.com/facebookincubator/create-react-app) has this plugin with a subset of rules activated. If you want to enable even more accessibility rules, you can create an `.eslintrc` file in the root of your project with this content:
+
+>>>>>>> 23b242edc4c7eeee5798953ba205e36cc71016b8
   ```json
   {
   "extends": ["react-app", "plugin:jsx-a11y/recommended"],
