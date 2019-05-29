@@ -70,11 +70,7 @@ ReactDOM.render(
 
 [](codepen://introducing-jsx)
 
-<<<<<<< HEAD
-Chúng ta có thể tách JSX vào những tệp khác nhau cho dễ đọc. Việc này không bắt buộc, nhưng khi làm như vậy, chúng tôi cũng khuyến khích nhúng trong cặp dấu ngoặc để tránh rơi vào trường hợp JS Engines [tự thêm chấm phẩy](http://stackoverflow.com/q/2846283).
-=======
-We split JSX over multiple lines for readability. While it isn't required, when doing this, we also recommend wrapping it in parentheses to avoid the pitfalls of [automatic semicolon insertion](https://stackoverflow.com/q/2846283).
->>>>>>> bab2a3491a18e7074799272d60c8a159473bb7f5
+Chúng ta có thể tách JSX vào những tệp khác nhau cho dễ đọc. Việc này không bắt buộc, nhưng khi làm như vậy, chúng tôi cũng khuyến khích nhúng trong cặp dấu ngoặc để tránh rơi vào trường hợp JS Engines [tự thêm chấm phẩy](https://stackoverflow.com/q/2846283).
 
 ### JSX cũng là một biểu thức {#jsx-is-an-expression-too}
 
@@ -142,11 +138,7 @@ const title = response.potentiallyMaliciousInput;
 const element = <h1>{title}</h1>;
 ```
 
-<<<<<<< HEAD
-Mặc định, React DOM [loại bỏ những kí tự đặc biệt](http://stackoverflow.com/questions/7381974/which-characters-need-to-be-escaped-on-html) ở bên trong bất kì giá trị nào được nhúng vào JSX trước khi render chúng. Việc này đảm bảo không có giá trị xấu nào được vô tình được đưa vào ứng dụng. Mọi thứ đều được chuyển thành chuỗi trước khi được render. Việc này giúp ngăn chặn phương thức [tấn công XSS (cross-site-scripting)](https://en.wikipedia.org/wiki/Cross-site_scripting).
-=======
-By default, React DOM [escapes](https://stackoverflow.com/questions/7381974/which-characters-need-to-be-escaped-on-html) any values embedded in JSX before rendering them. Thus it ensures that you can never inject anything that's not explicitly written in your application. Everything is converted to a string before being rendered. This helps prevent [XSS (cross-site-scripting)](https://en.wikipedia.org/wiki/Cross-site_scripting) attacks.
->>>>>>> bab2a3491a18e7074799272d60c8a159473bb7f5
+Mặc định, React DOM [loại bỏ những kí tự đặc biệt](https://stackoverflow.com/questions/7381974/which-characters-need-to-be-escaped-on-html) ở bên trong bất kì giá trị nào được nhúng vào JSX trước khi render chúng. Việc này đảm bảo không có giá trị xấu nào được vô tình được đưa vào ứng dụng. Mọi thứ đều được chuyển thành chuỗi trước khi được render. Việc này giúp ngăn chặn phương thức [tấn công XSS (cross-site-scripting)](https://en.wikipedia.org/wiki/Cross-site_scripting).
 
 ### JSX là đối tượng {#jsx-represents-objects}
 
@@ -189,8 +181,4 @@ Chúng ta sẽ khám phá cách các React Element được render vào DOM th�
 
 >**Gợi ý:**
 >
-<<<<<<< HEAD
->Chúng tôi khuyến khích sử dụng [Định nghĩa ngôn ngữ "Babel"](http://babeljs.io/docs/editors) cho trình soạn thảo của bạn như vậy cả mã ES6 và JSX đều có thể được tô sáng rõ ràng. Trang web này dùng tập màu [Oceanic Next](https://labs.voronianski.com/oceanic-next-color-scheme/) cái mà phù hợp cho việc này.
-=======
->We recommend using the ["Babel" language definition](https://babeljs.io/docs/editors) for your editor of choice so that both ES6 and JSX code is properly highlighted. This website uses the [Oceanic Next](https://labs.voronianski.com/oceanic-next-color-scheme/) color scheme which is compatible with it.
->>>>>>> bab2a3491a18e7074799272d60c8a159473bb7f5
+>Chúng tôi khuyến khích sử dụng [Định nghĩa ngôn ngữ "Babel"](https://babeljs.io/docs/editors) cho trình soạn thảo của bạn như vậy cả mã ES6 và JSX đều có thể được tô sáng rõ ràng. Trang web này dùng tập màu [Oceanic Next](https://labs.voronianski.com/oceanic-next-color-scheme/) cái mà phù hợp cho việc này.
