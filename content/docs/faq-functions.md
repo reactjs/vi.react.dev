@@ -14,14 +14,13 @@ Truyền một sự kiện xử lý và một function khác như là một prop
 <button onClick={this.handleClick}>
 ```
 
-If you need to have access to the parent component in the handler, you also need to bind the function to the component instance (xem bên dưới).
+Nếu bạn cần truy cập vào component cha trong xử lý, bạn cần phải bind function cụ thể với một component (xem bên dưới).
 
+### Làm sao Tôi bind một function cho component cụ thể? {#how-do-i-bind-a-function-to-a-component-instance}
 
-### How do I bind a function to a component instance? {#how-do-i-bind-a-function-to-a-component-instance}
+Có một số cách để đảm bảo các function có quyền truy cập vào các thuộc tính component như `this.props` và `this.state`, tùy thuộc vào cú pháp và các bước xây dựng mà bạn đang sử dụng.
 
-There are several ways to make sure functions have access to component attributes like `this.props` and `this.state`, depending on which syntax and build steps you are using.
-
-#### Bind in Constructor (ES2015) {#bind-in-constructor-es2015}
+#### Bind trong Constructor (ES2015) {#bind-in-constructor-es2015}
 
 ```jsx
 class Foo extends Component {
@@ -52,7 +51,7 @@ class Foo extends Component {
 }
 ```
 
-#### Bind in Render {#bind-in-render}
+#### Bind trong Render {#bind-in-render}
 
 ```jsx
 class Foo extends Component {
@@ -65,11 +64,11 @@ class Foo extends Component {
 }
 ```
 
->**Note:**
+>**Lưu ý:**
 >
->Using `Function.prototype.bind` in render creates a new function each time the component renders, which may have performance implications (see below).
+>Sử dụng `Function.prototype.bind` trong hàm render tạo ra một function mới mỗi lần component renders, điều đó có thể liên quan tới hiệu xuất (Xem bên dưới).
 
-#### Arrow Function in Render {#arrow-function-in-render}
+#### Arrow Function trong Render {#arrow-function-in-render}
 
 ```jsx
 class Foo extends Component {
@@ -82,19 +81,19 @@ class Foo extends Component {
 }
 ```
 
->**Note:**
+>**Lưu ý:**
 >
->Using an arrow function in render creates a new function each time the component renders, which may break optimizations based on strict identity comparison.
+>Sử dụng arrow function trong hàm render tạo ra một function mới mỗi lần component renders, điều đó làm tối ưu hóa dựa trên so sánh nghiêm ngặt.
 
-### Is it OK to use arrow functions in render methods? {#is-it-ok-to-use-arrow-functions-in-render-methods}
+### Nó có OK khi sử dụng arrow function trong hàm render? {#is-it-ok-to-use-arrow-functions-in-render-methods}
 
-Generally speaking, yes, it is OK, and it is often the easiest way to pass parameters to callback functions.
+Nói chung, đồng ý, nó OK, và nó thường là cách dễ nhất để truyền tham số cho các callback functions.
 
-If you do have performance issues, by all means, optimize!
+Nếu bạn có vấn đề về hiệu suất, bằng mọi cách, hãy tối ưu hóa!
 
-### Why is binding necessary at all? {#why-is-binding-necessary-at-all}
+### Tại sao ràng buộc cần thiết ở tất cả? {#why-is-binding-necessary-at-all}
 
-In JavaScript, these two code snippets are **not** equivalent:
+Trong JavaScript, hai đoạn code này **không** tương đương:
 
 ```js
 obj.method();
@@ -105,15 +104,15 @@ var method = obj.method;
 method();
 ```
 
-Binding methods helps ensure that the second snippet works the same way as the first one.
+Các phương thức binding giúp đảm bảo rằng đoạn code thứ hai hoạt động giống như cách đầu tiên.
 
-With React, typically you only need to bind the methods you *pass* to other components. For example, `<button onClick={this.handleClick}>` passes `this.handleClick` so you want to bind it. However, it is unnecessary to bind the `render` method or the lifecycle methods: we don't pass them to other components.
+Với React, thông thường bạn chỉ cần bind các phương thức bạn *truyền* cho các component khác. Ví dụ: `<button onClick = {this.handleClick}>` truyền `this.handleClick` vì vậy bạn phải bind nó. Tuy nhiên, không cần thiết phải bind hàm `render` hoặc phương thức vòng đời: chúng tôi không thể truyền chúng cho các component khác.
 
-[This post by Yehuda Katz](https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/) explains what binding is, and how functions work in JavaScript, in detail.
+[Bài đăng này của Yehuda Katz](https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/) giải thích binding là gì và cách các function hoạt động trong JavaScript, một cách chi tiết.
 
-### Why is my function being called every time the component renders? {#why-is-my-function-being-called-every-time-the-component-renders}
+### Tại sao function của tôi lại gọi lại mỗi khi component render? {#why-is-my-function-being-called-every-time-the-component-renders}
 
-Make sure you aren't _calling the function_ when you pass it to the component:
+Hãy chắc chắn rằng bạn đã _call funtion_ khi bạn truyền nó cho component:
 
 ```jsx
 render() {
@@ -122,7 +121,7 @@ render() {
 }
 ```
 
-Instead, *pass the function itself* (without parens):
+Thay thế, *pass the function itself* (without parens):
 
 ```jsx
 render() {
@@ -131,9 +130,9 @@ render() {
 }
 ```
 
-### How do I pass a parameter to an event handler or callback? {#how-do-i-pass-a-parameter-to-an-event-handler-or-callback}
+### Làm cách nào để truyền tham số cho xử lý sự kiện hoặc callback? {#how-do-i-pass-a-parameter-to-an-event-handler-or-callback}
 
-You can use an arrow function to wrap around an event handler and pass parameters:
+Bạn có thể sử dụng arrow function để bọc xung quanh xử lý sự kiện và truyền tham số:
 
 ```jsx
 <button onClick={() => this.handleClick(id)} />
@@ -145,7 +144,7 @@ This is equivalent to calling `.bind`:
 <button onClick={this.handleClick.bind(this, id)} />
 ```
 
-#### Example: Passing params using arrow functions {#example-passing-params-using-arrow-functions}
+#### Ví dụ: Truyền tham số sử dụng arrow function {#example-passing-params-using-arrow-functions}
 
 ```jsx
 const A = 65 // ASCII character code
@@ -179,9 +178,9 @@ class Alphabet extends React.Component {
 }
 ```
 
-#### Example: Passing params using data-attributes {#example-passing-params-using-data-attributes}
+#### Ví dụ: Truyền tham số sử dụng data-attributes {#example-passing-params-using-data-attributes}
 
-Alternately, you can use DOM APIs to store data needed for event handlers. Consider this approach if you need to optimize a large number of elements or have a render tree that relies on React.PureComponent equality checks.
+Thông thường, bạn có thể sử dụng DOM APIs để lưu trữ dữ liệu cần thiết cho xử lý sự kiện. Hãy xem xét phương pháp này nếu bạn cần tối ưu hóa một số lượng lớn các phần tử hoặc có một render tree dựa trên các kiểm tra phương thức React.PureComponent.
 
 ```jsx
 const A = 65 // ASCII character code
@@ -219,23 +218,23 @@ class Alphabet extends React.Component {
 }
 ```
 
-### How can I prevent a function from being called too quickly or too many times in a row? {#how-can-i-prevent-a-function-from-being-called-too-quickly-or-too-many-times-in-a-row}
+### Làm thế nào tôi có thể ngăn chặn một function được gọi quá nhanh hoặc quá nhiều lần liên tiếp? {#how-can-i-prevent-a-function-from-being-called-too-quickly-or-too-many-times-in-a-row}
 
-If you have an event handler such as `onClick` or `onScroll` and want to prevent the callback from being fired too quickly, then you can limit the rate at which callback is executed. This can be done by using:
+Nếu bạn có một sự kiện như `onClick` hoặc `onScroll` và muốn ngăn hàm callback gọi lại quá nhanh, thì bạn có thể giới hạn tốc độ thực hiện hàm callback. Điều này có thể được thực hiện bằng cách sử dụng:
 
-- **throttling**: sample changes based on a time based frequency (eg [`_.throttle`](https://lodash.com/docs#throttle))
-- **debouncing**: publish changes after a period of inactivity (eg [`_.debounce`](https://lodash.com/docs#debounce))
-- **`requestAnimationFrame` throttling**: sample changes based on [`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) (eg [`raf-schd`](https://github.com/alexreardon/raf-schd))
+- **throttling**: thay đổi dựa vào tần suất dựa trên thời gian (eg [`_.throttle`](https://lodash.com/docs#throttle))
+- **debouncing**: thực hiện dựa vào những thay đổi sau một khoảng thời gian (eg [`_.debounce`](https://lodash.com/docs#debounce))
+- **`requestAnimationFrame` throttling**: thay đổi dựa trên [`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) (eg [`raf-schd`](https://github.com/alexreardon/raf-schd))
 
-See [this visualization](http://demo.nimius.net/debounce_throttle/) for a comparison of `throttle` and `debounce` functions.
+Xem [ví dụ này](http://demo.nimius.net/debounce_throttle/) để so sánh giữa các hàm `throttle` và `debounce`.
 
-> Note:
+> Lưu ý:
 >
-> `_.debounce`, `_.throttle` and `raf-schd` provide a `cancel` method to cancel delayed callbacks. You should either call this method from `componentWillUnmount` _or_ check to ensure that the component is still mounted within the delayed function.
+> `_.debounce`, `_.throttle` và `raf-schd` cung cấp một phương thức `cancel` làm trì hoãn các hàm callback. Bạn nên gọi phương thức này từ `componentWillUnmount` _hoặc_ kiểm tra để đảm bảo rằng component đó vẫn được gắn trong function bị trì hoãn.
 
 #### Throttle {#throttle}
 
-Throttling prevents a function from being called more than once in a given window of time. The example below throttles a "click" handler to prevent calling it more than once per second.
+Throttle ngăn chặn một function được gọi nhiều lần trong một cửa sổ thời gian nhất định. Ví dụ dưới đây điều chỉnh một sự kiện xử lý "click" để ngăn chặn việc gọi nó nhiều hơn một lần mỗi giây.
 
 ```jsx
 import throttle from 'lodash.throttle';
@@ -263,7 +262,7 @@ class LoadMoreButton extends React.Component {
 
 #### Debounce {#debounce}
 
-Debouncing ensures that a function will not be executed until after a certain amount of time has passed since it was last called. This can be useful when you have to perform some expensive calculation in response to an event that might dispatch rapidly (eg scroll or keyboard events). The example below debounces text input with a 250ms delay.
+Debounce đảm bảo rằng một hàm sẽ không được thực thi cho đến khi một khoảng thời gian nhất định trôi qua kể từ khi nó được gọi lần cuối. Điều này có thể hữu ích khi bạn phải thực hiện một số tính toán phức tạp để đáp ứng với một sự kiện có thể gửi đi nhanh chóng (ví dụ: các sự kiện scroll hoặc bàn phím). Ví dụ dưới đây nhập văn bản với độ trễ 250ms.
 
 ```jsx
 import debounce from 'lodash.debounce';
@@ -305,11 +304,11 @@ class Searchbox extends React.Component {
 
 #### `requestAnimationFrame` throttling {#requestanimationframe-throttling}
 
-[`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) is a way of queuing a function to be executed in the browser at the optimal time for rendering performance. A function that is queued with `requestAnimationFrame` will fire in the next frame. The browser will work hard to ensure that there are 60 frames per second (60 fps). However, if the browser is unable to it will naturally *limit* the amount of frames in a second. For example, a device might only be able to handle 30 fps and so you will only get 30 frames in that second. Using `requestAnimationFrame` for throttling is a useful technique in that it prevents you from doing more than 60 updates in a second. If you are doing 100 updates in a second this creates additional work for the browser that the user will not see anyway.
+[`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) là một cách xếp hàng một chức năng sẽ được thực thi trong trình duyệt tại thời điểm tối ưu để hiển thị hiệu suất. Một chức năng được xếp hàng trong `requestAnimationFrame` sẽ kích hoạt trong khung tiếp theo. Trình duyệt sẽ làm việc liên tục để đảm bảo có 60 khung hình mỗi giây (60 fps). Tuy nhiên, nếu trình duyệt không thể, nó sẽ tự nhiên *giới hạn* số lượng khung hình trong một giây. Ví dụ: một thiết bị có thể chỉ có thể xử lý 30 fps và do đó bạn sẽ chỉ nhận được 30 khung hình trong giây đó. Sử dụng `requestAnimationFrame` để điều chỉnh là một kỹ thuật hữu ích ở chỗ nó ngăn bạn thực hiện hơn 60 cập nhật trong một giây. Nếu bạn đang thực hiện 100 bản cập nhật trong một giây, điều này sẽ tạo ra công việc bổ sung cho trình duyệt mà người dùng sẽ không thấy.
 
->**Note:**
+>**Lưu ý:**
 >
->Using this technique will only capture the last published value in a frame. You can see an example of how this optimization works on [`MDN`](https://developer.mozilla.org/en-US/docs/Web/Events/scroll)
+>Sử dụng kĩ thuật này sẽ xem được giá trị cuối cùng của mỗi khung hình. Bạn có thể xem một ví dụ về cách tối ưu hóa này hoạt động trên [`MDN`](https://developer.mozilla.org/en-US/docs/Web/Events/scroll)
 
 ```jsx
 import rafSchedule from 'raf-schd';
@@ -350,6 +349,6 @@ class ScrollListener extends React.Component {
 }
 ```
 
-#### Testing your rate limiting {#testing-your-rate-limiting}
+#### Kiểm tra tỉ lệ giới hạn {#testing-your-rate-limiting}
 
-When testing your rate limiting code works correctly it is helpful to have the ability to fast forward time. If you are using [`jest`](https://facebook.github.io/jest/) then you can use [`mock timers`](https://facebook.github.io/jest/docs/en/timer-mocks.html) to fast forward time. If you are using `requestAnimationFrame` throttling then you may find [`raf-stub`](https://github.com/alexreardon/raf-stub) to be a useful tool to control the ticking of animation frames.
+Khi kiểm tra code của bạn hoạt động có đang chính xác, thật hữu ích để có khả năng chuyển nhanh thời gian. Nếu bạn đang sử dụng [`jest`](https://facebook.github.io/jest/) thì bạn có thể sử dụng [`mock timers`](https://facebook.github.io/jest/docs/en/timer-mocks.html) để chuyển nhanh thời gian. Nếu bạn đang sử dụng `requestAnimationFrame` thì bạn có thể thấy [`raf-stub`](https://github.com/alexreardon/raf-stub) là một công cụ hữu ích để kiểm soát việc đánh dấu các khung hình động.
