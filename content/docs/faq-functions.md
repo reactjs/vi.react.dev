@@ -1,20 +1,21 @@
 ---
 id: faq-functions
-title: Passing Functions to Components
+title: Truyền Functions cho Component
 permalink: docs/faq-functions.html
 layout: docs
 category: FAQ
 ---
 
-### How do I pass an event handler (like onClick) to a component? {#how-do-i-pass-an-event-handler-like-onclick-to-a-component}
+### Làm thế nào tôi truyền một sự kiện (như onClick) cho một component?{#how-do-i-pass-an-event-handler-like-onclick-to-a-component}
 
-Pass event handlers and other functions as props to child components:
+Truyền một sự kiện xử lý và một function khác như là một props cho component con:
 
 ```jsx
 <button onClick={this.handleClick}>
 ```
 
-If you need to have access to the parent component in the handler, you also need to bind the function to the component instance (see below).
+If you need to have access to the parent component in the handler, you also need to bind the function to the component instance (xem bên dưới).
+
 
 ### How do I bind a function to a component instance? {#how-do-i-bind-a-function-to-a-component-instance}
 
