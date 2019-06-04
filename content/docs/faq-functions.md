@@ -112,7 +112,7 @@ Với React, thông thường bạn chỉ cần bind các phương thức bạn 
 
 ### Tại sao function của tôi lại gọi lại mỗi khi component render? {#why-is-my-function-being-called-every-time-the-component-renders}
 
-Hãy chắc chắn rằng bạn đã _call funtion_ khi bạn truyền nó cho component:
+Hãy chắc chắn rằng bạn đã _call function_ khi bạn truyền nó cho component:
 
 ```jsx
 render() {
