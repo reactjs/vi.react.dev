@@ -83,7 +83,7 @@ class Foo extends Component {
 
 >**Lưu ý:**
 >
->Sử dụng arrow function trong hàm render tạo ra một function mới mỗi lần component renders, điều đó làm tối ưu hóa dựa trên so sánh nghiêm ngặt.
+>Sử dụng arrow function trong hàm render tạo ra một function mới mỗi lần component renders, điều đó làm phá vỡ tính tối ưu dựa trên so sánh các định danh.
 
 ### Nó có OK khi sử dụng arrow function trong hàm render? {#is-it-ok-to-use-arrow-functions-in-render-methods}
 
@@ -106,7 +106,7 @@ method();
 
 Các phương thức binding giúp đảm bảo rằng đoạn code thứ hai hoạt động giống như cách đầu tiên.
 
-Với React, thông thường bạn chỉ cần bind các phương thức bạn *truyền* cho các component khác. Ví dụ: `<button onClick = {this.handleClick}>` truyền `this.handleClick` vì vậy bạn phải bind nó. Tuy nhiên, không cần thiết phải bind hàm `render` hoặc phương thức vòng đời: chúng tôi không thể truyền chúng cho các component khác.
+Với React, thông thường bạn chỉ cần bind các phương thức bạn *truyền* cho các component khác. Ví dụ: `<button onClick = {this.handleClick}>` truyền `this.handleClick` vì vậy bạn phải bind nó. Tuy nhiên, không cần thiết phải bind hàm `render` hoặc phương thức vòng đời: chúng tôi không truyền chúng cho các component khác.
 
 [Bài đăng này của Yehuda Katz](https://yehudakatz.com/2011/08/11/understanding-javascript-function-invocation-and-this/) giải thích binding là gì và cách các function hoạt động trong JavaScript, một cách chi tiết.
 
@@ -180,7 +180,7 @@ class Alphabet extends React.Component {
 
 #### Ví dụ: Truyền tham số sử dụng data-attributes {#example-passing-params-using-data-attributes}
 
-Thông thường, bạn có thể sử dụng DOM APIs để lưu trữ dữ liệu cần thiết cho xử lý sự kiện. Hãy xem xét phương pháp này nếu bạn cần tối ưu hóa một số lượng lớn các phần tử hoặc có một render tree dựa trên các kiểm tra phương thức React.PureComponent.
+Thông thường, bạn có thể sử dụng DOM APIs để lưu trữ dữ liệu cần thiết cho xử lý sự kiện. Hãy xem xét phương pháp này nếu bạn cần tối ưu hóa một số lượng lớn các phần tử hoặc có một render tree dựa trên các phương thức kiểm tra sự bằng nhau React.PureComponent.
 
 ```jsx
 const A = 65 // ASCII character code
@@ -224,17 +224,17 @@ Nếu bạn có một sự kiện như `onClick` hoặc `onScroll` và muốn ng
 
 - **throttling**: thay đổi dựa vào tần suất dựa trên thời gian (eg [`_.throttle`](https://lodash.com/docs#throttle))
 - **debouncing**: thực hiện dựa vào những thay đổi sau một khoảng thời gian (eg [`_.debounce`](https://lodash.com/docs#debounce))
-- **`requestAnimationFrame` throttling**: thay đổi dựa trên [`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) (eg [`raf-schd`](https://github.com/alexreardon/raf-schd))
+- **`requestAnimationFrame` throttling**: thay đổi mẫu dựa trên [`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) (eg [`raf-schd`](https://github.com/alexreardon/raf-schd))
 
 Xem [mô phỏng này](http://demo.nimius.net/debounce_throttle/) để so sánh giữa các hàm `throttle` và `debounce`.
 
 > Lưu ý:
 >
-> `_.debounce`, `_.throttle` và `raf-schd` cung cấp một phương thức `cancel` làm trì hoãn các hàm callback. Bạn nên gọi phương thức này từ `componentWillUnmount` _hoặc_ kiểm tra để đảm bảo rằng component đó vẫn được gắn trong function bị trì hoãn.
+> `_.debounce`, `_.throttle` và `raf-schd` cung cấp một phương thức `cancel` để huỷ các hàm callback đang bị trì hoãn. Bạn nên gọi phương thức này từ `componentWillUnmount` _hoặc_ kiểm tra để đảm bảo rằng component đó vẫn được gắn trong function bị trì hoãn.
 
 #### Throttle {#throttle}
 
-Throttle ngăn chặn một function được gọi nhiều lần trong một cửa sổ thời gian nhất định. Ví dụ dưới đây điều chỉnh một sự kiện xử lý "click" để ngăn chặn việc gọi nó nhiều hơn một lần mỗi giây.
+Throttle ngăn chặn một function được gọi nhiều lần trong một khung thời gian nhất định. Ví dụ dưới đây điều chỉnh một sự kiện xử lý "click" để ngăn chặn việc gọi nó nhiều hơn một lần mỗi giây.
 
 ```jsx
 import throttle from 'lodash.throttle';
