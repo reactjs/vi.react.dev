@@ -247,7 +247,7 @@ Hãy chắc chắn rằng tất cả chức năng được sử dụng thông qu
 
 ```javascript{12-14,26-30}
 class OuterClickExample extends React.Component {
-constructor(props) {
+  constructor(props) {
     super(props);
 
     this.state = { isOpen: false };
