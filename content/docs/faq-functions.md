@@ -66,7 +66,7 @@ class Foo extends Component {
 
 >**Lưu ý:**
 >
->Sử dụng `Function.prototype.bind` trong hàm render tạo ra một function mới mỗi lần component renders, điều đó có thể liên quan tới hiệu xuất (Xem bên dưới).
+>Sử dụng `Function.prototype.bind` trong hàm render tạo ra một function mới mỗi lần component renders, điều đó có thể liên quan tới hiệu suất (Xem bên dưới).
 
 #### Arrow Function trong Render {#arrow-function-in-render}
 
@@ -226,7 +226,7 @@ Nếu bạn có một sự kiện như `onClick` hoặc `onScroll` và muốn ng
 - **debouncing**: thực hiện dựa vào những thay đổi sau một khoảng thời gian (eg [`_.debounce`](https://lodash.com/docs#debounce))
 - **`requestAnimationFrame` throttling**: thay đổi dựa trên [`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) (eg [`raf-schd`](https://github.com/alexreardon/raf-schd))
 
-Xem [ví dụ này](http://demo.nimius.net/debounce_throttle/) để so sánh giữa các hàm `throttle` và `debounce`.
+Xem [mô phỏng này](http://demo.nimius.net/debounce_throttle/) để so sánh giữa các hàm `throttle` và `debounce`.
 
 > Lưu ý:
 >

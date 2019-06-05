@@ -38,7 +38,7 @@ Có, xem tài liệu styling tại [đây](/docs/dom-elements.html#style).
 
 ### Viết inline styles xấu? {#are-inline-styles-bad}
 
-Các class CSS thường sẽ có hiệu xuất tốt hơn là inline styles.
+Các class CSS thường sẽ có hiệu suất tốt hơn là inline styles.
 
 ### CSS-in-JS là gì? {#what-is-css-in-js}
 
