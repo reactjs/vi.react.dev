@@ -1,6 +1,6 @@
 ---
 id: faq-build
-title: Babel, JSX, và từng bước xây dựng
+title: Babel, JSX, và các bước xây dựng
 permalink: docs/faq-build.html
 layout: docs
 category: FAQ

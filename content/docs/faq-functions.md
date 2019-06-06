@@ -16,7 +16,7 @@ Truyền một sự kiện xử lý và một function khác như là một prop
 
 Nếu bạn cần truy cập vào component cha trong xử lý, bạn cần phải bind function cụ thể với một component (xem bên dưới).
 
-### Làm sao Tôi bind một function cho component cụ thể? {#how-do-i-bind-a-function-to-a-component-instance}
+### Làm sao tôi bind một function cho component cụ thể? {#how-do-i-bind-a-function-to-a-component-instance}
 
 Có một số cách để đảm bảo các function có quyền truy cập vào các thuộc tính component như `this.props` và `this.state`, tùy thuộc vào cú pháp và các bước xây dựng mà bạn đang sử dụng.
 
@@ -85,7 +85,7 @@ class Foo extends Component {
 >
 >Sử dụng arrow function trong hàm render tạo ra một function mới mỗi lần component renders, điều đó làm phá vỡ tính tối ưu dựa trên so sánh các định danh.
 
-### Nó có OK khi sử dụng arrow function trong hàm render? {#is-it-ok-to-use-arrow-functions-in-render-methods}
+### Có được sử dụng arrow function trong hàm render không? {#is-it-ok-to-use-arrow-functions-in-render-methods}
 
 Nói chung, đồng ý, nó OK, và nó thường là cách dễ nhất để truyền tham số cho các callback functions.
 
@@ -262,7 +262,7 @@ class LoadMoreButton extends React.Component {
 
 #### Debounce {#debounce}
 
-Debounce đảm bảo rằng một hàm sẽ không được thực thi cho đến khi một khoảng thời gian nhất định trôi qua kể từ khi nó được gọi lần cuối. Điều này có thể hữu ích khi bạn phải thực hiện một số tính toán phức tạp để đáp ứng với một sự kiện có thể gửi đi nhanh chóng (ví dụ: các sự kiện scroll hoặc bàn phím). Ví dụ dưới đây nhập văn bản với độ trễ 250ms.
+Debounce đảm bảo rằng một hàm sẽ không được thực thi sau một khoảng thời gian nhất định kể từ khi nó được gọi lần cuối. Điều này có thể hữu ích khi bạn phải thực hiện một số tính toán phức tạp để đáp ứng với một sự kiện có thể gửi đi nhanh chóng (ví dụ: các sự kiện scroll hoặc bàn phím). Ví dụ dưới đây nhập văn bản với độ trễ 250ms.
 
 ```jsx
 import debounce from 'lodash.debounce';
@@ -304,7 +304,7 @@ class Searchbox extends React.Component {
 
 #### `requestAnimationFrame` throttling {#requestanimationframe-throttling}
 
-[`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) là một cách xếp hàng một chức năng sẽ được thực thi trong trình duyệt tại thời điểm tối ưu để hiển thị hiệu suất. Một chức năng được xếp hàng trong `requestAnimationFrame` sẽ kích hoạt trong khung tiếp theo. Trình duyệt sẽ làm việc liên tục để đảm bảo có 60 khung hình mỗi giây (60 fps). Tuy nhiên, nếu trình duyệt không thể, nó sẽ tự nhiên *giới hạn* số lượng khung hình trong một giây. Ví dụ: một thiết bị có thể chỉ có thể xử lý 30 fps và do đó bạn sẽ chỉ nhận được 30 khung hình trong giây đó. Sử dụng `requestAnimationFrame` để điều chỉnh là một kỹ thuật hữu ích ở chỗ nó ngăn bạn thực hiện hơn 60 cập nhật trong một giây. Nếu bạn đang thực hiện 100 bản cập nhật trong một giây, điều này sẽ tạo ra công việc bổ sung cho trình duyệt mà người dùng sẽ không thấy.
+[`requestAnimationFrame`](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) à cách sắp xếp thứ tự thực thi của một hàm trên trình duyệt tại thời điểm tối ưu cho hiệu suất hiển thị. Một hàm được xếp trong `requestAnimationFrame` sẽ kích hoạt trong khung tiếp theo. Trình duyệt sẽ làm việc liên tục để đảm bảo có 60 khung hình mỗi giây (60 fps). Tuy nhiên, nếu trình duyệt không thể, nó sẽ tự nhiên *giới hạn* số lượng khung hình trong một giây. Ví dụ: một thiết bị có thể chỉ có thể xử lý 30 fps và do đó bạn sẽ chỉ nhận được 30 khung hình trong giây đó. Sử dụng `requestAnimationFrame` để điều chỉnh là một kỹ thuật hữu ích ở chỗ nó ngăn bạn thực hiện hơn 60 cập nhật trong một giây. Nếu bạn đang thực hiện 100 bản cập nhật trong một giây, nó sẽ tạo ra thêm việc cho trình duyệt mà người dùng không hề nhìn thấy.
 
 >**Lưu ý:**
 >
