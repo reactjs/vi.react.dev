@@ -138,9 +138,9 @@
     - id: faq-ajax
       title: AJAX và APIs
     - id: faq-build
-      title: Babel, JSX, and Build Steps
+      title: Babel, JSX, và các bước xây dựng
     - id: faq-functions
-      title: Passing Functions to Components
+      title: Truyền Functions cho Component
     - id: faq-state
       title: Component State
     - id: faq-styling
