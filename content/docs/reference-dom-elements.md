@@ -14,27 +14,27 @@ redirect_from:
   - "tips/dangerously-set-inner-html.html"
 ---
 
-React áp dụng hệ thống DOM không phụ thuộc vào trình duyệt để tăng hiệu suất và độ tương thích với nhiều trình duyệt khác nhau. Nhân dịp này, chúng tôi đã chỉnh sửa một vài điểm không tương đồng trong cách làm việc với DOM của các trình duyệt.
+React áp dụng hệ thống DOM không phụ thuộc vào trình duyệt để tăng hiệu suất và độ tương thích với nhiều trình duyệt khác nhau. Nhân dịp này, chúng tôi đã loại bỏ một số khía cạnh chưa hoàn chỉnh trong cách triển khai DOM trên trình duyệt.
 
-Trong React, thuộc tính DOM va các sự kiện (properties và attributes, vd như id, class, value, data-attr, onclick, ...) phải được viết theo camelCase. Ví dụ như attribute `tabindex`, thì trong React là `tabIndex`. Có những ngoại lệ là thuộc tính `aria-*` và `data-*` phải được viết chữ thường. Ví dụ `aria-label` vẫn là `aria-label`.
+Trong React, tất cả các thuộc tính của DOM (bao gồm xử lí sự kiện) phải được viết theo camelCase. Ví dụ như attribute `tabindex`, thì trong React là `tabIndex`. Có những ngoại lệ là thuộc tính `aria-*` và `data-*` phải được viết chữ thường. Ví dụ `aria-label` vẫn là `aria-label`.
 
 ## Sự khác biệt trong các thuộc tính {#differences-in-attributes}
 
-Có một số sự khác biệt trong cách thuộc tính hoạt động trong React so với HTML:
+Có một vài thuộc tính hoạt động khác biệt giữa React và HTML:
 
 ### checked {#checked}
 
-Thuộc tính `checked` trong các `<input>` có type là `checkbox` và `radio` được dùng để tạo controlled components, xem mục Controlled Components để biết thêm. `defaultChecked` được dùng để đặt giá trị ban đầu của input, được dùng để tạo Uncontrolled Components.
+Thuộc tính `checked` được hỗ trợ bởi các component `<input>` với kiểu `checkbox` hoặc `radio`. Bạn có thể dùng nó để thiết lập cho component có được checked hay chưa. Điều này hữu ích khi xây dựng những component kiểm soát, xem mục Component Kiểm Soát để biết thêm. `defaultChecked` được dùng để đặt giá trị ban đầu của input, được dùng để tạo những Component Không Kiểm Soát.
 
 ### className {#classname}
 
-Để đặt CSS class cho các thẻ DOM hay SVG như `div`, `a`, ..., chúng ta sử dụng `className` thay vì `class` như thường lệ do bị đụng với từ khoá của ES6 class.
+Để đặt class css, sử dụng thuộc tính className. Nó được sử dụng cho tất cả các phần tử DOM và SVG như `div`, `a` và những thuộc tính khác.
 
-Nếu bạn sử dụng Web Components (trường hợp không phổ biến), thì vẫn dùng `class`.
+Nếu bạn sử dụng React với Web Components (trường hợp không phổ biến), thì vẫn dùng `class`.
 
 ### dangerouslySetInnerHTML {#dangerouslysetinnerhtml}
 
-`dangerouslySetInnerHTML` tương đương với `innerHTML` trong DOM. Nhìn chung, việc thay đổi DOM từ Javascript nguy hiểm do mình có thể vô tình để người dùng vô tình bị tấn công bởi [cross-site scripting (XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting). Vì vậy, trong React, bạn phải sử dụng `dangerouslySetInnerHTML` và truyền một object với key là `_html` để đề phòng. Ví dụ:
+`dangerouslySetInnerHTML` tương đương với `innerHTML` trong DOM. Nhìn chung, việc thay đổi DOM từ Javascript nguy hiểm do mình có thể vô tình để người dùng bị tấn công bởi [cross-site scripting (XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting). Vì vậy, React có thể tạo HTML trực tiếp, nhưng bạn phải sử dụng `dangerouslySetInnerHTML` và truyền một object với key là `_html` để nhăc bạn nhớ rằng điều này không an toàn. Ví dụ:
 
 ```js
 function createMarkup() {
@@ -52,21 +52,19 @@ Do `for` là một từ khoá trong Javascript, React dùng `htmlFor`.
 
 ### onChange {#onchange}
 
-Sự kiện `onChange` hoạt động đúng như tên gọi của nó, được phát ra khi giá trị của `<input>` thay đổi. React dựa vào sự kiện này để xử lý đầu vào từ người dùng ở thời gian thực.
+Sự kiện `onChange` hoạt động đúng như tên gọi của nó: khi một giá trị của trường mẫu bị thay đổi, sự kiện này được phát ra. Chúng tôi cố tình không sử dụng hành vi của trình duyệt bởi vì `onChange` được hiểu sai co hành vi của nó và React dựa vào sự kiện này để xử lý đầu vào của người dùng trong thời gian thực.
 
 ### selected {#selected}
 
-The `selected` attribute is supported by `<option>` components. You can use it to set whether the component is selected. This is useful for building controlled components.
-
-Thuộc tính `selected` được sử dụng trong `<option>` để đánh dấu option nào được chọn trong một `<select>` cho Controlled component.
+Thuộc tính `selected` được sử dụng trong `<option>` để đánh dấu option nào được chọn trong một `<select>` cho những Component Kiểm Soát.
 
 ### style {#style}
 
->Ghi chú
+>Lưu ý
 >
->Một vài ví dụ trong tài liệu này sử dụng `style` cho tiện, thực tế **sử dụng thuộc tính `style` tại chỗ không được khuyến khích .** Trong đa phần các trường hợp, [`className`](#classname) nên được dùng cùng với một file CSS rời để style. Thuộc tính `style` thường được dùng trong React để style động ví dụ như người dùng thay đổi màu hoặc font-size bằng một input. Xem thêm [FAQ: Styling and CSS](/docs/faq-styling.html).
+>Một vài ví dụ trong tài liệu này sử dụng `style` cho tiện, thực tế **sử dụng thuộc tính `style` tại chỗ không được khuyến khích .** Trong đa số các trường hợp, [`className`](#classname) nên được dùng cùng với một file CSS rời để style. Thuộc tính `style` thường được dùng trong React để style động ví dụ như người dùng thay đổi màu hoặc font-size bằng một input. Xem thêm [FAQ: Styling and CSS](/docs/faq-styling.html).
 
-Thuộc tính `style` nhận vào một object với các thuộc tính CSS ở dạng camelCase. Viết bằng camelCase để tích hợp với key của object trong Javascript, đồng thời mang lại sự nhất quán và chống tấn công XSS. Ví dụ:
+Thuộc tính `style` nhận vào một object với các thuộc tính CSS ở dạng camelCase thay vì một chuỗi CSS. Nó sẽ nhất quán với key của object trong Javascript, hiệu quả hơn và đề phòng những lỗ hỗng bảo mật XSS. Ví dụ:
 
 ```js
 const divStyle = {
@@ -79,7 +77,7 @@ function HelloWorldComponent() {
 }
 ```
 
-Nhớ rắng styles không có tự động tương thích với các trình duyệt nên bạn phải tự thêm tiếp đầu ngữ vào. Ví dụ:
+Nhớ rằng styles không tự động thêm tiền tố. Để tương thích với các trình duyệt nên bạn phải tự thêm tiền tố vào. Ví dụ:
 
 ```js
 const divStyle = {
@@ -92,9 +90,9 @@ function ComponentWithTransition() {
 }
 ```
 
-Các thuộc tính css được camelCase để đồng nhất với Javascript, vd `node.style.backgroundImage`. Các tiếp đầu ngữ [ngoài `ms`](https://www.andismith.com/blogs/2012/02/modernizr-prefixed/) phải được bắt đầu bằng một chữ hoa vd như `WebkitTransition`.
+Các thuộc tính css được camelCase để đồng nhất với Javascript, ví dụ `node.style.backgroundImage`. Các tiếp đầu ngữ [ngoài `ms`](https://www.andismith.com/blogs/2012/02/modernizr-prefixed/) phải được bắt đầu bằng một chữ hoa ví dụ như `WebkitTransition`.
 
-React sẽ tự động thêm "px" vào sau các giá trị số. Nếu bạn muốn sử dụng đơn vị khác, hãy dùng kiểu string thay vì number, vd:
+React sẽ tự động thêm hệu tố "px" vào sau một vài kiểu thuộc tính số inline nhất định. Nếu bạn muốn sử dụng đơn vị khác, hãy chỉ định giá trị như là một chuỗi với đơn vị bạn muốn, ví dụ:
 
 ```js
 // Result style: '10px'
@@ -108,7 +106,7 @@ React sẽ tự động thêm "px" vào sau các giá trị số. Nếu bạn mu
 </div>
 ```
 
-Không phải thuộc tính nào cũng được thêm "px" vào sau. Các thuộc tính không có đơn vị sẽ được giữ nguyên, vd như `zoom`, `order`, `flex`. Tất cả các thuộc tính không có đơn vị có thể được tìm thấy [ở đây](https://github.com/facebook/react/blob/4131af3e4bf52f3a003537ec95a1655147c81270/src/renderers/dom/shared/CSSProperty.js#L15-L59).
+Không phải thuộc tính nào cũng được thêm hậu tố "px" vào sau. Các thuộc tính không có đơn vị sẽ được giữ nguyên, ví dụ như `zoom`, `order`, `flex`. Danh sách tất cả các thuộc tính không có đơn vị có thể được tìm thấy [ở đây](https://github.com/facebook/react/blob/4131af3e4bf52f3a003537ec95a1655147c81270/src/renderers/dom/shared/CSSProperty.js#L15-L59).
 
 ### suppressContentEditableWarning {#suppresscontenteditablewarning}
 
@@ -116,17 +114,15 @@ Một component có component con được đánh dấu là `contentEditable` s�
 
 ### suppressHydrationWarning {#suppresshydrationwarning}
 
-Nếu bạn sử dụng server-side rendering, thông thường sẽ có một cảnh báo khi nội dung được render trên server khác với client. Tuy nhiên, trong một vài trường hợp, rất khó để đảm báo server và client trùng khớp với nhau vd như render timestamp.
+Nếu bạn sử dụng server-side rendering, thông thường sẽ có một cảnh báo khi nội dung được render trên server khác với client. Tuy nhiên, trong một vài trường hợp, rất khó để đảm báo server và client trùng khớp với nhau ví dụ như render timestamp.
 
-Bằng cách đặt `suppressHydrationWarning` là `true`, React sẽ không cảnh báo khi nội dung của client và server không khớp nhau. Tuy nhiên `suppressHydrationWarning` chỉ được áp dụng cho một lớp component và chỉ nên sử dụng trong trường hợp bất khả kháng, không nên lạm dụng nó. Xem thêm về Hydration tại [`ReactDOM.hydrate()`](/docs/react-dom.html#hydrate).
+Nếu bạn để `suppressHydrationWarning` là `true`, React sẽ không cảnh báo về những sự không trùng khớp trong những thuộc tính và nội dung của element đó. Nó chỉ hoạt động một cấp, và được dự định sử dụng như một lối thoát. Đừng lạm dụng nó. Bạn có thể xem thêm về hydration tại [`ReactDOM.hydrate()`](/docs/react-dom.html#hydrate).
 
 ### value {#value}
 
-Thuộc tính `value` được dùng cho `<input>` và `<textarea>`. Bạn có thể dùng `value` để tạo nên Controlled components. Dùng `defaultValue` nếu muốn Uncontrolled components.
+Thuộc tính `value` được hỗ trợ bởi những component `<input>` và `<textarea>`. Ban có thể sử dụng nó để đặt giá trị của component. Điều này là cần thiết để tạo Component Kiểm Soát. `defaultValue` là thuộc tính tương đương trong Component Không Kiểm Soát, nó đặt giá trị cho Component khi nó được mount lần đầu tiên.
 
 ## Tất cả thuộc tính HTML được hỗ trợ {#all-supported-html-attributes}
-
-As of React 16, any standard [or custom](/blog/2017/09/08/dom-attributes-in-react-16.html) DOM attributes are fully supported.
 
 Trong React 16, [tất cả](/blog/2017/09/08/dom-attributes-in-react-16.html) thuộc tính DOM đều được hỗ trợ.
 

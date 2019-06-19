@@ -31,7 +31,7 @@ number timeStamp
 string type
 ```
 
-> Ghi chú:
+> Lưu ý:
 >
 > Từ bản v0.14, hàm xử lý event trả về `false` sẽ không ngừng sự lan truyền của event đó. `e.stopPropagation()` hoặc `e.preventDefault()` phải được gọi để ngăn event đó đi tiếp.
 
@@ -60,9 +60,9 @@ function onClick(event) {
 }
 ```
 
-> Ghi chú:
+> Lưu ý:
 >
-> Nếu bạn muốn giữ lại thuộc tính của event sau khi chạy hàm xử lý, bạn phải gọi `event.persist()` để tách event object ra khỏi nhóm gộp và giữ lại các thuộc tính của nó.
+> Nếu bạn muốn giữ lại thuộc tính của event sau khi chạy hàm xử lý, bạn phải gọi `event.persist()` để tách event object ra (event object mới sẽ được tạo) và giữ lại các thuộc tính của nó.
 
 ## Các Events được hỗ trợ {#supported-events}
 
@@ -244,7 +244,7 @@ string pointerType
 boolean isPrimary
 ```
 
-Ghi chú về hỗ trợ trình duyệt
+Lưu ý về hỗ trợ trình duyệt
 
 Pointer events chưa được hỗ trợ trong tất cả trình duyệt (tại thời điểm viết bài này, những trình duyệt được hỗ trợ: Chrome, Firefox, Edge, and Internet Explorer)). React không cố để polyfill cho những trình duyệt khác vì nó sẽ làm `react-dom` anng85 hơn rất nhiều.
 
