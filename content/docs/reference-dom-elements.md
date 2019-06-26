@@ -24,7 +24,7 @@ Có một vài thuộc tính hoạt động khác biệt giữa React và HTML:
 
 ### checked {#checked}
 
-Thuộc tính `checked` được hỗ trợ bởi các component `<input>` với kiểu `checkbox` hoặc `radio`. Bạn có thể dùng nó để thiết lập cho component có được checked hay chưa. Điều này hữu ích khi xây dựng những component kiểm soát, xem mục Component Kiểm Soát để biết thêm. `defaultChecked` được dùng để đặt giá trị ban đầu của input, được dùng để tạo những Component Không Kiểm Soát.
+Thuộc tính `checked` được hỗ trợ bởi các component `<input>` với kiểu `checkbox` hoặc `radio`. Bạn có thể dùng nó để thiết lập cho component có được checked hay chưa. Điều này hữu ích khi xây dựng những Component Kiểm Soát. `defaultChecked` là giá trị không kiểm soát, nó sẽ quyết định component có được chọn hay không khi nó được mount lần đầu tiên.
 
 ### className {#classname}
 
@@ -34,7 +34,7 @@ Nếu bạn sử dụng React với Web Components (trường hợp không phổ
 
 ### dangerouslySetInnerHTML {#dangerouslysetinnerhtml}
 
-`dangerouslySetInnerHTML` tương đương với `innerHTML` trong DOM. Nhìn chung, việc thay đổi DOM từ Javascript nguy hiểm do mình có thể vô tình để người dùng bị tấn công bởi [cross-site scripting (XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting). Vì vậy, React có thể tạo HTML trực tiếp, nhưng bạn phải sử dụng `dangerouslySetInnerHTML` và truyền một object với key là `_html` để nhăc bạn nhớ rằng điều này không an toàn. Ví dụ:
+`dangerouslySetInnerHTML` tương đương với `innerHTML` trong DOM. Nhìn chung, việc thay đổi DOM từ Javascript khá rủi ro do nó có thể vô tình để lộ người dùng [cross-site scripting (XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting). Vì vậy, React có thể tạo HTML trực tiếp, nhưng bạn phải sử dụng `dangerouslySetInnerHTML` và truyền một object với key là `_html` để nhăc bạn nhớ rằng điều này không an toàn. Ví dụ:
 
 ```js
 function createMarkup() {
@@ -52,19 +52,19 @@ Do `for` là một từ khoá trong Javascript, React dùng `htmlFor`.
 
 ### onChange {#onchange}
 
-Sự kiện `onChange` hoạt động đúng như tên gọi của nó: khi một giá trị của trường mẫu bị thay đổi, sự kiện này được phát ra. Chúng tôi cố tình không sử dụng hành vi của trình duyệt bởi vì `onChange` được hiểu sai co hành vi của nó và React dựa vào sự kiện này để xử lý đầu vào của người dùng trong thời gian thực.
+Sự kiện `onChange` hoạt động đúng như tên gọi của nó: khi một giá trị của trường mẫu bị thay đổi, sự kiện này được phát ra. Chúng tôi cố tình không sử dụng hành vi của trình duyệt bởi vì `onChange` được hiểu sai bởi chính hành vi của nó và React dựa vào sự kiện này để xử lý đầu vào của người dùng trong thời gian thực.
 
 ### selected {#selected}
 
-Thuộc tính `selected` được sử dụng trong `<option>` để đánh dấu option nào được chọn trong một `<select>` cho những Component Kiểm Soát.
+Thuộc tính `selected` được sử dụng trong `<option>` để đánh dấu option nào được chọn trong một `<select>`. Điều này hữu ích khi tạo ra các Component Kiểm Soát.
 
 ### style {#style}
 
 >Lưu ý
 >
->Một vài ví dụ trong tài liệu này sử dụng `style` cho tiện, thực tế **sử dụng thuộc tính `style` tại chỗ không được khuyến khích .** Trong đa số các trường hợp, [`className`](#classname) nên được dùng cùng với một file CSS rời để style. Thuộc tính `style` thường được dùng trong React để style động ví dụ như người dùng thay đổi màu hoặc font-size bằng một input. Xem thêm [FAQ: Styling and CSS](/docs/faq-styling.html).
+>Một vài ví dụ trong tài liệu này sử dụng `style` cho tiện, thực tế **sử dụng thuộc tính `style` trực tiếp không được khuyến khích .** Trong đa số các trường hợp, [`className`](#classname) nên được dùng cùng với một file CSS rời để style. Thuộc tính `style` thường được dùng trong React để trỏ tới những class được định nghiã ở stylesheet css bên ngoài. Xem thêm [FAQ: Styling and CSS](/docs/faq-styling.html).
 
-Thuộc tính `style` nhận vào một object với các thuộc tính CSS ở dạng camelCase thay vì một chuỗi CSS. Nó sẽ nhất quán với key của object trong Javascript, hiệu quả hơn và đề phòng những lỗ hỗng bảo mật XSS. Ví dụ:
+Thuộc tính `style` nhận vào một object với các thuộc tính CSS ở dạng camelCase thay vì một chuỗi CSS. Nó sẽ nhất quán với thuộc tính `style` của Javascript trên DOM, hiệu quả hơn và đề phòng những lỗ hỗng bảo mật XSS. Ví dụ:
 
 ```js
 const divStyle = {
@@ -82,7 +82,7 @@ Nhớ rằng styles không tự động thêm tiền tố. Để tương thích 
 ```js
 const divStyle = {
   WebkitTransition: 'all', // nhớ là chữ 'W' được viết hoa
-  msTransition: 'all' // 'ms' là tiếp đầu ngữ duy nhất được viết thường
+  msTransition: 'all' // 'ms' là tiền tố duy nhất được viết thường
 };
 
 function ComponentWithTransition() {
@@ -90,9 +90,9 @@ function ComponentWithTransition() {
 }
 ```
 
-Các thuộc tính css được camelCase để đồng nhất với Javascript, ví dụ `node.style.backgroundImage`. Các tiếp đầu ngữ [ngoài `ms`](https://www.andismith.com/blogs/2012/02/modernizr-prefixed/) phải được bắt đầu bằng một chữ hoa ví dụ như `WebkitTransition`.
+Các từ khoá style được viết theo dạng camelCase để đồng nhất với việc truy cập các thuộc tính trên DOM từ Javascript, ví dụ `node.style.backgroundImage`. Các tiền tố [ngoài `ms`](https://www.andismith.com/blogs/2012/02/modernizr-prefixed/) phải được bắt đầu bằng một chữ hoa ví dụ như `WebkitTransition`.
 
-React sẽ tự động thêm hệu tố "px" vào sau một vài kiểu thuộc tính số inline nhất định. Nếu bạn muốn sử dụng đơn vị khác, hãy chỉ định giá trị như là một chuỗi với đơn vị bạn muốn, ví dụ:
+React sẽ tự động thêm hậu tố "px" vào sau một vài kiểu thuộc tính số inline nhất định. Nếu bạn muốn sử dụng đơn vị khác ngoài 'px', hãy thêm đơn vị mong muốn dưới dạng chuỗi, ví dụ:
 
 ```js
 // Result style: '10px'
@@ -126,7 +126,7 @@ Thuộc tính `value` được hỗ trợ bởi những component `<input>` và 
 
 Trong React 16, [tất cả](/blog/2017/09/08/dom-attributes-in-react-16.html) thuộc tính DOM đều được hỗ trợ.
 
-React đã luôn được viết với Javascript làm trọng tâm nên hầu hết các thuộc tính DOM đều được viết ở dạng `camelCase` tương tự như DOM API. Ví dụ như:
+React luôn cung cấp một API với trọng tâm là javascript cho DOM. Bời vì những React component thường nhận những props được tuỳ chỉnh hoặc có liên quan tới DOM, React sử dụng quy ước `camelCase` như là các DOM APIs. Ví dụ như:
 
 ```js
 <div tabIndex="-1" />      // tương tự node.tabIndex DOM API
@@ -134,9 +134,9 @@ React đã luôn được viết với Javascript làm trọng tâm nên hầu h
 <input readOnly={true} />  // tương tự node.readOnly DOM API
 ```
 
-Những thuộc tính này gần giống với thuộc tính HTML, với những ngoại lệ liệt kê ở trên.
+Những thuộc tính này hoạt động tương tự với thuộc tính HTML, với những ngoại lệ liệt kê ở trên.
 
-Một vài thuộc tính DOM dc React hỗ trợ như:
+Một vài thuộc tính DOM được React hỗ trợ như:
 
 ```
 accept acceptCharset accessKey action allowFullScreen alt async autoComplete
@@ -193,4 +193,4 @@ xlinkHref xlinkRole xlinkShow xlinkTitle xlinkType xmlns xmlnsXlink xmlBase
 xmlLang xmlSpace y y1 y2 yChannelSelector z zoomAndPan
 ```
 
-Bạn có thể sử dụng thuộc tính tự định ra nhưng phải được viết bằng chữ thường.
+Bạn có thể sử dụng thuộc tính tự tạo nhưng phải được viết bằng chữ thường.

@@ -6,13 +6,13 @@ layout: docs
 category: Reference
 ---
 
-Tìa liệu này nhằm giải thích `SyntheticEvent` trong Hệ thống Event của React. Xem [Handling Events](/docs/handling-events.html) để biết thêm chi tiết.
+Tài liệu này nhằm giải thích `SyntheticEvent` trong Hệ thống Event của React. Xem [Handling Events](/docs/handling-events.html) để biết thêm chi tiết.
 
 ## Tổng quan {#overview}
 
-Các hàm xử lý sự kiện sẽ được truyền vào một instance của `SyntheticEvent` (một lớp bọc các event để triệt tiêu sự khác nhau về event của các trình duyệt). No có giao diện (interface) tương tự như một event của trình duyệt, bao gồm `stopPropagation()`, và `preventDefault()` và hoạt động giống nhau cho mọi trình duyệt.
+Các hàm xử lý sự kiện sẽ được truyền vào một instance của `SyntheticEvent` (một lớp bọc các event để triệt tiêu sự khác nhau về event của các trình duyệt). Nó có giao diện (interface) tương tự như một event của trình duyệt, bao gồm `stopPropagation()`, và `preventDefault()` và hoạt động giống nhau trên mọi trình duyệt.
 
-Nếu bạn cần lấy event thật từ trình duyệt vì một lý do nào đó, chỉ cần sử dụng thuộc tính `nativeEvent` là được. Mọi `SyntheticEvent` object đều có những thuộc tính sau:
+Nếu bạn cần lấy event từ trình duyệt vì một lý do nào đó, chỉ cần sử dụng thuộc tính `nativeEvent` là được. Mọi `SyntheticEvent` object đều có những thuộc tính sau:
 
 ```javascript
 boolean bubbles
@@ -37,9 +37,9 @@ string type
 
 ### Gộp Event {#event-pooling}
 
-Một `SyntheticEvent` sẽ được gộp lại nghĩa là event object sẽ được sử dụng lại và tất cả thuộc tính trong object đó sẽ bị gán null sau khi hàm xử lý event chạy xong.
+Một `SyntheticEvent` sẽ được gộp lại nghĩa là `SyntheticEvent` object sẽ được sử dụng lại và tất cả thuộc tính trong object đó sẽ bị gán null sau khi hàm xử lý event chạy xong.
 Việc làm này nhằm tăng hiệu suất.
-Vì vậy, bạn không thể dùng event object một cách asynchronous. Ví dụ:
+Vì vậy, bạn không thể dùng truy cập sự kiện theo phương pháp không đồng bộ. Ví dụ:
 
 ```javascript
 function onClick(event) {
@@ -55,7 +55,7 @@ function onClick(event) {
   // Không chạy. this.state.clickEvent sẽ là một object có tất cả thuộc tính null.
   this.setState({clickEvent: event});
 
-  // Bạn vẫn có thể giữ thuộc tính đó do nó là primitive.
+  // Bạn vẫn có thể truy xuất các thuộc tính của event.
   this.setState({eventType: event.type});
 }
 ```
@@ -179,7 +179,7 @@ Tên Event:
 onChange onInput onInvalid onSubmit
 ```
 
-Xem thêm thông tin về Form Event ở [Forms](/docs/forms.html).
+Xem thêm thông tin về onChange event [Forms](/docs/forms.html).
 
 * * *
 
@@ -193,7 +193,7 @@ onDragLeave onDragOver onDragStart onDrop onMouseDown onMouseEnter onMouseLeave
 onMouseMove onMouseOut onMouseOver onMouseUp
 ```
 
-Event `onMouseEnter` và `onMouseLeave` lan ra từ element được rời đi và không có capture.
+Event `onMouseEnter` và `onMouseLeave` phát ra từ element được rời đi tới element được đi vào thay vì bubble như bình thường và không có giai đoạn capture.
 
 Thuộc tính:
 
@@ -225,7 +225,7 @@ onPointerDown onPointerMove onPointerUp onPointerCancel onGotPointerCapture
 onLostPointerCapture onPointerEnter onPointerLeave onPointerOver onPointerOut
 ```
 
-Event `onPointerEnter` và `onPointerLeave` lan ra từ element được rời đi và không có capture.
+Event `onPointerEnter` và `onPointerLeave` phát ra từ element được rời đi tới element được đi vào thay vì bubble như bình thường và không có giai đoạn capture.
 
 Thuộc tính:
 
@@ -246,9 +246,9 @@ boolean isPrimary
 
 Lưu ý về hỗ trợ trình duyệt
 
-Pointer events chưa được hỗ trợ trong tất cả trình duyệt (tại thời điểm viết bài này, những trình duyệt được hỗ trợ: Chrome, Firefox, Edge, and Internet Explorer)). React không cố để polyfill cho những trình duyệt khác vì nó sẽ làm `react-dom` anng85 hơn rất nhiều.
+Pointer events chưa được hỗ trợ trong tất cả trình duyệt (tại thời điểm viết bài này, những trình duyệt được hỗ trợ: Chrome, Firefox, Edge, and Internet Explorer)). React không cố để polyfill cho những trình duyệt khác vì nó sẽ làm tăng dung lượng `react-dom` một cách đáng kể.
 
-Nếu bạn cần pointer event, chúng tôi khuyến khích thêm polyfill cho nó.
+Nếu bạn cần pointer event, chúng tôi khuyến khích sử dụng pointer event polyfill từ bên thứ ba cho nó.
 
 * * *
 
