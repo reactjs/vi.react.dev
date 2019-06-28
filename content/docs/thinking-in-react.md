@@ -35,23 +35,13 @@ Dữ liệu trả về từ JSON API như sau:
 
 Điều đầu tiên cần làm là khoanh tròn và đặt tên cho tất cả các component (và cả component con) trong bản mock. Thảo luận với người thiết kế, họ có thể đã đặt tên cho chúng. Tên của các layer trong bản vẽ photoshop có thể thành tên các react component của bạn!
 
-<<<<<<< HEAD
 Nhưng làm thế nào để chia nhỏ giao diện thành những component? Hãy sử dụng những kỹ thuật khi quyết định nên viết thêm một hàm hay tạo ra một object mới. Một trong những kỹ thuật đó là [nguyên tắc đơn nhiệm](https://en.wikipedia.org/wiki/Single_responsibility_principle)
 
 Vì mô hình dữ liệu thường hiển thị dưới dạng chuỗi JSON, nếu mô hình của bạn được thực hiện đúng, giao diện người dùng (và vì thế cấu trúc component) sẽ hoàn toàn tương thích. Đó là bởi vì giao diện người dùng và mô hình dữ liệu thường có xu hướng tuân thủ cùng một kiểu *thông tin kiến trúc*, có nghĩa rằng bạn sẽ không phải dành nhiều thời gian cho việc chia nhỏ giao diện người dùng. Mỗi component sẽ tượng trưng cho một phần mô hình dữ liệu.
-=======
-But how do you know what should be its own component? Use the same techniques for deciding if you should create a new function or object. One such technique is the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle), that is, a component should ideally only do one thing. If it ends up growing, it should be decomposed into smaller subcomponents.
-
-Since you're often displaying a JSON data model to a user, you'll find that if your model was built correctly, your UI (and therefore your component structure) will map nicely. That's because UI and data models tend to adhere to the same *information architecture*, which means the work of separating your UI into components is often trivial. Break it up into components that represent exactly one piece of your data model.
->>>>>>> 92ad9c2f7abb36a306f563fe48b7f52649929608
 
 ![Sơ đồ Component](../images/blog/thinking-in-react-components.png)
 
-<<<<<<< HEAD
-Trong ứng dụng đơn giản dưới đây, bạn sẽ thấy chúng ta có 5 component, dữ liệu mà mỗi component hiển thị sẽ được in nghiêng
-=======
-You'll see here that we have five components in our app. We've italicized the data each component represents.
->>>>>>> 92ad9c2f7abb36a306f563fe48b7f52649929608
+Trong ứng dụng dưới đây, bạn sẽ thấy chúng ta có 5 component, dữ liệu mà mỗi component hiển thị sẽ được in nghiêng
 
   1. **`FilterableProductTable` (orange):** chứa toàn bộ cả ứng dụng
   2. **`SearchBar` (blue):** nơi *người dùng nhập từ khoá tìm kiếm*
