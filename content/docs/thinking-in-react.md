@@ -35,23 +35,13 @@ Dữ liệu trả về từ JSON API như sau:
 
 Điều đầu tiên cần làm là khoanh tròn và đặt tên cho tất cả các component (và cả component con) trong bản mock. Thảo luận với người thiết kế, họ có thể đã đặt tên cho chúng. Tên của các layer trong bản vẽ photoshop có thể thành tên các react component của bạn!
 
-<<<<<<< HEAD
 Nhưng làm thế nào để chia nhỏ giao diện thành những component? Hãy sử dụng những kỹ thuật khi quyết định nên viết thêm một hàm hay tạo ra một object mới. Một trong những kỹ thuật đó là [nguyên tắc đơn nhiệm](https://en.wikipedia.org/wiki/Single_responsibility_principle)
 
 Vì mô hình dữ liệu thường hiển thị dưới dạng chuỗi JSON, nếu mô hình của bạn được thực hiện đúng, giao diện người dùng (và vì thế cấu trúc component) sẽ hoàn toàn tương thích. Đó là bởi vì giao diện người dùng và mô hình dữ liệu thường có xu hướng tuân thủ cùng một kiểu *thông tin kiến trúc*, có nghĩa rằng bạn sẽ không phải dành nhiều thời gian cho việc chia nhỏ giao diện người dùng. Mỗi component sẽ tượng trưng cho một phần mô hình dữ liệu.
-=======
-But how do you know what should be its own component? Use the same techniques for deciding if you should create a new function or object. One such technique is the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle), that is, a component should ideally only do one thing. If it ends up growing, it should be decomposed into smaller subcomponents.
-
-Since you're often displaying a JSON data model to a user, you'll find that if your model was built correctly, your UI (and therefore your component structure) will map nicely. That's because UI and data models tend to adhere to the same *information architecture*. Separate your UI into components, where each component matches one piece of your data model.
->>>>>>> cb5a61cdbfa5e72646cfb954056c6a4fde490a8c
 
 ![Sơ đồ Component](../images/blog/thinking-in-react-components.png)
 
-<<<<<<< HEAD
-Trong ứng dụng đơn giản dưới đây, bạn sẽ thấy chúng ta có 5 component, dữ liệu mà mỗi component hiển thị sẽ được in nghiêng
-=======
-You'll see here that we have five components in our app. We've italicized the data each component represents.
->>>>>>> cb5a61cdbfa5e72646cfb954056c6a4fde490a8c
+Trong ứng dụng dưới đây, bạn sẽ thấy chúng ta có 5 component, dữ liệu mà mỗi component hiển thị sẽ được in nghiêng
 
   1. **`FilterableProductTable` (orange):** chứa toàn bộ cả ứng dụng
   2. **`SearchBar` (blue):** nơi *người dùng nhập từ khoá tìm kiếm*
@@ -61,11 +51,7 @@ You'll see here that we have five components in our app. We've italicized the da
 
 Nhìn vào `ProductTable`, bạn sẽ thấy rằng tiêu đề cuả bảng (bao gồm những tiêu đề như "Name" và "Price") không được chia nhỏ thành các component. Đây là một tuỳ chọn mang tính cá nhân, đã có những cuộc thảo luận về vấn đề này. Trong ví dụ, chúng ta để nó như là một phần của `ProductTable` bởi vì nó là một phần khi hiển thị *bảng dữ liệu* thuộc về `ProductTable`. Tuy nhiên, nếu như phần tiêu đề trở nên phức tạp (ví dụ nếu chúng ta thêm chức năng sắp xếp phân loại), thì tất nhiên sẽ hơp lí hơn khi có component `ProductTableHeader` cho phần tiêu đề.
 
-<<<<<<< HEAD
 Bây giờ khi xác định các component trong bản mock, hãy sắp xếp nó theo một hệ thống phân chia cấp bậc. Những component cùng nằm bên trong một component trong bản mock thì nó nên là component con trong hệ thống cấp bậc:
-=======
-Now that we've identified the components in our mock, let's arrange them into a hierarchy. Components that appear within another component in the mock should appear as a child in the hierarchy:
->>>>>>> cb5a61cdbfa5e72646cfb954056c6a4fde490a8c
 
   * `FilterableProductTable`
     * `SearchBar`
@@ -84,15 +70,9 @@ Bây giờ bạn đã có hệ thống cấp bậc cho component của bạn, đ
 
 Bạn có thể tạo ra theo chiều từ trên xuống dưới hoặc ngược lại. Điều đó có nghĩa, bạn có thể bắt đầu với những component ở phía trên của hệ thống phân chia cấp bậc (ví dụ bắt đầu với `FilterableProductTable`) hoặc với những component con của nó (`ProductRow`). Trong những ví dụ đơn giản, thường thì nó sẽ đi theo chiều từ trên xuống dưới, và trong những dự án lớn thường sẽ dễ dàng hơn nếu làm theo hướng ngược lại và song song là viết test cho nó.
 
-<<<<<<< HEAD
 Sau khi kết thúc, bạn sẽ có những thư viện có thể tái sử dụng để hiển thị mô hình dữ liệu. Những component sẽ chỉ có hàm `render()` vì đây là phiên bản tĩnh. Component ở phía trên của hệ thống phân chia cấp bậc (`FilterableProductTable`) sẽ nhận kiểu dữ liệu bằng prop. Nếu dữ liệu được thay đổi và hàm `ReactDOM.render()` được gọi lại, thì giao diện người dùng sẽ được cập nhật. Điều này sẽ giúp cho ta hiểu làm thế nào giao diện người dùng được cập nhật dễ dàng hơn và dữ liệu bị thay đổi ở đâu bởi vì nó không bị phức tạp hoá. React **luồng dữ liệu một chiều** (hay còn gọi *ràng buộc một chiều*) giữ cho mọi thứ được phân chia theo module và nhanh gọn.
 
 Tham khảo [tài liệu React](/docs/) nếu như bạn cần trợ giúp để thực hiện bước này.
-=======
-At the end of this step, you'll have a library of reusable components that render your data model. The components will only have `render()` methods since this is a static version of your app. The component at the top of the hierarchy (`FilterableProductTable`) will take your data model as a prop. If you make a change to your underlying data model and call `ReactDOM.render()` again, the UI will be updated. You can see how your UI is updated and where to make changes. React's **one-way data flow** (also called *one-way binding*) keeps everything modular and fast.
-
-Refer to the [React docs](/docs/) if you need help executing this step.
->>>>>>> cb5a61cdbfa5e72646cfb954056c6a4fde490a8c
 
 ### Bản tóm tắt ngắn gọn: Props và State {#a-brief-interlude-props-vs-state}
 
@@ -100,15 +80,9 @@ Có hai kiểu "mô hình" dữ liệu trong React: props và state. Hãy chắc
 
 ## Bước 3: Xác định các trạng thái hoàn chỉnh nhỏ nhất của giao diện người dùng {#step-3-identify-the-minimal-but-complete-representation-of-ui-state}
 
-<<<<<<< HEAD
 Để làm cho giao diện người dùng tương tác, bạn cần có khả năng để kích hoạt những thay đổi đối với mô hình dữ liệu cơ bản. React làm điều đó một cách dễ dàng bằng **state**.
 
 Để xây dựng ứng dụng của bạn một cách chuẩn xác, đầu tiên cần suy nghĩ về một tập hợp tối thiểu các state có khả năng thay đổi trong ứng dựng. Trọng điểm là [DRY: *Không lập lại*](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) Xác định tập hợp này và tính toán những yêu cầu khác. Ví dụ, bạn tạo ra một danh sách TODO, không nên dùng state để đếm phần tử của mảng TODO. Thay vào đó khi in ra số lượng TODO, chỉ cần tính độ dài của mảng TODO.
-=======
-To make your UI interactive, you need to be able to trigger changes to your underlying data model. React achieves this with **state**.
-
-To build your app correctly, you first need to think of the minimal set of mutable state that your app needs. The key here is [DRY: *Don't Repeat Yourself*](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Figure out the absolute minimal representation of the state your application needs and compute everything else you need on-demand. For example, if you're building a TODO list, keep an array of the TODO items around; don't keep a separate state variable for the count. Instead, when you want to render the TODO count, take the length of the TODO items array.
->>>>>>> cb5a61cdbfa5e72646cfb954056c6a4fde490a8c
 
 Suy tính về các thành phần dữ liệu trong ví dụ ứng dựng, nó bao gồm:
 
@@ -117,11 +91,7 @@ Suy tính về các thành phần dữ liệu trong ví dụ ứng dựng, nó b
   * Giá trị của checkbox
   * Danh sách sản phẩm sau khi phân loại
 
-<<<<<<< HEAD
 Hãy cùng tìm hiểu xem thành phần nào là trạng thái bằng cách đặt ra 3 câu hổi cho mỗi phần:
-=======
-Let's go through each one and figure out which one is state. Ask three questions about each piece of data:
->>>>>>> cb5a61cdbfa5e72646cfb954056c6a4fde490a8c
 
   1. Có phải nó được truyền từ component cha qua props không? Nếu có thì nó có thể không phải là state.
   2. Dữ liệu có thay đổi không? nếu không thì nó không phải là state.
@@ -144,17 +114,10 @@ Lưu ý: React truyền dữ liệu một chiều xuống trong hệ thống ph�
 
 Cho mỗi phần của state trong ứng dụng của bạn:
 
-<<<<<<< HEAD
   * Xác định tất cả các component sẽ hiển thị dựa trên state.
   * Tìm ra một component cha ( component ở phía trên các component cần state ở trong hệ thống phân chia cấp bậc).
   * Hoặc là component cha hay component khác ở phía trên nên giữ state.¨
   * Nếu bạn không thể tìm ra component hợp lí, thì hãy tạo ra một component mới nắm giữ state và thêm nó vào trong hệ thông phân chia cấp bậc ở phía trên component cha.
-=======
-  * Identify every component that renders something based on that state.
-  * Find a common owner component (a single component above all the components that need the state in the hierarchy).
-  * Either the common owner or another component higher up in the hierarchy should own the state.
-  * If you can't find a component where it makes sense to own the state, create a new component solely for holding the state and add it somewhere in the hierarchy above the common owner component.
->>>>>>> cb5a61cdbfa5e72646cfb954056c6a4fde490a8c
 
 Hãy cùng điểm lại kế hoạch cho ứng dụng của chúng ta:
 
@@ -172,24 +135,14 @@ Bạn có thể bắt đầu thấy ứng dụng của bạn hoạt động ra s
 
 Cho đến giờ, chúng ta đã xây dựng một ứng dụng để hiển thị chính xác các giá trị của props và state từ trên xuống dưới trong hệ thống phân chia cấp bậc. Giờ là lúc để làm cho luồng dữ liệu có thể vận chuyển theo hướng ngược lại: những component form ở phía dưới cần cập nhật trạng thái cho `FilterableProductTable`.
 
-<<<<<<< HEAD
 React làm cho luồng dữ liệu trở nên rõ ràng và dễ hiểu hơn chương trình của bạn hoạt động ra sao, nhưng nó cũng yêu cầu gõ nhiều hơn so với kiểu binding dữ liệu hai chiều truyền thống.
-=======
-React makes this data flow explicit to help you understand how your program works, but it does require a little more typing than traditional two-way data binding.
->>>>>>> cb5a61cdbfa5e72646cfb954056c6a4fde490a8c
 
 Nếu bạn thử gõ hoặc lựa chọn giá trị trong ví dụ hiện thời, bạn sẽ thấy rằng React bỏ qua những giá trị đầu vào này. Điều này sảy ra có chủ ý, vì chúng ta gán `value` prop của `input` luôn luôn bằng với `state` truyền từ `FilterableProductTable`.
 
 Hãy nghĩ xem chúng ta muốn thực hiện điều gì. Chúng ta muốn chắc chắn rằng khi nào người dùng thay đổi form, chúng ta cập nhật state dựa trên dữ liệu đầu vào. Vì những component chỉ nên cập nhật state cuả chúng, `FilterableProductTable` sẽ truyền vào callbacks tới `SearchBar` để kích hoạt mỗi khi dữ liệu cần cập nhật. Chúng ta có thể sử dụng sự kiện `onChange` trong input để nhận được thông báo. Callbacks truyền xuống bởi `FilterableProductTable` sẽ gọi hàm `setState()`, và ứng dụng sẽ được cập nhật.
 
-<<<<<<< HEAD
 Mặc dù nó nghe phức tạp, nhưng thật ra chỉ cần vài dòng lệnh. Và nó chỉ ra rất rõ ràng luồng dữ liệu được truyền đi trong ứng dụng như thế nào.
 
 ## Và kết thúc {#and-thats-it}
 
 Hy vọng rằng nó sẽ cho bạn một ý tưởng về cách tư duy khi tạo ra những component và ứng dụng với React. Trong khi nó yêu cầu phải gõ nhiều hơn bạn từng làm, nhưng code này rất rõ ràng và dễ đọc. Khi bạn bắt đầu xây dựng những thư viện component lớn, bạn sẽ thấy sự hữu dụng khi đọc những code module hoá và rõ ràng, thêm nữa số lượng code sẽ giảm xuống khi code được tái sử dụng .
-=======
-## And That's It {#and-thats-it}
-
-Hopefully, this gives you an idea of how to think about building components and applications with React. While it may be a little more typing than you're used to, remember that code is read far more than it's written, and it's less difficult to read this modular, explicit code. As you start to build large libraries of components, you'll appreciate this explicitness and modularity, and with code reuse, your lines of code will start to shrink. :)
->>>>>>> cb5a61cdbfa5e72646cfb954056c6a4fde490a8c
