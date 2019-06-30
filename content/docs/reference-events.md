@@ -6,13 +6,13 @@ layout: docs
 category: Reference
 ---
 
-This reference guide documents the `SyntheticEvent` wrapper that forms part of React's Event System. See the [Handling Events](/docs/handling-events.html) guide to learn more.
+Tài liệu này nhằm giải thích `SyntheticEvent` trong Hệ thống Event của React. Xem [Handling Events](/docs/handling-events.html) để biết thêm chi tiết.
 
-## Overview {#overview}
+## Tổng quan {#overview}
 
-Your event handlers will be passed instances of `SyntheticEvent`, a cross-browser wrapper around the browser's native event. It has the same interface as the browser's native event, including `stopPropagation()` and `preventDefault()`, except the events work identically across all browsers.
+Các hàm xử lý sự kiện sẽ được truyền vào một instance của `SyntheticEvent` (một lớp bọc các event để triệt tiêu sự khác nhau về event của các trình duyệt). Nó có giao diện (interface) tương tự như một event của trình duyệt, bao gồm `stopPropagation()`, và `preventDefault()` và hoạt động giống nhau trên mọi trình duyệt.
 
-If you find that you need the underlying browser event for some reason, simply use the `nativeEvent` attribute to get it. Every `SyntheticEvent` object has the following attributes:
+Nếu bạn cần lấy event từ trình duyệt vì một lý do nào đó, chỉ cần sử dụng thuộc tính `nativeEvent` là được. Mọi `SyntheticEvent` object đều có những thuộc tính sau:
 
 ```javascript
 boolean bubbles
@@ -31,19 +31,19 @@ number timeStamp
 string type
 ```
 
-> Note:
+> Lưu ý:
 >
-> As of v0.14, returning `false` from an event handler will no longer stop event propagation. Instead, `e.stopPropagation()` or `e.preventDefault()` should be triggered manually, as appropriate.
+> Từ bản v0.14, hàm xử lý event trả về `false` sẽ không ngừng sự lan truyền của event đó. `e.stopPropagation()` hoặc `e.preventDefault()` phải được gọi để ngăn event đó đi tiếp.
 
-### Event Pooling {#event-pooling}
+### Gộp Event {#event-pooling}
 
-The `SyntheticEvent` is pooled. This means that the `SyntheticEvent` object will be reused and all properties will be nullified after the event callback has been invoked.
-This is for performance reasons.
-As such, you cannot access the event in an asynchronous way.
+Một `SyntheticEvent` sẽ được gộp lại nghĩa là `SyntheticEvent` object sẽ được sử dụng lại và tất cả thuộc tính trong object đó sẽ bị gán null sau khi hàm xử lý event chạy xong.
+Việc làm này nhằm tăng hiệu suất.
+Vì vậy, bạn không thể dùng truy cập sự kiện theo phương pháp không đồng bộ. Ví dụ:
 
 ```javascript
 function onClick(event) {
-  console.log(event); // => nullified object.
+  console.log(event); // => object có thuộc tính sẽ bị null sau khi sử dụng.
   console.log(event.type); // => "click"
   const eventType = event.type; // => "click"
 
@@ -52,23 +52,23 @@ function onClick(event) {
     console.log(eventType); // => "click"
   }, 0);
 
-  // Won't work. this.state.clickEvent will only contain null values.
+  // Không chạy. this.state.clickEvent sẽ là một object có tất cả thuộc tính null.
   this.setState({clickEvent: event});
 
-  // You can still export event properties.
+  // Bạn vẫn có thể truy xuất các thuộc tính của event.
   this.setState({eventType: event.type});
 }
 ```
 
-> Note:
+> Lưu ý:
 >
-> If you want to access the event properties in an asynchronous way, you should call `event.persist()` on the event, which will remove the synthetic event from the pool and allow references to the event to be retained by user code.
+> Nếu bạn muốn giữ lại thuộc tính của event sau khi chạy hàm xử lý, bạn phải gọi `event.persist()` để tách event object ra (event object mới sẽ được tạo) và giữ lại các thuộc tính của nó.
 
-## Supported Events {#supported-events}
+## Các Events được hỗ trợ {#supported-events}
 
-React normalizes events so that they have consistent properties across different browsers.
+React chuẩn hoá các event để chúng hoạt động giống nhau trên các trình duyệt khác nhau.
 
-The event handlers below are triggered by an event in the bubbling phase. To register an event handler for the capture phase, append `Capture` to the event name; for example, instead of using `onClick`, you would use `onClickCapture` to handle the click event in the capture phase.
+Các hàm xử lý event được thực thi trong lúc event bubble lên. Nếu muốn gán hàm xử lý vào lúc capture xuống của event, thêm hậu tố Capture vào sau tên event, ví dụ `onClickCapture`.
 
 - [Clipboard Events](#clipboard-events)
 - [Composition Events](#composition-events)
@@ -85,21 +85,21 @@ The event handlers below are triggered by an event in the bubbling phase. To reg
 - [Image Events](#image-events)
 - [Animation Events](#animation-events)
 - [Transition Events](#transition-events)
-- [Other Events](#other-events)
+- [Events khác](#other-events)
 
 * * *
 
-## Reference {#reference}
+## Tài liệu tham khảo {#reference}
 
 ### Clipboard Events {#clipboard-events}
 
-Event names:
+Tên Event:
 
 ```
 onCopy onCut onPaste
 ```
 
-Properties:
+Thuộc tính:
 
 ```javascript
 DOMDataTransfer clipboardData
@@ -109,13 +109,13 @@ DOMDataTransfer clipboardData
 
 ### Composition Events {#composition-events}
 
-Event names:
+Tên Event:
 
 ```
 onCompositionEnd onCompositionStart onCompositionUpdate
 ```
 
-Properties:
+Thuộc tính:
 
 ```javascript
 string data
@@ -124,15 +124,15 @@ string data
 
 * * *
 
-### Keyboard Events {#keyboard-events}
+### Event bàn phím {#keyboard-events}
 
-Event names:
+Tên Event:
 
 ```
 onKeyDown onKeyPress onKeyUp
 ```
 
-Properties:
+Thuộc tính:
 
 ```javascript
 boolean altKey
@@ -149,21 +149,21 @@ boolean shiftKey
 number which
 ```
 
-The `key` property can take any of the values documented in the [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values).
+Thuộc tính `key` sẽ có những giá trị như trong [DOM Level 3 Events spec](https://www.w3.org/TR/uievents-key/#named-key-attribute-values).
 
 * * *
 
 ### Focus Events {#focus-events}
 
-Event names:
+Tên Event:
 
 ```
 onFocus onBlur
 ```
 
-These focus events work on all elements in the React DOM, not just form elements.
+Những event focus sẽ hoạt động trên tất cả React DOM, không chỉ trong form.
 
-Properties:
+Thuộc tính:
 
 ```javascript
 DOMEventTarget relatedTarget
@@ -173,19 +173,19 @@ DOMEventTarget relatedTarget
 
 ### Form Events {#form-events}
 
-Event names:
+Tên Event:
 
 ```
 onChange onInput onInvalid onSubmit
 ```
 
-For more information about the onChange event, see [Forms](/docs/forms.html).
+Xem thêm thông tin về onChange event [Forms](/docs/forms.html).
 
 * * *
 
-### Mouse Events {#mouse-events}
+### Event chuột {#mouse-events}
 
-Event names:
+Tên Event:
 
 ```
 onClick onContextMenu onDoubleClick onDrag onDragEnd onDragEnter onDragExit
@@ -193,9 +193,9 @@ onDragLeave onDragOver onDragStart onDrop onMouseDown onMouseEnter onMouseLeave
 onMouseMove onMouseOut onMouseOver onMouseUp
 ```
 
-The `onMouseEnter` and `onMouseLeave` events propagate from the element being left to the one being entered instead of ordinary bubbling and do not have a capture phase.
+Event `onMouseEnter` và `onMouseLeave` phát ra từ element được rời đi tới element được đi vào thay vì bubble như bình thường và không có giai đoạn capture.
 
-Properties:
+Thuộc tính:
 
 ```javascript
 boolean altKey
@@ -218,18 +218,18 @@ boolean shiftKey
 
 ### Pointer Events {#pointer-events}
 
-Event names:
+Tên Event:
 
 ```
 onPointerDown onPointerMove onPointerUp onPointerCancel onGotPointerCapture
 onLostPointerCapture onPointerEnter onPointerLeave onPointerOver onPointerOut
 ```
 
-The `onPointerEnter` and `onPointerLeave` events propagate from the element being left to the one being entered instead of ordinary bubbling and do not have a capture phase.
+Event `onPointerEnter` và `onPointerLeave` phát ra từ element được rời đi tới element được đi vào thay vì bubble như bình thường và không có giai đoạn capture.
 
-Properties:
+Thuộc tính:
 
-As defined in the [W3 spec](https://www.w3.org/TR/pointerevents/), pointer events extend [Mouse Events](#mouse-events) with the following properties:
+Như trong [W3 spec](https://www.w3.org/TR/pointerevents/), Pointer events được thêm vào từ [Mouse Events](#mouse-events) và có những thuộc tính sau:
 
 ```javascript
 number pointerId
@@ -244,17 +244,17 @@ string pointerType
 boolean isPrimary
 ```
 
-A note on cross-browser support:
+Lưu ý về hỗ trợ trình duyệt
 
-Pointer events are not yet supported in every browser (at the time of writing this article, supported browsers include: Chrome, Firefox, Edge, and Internet Explorer). React deliberately does not polyfill support for other browsers because a standard-conform polyfill would significantly increase the bundle size of `react-dom`.
+Pointer events chưa được hỗ trợ trong tất cả trình duyệt (tại thời điểm viết bài này, những trình duyệt được hỗ trợ: Chrome, Firefox, Edge, and Internet Explorer)). React không cố để polyfill cho những trình duyệt khác vì nó sẽ làm tăng dung lượng `react-dom` một cách đáng kể.
 
-If your application requires pointer events, we recommend adding a third party pointer event polyfill.
+Nếu bạn cần pointer event, chúng tôi khuyến khích sử dụng pointer event polyfill từ bên thứ ba cho nó.
 
 * * *
 
 ### Selection Events {#selection-events}
 
-Event names:
+Tên Event:
 
 ```
 onSelect
@@ -264,13 +264,13 @@ onSelect
 
 ### Touch Events {#touch-events}
 
-Event names:
+Tên Event:
 
 ```
 onTouchCancel onTouchEnd onTouchMove onTouchStart
 ```
 
-Properties:
+Thuộc tính:
 
 ```javascript
 boolean altKey
@@ -287,13 +287,13 @@ DOMTouchList touches
 
 ### UI Events {#ui-events}
 
-Event names:
+Tên Event:
 
 ```
 onScroll
 ```
 
-Properties:
+Thuộc tính:
 
 ```javascript
 number detail
@@ -304,13 +304,13 @@ DOMAbstractView view
 
 ### Wheel Events {#wheel-events}
 
-Event names:
+Tên Event:
 
 ```
 onWheel
 ```
 
-Properties:
+Thuộc tính:
 
 ```javascript
 number deltaMode
@@ -323,7 +323,7 @@ number deltaZ
 
 ### Media Events {#media-events}
 
-Event names:
+Tên Event:
 
 ```
 onAbort onCanPlay onCanPlayThrough onDurationChange onEmptied onEncrypted
@@ -336,7 +336,7 @@ onTimeUpdate onVolumeChange onWaiting
 
 ### Image Events {#image-events}
 
-Event names:
+Tên Event:
 
 ```
 onLoad onError
@@ -346,13 +346,13 @@ onLoad onError
 
 ### Animation Events {#animation-events}
 
-Event names:
+Tên Event:
 
 ```
 onAnimationStart onAnimationEnd onAnimationIteration
 ```
 
-Properties:
+Thuộc tính:
 
 ```javascript
 string animationName
@@ -364,13 +364,13 @@ float elapsedTime
 
 ### Transition Events {#transition-events}
 
-Event names:
+Tên Event:
 
 ```
 onTransitionEnd
 ```
 
-Properties:
+Thuộc tính:
 
 ```javascript
 string propertyName
@@ -382,7 +382,7 @@ float elapsedTime
 
 ### Other Events {#other-events}
 
-Event names:
+Tên Event:
 
 ```
 onToggle
