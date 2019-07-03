@@ -1,14 +1,14 @@
 ---
 id: hooks-state
-title: Using the Effect Hook
+title: Sử dụng Effect Hook
 permalink: docs/hooks-effect.html
 next: hooks-rules.html
 prev: hooks-state.html
 ---
 
-*Hooks* are a new addition in React 16.8. They let you use state and other React features without writing a class.
+*Hook* là một tính năng mới từ React 16.8. Nó cho phép sử dụng state và các tính năng khác của React mà không cần viết dạng class
 
-The *Effect Hook* lets you perform side effects in function components:
+*Effect Hook* cho phép thực hiện side effect bên trong các function component:
 
 ```js{1,6-10}
 import React, { useState, useEffect } from 'react';
@@ -16,9 +16,9 @@ import React, { useState, useEffect } from 'react';
 function Example() {
   const [count, setCount] = useState(0);
 
-  // Similar to componentDidMount and componentDidUpdate:
+  // Tương tự như componentDidMount và componentDidUpdate:
   useEffect(() => {
-    // Update the document title using the browser API
+    // Cập nhập document title sử dụng browser API
     document.title = `You clicked ${count} times`;
   });
 
@@ -33,25 +33,25 @@ function Example() {
 }
 ```
 
-This snippet is based on the [counter example from the previous page](/docs/hooks-state.html), but we added a new feature to it: we set the document title to a custom message including the number of clicks.
+Đoạn snippet này dựa trên [ví dụ về counter ở trang trước](/docs/hooks-state.html), chúng ta có thêm tính năng mới: đặt giá trị document title tương ứng với số lần click.
 
-Data fetching, setting up a subscription, and manually changing the DOM in React components are all examples of side effects. Whether or not you're used to calling these operations "side effects" (or just "effects"), you've likely performed them in your components before.
+Fetching data, thiết lập các subscription, và tự ý thay đổi DOM trong React component, những hành động như vậy được là "side effect" (hoặc "effect").
 
 >Tip
 >
->If you're familiar with React class lifecycle methods, you can think of `useEffect` Hook as `componentDidMount`, `componentDidUpdate`, and `componentWillUnmount` combined.
+>Nếu bạn quen với các phương thức lifecycle của React class, bạn có thể hình dung `useEffect` Hook như sự kết hợp của `componentDidMount`, `componentDidUpdate`, và `componentWillUnmount`.
 
-There are two common kinds of side effects in React components: those that don't require cleanup, and those that do. Let's look at this distinction in more detail.
+Có 2 loại side effect phổ biến trong React component: loại không cần cleanup, và loại cần. Cùng phân biệt 2 loại này kỹ hơn.
 
-## Effects Without Cleanup {#effects-without-cleanup}
+## Effect không cần Cleanup {#effects-without-cleanup}
 
-Sometimes, we want to **run some additional code after React has updated the DOM.** Network requests, manual DOM mutations, and logging are common examples of effects that don't require a cleanup. We say that because we can run them and immediately forget about them. Let's compare how classes and Hooks let us express such side effects.
+Đôi lúc, chúng ta muốn **chạy một vài đoạn code sau khi React đã cập nhập DOM.** Network request, tự ý thay đổi DOM, và logging là những ví dụ điển hình của effect không cần cleanup. Chúng ta gọi như vậy vì có thể chạy chúng và quên ngay lập tức. Hãy so sánh class và Hook cho phép thực hiện side effect như thế ra sao.
 
-### Example Using Classes {#example-using-classes}
+### Ví dụ sử dụng Classes {#example-using-classes}
 
-In React class components, the `render` method itself shouldn't cause side effects. It would be too early -- we typically want to perform our effects *after* React has updated the DOM.
+Trong React class components, phương thức `render` không được phép tạo ra side effect. Nó sẽ là quá sớm -- chúng ta thường chỉ muốn chạy effect *sau khi* React đã cập nhập DOM.
 
-This is why in React classes, we put side effects into `componentDidMount` and `componentDidUpdate`. Coming back to our example, here is a React counter class component that updates the document title right after React makes changes to the DOM:
+Đó là lý do tại sao trong React class, chúng ta đặt side effect bên trong `componentDidMount` và `componentDidUpdate`. Quay lại ví dụ, đây là React counter class component sẽ cập nhập document title ngay sau khi React thay đổi DOM:
 
 ```js{9-15}
 class Example extends React.Component {
@@ -83,15 +83,15 @@ class Example extends React.Component {
 }
 ```
 
-Note how **we have to duplicate the code between these two lifecycle methods in class.**
+Để ý cách **chúng ta đã lập lại 2 thao tác tương tự nhau bên trong 2 phương thức lifecycle**
 
-This is because in many cases we want to perform the same side effect regardless of whether the component just mounted, or if it has been updated. Conceptually, we want it to happen after every render -- but React class components don't have a method like this. We could extract a separate method but we would still have to call it in two places.
+Đó là bởi vì trong đa phần các trường hợp, chúng ta muốn thực hiện cùng một side effect khi component đã mount hoặc đã update. Một cách tổng quát, chúng ta muốn thực hiện sau mỗi lần render -- nhưng React class component không có phương thức như vậy. Chúng ta có thể tách nó ra thành một hàm riêng, nhưng vẫn phải gọi nó ở 2 nơi khác nhau.
 
-Now let's see how we can do the same with the `useEffect` Hook.
+Bây giờ chúng ta xem cách làm tương tự với `useEffect` Hook.
 
-### Example Using Hooks {#example-using-hooks}
+### Ví dụ sử dụng Hook {#example-using-hooks}
 
-We've already seen this example at the top of this page, but let's take a closer look at it:
+Chúng ta đã xem ví dụ ở trên, giờ xem kỹ hơn một lần nữa:
 
 ```js{1,6-8}
 import React, { useState, useEffect } from 'react';
@@ -114,15 +114,15 @@ function Example() {
 }
 ```
 
-**What does `useEffect` do?** By using this Hook, you tell React that your component needs to do something after render. React will remember the function you passed (we'll refer to it as our "effect"), and call it later after performing the DOM updates. In this effect, we set the document title, but we could also perform data fetching or call some other imperative API.
+**`useEffect` đã làm gì?** Bằng cách sử dụng Hook này, chúng ta nói với React rằng component của chúng ta cần thực hiện một việc gì đó sau khi render. React sẽ ghi nhớ hàm bạn truyền vào (chúng tôi thích gọi nó là "effect"), và sau đó gọi lại hàm này sau khi DOM đã update. Trong effect này, chúng ta đổi document title, chúng ta cũng có thể  fetch data hoặc gọi một số API khác.
 
-**Why is `useEffect` called inside a component?** Placing `useEffect` inside the component lets us access the `count` state variable (or any props) right from the effect. We don't need a special API to read it -- it's already in the function scope. Hooks embrace JavaScript closures and avoid introducing React-specific APIs where JavaScript already provides a solution.
+**Tại sao `useEffect` được gọi bên trong component?** Đặt `useEffect` bên trong component cho phép chúng ta truy xuất đến state `count` (hoặc bất kỳ prop nào) bên trong effect. Chúng ta không cần một API đặc biệt để đọc nó -- nó đã nằm trong scope của function. Hook tận dụng JavaScript closures và tránh cung cấp thêm các APIs mà bản thân JavaScript đã có sẵn giải pháp.
 
-**Does `useEffect` run after every render?** Yes! By default, it runs both after the first render *and* after every update. (We will later talk about [how to customize this](#tip-optimizing-performance-by-skipping-effects).) Instead of thinking in terms of "mounting" and "updating", you might find it easier to think that effects happen "after render". React guarantees the DOM has been updated by the time it runs the effects.
+**`useEffect` chạy sau tất cả những lần render?** Đúng! Theo mặc định, nó chạy sau lần render đầu tiên *và* mỗi lần update. (Chúng ta sẽ nói về [làm cách nào để tùy biến lại](#tip-optimizing-performance-by-skipping-effects).) Thay vì nghĩ theo hướng "mounting" và "updating", bạn sẽ thấy dễ hiểu hơn nếu nghĩ theo kiểu "sau khi render". React đảm bảo DOM đã được update trước khi chạy effect.
 
-### Detailed Explanation {#detailed-explanation}
+### Giải thích cụ thể {#detailed-explanation}
 
-Now that we know more about effects, these lines should make sense:
+Giờ chúng ta đã hiểu về effect, đoạn code này sẽ rất dễ hiểu:
 
 ```js
 function Example() {
@@ -133,21 +133,21 @@ function Example() {
   });
 ```
 
-We declare the `count` state variable, and then we tell React we need to use an effect. We pass a function to the `useEffect` Hook. This function we pass *is* our effect. Inside our effect, we set the document title using the `document.title` browser API. We can read the latest `count` inside the effect because it's in the scope of our function. When React renders our component, it will remember the effect we used, and then run our effect after updating the DOM. This happens for every render, including the first one.
+Chúng ta khai báo state `count`, và sau đó nói với React chúng ta cần sử dụng. Chúng ta truyền cho `useEffect` Hook một hàm. Hàm truyền vào này *là* effect. Bên trong effect, chúng ta đặt document title sử dụng API `document.title`. Chúng ta có thể đọc giá trị sau cùng của `count` bên trong effect bởi vì nó nằm chung scope với function. Khi React render component, nó sẽ nhớ lại effect chúng ta đã gửi, và chạy effect sau khi cập nhập DOM. Nó xảy ra ở tất cả các lần render, kể cả lần đầu.
 
-Experienced JavaScript developers might notice that the function passed to `useEffect` is going to be different on every render. This is intentional. In fact, this is what lets us read the `count` value from inside the effect without worrying about it getting stale. Every time we re-render, we schedule a _different_ effect, replacing the previous one. In a way, this makes the effects behave more like a part of the render result -- each effect "belongs" to a particular render. We will see more clearly why this is useful [later on this page](#explanation-why-effects-run-on-each-update).
+Lập trình viên JavaScript có kinh nghiệm sẽ để ý thấy function truyền vào cho `useEffect` sẽ khác nhau cho tất cả các lần render. Đây là điều cố ý. Thật ra, nó sẽ cho chúng ta đọc giá trị `count` bên trong effect mà không cần lo lắng về việc lấy state. Mỗi lần chúng ta re-render, chúng ta gọi một effect **khác**, thay thế cái trước đó. Bằng cách này, nó làm cho effect như một phần của việc render -- mỗi effect "thuộc vào" một render cụ thể. Chúng ta sẽ hiểu tại sao cách này lại hiệu quả [ở phần sau của bài này](#explanation-why-effects-run-on-each-update).
 
 >Tip
 >
->Unlike `componentDidMount` or `componentDidUpdate`, effects scheduled with `useEffect` don't block the browser from updating the screen. This makes your app feel more responsive. The majority of effects don't need to happen synchronously. In the uncommon cases where they do (such as measuring the layout), there is a separate [`useLayoutEffect`](/docs/hooks-reference.html#uselayouteffect) Hook with an API identical to `useEffect`.
+>Không giống `componentDidMount` hoặc `componentDidUpdate`, effect chạy với `useEffect` không block trình duyệt cập nhập màn hình. Các effect chủ yếu không cần xảy ra tuần tự. Trong vài tình huống không mấy phổ biến (ví dụ như đo layout), chúng ta có  [`useLayoutEffect`](/docs/hooks-reference.html#uselayouteffect) Hook với API tính năng tương tự như `useEffect`.
 
-## Effects with Cleanup {#effects-with-cleanup}
+## Effect cần Cleanup {#effects-with-cleanup}
 
-Earlier, we looked at how to express side effects that don't require any cleanup. However, some effects do. For example, **we might want to set up a subscription** to some external data source. In that case, it is important to clean up so that we don't introduce a memory leak! Let's compare how we can do it with classes and with Hooks.
+Ở trên, chúng ta đã bàn về những side effect không cần cleanup. Tuy nhiên, một vài effect cần có. Ví dụ, **chúng ta muốn thiết lập các subscription** cho vài data source bên ngoài. Tình huống đó, clean up là rất quan trọng để không xảy ra memory leak! Cùng so sánh cách làm giữa class và Hook
 
-### Example Using Classes {#example-using-classes-1}
+### Ví dụ sử dụng Class {#example-using-classes-1}
 
-In a React class, you would typically set up a subscription in `componentDidMount`, and clean it up in `componentWillUnmount`. For example, let's say we have a `ChatAPI` module that lets us subscribe to a friend's online status. Here's how we might subscribe and display that status using a class:
+Trong React class, chúng ta thường cài đặt một subscription trong `componentDidMount`, và clean it up trong `componentWillUnmount`. Lấy ví dụ, chúng ta có `ChatAPI` module cho phép chúng ta subscribe vào tình trạng online của 1 danh sách friend. Cách chúng ta làm với class
 
 ```js{8-26}
 class FriendStatus extends React.Component {
@@ -186,17 +186,17 @@ class FriendStatus extends React.Component {
 }
 ```
 
-Notice how `componentDidMount` and `componentWillUnmount` need to mirror each other. Lifecycle methods force us to split this logic even though conceptually code in both of them is related to the same effect.
+Để ý `componentDidMount` và `componentWillUnmount`. Phương thức Lifecycle buộc chúng ta tách logic này ra thậm chí cả 2 đoạn code trên điều liên quan đến cùng một effect.
 
->Note
+>Lưu ý
 >
->Eagle-eyed readers may notice that this example also needs a `componentDidUpdate` method to be fully correct. We'll ignore this for now but will come back to it in a [later section](#explanation-why-effects-run-on-each-update) of this page.
+>Nếu để ý kỹ hơn, bạn sẽ thấy chúng ta còn cần thêm `componentDidUpdate` để thực sự chuẩn xác. Tạm thời cứ bỏ qua phần đó vì chúng ta sẽ đề cập lại [ở phần sau](#explanation-why-effects-run-on-each-update) of this page.
 
-### Example Using Hooks {#example-using-hooks-1}
+### Ví dụ sử dụng Hooks {#example-using-hooks-1}
 
-Let's see how we could write this component with Hooks.
+Cùng xem cách chúng ta làm với Hook.
 
-You might be thinking that we'd need a separate effect to perform the cleanup. But code for adding and removing a subscription is so tightly related that `useEffect` is designed to keep it together. If your effect returns a function, React will run it when it is time to clean up:
+Bạn có thể sẽ nghĩ chúng ta cần 2 effect khác nhau để thực hiện cleanup. Code khởi tạo và xóa subscription luôn luôn đứng kề nhau, `useEffect` được thiết kế để dữ chúng cùng một chỗ. Nếu effect trả về function, React sẽ chạy  function đó, chúng ta đưa clean up vào bên trong function trả về:
 
 ```js{6-16}
 import React, { useState, useEffect } from 'react';
@@ -210,7 +210,7 @@ function FriendStatus(props) {
     }
 
     ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
-    // Specify how to clean up after this effect:
+    // Chỉ định clean up sau khi gọi effect:
     return function cleanup() {
       ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
     };
@@ -223,17 +223,17 @@ function FriendStatus(props) {
 }
 ```
 
-**Why did we return a function from our effect?** This is the optional cleanup mechanism for effects. Every effect may return a function that cleans up after it. This lets us keep the logic for adding and removing subscriptions close to each other. They're part of the same effect!
+**Tại sao chúng ta trả về function bên trong effect?** Đây là một tùy chọn để chạy cơ chế cleanup cho effect. Nó cho phép chúng ta đưa tạo và xóa subscription trong cùng một effect.
 
-**When exactly does React clean up an effect?** React performs the cleanup when the component unmounts. However, as we learned earlier, effects run for every render and not just once. This is why React *also* cleans up effects from the previous render before running the effects next time. We'll discuss [why this helps avoid bugs](#explanation-why-effects-run-on-each-update) and [how to opt out of this behavior in case it creates performance issues](#tip-optimizing-performance-by-skipping-effects) later below.
+**Khi nào React clean up một effect?** React thực hiện cleanup khi  component unmount. Tuy nhiên, như đã học trước đó, effect trên tất cả những lần render, không phải chỉ một. Đó là tại sao React *đồng thời* cleans up effect từ những lần render trước. Chúng ta sẽ thảo luận thêm [việc này giúp tránh bug](#explanation-why-effects-run-on-each-update) và [làm cách nào tùy biến đặc tính này để cái thiện performance ](#tip-optimizing-performance-by-skipping-effects) ở bên dưới.
 
->Note
+>Ghi chú
 >
->We don't have to return a named function from the effect. We called it `cleanup` here to clarify its purpose, but you could return an arrow function or call it something different.
+>Chúng ta không cần trả về một function có tên trong effect. Chúng ta gọi nó là `cleanup` để chỉ rõ mục đích, bạn có thể dùng arrow function trong thực tế.
 
-## Recap {#recap}
+## Tổng hợp {#recap}
 
-We've learned that `useEffect` lets us express different kinds of side effects after a component renders. Some effects might require cleanup so they return a function:
+Chúng ta đã học `useEffect` cho phép chúng ta thực hiện nhiều kiểu side effect sau khi component được render. Một vài effect cần cleanup nó sẽ return một function:
 
 ```js
   useEffect(() => {
@@ -248,7 +248,7 @@ We've learned that `useEffect` lets us express different kinds of side effects a
   });
 ```
 
-Other effects might not have a cleanup phase, and don't return anything.
+Một vài effect khác có thể không cần cleanup, thì không cần return gì cả.
 
 ```js
   useEffect(() => {
@@ -256,21 +256,21 @@ Other effects might not have a cleanup phase, and don't return anything.
   });
 ```
 
-The Effect Hook unifies both use cases with a single API.
+Effect Hook được sử dụng trong cả 2 trường hợp.
 
 -------------
 
-**If you feel like you have a decent grasp on how the Effect Hook works, or if you feel overwhelmed, you can jump to the [next page about Rules of Hooks](/docs/hooks-rules.html) now.**
+**Nếu bạn đã nắm bắt được cách làm việc của Effect Hook, hoặc nếu bạn cảm thấy hơi ngợp, có thể nhảy xuống [phần Nguyên tắc sử dụng Hook](/docs/hooks-rules.html) bây giờ.**
 
 -------------
 
-## Tips for Using Effects {#tips-for-using-effects}
+## Tip sử dụng Effect {#tips-for-using-effects}
 
-We'll continue this page with an in-depth look at some aspects of `useEffect` that experienced React users will likely be curious about. Don't feel obligated to dig into them now. You can always come back to this page to learn more details about the Effect Hook.
+Chúng ta sẽ cùng đi sâu một số khía cạnh của `useEffect` mà các lập trình viên React có kinh nghiệm sẽ thắc mắc. Không cần quá cưỡng ép bản thân, bạn có thể dừng ở đây, và quay lại để tìm hiểu Effect Hook bất cứ lúc nào.
 
-### Tip: Use Multiple Effects to Separate Concerns {#tip-use-multiple-effects-to-separate-concerns}
+### Tip: Sử dụng nhiều Effect tách biệt{#tip-use-multiple-effects-to-separate-concerns}
 
-One of the problems we outlined in the [Motivation](/docs/hooks-intro.html#complex-components-become-hard-to-understand) for Hooks is that class lifecycle methods often contain unrelated logic, but related logic gets broken up into several methods. Here is a component that combines the counter and the friend status indicator logic from the previous examples:
+Một trong những vấn đề đã liệt kê ở  [động lực](/docs/hooks-intro.html#complex-components-become-hard-to-understand) tạo ra Hooks là các phương thức lifecycle của class thường chứa những logic không liên quan với nhau, còn những logic đáng lý phải nằm gần nhau lại nằm ở các phương thức khác nhau. Đây là component kết hợp counter và friend status từ ví dụ ở trên
 
 ```js
 class FriendStatusWithCounter extends React.Component {
@@ -307,9 +307,9 @@ class FriendStatusWithCounter extends React.Component {
   // ...
 ```
 
-Note how the logic that sets `document.title` is split between `componentDidMount` and `componentDidUpdate`. The subscription logic is also spread between `componentDidMount` and `componentWillUnmount`. And `componentDidMount` contains code for both tasks.
+Để ý cái logic của `document.title` đang nằm ở `componentDidMount` và `componentDidUpdate`. Logic của subscription thì cũng nằm ở  `componentDidMount` và `componentWillUnmount`. Và `componentDidMount` chứa code cả hai.
 
-So, how can Hooks solve this problem? Just like [you can use the *State* Hook more than once](/docs/hooks-state.html#tip-using-multiple-state-variables), you can also use several effects. This lets us separate unrelated logic into different effects:
+Như vậy hook đã giải quyết vấn đề này như thế nào? Nếu như [bạn có thể sử dụng *State* Hook nhiều lần](/docs/hooks-state.html#tip-using-multiple-state-variables), bạn cũng có thể sử dụng nhiều effect. Nó cho phép tách những logic không liên quan ra thành những effect khác nhau:
 
 ```js{3,8}
 function FriendStatusWithCounter(props) {
@@ -333,13 +333,13 @@ function FriendStatusWithCounter(props) {
 }
 ```
 
-**Hooks let us split the code based on what it is doing** rather than a lifecycle method name. React will apply *every* effect used by the component, in the order they were specified.
+**Hook cho phép tách code dựa trên cái nó đang làm** chứ không đi theo phương thức lifecycle. React sẽ apply *từng* effect được sử dụng trong component, theo thứ tự đã khai báo.
 
-### Explanation: Why Effects Run on Each Update {#explanation-why-effects-run-on-each-update}
+### Giải thích: Tại sao Effect chạy trên mỗi update {#explanation-why-effects-run-on-each-update}
 
-If you're used to classes, you might be wondering why the effect cleanup phase happens after every re-render, and not just once during unmounting. Let's look at a practical example to see why this design helps us create components with fewer bugs.
+Nếu đã từng sử dụng class, bạn sẽ thắc mắc tại sao bước cleanup effect lại chạy trên mỗi lần re-render, mà không phải khi unmounting. Xét một ví dụ thực tế để thấy tại sao thiết kế này giúp chúng ta có những component ít bug hơn
 
-[Earlier on this page](#example-using-classes-1), we introduced an example `FriendStatus` component that displays whether a friend is online or not. Our class reads `friend.id` from `this.props`, subscribes to the friend status after the component mounts, and unsubscribes during unmounting:
+[Ở phần trước](#example-using-classes-1), chúng ta có đề cập ví dụ `FriendStatus` để hiển thị trạng thái online của Friend. Class đọc `friend.id` từ `this.props`, subscribe sau khi component mount, và unsubscribe trong lúc unmounting:
 
 ```js
   componentDidMount() {
@@ -357,9 +357,9 @@ If you're used to classes, you might be wondering why the effect cleanup phase h
   }
 ```
 
-**But what happens if the `friend` prop changes** while the component is on the screen? Our component would continue displaying the online status of a different friend. This is a bug. We would also cause a memory leak or crash when unmounting since the unsubscribe call would use the wrong friend ID.
+**Chuyện gì sẽ xảy ra nếu prop `friend` thay đổi** trong khi component đang hiển thị trên màn hình (chưa unmount)? Chắc chắn có bug với danh sách status. Chúng ta cũng có thể gây ra memory leak hoặc crash khi đang unmounting và gọi unsubscribe nếu có một Friend ID không đúng.
 
-In a class component, we would need to add `componentDidUpdate` to handle this case:
+Trong class component, chúng ta cần thêm `componentDidUpdate` để xử lý tình huống này:
 
 ```js{8-19}
   componentDidMount() {
@@ -370,12 +370,12 @@ In a class component, we would need to add `componentDidUpdate` to handle this c
   }
 
   componentDidUpdate(prevProps) {
-    // Unsubscribe from the previous friend.id
+    // Unsubscribe friend.id trước đó
     ChatAPI.unsubscribeFromFriendStatus(
       prevProps.friend.id,
       this.handleStatusChange
     );
-    // Subscribe to the next friend.id
+    // Subscribe friend.id mới
     ChatAPI.subscribeToFriendStatus(
       this.props.friend.id,
       this.handleStatusChange
@@ -390,9 +390,9 @@ In a class component, we would need to add `componentDidUpdate` to handle this c
   }
 ```
 
-Forgetting to handle `componentDidUpdate` properly is a common source of bugs in React applications.
+Quên handle `componentDidUpdate` là điều dễ dẫn tới có bug trong React.
 
-Now consider the version of this component that uses Hooks:
+Đây là phiên bản sử dụng Hook
 
 ```js
 function FriendStatus(props) {
@@ -406,31 +406,31 @@ function FriendStatus(props) {
   });
 ```
 
-It doesn't suffer from this bug. (But we also didn't make any changes to it.)
+Không còn bị dính bug như ở trên
 
-There is no special code for handling updates because `useEffect` handles them *by default*. It cleans up the previous effects before applying the next effects. To illustrate this, here is a sequence of subscribe and unsubscribe calls that this component could produce over time:
+Sẽ không có một đoạn code nào đặc biệt để xử lý lúc update vì theo cách chạy *mặc định* của `useEffect` nó đã xóa effect trước khi apply effect mới. Để hình dung hóa, đây là các bước gọi subscribe và unsubscribe mà component đã chạy qua:
 
 ```js
-// Mount with { friend: { id: 100 } } props
-ChatAPI.subscribeToFriendStatus(100, handleStatusChange);     // Run first effect
+// Mount với prop { friend: { id: 100 } }
+ChatAPI.subscribeToFriendStatus(100, handleStatusChange);     // Chạy effect đầu tiên
 
-// Update with { friend: { id: 200 } } props
-ChatAPI.unsubscribeFromFriendStatus(100, handleStatusChange); // Clean up previous effect
-ChatAPI.subscribeToFriendStatus(200, handleStatusChange);     // Run next effect
+// Cập nhập prop { friend: { id: 200 } }
+ChatAPI.unsubscribeFromFriendStatus(100, handleStatusChange); // Clean effect trước đó
+ChatAPI.subscribeToFriendStatus(200, handleStatusChange);     // Chạy effect tiếp theo
 
-// Update with { friend: { id: 300 } } props
-ChatAPI.unsubscribeFromFriendStatus(200, handleStatusChange); // Clean up previous effect
-ChatAPI.subscribeToFriendStatus(300, handleStatusChange);     // Run next effect
+// Cập nhập với { friend: { id: 300 } }
+ChatAPI.unsubscribeFromFriendStatus(200, handleStatusChange); // Clean effect trước đó
+ChatAPI.subscribeToFriendStatus(300, handleStatusChange);     // Chạy effect tiếp theo
 
 // Unmount
-ChatAPI.unsubscribeFromFriendStatus(300, handleStatusChange); // Clean up last effect
+ChatAPI.unsubscribeFromFriendStatus(300, handleStatusChange); // Clean effect lần cuối
 ```
 
-This behavior ensures consistency by default and prevents bugs that are common in class components due to missing update logic.
+Đặc tính này đảm bảo thống nhất và ngăn bug thường xuất hiện do không cập nhập login với class component
 
-### Tip: Optimizing Performance by Skipping Effects {#tip-optimizing-performance-by-skipping-effects}
+### Tip: Tối ưu Performance bằng cách bỏ qua Effect {#tip-optimizing-performance-by-skipping-effects}
 
-In some cases, cleaning up or applying the effect after every render might create a performance problem. In class components, we can solve this by writing an extra comparison with `prevProps` or `prevState` inside `componentDidUpdate`:
+Trong một số trường hợp, clean và apply effect sau khi render có thể dẫn đến ảnh hưởng performance. Trong class component, chúng ta giải quyết bằng viết một hàm so sánh giữa `prevProps` hoặc `prevState` bên trong `componentDidUpdate`:
 
 ```js
 componentDidUpdate(prevProps, prevState) {
@@ -440,19 +440,19 @@ componentDidUpdate(prevProps, prevState) {
 }
 ```
 
-This requirement is common enough that it is built into the `useEffect` Hook API. You can tell React to *skip* applying an effect if certain values haven't changed between re-renders. To do so, pass an array as an optional second argument to `useEffect`:
+Đây là yêu cầu rất cần thiết, nên đã được có đưa sẵn trong `useEffect` Hook API. Bạn có thể bảo React *bỏ qua* việc apply effect nếu một số giá trị không thay đổi giữa các lần render. Để làm như vậy, truyền vào một array (không bắt buộc) vào `useEffect`:
 
 ```js{3}
 useEffect(() => {
   document.title = `You clicked ${count} times`;
-}, [count]); // Only re-run the effect if count changes
+}, [count]); // Chỉ re-run effect nếu giá trị count thay đổi
 ```
 
-In the example above, we pass `[count]` as the second argument. What does this mean? If the `count` is `5`, and then our component re-renders with `count` still equal to `5`, React will compare `[5]` from the previous render and `[5]` from the next render. Because all items in the array are the same (`5 === 5`), React would skip the effect. That's our optimization.
+Trong ví dụ ở trên, chúng ta truyền vào `[count]` như một tham số thứ 2. Nó nghĩa là gì? Nếu `count` là `5`, rồi sau đó component re-render với `count` vẫn bằng `5`, React sẽ so sánh `[5]` từ lần render trước và `[5]` với lần render hiện tại. Vì tất cả giá trị trong mảng bằng nhau (`5 === 5`), React sẽ bỏ qua  effect. Đó là cách chúng ta tối ưu
 
-When we render with `count` updated to `6`, React will compare the items in the `[5]` array from the previous render to items in the `[6]` array from the next render. This time, React will re-apply the effect because `5 !== 6`. If there are multiple items in the array, React will re-run the effect even if just one of them is different.
+Khi chúng ta render với `count` thành `6`, React sẽ so sánh các giá trị trong `[5]` từ lần render trước với các giá trị trong `[6]` lần render hiện tại. Ở lần này, React sẽ gọi lại effect vì `5 !== 6`. Nếu có nhiều giá trị bên trong array, React sẽl re-run effect nếu một trong các giá trị đó khác với lần trước.
 
-This also works for effects that have a cleanup phase:
+Effect cũng làm việc tương tự với quá trình cleanup:
 
 ```js{10}
 useEffect(() => {
@@ -464,25 +464,27 @@ useEffect(() => {
   return () => {
     ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
   };
-}, [props.friend.id]); // Only re-subscribe if props.friend.id changes
+}, [props.friend.id]); // Chỉ re-subscribe nếu props.friend.id bị thay đổi
 ```
 
-In the future, the second argument might get added automatically by a build-time transformation.
+Trong tương lai, tham số thứ 2 sẽ được tự động thêm vào trong lúc  build-transform.
 
->Note
+>Lưu ý
 >
->If you use this optimization, make sure the array includes **all values from the component scope (such as props and state) that change over time and that are used by the effect**. Otherwise, your code will reference stale values from previous renders. Learn more about [how to deal with functions](/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) and [what to do when the array changes too often](/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often).
+>Nếu sử dụng cách tối ưu này, phải chắc chắn array chứa **tất cả giá trị bên trong của component scope (như prop và state) nếu thay đổi theo các lần render và effect có sử dụng**. Nếu không, nếu không nó sẽ tham chiếu tới giá trị trước đó. Đọc thêm [làm việc với function](/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) và [làm gì khi array thay đổi thường xuyên](/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often).
 >
->If you want to run an effect and clean it up only once (on mount and unmount), you can pass an empty array (`[]`) as a second argument. This tells React that your effect doesn't depend on *any* values from props or state, so it never needs to re-run. This isn't handled as a special case -- it follows directly from how the dependencies array always works.
+>Nếu muốn chạy 1 effect và clean nó 1 lần duy nhất (lúc mount và unmount), bạn có thể truyền vào array rỗng (`[]`). Đồng nghĩa với việc bạn báo với React, effect này không phụ thuộc *bất kỳ* giá trị nào của prop hoặc state, do đó không bao giờ cần re-run. Nó không phải là một trường hợp  được xử lý đặc biệt -- nó đúng với cách so sánh array hiện tại
 >
->If you pass an empty array (`[]`), the props and state inside the effect will always have their initial values. While passing `[]` as the second argument is closer to the familiar `componentDidMount` and `componentWillUnmount` mental model, there are usually [better](/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) [solutions](/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often) to avoid re-running effects too often. Also, don't forget that React defers running `useEffect` until after the browser has painted, so doing extra work is less of a problem.
+>Nếu truyền vào array rỗng (`[]`), prop và state bên trong effect sẽ luôn mang giá trị khởi tạo. Trong khi truyền vào `[]` nó gần giống với `componentDidMount` và `componentWillUnmount`, nó thường là [giải pháp](/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often) [tốt hơn](/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) để tránh re-run effect quá thường xuyên. Tuy nhiên, đừng quên React sẽ chỉ chạy `useEffect` sau khi trình duyệt paint.
 >
->We recommend using the [`exhaustive-deps`](https://github.com/facebook/react/issues/14920) rule as part of our [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks#installation) package. It warns when dependencies are specified incorrectly and suggests a fix.
+>Chúng tôi khuyến khích sử dụng [`đưa tất cả dependency`](https://github.com/facebook/react/issues/14920), sử dụng  [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks#installation) package để ràng buộc, và thông báo nếu khai báo dependency không hợp lệ.
 
-## Next Steps {#next-steps}
+## Bước tiếp theo {#next-steps}
 
-Congratulations! This was a long page, but hopefully by the end most of your questions about effects were answered. You've learned both the State Hook and the Effect Hook, and there is a *lot* you can do with both of them combined. They cover most of the use cases for classes -- and where they don't, you might find the [additional Hooks](/docs/hooks-reference.html) helpful.
+Xin chúc mừng! Trang này không hề ngắn, nhưng bạn đã đọc được đến đây. Hy vọng các thắc mắc của bạn về effect đã được phúc đáp. Bạn đã học được State Hook và Effect Hook, và có *rất* nhiều thứ bạn có thể làm khi sử dụng kết hợp chúng.  Nó gần như giải quyết các vấn đề mà chỉ có class mới làm được -- còn nếu không bạn có thể tìm thấy [các Hook mở rộng](/docs/hooks-reference.html).
 
-We're also starting to see how Hooks solve problems outlined in [Motivation](/docs/hooks-intro.html#motivation). We've seen how effect cleanup avoids duplication in `componentDidUpdate` and `componentWillUnmount`, brings related code closer together, and helps us avoid bugs. We've also seen how we can separate effects by their purpose, which is something we couldn't do in classes at all.
+Chúng ta đã trình bài động lực tạo ra Hook [ở đây](/docs/hooks-intro.html#motivation). Chúng ta cũng thấy được cách  effect cleanup và tránh trùng lặp trong `componentDidUpdate` và `componentWillUnmount`, mang những đoạn code có liên quan lại gần nhau hơn, và giúp chúng ta tránh bug. Chúng ta cũng thấy được cách chúng ta tách effect theo mục đích, cái mà chúng ta không làm được với class.
 
-At this point you might be questioning how Hooks work. How can React know which `useState` call corresponds to which state variable between re-renders? How does React "match up" previous and next effects on every update? **On the next page we will learn about the [Rules of Hooks](/docs/hooks-rules.html) -- they're essential to making Hooks work.**
+Đến đây, bạn có thể thắc mắc Hook làm việc như thế nào. Làm cách nào `useState` lấy được đúng giá trị giữa các lần render khác nhau? Làm cách nào React "match" được effect trước và lần đang update? **Ở trang tiếp theo bạn sẽ học được [Quy luật của Hook](/docs/hooks-rules.html) -- mấu chốt làm việc của Hook.**
+
+
