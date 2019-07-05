@@ -137,7 +137,7 @@ Chúng ta khai báo state `count`, và sau đó nói với React chúng ta cần
 
 Lập trình viên JavaScript có kinh nghiệm sẽ để ý thấy function truyền vào cho `useEffect` sẽ khác nhau cho tất cả các lần render. Đây là điều cố ý. Thật ra, nó sẽ cho chúng ta đọc giá trị `count` bên trong effect mà không cần lo lắng về việc lấy state. Mỗi lần chúng ta re-render, chúng ta gọi một effect **khác**, thay thế cái trước đó. Bằng cách này, nó làm cho effect như một phần của việc render -- mỗi effect "thuộc vào" một render cụ thể. Chúng ta sẽ hiểu tại sao cách này lại hiệu quả [ở phần sau của bài này](#explanation-why-effects-run-on-each-update).
 
->Tip
+>Mẹo nhỏ
 >
 >Không giống `componentDidMount` hoặc `componentDidUpdate`, effect chạy với `useEffect` không block trình duyệt cập nhập màn hình. Các effect chủ yếu không cần xảy ra tuần tự. Trong vài tình huống không mấy phổ biến (ví dụ như đo layout), chúng ta có  [`useLayoutEffect`](/docs/hooks-reference.html#uselayouteffect) Hook với API tính năng tương tự như `useEffect`.
 
@@ -264,11 +264,11 @@ Effect Hook được sử dụng trong cả 2 trường hợp.
 
 -------------
 
-## Tip sử dụng Effect {#tips-for-using-effects}
+## Mẹo nhỏ sử dụng Effect {#tips-for-using-effects}
 
 Chúng ta sẽ cùng đi sâu một số khía cạnh của `useEffect` mà các lập trình viên React có kinh nghiệm sẽ thắc mắc. Không cần quá cưỡng ép bản thân, bạn có thể dừng ở đây, và quay lại để tìm hiểu Effect Hook bất cứ lúc nào.
 
-### Tip: Sử dụng nhiều Effect tách biệt{#tip-use-multiple-effects-to-separate-concerns}
+### Mẹo nhỏ: Sử dụng nhiều Effect tách biệt{#tip-use-multiple-effects-to-separate-concerns}
 
 Một trong những vấn đề đã liệt kê ở  [động lực](/docs/hooks-intro.html#complex-components-become-hard-to-understand) tạo ra Hooks là các phương thức lifecycle của class thường chứa những logic không liên quan với nhau, còn những logic đáng lý phải nằm gần nhau lại nằm ở các phương thức khác nhau. Đây là component kết hợp counter và friend status từ ví dụ ở trên
 
@@ -428,7 +428,7 @@ ChatAPI.unsubscribeFromFriendStatus(300, handleStatusChange); // Clean effect l�
 
 Đặc tính này đảm bảo thống nhất và ngăn bug thường xuất hiện do không cập nhập login với class component
 
-### Tip: Tối ưu Performance bằng cách bỏ qua Effect {#tip-optimizing-performance-by-skipping-effects}
+### Mẹo nhỏ: Tối ưu Performance bằng cách bỏ qua Effect {#tip-optimizing-performance-by-skipping-effects}
 
 Trong một số trường hợp, clean và apply effect sau khi render có thể dẫn đến ảnh hưởng performance. Trong class component, chúng ta giải quyết bằng viết một hàm so sánh giữa `prevProps` hoặc `prevState` bên trong `componentDidUpdate`:
 
