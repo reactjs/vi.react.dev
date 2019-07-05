@@ -35,9 +35,9 @@ function Example() {
 
 Đoạn snippet này dựa trên [ví dụ về counter ở trang trước](/docs/hooks-state.html), chúng ta có thêm tính năng mới: đặt giá trị document title tương ứng với số lần click.
 
-Fetching data, thiết lập các subscription, và tự ý thay đổi DOM trong React component, những hành động như vậy được là "side effect" (hoặc "effect").
+Việc fetching data, thiết lập các subscription, và việc thay đổi DOM trong React component, những hành động như vậy được gọi là "side effect" (hoặc "effect). Bạn có thể đã sử dụng những "side effect" này trong những component của bạn trước đây.
 
->Tip
+>Mẹo nhỏ
 >
 >Nếu bạn quen với các phương thức lifecycle của React class, bạn có thể hình dung `useEffect` Hook như sự kết hợp của `componentDidMount`, `componentDidUpdate`, và `componentWillUnmount`.
 
