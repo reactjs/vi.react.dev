@@ -464,15 +464,9 @@ Bạn cũng có thể sử dụng [react-axe](https://github.com/dylanb/react-ax
 
 Ở một số trình duyệt, chúng ta có thể dễ dàng xem thông tin về accessibility cho từng element trong accessibility tree:
 
-<<<<<<< HEAD
 - [Việc sử dụng Accessibility Inspector trong Firefox](https://developer.mozilla.org/en-US/docs/Tools/Accessibility_inspector)
-- [Kích hoạt Accessibility Inspector trong Chrome](https://gist.github.com/marcysutton/0a42f815878c159517a55e6652e3b23a)
+- [Việc sử dụng Accessibility Inspector trong Chrome](https://developers.google.com/web/tools/chrome-devtools/accessibility/reference#pane)
 - [Việc sử dụng Accessibility Inspector trong OS X Safari](https://developer.apple.com/library/content/documentation/Accessibility/Conceptual/AccessibilityMacOSX/OSXAXTestingApps.html)
-=======
-- [Using the Accessibility Inspector in Firefox](https://developer.mozilla.org/en-US/docs/Tools/Accessibility_inspector)
-- [Using the Accessibility Inspector in Chrome](https://developers.google.com/web/tools/chrome-devtools/accessibility/reference#pane)
-- [Using the Accessibility Inspector in OS X Safari](https://developer.apple.com/library/content/documentation/Accessibility/Conceptual/AccessibilityMacOSX/OSXAXTestingApps.html)
->>>>>>> e1abbdecfd1a5a804bd38852e88373f54ddde014
 
 ### Screen readers {#screen-readers}
 
@@ -480,7 +474,7 @@ Testing với một screen reader nên được xem như một phần của quá
 
 Vui lòng lưu ý rằng sự kết hợp browser / screen reader là quan trọng. Bạn nên test ứng dụng của mình bằng trình duyệt phù hợp nhất cho screen reader của bạn.
 
-### CScreen Readers thông dụng {#commonly-used-screen-readers}
+### Các Screen Reader thông dụng {#commonly-used-screen-readers}
 
 #### NVDA trong Firefox {#nvda-in-firefox}
 
