@@ -474,7 +474,7 @@ Testing với một screen reader nên được xem như một phần của quá
 
 Vui lòng lưu ý rằng sự kết hợp browser / screen reader là quan trọng. Bạn nên test ứng dụng của mình bằng trình duyệt phù hợp nhất cho screen reader của bạn.
 
-### Các Screen Reader thông dụng {#commonly-used-screen-readers}
+### Các Screen Readers thông dụng {#commonly-used-screen-readers}
 
 #### NVDA trong Firefox {#nvda-in-firefox}
 
