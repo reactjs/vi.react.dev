@@ -23,7 +23,7 @@ Trang này sẽ trả lời các câu hỏi thường gặp với [Hook](/docs/h
   * [Tôi có cần viết lại toàn bộ class component?](#do-i-need-to-rewrite-all-my-class-components)
   * [Những gì tôi có thể làm với Hook mà không thể làm với class?](#what-can-i-do-with-hooks-that-i-couldnt-with-classes)
   * [Những kiến thức React trước đây của tôi có còn liên quan?](#how-much-of-my-react-knowledge-stays-relevant)
-  * [Tôi có nên sử dụng Hook, class, hay kết hợp cả 2?](#should-i-use-hooks-classes-or-a-mix-of-both)
+  * [Tôi có nên sử dụng Hook, class, hay kết hợp cả ?](#should-i-use-hooks-classes-or-a-mix-of-both)
   * [Hook có đã bao gồm tất cả trường hợp sử dụng của class?](#do-hooks-cover-all-use-cases-for-classes)
   * [Hook có thay thế prop và higher-order component?](#do-hooks-replace-render-props-and-higher-order-components)
   * [Hook có ý nghĩa như thế nào với các API  phổ biến như Redux connect() và React Router?](#what-do-hooks-mean-for-popular-apis-like-redux-connect-and-react-router)
@@ -86,7 +86,7 @@ Hook là cách sử dụng trực tiếp hơn các tính năng của React mà b
 
 Hook là kiến trúc mới có nhiều điều cần để học. Nếu tài liệu này thiếu những thông tin bạn cần, [hãy tạo 1 issue](https://github.com/reactjs/reactjs.org/issues/new) chúng tôi sẽ cố gắng giúp bạn.
 
-### Tôi có nên sử dụng Hook, class, hay kết hợp cả 2? {#should-i-use-hooks-classes-or-a-mix-of-both}
+### Tôi có nên sử dụng Hook, class, hay kết hợp cả hai? {#should-i-use-hooks-classes-or-a-mix-of-both}
 
 Khi bạn đã sẵn sàng, chúng tôi khuyến khích bạn bắt đầu thử dùng Hook khi viết một component mới. Đảm bảo mọi người trong team đồng thuận sử dụng chúng và đã đọc qua tài liệu này. Chúng tôi không khuyến khích viết lại toàn bộ các class component trước đây sang dùng Hook, trừ khi bạn cũng đã có ý định viết lại chúng (ví dụ như để fix bug).
 
