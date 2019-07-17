@@ -74,7 +74,7 @@ React Native sẽ chính thức hỗ trợ đầy đủ Hook trong lần release
 
 ### Tôi có cần viết lại toàn bộ class component? {#do-i-need-to-rewrite-all-my-class-components}
 
-Không. [Không hề có kế hoạch](/docs/hooks-intro.html#gradual-adoption-strategy) để bỏ class khỏi React -- tất cả chúng ta điều cần đưa ra sản phẩm và không tốn công viết lại. Chúng tôi đề nghị sử dụng Hook khi viết code mới.
+Không. [Không hề có kế hoạch](/docs/hooks-intro.html#gradual-adoption-strategy) để bỏ class khỏi React -- tất cả chúng ta điều cần đưa ra sản phẩm và không tốn công viết lại. Chúng tôi đề xuất sử dụng Hook khi viết code mới.
 
 ### Những gì tôi có thể làm với Hook mà không thể làm với class? {#what-can-i-do-with-hooks-that-i-couldnt-with-classes}
 
@@ -180,7 +180,7 @@ Gọi `act()` đồng thời sẽ flush các effect bên trong nó
 
 Nếu cần test một custom Hook, bạn có thể làm bằng cách tạo một component trong test, và sử dụng Hook từ đó. Sau đó bạn có thể test component bạn viết
 
-Để giảm số lượng boilerplate phải viết, chúng tôi đề nghị sử dụng [`react-testing-library`](https://git.io/react-testing-library), được thiết kế để khuyến khích viết test bằng cách dùng component như là người dùng sử dụng.
+Để giảm số lượng boilerplate phải viết, chúng tôi đề xuất sử dụng [`react-testing-library`](https://git.io/react-testing-library), được thiết kế để khuyến khích viết test bằng cách dùng component như là người dùng sử dụng.
 
 ### Thực sự thì các luật lệ mà lint đang bắt buộc là gì](https://www.npmjs.com/package/eslint-plugin-react-hooks)? {#what-exactly-do-the-lint-rules-enforce}
 
@@ -278,7 +278,7 @@ Giờ giả dụ bạn muốn viết một logic để thay đổi giá trị `l
 ```
 
 Đó là bởi vì khi chúng ta cập nhập lại biến state, chúng ta *thay thế* giá trị của nó. Nó khác với `this.setState` bên trong class, *merge* các field được update vào trong object.
-Nếu vẫn muốn dùng cách merge tự động, bạn có thể viết một custom hook `useLegacyState`. Tuy nhiên, thay vào đó **chúng tôi khuyến nghị bạn nên tách state ra thành nhiều biến khác nhau dựa trên các giá trị có khuynh hướng thay đổi cùng nhau**
+Nếu vẫn muốn dùng cách merge tự động, bạn có thể viết một custom hook `useLegacyState`. Tuy nhiên, thay vào đó **chúng tôi đề xuất bạn nên tách state ra thành nhiều biến khác nhau dựa trên các giá trị có khuynh hướng thay đổi cùng nhau**
 
 Lấy ví dụ, bạn có thể tách state `position` và `size`, và luôn luôn thay thế `position` mà không phải merge:
 
@@ -314,7 +314,7 @@ function useWindowPosition() {
 
 Để ý cách chúng ta có thể di chuyển gọi `useState` để thay đổi `position` và effect liên quan vào trong một custom hook mà ko cần thay đổi code. Nếu tất cả state bên trong 1 object duy nhất, tách logic này ra sẽ khó khăn hơn.
 
-Cả 2 lựa chọn: đưa tất cả state vào trong 1 câu gọi `useState`, và tách từng field với từng `useState` đều có thể làm việc bình thường. Các component sẽ dễ đọc hơn khi bạn cân đối giữa 2 cách này. Nếu logic của state trở nên phức tạp, chúng tôi khuyến nghị [quản lý nó bằng reducer](/docs/hooks-reference.html#usereducer) hoặc 1 custom hook
+Cả 2 lựa chọn: đưa tất cả state vào trong 1 câu gọi `useState`, và tách từng field với từng `useState` đều có thể làm việc bình thường. Các component sẽ dễ đọc hơn khi bạn cân đối giữa 2 cách này. Nếu logic của state trở nên phức tạp, chúng tôi đề xuất [quản lý nó bằng reducer](/docs/hooks-reference.html#usereducer) hoặc 1 custom hook
 
 ### Tôi có thể chạy effect chỉ khi update không?{#can-i-run-an-effect-only-on-updates}
 
@@ -371,7 +371,7 @@ function Counter() {
 Trong tương lai, React sẽ cung cấp 1 hook `usePrevious` vì đây cũng là một trường hợp hay sử dụng.
 
 
-Xem thêm [pattern khuyến nghị cho derived state](#how-do-i-implement-getderivedstatefromprops).
+Xem thêm [pattern đề xuất cho derived state](#how-do-i-implement-getderivedstatefromprops).
 
 ### Tại sao tôi có thể thấy prop và state bên trong function?{#why-am-i-seeing-stale-props-or-state-inside-my-function}
 
@@ -592,7 +592,7 @@ function ProductPage({ productId }) {
 }
 ```
 
-**Cách làm được khuyến nghị để sửa lỗi này là đưa function vào bên trong effect**. Để dễ dàng thấy được prop hoặc state nào có sử dụng trong effect, và đảm bảo chúng được khai báo.
+**Cách làm được đề xuất để sửa lỗi này là đưa function vào bên trong effect**. Để dễ dàng thấy được prop hoặc state nào có sử dụng trong effect, và đảm bảo chúng được khai báo.
 
 ```js{5-10,13}
 function ProductPage({ productId }) {
@@ -854,7 +854,7 @@ Theo truyền thống, về vấn đề hiệu năng xung quanh inline function 
 
 Chúng tôi thấy là hầu hết mọi người không thích thú việc truyền callback xuống tất cả level của cây component một cách thủ công. Mặc dù một cách rõ ràng, cảm giác như "hệ thống ống nước".
 
-Trong các cây component lớn, lựa chọn khác mà chúng tôi đề nghị là truyền xuống một hàm `dispatch` từ [`useReducer`](/docs/hooks-reference.html#usereducer) thông qua context:
+Trong các cây component lớn, lựa chọn khác mà chúng tôi đề xuất là truyền xuống một hàm `dispatch` từ [`useReducer`](/docs/hooks-reference.html#usereducer) thông qua context:
 
 ```js{4,5}
 const TodosDispatch = React.createContext(null);
@@ -896,7 +896,7 @@ Lưu ý bạn có thể chọn giữa truyền *state* của ứng dụng xuốn
 
 >Lưu ý
 >
->Chúng tôi khuyến nghị [truyền `dispatch` xuống các context](#how-to-avoid-passing-callbacks-down) thay vì các callback độc lập qua prop. Cách tiếp cận bên dưới chỉ đề cập ở đây để đầy đủ và như là một cách hatch.
+>Chúng tôi đề xuất [truyền `dispatch` xuống các context](#how-to-avoid-passing-callbacks-down) thay vì các callback độc lập qua prop. Cách tiếp cận bên dưới chỉ đề cập ở đây để đầy đủ và như là một cách hatch.
 >
 >Cũng lưu ý rằng pattern này có thể gây ra vấn đề trong [chế độ concurrent ](/blog/2018/03/27/update-on-async-rendering.html). Chúng tôi có kế hoạch cung cấp một cách làm khác hữu hiệu trong tương lai, nhưng giải pháp an toàn nhất hiện nay là luôn luôn vô hiệu hóa callback nếu một vài giá trị phụ thuộc vào thay đổi.
 
@@ -959,7 +959,7 @@ function useEventCallback(fn, dependencies) {
 }
 ```
 
-Trong cả 2 trường hợp, chúng tôi **không khuyến nghị pattern này** và chỉ hiển thị ở đây cho đầy đủ. Thay vào đó, nên [tránh truyền callback xuống quá sâu](#how-to-avoid-passing-callbacks-down).
+Trong cả 2 trường hợp, chúng tôi **không đề xuất pattern này** và chỉ hiển thị ở đây cho đầy đủ. Thay vào đó, nên [tránh truyền callback xuống quá sâu](#how-to-avoid-passing-callbacks-down).
 
 
 ## Bên dưới là gì {#under-the-hood}
