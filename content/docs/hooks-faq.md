@@ -57,7 +57,7 @@ Trang này sẽ trả lời các câu hỏi thường gặp với [Hook](/docs/h
   * [Làm sao React liên kết được khi gọi Hook với component?](#how-does-react-associate-hook-calls-with-components)
   * [Hook được lấy ý tưởng từ người tiền nhiệm nào?](#what-is-the-prior-art-for-hooks)
 
-## Kế hoạch chuyển đổi] {#adoption-strategy}
+## Kế hoạch chuyển đổi {#adoption-strategy}
 
 ### Phiên bản nào của React đã bao gồm Hook? {#which-versions-of-react-include-hooks}
 
