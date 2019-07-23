@@ -70,7 +70,7 @@ Kể từ phiên bản 16.8.0, React đã bổ sung một React Hook hoàn chỉ
 
 Lưu ý là **để sử dụng Hook, tất cả package React phải từ phiên bản 16.8.0 trở lên**. Hook sẽ không chạy nếu bạn quên update, ví dụ như React DOM.
 
-React Native sẽ chính thức hỗ trợ đầy đủ Hook trong lần release tiếp theo.
+React Native hỗ trợ Hook từ phiên bản 0.59 trở lên.
 
 ### Tôi có cần viết lại toàn bộ class component? {#do-i-need-to-rewrite-all-my-class-components}
 
@@ -571,7 +571,7 @@ Tuy theo tình huống, có một vài lựa chọn như bên dưới
 
 Cùng xem tại sao nó quan trọng
 
-Nếu bạn cung cấp một [danh sách phụ thuộc](/docs/hooks-reference.html#conditionally-firing-an-effect) cho `useEffect`, `useMemo`, `useCallback`, hoặc `useImperativeHandle`, nó phải bao gồm tất cả các giá trị (có sử dụng bên trong hàm) liên quan đến luồng dữ liệu của React, bao gồm prop, state và những giá trị có nguồn gốc từ chúng.
+Nếu bạn cung cấp một [danh sách phụ thuộc](/docs/hooks-reference.html#conditionally-firing-an-effect) cho `useEffect`, `useMemo`, `useCallback`, hoặc `useImperativeHandle`, nó phải bao gồm tất cả các giá trị sử dụng bên trong hàm liên quan đến luồng dữ liệu của React, bao gồm prop, state và những giá trị có nguồn gốc từ chúng.
 
 Chỉ **an toàn** khi omit một function từ danh sách phụ thuộc nếu không có gì bên trong (hoặc các hàm được gọi bởi nó) tham chiếu đến prop, state, các giá trị có nguồn gốc từ chúng. Ví dụ như bên dưới sẽ có có bug
 
@@ -622,7 +622,7 @@ Nó cho phép bạn xử lý các kết quả trả về không theo tuần tự
       const json = await response.json();
       if (!ignore) setProduct(json);
     }
-    
+
     fetchProduct();
     return () => { ignore = true };
   }, [productId]);
@@ -679,8 +679,8 @@ function Counter() {
 }
 ```
 
+Tập hợp rỗng của dependency, `[]`, có nghĩ là effect chỉ thực thi một lần khi component mount, nó không được thực thi mỗi lần re-render. Vấn đề ở đây là bên trong hàm callback của `setInterval`, giá trị của `count` không thay đổi, bởi vì chúng ta đã tạo ra một closure với giá trị của `count` được gán bằng `0` khi hàm callback của effect thực thi. Trong mỗi giây, hàm callback này sẽ gọi hàm `setCount(0 + 1)`, vì thế giá trị của count sẽ không bao giờ vượt quá 1.
 Chỉ định `[count]` như một danh sách phụ thuộc có thể sửa bug này, nhưng nó sẽ gây ra reset interval trên mỗi lần thay đổi. Đó có thể là điều không mong muốn. Để sửa, bạn có thể sử dụng [hàm dùng để cập nhập `setState`](/docs/hooks-reference.html#functional-updates). Cho phép chúng ta chỉ định **cách** state cần thay đổi mà không cần tham khảo đến state hiện tại.
-
 
 ```js{6,9}
 function Counter() {
@@ -699,6 +699,7 @@ function Counter() {
 
 (Theo như định nghĩa hàm `setCount` được đảm bảo có thể sử dụng an toàn, nên an toàn để omit)
 
+Bây giờ, hàm callback của `setInterval` thực thi một lần mỗi giây, nhưng mỗi lần như vậy bên trong hàm này sẽ gọi đến `setCount` có thể sử dụng giá trị mới nhất cho `count` (ở đây mình gọi nó là `c`.)
 Trong các tình huống phức tạp hơn (ví dụ như 1 state phụ thuộc vào một state khác), hãy chuyển logic cập nhập state ra khỏi effect với [`useReducer` Hook](/docs/hooks-reference.html#usereducer). [Bài này](https://adamrackis.dev/state-and-use-reducer/) cung cấp 1 ví dụ để chúng ta làm điều đó. **Theo định nghĩa hàm `dispatch` từ `useReducer` luôn ổn định** - thậm chí là khi hàm reducer được định nghĩa bên trong component và đọc giá trị của prop.
 
 Như là cách cuối cùng, nếu bạn muốn cái gì đó giống với `this` trong class, bạn có thể [sử dụng  ref](/docs/hooks-faq.html#is-there-something-like-instance-variables) để giữ 1 biến mutable. Sau đó bạn có thể đọc và ghi xuống nó. Lấy ví dụ: 
