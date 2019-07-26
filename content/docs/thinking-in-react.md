@@ -76,7 +76,11 @@ Tham khảo [tài liệu React](/docs/) nếu như bạn cần trợ giúp để
 
 ### Bản tóm tắt ngắn gọn: Props và State {#a-brief-interlude-props-vs-state}
 
+<<<<<<< HEAD
 Có hai kiểu "mô hình" dữ liệu trong React: props và state. Hãy chắc chắn rằng bạn hiểu sự khác biệt giữa chúng, tham khảo thêm tại [tài liệu chính thức về React](/docs/interactivity-and-dynamic-uis.html).
+=======
+There are two types of "model" data in React: props and state. It's important to understand the distinction between the two; skim [the official React docs](/docs/state-and-lifecycle.html) if you aren't sure what the difference is. See also [FAQ: What is the difference between state and props?](/docs/faq-state.html#what-is-the-difference-between-state-and-props)
+>>>>>>> eef56ffdcfa995e3478f85cd9d02f4be01f65b79
 
 ## Bước 3: Xác định các trạng thái hoàn chỉnh nhỏ nhất của giao diện người dùng {#step-3-identify-the-minimal-but-complete-representation-of-ui-state}
 
