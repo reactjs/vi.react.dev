@@ -4,57 +4,58 @@ title: Context
 permalink: docs/context.html
 ---
 
-Context provides a way to pass data through the component tree without having to pass props down manually at every level.
+Context cung cấp phương pháp truyền data xuyên suốt component tree mà không cần phải truyền props một cách thủ công qua từng level.
 
-In a typical React application, data is passed top-down (parent to child) via props, but this can be cumbersome for certain types of props (e.g. locale preference, UI theme) that are required by many components within an application. Context provides a way to share values like these between components without having to explicitly pass a prop through every level of the tree.
 
-- [When to Use Context](#when-to-use-context)
-- [Before You Use Context](#before-you-use-context)
+Thông thường với một ứng dụng React, data được truyền từ trên xuống (cha tới con) thông qua props, điều này có vẻ khá cồng kềnh đối với một số loại props (e.g. locale preference, UI theme) chúng thường được sử dụng bởi rất nhiều component trong ứng dụng. Context cho phép chúng ta chia sẽ values giống như vậy giữa các components mà không cần truyền giá trị tới tất cả level trong component tree.
+
+- [Khi nào nên dùng Context](#when-to-use-context)
+- [Trước khi bạn sử dụng Context](#before-you-use-context)
 - [API](#api)
   - [React.createContext](#reactcreatecontext)
   - [Context.Provider](#contextprovider)
   - [Class.contextType](#classcontexttype)
   - [Context.Consumer](#contextconsumer)
-- [Examples](#examples)
+- [Ví dụ](#examples)
   - [Dynamic Context](#dynamic-context)
-  - [Updating Context from a Nested Component](#updating-context-from-a-nested-component)
-  - [Consuming Multiple Contexts](#consuming-multiple-contexts)
+  - [Cập nhật Context từ Nested Component](#updating-context-from-a-nested-component)
+  - [Sử dụng Multiple Contexts](#consuming-multiple-contexts)
 - [Caveats](#caveats)
 - [Legacy API](#legacy-api)
 
-## When to Use Context {#when-to-use-context}
+## Khi nào nên dùng Context {#when-to-use-context}
 
-Context is designed to share data that can be considered "global" for a tree of React components, such as the current authenticated user, theme, or preferred language. For example, in the code below we manually thread through a "theme" prop in order to style the Button component:
+Context được thiết kế để chia sẽ data khi chúng được xem là "global data" của toàn bộ ứng dụng React, chẳng hạn như thông tin về user hiện tại đang đăng nhập, theme, hoặc ngôn ngữ mà người dùng đã chọn. Ví dụ, ở đoạn code bên dưới, chúng ta truyền một "theme" prop để style một Button component:
 
 `embed:context/motivation-problem.js`
 
-Using context, we can avoid passing props through intermediate elements:
+Sử dụng context, chúng ta có thể tránh được việc truyền props qua các elements trung gian:
 
 `embed:context/motivation-solution.js`
 
-## Before You Use Context {#before-you-use-context}
+## Trước khi bạn sử dụng Context {#before-you-use-context}
 
-Context is primarily used when some data needs to be accessible by *many* components at different nesting levels. Apply it sparingly because it makes component reuse more difficult.
+Context chủ yếu được sử dụng khi một số data cần được truy cập bởi *nhiều* components ở nhiều tầng khác nhau. Sử dụng nó một cách cẩn thận bởi vì điều đó sẽ làm component trở nên khó tái sử dụng hơn.
 
-**If you only want to avoid passing some props through many levels, [component composition](/docs/composition-vs-inheritance.html) is often a simpler solution than context.**
+**Nếu bạn chỉ muốn dùng context để tránh việc truyền một số props qua nhiều levels, , [component composition](/docs/composition-vs-inheritance.html) thường là một giải pháp đơn giản hơn so với context.**
 
-For example, consider a `Page` component that passes a `user` and `avatarSize` prop several levels down so that deeply nested `Link` and `Avatar` components can read it:
+Ví dụ, một `Page` component truyền `user` và `avataSize` prop đến một số levels hạ cấp để `Link` và `Avatar` components có thể đọc được:
 
 ```js
 <Page user={user} avatarSize={avatarSize} />
-// ... which renders ...
+// ... được renders ...
 <PageLayout user={user} avatarSize={avatarSize} />
-// ... which renders ...
+// ... được renders ...
 <NavigationBar user={user} avatarSize={avatarSize} />
-// ... which renders ...
+// ... được renders ...
 <Link href={user.permalink}>
   <Avatar user={user} size={avatarSize} />
 </Link>
 ```
 
-It might feel redundant to pass down the `user` and `avatarSize` props through many levels if in the end only the `Avatar` component really needs it. It's also annoying that whenever the `Avatar` component needs more props from the top, you have to add them at all the intermediate levels too.
+Bạn có thể cảm thấy dư thừa khi truyền `user` và `avatarSize` props thông qua nhiều levels nếu chỉ có `Avatar` component thật sự cần đến nó. Nó cũng khá phiền toái mỗi khi `Avatar` component cần thêm props từ tầng trên cùng, bạn phải thêm tất những props đó ở tất cả những tầng trung gian.
 
-One way to solve this issue **without context** is to [pass down the `Avatar` component itself](/docs/composition-vs-inheritance.html#containment) so that the intermediate components don't need to know about the `user` prop:
+Một cách để khắc phục vấn đề này mà **không dùng context** là [tự truyền `Avatar` component](/docs/composition-vs-inheritance.html#containment) bằng cách này, các components trung gian không cần phải giữ `user` hay `avataSize` props:
 
 ```js
 function Page(props) {
@@ -68,20 +69,20 @@ function Page(props) {
 }
 
 // Now, we have:
-<Page user={user} />
-// ... which renders ...
+<Page user={user} avatarSize={avatarSize} />
+// ... được renders ...
 <PageLayout userLink={...} />
-// ... which renders ...
+// ... được renders ...
 <NavigationBar userLink={...} />
-// ... which renders ...
+// ... được renders ...
 {props.userLink}
 ```
 
-With this change, only the top-most Page component needs to know about the `Link` and `Avatar` components' use of `user` and `avatarSize`.
+Với sự thay đổi này, chỉ có tầng trên cùng của Page component biết được `Link` và `Avatar` components sử dụng `user` và `avatarSize`.
 
-This *inversion of control* can make your code cleaner in many cases by reducing the amount of props you need to pass through your application and giving more control to the root components. However, this isn't the right choice in every case: moving more complexity higher in the tree makes those higher-level components more complicated and forces the lower-level components to be more flexible than you may want.
+Sự *đảo ngược quyền kiểm soát (inversion of control)* này có thể giúp code của bạn rõ ràng hơn ở nhiều trường hợp bằng cách giảm số lượng props cần phải truyền xuyên suốt ứng dụng của và cho phép sự kiểm soát đến root component. Tuy nhiên, đây không phải là một sự lựa chọn tốt cho mọi trường hợp: Nó khiến độ phức tạp cao hơn trong component tree khiến higher-level components trở nên phức tạp hơn và khiến cho lower-level components trở nên quá linh động.
 
-You're not limited to a single child for a component. You may pass multiple children, or even have multiple separate "slots" for children, [as documented here](/docs/composition-vs-inheritance.html#containment):
+Bạn không bị gới hạn vào một child duy nhất cho mỗi component. Bạn có thể truyền nhiều children, hay thậm chí là nhiều "slots" tách biệt cho children, [Như tài liệu ở đây](/docs/composition-vs-inheritance.html#containment):
 
 ```js
 function Page(props) {
@@ -103,9 +104,9 @@ function Page(props) {
 }
 ```
 
-This pattern is sufficient for many cases when you need to decouple a child from its immediate parents. You can take it even further with [render props](/docs/render-props.html) if the child needs to communicate with the parent before rendering.
+Pattern này hoàn toàn hiệu quả cho nhiều trường hợp khi bạn cần tách một child component từ những partents component trung gian của nó. Bạn có thể tiến xa hơn nữa với [render props](/docs/render-props.html) nếu child component cần giao tiếp với parent component trước khi render.
 
-However, sometimes the same data needs to be accessible by many components in the tree, and at different nesting levels. Context lets you "broadcast" such data, and changes to it, to all components below. Common examples where using context might be simpler than the alternatives include managing the current locale, theme, or a data cache. 
+Tuy nhiên, đôi khi có những data trùng lặp cần được truy cập bởi nhiều components trong component tree, và ở nhiều tầng khác nhau. Context cho phép bạn "Phát sóng" những data như vậy, và trao đổi nó đến tất cả những components bên dưới. Ví dụ như khi sử dụng context có thể sẽ đơn giãn hơn so với những lựa chọn thay thế bao gồm quản lý current locale, theme, hay data caching.
 
 ## API {#api}
 
@@ -115,9 +116,9 @@ However, sometimes the same data needs to be accessible by many components in th
 const MyContext = React.createContext(defaultValue);
 ```
 
-Creates a Context object. When React renders a component that subscribes to this Context object it will read the current context value from the closest matching `Provider` above it in the tree.
+Tạo một Context object. Khi React render một component mà nó subcribe đến Context object này, nó sẽ đọc giá trị hiện tại của context đó từ `Provider` gần nhất trên component tree.
 
-The `defaultValue` argument is **only** used when a component does not have a matching Provider above it in the tree. This can be helpful for testing components in isolation without wrapping them. Note: passing `undefined` as a Provider value does not cause consuming components to use `defaultValue`.
+Đối số `defaultValue` **chỉ** sử dụng khi một component không có Provider nào bên trên nó trong component tree. Điều này có thể hữu dụng cho việc kiểm thử component một cách cô lập mà không cần phải wrap chúng lại. Lưu ý: truyền `undefined` như một giá trị Provider sẽ không khiến consuming components sử dụng `defaultValue`.
 
 ### `Context.Provider` {#contextprovider}
 
@@ -125,17 +126,17 @@ The `defaultValue` argument is **only** used when a component does not have a ma
 <MyContext.Provider value={/* some value */}>
 ```
 
-Every Context object comes with a Provider React component that allows consuming components to subscribe to context changes.
+Mỗi Context object đi cùng với một Provider React component cho phép consuming component theo dõi sự thay đổi của context đó.
 
-Accepts a `value` prop to be passed to consuming components that are descendants of this Provider. One Provider can be connected to many consumers. Providers can be nested to override values deeper within the tree.
+Nhận một `value` prop để truyền đến consuming components mà nó là con của Provider này. Một Provider có thể kết nối đến nhiều comsumers. Providers có thể lồng nhau để ghi đè giá trị sâu hơn trong component tree.
 
-All consumers that are descendants of a Provider will re-render whenever the Provider's `value` prop changes. The propagation from Provider to its descendant consumers is not subject to the `shouldComponentUpdate` method, so the consumer is updated even when an ancestor component bails out of the update.
+Tất cả consumers con của một Provider sẽ được re-rerender bất cứ khi nào `value` của Provider đó thay đổi. Sự lan truyền từ Provider đến consumer con của nó không bị lệ thuộc vào `shouldComponentUpdate` method, vì vậy consumer được cập nhật ngay cả khi một component cha thoát ra khỏi sự cập nhật đó.
 
-Changes are determined by comparing the new and old values using the same algorithm as [`Object.is`](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description). 
+Những thay đổi được xác định bằng cách so sánh những giá trị mới và cũ sử dụng chung một thuật toán như [`Object.is`](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description). 
 
-> Note
+> Lưu ý
 > 
-> The way changes are determined can cause some issues when passing objects as `value`: see [Caveats](#caveats).
+> Cách những thay đổi được xác định có thể gây nên một số vấn đề khi truyền object như một `value`: xem [Caveats](#caveats).
 
 ### `Class.contextType` {#classcontexttype}
 
@@ -143,7 +144,7 @@ Changes are determined by comparing the new and old values using the same algori
 class MyClass extends React.Component {
   componentDidMount() {
     let value = this.context;
-    /* perform a side-effect at mount using the value of MyContext */
+    /* Thực hiện một side-effect tại mount sử dụng giá trị của MyContext */
   }
   componentDidUpdate() {
     let value = this.context;
@@ -155,19 +156,19 @@ class MyClass extends React.Component {
   }
   render() {
     let value = this.context;
-    /* render something based on the value of MyContext */
+    /* render thứ gì đó dựa vào giá trị của MyContext */
   }
 }
 MyClass.contextType = MyContext;
 ```
 
-The `contextType` property on a class can be assigned a Context object created by [`React.createContext()`](#reactcreatecontext). This lets you consume the nearest current value of that Context type using `this.context`. You can reference this in any of the lifecycle methods including the render function.
+`contextType` property trong một class có thể được gán vào một Context object tạo bởi [`React.createContext()`](#reactcreatecontext). Điều này giúp bạn tiêu thụ giá trị gần nhất ở thời điểm hiện tại của loại Context đó sử dụng `this.context`. Bạn có thể tham khảo điều này trong mọi lifecycle methods bao gồm render function.
 
-> Note:
+> Lưu ý:
 >
-> You can only subscribe to a single context using this API. If you need to read more than one see [Consuming Multiple Contexts](#consuming-multiple-contexts).
+>Bạn chỉ có thể subcribe tới một context duy nhất sử dụng API này. Nếu bạn muốn đọc nhiều hơn một context, tham khảo [Consuming Multiple Contexts](#consuming-multiple-contexts).
 >
-> If you are using the experimental [public class fields syntax](https://babeljs.io/docs/plugins/transform-class-properties/), you can use a **static** class field to initialize your `contextType`.
+>Bạn có thể sử dụng chức năng thử nghiệm [public class fields syntax](https://babeljs.io/docs/plugins/transform-class-properties/), bạn có thể sử dụng **static** class field để khởi tạo `contextType` của mình.
 
 
 ```js
@@ -175,7 +176,7 @@ class MyClass extends React.Component {
   static contextType = MyContext;
   render() {
     let value = this.context;
-    /* render something based on the value */
+    /* render gì đó dựa vào value */
   }
 }
 ```
@@ -184,23 +185,23 @@ class MyClass extends React.Component {
 
 ```js
 <MyContext.Consumer>
-  {value => /* render something based on the context value */}
+  {value => /* render gì đó dựa vào context value */}
 </MyContext.Consumer>
 ```
 
-A React component that subscribes to context changes. This lets you subscribe to a context within a [function component](/docs/components-and-props.html#function-and-class-components).
+Khi một React component subcribe tới sự thay đổi của context. Điều này cho phép bạn subcribe tới một context trong một [function component](/docs/components-and-props.html#function-and-class-components).
 
-Requires a [function as a child](/docs/render-props.html#using-props-other-than-render). The function receives the current context value and returns a React node. The `value` argument passed to the function will be equal to the `value` prop of the closest Provider for this context above in the tree. If there is no Provider for this context above, the `value` argument will be equal to the `defaultValue` that was passed to `createContext()`.
+Yêu cầu một [function as a child](/docs/render-props.html#using-props-other-than-render). Function nhận giá trị context hiện tại và trả về một React node. Tham số `value` truyền đến function sẽ bằng với `value` prop của Provider gần nhất trong context này trên tree component. Nếu không có Provider nào cho context này ở trên nó, tham số `value` sẽ bằng với `defaultValue` đã được truyền tới `createContext()`.
 
-> Note
+> Lưu ý
 > 
-> For more information about the 'function as a child' pattern, see [render props](/docs/render-props.html).
+> Để biết thêm thông tin về 'function as a child' pattern, xem [render props](/docs/render-props.html).
 
-## Examples {#examples}
+## Ví dụ {#examples}
 
 ### Dynamic Context {#dynamic-context}
 
-A more complex example with dynamic values for the theme:
+Một ví dụ phức tạp hơn với dynamic values cho theme:
 
 **theme-context.js**
 `embed:context/theme-detailed-theme-context.js`
@@ -211,9 +212,9 @@ A more complex example with dynamic values for the theme:
 **app.js**
 `embed:context/theme-detailed-app.js`
 
-### Updating Context from a Nested Component {#updating-context-from-a-nested-component}
+### Cập nhật Context từ một Nested Component {#updating-context-from-a-nested-component}
 
-It is often necessary to update the context from a component that is nested somewhere deeply in the component tree. In this case you can pass a function down through the context to allow consumers to update the context:
+Chúng ta thường cần cập nhật context từ một component đã được lồng ở nơi nào đó sâu trong component tree. Trong trường hợp này bạn có thể truyền một function xuống context để cho phép consumers cập nhật context đó:
 
 **theme-context.js**
 `embed:context/updating-nested-context-context.js`
@@ -224,28 +225,28 @@ It is often necessary to update the context from a component that is nested some
 **app.js**
 `embed:context/updating-nested-context-app.js`
 
-### Consuming Multiple Contexts {#consuming-multiple-contexts}
+### Consuming nhiều Contexts {#consuming-multiple-contexts}
 
-To keep context re-rendering fast, React needs to make each context consumer a separate node in the tree. 
+Để giữ context re-rendering nhanh chóng, React cần làm cho mỗi context consumer tách rời nhau trong component tree.
 
 `embed:context/multiple-contexts.js`
 
-If two or more context values are often used together, you might want to consider creating your own render prop component that provides both.
+Nếu có hai hoặc nhiều context values được dùng cùng nhau, bạn có thể sẽ muốn sử tạo render prop component của chính mình.
 
 ## Caveats {#caveats}
 
-Because context uses reference identity to determine when to re-render, there are some gotchas that could trigger unintentional renders in consumers when a provider's parent re-renders. For example, the code below will re-render all consumers every time the Provider re-renders because a new object is always created for `value`:
+Bởi vì context sử dụng reference identity để xác định khi nào nên re-render, có một số vấn đề nguy hiểm có thể kích hoạt render một cách vô tình trong consumers khi một provider cha re-render. Ví dụ, đoạn code bên dưới sẽ re-render tất cả consumer mỗi lần Provider re-render bởi vì một object mới sẽ luôn được tạo cho `value`:
 
 `embed:context/reference-caveats-problem.js`
 
 
-To get around this, lift the value into the parent's state:
+Để giải quyết vấn đề này, nâng giá trị đó lên state của cha:
 
 `embed:context/reference-caveats-solution.js`
 
 ## Legacy API {#legacy-api}
 
-> Note
+> Lưu ý
 > 
-> React previously shipped with an experimental context API. The old API will be supported in all 16.x releases, but applications using it should migrate to the new version. The legacy API will be removed in a future major React version. Read the [legacy context docs here](/docs/legacy-context.html).
+> React vừa mang đến một context API thử nghiệm. API cũ sẽ hỗ trợ trong tất cả phiên bản 16.x, nhưng những ứng dụng sử dụng nó nên nâng cấp lên phiên bản mới hơn. API cũ sẽ bị xóa trong tương lại qua những lần cập nhật lớn của React. Tham khảo [legacy context docs here](/docs/legacy-context.html).
  

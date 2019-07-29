@@ -1,24 +1,24 @@
 ---
 id: faq-ajax
-title: AJAX and APIs
+title: AJAX và APIs
 permalink: docs/faq-ajax.html
 layout: docs
 category: FAQ
 ---
 
-### How can I make an AJAX call? {#how-can-i-make-an-ajax-call}
+### Làm như nào để gọi AJAX ? {#how-can-i-make-an-ajax-call}
 
-You can use any AJAX library you like with React. Some popular ones are [Axios](https://github.com/axios/axios), [jQuery AJAX](https://api.jquery.com/jQuery.ajax/), and the browser built-in [window.fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
+Bạn có thể sử dụng bất kỳ thư viện AJAX nào bạn thích với React. Một số thư viện phổ biến như [Axios](https://github.com/axios/axios), [jQuery AJAX](https://api.jquery.com/jQuery.ajax/), và trình duyệt tích hợp sẵn [window.fetch](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API).
 
-### Where in the component lifecycle should I make an AJAX call? {#where-in-the-component-lifecycle-should-i-make-an-ajax-call}
+### Nên gọi AJAX ở đâu trong vòng đời component ? {#where-in-the-component-lifecycle-should-i-make-an-ajax-call}
 
-You should populate data with AJAX calls in the [`componentDidMount`](/docs/react-component.html#mounting) lifecycle method. This is so you can use `setState` to update your component when the data is retrieved.
+Bạn nên gọi AJAX ở componentDidMount của các phương thức vòng đời [`componentDidMount`](/docs/react-component.html#mounting). Điều này để bạn có thể sử dụng `setState` để cập nhật component khi có dữ liệu được lấy.
+<!-- ### Ví dụ: Using AJAX results to set local state {#example-using-ajax-results-to-set-local-state} -->
+### Ví dụ: Sử dụng dữ liệu của AJAX xét vào state   {#example-using-ajax-results-to-set-local-state}
 
-### Example: Using AJAX results to set local state {#example-using-ajax-results-to-set-local-state}
+Component dưới đây thể hiện cách thực hiện gọi AJAX trong `componentDidMount` để xét dữ liệu vào state. 
 
-The component below demonstrates how to make an AJAX call in `componentDidMount` to populate local component state. 
-
-The example API returns a JSON object like this:
+Ví dụ API trả về một object JSON như sau:
 
 ```
 {

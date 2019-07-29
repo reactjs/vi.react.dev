@@ -4,15 +4,14 @@ title: Code-Splitting
 permalink: docs/code-splitting.html
 ---
 
-## Bundling {#bundling}
+## Đóng Gói (Bundling) {#bundling}
 
-Most React apps will have their files "bundled" using tools like
-[Webpack](https://webpack.js.org/) or [Browserify](http://browserify.org/).
-Bundling is the process of following imported files and merging them into a
-single file: a "bundle". This bundle can then be included on a webpage to load
-an entire app at once.
+Hầu hết files trong các ứng dụng React sẽ được "đóng gói" bằng cách
+sử dụng những công cụ như [Webpack](https://webpack.js.org/) hay [Browserify](http://browserify.org/).
+Đóng gói là quá trình xử lý những files đã được import và kết hợp chúng thành một file duy nhất: File đóng gói này
+sau đó có thể được trang web tải lên chỉ một lần.
 
-#### Example {#example}
+#### Ví Dụ {#example}
 
 **App:**
 
@@ -40,44 +39,39 @@ function add(a, b) {
 console.log(add(16, 26)); // 42
 ```
 
-> Note:
+> Chú ý:
 >
-> Your bundles will end up looking a lot different than this.
+> Bundle của bạn có thể sẽ trông rất khác bên trên.
 
-If you're using [Create React App](https://github.com/facebookincubator/create-react-app), [Next.js](https://github.com/zeit/next.js/), [Gatsby](https://www.gatsbyjs.org/), or a similar tool, you will have a Webpack setup out of the box to bundle your
-app.
+Nếu bạn đang sử dụng [Create React App](https://github.com/facebookincubator/create-react-app), [Next.js](https://github.com/zeit/next.js/), [Gatsby](https://www.gatsbyjs.org/), hay một công cụ tương tự,
+bạn sẽ được thiết lập sẵn webpack để đóng gói ứng dụng của mình.
 
-If you aren't, you'll need to setup bundling yourself. For example, see the
-[Installation](https://webpack.js.org/guides/installation/) and
-[Getting Started](https://webpack.js.org/guides/getting-started/) guides on the
-Webpack docs.
+Nếu không, bạn sẽ cần phải tự thiết lập. Ví dụ, tham khảo
+[Installation](https://webpack.js.org/guides/installation/) và
+[Getting Started](https://webpack.js.org/guides/getting-started/)
+hướng dẫn ở tài liệu Webpack.
 
-## Code Splitting {#code-splitting}
+## Phân chia Code {#code-splitting}
 
-Bundling is great, but as your app grows, your bundle will grow too. Especially
-if you are including large third-party libraries. You need to keep an eye on
-the code you are including in your bundle so that you don't accidentally make
-it so large that your app takes a long time to load.
+Đóng gói hẵn rất tuyệt vời, nhưng khi ứng dụng của bạn trở nên lớn hơn,
+file đóng gói của bạn cũng sẽ lớn theo. Đặc biệt khi bạn sử dụng third-party library (thư viện bên thứ 3) lớn.
+Bạn cần phải cẩn thận với những đoạn code bạn đang include vào bundle của mình, bằng cách đó bạn sẽ không
+vô tình làm nó trở nên quá lớn khiến ứng dụng mất nhiều thời gian để tải.
 
-To avoid winding up with a large bundle, it's good to get ahead of the problem
-and start "splitting" your bundle.
- [Code-Splitting](https://webpack.js.org/guides/code-splitting/) is a feature
-supported by bundlers like Webpack and Browserify (via
-[factor-bundle](https://github.com/browserify/factor-bundle)) which can create
-multiple bundles that can be dynamically loaded at runtime.
+Để tránh việc hỏng bundle vì file đóng gói quá lớn. Bạn nên chủ động bắt đầu "phân chia" bundle của mình ngay từ đầu.
+ [Code-Splitting](https://webpack.js.org/guides/code-splitting/) là một tính năng được hỗ trợ bởi nhiều bundlers như Webpack và
+ Browserfy (bằng [factor-bundle](https://github.com/browserify/factor-bundle)) có thể tạo ra nhiều bundles để load động tại thời điểm
+ runtime.
 
-Code-splitting your app can help you "lazy-load" just the things that are
-currently needed by the user, which can dramatically improve the performance of
-your app. While you haven't reduced the overall amount of code in your app,
-you've avoided loading code that the user may never need, and reduced the amount
-of code needed during the initial load.
+Phân chia code cho ứng dụng giúp "lazy-load" chỉ những phần người dùng đang cần, tăng đáng kể hiệu suất mà không cần phải giảm số lượng
+code trong ứng dụng, bạn đã tránh phải tải những đoạn code người dùng có thể sẽ không bao giờ cần đến,
+và giảm số lượng code cần tải lên trong lần đầu tiên.
 
 ## `import()` {#import}
 
-The best way to introduce code-splitting into your app is through the dynamic
-`import()` syntax.
+Phương pháp tốt nhất để sử dụng code-splitting trong ứng dụng là thông qua cú pháp `import()` động.
 
-**Before:**
+**Trước:**
 
 ```js
 import { add } from './math';
@@ -85,7 +79,7 @@ import { add } from './math';
 console.log(add(16, 26));
 ```
 
-**After:**
+**Sau:**
 
 ```js
 import("./math").then(math => {
@@ -93,33 +87,31 @@ import("./math").then(math => {
 });
 ```
 
-> Note:
+> Chú ý:
 >
-> The dynamic `import()` syntax is a ECMAScript (JavaScript)
-> [proposal](https://github.com/tc39/proposal-dynamic-import) not currently
-> part of the language standard. It is expected to be accepted in the
-> near future.
+> Cú pháp `import()` động là một đoạn ECMAScript (JavaScript)
+> [proposal](https://github.com/tc39/proposal-dynamic-import) hiện tại chưa được xem
+> như một phần tiêu chuẩn của ngôn ngữ. Nó mong đợi sẽ được chấp nhận trong tương lai gần.
 
-When Webpack comes across this syntax, it automatically starts code-splitting
-your app. If you're using Create React App, this is already configured for you
-and you can [start using it](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#code-splitting) immediately. It's also supported
-out of the box in [Next.js](https://github.com/zeit/next.js/#dynamic-import).
+Khi Webpack chạy đến cú pháp này, nó sẽ tự động phân chia code trong ứng dụng của bạn. Nếu bạn sử dụng Create React App,
+việc này đã được thiết lập sẵn cho bạn và bạn có thể [bắt đầu sử dụng](https://facebook.github.io/create-react-app/docs/code-splitting)
+ngay. Nó cũng được hỗ trợ sẵn trong [Next.js](https://github.com/zeit/next.js/#dynamic-import).
 
-If you're setting up Webpack yourself, you'll probably want to read Webpack's
-[guide on code splitting](https://webpack.js.org/guides/code-splitting/). Your Webpack config should look vaguely [like this](https://gist.github.com/gaearon/ca6e803f5c604d37468b0091d9959269).
+Nếu bạn đang tự mình cấu hình Webpack, bạn có thể sẽ muốn tham khảo Webpack's
+[hướng dẫn phân chia code](https://webpack.js.org/guides/code-splitting/). Cấu hình Webpack của bạn có thể sẽ trông mơ hồ [như thế này](https://gist.github.com/gaearon/ca6e803f5c604d37468b0091d9959269).
 
-When using [Babel](http://babeljs.io/), you'll need to make sure that Babel can
-parse the dynamic import syntax but is not transforming it. For that you will need [babel-plugin-syntax-dynamic-import](https://yarnpkg.com/en/package/babel-plugin-syntax-dynamic-import).
+Khi sử dụng [Babel](https://babeljs.io/), bạn sẽ cần phải chắc chắn rằng Babel có thể phân giải cú pháp import động nhưng không làm nó
+bị biến đổi. Bạn sẽ cần [babel-plugin-syntax-dynamic-import](https://yarnpkg.com/en/package/babel-plugin-syntax-dynamic-import).
 
 ## `React.lazy` {#reactlazy}
 
-> Note:
+> Chú ý:
 >
-> `React.lazy` and Suspense is not yet available for server-side rendering. If you want to do code-splitting in a server rendered app, we recommend [Loadable Components](https://github.com/smooth-code/loadable-components). It has a nice [guide for bundle splitting with server-side rendering](https://github.com/smooth-code/loadable-components/blob/master/packages/server/README.md).
+> `React.lazy` và Suspense chưa có sẵn cho server-side rendering. Nếu bạn muốn phân chia code ở những ứng dụng render tại server, chúng tôi xin giới thiệu [Loadable Components](https://github.com/smooth-code/loadable-components). Nó có [hướng dẫn phân chia code với server-side rendering](https://github.com/smooth-code/loadable-components/blob/master/packages/server/README.md).
 
-The `React.lazy` function lets you render a dynamic import as a regular component.
+Chức năng `React.lazy` cho phép bạn render một import động như một component bình thường.
 
-**Before:**
+**Trước:**
 
 ```js
 import OtherComponent from './OtherComponent';
@@ -133,7 +125,7 @@ function MyComponent() {
 }
 ```
 
-**After:**
+**Sau:**
 
 ```js
 const OtherComponent = React.lazy(() => import('./OtherComponent'));
@@ -147,13 +139,16 @@ function MyComponent() {
 }
 ```
 
-This will automatically load the bundle containing the `OtherComponent` when this component gets rendered.
+Nó sẽ tự động tải bundle có chứa `OtherComponent` khi component này được gọi đến.
 
-`React.lazy` takes a function that must call a dynamic `import()`. This must return a `Promise` which resolves to a module with a `default` export containing a React component.
+`React.lazy` chỉ lấy một function mà nó được gọi `import()` động. Nó phải trả về một `Promise` và phân giải thành một module với một
+`default` export có chứa một React component.
 
 ### Suspense {#suspense}
 
-If the module containing the `OtherComponent` is not yet loaded by the time `MyComponent` renders, we must show some fallback content while we're waiting for it to load - such as a loading indicator. This is done using the `Suspense` component.
+Nếu module có chứa `OtherComponent` mà nó chưa được tải lên tại thời điểm `MyComponent` renders,
+chúng ta phải hiển thị một số nội dung fallback trong khi chờ đợi nó hiển thị - ví dụ như một loading indicator.
+Việc này có thể thực hiện nhờ vào `Suspense` component.
 
 ```js
 const OtherComponent = React.lazy(() => import('./OtherComponent'));
@@ -169,7 +164,9 @@ function MyComponent() {
 }
 ```
 
-The `fallback` prop accepts any React elements that you want to render while waiting for the component to load. You can place the `Suspense` component anywhere above the lazy component. You can even wrap multiple lazy components with a single `Suspense` component.
+Thuộc tính `fallback` chấp nhận bất kỳ React elements nào bạn muốn render trong khi chờ component được tải lên.
+Bạn có thể đặt `Suspense` component bất kỳ nơi nào bên trên lazy component.
+Bạn thậm chí có thể bọc nhiều lazy component với duy nhất một `Suspense` component.
 
 ```js
 const OtherComponent = React.lazy(() => import('./OtherComponent'));
@@ -191,7 +188,9 @@ function MyComponent() {
 
 ### Error boundaries {#error-boundaries}
 
-If the other module fails to load (for example, due to network failure), it will trigger an error. You can handle these errors to show a nice user experience and manage recovery with [Error Boundaries](/docs/error-boundaries.html). Once you've created your Error Boundary, you can use it anywhere above your lazy components to display an error state when there's a network error.
+Nếu `OtherComponent` không thể tải lên (Ví dụ, lỗi mạng), nó sẽ kích hoạt lỗi.
+Bạn có thể điều khiển những lỗi đó để hiển thị một trải nghiệm người dùng tốt hơn và quản lý phục hồi với [Error Boundaries](/docs/error-boundaries.html). Một khi bạn đã tạo Error Boundary, bạn có thể sử dụng nó bất kỳ nơi nào bên trên lazy components của bạn
+để hiển thị thông báo lỗi khi có sự cố về mạng.
 
 ```js
 import MyErrorBoundary from './MyErrorBoundary';
@@ -212,19 +211,19 @@ const MyComponent = () => (
 );
 ```
 
-## Route-based code splitting {#route-based-code-splitting}
+## Phân chia code dựa vào định tuyến(Route-based) {#route-based-code-splitting}
 
-Deciding where in your app to introduce code splitting can be a bit tricky. You
-want to make sure you choose places that will split bundles evenly, but won't
-disrupt the user experience.
+Việc quyết định nơi nào cần phân chia code trong ứng dụng của bạn có thể sẽ gặp một chút khó khăn.
+Bạn muốn chắc chắn những nơi bạn chọn sẽ đều nhau, nhưng không phá vỡ
+trải nghiệm người dùng.
 
-A good place to start is with routes. Most people on the web are used to
-page transitions taking some amount of time to load. You also tend to be
-re-rendering the entire page at once so your users are unlikely to be
-interacting with other elements on the page at the same time.
+Một nơi tốt để bắt đầu là với routes. Hầu hết mọi người trên web
+đã quen với việc chuyển trang sẽ mất một khoảng thời gian nhất định.
+Bạn cũng có xu hướng render lại cả trang cùng một lần để ngăn người dùng
+không tương tác với những elements khác trong trang cùng một lúc.
 
-Here's an example of how to setup route-based code splitting into your app using
-libraries like [React Router](https://reacttraining.com/react-router/) with `React.lazy`.
+Đây là một ví dụ hướng dẫn cách cài đặt ứng dụng của bạn phân chia code dựa trên route
+bằng cách sử dụng những thư viện như [React Router](https://reacttraining.com/react-router/) with `React.lazy`.
 
 ```js
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -245,9 +244,9 @@ const App = () => (
 );
 ```
 
-## Named Exports {#named-exports}
+## Named Exports (Đặt tên Export) {#named-exports}
 
-`React.lazy` currently only supports default exports. If the module you want to import uses named exports, you can create an intermediate module that reexports it as the default. This ensures that treeshaking keeps working and that you don't pull in unused components.
+`React.lazy` hiện tại chỉ hỗ trợ default export. Nếu module bạn muốn import sử dụng named export, bạn có thể tạo một module trung gian và sau đó export dưới dạng export default. Điều này chắc đảm bảo rằng tree shaking vẫn hoạt động và bạn không kéo những component chưa được sử dụng.
 
 ```js
 // ManyComponents.js

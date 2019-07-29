@@ -1,6 +1,6 @@
 ---
 id: lifting-state-up
-title: Lifting State Up
+title: Chuyển state lên trên
 permalink: docs/lifting-state-up.html
 prev: forms.html
 next: composition-vs-inheritance.html
@@ -9,11 +9,11 @@ redirect_from:
   - "docs/flux-todo-list.html"
 ---
 
-Often, several components need to reflect the same changing data. We recommend lifting the shared state up to their closest common ancestor. Let's see how this works in action.
+Thông thường, khi một dữ liệu thay đổi nó sẽ ảnh hưởng tới nhiều component cùng lúc. State được khuyến khích chia sẻ ở component cha của chúng. Hãy cùng xem nó được ứng dụng trong thực tế như thế nào.
 
-In this section, we will create a temperature calculator that calculates whether the water would boil at a given temperature.
+Chúng ta sẽ xây dựng một ứng dụng tính nhiệt độ. Nó sẽ cho người dùng biết nước có sôi ở nhiệt độ cho trước hay không.
 
-We will start with a component called `BoilingVerdict`. It accepts the `celsius` temperature as a prop, and prints whether it is enough to boil the water:
+Chúng ta sẽ bắt đầu với một component `BoilingVerdict`. Nhiệt độ `celsius` được truyền vào component này như là một prop, nó cũng sẽ hiển thị thông báo nếu như nhiệt độ đủ làm sôi nước hay không:
 
 ```js{3,5}
 function BoilingVerdict(props) {
@@ -24,9 +24,9 @@ function BoilingVerdict(props) {
 }
 ```
 
-Next, we will create a component called `Calculator`. It renders an `<input>` that lets you enter the temperature, and keeps its value in `this.state.temperature`.
+Tiếp theo, chúng ta sẽ tạo ra một component khác là `Calculator`. Nó sẽ có một `<input>` để người dùng nhập dữ liệu, và giữ giá trị đó trong `this.state.temperature`.
 
-Additionally, it renders the `BoilingVerdict` for the current input value.
+Thêm vào đó, nó sẽ tạo ra component `BoilingVerdict` với giá trị hiện tại của input.
 
 ```js{5,9,13,17-21}
 class Calculator extends React.Component {
@@ -56,13 +56,13 @@ class Calculator extends React.Component {
 }
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/ZXeOBm?editors=0010)
+[**Xem trên CodePen**](https://codepen.io/gaearon/pen/ZXeOBm?editors=0010)
 
-## Adding a Second Input {#adding-a-second-input}
+## Thêm Input thứ hai {#adding-a-second-input}
 
-Our new requirement is that, in addition to a Celsius input, we provide a Fahrenheit input, and they are kept in sync.
+Yêu cầu mới là bên cạnh input cho Celsius, chúng ta cần cung cấp thêm một input cho Fahrenheit, và chúng phải đồng bộ hoá.
 
-We can start by extracting a `TemperatureInput` component from `Calculator`. We will add a new `scale` prop to it that can either be `"c"` or `"f"`:
+Chúng ta có thể bắt đầu bằng việc tách một component `TemperatureInput` ra từ `Calculator`. Nó sẽ được truyền vào một prop mới tên là `scale` mang một trong hai giá trị là `"c"` hoặc `"f"`:
 
 ```js{1-4,19,22}
 const scaleNames = {
@@ -95,7 +95,7 @@ class TemperatureInput extends React.Component {
 }
 ```
 
-We can now change the `Calculator` to render two separate temperature inputs:
+Bây giờ chúng ta có thể thay đổi để `Calculator` có thể tạo ra hai input riêng biệt cho nhiệt độ:
 
 ```js{5,6}
 class Calculator extends React.Component {
@@ -110,15 +110,15 @@ class Calculator extends React.Component {
 }
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/jGBryx?editors=0010)
+[**Xem thêm trên CodePen**](https://codepen.io/gaearon/pen/jGBryx?editors=0010)
 
-We have two inputs now, but when you enter the temperature in one of them, the other doesn't update. This contradicts our requirement: we want to keep them in sync.
+Bây giờ, chúng ta đã có hai input, nhưng khi bạn nhập giá trị nhiệt độ vào một trong hai input, input còn lại không được cập nhật. Điều này chưa thoả mãn yêu cầu là hai input đồng bộ hoá.
 
-We also can't display the `BoilingVerdict` from `Calculator`. The `Calculator` doesn't know the current temperature because it is hidden inside the `TemperatureInput`.
+Chúng ta cũng chưa thể hiển thị `BoilingVerdict` từ `Calculator`. `Calculator` không biết giá trị nhiệt độ hiện thời bởi vì nó bị ẩn đi bên trong component `TemperatureInput`.
 
-## Writing Conversion Functions {#writing-conversion-functions}
+## Viết các hàm để chuyển đổi {#writing-conversion-functions}
 
-First, we will write two functions to convert from Celsius to Fahrenheit and back:
+Đầu tiên chúng ta sẽ viết hai hàm để chuyển đổi từ Celsius sang Fahrenheit và ngược lại:
 
 ```js
 function toCelsius(fahrenheit) {
@@ -130,9 +130,9 @@ function toFahrenheit(celsius) {
 }
 ```
 
-These two functions convert numbers. We will write another function that takes a string `temperature` and a converter function as arguments and returns a string. We will use it to calculate the value of one input based on the other input.
+Có hai hàm để chuyển đổi nhiệt độ. Chúng ta sẽ viết thêm một hàm khác nhận các tham số truyền vào là một chuỗi `temperature` và một hàm chuyển đổi, sau đó nó sẽ trả lại một chuỗi. Chúng ta sẽ sử dụng nó để tính toán giá của của một input dựa trên input còn lại.
 
-It returns an empty string on an invalid `temperature`, and it keeps the output rounded to the third decimal place:
+Nó sẽ trả lại một chuỗi rỗng nếu như tham số `temperature` không hợp lệ, và nó sẽ làm tròn kết quả với ba chữ số thập phân.
 
 ```js
 function tryConvert(temperature, convert) {
@@ -146,11 +146,11 @@ function tryConvert(temperature, convert) {
 }
 ```
 
-For example, `tryConvert('abc', toCelsius)` returns an empty string, and `tryConvert('10.22', toFahrenheit)` returns `'50.396'`.
+Trong ví dụ, `tryConvert('abc', toCelsius)` trả về một chuỗi rỗng, và `tryConvert('10.22', toFahrenheit)` cho kết quả là `'50.396'`
 
-## Lifting State Up {#lifting-state-up}
+## Chuyển state lên trên {#lifting-state-up}
 
-Currently, both `TemperatureInput` components independently keep their values in the local state:
+Hiện tại, hai component `TemperatureInput` lưu trữ giá trị của chúng một cách riêng rẽ trong state cục bộ:
 
 ```js{5,9,13}
 class TemperatureInput extends React.Component {
@@ -169,15 +169,15 @@ class TemperatureInput extends React.Component {
     // ...  
 ```
 
-However, we want these two inputs to be in sync with each other. When we update the Celsius input, the Fahrenheit input should reflect the converted temperature, and vice versa.
+Tuy nhiên, chúng ta muốn hai input này được đồng bộ hoá. Khi chúng ta cập nhật nhiệt độ cho Celsius input, Fahrenheit input cũng phải được cập nhật nhiệt độ sau khi đã chuyển đổi và ngược lại.
 
-In React, sharing state is accomplished by moving it up to the closest common ancestor of the components that need it. This is called "lifting state up". We will remove the local state from the `TemperatureInput` and move it into the `Calculator` instead.
+Trong React, chia sẻ state được thực hiện bằng cách chuyển nó lên component cha gần nhất cần state này. Việc này được gọi là "chuyển state lên trên". Chúng ta sẽ xoá state cục bộ từ  `TemperatureInput` và chuyển nó tới `Calculator`.
 
-If the `Calculator` owns the shared state, it becomes the "source of truth" for the current temperature in both inputs. It can instruct them both to have values that are consistent with each other. Since the props of both `TemperatureInput` components are coming from the same parent `Calculator` component, the two inputs will always be in sync.
+Nếu `Calculator` nắm giữ state chia sẻ, nó sẽ trở thành "nguồn dữ liệu tin cậy" về nhiệt độ hiện tại cho cả hai input. Nó có thể cung cấp cho cả hai những giá trị phù hợp cho chúng. Vì các prop của cả hai component `TemperatureInput` đều đến từ cùng một component cha `Calculator`, nên chúng luôn luôn được đồng bộ hoá.
 
-Let's see how this works step by step.
+Hãy xem nó hoạt động thế nào qua từng bước.
 
-First, we will replace `this.state.temperature` with `this.props.temperature` in the `TemperatureInput` component. For now, let's pretend `this.props.temperature` already exists, although we will need to pass it from the `Calculator` in the future:
+Đầu tiên, chúng ta sẽ thay thế `this.state.temperature` với `this.props.temperature` trong component `TemperatureInput`. Hiện thời, hãy giả định rằng `this.props.temperature` đã tồn tại, mặc dù sau này nó sẽ truyền xuống từ component `Calculator`.
 
 ```js{3}
   render() {
@@ -186,11 +186,11 @@ First, we will replace `this.state.temperature` with `this.props.temperature` in
     // ...
 ```
 
-We know that [props are read-only](/docs/components-and-props.html#props-are-read-only). When the `temperature` was in the local state, the `TemperatureInput` could just call `this.setState()` to change it. However, now that the `temperature` is coming from the parent as a prop, the `TemperatureInput` has no control over it.
+Chúng ta biết rằng [props không thể thay đổi](/docs/components-and-props.html#props-are-read-only). Lúc trước, khi `temperature` ở trong state cục bộ, component `TemperatureInput` chỉ cần gọi `this.setState()` để thay đổi nó. Tuy nhiên, khi `temperature` được truyền vào từ component cha như là một prop, thì `TemperatureInput` không có quyền kiểm soát nó nữa.
 
-In React, this is usually solved by making a component "controlled". Just like the DOM `<input>` accepts both a `value` and an `onChange` prop, so can the custom `TemperatureInput` accept both `temperature` and `onTemperatureChange` props from its parent `Calculator`.
+Trong React, điều này được giải quyết bằng cách tạo ra một component "kiểm soát". Cũng tương tự như DOM `<input>` chấp nhận thuộc tính `value` và `onChange`, thì tuỳ chỉnh `TemperatureInput` có thể chấp nhận cả `temperature` và `onTemperatureChange` props từ component cha `Calculator`.
 
-Now, when the `TemperatureInput` wants to update its temperature, it calls `this.props.onTemperatureChange`:
+Bây giờ, khi `TemperatureInput` muốn cập nhật nhiệt độ, nó gọi `this.props.onTemperatureChange`: 
 
 ```js{3}
   handleChange(e) {
@@ -198,14 +198,13 @@ Now, when the `TemperatureInput` wants to update its temperature, it calls `this
     this.props.onTemperatureChange(e.target.value);
     // ...
 ```
-
->Note:
+>Chú ý:
 >
->There is no special meaning to either `temperature` or `onTemperatureChange` prop names in custom components. We could have called them anything else, like name them `value` and `onChange` which is a common convention.
+>Tên của `temperature` hoặc `onTemperatureChange` prop không mang một ý nghĩa đặc biệt nào trong những component tuỳ chỉnh này. Chúng ta có thể gọi chúng bằng những cái tên khác, theo một cách phổ biến hơn, như đặt tên chúng là `value` và `onChange`.
 
-The `onTemperatureChange` prop will be provided together with the `temperature` prop by the parent `Calculator` component. It will handle the change by modifying its own local state, thus re-rendering both inputs with the new values. We will look at the new `Calculator` implementation very soon.
+Prop `onTemperatureChange` sẽ được truyền vào cùng với prop `temperature` bởi component cha `Calculator`. Khi prop thay đổi, nó sẽ sửa lại chính state cục bộ của nó, vì thế sẽ tạo lại cả hai input với các giá trị mới. Chúng ta sẽ cùng xem component `Calculator` được triển khai lại sau đây.
 
-Before diving into the changes in the `Calculator`, let's recap our changes to the `TemperatureInput` component. We have removed the local state from it, and instead of reading `this.state.temperature`, we now read `this.props.temperature`. Instead of calling `this.setState()` when we want to make a change, we now call `this.props.onTemperatureChange()`, which will be provided by the `Calculator`:
+Trước khi tìm hiểu những thay đổi trong `Calculator`, hãy cùng điểm lại những thay đổi trong component `TemperatureInput`. Chúng ta đã xoá đi state cục bộ, và sử dụng `this.props.temperature` thay vì `this.state.temperature`. Khi chúng ta muốn thay đổi, việc gọi hàm `this.setState()` được thay bằng hàm `this.props.onTemperatureChange()` từ component cha `Calculator`:
 
 ```js{8,12}
 class TemperatureInput extends React.Component {
@@ -231,12 +230,11 @@ class TemperatureInput extends React.Component {
   }
 }
 ```
+Bây giờ hãy cùng chuyển sang component `Calculator`.
 
-Now let's turn to the `Calculator` component.
+Chúng ta sẽ lưu trữ giá trị hiện thời của `temperature` và `scale` từ input vào trong state cục bộ của nó. Đây là state mà chúng ta muốn chuyển lên từ những input, và nó sẽ được sử dụng như là "nguồn dữ liệu tin cậy" cho cả hai. Nó là đại diện tối thiểu cho tất cả những dữ liệu chúng ta cần biết để tạo ra cả hai input.
 
-We will store the current input's `temperature` and `scale` in its local state. This is the state we "lifted up" from the inputs, and it will serve as the "source of truth" for both of them. It is the minimal representation of all the data we need to know in order to render both inputs.
-
-For example, if we enter 37 into the Celsius input, the state of the `Calculator` component will be:
+Ví dụ, nếu chúng ta nhập 37 vào trong Celsius input, state của component `Calculator` sẽ là:
 
 ```js
 {
@@ -245,7 +243,7 @@ For example, if we enter 37 into the Celsius input, the state of the `Calculator
 }
 ```
 
-If we later edit the Fahrenheit field to be 212, the state of the `Calculator` will be:
+Nếu chúng ta nhập 212 cho Fahrenheit, state của component `Calculator` sẽ là:
 
 ```js
 {
@@ -254,9 +252,9 @@ If we later edit the Fahrenheit field to be 212, the state of the `Calculator` w
 }
 ```
 
-We could have stored the value of both inputs but it turns out to be unnecessary. It is enough to store the value of the most recently changed input, and the scale that it represents. We can then infer the value of the other input based on the current `temperature` and `scale` alone.
+Chúng ta có thể lưu trữ giá trị của cả hai input nhưng điều này là không cần thiết. Chúng ta chỉ cần lưu lại giá trị của input được thay đổi gần nhất, và đơn vị của nó. Chúng ta có thể tính ra giá trị của input còn lại dựa trên giá trị của `temperature` và `scale` hiện tại.
 
-The inputs stay in sync because their values are computed from the same state:
+Các giá trị input sẽ được đồng bộ hoá bởi nó được tính toán từ cùng một state:
 
 ```js{6,10,14,18-21,27-28,31-32,34}
 class Calculator extends React.Component {
@@ -299,32 +297,32 @@ class Calculator extends React.Component {
 }
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/WZpxpz?editors=0010)
+[**làm thử trên CodePen**](https://codepen.io/gaearon/pen/WZpxpz?editors=0010)
 
-Now, no matter which input you edit, `this.state.temperature` and `this.state.scale` in the `Calculator` get updated. One of the inputs gets the value as is, so any user input is preserved, and the other input value is always recalculated based on it.
+Bây giờ, bạn có thể thay đổi bất kì input nào, thì `this.state.temperature` và `this.state.scale` trong component `Calculator` sẽ được cập nhật. Giá trị của một input sẽ được giữ nguyên, như giá trị người dùng đã nhập vào, và giá trị của input còn lại sẽ được tính toán dựa trên giá trị đó.
 
-Let's recap what happens when you edit an input:
+Hãy cùng điểm lại điều gì sẽ xảy ra khi bạn thay đổi giá trị của một input:
 
-* React calls the function specified as `onChange` on the DOM `<input>`. In our case, this is the `handleChange` method in the `TemperatureInput` component.
-* The `handleChange` method in the `TemperatureInput` component calls `this.props.onTemperatureChange()` with the new desired value. Its props, including `onTemperatureChange`, were provided by its parent component, the `Calculator`.
-* When it previously rendered, the `Calculator` has specified that `onTemperatureChange` of the Celsius `TemperatureInput` is the `Calculator`'s `handleCelsiusChange` method, and `onTemperatureChange` of the Fahrenheit `TemperatureInput` is the `Calculator`'s `handleFahrenheitChange` method. So either of these two `Calculator` methods gets called depending on which input we edited.
-* Inside these methods, the `Calculator` component asks React to re-render itself by calling `this.setState()` with the new input value and the current scale of the input we just edited.
-* React calls the `Calculator` component's `render` method to learn what the UI should look like. The values of both inputs are recomputed based on the current temperature and the active scale. The temperature conversion is performed here.
-* React calls the `render` methods of the individual `TemperatureInput` components with their new props specified by the `Calculator`. It learns what their UI should look like.
-* React calls the `render` method of the `BoilingVerdict` component, passing the temperature in Celsius as its props.
-* React DOM updates the DOM with the boiling verdict and to match the desired input values. The input we just edited receives its current value, and the other input is updated to the temperature after conversion.
+* React sẽ gọi hàm `onChange` tương ứng trên DOM `<input>`. trong trường hợp này, đây là hàm `handleChange` trong component `TemperatureInput`.
+* Hàm `handleChange` trong component `TemperatureInput` được gọi `this.props.onTemperatureChange()` và truyền vào một giá trị mới. Các props của nó, bao gồm `onTemperatureChange`, sẽ được component cha `Calculator` cung cấp.
+* Trước đây, khi nó được tạo ra, component `Calculator` đã được lập trình rằng `onTemperatureChange` của Celsius `TemperatureInput` là hàm `handleCelsiusChange` của component `Calculator`, và `onTemperatureChange` của Fahrenheit `TemperatureInput` là hàm `handleFahrenheitChange` từ component `Calculator`. Vì thế nên một trong hai hàm của `Calculator` sẽ được gọi dựa trên input nào bị thay đổi.
+* Bên trong các hàm này, component `Calculator` sẽ yêu cầu React để tạo lại chính nó bằng cách gọi `this.setState()` với giá trị mới từ input và đơn vị hiện tại của input bị thay đổi.
+* React gọi hàm `render` từ component `Calculator` để xem giao diện người dùng trông như thế nào. Giá trị của cả hai input sẽ được tính toán lại dựa trên nhiệt độ hiện thời và đơn vị đo đang được sử dụng. Nhiệt độ được chuyển đổi tại đây.
+* React gọi hàm `render` của mỗi component `TemperatureInput` riêng với giá trị mới của props được truyền từ `Calculator`. Nó sẽ hiểu được giao diện người dùng như thế nào.
+* React gọi hàm `render` từ component `BoilingVerdict`, truyền nhiệt độ bằng Celsius như là một props của nó.
+* React DOM cập nhật DOM với nhiệt độ sôi và để phù hợp với những giá trị mong muốn của input. Input chúng ta vừa thay đổi sẽ nhận giá trị hiện thời, và những input khác được cập nhật với nhiệt độ sau khi chuyển đổi.
 
-Every update goes through the same steps so the inputs stay in sync.
+Tất cả những cập nhật đi qua cùng một lộ trình nên các input sẽ luôn được đồng bộ hoá.
 
-## Lessons Learned {#lessons-learned}
+## Bài học rút ra {#lessons-learned}
 
-There should be a single "source of truth" for any data that changes in a React application. Usually, the state is first added to the component that needs it for rendering. Then, if other components also need it, you can lift it up to their closest common ancestor. Instead of trying to sync the state between different components, you should rely on the [top-down data flow](/docs/state-and-lifecycle.html#the-data-flows-down).
+Cần có một nguồn "dữ liệu đáng tin cậy" cho bất kì một dữ liệu nào cần thay đổi trong ứng dụng React. Thường thì, state là cái đầu tiên mà component cần thêm vào để có thể tạo ra. Vì thế, nếu các component khác cũng cần nó, bạn có thể chuyển nó lên component cha gần nhất. Thay vì thử đồng bộ hoá state giữa những component khác nhau, bạn nên dựa trên [luồng dữ liệu từ trên xuống dưới](/docs/state-and-lifecycle.html#the-data-flows-down)
 
-Lifting state involves writing more "boilerplate" code than two-way binding approaches, but as a benefit, it takes less work to find and isolate bugs. Since any state "lives" in some component and that component alone can change it, the surface area for bugs is greatly reduced. Additionally, you can implement any custom logic to reject or transform user input.
+Chuyển state liên quan tới thêm vào nhiều code "chuẩn" hơn là phương pháp ràng buộc 2 chiều, nhưng nó có một ích là việc tìm và cô lập các lỗi sẽ dễ dàng hơn. Bởi vì bất kì một state "tồn tại" trong một vài component và chỉ mình component đó có thể thay đổi nó, phạm vi tìm kiếm lỗi sẽ giảm đi một cách đáng kể. Thêm vào đó, bạn có thể thêm vào bất kì tuỳ chỉnh logic nhằm từ chối hoặc chuyển đổi giá trị người dùng nhập vào.
 
-If something can be derived from either props or state, it probably shouldn't be in the state. For example, instead of storing both `celsiusValue` and `fahrenheitValue`, we store just the last edited `temperature` and its `scale`. The value of the other input can always be calculated from them in the `render()` method. This lets us clear or apply rounding to the other field without losing any precision in the user input.
+Nếu một vài thứ có thể bắt nguồn từ props hoặc state, nó có thể không nên là state. Ví dụ, thay vì lưu trữ cả `celsiusValue` và `fahrenheitValue`, chúng ta sẽ lưu trữ giá trị được thay đổi gần nhất của `temperature` và `scale` của nó. Giá trị của input khác có thể được tính toán từ chúng trong hàm `render()`. Nó sẽ cho phép chúng ta dọn dẹp hoặc áp dụng để làm tròn giá trị của trường khác mà không làm mất đi tính chính xác của giá trị người dùng nhập vào.
 
-When you see something wrong in the UI, you can use [React Developer Tools](https://github.com/facebook/react-devtools) to inspect the props and move up the tree until you find the component responsible for updating the state. This lets you trace the bugs to their source:
+Khi bạn thấy giao diện người dùng không chính xác, bạn có thể dùng [Công cụ phát triển React](https://github.com/facebook/react-devtools) để kiểm tra props và di chuyển lên theo cây component cho tới khi bạn có thể tìm thấy component chịu trách nhiệm cho việc cập nhật state. Nó sẽ giúp bạn theo dõi nguồn gốc của các lỗi:
 
 <img src="../images/docs/react-devtools-state.gif" alt="Monitoring State in React DevTools" max-width="100%" height="100%">
 

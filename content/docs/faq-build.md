@@ -1,32 +1,32 @@
 ---
 id: faq-build
-title: Babel, JSX, and Build Steps
+title: Babel, JSX, và các bước xây dựng
 permalink: docs/faq-build.html
 layout: docs
 category: FAQ
 ---
 
-### Do I need to use JSX with React? {#do-i-need-to-use-jsx-with-react}
+### Tôi có cần phải sử dụng JSX với React không? {#do-i-need-to-use-jsx-with-react}
 
-No! Check out ["React Without JSX"](/docs/react-without-jsx.html) to learn more.
+Không! Hãy xem thử ["React không dùng JSX"](/docs/react-without-jsx.html) để hiểu thêm.
 
-### Do I need to use ES6 (+) with React? {#do-i-need-to-use-es6--with-react}
+### Tôi có cần phải sử dụng ES6 (+) với React? {#do-i-need-to-use-es6--with-react}
 
-No! Check out ["React Without ES6"](/docs/react-without-es6.html) to learn more.
+Không! Hãy xem thử ["React không dùng ES6"](/docs/react-without-es6.html) để hiểu thêm.
 
-### How can I write comments in JSX? {#how-can-i-write-comments-in-jsx}
+### Làm như nào để tôi viết comment trong JSX ? {#how-can-i-write-comments-in-jsx}
 
 ```jsx
 <div>
-  {/* Comment goes here */}
+  {/* Comment ở đây */}
   Hello, {name}!
 </div>
 ```
 
 ```jsx
 <div>
-  {/* It also works 
-  for multi-line comments. */}
+  {/* Nó cũng hoạt động 
+  cho nhiều dòng comments. */}
   Hello, {name}! 
 </div>
 ```

@@ -4,29 +4,30 @@ title: Accessibility
 permalink: docs/accessibility.html
 ---
 
-## Why Accessibility? {#why-accessibility}
+## Tại sao là Accessibility? {#why-accessibility}
 
-Web accessibility (also referred to as [**a11y**](https://en.wiktionary.org/wiki/a11y)) is the design and creation of websites that can be used by everyone. Accessibility support is necessary to allow assistive technology to interpret web pages.
+Web accessibility (cũng được đề cập ở đây [**a11y**](https://en.wiktionary.org/wiki/a11y)) là sự thiết kế và tạo dựng website sao cho tất cả mọi người đều có thể sử dụng được. Sự hỗ trợ của Accessibility cho phép các công nghệ hỗ trợ có thể sử dụng trong các trang web.
 
-React fully supports building accessible websites, often by using standard HTML techniques.
+React hỗ trợ đầy đủ để bạn thực hiện được điều này, bằng cách sử dụng các kỹ thuật HTML chuẩn.
 
-## Standards and Guidelines {#standards-and-guidelines}
+## Tiêu chuẩn và Hướng dẫn {#standards-and-guidelines}
 
 ### WCAG {#wcag}
 
-The [Web Content Accessibility Guidelines](https://www.w3.org/WAI/intro/wcag) provides guidelines for creating accessible web sites.
+[Hướng dẫn Web Content Accessibility](https://www.w3.org/WAI/intro/wcag) cung cấp hướng dẫn để bạn tạo được những trang web có khả năng truy cập.
 
-The following WCAG checklists provide an overview:
+Danh sách WCAG sau đây cho bạn một cái nhìn tổng quan:
 
-- [WCAG checklist from Wuhcag](https://www.wuhcag.com/wcag-checklist/)
-- [WCAG checklist from WebAIM](http://webaim.org/standards/wcag/checklist)
-- [Checklist from The A11Y Project](http://a11yproject.com/checklist.html)
+- [Danh sách WCAG từ Wuhcag](https://www.wuhcag.com/wcag-checklist/)
+- [Danh sách WCAG từ WebAIM](http://webaim.org/standards/wcag/checklist)
+- [Danh sách từ dự án A11Y](http://a11yproject.com/checklist.html)
 
 ### WAI-ARIA {#wai-aria}
 
-The [Web Accessibility Initiative - Accessible Rich Internet Applications](https://www.w3.org/WAI/intro/aria) document contains techniques for building fully accessible JavaScript widgets.
+[Sáng kiến Web Accessibility - Truy cập trang web giàu ứng dụng](https://www.w3.org/WAI/intro/aria) tài liệu có chứa nhiều kỹ thuật để bạn có thể xây dựng các JavaScript widgets có thể truy cập.
 
-Note that all `aria-*` HTML attributes are fully supported in JSX. Whereas most DOM properties and attributes in React are camelCased, these attributes should be hyphen-cased (also known as kebab-case, lisp-case, etc) as they are in plain HTML:
+Chú ý rằng tất cả thuộc tính HTML `aria-*` đều được hỗ trợ đầy đủ trong JSX. Trong khi hầu hết DOM properties và thuộc tính trong React là
+camelCased, những thuộc tính đó nên được gạch-nối (hay còn gọi là kebab-case, lisp-case, etc) giống như trong HTML thuần:
 
 ```javascript{3,4}
 <input
@@ -39,16 +40,15 @@ Note that all `aria-*` HTML attributes are fully supported in JSX. Whereas most 
 />
 ```
 
-## Semantic HTML {#semantic-html}
-Semantic HTML is the foundation of accessibility in a web application. Using the various HTML elements to reinforce the meaning of information
-in our websites will often give us accessibility for free.
+## Tính ngữ nghĩa của HTML {#semantic-html}
+Tính ngữ nghĩa của HTML là nền tảng của accessibility trong một ứng dụng web. Sử dụng một số HTML elements để gia cố thêm về mặt ý nghĩa của thông tin trong những websites của chúng ta sẽ thường mang lại accessibility miễn phí.
 
-- [MDN HTML elements reference](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
+- [Tham khảo về HTML elements từ MDN](https://developer.mozilla.org/en-US/docs/Web/HTML/Element)
 
-Sometimes we break HTML semantics when we add `<div>` elements to our JSX to make our React code work, especially when working with lists (`<ol>`, `<ul>` and `<dl>`) and the HTML `<table>`.
-In these cases we should rather use [React Fragments](/docs/fragments.html) to group together multiple elements.
+Đôi khi chúng ta phá vỡ tính ngữ nghĩa của HTML khi thêm thẻ `<div>` vào JSX để giúp nó hoạt động, đặc biệt khi làm việc với lists (`<ol>`, `<ul>` và `<dl>`) và HTML `<table>`.
+Trong những tình huống đó chúng ta nên sử dụng [React Fragments](/docs/fragments.html) để nhóm nhiều elements lại với nhau
 
-For example,
+Ví dụ,
 
 ```javascript{1,5,8}
 import React, { Fragment } from 'react';
@@ -73,7 +73,7 @@ function Glossary(props) {
 }
 ```
 
-You can map a collection of items to an array of fragments as you would any other type of element as well:
+Bạn có thể map một items collection vào một mảng fragments array như cách bạn làm với bất kỳ loại element nào khác:
 
 ```javascript{6,9}
 function Glossary(props) {
@@ -91,7 +91,7 @@ function Glossary(props) {
 }
 ```
 
-When you don't need any props on the Fragment tag you can use the [short syntax](/docs/fragments.html#short-syntax), if your tooling supports it:
+Khi bạn không cần bất kỳ props nào trong thẻ Fragment, bạn có thể sử dụng [cú pháp rút gọn](/docs/fragments.html#short-syntax), nếu công cụ của bạn có hỗ trợ:
 
 ```javascript{3,6}
 function ListItem({ item }) {
@@ -104,83 +104,81 @@ function ListItem({ item }) {
 }
 ```
 
-For more info, see [the Fragments documentation](/docs/fragments.html).
+Tham khảo thêm, truy cập [Tài liệu về Fragments](/docs/fragments.html).
 
 ## Accessible Forms {#accessible-forms}
 
 ### Labeling {#labeling}
-Every HTML form control, such as `<input>` and `<textarea>`, needs to be labeled accessibly. We need to provide descriptive labels that are also exposed to screen readers.
+Mỗi HTML form control, như `<input>` và `<textarea>`, cần được dán nhãn accessibly. Chúng ta cần cung cấp những labels có tính mô tả, nó sẽ giúp tiếp cận tốt hơn đến người đọc.
 
-The following resources show us how to do this:
+Những nguồn sau đây cho chúng ta thấy cách thực hiện điều đó:
 
-- [The W3C shows us how to label elements](https://www.w3.org/WAI/tutorials/forms/labels/)
-- [WebAIM shows us how to label elements](http://webaim.org/techniques/forms/controls)
-- [The Paciello Group explains accessible names](https://www.paciellogroup.com/blog/2017/04/what-is-an-accessible-name/)
+- [W3C hướng dẫn cách label elements](https://www.w3.org/WAI/tutorials/forms/labels/)
+- [WebAIM hướng dẫn cách label elements](http://webaim.org/techniques/forms/controls)
+- [The Paciello Group giải thích accessible names](https://www.paciellogroup.com/blog/2017/04/what-is-an-accessible-name/)
 
-Although these standard HTML practices can be directly used in React, note that the `for` attribute is written as `htmlFor` in JSX:
+Mặc dù HTML tiêu chuẩn có thể sử dụng được trong React, tuy nhiên chú ý rằng thuộc tính `for` phải được viết thành `htmlFor` trong JSX:
 
 ```javascript{1}
 <label htmlFor="namedInput">Name:</label>
 <input id="namedInput" type="text" name="name"/>
 ```
 
-### Notifying the user of errors {#notifying-the-user-of-errors}
+### Thông báo lỗi đến người dùng  {#notifying-the-user-of-errors}
 
-Error situations need to be understood by all users. The following link shows us how to expose error texts to screen readers as well:
+User luôn cần được cung cấp thông tin về các tình huống lỗi. Đường dẫn sau đây cho chúng ta thấy cách đưa text error đến người dùng:
 
-- [The W3C demonstrates user notifications](https://www.w3.org/WAI/tutorials/forms/notifications/)
-- [WebAIM looks at form validation](http://webaim.org/techniques/formvalidation/)
+- [W3C giải thích user notifications](https://www.w3.org/WAI/tutorials/forms/notifications/)
+- [WebAIM phân tích form validation](http://webaim.org/techniques/formvalidation/)
 
 ## Focus Control {#focus-control}
 
-Ensure that your web application can be fully operated with the keyboard only:
+Hãy chắc chắn rằng ứng dụng web của bạn có thể hoạt động tốt khi chỉ cần sử dụng bàn phím:
 
-- [WebAIM talks about keyboard accessibility](http://webaim.org/techniques/keyboard/)
+- [WebAIM nói về tính accesibility của bàn phím](http://webaim.org/techniques/keyboard/)
 
 ### Keyboard focus and focus outline {#keyboard-focus-and-focus-outline}
 
-Keyboard focus refers to the current element in the DOM that is selected to accept input from the keyboard. We see it everywhere as a focus outline similar to that shown in the following image:
+Keyboard focus là việc hiển thị element hiện tại trong DOM đang được select bằng cách sử dụng bàn phím. Chúng ta thấy chúng ở mọi nơi ví dụ như hình dưới đây:
 
 <img src="../images/docs/keyboard-focus.png" alt="Blue keyboard focus outline around a selected link." />
 
-Only ever use CSS that removes this outline, for example by setting `outline: 0`, if you are replacing it with another focus outline implementation.
+Chỉ khi sử dụng CSS mới có thể remove outline này, ví dụ như chỉnh `outline: 0`,nếu bạn muốn thay thế nó với một focus outline khác.
 
-### Mechanisms to skip to desired content {#mechanisms-to-skip-to-desired-content}
+### Cơ chế skip đến nội dung mong muốn {#mechanisms-to-skip-to-desired-content}
 
-Provide a mechanism to allow users to skip past navigation sections in your application as this assists and speeds up keyboard navigation.
+Bạn nên cung cấp một cơ chế nào đó cho phép users bỏ qua điều hướng trước đó trong ứng dụng của bạn, cũng là để tăng tốc điều hướng từ bàn phím.
 
-Skiplinks or Skip Navigation Links are hidden navigation links that only become visible when keyboard users interact with the page. They are very easy to implement with
-internal page anchors and some styling:
+Skiplinks hay Skip Navigation Links là những link điều hướng ẩn chỉ hiển thị khi bàn phím của người dùng tương tác đến trang web. Chúng rất dễ implement với internal page anchors và một ít styling:
 
 - [WebAIM - Skip Navigation Links](http://webaim.org/techniques/skipnav/)
 
-Also use landmark elements and roles, such as `<main>` and `<aside>`, to demarcate page regions as assistive technology allow the user to quickly navigate to these sections.
+Cũng sử dụng landmark elements và roles, như `<main>` và `<aside>`, để phân vùng trang web như công nghệ hỗ trợ cho phép người dùng điều hướng những sections đó một cách nhanh chóng.
 
-Read more about the use of these elements to enhance accessibility here:
+Đọc thêm về cách sử dụng những elements đó để tăng cường accessibility ở đây:
 
 - [Accessible Landmarks](http://www.scottohara.me/blog/2018/03/03/landmarks.html)
 
-### Programmatically managing focus {#programmatically-managing-focus}
+### Quản lý focus theo kế hoạch {#programmatically-managing-focus}
 
-Our React applications continuously modify the HTML DOM during runtime, sometimes leading to keyboard focus being lost or set to an unexpected element. In order to repair this,
-we need to programmatically nudge the keyboard focus in the right direction. For example, by resetting keyboard focus to a button that opened a modal window after that modal window is closed.
+Ứng dụng React của chúng ta liên tục điều chỉnh HTML DOM trong runtime, vì vậy đôi khi bàn phím khiến chúng ta mất focus hay bị set vào một element không ngờ tới. Để khắc phục vấn đề này, chúng ta cần lập trình để focus bằng bàn phím đúng hướng. Ví dụ, bằng cách reset keyboard focus vào một button đã mở một cửa sổ modal sau khi cửa sổ modal đó đã được đóng.
 
-MDN Web Docs takes a look at this and describes how we can build [keyboard-navigable JavaScript widgets](https://developer.mozilla.org/en-US/docs/Web/Accessibility/Keyboard-navigable_JavaScript_widgets).
+Tài liệu từ trang web MDN phân tích và mô tả cách chúng ta xây dưng [keyboard-navigable JavaScript widgets](https://developer.mozilla.org/en-US/docs/Web/Accessibility/Keyboard-navigable_JavaScript_widgets).
 
-To set focus in React, we can use [Refs to DOM elements](/docs/refs-and-the-dom.html).
+Để set focus trong React, chúng ta có thể sử dụng [Refs to DOM elements](/docs/refs-and-the-dom.html).
 
-Using this, we first create a ref to an element in the JSX of a component class:
+Sử dụng nó, chúng ta đầu tiên tạo một ref đến một element trong JSX của một component class:
 
 ```javascript{4-5,8-9,13}
 class CustomTextInput extends React.Component {
   constructor(props) {
     super(props);
-    // Create a ref to store the textInput DOM element
+    // Tạo một ref để lưu textInput của DOM element
     this.textInput = React.createRef();
   }
   render() {
-  // Use the `ref` callback to store a reference to the text input DOM
-  // element in an instance field (for example, this.textInput).
+  // Sử dụng `ref` callback để lưu một reference đến text input trong DOM
+  // element trong một instance field (ví dụ, this.textInput).
     return (
       <input
         type="text"
@@ -191,18 +189,18 @@ class CustomTextInput extends React.Component {
 }
 ```
 
-Then we can focus it elsewhere in our component when needed:
+Sau đó chúng ta có thể focus nó ở nơi khác trong component khi cần:
 
  ```javascript
  focus() {
-   // Explicitly focus the text input using the raw DOM API
-   // Note: we're accessing "current" to get the DOM node
+   // Focus đoạn tẽt input một cách rõ ràng bằng cách sử dụng DOM API nguyên bản
+   // Note: chúng ta đang truy cập "current" để lấy the DOM node
    this.textInput.current.focus();
  }
  ```
 
-Sometimes a parent component needs to set focus to an element in a child component. We can do this by [exposing DOM refs to parent components](/docs/refs-and-the-dom.html#exposing-dom-refs-to-parent-components)
-through a special prop on the child component that forwards the parent's ref to the child's DOM node.
+Đôi khi một component cha cần được set focus vào một element trong component con. Chúng ta có thể thực hiện bằng cách [exposing DOM refs to parent components](/docs/refs-and-the-dom.html#exposing-dom-refs-to-parent-components)
+thông qua một prop đặc biệt ở component con để chuyển tiếp ref của component cha đến DOM node của component con.
 
 ```javascript{4,12,16}
 function CustomTextInput(props) {
@@ -225,36 +223,31 @@ class Parent extends React.Component {
   }
 }
 
-// Now you can set focus when required.
+// Bây giờ bạn có thể set focus khi cần thiết.
 this.inputElement.current.focus();
 ```
 
-When using a HOC to extend components, it is recommended to [forward the ref](/docs/forwarding-refs.html) to the wrapped component using the `forwardRef` function of React. If a third party HOC
-does not implement ref forwarding, the above pattern can still be used as a fallback.
+Khi sử dụng HOC để mở rộng components, [chuyển tiếp ref](/docs/forwarding-refs.html) được khuyên dùng để bao bọc component sử dụng `forwardRef` function của React. Nếu một third party HOC không implement ref forwarding, pattern bên trên vẫn có thể sử dụng như một fallback.
 
-A great focus management example is the [react-aria-modal](https://github.com/davidtheclark/react-aria-modal). This is a relatively rare example of a fully accessible modal window. Not only does it set initial focus on
-the cancel button (preventing the keyboard user from accidentally activating the success action) and trap keyboard focus inside the modal, it also resets focus back to the element that
-initially triggered the modal.
+Một ví dụ về cách quản lý focus tốt là [react-aria-modal](https://github.com/davidtheclark/react-aria-modal). Đây là một ví dụ tương đối hiếm hoi nói về một cửa sổ modal có thể truy cập hoàn toàn. Nó không chỉ set focus ban đầu vào nút cancel (ngăn chặn người dùng không vô tình dùng bàn phím kích hoạt success action) và khóa focus từ bàn phím vào bên trong modal, nó cũng reset focus về lại element đã kích hoạt modal đó lúc ban đầu.
 
->Note:
+>Chú ý:
 >
->While this is a very important accessibility feature, it is also a technique that should be used judiciously. Use it to repair the keyboard focus flow when it is disturbed, not to try and anticipate how
->users want to use applications.
+>Đây là một accessibility feature rất quan trọng, nó cũng là một kỹ thuật nên được sử dụng một cách không ngoan. Dùng nó để sửa chữa keyboard focus flow khi bị xáo trộn, không nên cố gắng dự đoán cách người dùng sử dụng ứng dụng.
 
-## Mouse and pointer events {#mouse-and-pointer-events}
+## Sự kiện Chuột và con trỏ {#mouse-and-pointer-events}
 
-Ensure that all functionality exposed through a mouse or pointer event can also be accessed using the keyboard alone. Depending only on the pointer device will lead to many cases where
-keyboard users cannot use your application.
+Hãy chắc chắn rằng tất cả chức năng được sử dụng thông qua con trỏ chuột hoặc pointer event cũng có thể cũng được truy cập chỉ bằng cách sử dụng bàn phím. Chỉ dựa vào thiết bị pointer sẽ dấn đến nhiều trường hợp mà bàn phím của người dùng không thể sử dụng ứng dụng của bạn.
 
-To illustrate this, let's look at a prolific example of broken accessibility caused by click events. This is the outside click pattern, where a user can disable an opened popover by clicking outside the element.
+Để minh họa vấn đề này, hãy nhìn vào một ví dụ liên quan đến việc accessibility bị vỡ do click events. Bên ngoài click pattern, nơi một user có thể vô hiệu hóa một popover đã đươc mở bằng cách click bên ngoài element.
 
 <img src="../images/docs/outerclick-with-mouse.gif" alt="A toggle button opening a popover list implemented with the click outside pattern and operated with a mouse showing that the close action works." />
 
-This is typically implemented by attaching a `click` event to the `window` object that closes the popover:
+Đây là một cách implement thường thấy bằng cách gán một sự kiện `click` vào `windows` object mà nó dùng để đóng popover:
 
 ```javascript{12-14,26-30}
 class OuterClickExample extends React.Component {
-constructor(props) {
+  constructor(props) {
     super(props);
 
     this.state = { isOpen: false };
@@ -288,25 +281,24 @@ constructor(props) {
     return (
       <div ref={this.toggleContainer}>
         <button onClick={this.onClickHandler}>Select an option</button>
-        {this.state.isOpen ? (
+        {this.state.isOpen && (
           <ul>
             <li>Option 1</li>
             <li>Option 2</li>
             <li>Option 3</li>
           </ul>
-        ) : null}
+        )}
       </div>
     );
   }
 }
 ```
 
-This may work fine for users with pointer devices, such as a mouse, but operating this with the keyboard alone leads to broken functionality when tabbing to the next element
-as the `window` object never receives a `click` event. This can lead to obscured functionality which blocks users from using your application.
+Điều này có thể hoạt động tốt cho người dùng với những thiết bị pointer, như chuột, nhưng thao tác nó với chỉ bàn phím sẽ khiến chức năng bị hư hỏng khi tab sang element tiếp theo `window` object không bao giờ nhận một sự kiện `click`.. Điều này có thể dẫn tới chức năng bị vô nghĩa khiến user không thể sử dụng ứng dụng của bạn.
 
 <img src="../images/docs/outerclick-with-keyboard.gif" alt="A toggle button opening a popover list implemented with the click outside pattern and operated with the keyboard showing the popover not being closed on blur and it obscuring other screen elements." />
 
-The same functionality can be achieved by using an appropriate event handlers instead, such as `onBlur` and `onFocus`:
+Chúng ta cũng có thể đạt được chức năng tương tự bằng cách sử dụng những event handlers thích hợp, như `onBlur` và `onFocus`:
 
 ```javascript{19-29,31-34,37-38,40-41}
 class BlurExample extends React.Component {
@@ -327,10 +319,10 @@ class BlurExample extends React.Component {
     }));
   }
 
-  // We close the popover on the next tick by using setTimeout.
-  // This is necessary because we need to first check if
-  // another child of the element has received focus as
-  // the blur event fires prior to the new focus event.
+  // Chúng ta đóng popover trong tick tiếp theo bằng setTimeout.
+  // Điều này là cần thiết bởi vì chúng ta cần kiểm tra trước xem nếu
+  // con của element khác có nhận được focus như
+  // blur event kích hoạt trước focus event mới.
   onBlurHandler() {
     this.timeOutId = setTimeout(() => {
       this.setState({
@@ -339,14 +331,14 @@ class BlurExample extends React.Component {
     });
   }
 
-  // If a child receives focus, do not close the popover.
+  // Nếu một component con nhận được focus, không được đóng popover.
   onFocusHandler() {
     clearTimeout(this.timeOutId);
   }
 
   render() {
-    // React assists us by bubbling the blur and
-    // focus events to the parent.
+    // React hỗ trợ chúng ta bằng cách bubbling blur và
+    // những sự kiện focus vào component cha.
     return (
       <div onBlur={this.onBlurHandler}
            onFocus={this.onFocusHandler}>
@@ -355,99 +347,93 @@ class BlurExample extends React.Component {
                 aria-expanded={this.state.isOpen}>
           Select an option
         </button>
-        {this.state.isOpen ? (
+        {this.state.isOpen && (
           <ul>
             <li>Option 1</li>
             <li>Option 2</li>
             <li>Option 3</li>
           </ul>
-        ) : null}
+        )}
       </div>
     );
   }
 }
 ```
 
-This code exposes the functionality to both pointer device and keyboard users. Also note the added `aria-*` props to support screen-reader users. For simplicity's sake
-the keyboard events to enable `arrow key` interaction of the popover options have not been implemented.
+Đoạn code cho thấy chức năng của cả con trỏ và bàn phím của người dùng. Cũng lưu ý rằng thêm thuộc tính `aria-*` vào để hỗ trợ người dùng. Đơn giãn hơn là để sự kiện bàn phím cho phép `arrow key` tương tác với tùy chọn popover chưa được implement.
 
 <img src="../images/docs/blur-popover-close.gif" alt="A popover list correctly closing for both mouse and keyboard users." />
 
-This is one example of many cases where depending on only pointer and mouse events will break functionality for keyboard users. Always testing with the keyboard will immediately
-highlight the problem areas which can then be fixed by using keyboard aware event handlers.
+Đây là một ví dụ điển hình khi chỉ phụ thuộc vào con trỏ và sự kiện từ chuột sẽ làm hỏng chức năng cho người dùng bàn phím. Luôn luôn test với bàn phím sẽ ngay lập tức phát hiện được những khu vực có vấn đề, sau đó có thể sửa bằng cách dùng những handler để nhận input từ bàn phím.
 
-## More Complex Widgets {#more-complex-widgets}
+## Những Widgets phức tạp hơn {#more-complex-widgets}
 
-A more complex user experience should not mean a less accessible one. Whereas accessibility is most easily achieved by coding as close to HTML as possible,
-even the most complex widget can be coded accessibly.
+Trải nghiệm người dùng phức tạp không nên khiến mức độ accessibilty bị giảm đi. Trong khi đó accessibility dễ đạt được nhất bằng cách code sát với HTML nhất có thể, ngay cả với widget phức tạp nhất.
 
-Here we require knowledge of [ARIA Roles](https://www.w3.org/TR/wai-aria/#roles) as well as [ARIA States and Properties](https://www.w3.org/TR/wai-aria/#states_and_properties).
-These are toolboxes filled with HTML attributes that are fully supported in JSX and enable us to construct fully accessible, highly functional React components.
+Ở đây chúng ta cần kiến thức từ [ARIA Roles](https://www.w3.org/TR/wai-aria/#roles) cũng như [ARIA States and Properties](https://www.w3.org/TR/wai-aria/#states_and_properties).
+Đây là những công cụ có sẵn những thuộc tính HTML đã được hỗ trợ đầy đủ trong JSX và cho phép chúng ta xây dựng một trang web accessibility đầy đủ, những React component có chức năng cao cấp.
 
-Each type of widget has a specific design pattern and is expected to function in a certain way by users and user agents alike:
+Môi loại widget có một design pattern riêng và đáp ứng chức năng nhất định bởi người dùng như:
 
 - [WAI-ARIA Authoring Practices - Design Patterns and Widgets](https://www.w3.org/TR/wai-aria-practices/#aria_ex)
 - [Heydon Pickering - ARIA Examples](http://heydonworks.com/practical_aria_examples/)
 - [Inclusive Components](https://inclusive-components.design/)
 
-## Other Points for Consideration {#other-points-for-consideration}
+## Những điểm khác cần lưu ý {#other-points-for-consideration}
 
-### Setting the language {#setting-the-language}
+### Cài đặt ngôn ngữ {#setting-the-language}
 
-Indicate the human language of page texts as screen reader software uses this to select the correct voice settings:
+Biểu thị ngôn ngữ của những đoạn văn bản giúp phần mềm cài đặt đúng loại voice:
 
 - [WebAIM - Document Language](http://webaim.org/techniques/screenreader/#language)
 
-### Setting the document title {#setting-the-document-title}
+### Cài đặt title cho document {#setting-the-document-title}
 
-Set the document `<title>` to correctly describe the current page content as this ensures that the user remains aware of the current page context:
+Set `<title>` cho đoạn văn bản để mô tả nội dung của trang hiện tại, điều này giúp chắc chắn rằng người dùng nắm được nội dung mà họ đang đọc:
 
 - [WCAG - Understanding the Document Title Requirement](https://www.w3.org/TR/UNDERSTANDING-WCAG20/navigation-mechanisms-title.html)
 
-We can set this in React using the [React Document Title Component](https://github.com/gaearon/react-document-title).
+Chúng ta có thể set nó trong React bằng cách sử dụng [React Document Title Component](https://github.com/gaearon/react-document-title).
 
-### Color contrast {#color-contrast}
+### Độ tương phản màu sắc {#color-contrast}
 
-Ensure that all readable text on your website has sufficient color contrast to remain maximally readable by users with low vision:
+Hãy chắc chắn rằng tất cả đoạn text trong website của bạn có đủ độ tương phản màu sắc nhằm duy trì tối đa khả năng đọc của người dùng trong điều kiện thị lực kém:
 
-- [WCAG - Understanding the Color Contrast Requirement](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html)
-- [Everything About Color Contrast And Why You Should Rethink It](https://www.smashingmagazine.com/2014/10/color-contrast-tips-and-tools-for-accessibility/)
-- [A11yProject - What is Color Contrast](http://a11yproject.com/posts/what-is-color-contrast/)
+- [WCAG - Hiểu yêu cầu của độ tương phản màu sắc](https://www.w3.org/TR/UNDERSTANDING-WCAG20/visual-audio-contrast-contrast.html)
+- [Tất cả mọi thứ về độ tương phản màu sắc và tại sao chúng ta phải suy nghĩ lại về nó](https://www.smashingmagazine.com/2014/10/color-contrast-tips-and-tools-for-accessibility/)
+- [A11yProject - Độ tương phản màu sắc là gì](http://a11yproject.com/posts/what-is-color-contrast/)
 
-It can be tedious to manually calculate the proper color combinations for all cases in your website so instead, you can [calculate an entire accessible color palette with Colorable](http://jxnblk.com/colorable/).
+Thật tẻ nhạt khi phải tính toán màu sắc thủ công cho tất cả trường hợp trong website của bạn, thay vào đó, bạn có thể [tính toán tất cả màu sắc bằng Colorable](https://jxnblk.com/colorable/).
 
-Both the aXe and WAVE tools mentioned below also include color contrast tests and will report on contrast errors.
+Cả 2 công cụ aXe và WAVE được đề cập bên dưới đều bao gồm bộ tests kiểm tra độ tương phản màu sắc, chúng sẽ báo cáo những lỗi liên quan.
 
-If you want to extend your contrast testing abilities you can use these tools:
+Nếu bạn muốn mở rộng khả năng kiểm tra độ tương phản, bạn có thể sử dụng những công cụ dưới đây:
 
-- [WebAIM - Color Contrast Checker](http://webaim.org/resources/contrastchecker/)
-- [The Paciello Group - Color Contrast Analyzer](https://www.paciellogroup.com/resources/contrastanalyser/)
+- [WebAIM - Kiểm tra độ tương phản màu sắc](http://webaim.org/resources/contrastchecker/)
+- [The Paciello Group - Phân tích độ tương phản màu sắc](https://www.paciellogroup.com/resources/contrastanalyser/)
 
-## Development and Testing Tools {#development-and-testing-tools}
+## Các công cụ để phát triển và kiểm tra {#development-and-testing-tools}
 
-There are a number of tools we can use to assist in the creation of accessible web applications.
+Có rất nhiều công cụ chúng ta có thể sử dụng để hỗ trợ trong việc tạo dựng accessibility của ứng dụng web.
 
-### The keyboard {#the-keyboard}
+### Bàn phím {#the-keyboard}
 
-By far the easiest and also one of the most important checks is to test if your entire website can be reached and used with the keyboard alone. Do this by:
+Cho đến thời điểm hiện tại, cách dễ nhất và cũng là một trong những điều quan trọng nhất là kiểm tra toàn bộ trang web của bạn có thể tương tác và sử dụng được chỉ bằng bàn phím hay không. Chúng ta thực hiện điều này bằng cách:
 
-1. Plugging out your mouse.
-1. Using `Tab` and `Shift+Tab` to browse.
-1. Using `Enter` to activate elements.
-1. Where required, using your keyboard arrow keys to interact with some elements, such as menus and dropdowns.
+1. Tháo chuột của bạn ra khỏi máy tính.
+2. Sử dụng `Tab` và `Shift+Tab` để duyệt web.
+3. Sử dụng `Enter` để tương tác với những phần tử trong trang web.
+4. Ở những nơi yêu cầu, sử dụng phím mũi tên để tương tác với một số phần tử, như menu và dropdown.
 
-### Development assistance {#development-assistance}
+### Sự hỗ trợ phát triển {#development-assistance}
 
-We can check some accessibility features directly in our JSX code. Often intellisense checks are already provided in JSX aware IDE's for the ARIA roles, states and properties. We also
-have access to the following tool:
+Chúng ta có thể kiểm tra một số chức năng accessibility trực tiếp trong code JSX. Thường thì bộ kiểm tra intellisense sẽ được cung cấp sẵn trong IDE cho những vai trò ARIA, states và properties. Chúng ta cũng có thể truy cập bằng những công cụ dưới đây:
 
 #### eslint-plugin-jsx-a11y {#eslint-plugin-jsx-a11y}
 
-The [eslint-plugin-jsx-a11y](https://github.com/evcohen/eslint-plugin-jsx-a11y) plugin for ESLint provides AST linting feedback regarding accessibility issues in your JSX. Many
-IDE's allow you to integrate these findings directly into code analysis and source code windows.
+[eslint-plugin-jsx-a11y](https://github.com/evcohen/eslint-plugin-jsx-a11y) plugin cho ESLint cung cấp AST phản hồi AST về những vấn đề liên quan đến accessibility trong JSX của bạn. Nhiều IDE's cho phép bạn tích hợp trực tiếp vào code analysis và source code windows.
 
-[Create React App](https://github.com/facebookincubator/create-react-app) has this plugin with a subset of rules activated. If you want to enable even more accessibility rules,
-you can create an `.eslintrc` file in the root of your project with this content:
+[Create React App](https://github.com/facebookincubator/create-react-app) plugin này với một tập hợp về những quy tắc kích hoạt. Nếu bạn muốn cho phép quy tắc accessibility hơn nữa, bạn có thể tạo một `.eslintrc` file trong root của project bằng nội dung sau đây:
 
   ```json
   {
@@ -456,77 +442,75 @@ you can create an `.eslintrc` file in the root of your project with this content
   }
   ```
 
-### Testing accessibility in the browser {#testing-accessibility-in-the-browser}
+### Kiểm tra accessibility trong trình duyệt {#testing-accessibility-in-the-browser}
 
-A number of tools exist that can run accessibility audits on web pages in your browser. Please use them in combination with other accessibility checks mentioned here as they can only
-test the technical accessibility of your HTML.
+Một số công cụ có thể chạy audit accessibility tren trang web trong trình duyệt của bạn. Hãy dùng chúng phối hợp với những công cụ kiểm tra đã được nhắc tới ở đây, bởi vì chúng chỉ có thể kiểm tra accessibility về mặt kỹ thuật.
 
-#### aXe, aXe-core and react-axe {#axe-axe-core-and-react-axe}
+#### aXe, aXe-core và react-axe {#axe-axe-core-and-react-axe}
 
-Deque Systems offers [aXe-core](https://github.com/dequelabs/axe-core) for automated and end-to-end accessibility tests of your applications. This module includes integrations for Selenium.
+Hệ thống Deque cho phép [aXe-core](https://github.com/dequelabs/axe-core) tự động kiểm tra end-to-end ứng dụng của bạn. Module này bao gồm những sự tích hợp cho Selenium.
 
-[The Accessibility Engine](https://www.deque.com/products/axe/) or aXe, is an accessibility inspector browser extension built on `aXe-core`.
+[The Accessibility Engine](https://www.deque.com/products/axe/) hoặc aXe, là một extension accessibility inspector tích hợp sẵn trong `aXe-core`.
 
-You can also use the [react-axe](https://github.com/dylanb/react-axe) module to report these accessibility findings directly to the console while developing and debugging.
+Bạn cũng có thể sử dụng [react-axe](https://github.com/dylanb/react-axe) module để report những phát hiện về accessibility trực tiếp khi đang develope và debug.
 
 #### WebAIM WAVE {#webaim-wave}
 
-The [Web Accessibility Evaluation Tool](http://wave.webaim.org/extension/) is another accessibility browser extension.
+[Web Accessibility Evaluation Tool](http://wave.webaim.org/extension/) là một extension khác.
 
-#### Accessibility inspectors and the Accessibility Tree {#accessibility-inspectors-and-the-accessibility-tree}
+#### Accessibility inspectors và the Accessibility Tree {#accessibility-inspectors-and-the-accessibility-tree}
 
-[The Accessibility Tree](https://www.paciellogroup.com/blog/2015/01/the-browser-accessibility-tree/) is a subset of the DOM tree that contains accessible objects for every DOM element that should be exposed
-to assistive technology, such as screen readers.
+[The Accessibility Tree](https://www.paciellogroup.com/blog/2015/01/the-browser-accessibility-tree/) là một tập hợp DOM trê có chứa những accessible object cho từng DOM element mà chúng nên được cung cấp cho công nghệ hiện đại như screen readers.
 
-In some browsers we can easily view the accessibility information for each element in the accessibility tree:
+Ở một số trình duyệt, chúng ta có thể dễ dàng xem thông tin về accessibility cho từng element trong accessibility tree:
 
-- [Using the Accessibility Inspector in Firefox](https://developer.mozilla.org/en-US/docs/Tools/Accessibility_inspector)
-- [Activate the Accessibility Inspector in Chrome](https://gist.github.com/marcysutton/0a42f815878c159517a55e6652e3b23a)
-- [Using the Accessibility Inspector in OS X Safari](https://developer.apple.com/library/content/documentation/Accessibility/Conceptual/AccessibilityMacOSX/OSXAXTestingApps.html)
+- [Việc sử dụng Accessibility Inspector trong Firefox](https://developer.mozilla.org/en-US/docs/Tools/Accessibility_inspector)
+- [Việc sử dụng Accessibility Inspector trong Chrome](https://developers.google.com/web/tools/chrome-devtools/accessibility/reference#pane)
+- [Việc sử dụng Accessibility Inspector trong OS X Safari](https://developer.apple.com/library/content/documentation/Accessibility/Conceptual/AccessibilityMacOSX/OSXAXTestingApps.html)
 
 ### Screen readers {#screen-readers}
 
-Testing with a screen reader should form part of your accessibility tests.
+Testing với một screen reader nên được xem như một phần của quá trình kiểm tra accessibility.
 
-Please note that browser / screen reader combinations matter. It is recommended that you test your application in the browser best suited to your screen reader of choice.
+Vui lòng lưu ý rằng sự kết hợp browser / screen reader là quan trọng. Bạn nên test ứng dụng của mình bằng trình duyệt phù hợp nhất cho screen reader của bạn.
 
-### Commonly Used Screen Readers {#commonly-used-screen-readers}
+### Các Screen Readers thông dụng {#commonly-used-screen-readers}
 
-#### NVDA in Firefox {#nvda-in-firefox}
+#### NVDA trong Firefox {#nvda-in-firefox}
 
-[NonVisual Desktop Access](https://www.nvaccess.org/) or NVDA is an open source Windows screen reader that is widely used.
+[NonVisual Desktop Access](https://www.nvaccess.org/) hoặc NVDA là một Windows screen reader mã nguồn mở được sử dụng rộng rãi.
 
-Refer to the following guides on how to best use NVDA:
+Xem hướng dẫn bên dưới để biết cách dùng NVDA hiệu quả nhất:
 
-- [WebAIM - Using NVDA to Evaluate Web Accessibility](http://webaim.org/articles/nvda/)
-- [Deque - NVDA Keyboard Shortcuts](https://dequeuniversity.com/screenreaders/nvda-keyboard-shortcuts)
+- [WebAIM - Sử dụng NVDA để đánh giá Web Accessibility](http://webaim.org/articles/nvda/)
+- [Deque - Các phím tắt của bàn phím NVDA](https://dequeuniversity.com/screenreaders/nvda-keyboard-shortcuts)
 
-#### VoiceOver in Safari {#voiceover-in-safari}
+#### VoiceOver trong Safari {#voiceover-in-safari}
 
-VoiceOver is an integrated screen reader on Apple devices.
+VoiceOver là một screen reader được tích hợp sẵn trong những thiết bị của Apple.
 
-Refer to the following guides on how activate and use VoiceOver:
+Xem hướng dẫn sau đây để biết cách kích hoạt và sử dụng Voice Over:
 
-- [WebAIM - Using VoiceOver to Evaluate Web Accessibility](http://webaim.org/articles/voiceover/)
-- [Deque - VoiceOver for OS X Keyboard Shortcuts](https://dequeuniversity.com/screenreaders/voiceover-keyboard-shortcuts)
-- [Deque - VoiceOver for iOS Shortcuts](https://dequeuniversity.com/screenreaders/voiceover-ios-shortcuts)
+- [WebAIM - Sử dụng VoiceOver để đánh giá Web Accessibility](http://webaim.org/articles/voiceover/)
+- [Deque - VoiceOver cho OS X Keyboard Shortcuts](https://dequeuniversity.com/screenreaders/voiceover-keyboard-shortcuts)
+- [Deque - VoiceOver cho iOS Shortcuts](https://dequeuniversity.com/screenreaders/voiceover-ios-shortcuts)
 
-#### JAWS in Internet Explorer {#jaws-in-internet-explorer}
+#### JAWS trong Internet Explorer {#jaws-in-internet-explorer}
 
-[Job Access With Speech](http://www.freedomscientific.com/Products/Blindness/JAWS) or JAWS, is a prolifically used screen reader on Windows.
+[Job Access With Speech](http://www.freedomscientific.com/Products/Blindness/JAWS) hoặc JAWS, là một screen reader được dùng hiệu quả trên Windows.
 
-Refer to the following guides on how to best use JAWS:
+Xem hướng dẫn bên dưới để biết cách dùng JAWS hiệu quả nhất:
 
-- [WebAIM - Using JAWS to Evaluate Web Accessibility](http://webaim.org/articles/jaws/)
+- [WebAIM - Sử dụng JAWS để đánh giá Web Accessibility](http://webaim.org/articles/jaws/)
 - [Deque - JAWS Keyboard Shortcuts](https://dequeuniversity.com/screenreaders/jaws-keyboard-shortcuts)
 
-### Other Screen Readers {#other-screen-readers}
+### Screen Readers khác {#other-screen-readers}
 
-#### ChromeVox in Google Chrome {#chromevox-in-google-chrome}
+#### ChromeVox trong Google Chrome {#chromevox-in-google-chrome}
 
-[ChromeVox](http://www.chromevox.com/) is an integrated screen reader on Chromebooks and is available [as an extension](https://chrome.google.com/webstore/detail/chromevox/kgejglhpjiefppelpmljglcjbhoiplfn?hl=en) for Google Chrome.
+[ChromeVox](http://www.chromevox.com/) ilà một screen reader được tích hợp sẵn trên Chromebooks và được xem [như một extension](https://chrome.google.com/webstore/detail/chromevox/kgejglhpjiefppelpmljglcjbhoiplfn?hl=en) cho Google Chrome.
 
-Refer to the following guides on how best to use ChromeVox:
+Xem hướng dẫn bên dưới để biết cách dùng ChromeVox hiệu quả nhất:
 
-- [Google Chromebook Help - Use the Built-in Screen Reader](https://support.google.com/chromebook/answer/7031755?hl=en)
+- [Google Chromebook Help - Sử dụng Built-in Screen Reader](https://support.google.com/chromebook/answer/7031755?hl=en)
 - [ChromeVox Classic Keyboard Shortcuts Reference](http://www.chromevox.com/keyboard_shortcuts.html)

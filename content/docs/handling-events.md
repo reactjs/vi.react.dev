@@ -1,6 +1,6 @@
 ---
 id: handling-events
-title: Handling Events
+title: Việc Bắt các Sự kiện
 permalink: docs/handling-events.html
 prev: state-and-lifecycle.html
 next: conditional-rendering.html
@@ -8,12 +8,12 @@ redirect_from:
   - "docs/events-ko-KR.html"
 ---
 
-Handling events with React elements is very similar to handling events on DOM elements. There are some syntactic differences:
+Việc bắt sự kiện của những element React rất giống với những element DOM. Có một số khác biệt về cú pháp như:
 
-* React events are named using camelCase, rather than lowercase.
-* With JSX you pass a function as the event handler, rather than a string.
+* Những sự kiện của React được đặt tên theo dạng camelCase, thay vì lowercase.
+* Với JSX, bạn có thể sử dụng "hàm" (function) để bắt sự kiện thay vì phải truyền vào một chuỗi.
 
-For example, the HTML:
+Ví dụ, đoạn HTML sau:
 
 ```html
 <button onclick="activateLasers()">
@@ -21,7 +21,7 @@ For example, the HTML:
 </button>
 ```
 
-is slightly different in React:
+sẽ có đôi chút khác biệt trong React:
 
 ```js{1}
 <button onClick={activateLasers}>
@@ -29,7 +29,7 @@ is slightly different in React:
 </button>
 ```
 
-Another difference is that you cannot return `false` to prevent default behavior in React. You must call `preventDefault` explicitly. For example, with plain HTML, to prevent the default link behavior of opening a new page, you can write:
+Một điểm khác biệt nữa trong React là bạn không thể trả về `false` để chặn những hành vi mặc định mà phải gọi `preventDefault` trực tiếp. Lấy ví dụ với đoạn HTML sau, để chặn hành vi mặc định của đường dẫn là mở trang mới, bạn có thể viết:
 
 ```html
 <a href="#" onclick="console.log('The link was clicked.'); return false">
@@ -37,7 +37,7 @@ Another difference is that you cannot return `false` to prevent default behavior
 </a>
 ```
 
-In React, this could instead be:
+Còn trong React, bạn có thể làm như thế này:
 
 ```js{2-5,8}
 function ActionLink() {
@@ -54,11 +54,11 @@ function ActionLink() {
 }
 ```
 
-Here, `e` is a synthetic event. React defines these synthetic events according to the [W3C spec](https://www.w3.org/TR/DOM-Level-3-Events/), so you don't need to worry about cross-browser compatibility. See the [`SyntheticEvent`](/docs/events.html) reference guide to learn more.
+Ở đây, `e` là một sự kiện ảo. React định nghĩa những sự kiện ảo này dựa trên [chuẩn W3C](https://www.w3.org/TR/DOM-Level-3-Events/), nên bạn không cần lo lắng về sự tương thích giữa những browser. Hãy tham khảo tài liệu về [`SyntheticEvent`](/docs/events.html) để tìm hiểu thêm.
 
-When using React you should generally not need to call `addEventListener` to add listeners to a DOM element after it is created. Instead, just provide a listener when the element is initially rendered.
+Khi làm việc với React, bạn thường không phải gọi `addEventListener` để gắn listener cho element DOM khi nó được khởi tạo. Thay vào đó, bạn chỉ cần gắn listener ngay lần đầu element được render.
 
-When you define a component using an [ES6 class](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes), a common pattern is for an event handler to be a method on the class. For example, this `Toggle` component renders a button that lets the user toggle between "ON" and "OFF" states:
+Khi bạn định nghĩa component bằng [class ES6](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Classes), một mẫu thiết kế phổ biến là sử dụng phương thức của class để bắt sự kiện. Ví dụ, component `Toggle` dưới đây render một chiếc nút để người dùng thay đổi giữa state “ON” và “OFF":
 
 ```js{6,7,10-14,18}
 class Toggle extends React.Component {
@@ -66,7 +66,7 @@ class Toggle extends React.Component {
     super(props);
     this.state = {isToggleOn: true};
 
-    // This binding is necessary to make `this` work in the callback
+    // Phép "ràng buộc" (bind) này là cần thiết để `this` hoạt động trong callback
     this.handleClick = this.handleClick.bind(this);
   }
 
@@ -91,18 +91,18 @@ ReactDOM.render(
 );
 ```
 
-[**Try it on CodePen**](http://codepen.io/gaearon/pen/xEmzGg?editors=0010)
+[**Try it on CodePen**](https://codepen.io/gaearon/pen/xEmzGg?editors=0010)
 
-You have to be careful about the meaning of `this` in JSX callbacks. In JavaScript, class methods are not [bound](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind) by default. If you forget to bind `this.handleClick` and pass it to `onClick`, `this` will be `undefined` when the function is actually called.
+Bạn phải cẩn thận về ý nghĩa của `this` trong những callback JSX. Trong JavaScript, những phương thức của class mặc định không bị [ràng buộc](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind). Nếu bạn quên ràng buộc `this.handleClick` và truyền nó vào `onClick`, `this` sẽ có giá trị là `undefined` khi phương thức này được thực thi.
 
-This is not React-specific behavior; it is a part of [how functions work in JavaScript](https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/). Generally, if you refer to a method without `()` after it, such as `onClick={this.handleClick}`, you should bind that method.
+Đây không phải là tính chất của React mà là một phần trong [cách những hàm JavaScript hoạt động](https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/). Thông thường, nếu bạn trỏ tới phương thức mà không có `()` theo sau như `onClick={this.handleClick}`, bạn nên ràng buộc phương thức đó.
 
-If calling `bind` annoys you, there are two ways you can get around this. If you are using the experimental [public class fields syntax](https://babeljs.io/docs/plugins/transform-class-properties/), you can use class fields to correctly bind callbacks:
+Nếu bạn thấy việc gọi `bind` phiền phức thì có hai giải pháp. Trong trường hợp bạn đang sử dụng [cú pháp thuộc tính class public](https://babeljs.io/docs/plugins/transform-class-properties/) thử nghiệm, bạn có thể dùng những thuộc tính class để ràng buộc callback một cách chính xác:
 
 ```js{2-6}
 class LoggingButton extends React.Component {
-  // This syntax ensures `this` is bound within handleClick.
-  // Warning: this is *experimental* syntax.
+  // Cú pháp này đảm bảo `this` được ràng buộc trong handleClick.
+  // Lưu ý: đây là cú pháp *thử nghiệm*.
   handleClick = () => {
     console.log('this is:', this);
   }
@@ -117,9 +117,9 @@ class LoggingButton extends React.Component {
 }
 ```
 
-This syntax is enabled by default in [Create React App](https://github.com/facebookincubator/create-react-app).
+Cú pháp này được bật theo mặc định trong [Create React App](https://github.com/facebookincubator/create-react-app).
 
-If you aren't using class fields syntax, you can use an [arrow function](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions) in the callback:
+Nếu bạn không sử dụng cú pháp thuộc tính class, bạn có thể dùng "hàm rút gọn" [arrow function](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Functions/Arrow_functions) trong callback:
 
 ```js{7-9}
 class LoggingButton extends React.Component {
@@ -128,7 +128,7 @@ class LoggingButton extends React.Component {
   }
 
   render() {
-    // This syntax ensures `this` is bound within handleClick
+    // Cú pháp này đảm bảo `this` được ràng buộc trong handleClick
     return (
       <button onClick={(e) => this.handleClick(e)}>
         Click me
@@ -138,17 +138,17 @@ class LoggingButton extends React.Component {
 }
 ```
 
-The problem with this syntax is that a different callback is created each time the `LoggingButton` renders. In most cases, this is fine. However, if this callback is passed as a prop to lower components, those components might do an extra re-rendering. We generally recommend binding in the constructor or using the class fields syntax, to avoid this sort of performance problem.
+Vấn đề với cú pháp này nằm ở chỗ một callback khác sẽ được khởi tạo mỗi khi `LogginButton` render. Điều này ổn với đa số trường hợp. Tuy nhiên, nếu callback này được truyền duới dạng prop xuống những component con, những component này sẽ bị render lại. Nói chung, chúng tôi khuyến khích việc ràng buộc ở constructor hoặc sử dụng cú pháp thuộc tính class để ngăn chặn vấn đề về hiệu suất này.
 
-## Passing Arguments to Event Handlers {#passing-arguments-to-event-handlers}
+## Truyền Tham số vào Hàm Bắt Sự kiện {#passing-arguments-to-event-handlers}
 
-Inside a loop it is common to want to pass an extra parameter to an event handler. For example, if `id` is the row ID, either of the following would work:
+Trong một vòng lặp, việc truyền thêm tham số vào hàm bắt sự kiện khá phổ biến. Nếu `id` là số định danh của một hàng, thì hai ví dụ duới đây đều hoạt động được:
 
 ```js
 <button onClick={(e) => this.deleteRow(id, e)}>Delete Row</button>
 <button onClick={this.deleteRow.bind(this, id)}>Delete Row</button>
 ```
 
-The above two lines are equivalent, and use [arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions) and [`Function.prototype.bind`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind) respectively.
+Hai dòng code trên là tương đương, và lần lượt sử dụng [hàm rút gọn](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Functions/Arrow_functions) và [`Function.prototype.bind`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind).
 
-In both cases, the `e` argument representing the React event will be passed as a second argument after the ID. With an arrow function, we have to pass it explicitly, but with `bind` any further arguments are automatically forwarded.
+Trong cả hai trường hợp, tham số `e`, đại diện cho sự kiện React, sẽ được truyền là tham số thứ hai sau số định danh. Với hàm rút gọn, chúng ta phải truyền nó trực tiếp, nhưng với `bind` thì những tham số còn lại sẽ tự động nối tiếp.

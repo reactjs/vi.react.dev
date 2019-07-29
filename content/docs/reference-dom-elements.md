@@ -14,27 +14,27 @@ redirect_from:
   - "tips/dangerously-set-inner-html.html"
 ---
 
-React implements a browser-independent DOM system for performance and cross-browser compatibility. We took the opportunity to clean up a few rough edges in browser DOM implementations.
+React áp dụng hệ thống DOM không phụ thuộc vào trình duyệt để tăng hiệu suất và độ tương thích với nhiều trình duyệt khác nhau. Nhân dịp này, chúng tôi đã loại bỏ một số khía cạnh chưa hoàn chỉnh trong cách triển khai DOM trên trình duyệt.
 
-In React, all DOM properties and attributes (including event handlers) should be camelCased. For example, the HTML attribute `tabindex` corresponds to the attribute `tabIndex` in React. The exception is `aria-*` and `data-*` attributes, which should be lowercased. For example, you can keep `aria-label` as `aria-label`.
+Trong React, tất cả các thuộc tính của DOM (bao gồm xử lí sự kiện) phải được viết theo camelCase. Ví dụ như attribute `tabindex`, thì trong React là `tabIndex`. Có những ngoại lệ là thuộc tính `aria-*` và `data-*` phải được viết chữ thường. Ví dụ `aria-label` vẫn là `aria-label`.
 
-## Differences In Attributes {#differences-in-attributes}
+## Sự khác biệt trong các thuộc tính {#differences-in-attributes}
 
-There are a number of attributes that work differently between React and HTML:
+Có một vài thuộc tính hoạt động khác biệt giữa React và HTML:
 
 ### checked {#checked}
 
-The `checked` attribute is supported by `<input>` components of type `checkbox` or `radio`. You can use it to set whether the component is checked. This is useful for building controlled components. `defaultChecked` is the uncontrolled equivalent, which sets whether the component is checked when it is first mounted.
+Thuộc tính `checked` được hỗ trợ bởi các component `<input>` với kiểu `checkbox` hoặc `radio`. Bạn có thể dùng nó để thiết lập cho component có được checked hay chưa. Điều này hữu ích khi xây dựng những Component Kiểm Soát. `defaultChecked` là giá trị không kiểm soát, nó sẽ quyết định component có được chọn hay không khi nó được mount lần đầu tiên.
 
 ### className {#classname}
 
-To specify a CSS class, use the `className` attribute. This applies to all regular DOM and SVG elements like `<div>`, `<a>`, and others.
+Để đặt class css, sử dụng thuộc tính className. Nó được sử dụng cho tất cả các phần tử DOM và SVG như `div`, `a` và những thuộc tính khác.
 
-If you use React with Web Components (which is uncommon), use the `class` attribute instead.
+Nếu bạn sử dụng React với Web Components (trường hợp không phổ biến), thì vẫn dùng `class`.
 
 ### dangerouslySetInnerHTML {#dangerouslysetinnerhtml}
 
-`dangerouslySetInnerHTML` is React's replacement for using `innerHTML` in the browser DOM. In general, setting HTML from code is risky because it's easy to inadvertently expose your users to a [cross-site scripting (XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting) attack. So, you can set HTML directly from React, but you have to type out `dangerouslySetInnerHTML` and pass an object with a `__html` key, to remind yourself that it's dangerous. For example:
+`dangerouslySetInnerHTML` tương đương với `innerHTML` trong DOM. Nhìn chung, việc thay đổi DOM từ Javascript khá rủi ro do nó có thể vô tình để lộ người dùng [cross-site scripting (XSS)](https://en.wikipedia.org/wiki/Cross-site_scripting). Vì vậy, React có thể tạo HTML trực tiếp, nhưng bạn phải sử dụng `dangerouslySetInnerHTML` và truyền một object với key là `_html` để nhăc bạn nhớ rằng điều này không an toàn. Ví dụ:
 
 ```js
 function createMarkup() {
@@ -48,23 +48,23 @@ function MyComponent() {
 
 ### htmlFor {#htmlfor}
 
-Since `for` is a reserved word in JavaScript, React elements use `htmlFor` instead.
+Do `for` là một từ khoá trong Javascript, React dùng `htmlFor`.
 
 ### onChange {#onchange}
 
-The `onChange` event behaves as you would expect it to: whenever a form field is changed, this event is fired. We intentionally do not use the existing browser behavior because `onChange` is a misnomer for its behavior and React relies on this event to handle user input in real time.
+Sự kiện `onChange` hoạt động đúng như tên gọi của nó: khi một giá trị của trường mẫu bị thay đổi, sự kiện này được phát ra. Chúng tôi cố tình không sử dụng hành vi của trình duyệt bởi vì `onChange` được hiểu sai bởi chính hành vi của nó và React dựa vào sự kiện này để xử lý đầu vào của người dùng trong thời gian thực.
 
 ### selected {#selected}
 
-The `selected` attribute is supported by `<option>` components. You can use it to set whether the component is selected. This is useful for building controlled components.
+Thuộc tính `selected` được sử dụng trong `<option>` để đánh dấu option nào được chọn trong một `<select>`. Điều này hữu ích khi tạo ra các Component Kiểm Soát.
 
 ### style {#style}
 
->Note
+>Lưu ý
 >
->Some examples in the documentation use `style` for convenience, but **using the `style` attribute as the primary means of styling elements is generally not recommended.** In most cases, [`className`](#classname) should be used to reference classes defined in an external CSS stylesheet. `style` is most often used in React applications to add dynamically-computed styles at render time. See also [FAQ: Styling and CSS](/docs/faq-styling.html).
+>Một vài ví dụ trong tài liệu này sử dụng `style` cho tiện, thực tế **sử dụng thuộc tính `style` trực tiếp không được khuyến khích .** Trong đa số các trường hợp, [`className`](#classname) nên được dùng cùng với một file CSS rời để style. Thuộc tính `style` thường được dùng trong React để trỏ tới những class được định nghiã ở stylesheet css bên ngoài. Xem thêm [FAQ: Styling and CSS](/docs/faq-styling.html).
 
-The `style` attribute accepts a JavaScript object with camelCased properties rather than a CSS string. This is consistent with the DOM `style` JavaScript property, is more efficient, and prevents XSS security holes. For example:
+Thuộc tính `style` nhận vào một object với các thuộc tính CSS ở dạng camelCase thay vì một chuỗi CSS. Nó sẽ nhất quán với thuộc tính `style` của Javascript trên DOM, hiệu quả hơn và đề phòng những lỗ hỗng bảo mật XSS. Ví dụ:
 
 ```js
 const divStyle = {
@@ -77,12 +77,12 @@ function HelloWorldComponent() {
 }
 ```
 
-Note that styles are not autoprefixed. To support older browsers, you need to supply corresponding style properties:
+Nhớ rằng styles không tự động thêm tiền tố. Để tương thích với các trình duyệt nên bạn phải tự thêm tiền tố vào. Ví dụ:
 
 ```js
 const divStyle = {
-  WebkitTransition: 'all', // note the capital 'W' here
-  msTransition: 'all' // 'ms' is the only lowercase vendor prefix
+  WebkitTransition: 'all', // nhớ là chữ 'W' được viết hoa
+  msTransition: 'all' // 'ms' là tiền tố duy nhất được viết thường
 };
 
 function ComponentWithTransition() {
@@ -90,9 +90,9 @@ function ComponentWithTransition() {
 }
 ```
 
-Style keys are camelCased in order to be consistent with accessing the properties on DOM nodes from JS (e.g. `node.style.backgroundImage`). Vendor prefixes [other than `ms`](http://www.andismith.com/blog/2012/02/modernizr-prefixed/) should begin with a capital letter. This is why `WebkitTransition` has an uppercase "W".
+Các từ khoá style được viết theo dạng camelCase để đồng nhất với việc truy cập các thuộc tính trên DOM từ Javascript, ví dụ `node.style.backgroundImage`. Các tiền tố [ngoài `ms`](https://www.andismith.com/blogs/2012/02/modernizr-prefixed/) phải được bắt đầu bằng một chữ hoa ví dụ như `WebkitTransition`.
 
-React will automatically append a "px" suffix to certain numeric inline style properties. If you want to use units other than "px", specify the value as a string with the desired unit. For example:
+React sẽ tự động thêm hậu tố "px" vào sau một vài kiểu thuộc tính số inline nhất định. Nếu bạn muốn sử dụng đơn vị khác ngoài 'px', hãy thêm đơn vị mong muốn dưới dạng chuỗi, ví dụ:
 
 ```js
 // Result style: '10px'
@@ -106,37 +106,37 @@ React will automatically append a "px" suffix to certain numeric inline style pr
 </div>
 ```
 
-Not all style properties are converted to pixel strings though. Certain ones remain unitless (eg `zoom`, `order`, `flex`). A complete list of unitless properties can be seen [here](https://github.com/facebook/react/blob/4131af3e4bf52f3a003537ec95a1655147c81270/src/renderers/dom/shared/CSSProperty.js#L15-L59).
+Không phải thuộc tính nào cũng được thêm hậu tố "px" vào sau. Các thuộc tính không có đơn vị sẽ được giữ nguyên, ví dụ như `zoom`, `order`, `flex`. Danh sách tất cả các thuộc tính không có đơn vị có thể được tìm thấy [ở đây](https://github.com/facebook/react/blob/4131af3e4bf52f3a003537ec95a1655147c81270/src/renderers/dom/shared/CSSProperty.js#L15-L59).
 
 ### suppressContentEditableWarning {#suppresscontenteditablewarning}
 
-Normally, there is a warning when an element with children is also marked as `contentEditable`, because it won't work. This attribute suppresses that warning. Don't use this unless you are building a library like [Draft.js](https://facebook.github.io/draft-js/) that manages `contentEditable` manually.
+Một component có component con được đánh dấu là `contentEditable` sẽ không hoạt động và sẽ được cảnh báo. Thuộc tính này sẽ bỏ đi cảnh báo, nhưng các bạn không cần thiết phải dùng nó trừ khi bạn đang xây dựng một thư viện làm việc trực tiếp với `contentEditable` như [Draft.js](https://facebook.github.io/draft-js/).
 
 ### suppressHydrationWarning {#suppresshydrationwarning}
 
-If you use server-side React rendering, normally there is a warning when the server and the client render different content. However, in some rare cases, it is very hard or impossible to guarantee an exact match. For example, timestamps are expected to differ on the server and on the client.
+Nếu bạn sử dụng server-side rendering, thông thường sẽ có một cảnh báo khi nội dung được render trên server khác với client. Tuy nhiên, trong một vài trường hợp, rất khó để đảm báo server và client trùng khớp với nhau ví dụ như render timestamp.
 
-If you set `suppressHydrationWarning` to `true`, React will not warn you about mismatches in the attributes and the content of that element. It only works one level deep, and is intended to be used as an escape hatch. Don't overuse it. You can read more about hydration in the [`ReactDOM.hydrate()` documentation](/docs/react-dom.html#hydrate).
+Nếu bạn để `suppressHydrationWarning` là `true`, React sẽ không cảnh báo về những sự không trùng khớp trong những thuộc tính và nội dung của element đó. Nó chỉ hoạt động một cấp, và được dự định sử dụng như một lối thoát. Đừng lạm dụng nó. Bạn có thể xem thêm về hydration tại [`ReactDOM.hydrate()`](/docs/react-dom.html#hydrate).
 
 ### value {#value}
 
-The `value` attribute is supported by `<input>` and `<textarea>` components. You can use it to set the value of the component. This is useful for building controlled components. `defaultValue` is the uncontrolled equivalent, which sets the value of the component when it is first mounted.
+Thuộc tính `value` được hỗ trợ bởi những component `<input>` và `<textarea>`. Ban có thể sử dụng nó để đặt giá trị của component. Điều này là cần thiết để tạo Component Kiểm Soát. `defaultValue` là thuộc tính tương đương trong Component Không Kiểm Soát, nó đặt giá trị cho Component khi nó được mount lần đầu tiên.
 
-## All Supported HTML Attributes {#all-supported-html-attributes}
+## Tất cả thuộc tính HTML được hỗ trợ {#all-supported-html-attributes}
 
-As of React 16, any standard [or custom](/blog/2017/09/08/dom-attributes-in-react-16.html) DOM attributes are fully supported.
+Trong React 16, [tất cả](/blog/2017/09/08/dom-attributes-in-react-16.html) thuộc tính DOM đều được hỗ trợ.
 
-React has always provided a JavaScript-centric API to the DOM. Since React components often take both custom and DOM-related props, React uses the `camelCase` convention just like the DOM APIs:
+React luôn cung cấp một API với trọng tâm là javascript cho DOM. Bời vì những React component thường nhận những props được tuỳ chỉnh hoặc có liên quan tới DOM, React sử dụng quy ước `camelCase` như là các DOM APIs. Ví dụ như:
 
 ```js
-<div tabIndex="-1" />      // Just like node.tabIndex DOM API
-<div className="Button" /> // Just like node.className DOM API
-<input readOnly={true} />  // Just like node.readOnly DOM API
+<div tabIndex="-1" />      // tương tự node.tabIndex DOM API
+<div className="Button" /> // tương tự node.className DOM API
+<input readOnly={true} />  // tương tự node.readOnly DOM API
 ```
 
-These props work similarly to the corresponding HTML attributes, with the exception of the special cases documented above.
+Những thuộc tính này hoạt động tương tự với thuộc tính HTML, với những ngoại lệ liệt kê ở trên.
 
-Some of the DOM attributes supported by React include:
+Một vài thuộc tính DOM được React hỗ trợ như:
 
 ```
 accept acceptCharset accessKey action allowFullScreen alt async autoComplete
@@ -154,7 +154,7 @@ sizes span spellCheck src srcDoc srcLang srcSet start step style summary
 tabIndex target title type useMap value width wmode wrap
 ```
 
-Similarly, all SVG attributes are fully supported:
+Tượng tự, tất cả thuộc tính SVG hoàn toàn được hỗ trợ:
 
 ```
 accentHeight accumulate additive alignmentBaseline allowReorder alphabetic
@@ -193,4 +193,4 @@ xlinkHref xlinkRole xlinkShow xlinkTitle xlinkType xmlns xmlnsXlink xmlBase
 xmlLang xmlSpace y y1 y2 yChannelSelector z zoomAndPan
 ```
 
-You may also use custom attributes as long as they're fully lowercase.
+Bạn có thể sử dụng thuộc tính tự tạo nhưng phải được viết bằng chữ thường.

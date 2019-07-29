@@ -1,38 +1,38 @@
 ---
 id: hooks-rules
-title: Rules of Hooks
+title: Nguyên tắc sử dụng Hook
 permalink: docs/hooks-rules.html
 next: hooks-custom.html
 prev: hooks-effect.html
 ---
 
-*Hooks* are a new addition in React 16.8. They let you use state and other React features without writing a class.
+*Hook* là một tính năng mới từ React 16.8. Nó cho phép sử dụng state và các tính năng khác của React mà không cần viết dạng class
 
-Hooks are JavaScript functions, but you need to follow two rules when using them. We provide a [linter plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks) to enforce these rules automatically:
+Hook là các function JavaScript, có những quy luật bạn cần phải tuân theo khi sử dụng. Chúng tôi có [một plugin linter](https://www.npmjs.com/package/eslint-plugin-react-hooks) để đảm bảo các luật này luôn luôn được áp dụng đúng:
 
-### Only Call Hooks at the Top Level {#only-call-hooks-at-the-top-level}
+### Chỉ gọi Hook ở trên cùng {#only-call-hooks-at-the-top-level}
 
-**Don't call Hooks inside loops, conditions, or nested functions.** Instead, always use Hooks at the top level of your React function. By following this rule, you ensure that Hooks are called in the same order each time a component renders. That's what allows React to correctly preserve the state of Hooks between multiple `useState` and `useEffect` calls. (If you're curious, we'll explain this in depth [below](#explanation).)
+**Không gọi hook bên trong loop, câu điều kiện, hay các function lồng với nhau.** Thay vì đó, luôn sử dụng Hook ở phần trên cùng của function. Với cách này, bạn đảm bảo các Hook được gọi theo đúng thứ tự trong các lần render. Nó cho phép React có được đúng state giữa nhiều lần gọi `useState` và `useEffect`. (Nếu bạn có thắc mắc, chúng tôi sẽ giải thích trong phần giải thích cụ thể hơn [bên dưới](#explanation).)
 
-### Only Call Hooks from React Functions {#only-call-hooks-from-react-functions}
+### Chỉ gọi Hook từ React Function {#only-call-hooks-from-react-functions}
 
-**Don't call Hooks from regular JavaScript functions.** Instead, you can:
+**Không gọi Hook từ mà function JavaScript.** Thay vì đó, bạn có thể:
 
-* ✅ Call Hooks from React function components.
-* ✅ Call Hooks from custom Hooks (we'll learn about them [on the next page](/docs/hooks-custom.html)).
+* ✅ Gọi Hook từ React function components.
+* ✅ Gọi Hook từ custom Hook (Chúng ta sẽ học [ở trang sau](/docs/hooks-custom.html)).
 
-By following this rule, you ensure that all stateful logic in a component is clearly visible from its source code.
+Khi tuân theo quy luật này, chúng ta đảm bảo tất cả logic trong 1 component rõ ràng nhất.
 
 ## ESLint Plugin {#eslint-plugin}
 
-We released an ESLint plugin called [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks) that enforces these two rules. You can add this plugin to your project if you'd like to try it:
+Chúng tôi có cung cấp plugin ESLint tên là [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks) đảm bảo 2 luật này luôn được áp dụng. Nếu thích bạn có thể thêm vào project:
 
 ```bash
-npm install eslint-plugin-react-hooks
+npm install eslint-plugin-react-hooks --save-dev
 ```
 
 ```js
-// Your ESLint configuration
+// cài đặt ESLint
 {
   "plugins": [
     // ...
@@ -40,33 +40,34 @@ npm install eslint-plugin-react-hooks
   ],
   "rules": {
     // ...
-    "react-hooks/rules-of-hooks": "error"
+    "react-hooks/rules-of-hooks": "error", // Kiểm tra rule của Hook
+    "react-hooks/exhaustive-deps": "warn" // Kiểm tra effect dependency
   }
 }
 ```
 
-In the future, we intend to include this plugin by default into Create React App and similar toolkits.
+Trong tương lai, chúng tôi có định sẽ gộp luôn 2 plugin này vào trong Create React App và các bộ công cụ tương tự
 
-**You can skip to the next page explaining how to write [your own Hooks](/docs/hooks-custom.html) now.** On this page, we'll continue by explaining the reasoning behind these rules.
+**Bạn có thể bỏ qua và đọc tiếp trang chỉ dẫn [tạo custom Hook](/docs/hooks-custom.html) bây giờ.** Ở đây, chúng ta sẽ tiếp tục giải thích lý do đằng sau những quy luật này.
 
-## Explanation {#explanation}
+## Giải thích {#explanation}
 
-As we [learned earlier](/docs/hooks-state.html#tip-using-multiple-state-variables), we can use multiple State or Effect Hooks in a single component:
+Như chúng ta [đã học trước đây](/docs/hooks-state.html#tip-using-multiple-state-variables), chúng ta có thể sử dụng nhiều state hoặc nhiều effect trên một component
 
 ```js
 function Form() {
-  // 1. Use the name state variable
+  // 1. Sử dụng state tên name
   const [name, setName] = useState('Mary');
 
-  // 2. Use an effect for persisting the form
+  // 2. Sử dụng một effect lưu giá trị trên form
   useEffect(function persistForm() {
     localStorage.setItem('formData', name);
   });
 
-  // 3. Use the surname state variable
+  // 3. Sử dụng state tên surname
   const [surname, setSurname] = useState('Poppins');
 
-  // 4. Use an effect for updating the title
+  // 4. Sử dụng 1 effect cập nhập title
   useEffect(function updateTitle() {
     document.title = name + ' ' + surname;
   });
@@ -75,32 +76,31 @@ function Form() {
 }
 ```
 
-So how does React know which state corresponds to which `useState` call? The answer is that **React relies on the order in which Hooks are called**. Our example works because the order of the Hook calls is the same on every render:
+Vậy làm sao React biết được state nào ứng với lúc gọi `useState` ? Câu trả lời là **React dựa trên thứ tự Hook được gọi**. Trong ví dụ trên, vì thứ tự Hook được gọi đúng theo lúc khai báo trong khi render:
 
 ```js
 // ------------
-// First render
+// Lần đầu render
 // ------------
-useState('Mary')           // 1. Initialize the name state variable with 'Mary'
-useEffect(persistForm)     // 2. Add an effect for persisting the form
-useState('Poppins')        // 3. Initialize the surname state variable with 'Poppins'
-useEffect(updateTitle)     // 4. Add an effect for updating the title
+useState('Mary')           // 1. Khởi tạo  biết name với giá trị 'Mary'
+useEffect(persistForm)     // 2. Thêm một effect 
+useState('Poppins')        // 3. KHởi tạo biến surname với giá trị 'Poppins'
+useEffect(updateTitle)     // 4. Thêm một effect cập nhập title
 
 // -------------
-// Second render
+// Lần gọi render thứ 2
 // -------------
-useState('Mary')           // 1. Read the name state variable (argument is ignored)
-useEffect(persistForm)     // 2. Replace the effect for persisting the form
-useState('Poppins')        // 3. Read the surname state variable (argument is ignored)
-useEffect(updateTitle)     // 4. Replace the effect for updating the title
+useState('Mary')           // 1. Đọc giá trị biến name
+useEffect(persistForm)     // 2. Thay thế effect cũ
+useState('Poppins')        // 3. Đọc giá trị biến surname
+useEffect(updateTitle)     // 4. Thay thế effect cập nhập title
 
 // ...
 ```
 
-As long as the order of the Hook calls is the same between renders, React can associate some local state with each of them. But what happens if we put a Hook call (for example, the `persistForm` effect) inside a condition?
-
+Miễn là thứ tự của Hook gọi đúng theo thứ tự giữa các lần render, React có thể liên kết local state với nhau. Chuyện gì sẽ xảy ra nếu chúng ta đặt câu gọi Hook (ví dụ như `persistForm` bên trong trong câu điều kiện?
 ```js
-  // 🔴 We're breaking the first rule by using a Hook in a condition
+  // 🔴 Chúng ta vi phạm nguyên tắc không đặt trong câu điều kiện
   if (name !== '') {
     useEffect(function persistForm() {
       localStorage.setItem('formData', name);
@@ -108,30 +108,30 @@ As long as the order of the Hook calls is the same between renders, React can as
   }
 ```
 
-The `name !== ''` condition is `true` on the first render, so we run this Hook. However, on the next render the user might clear the form, making the condition `false`. Now that we skip this Hook during rendering, the order of the Hook calls becomes different:
+Trong lần đầu render, mệnh đề điều kiện `name !== ''` trả về `true`, Hook sẽ được gọi. Tuy nhiên, trong lần gọi tiếp theo, user có thể xóa giá trị trong form, việc này làm cho mệnh đề điều kiện trả về `false`, chúng ta bỏ qua câu gọi effect, thứ tự gọi Hook cũng thay đổi theo:
 
 ```js
-useState('Mary')           // 1. Read the name state variable (argument is ignored)
-// useEffect(persistForm)  // 🔴 This Hook was skipped!
-useState('Poppins')        // 🔴 2 (but was 3). Fail to read the surname state variable
-useEffect(updateTitle)     // 🔴 3 (but was 4). Fail to replace the effect
+useState('Mary')           // 1. Đọc giá trị name
+// useEffect(persistForm)  // 🔴 Hook bị bỏ qua!
+useState('Poppins')        // 🔴 2 (thật ra là 3). Không đọc được giá trị surname
+useEffect(updateTitle)     // 🔴 3 (thật ra là 4).  Không thể thay thế effect
 ```
 
-React wouldn't know what to return for the second `useState` Hook call. React expected that the second Hook call in this component corresponds to the `persistForm` effect, just like during the previous render, but it doesn't anymore. From that point, every next Hook call after the one we skipped would also shift by one, leading to bugs.
+React không biết được trả về gì cho `useState` ở lần 2. React tưởng là Hook thứ 2 trong component tương ứng với effect `persistForm`, cũng giống như lần render trước, tuy nhiên không còn đúng nữa. Kể từ lúc đó, tất cả những lần gọi Hook sau đều bỏ qua một bước, dẫn đến bug.
 
-**This is why Hooks must be called on the top level of our components.** If we want to run an effect conditionally, we can put that condition *inside* our Hook:
+**Đó là lý do tại sao phải gọi Hook ở trên cùng của component**. Nếu chúng ta muốn chạy effect theo điều kiện, chúng ta có thể đặt điều kiện *bên trong* Hook:
 
 ```js
   useEffect(function persistForm() {
-    // 👍 We're not breaking the first rule anymore
+    // 👍 Không phá vỡ nguyên tắc nữa
     if (name !== '') {
       localStorage.setItem('formData', name);
     }
   });
 ```
 
-**Note that you don't need to worry about this problem if you use the [provided lint rule](https://www.npmjs.com/package/eslint-plugin-react-hooks).** But now you also know *why* Hooks work this way, and which issues the rule is preventing.
+**Lưu ý, bạn không cần lo lắng về vấn đề này nếu dùng [ lint](https://www.npmjs.com/package/eslint-plugin-react-hooks).** Giờ bạn cũng hiểu được *tại sao* Hook làm việc như vậy, và tại sao chúng ta lại có những nguyên tắc này.
 
-## Next Steps {#next-steps}
+## Tiếp theo {#next-steps}
 
-Finally, we're ready to learn about [writing your own Hooks](/docs/hooks-custom.html)! Custom Hooks let you combine Hooks provided by React into your own abstractions, and reuse common stateful logic between different components.
+Cuối cùng thì chúng ta cũng đã sẵn sàng học [cách viết custom  Hooks](/docs/hooks-custom.html)! Custom Hook cho phép chúng ta kết hợp các Hook được cung cấp bởi React với những gì bạn muốn, tái sử dụng những logic giữa các component.

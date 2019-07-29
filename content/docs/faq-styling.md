@@ -1,14 +1,14 @@
 ---
 id: faq-styling
-title: Styling and CSS
+title: Styling và CSS
 permalink: docs/faq-styling.html
 layout: docs
 category: FAQ
 ---
 
-### How do I add CSS classes to components? {#how-do-i-add-css-classes-to-components}
+### Làm thế nào tôi chèn class CSS cho các component? {#how-do-i-add-css-classes-to-components}
 
-Pass a string as the `className` prop:
+Truyền tên của class cho prop là `className`:
 
 ```jsx
 render() {
@@ -16,7 +16,7 @@ render() {
 }
 ```
 
-It is common for CSS classes to depend on the component props or state:
+Thông thường các class CSS phụ thuộc vào các component props hoặc state:
 
 ```jsx
 render() {
@@ -30,22 +30,22 @@ render() {
 
 >Tip
 >
->If you often find yourself writing code like this, [classnames](https://www.npmjs.com/package/classnames#usage-with-reactjs) package can simplify it.
+>Nếu bạn thường thấy mình viết code như thế , [classnames](https://www.npmjs.com/package/classnames#usage-with-reactjs) thư viện này sẽ làm đơn giản nó.
 
-### Can I use inline styles? {#can-i-use-inline-styles}
+### Tôi có dùng được inline styles? {#can-i-use-inline-styles}
 
-Yes, see the docs on styling [here](/docs/dom-elements.html#style).
+Có, xem tài liệu styling tại [đây](/docs/dom-elements.html#style).
 
-### Are inline styles bad? {#are-inline-styles-bad}
+### Viết inline styles xấu? {#are-inline-styles-bad}
 
-CSS classes are generally better for performance than inline styles.
+Các class CSS thường sẽ có hiệu suất tốt hơn là inline styles.
 
-### What is CSS-in-JS? {#what-is-css-in-js}
+### CSS-in-JS là gì? {#what-is-css-in-js}
 
-"CSS-in-JS" refers to a pattern where CSS is composed using JavaScript instead of defined in external files. Read a comparison of CSS-in-JS libraries [here](https://github.com/MicheleBertoli/css-in-js).
+"CSS-in-JS" đề cập đến một pattern trong đó CSS ​​được tạo bằng JavaScript thay vì được định nghĩa trong các tệp bên ngoài. Đọc một bài viết so sánh các thư viện CSS-in-JS [ở đây](https://github.com/MicheleBertoli/css-in-js).
 
-_Note that this functionality is not a part of React, but provided by third-party libraries._ React does not have an opinion about how styles are defined; if in doubt, a good starting point is to define your styles in a separate `*.css` file as usual and refer to them using [`className`](/docs/dom-elements.html#classname).
+_Lưu ý đây không phải là thư viện của React, nhưng được cung câp bởi thư viện thứ ba._ React không có ý kiến về cách xác định style; nếu nghi ngờ, bạn có thể định nghĩa style trong một tệp `*.css` riêng và tham chiếu tới chúng sử dụng [`className`](/docs/dom-elements.html#classname).
 
-### Can I do animations in React? {#can-i-do-animations-in-react}
+### Tôi có thể dùng animations trong React? {#can-i-do-animations-in-react}
 
-React can be used to power animations. See [React Transition Group](https://reactcommunity.org/react-transition-group/) and [React Motion](https://github.com/chenglou/react-motion), for example.
+React có thể sử dụng animations rất tốt. Xem ví dụ [React Transition Group](https://reactcommunity.org/react-transition-group/) và [React Motion](https://github.com/chenglou/react-motion).
