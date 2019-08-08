@@ -49,7 +49,7 @@ Trong ứng dụng dưới đây, bạn sẽ thấy chúng ta có 5 component, d
   4. **`ProductCategoryRow` (turquoise):** hiển thị trương mục theo *thể loại*
   5. **`ProductRow` (red):** hiển thị *sản phẩm* theo từng dòng
 
-Nhìn vào `ProductTable`, bạn sẽ thấy rằng tiêu đề cuả bảng (bao gồm những tiêu đề như "Name" và "Price") không được chia nhỏ thành các component. Đây là một tuỳ chọn mang tính cá nhân, đã có những cuộc thảo luận về vấn đề này. Trong ví dụ, chúng ta để nó như là một phần của `ProductTable` bởi vì nó là một phần khi hiển thị *bảng dữ liệu* thuộc về `ProductTable`. Tuy nhiên, nếu như phần tiêu đề trở nên phức tạp (ví dụ nếu chúng ta thêm chức năng sắp xếp phân loại), thì tất nhiên sẽ hơp lí hơn khi có component `ProductTableHeader` cho phần tiêu đề.
+Nếu nhìn vào `ProductTable`, bạn sẽ thấy rằng tiêu đề cuả bảng (bao gồm những tiêu đề như "Name" và "Price") không được chia nhỏ thành các component. Đây là một tuỳ chọn mang tính cá nhân, đã có những cuộc thảo luận về vấn đề này. Trong ví dụ, chúng ta để nó như là một phần của `ProductTable` bởi vì nó là một phần khi hiển thị *bảng dữ liệu* thuộc về `ProductTable`. Tuy nhiên, nếu như phần tiêu đề trở nên phức tạp (ví dụ nếu chúng ta thêm chức năng sắp xếp phân loại), thì tất nhiên sẽ hơp lí hơn khi có component `ProductTableHeader` cho phần tiêu đề.
 
 Bây giờ khi xác định các component trong bản mock, hãy sắp xếp nó theo một hệ thống phân chia cấp bậc. Những component cùng nằm bên trong một component trong bản mock thì nó nên là component con trong hệ thống cấp bậc:
 
@@ -76,7 +76,7 @@ Tham khảo [tài liệu React](/docs/) nếu như bạn cần trợ giúp để
 
 ### Bản tóm tắt ngắn gọn: Props và State {#a-brief-interlude-props-vs-state}
 
-Có hai kiểu "mô hình" dữ liệu trong React: props và state. Hãy chắc chắn rằng bạn hiểu sự khác biệt giữa chúng, tham khảo thêm tại [tài liệu chính thức về React](/docs/interactivity-and-dynamic-uis.html).
+Có 2 kiểu "mô hình" dữ liệu trong React: props và state. Hiểu ra sự khác biệt giữa prop và state là điều rất quan trọng; Tham khảo [Những tài liệu từ React](/docs/state-and-lifecycle.html) nếu bạn thực sự không hiểu ra sự khác biệt đó. Xem thêm phần [FAQ: Sự khác nhau giữa prop và state là gì?](/docs/faq-state.html#what-is-the-difference-between-state-and-props)
 
 ## Bước 3: Xác định các trạng thái hoàn chỉnh nhỏ nhất của giao diện người dùng {#step-3-identify-the-minimal-but-complete-representation-of-ui-state}
 
