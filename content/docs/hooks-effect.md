@@ -131,6 +131,7 @@ function Example() {
   useEffect(() => {
     document.title = `You clicked ${count} times`;
   });
+}
 ```
 
 Chúng ta khai báo state `count`, và sau đó nói với React chúng ta cần sử dụng. Chúng ta truyền cho `useEffect` Hook một hàm. Hàm truyền vào này *là* effect. Bên trong effect, chúng ta đặt document title sử dụng API `document.title`. Chúng ta có thể đọc giá trị sau cùng của `count` bên trong effect bởi vì nó nằm chung scope với function. Khi React render component, nó sẽ nhớ lại effect chúng ta đã gửi, và chạy effect sau khi cập nhập DOM. Nó xảy ra ở tất cả các lần render, kể cả lần đầu.
