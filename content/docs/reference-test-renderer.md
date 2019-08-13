@@ -10,16 +10,16 @@ category: Reference
 
 ```javascript
 import TestRenderer from 'react-test-renderer'; // ES6
-const TestRenderer = require('react-test-renderer'); // ES5 with npm
+const TestRenderer = require('react-test-renderer'); // ES5 với npm
 ```
 
-## Overview {#overview}
+## Sơ lược {#overview}
 
-This package provides a React renderer that can be used to render React components to pure JavaScript objects, without depending on the DOM or a native mobile environment.
+Gói này cung cấp một React Renderer để sử dụng cho việc render những React component thành những Javascript object, mà không cần dựa trên DOM hay một môi trường native mobile nào.
 
-Essentially, this package makes it easy to grab a snapshot of the platform view hierarchy (similar to a DOM tree) rendered by a React DOM or React Native component without using a browser or [jsdom](https://github.com/tmpvar/jsdom).
+Về bản chất, gói này giúp cho việc chụp một bức tranh toàn cảnh của cấu trúc view (tương tự như cây DOM) được render bởi một component React DOM hay React Native mà không cần tới một trình duyệt hay [jsdom](https://github.com/tmpvar/jsdom).
 
-Example:
+Ví dụ:
 
 ```javascript
 import TestRenderer from 'react-test-renderer';
@@ -38,9 +38,9 @@ console.log(testRenderer.toJSON());
 //   children: [ 'Facebook' ] }
 ```
 
-You can use Jest's snapshot testing feature to automatically save a copy of the JSON tree to a file and check in your tests that it hasn't changed: [Learn more about it](https://facebook.github.io/jest/blog/2016/07/27/jest-14.html).
+Bạn có thể sử dụng chức năng chụp snapshot của Jest để tự động lưu một bản sao của cây JSON vào 1 tập tin và kiểm tra trong những bản thử của bạn rằng nó không thay đổi: [Xem thêm về nó](https://facebook.github.io/jest/blog/2016/07/27/jest-14.html).
 
-You can also traverse the output to find specific nodes and make assertions about them.
+Bạn cũng có thể đi qua đầu ra để tìm những node nhất định và kiểm tra độ chính xác của chúng.
 
 ```javascript
 import TestRenderer from 'react-test-renderer';
@@ -94,7 +94,7 @@ expect(testInstance.findByProps({className: "sub"}).children).toEqual(['Sub']);
 * [`testInstance.parent`](#testinstanceparent)
 * [`testInstance.children`](#testinstancechildren)
 
-## Reference {#reference}
+## Tài liệu tham khảo {#reference}
 
 ### `TestRenderer.create()` {#testrenderercreate}
 
@@ -102,7 +102,7 @@ expect(testInstance.findByProps({className: "sub"}).children).toEqual(['Sub']);
 TestRenderer.create(element, options);
 ```
 
-Create a `TestRenderer` instance with the passed React element. It doesn't use the real DOM, but it still fully renders the component tree into memory so you can make assertions about it. The returned instance has the following methods and properties.
+Tạo một instance `TestRenderer` với một element React trong tham số. No kh6ong sử dụng DOM thật, nhưng nó vẫn render cây component một cách đầy đủ vào trong bộ nhớ để bạn có thể kiểm định. Instance được trả về có những hàm và thuộc tính sau đây.
 
 ### `testRenderer.toJSON()` {#testrenderertojson}
 
@@ -110,7 +110,7 @@ Create a `TestRenderer` instance with the passed React element. It doesn't use t
 testRenderer.toJSON()
 ```
 
-Return an object representing the rendered tree. This tree only contains the platform-specific nodes like `<div>` or `<View>` and their props, but doesn't contain any user-written components. This is handy for [snapshot testing](https://facebook.github.io/jest/docs/en/snapshot-testing.html#snapshot-testing-with-jest).
+Trả về một object thể hiện cậy được render. Cây này chỉ bao gồm các node riêng cho các nền tảng như `<div>` hay `<View>` và thuộc tính (prop) của chúng, nhưng không bao gồm bất kỳ component do người dùng viết. Việc này tiện cho [thử snapshot](https://facebook.github.io/jest/docs/en/snapshot-testing.html#snapshot-testing-with-jest).
 
 ### `testRenderer.toTree()` {#testrenderertotree}
 
@@ -118,7 +118,7 @@ Return an object representing the rendered tree. This tree only contains the pla
 testRenderer.toTree()
 ```
 
-Return an object representing the rendered tree. Unlike `toJSON()`, the representation is more detailed than the one provided by `toJSON()`, and includes the user-written components. You probably don't need this method unless you're writing your own assertion library on top of the test renderer.
+Trả về một object thể hiện cậy được render. Không như `toJSON()`, sự thể hiện này chi tiết hơn kết quả được cung cấp bởi `toJSON()`, và nó bao gồm cả những component do người dùng viết. Bạn cỏ thể không cần hàm này trừ khi bạn đang viết thư viện kiểm định trên test renderer.
 
 ### `testRenderer.update()` {#testrendererupdate}
 
@@ -126,7 +126,7 @@ Return an object representing the rendered tree. Unlike `toJSON()`, the represen
 testRenderer.update(element)
 ```
 
-Re-render the in-memory tree with a new root element. This simulates a React update at the root. If the new element has the same type and key as the previous element, the tree will be updated; otherwise, it will re-mount a new tree.
+Render lại cây trong bộ nhớ với một element gốc mới. Việc này giả lập một sự cập nhật của React tại gốc. Nếu element mới có cùng loại (type) và key (khoá) với element trước, cây sẽ được cập nhật; nếu không, nó sẽ mount lại một cây mới.
 
 ### `testRenderer.unmount()` {#testrendererunmount}
 
@@ -134,7 +134,7 @@ Re-render the in-memory tree with a new root element. This simulates a React upd
 testRenderer.unmount()
 ```
 
-Unmount the in-memory tree, triggering the appropriate lifecycle events.
+Gỡ (unmount) cây trong bộ nhớ, phát ra các sự kiện vòng đời (lifecycle events) tương ứng.
 
 ### `testRenderer.getInstance()` {#testrenderergetinstance}
 
@@ -142,7 +142,7 @@ Unmount the in-memory tree, triggering the appropriate lifecycle events.
 testRenderer.getInstance()
 ```
 
-Return the instance corresponding to the root element, if available. This will not work if the root element is a function component because they don't have instances.
+Trả về một instance tương ứng với element gốc, nếu có. Việc này sẽ không hoạt động nếu element gốc là một function component vì nó không có intance.
 
 ### `testRenderer.root` {#testrendererroot}
 
@@ -150,7 +150,7 @@ Return the instance corresponding to the root element, if available. This will n
 testRenderer.root
 ```
 
-Returns the root "test instance" object that is useful for making assertions about specific nodes in the tree. You can use it to find other "test instances" deeper below.
+Trả về object "test instance" gốc hữu dụng cho việc kiểm định những node nhất định trong cây. Bạn có thể dùng nó để tìm những test instance" khác sâu bên dưới.
 
 ### `testInstance.find()` {#testinstancefind}
 
@@ -158,7 +158,7 @@ Returns the root "test instance" object that is useful for making assertions abo
 testInstance.find(test)
 ```
 
-Find a single descendant test instance for which `test(testInstance)` returns `true`. If `test(testInstance)` does not return `true` for exactly one test instance, it will throw an error.
+Tìm một test instance ngay bên dưới khi `test(testInstance)` trả về `true`. Nếu `test(testInstance)` không trả về `true` cho đúng một test instance, một lỗi sẽ được ném ra.
 
 ### `testInstance.findByType()` {#testinstancefindbytype}
 
@@ -166,7 +166,7 @@ Find a single descendant test instance for which `test(testInstance)` returns `t
 testInstance.findByType(type)
 ```
 
-Find a single descendant test instance with the provided `type`. If there is not exactly one test instance with the provided `type`, it will throw an error.
+Tìm một test instance ngay bên dưới với `type` được cung cấp. Nếu không có chính xác một test instance với `type` được cung cấp, nó sẽ ném ra một lỗi.
 
 ### `testInstance.findByProps()` {#testinstancefindbyprops}
 
@@ -174,7 +174,7 @@ Find a single descendant test instance with the provided `type`. If there is not
 testInstance.findByProps(props)
 ```
 
-Find a single descendant test instance with the provided `props`. If there is not exactly one test instance with the provided `props`, it will throw an error.
+Tìm một test instance ngay bên dưới với `props` được cung cấp. Nếu không có chính xác một test instance với `props` được cung cấp, nó sẽ ném ra một lỗi.
 
 ### `testInstance.findAll()` {#testinstancefindall}
 
@@ -182,7 +182,7 @@ Find a single descendant test instance with the provided `props`. If there is no
 testInstance.findAll(test)
 ```
 
-Find all descendant test instances for which `test(testInstance)` returns `true`.
+Tìm tất cả test instance ngay bên dưới khi `test(testInstance)` trả về `true`.
 
 ### `testInstance.findAllByType()` {#testinstancefindallbytype}
 
@@ -190,7 +190,7 @@ Find all descendant test instances for which `test(testInstance)` returns `true`
 testInstance.findAllByType(type)
 ```
 
-Find all descendant test instances with the provided `type`.
+Tìm tất cả test instance với `type` được cung cấp.
 
 ### `testInstance.findAllByProps()` {#testinstancefindallbyprops}
 
@@ -198,7 +198,7 @@ Find all descendant test instances with the provided `type`.
 testInstance.findAllByProps(props)
 ```
 
-Find all descendant test instances with the provided `props`.
+Tìm tất cả test instance với `props` được cung cấp.
 
 ### `testInstance.instance` {#testinstanceinstance}
 
@@ -206,7 +206,7 @@ Find all descendant test instances with the provided `props`.
 testInstance.instance
 ```
 
-The component instance corresponding to this test instance. It is only available for class components, as function components don't have instances. It matches the `this` value inside the given component.
+Component instance tương ứng với test instance này. Nó chỉ khả dụng cho những class component, vì những function component không có instance. Nó tương đương với giá trị của `this` trong component.
 
 ### `testInstance.type` {#testinstancetype}
 
@@ -214,7 +214,7 @@ The component instance corresponding to this test instance. It is only available
 testInstance.type
 ```
 
-The component type corresponding to this test instance. For example, a `<Button />` component has a type of `Button`.
+Loại compoennt tương ứng với test instance này. Vi dụ, một component `<Button />` có loại là `Button`.
 
 ### `testInstance.props` {#testinstanceprops}
 
@@ -222,7 +222,7 @@ The component type corresponding to this test instance. For example, a `<Button 
 testInstance.props
 ```
 
-The props corresponding to this test instance. For example, a `<Button size="small" />` component has `{size: 'small'}` as props.
+Thuộc tính (props) tương ứng với test instance này. Ví dụ, một component `<Button size="small" />` thì có props là `{size: 'small'}`
 
 ### `testInstance.parent` {#testinstanceparent}
 
@@ -230,7 +230,7 @@ The props corresponding to this test instance. For example, a `<Button size="sma
 testInstance.parent
 ```
 
-The parent test instance of this test instance.
+Test instance cha của test instance này.
 
 ### `testInstance.children` {#testinstancechildren}
 
@@ -238,13 +238,13 @@ The parent test instance of this test instance.
 testInstance.children
 ```
 
-The children test instances of this test instance.
+Những test instance con của test instance này.
 
-## Ideas {#ideas}
+## Ý tưởng {#ideas}
 
-You can pass `createNodeMock` function to `TestRenderer.create` as the option, which allows for custom mock refs.
-`createNodeMock` accepts the current element and should return a mock ref object.
-This is useful when you test a component that relies on refs.
+Bạn có thể truyền hàm `createNodeMock` vào `TestRenderer.create` như một tuỳ chọn, nó cho phép tuỳ chỉnh mock refs.
+`createNodeMock` nhận vào element hiện tại và sẽ trả về mốt object mock ref.
+Việc này hữu dụng cho việc thử một component phụ thuộc vào refs.
 
 ```javascript
 import TestRenderer from 'react-test-renderer';

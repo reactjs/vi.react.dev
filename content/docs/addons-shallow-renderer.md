@@ -15,22 +15,22 @@ var ShallowRenderer = require('react-test-renderer/shallow'); // ES5 with npm
 
 ## Overview {#overview}
 
-When writing unit tests for React, shallow rendering can be helpful. Shallow rendering lets you render a component "one level deep" and assert facts about what its render method returns, without worrying about the behavior of child components, which are not instantiated or rendered. This does not require a DOM.
+Khi viết Unit Test cho React, render cạn có thể là cách hữu dụng. Việc render cạn cho phép bạn render một component "sâu một lớp" và xác nhận được sự trung thực của kết quả trả về từ hàm render, mà không cần quan tâm về cách hoạt động của những component con, khi mà chúng không được khởi tạo và render. Việc này không cần dùng DOM.
 
-For example, if you have the following component:
+Ví dụ, nếu bạn cần render component sau:
 
 ```javascript
 function MyComponent() {
   return (
     <div>
-      <span className="heading">Title</span>
+      <span className="heading">Tiêu đề</span>
       <Subcomponent foo="bar" />
     </div>
   );
 }
 ```
 
-Then you can assert:
+Rồi bạn có thể xác nhận rằng:
 
 ```javascript
 import ShallowRenderer from 'react-test-renderer/shallow';
@@ -47,22 +47,22 @@ expect(result.props.children).toEqual([
 ]);
 ```
 
-Shallow testing currently has some limitations, namely not supporting refs.
+Kiểm tra cạn hiện tại vẫn có một vài hạn chế, có thể kể tên là việc chưa hỗ trợ refs.
 
-> Note:
+> Lưu ý:
 >
-> We also recommend checking out Enzyme's [Shallow Rendering API](https://airbnb.io/enzyme/docs/api/shallow.html). It provides a nicer higher-level API over the same functionality.
+> Chúng tôi cũng khuyến khích bạn xem thêm về [API Render cạn](https://airbnb.io/enzyme/docs/api/shallow.html) của Enzyme. Nó cung cấp API cấp cao hơn và tốt hơn cho cùng chức năng.
 
-## Reference {#reference}
+## Tài liệu tham khảo {#reference}
 
 ### `shallowRenderer.render()` {#shallowrendererrender}
 
-You can think of the shallowRenderer as a "place" to render the component you're testing, and from which you can extract the component's output.
+Bạn có thể tưởng tượng shallowRenderer như là một "nơi" để render component bạn muốn kiểm tra, và từ đó bạn có thể tách đầu ra của component đó.
 
-`shallowRenderer.render()` is similar to [`ReactDOM.render()`](/docs/react-dom.html#render) but it doesn't require DOM and only renders a single level deep. This means you can test components isolated from how their children are implemented.
+`shallowRenderer.render()` gần giống với [`ReactDOM.render()`](/docs/react-dom.html#render), nhưng nó không cần dùng DOM và chỉ render sâu một lớp. Việc này nghĩa là bạn có thể kiểm tra những component mà không phụ thuộc vào cách những component con được triển khai.
 
 ### `shallowRenderer.getRenderOutput()` {#shallowrenderergetrenderoutput}
 
-After `shallowRenderer.render()` has been called, you can use `shallowRenderer.getRenderOutput()` to get the shallowly rendered output.
+Sau khi gọi hàm `shallowRenderer.render()`, bạn có thể dùng `shallowRenderer.getRenderOutput()` để lấy đầu ra của việc render cạn.
 
-You can then begin to assert facts about the output.
+Rồi bạn có thể bắt đầu việc xác nhận sự trung thực của đầu ra.
