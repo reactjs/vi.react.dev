@@ -106,7 +106,9 @@ Thông thường, render prop và higher-order component chỉ render 1 componen
 
 Bạn có thể tiếp tục sử dụng  chính xác các API đã và đang sử dụng; nó sẽ làm việc bình thường.
 
-Trong tương lai, các phiên bản mới hơn của các thư viện này có thể có thêm các export như `useRedux()` và `useRouter()`, để bạn có thể sử dụng các tính năng trước đây mà không cùng lồng các component lại với nhau.
+React Redux từ phiên bản v7.1.0 [hỗ trợ Hooks API](https://react-redux.js.org/api/hooks) và expose hooks `useDispatch` hoặc `useSelector`.
+
+Các thư viện như React Router có thể hỗ trợ hooks trong tương lai.
 
 ### Hook có làm việc với kiểu static không? {#do-hooks-work-with-static-typing}
 
@@ -118,7 +120,11 @@ Quan trọng hơn cả, custom Hook cho bạn khả năng ràng buộc React API
 
 Từ cái nhìn của React, 1 component sử dụng Hook chỉ là 1 component bình thường, nếu cách bạn đang test không phụ thuộc vào các phần sâu bên trong của React, test các component có Hook sẽ không khác gì với test các component bình thường.
 
-Lấy ví dụ, chúng ta có counter component:
+>Ghi chú
+>
+>[Công thức cho testing](/docs/testing-recipes.html) bao gồm nhiều ví dụ bạn có thể sao chép và sử dụng lại.
+
+Như ví dụ bên dưới, chúng ta có component counter:
 
 ```js
 function Example() {
@@ -180,7 +186,9 @@ Gọi `act()` đồng thời sẽ flush các effect bên trong nó
 
 Nếu cần test một custom Hook, bạn có thể làm bằng cách tạo một component trong test, và sử dụng Hook từ đó. Sau đó bạn có thể test component bạn viết
 
-Để giảm số lượng boilerplate phải viết, chúng tôi đề xuất sử dụng [`react-testing-library`](https://git.io/react-testing-library), được thiết kế để khuyến khích viết test bằng cách dùng component như là người dùng sử dụng.
+Để giảm tải cho boilerplate, chúng tôi khuyến khích dùng [Thưc viện cho React Testing](https://testing-library.com/react) thư viện này được thiết kế để khuyến khích việc viết những phần test dùng cho các component của bạn giống như là người dùng làm.
+
+Xem thêm thông tin tại đây [Testing Recipes](/docs/testing-recipes.html).
 
 ### Thực sự thì các luật lệ mà lint đang bắt buộc là gì](https://www.npmjs.com/package/eslint-plugin-react-hooks)? {#what-exactly-do-the-lint-rules-enforce}
 
@@ -702,7 +710,7 @@ function Counter() {
 Bây giờ, hàm callback của `setInterval` thực thi một lần mỗi giây, nhưng mỗi lần như vậy bên trong hàm này sẽ gọi đến `setCount` có thể sử dụng giá trị mới nhất cho `count` (ở đây mình gọi nó là `c`.)
 Trong các tình huống phức tạp hơn (ví dụ như 1 state phụ thuộc vào một state khác), hãy chuyển logic cập nhập state ra khỏi effect với [`useReducer` Hook](/docs/hooks-reference.html#usereducer). [Bài này](https://adamrackis.dev/state-and-use-reducer/) cung cấp 1 ví dụ để chúng ta làm điều đó. **Theo định nghĩa hàm `dispatch` từ `useReducer` luôn ổn định** - thậm chí là khi hàm reducer được định nghĩa bên trong component và đọc giá trị của prop.
 
-Như là cách cuối cùng, nếu bạn muốn cái gì đó giống với `this` trong class, bạn có thể [sử dụng  ref](/docs/hooks-faq.html#is-there-something-like-instance-variables) để giữ 1 biến mutable. Sau đó bạn có thể đọc và ghi xuống nó. Lấy ví dụ: 
+Như là cách cuối cùng, nếu bạn muốn cái gì đó giống với `this` trong class, bạn có thể [sử dụng  ref](/docs/hooks-faq.html#is-there-something-like-instance-variables) để giữ 1 biến mutable. Sau đó bạn có thể đọc và ghi xuống nó. Lấy ví dụ:
 
 ```js{2-6,10-11,16}
 function Example(props) {
@@ -984,6 +992,3 @@ Hook tổng hợp ý tưởng từ nhiều nguồn khác nhau:
 * [Algebraic effects](https://github.com/ocamllabs/ocaml-effects-tutorial#2-effectful-computations-in-a-pure-setting) trong Multicore OCaml.
 
 [Sebastian Markbåge](https://github.com/sebmarkbage) nghĩ ra thiết kế đầu tiên cho Hook, sau đó được chỉnh sửa bởi [Andrew Clark](https://github.com/acdlite), [Sophie Alpert](https://github.com/sophiebits), [Dominic Gannaway](https://github.com/trueadm), và các thành viên khác trong React team.
-
-
-

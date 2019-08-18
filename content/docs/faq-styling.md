@@ -48,4 +48,4 @@ _Lưu ý đây không phải là thư viện của React, nhưng được cung c
 
 ### Tôi có thể dùng animations trong React? {#can-i-do-animations-in-react}
 
-React có thể sử dụng animations rất tốt. Xem ví dụ [React Transition Group](https://reactcommunity.org/react-transition-group/) và [React Motion](https://github.com/chenglou/react-motion).
+React có thể sử dụng animations rất tốt. Xem ví dụ [React Transition Group](https://reactcommunity.org/react-transition-group/) và [React Motion](https://github.com/chenglou/react-motion) hoặc [React Spring](https://github.com/react-spring/react-spring).
