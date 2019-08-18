@@ -7,7 +7,7 @@ permalink: docs/code-splitting.html
 ## Đóng Gói (Bundling) {#bundling}
 
 Hầu hết files trong các ứng dụng React sẽ được "đóng gói" bằng cách
-sử dụng những công cụ như [Webpack](https://webpack.js.org/) hay [Browserify](http://browserify.org/).
+sử dụng những công cụ như [Webpack](https://webpack.js.org/), [Rollup](https://rollupjs.org/) hay [Browserify](http://browserify.org/).
 Đóng gói là quá trình xử lý những files đã được import và kết hợp chúng thành một file duy nhất: File đóng gói này
 sau đó có thể được trang web tải lên chỉ một lần.
 
@@ -107,9 +107,7 @@ bị biến đổi. Bạn sẽ cần [babel-plugin-syntax-dynamic-import](https:
 
 > Chú ý:
 >
-> `React.lazy` và Suspense chưa có sẵn cho server-side rendering. Nếu bạn muốn phân chia code ở những ứng dụng render tại server,
-chúng tôi xin giới thiệu [Loadable Components](https://github.com/smooth-code/loadable-components). Nó có [hướng dẫn phân chia code với
-server-side rendering](https://github.com/smooth-code/loadable-components/blob/master/packages/server/README.md).
+> `React.lazy` và Suspense chưa có sẵn cho server-side rendering. Nếu bạn muốn phân chia code ở những ứng dụng render tại server, chúng tôi xin giới thiệu [Loadable Components](https://github.com/smooth-code/loadable-components). Nó có [hướng dẫn phân chia code với server-side rendering](https://github.com/smooth-code/loadable-components/blob/master/packages/server/README.md).
 
 Chức năng `React.lazy` cho phép bạn render một import động như một component bình thường.
 

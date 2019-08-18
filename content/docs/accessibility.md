@@ -247,7 +247,7 @@ Hãy chắc chắn rằng tất cả chức năng được sử dụng thông qu
 
 ```javascript{12-14,26-30}
 class OuterClickExample extends React.Component {
-constructor(props) {
+  constructor(props) {
     super(props);
 
     this.state = { isOpen: false };
@@ -281,13 +281,13 @@ constructor(props) {
     return (
       <div ref={this.toggleContainer}>
         <button onClick={this.onClickHandler}>Select an option</button>
-        {this.state.isOpen ? (
+        {this.state.isOpen && (
           <ul>
             <li>Option 1</li>
             <li>Option 2</li>
             <li>Option 3</li>
           </ul>
-        ) : null}
+        )}
       </div>
     );
   }
@@ -347,13 +347,13 @@ class BlurExample extends React.Component {
                 aria-expanded={this.state.isOpen}>
           Select an option
         </button>
-        {this.state.isOpen ? (
+        {this.state.isOpen && (
           <ul>
             <li>Option 1</li>
             <li>Option 2</li>
             <li>Option 3</li>
           </ul>
-        ) : null}
+        )}
       </div>
     );
   }
@@ -465,7 +465,7 @@ Bạn cũng có thể sử dụng [react-axe](https://github.com/dylanb/react-ax
 Ở một số trình duyệt, chúng ta có thể dễ dàng xem thông tin về accessibility cho từng element trong accessibility tree:
 
 - [Việc sử dụng Accessibility Inspector trong Firefox](https://developer.mozilla.org/en-US/docs/Tools/Accessibility_inspector)
-- [Kích hoạt Accessibility Inspector trong Chrome](https://gist.github.com/marcysutton/0a42f815878c159517a55e6652e3b23a)
+- [Việc sử dụng Accessibility Inspector trong Chrome](https://developers.google.com/web/tools/chrome-devtools/accessibility/reference#pane)
 - [Việc sử dụng Accessibility Inspector trong OS X Safari](https://developer.apple.com/library/content/documentation/Accessibility/Conceptual/AccessibilityMacOSX/OSXAXTestingApps.html)
 
 ### Screen readers {#screen-readers}
@@ -474,7 +474,7 @@ Testing với một screen reader nên được xem như một phần của quá
 
 Vui lòng lưu ý rằng sự kết hợp browser / screen reader là quan trọng. Bạn nên test ứng dụng của mình bằng trình duyệt phù hợp nhất cho screen reader của bạn.
 
-### CScreen Readers thông dụng {#commonly-used-screen-readers}
+### Các Screen Readers thông dụng {#commonly-used-screen-readers}
 
 #### NVDA trong Firefox {#nvda-in-firefox}
 

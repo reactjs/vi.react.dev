@@ -38,7 +38,7 @@ console.log(testRenderer.toJSON());
 //   children: [ 'Facebook' ] }
 ```
 
-Bạn có thể sử dụng chức năng chụp snapshot của Jest để tự động lưu một bản sao của cây JSON vào 1 tập tin và kiểm tra trong những bản thử của bạn rằng nó không thay đổi: [Xem thêm về nó](https://facebook.github.io/jest/blog/2016/07/27/jest-14.html).
+Bạn có thể sử dụng chức năng chụp snapshot của Jest để tự động lưu một bản sao của cây JSON vào 1 tập tin và kiểm tra trong những bản thử của bạn rằng nó không thay đổi: [Xem thêm về nó](https://jestjs.io/docs/en/snapshot-testing).
 
 Bạn cũng có thể đi qua đầu ra để tìm những node nhất định và kiểm tra độ chính xác của chúng.
 
@@ -70,6 +70,7 @@ expect(testInstance.findByProps({className: "sub"}).children).toEqual(['Sub']);
 ### TestRenderer {#testrenderer}
 
 * [`TestRenderer.create()`](#testrenderercreate)
+* [`TestRenderer.act()`](#testrendereract)
 
 ### TestRenderer instance {#testrenderer-instance}
 
@@ -103,6 +104,36 @@ TestRenderer.create(element, options);
 ```
 
 Tạo một instance `TestRenderer` với một element React trong tham số. No kh6ong sử dụng DOM thật, nhưng nó vẫn render cây component một cách đầy đủ vào trong bộ nhớ để bạn có thể kiểm định. Instance được trả về có những hàm và thuộc tính sau đây.
+
+### `TestRenderer.act()` {#testrendereract}
+
+```javascript
+TestRenderer.act(callback);
+```
+
+Similar to the [`act()` helper from `react-dom/test-utils`](/docs/test-utils.html#act), `TestRenderer.act` prepares a component for assertions. Use this version of `act()` to wrap calls to `TestRenderer.create` and `testRenderer.update`.
+
+```javascript
+import {create, act} from 'react-test-renderer';
+import App from './app.js'; // The component being tested
+
+// render the component
+let root; 
+act(() => {
+  root = create(<App value={1}/>)
+});
+
+// make assertions on root 
+expect(root.toJSON()).toMatchSnapshot();
+
+// update with some different props
+act(() => {
+  root = root.update(<App value={2}/>);
+})
+
+// make assertions on root 
+expect(root.toJSON()).toMatchSnapshot();
+```
 
 ### `testRenderer.toJSON()` {#testrenderertojson}
 
