@@ -483,7 +483,7 @@ Trong tương lai, tham số thứ 2 sẽ được tự động thêm vào trong
 
 Xin chúc mừng! Trang này không hề ngắn, nhưng bạn đã đọc được đến đây. Hy vọng các thắc mắc của bạn về effect đã được phúc đáp. Bạn đã học được State Hook và Effect Hook, và có *rất* nhiều thứ bạn có thể làm khi sử dụng kết hợp chúng.  Nó gần như giải quyết các vấn đề mà chỉ có class mới làm được -- còn nếu không bạn có thể tìm thấy [các Hook mở rộng](/docs/hooks-reference.html).
 
-Chúng ta đã trình bài động lực tạo ra Hook [ở đây](/docs/hooks-intro.html#motivation). Chúng ta cũng thấy được cách  effect cleanup và tránh trùng lặp trong `componentDidUpdate` và `componentWillUnmount`, mang những đoạn code có liên quan lại gần nhau hơn, và giúp chúng ta tránh bug. Chúng ta cũng thấy được cách chúng ta tách effect theo mục đích, cái mà chúng ta không làm được với class.
+Chúng ta đã trình bày động lực tạo ra Hook [ở đây](/docs/hooks-intro.html#motivation). Chúng ta cũng thấy được cách  effect cleanup và tránh trùng lặp trong `componentDidUpdate` và `componentWillUnmount`, mang những đoạn code có liên quan lại gần nhau hơn, và giúp chúng ta tránh bug. Chúng ta cũng thấy được cách chúng ta tách effect theo mục đích, cái mà chúng ta không làm được với class.
 
 Đến đây, bạn có thể thắc mắc Hook làm việc như thế nào. Làm cách nào `useState` lấy được đúng giá trị giữa các lần render khác nhau? Làm cách nào React "match" được effect trước và lần đang update? **Ở trang tiếp theo bạn sẽ học được [Quy luật của Hook](/docs/hooks-rules.html) -- mấu chốt làm việc của Hook.**
 
