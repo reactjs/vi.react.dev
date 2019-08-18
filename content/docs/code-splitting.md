@@ -6,19 +6,10 @@ permalink: docs/code-splitting.html
 
 ## Đóng Gói (Bundling) {#bundling}
 
-<<<<<<< HEAD
 Hầu hết files trong các ứng dụng React sẽ được "đóng gói" bằng cách
-sử dụng những công cụ như [Webpack](https://webpack.js.org/) hay [Browserify](http://browserify.org/).
+sử dụng những công cụ như [Webpack](https://webpack.js.org/), [Rollup](https://rollupjs.org/) hay [Browserify](http://browserify.org/).
 Đóng gói là quá trình xử lý những files đã được import và kết hợp chúng thành một file duy nhất: File đóng gói này
 sau đó có thể được trang web tải lên chỉ một lần.
-=======
-Most React apps will have their files "bundled" using tools like
-[Webpack](https://webpack.js.org/), [Rollup](https://rollupjs.org/) or 
-[Browserify](http://browserify.org/).
-Bundling is the process of following imported files and merging them into a
-single file: a "bundle". This bundle can then be included on a webpage to load
-an entire app at once.
->>>>>>> ddbd064d41d719f9ec0c2f6a4227f797a5828310
 
 #### Ví Dụ {#example}
 
