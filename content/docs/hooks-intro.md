@@ -31,7 +31,12 @@ Tính năng mới `useState` này là "Hook" đầu tiên chúng ta học, ví d
 
 >Chú ý
 >
+<<<<<<< HEAD
 >React 16.8.0 là phiên bản đầu tiên hỗ trợ Hook. Khi nâng cấp, đừng quên cập nhật tất cả các package bao gồm React DOM. React Native sẽ hỗ trợ Hook trong phiên bản ổn định tiếp theo.
+=======
+>React 16.8.0 is the first release to support Hooks. When upgrading, don't forget to update all packages, including React DOM.
+>React Native supports Hooks since [the 0.59 release of React Native](https://facebook.github.io/react-native/blog/2019/03/12/releasing-react-native-059).
+>>>>>>> 519a3aec91a426b0c8c9ae59e292d064df48c66a
 
 ## Video Giới Thiệu {#video-introduction}
 

@@ -64,13 +64,18 @@ Trang này sẽ trả lời các câu hỏi thường gặp với [Hook](/docs/h
 Kể từ phiên bản 16.8.0, React đã bổ sung một React Hook hoàn chỉnh để sử dụng cho:
 
 * React DOM
+* React Native
 * React DOM Server
 * React Test Renderer
 * React Shallow Renderer
 
 Lưu ý là **để sử dụng Hook, tất cả package React phải từ phiên bản 16.8.0 trở lên**. Hook sẽ không chạy nếu bạn quên update, ví dụ như React DOM.
 
+<<<<<<< HEAD
 React Native hỗ trợ Hook từ phiên bản 0.59 trở lên.
+=======
+[React Native 0.59](https://facebook.github.io/react-native/blog/2019/03/12/releasing-react-native-059) and above support Hooks.
+>>>>>>> 519a3aec91a426b0c8c9ae59e292d064df48c66a
 
 ### Tôi có cần viết lại toàn bộ class component? {#do-i-need-to-rewrite-all-my-class-components}
 

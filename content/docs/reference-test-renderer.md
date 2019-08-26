@@ -103,7 +103,11 @@ expect(testInstance.findByProps({className: "sub"}).children).toEqual(['Sub']);
 TestRenderer.create(element, options);
 ```
 
+<<<<<<< HEAD
 Tạo một instance `TestRenderer` với một element React trong tham số. No kh6ong sử dụng DOM thật, nhưng nó vẫn render cây component một cách đầy đủ vào trong bộ nhớ để bạn có thể kiểm định. Instance được trả về có những hàm và thuộc tính sau đây.
+=======
+Create a `TestRenderer` instance with the passed React element. It doesn't use the real DOM, but it still fully renders the component tree into memory so you can make assertions about it. Returns a [TestRenderer instance](#testrenderer-instance).
+>>>>>>> 519a3aec91a426b0c8c9ae59e292d064df48c66a
 
 ### `TestRenderer.act()` {#testrendereract}
 
