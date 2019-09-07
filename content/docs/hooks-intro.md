@@ -30,13 +30,8 @@ Tính năng mới `useState` này là "Hook" đầu tiên chúng ta học, ví d
 **Bạn có thể bắt đầu học Hook [ở trang tiếp theo](/docs/hooks-overview.html).** Ở đây, giải thích tại sao chúng tôi thêm Hook vào React và nó giúp bạn giải quyết những vấn đề gì.
 
 >Chú ý
->
-<<<<<<< HEAD
->React 16.8.0 là phiên bản đầu tiên hỗ trợ Hook. Khi nâng cấp, đừng quên cập nhật tất cả các package bao gồm React DOM. React Native sẽ hỗ trợ Hook trong phiên bản ổn định tiếp theo.
-=======
->React 16.8.0 is the first release to support Hooks. When upgrading, don't forget to update all packages, including React DOM.
->React Native supports Hooks since [the 0.59 release of React Native](https://facebook.github.io/react-native/blog/2019/03/12/releasing-react-native-059).
->>>>>>> 519a3aec91a426b0c8c9ae59e292d064df48c66a
+>React 16.8.0 là phiên bản đầu tiên hỗ trợ Hook. Khi nâng cấp, đừng quên cập nhật tất cả các package bao gồm React DOM.
+>React Native hỗ trợ Hooks từ [phiên bản 0.59 của React Native](https://facebook.github.io/react-native/blog/2019/03/12/releasing-react-native-059).
 
 ## Video Giới Thiệu {#video-introduction}
 
