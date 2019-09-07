@@ -71,11 +71,7 @@ Kể từ phiên bản 16.8.0, React đã bổ sung một React Hook hoàn chỉ
 
 Lưu ý là **để sử dụng Hook, tất cả package React phải từ phiên bản 16.8.0 trở lên**. Hook sẽ không chạy nếu bạn quên update, ví dụ như React DOM.
 
-<<<<<<< HEAD
-React Native hỗ trợ Hook từ phiên bản 0.59 trở lên.
-=======
-[React Native 0.59](https://facebook.github.io/react-native/blog/2019/03/12/releasing-react-native-059) and above support Hooks.
->>>>>>> 941f54180ef5e652221f54ef6d1f6f2e9e063597
+[React Native phiên bản 0.59](https://facebook.github.io/react-native/blog/2019/03/12/releasing-react-native-059) trở lên hỗ trợ Hooks.
 
 ### Tôi có cần viết lại toàn bộ class component? {#do-i-need-to-rewrite-all-my-class-components}
 

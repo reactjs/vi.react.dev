@@ -103,11 +103,7 @@ expect(testInstance.findByProps({className: "sub"}).children).toEqual(['Sub']);
 TestRenderer.create(element, options);
 ```
 
-<<<<<<< HEAD
-Tạo một instance `TestRenderer` với một element React trong tham số. No kh6ong sử dụng DOM thật, nhưng nó vẫn render cây component một cách đầy đủ vào trong bộ nhớ để bạn có thể kiểm định. Instance được trả về có những hàm và thuộc tính sau đây.
-=======
-Create a `TestRenderer` instance with the passed React element. It doesn't use the real DOM, but it still fully renders the component tree into memory so you can make assertions about it. Returns a [TestRenderer instance](#testrenderer-instance).
->>>>>>> 941f54180ef5e652221f54ef6d1f6f2e9e063597
+Tạo một instance `TestRenderer` với một element React trong tham số. No không sử dụng DOM thật, nhưng nó vẫn render cây component một cách đầy đủ vào trong bộ nhớ để bạn có thể kiểm định. Trả về một [TestRenderer instance](#testrenderer-instance)..
 
 ### `TestRenderer.act()` {#testrendereract}
 
@@ -153,11 +149,7 @@ Trả về một object thể hiện cậy được render. Cây này chỉ bao 
 testRenderer.toTree()
 ```
 
-<<<<<<< HEAD
 Trả về một object thể hiện cậy được render. Không như `toJSON()`, sự thể hiện này chi tiết hơn kết quả được cung cấp bởi `toJSON()`, và nó bao gồm cả những component do người dùng viết. Bạn cỏ thể không cần hàm này trừ khi bạn đang viết thư viện kiểm định trên test renderer.
-=======
-Return an object representing the rendered tree. The representation is more detailed than the one provided by `toJSON()`, and includes the user-written components. You probably don't need this method unless you're writing your own assertion library on top of the test renderer.
->>>>>>> 941f54180ef5e652221f54ef6d1f6f2e9e063597
 
 ### `testRenderer.update()` {#testrendererupdate}
 
