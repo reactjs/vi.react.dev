@@ -115,40 +115,32 @@ Chức năng `React.lazy` cho phép bạn render một import động như một
 
 ```js
 import OtherComponent from './OtherComponent';
-
-function MyComponent() {
-  return (
-    <div>
-      <OtherComponent />
-    </div>
-  );
-}
 ```
 
 **Sau:**
 
 ```js
 const OtherComponent = React.lazy(() => import('./OtherComponent'));
-
-function MyComponent() {
-  return (
-    <div>
-      <OtherComponent />
-    </div>
-  );
-}
 ```
 
+<<<<<<< HEAD
 Nó sẽ tự động tải bundle có chứa `OtherComponent` khi component này được gọi đến.
+=======
+This will automatically load the bundle containing the `OtherComponent` when this component is first rendered.
+>>>>>>> 6dcb963479953586f462ce31fddf35158c0598a0
 
 `React.lazy` chỉ lấy một function mà nó được gọi `import()` động. Nó phải trả về một `Promise` và phân giải thành một module với một
 `default` export có chứa một React component.
 
+<<<<<<< HEAD
 ### Suspense {#suspense}
 
 Nếu module có chứa `OtherComponent` mà nó chưa được tải lên tại thời điểm `MyComponent` renders,
 chúng ta phải hiển thị một số nội dung fallback trong khi chờ đợi nó hiển thị - ví dụ như một loading indicator.
 Việc này có thể thực hiện nhờ vào `Suspense` component.
+=======
+The lazy component should then be rendered inside a `Suspense` component, which allows us to show some fallback content (such as a loading indicator) while we're waiting for the lazy component to load.
+>>>>>>> 6dcb963479953586f462ce31fddf35158c0598a0
 
 ```js
 const OtherComponent = React.lazy(() => import('./OtherComponent'));
