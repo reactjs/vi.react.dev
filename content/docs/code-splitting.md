@@ -6,10 +6,7 @@ permalink: docs/code-splitting.html
 
 ## Đóng Gói (Bundling) {#bundling}
 
-Hầu hết files trong các ứng dụng React sẽ được "đóng gói" bằng cách
-sử dụng những công cụ như [Webpack](https://webpack.js.org/), [Rollup](https://rollupjs.org/) hay [Browserify](http://browserify.org/).
-Đóng gói là quá trình xử lý những files đã được import và kết hợp chúng thành một file duy nhất: File đóng gói này
-sau đó có thể được trang web tải lên chỉ một lần.
+Hầu hết files trong các ứng dụng React sẽ được "đóng gói" bằng cách sử dụng những công cụ như [Webpack](https://webpack.js.org/), [Rollup](https://rollupjs.org/) hay [Browserify](http://browserify.org/). Đóng gói là quá trình xử lý những files đã được import và kết hợp chúng thành một file duy nhất: File đóng gói này sau đó có thể được trang web tải lên chỉ một lần.
 
 #### Ví Dụ {#example}
 
@@ -46,26 +43,15 @@ console.log(add(16, 26)); // 42
 Nếu bạn đang sử dụng [Create React App](https://github.com/facebookincubator/create-react-app), [Next.js](https://github.com/zeit/next.js/), [Gatsby](https://www.gatsbyjs.org/), hay một công cụ tương tự,
 bạn sẽ được thiết lập sẵn webpack để đóng gói ứng dụng của mình.
 
-Nếu không, bạn sẽ cần phải tự thiết lập. Ví dụ, tham khảo
-[Installation](https://webpack.js.org/guides/installation/) và
-[Getting Started](https://webpack.js.org/guides/getting-started/)
-hướng dẫn ở tài liệu Webpack.
+Nếu không, bạn sẽ cần phải tự thiết lập. Ví dụ, tham khảo [Cách cài đặt](https://webpack.js.org/guides/installation/) và [Làm thê nào để bắt đầu sử dụng](https://webpack.js.org/guides/getting-started/) hướng dẫn ở tài liệu Webpack.
 
 ## Phân chia Code {#code-splitting}
 
-Đóng gói hẵn rất tuyệt vời, nhưng khi ứng dụng của bạn trở nên lớn hơn,
-file đóng gói của bạn cũng sẽ lớn theo. Đặc biệt khi bạn sử dụng third-party library (thư viện bên thứ 3) lớn.
-Bạn cần phải cẩn thận với những đoạn code bạn đang include vào bundle của mình, bằng cách đó bạn sẽ không
-vô tình làm nó trở nên quá lớn khiến ứng dụng mất nhiều thời gian để tải.
+Đóng gói hẵn rất tuyệt vời, nhưng khi ứng dụng của bạn trở nên lớn hơn, file đóng gói của bạn cũng sẽ lớn theo. Đặc biệt khi bạn sử dụng third-party library (thư viện bên thứ 3) lớn. Bạn cần phải cẩn thận với những đoạn code bạn đang include vào bundle của mình, bằng cách đó bạn sẽ không vô tình làm nó trở nên quá lớn khiến ứng dụng mất nhiều thời gian để tải.
 
-Để tránh việc hỏng bundle vì file đóng gói quá lớn. Bạn nên chủ động bắt đầu "phân chia" bundle của mình ngay từ đầu.
- [Code-Splitting](https://webpack.js.org/guides/code-splitting/) là một tính năng được hỗ trợ bởi nhiều bundlers như Webpack và
- Browserfy (bằng [factor-bundle](https://github.com/browserify/factor-bundle)) có thể tạo ra nhiều bundles để load động tại thời điểm
- runtime.
+Để tránh việc hỏng bundle vì file đóng gói quá lớn. Bạn nên chủ động bắt đầu "phân chia" bundle của mình ngay từ đầu. [Code-Splitting](https://webpack.js.org/guides/code-splitting/) là một tính năng được hỗ trợ bởi nhiều bundlers như Webpack và Browserfy (bằng [factor-bundle](https://github.com/browserify/factor-bundle)) có thể tạo ra nhiều bundles để load động tại thời điểm runtime.
 
-Phân chia code cho ứng dụng giúp "lazy-load" chỉ những phần người dùng đang cần, tăng đáng kể hiệu suất mà không cần phải giảm số lượng
-code trong ứng dụng, bạn đã tránh phải tải những đoạn code người dùng có thể sẽ không bao giờ cần đến,
-và giảm số lượng code cần tải lên trong lần đầu tiên.
+Phân chia code cho ứng dụng giúp "lazy-load" chỉ những phần người dùng đang cần, tăng đáng kể hiệu suất mà không cần phải giảm số lượng code trong ứng dụng, bạn đã tránh phải tải những đoạn code người dùng có thể sẽ không bao giờ cần đến, và giảm số lượng code cần tải lên trong lần đầu tiên.
 
 ## `import()` {#import}
 
@@ -115,40 +101,19 @@ Chức năng `React.lazy` cho phép bạn render một import động như một
 
 ```js
 import OtherComponent from './OtherComponent';
-
-function MyComponent() {
-  return (
-    <div>
-      <OtherComponent />
-    </div>
-  );
-}
 ```
 
 **Sau:**
 
 ```js
 const OtherComponent = React.lazy(() => import('./OtherComponent'));
-
-function MyComponent() {
-  return (
-    <div>
-      <OtherComponent />
-    </div>
-  );
-}
 ```
 
-Nó sẽ tự động tải bundle có chứa `OtherComponent` khi component này được gọi đến.
+Nó sẽ tự động tải bundle có chứa `OtherComponent` khi component này được được render lần đầu tiên.
 
-`React.lazy` chỉ lấy một function mà nó được gọi `import()` động. Nó phải trả về một `Promise` và phân giải thành một module với một
-`default` export có chứa một React component.
+`React.lazy` chỉ lấy một function mà nó được gọi `import()` động. Nó phải trả về một `Promise` và phân giải thành một module với một `default` export có chứa một React component.
 
-### Suspense {#suspense}
-
-Nếu module có chứa `OtherComponent` mà nó chưa được tải lên tại thời điểm `MyComponent` renders,
-chúng ta phải hiển thị một số nội dung fallback trong khi chờ đợi nó hiển thị - ví dụ như một loading indicator.
-Việc này có thể thực hiện nhờ vào `Suspense` component.
+Lazy component nên được render bên trong một `Suspense` component, điều này cho phép chúng ta thể hiện vài nội dung fallback cho người dùng (ví dụ như một loading indicator) trong khi chời đợi lazy component được load.
 
 ```js
 const OtherComponent = React.lazy(() => import('./OtherComponent'));
@@ -164,9 +129,7 @@ function MyComponent() {
 }
 ```
 
-Thuộc tính `fallback` chấp nhận bất kỳ React elements nào bạn muốn render trong khi chờ component được tải lên.
-Bạn có thể đặt `Suspense` component bất kỳ nơi nào bên trên lazy component.
-Bạn thậm chí có thể bọc nhiều lazy component với duy nhất một `Suspense` component.
+Thuộc tính `fallback` chấp nhận bất kỳ React elements nào bạn muốn render trong khi chờ component được tải lên. Bạn có thể đặt `Suspense` component bất kỳ nơi nào bên trên lazy component. Bạn thậm chí có thể bọc nhiều lazy component với duy nhất một `Suspense` component.
 
 ```js
 const OtherComponent = React.lazy(() => import('./OtherComponent'));
@@ -188,9 +151,7 @@ function MyComponent() {
 
 ### Error boundaries {#error-boundaries}
 
-Nếu `OtherComponent` không thể tải lên (Ví dụ, lỗi mạng), nó sẽ kích hoạt lỗi.
-Bạn có thể điều khiển những lỗi đó để hiển thị một trải nghiệm người dùng tốt hơn và quản lý phục hồi với [Error Boundaries](/docs/error-boundaries.html). Một khi bạn đã tạo Error Boundary, bạn có thể sử dụng nó bất kỳ nơi nào bên trên lazy components của bạn
-để hiển thị thông báo lỗi khi có sự cố về mạng.
+Nếu `OtherComponent` không thể tải lên (Ví dụ, lỗi mạng), nó sẽ kích hoạt lỗi. Bạn có thể điều khiển những lỗi đó để hiển thị một trải nghiệm người dùng tốt hơn và quản lý phục hồi với [Error Boundaries](/docs/error-boundaries.html). Một khi bạn đã tạo Error Boundary, bạn có thể sử dụng nó bất kỳ nơi nào bên trên lazy components của bạn để hiển thị thông báo lỗi khi có sự cố về mạng.
 
 ```js
 import MyErrorBoundary from './MyErrorBoundary';
@@ -213,17 +174,11 @@ const MyComponent = () => (
 
 ## Phân chia code dựa vào định tuyến(Route-based) {#route-based-code-splitting}
 
-Việc quyết định nơi nào cần phân chia code trong ứng dụng của bạn có thể sẽ gặp một chút khó khăn.
-Bạn muốn chắc chắn những nơi bạn chọn sẽ đều nhau, nhưng không phá vỡ
-trải nghiệm người dùng.
+Việc quyết định nơi nào cần phân chia code trong ứng dụng của bạn có thể sẽ gặp một chút khó khăn. Bạn muốn chắc chắn những nơi bạn chọn sẽ đều nhau, nhưng không phá vỡ trải nghiệm người dùng.
 
-Một nơi tốt để bắt đầu là với routes. Hầu hết mọi người trên web
-đã quen với việc chuyển trang sẽ mất một khoảng thời gian nhất định.
-Bạn cũng có xu hướng render lại cả trang cùng một lần để ngăn người dùng
-không tương tác với những elements khác trong trang cùng một lúc.
+Một nơi tốt để bắt đầu là với routes. Hầu hết mọi người trên web đã quen với việc chuyển trang sẽ mất một khoảng thời gian nhất định. Bạn cũng có xu hướng render lại cả trang cùng một lần để ngăn người dùng không tương tác với những elements khác trong trang cùng một lúc.
 
-Đây là một ví dụ hướng dẫn cách cài đặt ứng dụng của bạn phân chia code dựa trên route
-bằng cách sử dụng những thư viện như [React Router](https://reacttraining.com/react-router/) with `React.lazy`.
+Đây là một ví dụ hướng dẫn cách cài đặt ứng dụng của bạn phân chia code dựa trên route bằng cách sử dụng những thư viện như [React Router](https://reacttraining.com/react-router/) with `React.lazy`.
 
 ```js
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
