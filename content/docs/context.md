@@ -16,7 +16,12 @@ Thông thường với một ứng dụng React, data được truyền từ tr�
   - [Context.Provider](#contextprovider)
   - [Class.contextType](#classcontexttype)
   - [Context.Consumer](#contextconsumer)
+<<<<<<< HEAD
 - [Ví dụ](#examples)
+=======
+  - [Context.displayName](#contextdisplayname)
+- [Examples](#examples)
+>>>>>>> 647b639259919f96e9b667bf41ec16621e1b84dc
   - [Dynamic Context](#dynamic-context)
   - [Cập nhật Context từ Nested Component](#updating-context-from-a-nested-component)
   - [Sử dụng Multiple Contexts](#consuming-multiple-contexts)
@@ -197,7 +202,25 @@ Yêu cầu một [function as a child](/docs/render-props.html#using-props-other
 > 
 > Để biết thêm thông tin về 'function as a child' pattern, xem [render props](/docs/render-props.html).
 
+<<<<<<< HEAD
 ## Ví dụ {#examples}
+=======
+### `Context.displayName` {#contextdisplayname}
+
+Context object accepts a `displayName` string property. React DevTools uses this string to determine what to display for the context.
+
+For example, the following component will appear as MyDisplayName in the DevTools:
+
+```js{2}
+const MyContext = React.createContext(/* some value */);
+MyContext.displayName = 'MyDisplayName';
+
+<MyContext.Provider> // "MyDisplayName.Provider" in DevTools
+<MyContext.Consumer> // "MyDisplayName.Consumer" in DevTools
+```
+
+## Examples {#examples}
+>>>>>>> 647b639259919f96e9b667bf41ec16621e1b84dc
 
 ### Dynamic Context {#dynamic-context}
 
