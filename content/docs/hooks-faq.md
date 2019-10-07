@@ -109,7 +109,13 @@ Bạn có thể tiếp tục sử dụng  chính xác các API đã và đang s�
 
 React Redux từ phiên bản v7.1.0 [hỗ trợ Hooks API](https://react-redux.js.org/api/hooks) và expose hooks `useDispatch` hoặc `useSelector`.
 
+<<<<<<< HEAD
 Các thư viện như React Router có thể hỗ trợ hooks trong tương lai.
+=======
+React Router [supports hooks](https://reacttraining.com/react-router/web/api/Hooks) since v5.1.
+
+Other libraries might support hooks in the future too.
+>>>>>>> 5c371e5e3fd8f92e1d06dfdf1f28edc50fb5d83f
 
 ### Hook có làm việc với kiểu static không? {#do-hooks-work-with-static-typing}
 
@@ -372,7 +378,7 @@ function usePrevious(value) {
 function Counter() {
   const [count, setCount] = useState(0);
 
-  const calculation = count * 100;
+  const calculation = count + 100;
   const prevCalculation = usePrevious(calculation);
   // ...
 ```
