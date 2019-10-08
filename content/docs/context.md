@@ -16,12 +16,8 @@ Thông thường với một ứng dụng React, data được truyền từ tr�
   - [Context.Provider](#contextprovider)
   - [Class.contextType](#classcontexttype)
   - [Context.Consumer](#contextconsumer)
-<<<<<<< HEAD
-- [Ví dụ](#examples)
-=======
   - [Context.displayName](#contextdisplayname)
-- [Examples](#examples)
->>>>>>> 647b639259919f96e9b667bf41ec16621e1b84dc
+- [Các ví dụ](#examples)
   - [Dynamic Context](#dynamic-context)
   - [Cập nhật Context từ Nested Component](#updating-context-from-a-nested-component)
   - [Sử dụng Multiple Contexts](#consuming-multiple-contexts)
@@ -137,10 +133,10 @@ Nhận một `value` prop để truyền đến consuming components mà nó là
 
 Tất cả consumers con của một Provider sẽ được re-rerender bất cứ khi nào `value` của Provider đó thay đổi. Sự lan truyền từ Provider đến consumer con của nó không bị lệ thuộc vào `shouldComponentUpdate` method, vì vậy consumer được cập nhật ngay cả khi một component cha thoát ra khỏi sự cập nhật đó.
 
-Những thay đổi được xác định bằng cách so sánh những giá trị mới và cũ sử dụng chung một thuật toán như [`Object.is`](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description). 
+Những thay đổi được xác định bằng cách so sánh những giá trị mới và cũ sử dụng chung một thuật toán như [`Object.is`](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description).
 
 > Lưu ý
-> 
+>
 > Cách những thay đổi được xác định có thể gây nên một số vấn đề khi truyền object như một `value`: xem [Caveats](#caveats).
 
 ### `Class.contextType` {#classcontexttype}
@@ -199,17 +195,14 @@ Khi một React component subcribe tới sự thay đổi của context. Điều
 Yêu cầu một [function as a child](/docs/render-props.html#using-props-other-than-render). Function nhận giá trị context hiện tại và trả về một React node. Tham số `value` truyền đến function sẽ bằng với `value` prop của Provider gần nhất trong context này trên tree component. Nếu không có Provider nào cho context này ở trên nó, tham số `value` sẽ bằng với `defaultValue` đã được truyền tới `createContext()`.
 
 > Lưu ý
-> 
+>
 > Để biết thêm thông tin về 'function as a child' pattern, xem [render props](/docs/render-props.html).
 
-<<<<<<< HEAD
-## Ví dụ {#examples}
-=======
 ### `Context.displayName` {#contextdisplayname}
 
-Context object accepts a `displayName` string property. React DevTools uses this string to determine what to display for the context.
+Context object nhận một thuộc tính `displayName` kiểu chuỗi (string). React DevTools sử dụng chuỗi này để xác định cái sẽ hiển thị cho context.
 
-For example, the following component will appear as MyDisplayName in the DevTools:
+Với ví dụ dưới đây, component sẽ hiển thị như MyDisplayName trong DevTools:
 
 ```js{2}
 const MyContext = React.createContext(/* some value */);
@@ -220,7 +213,6 @@ MyContext.displayName = 'MyDisplayName';
 ```
 
 ## Examples {#examples}
->>>>>>> 647b639259919f96e9b667bf41ec16621e1b84dc
 
 ### Dynamic Context {#dynamic-context}
 
@@ -270,6 +262,6 @@ Bởi vì context sử dụng reference identity để xác định khi nào nê
 ## Legacy API {#legacy-api}
 
 > Lưu ý
-> 
+>
 > React vừa mang đến một context API thử nghiệm. API cũ sẽ hỗ trợ trong tất cả phiên bản 16.x, nhưng những ứng dụng sử dụng nó nên nâng cấp lên phiên bản mới hơn. API cũ sẽ bị xóa trong tương lại qua những lần cập nhật lớn của React. Tham khảo [legacy context docs here](/docs/legacy-context.html).
- 
+
