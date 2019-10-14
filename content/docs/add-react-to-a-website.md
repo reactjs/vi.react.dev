@@ -12,7 +12,7 @@ Sử dụng ít hay nhiều React tuỳ theo nhu cầu của bạn.
 
 React được thiết kế nhằm mục đích thích ứng khả chuyển, và **bạn có thể sử dụng ít hay nhiều React tuỳ theo nhu cầu của bạn**. Có thể bạn chỉ muốn thêm một vài tính năng tương tác vào trong trang hiện có. React components là một cách tuyệt vời để thực hiện điều đó.
 
-Đa phần các websites đều không phải, và cũng không cần thiết phải là single-page apps. Với **một vài dòng code và không cần công cụ build**, áp dụng React trong một phần nhỏ của website. Bạn có thể sau đó hoặc là mở rộng dần dần sự hiện diện của nó, hoặc giữ cho nó chỉ bao gồm một vài dynamic widgets.
+Đa phần các websites đều không phải, và cũng không cần thiết phải là single-page apps. Với **một vài dòng code và không cần công cụ build**, áp dụng React vào một phần nhỏ trong website của bạn. Sau đó bạn có thể mở rộng dần dần sự hiện diện của nó, hoặc giữ cho website chỉ sử dụng một vài dynamic widgets.
 
 ---
 
