@@ -8,28 +8,28 @@ prev: getting-started.html
 next: create-a-new-react-app.html
 ---
 
-Use as little or as much React as you need.
+Sử dụng ít hay nhiều React tuỳ theo nhu cầu của bạn.
 
-React has been designed from the start for gradual adoption, and **you can use as little or as much React as you need**. Perhaps you only want to add some "sprinkles of interactivity" to an existing page. React components are a great way to do that.
+React được thiết kế nhằm mục đích thích ứng khả chuyển, và **bạn có thể sử dụng ít hay nhiều React tuỳ theo nhu cầu của bạn**. Có thể bạn chỉ muốn thêm một vài tính năng tương tác vào trong trang hiện có. React components là một cách tuyệt vời để thực hiện điều đó.
 
-The majority of websites aren't, and don't need to be, single-page apps. With **a few lines of code and no build tooling**, try React in a small part of your website. You can then either gradually expand its presence, or keep it contained to a few dynamic widgets.
+Đa phần các websites đều không phải, và cũng không cần thiết phải là single-page apps. Với **một vài dòng code và không cần công cụ build**, áp dụng React vào một phần nhỏ trong website của bạn. Sau đó bạn có thể mở rộng dần dần sự hiện diện của nó, hoặc giữ cho website chỉ sử dụng một vài dynamic widgets.
 
 ---
 
-- [Add React in One Minute](#add-react-in-one-minute)
-- [Optional: Try React with JSX](#optional-try-react-with-jsx) (no bundler necessary!)
+- [Thêm React trong vòng một phút](#add-react-in-one-minute)
+- [Tuỳ chọn: Thử React với JSX](#optional-try-react-with-jsx) (không cần phải có bundler!)
 
-## Add React in One Minute {#add-react-in-one-minute}
+## Thêm React trong vòng một phút {#add-react-in-one-minute}
 
-In this section, we will show how to add a React component to an existing HTML page. You can follow along with your own website, or create an empty HTML file to practice.
+Trong phần này, chúng tôi sẽ trình bày về cách làm thế nào để thêm một React component vào một trang HTML đang có. Bạn có thể áp dụng với trang web của bạn, hoặc tạo một file HTML trống để luyện tập.
 
-There will be no complicated tools or install requirements -- **to complete this section, you only need an internet connection, and a minute of your time.**
+Sẽ không cần đến các công cụ phức tạp hoặc các cài đặt khác -- **để hoàn thiện phần này, bạn chỉ cần kết nối mạng internet, và một khoảng thời gian tầm một phút.**
 
-Optional: [Download the full example (2KB zipped)](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605/archive/f6c882b6ae18bde42dcf6fdb751aae93495a2275.zip)
+Tuỳ chọn: [Tải xuống ví dụ đầy đủ (2KB zipped)](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605/archive/f6c882b6ae18bde42dcf6fdb751aae93495a2275.zip)
 
-### Step 1: Add a DOM Container to the HTML {#step-1-add-a-dom-container-to-the-html}
+### Bước 1: Thêm DOM Container vào HTML {#step-1-add-a-dom-container-to-the-html}
 
-First, open the HTML page you want to edit. Add an empty `<div>` tag to mark the spot where you want to display something with React. For example:
+Đầu tiên, mở trang HTML mà bạn muốn chỉnh sửa. Thêm thẻ `<div>` rỗng để đánh dấu chỗ mà bạn muốn hiển thị một phần tử nào đó với React. Ví dụ:
 
 ```html{3}
 <!-- ... existing HTML ... -->
@@ -39,15 +39,15 @@ First, open the HTML page you want to edit. Add an empty `<div>` tag to mark the
 <!-- ... existing HTML ... -->
 ```
 
-We gave this `<div>` a unique `id` HTML attribute. This will allow us to find it from the JavaScript code later and display a React component inside of it.
+Chúng ta gán thuộc tính HTML `id` của thẻ `<div>` với giá trị duy nhất. Điều này sẽ cho phép chúng ta tìm thấy phần tử này từ Javascript code và hiển thị một React component bên trong nó.
 
 >Tip
 >
->You can place a "container" `<div>` like this **anywhere** inside the `<body>` tag. You may have as many independent DOM containers on one page as you need. They are usually empty -- React will replace any existing content inside DOM containers.
+>Bạn có thể thay thế "container" `<div>` như thế này **ở bất cứ đâu** bên trong thẻ `<body>`. Bạn có thể có nhiều các containers DOM độc lập trong một trang tuỳ theo nhu cầu. Chúng thường ở trạng thái trống -- React sẽ thay thế bất kì nội dung nào đang tồn tại bên trong DOM containers.
 
-### Step 2: Add the Script Tags {#step-2-add-the-script-tags}
+### Bước 2: Thêm các thẻ Script (Script Tags) {#step-2-add-the-script-tags}
 
-Next, add three `<script>` tags to the HTML page right before the closing `</body>` tag:
+Tiếp theo, thêm ba thẻ `<script>` vào trang HTML ngay trước thẻ đóng `</body>`:
 
 ```html{5,6,9}
   <!-- ... other HTML ... -->
@@ -63,72 +63,72 @@ Next, add three `<script>` tags to the HTML page right before the closing `</bod
 </body>
 ```
 
-The first two tags load React. The third one will load your component code.
+Hai thẻ đầu tiên sẽ load React. Thẻ thứ ba sẽ load component code của bạn.
 
-### Step 3: Create a React Component {#step-3-create-a-react-component}
+### Bước 3: Tạo một React Component {#step-3-create-a-react-component}
 
-Create a file called `like_button.js` next to your HTML page.
+Tạo một file với tên `like_button.js` cùng với trang HTML của bạn.
 
-Open **[this starter code](https://cdn.rawgit.com/gaearon/0b180827c190fe4fd98b4c7f570ea4a8/raw/b9157ce933c79a4559d2aa9ff3372668cce48de7/LikeButton.js)** and paste it into the file you created.
+Mở **[đoạn code khởi tạo sau](https://cdn.rawgit.com/gaearon/0b180827c190fe4fd98b4c7f570ea4a8/raw/b9157ce933c79a4559d2aa9ff3372668cce48de7/LikeButton.js)** và dán nó vào trong file mà bạn vừa tạo.
 
 >Tip
 >
->This code defines a React component called `LikeButton`. Don't worry if you don't understand it yet -- we'll cover the building blocks of React later in our [hands-on tutorial](/tutorial/tutorial.html) and [main concepts guide](/docs/hello-world.html). For now, let's just get it showing on the screen!
+>Đoạn code này định nghĩa một React component gọi là `LikeButton`. Đừng lo lắng nếu bạn không hiểu nó ngay lập tức -- chúng tôi sẽ giải thích về building blocks của React trong phần [hands-on tutorial](/tutorial/tutorial.html) của chúng tôi và [hướng dẫn các khái niệm chính](/docs/hello-world.html). Còn bây giờ, hãy cùng hiển thị chúng trên màn hình!
 
-After **[the starter code](https://cdn.rawgit.com/gaearon/0b180827c190fe4fd98b4c7f570ea4a8/raw/b9157ce933c79a4559d2aa9ff3372668cce48de7/LikeButton.js)**, add two lines to the bottom of `like_button.js`:
+Sau **[đoạn code khởi tạo](https://cdn.rawgit.com/gaearon/0b180827c190fe4fd98b4c7f570ea4a8/raw/b9157ce933c79a4559d2aa9ff3372668cce48de7/LikeButton.js)**, thêm 2 dòng vào cuối file `like_button.js`:
 
 ```js{3,4}
-// ... the starter code you pasted ...
+// ... Đoạn code khởi tạo bạn vừa dán ...
 
 const domContainer = document.querySelector('#like_button_container');
 ReactDOM.render(e(LikeButton), domContainer);
 ```
 
-These two lines of code find the `<div>` we added to our HTML in the first step, and then display our "Like" button React component inside of it. 
+Hai dòng code này tìm thẻ `<div>` mà chúng ta đã thêm vào trang HTML ở bước đầu tiên, và sau đó hiển thị nút "Like" (một React component) bên trong div ở trên. 
 
-### That's It! {#thats-it}
+### Và đó là tất cả những gì cần làm! {#thats-it}
 
-There is no step four. **You have just added the first React component to your website.**
+Sẽ không có bước thứ tư. **Bạn đã hoàn thành việc thêm React component đầu tiên vào website của bạn.**
 
-Check out the next sections for more tips on integrating React.
+Chuyển qua phần tiếp theo với nhiều tips hơn trong việc tích hợp React.
 
-**[View the full example source code](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605)**
+**[Xem toàn bộ source code của ví dụ](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605)**
 
-**[Download the full example (2KB zipped)](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605/archive/f6c882b6ae18bde42dcf6fdb751aae93495a2275.zip)**
+**[Tải xuống đầy đủ ví dụ (2KB zipped)](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605/archive/f6c882b6ae18bde42dcf6fdb751aae93495a2275.zip)**
 
-### Tip: Reuse a Component {#tip-reuse-a-component}
+### Tip: Tái sử dụng một component {#tip-reuse-a-component}
 
-Commonly, you might want to display React components in multiple places on the HTML page. Here is an example that displays the "Like" button three times and passes some data to it:
+Thông thường, có thể bạn muốn hiển thị các React components trong nhiều chỗ của trang HTML. Đây là một ví dụ dùng để hiển thị nút "Like" 3 lần và truyền thêm một vài dữ liệu vào trong nó::
 
-[View the full example source code](https://gist.github.com/gaearon/faa67b76a6c47adbab04f739cba7ceda)
+[Xem toàn bộ source code của ví dụ](https://gist.github.com/gaearon/faa67b76a6c47adbab04f739cba7ceda)
 
-[Download the full example (2KB zipped)](https://gist.github.com/gaearon/faa67b76a6c47adbab04f739cba7ceda/archive/9d0dd0ee941fea05fd1357502e5aa348abb84c12.zip)
+[Tải xuống đầy đủ ví dụ (2KB zipped)](https://gist.github.com/gaearon/faa67b76a6c47adbab04f739cba7ceda/archive/9d0dd0ee941fea05fd1357502e5aa348abb84c12.zip)
 
->Note
+>Ghi chú
 >
->This strategy is mostly useful while React-powered parts of the page are isolated from each other. Inside React code, it's easier to use [component composition](/docs/components-and-props.html#composing-components) instead.
+>Cách làm này rất hữu dụng trong khi các phần hỗ trợ React của trang nằm tách biệt so với các phần khác. Trong React code, thay vào đó lại khá dễ dàng để sử dụng [component composition](/docs/components-and-props.html#composing-components).
 
-### Tip: Minify JavaScript for Production {#tip-minify-javascript-for-production}
+### Tip: Minify (thu nhỏ) JavaScript cho Production {#tip-minify-javascript-for-production}
 
-Before deploying your website to production, be mindful that unminified JavaScript can significantly slow down the page for your users.
+Trước khi deploy website của bạn lên môi trường production, hãy chú ý rằng unminified JavaScript (JavaScript code chưa nén - chưa thu nhỏ) có thể làm chậm đáng kể tốc độ tải trang ở phía người dùng (client).
 
-If you already minify the application scripts, **your site will be production-ready** if you ensure that the deployed HTML loads the versions of React ending in `production.min.js`:
+Nếu bạn đã nén các scripts của ứng dụng, **trang của bạn sẽ sẵn sàng để được deploy lên môi trường production** nếu bạn đảm bảo rằng HTML đã deploy sẽ tải phiên bản của React được chứa trong file `production.min.js`:
 
 ```js
 <script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
 <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
 ```
 
-If you don't have a minification step for your scripts, [here's one way to set it up](https://gist.github.com/gaearon/42a2ffa41b8319948f9be4076286e1f3).
+Nếu bạn không có bước nén - thu nhỏ cho scripts, thì [đây là một cách thiết lập](https://gist.github.com/gaearon/42a2ffa41b8319948f9be4076286e1f3).
 
-## Optional: Try React with JSX {#optional-try-react-with-jsx}
+## Tuỳ chọn: Trải nghiệm React với JSX {#optional-try-react-with-jsx}
 
-In the examples above, we only relied on features that are natively supported by the browsers. This is why we used a JavaScript function call to tell React what to display:
+Trong các ví dụ ở trên, chúng ta chỉ dựa trên các tính năng được hỗ trợ bởi trình duyệt. Đó chính là lý do tại sao chúng ta lại sử dụng lời gọi hàm của Javascript để gửi đến React những gì ta muốn hiển thị:
 
 ```js
 const e = React.createElement;
 
-// Display a "Like" <button>
+// Hiển thị một "Like" <button>
 return e(
   'button',
   { onClick: () => this.setState({ liked: true }) },
@@ -136,10 +136,10 @@ return e(
 );
 ```
 
-However, React also offers an option to use [JSX](/docs/introducing-jsx.html) instead:
+Dù sao thì, React cũng cung cấp một tuỳ chọn để sử dụng [JSX](/docs/introducing-jsx.html) để thay thế:
 
 ```js
-// Display a "Like" <button>
+// Hiển thị một "Like" <button>
 return (
   <button onClick={() => this.setState({ liked: true })}>
     Like
@@ -147,56 +147,56 @@ return (
 );
 ```
 
-These two code snippets are equivalent. While **JSX is [completely optional](/docs/react-without-jsx.html)**, many people find it helpful for writing UI code -- both with React and with other libraries.
+Hai đoạn code trên là tương đương nhau. Trong khi **JSX [hoàn toàn là tuỳ chọn](/docs/react-without-jsx.html)**, nhiều người thấy rằng nó khá hữu ích cho việc viết UI code -- cả với React và với các thư viện khác.
 
-You can play with JSX using [this online converter](https://babeljs.io/en/repl#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=DwIwrgLhD2B2AEcDCAbAlgYwNYF4DeAFAJTw4B88EAFmgM4B0tAphAMoQCGETBe86WJgBMAXJQBOYJvAC-RGWQBQ8FfAAyaQYuAB6cFDhkgA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Creact%2Cstage-2&prettier=false&targets=&version=7.4.3).
+Bạn có thể trải nghiệm với JSX bằng cách sử dụng [bộ chuyển đổi online](https://babeljs.io/en/repl#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=DwIwrgLhD2B2AEcDCAbAlgYwNYF4DeAFAJTw4B88EAFmgM4B0tAphAMoQCGETBe86WJgBMAXJQBOYJvAC-RGWQBQ8FfAAyaQYuAB6cFDhkgA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Creact%2Cstage-2&prettier=false&targets=&version=7.4.3).
 
-### Quickly Try JSX {#quickly-try-jsx}
+### Thử nhanh JSX {#quickly-try-jsx}
 
-The quickest way to try JSX in your project is to add this `<script>` tag to your page:
+Cách nhanh nhất để thử JSX trong project của bạn đó là thêm thẻ `<script>` vào trang của bạn:
 
 ```html
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 ```
 
-Now you can use JSX in any `<script>` tag by adding `type="text/babel"` attribute to it. Here is [an example HTML file with JSX](https://raw.githubusercontent.com/reactjs/reactjs.org/master/static/html/single-file-example.html) that you can download and play with.
+Bây giờ bạn có thể sử dụng JSX trong bất kì thẻ `<script>` nào bằng cách thêm thuộc tính `type="text/babel"` cho nó. Đây là [file HTML ví dụ với JSX](https://raw.githubusercontent.com/reactjs/reactjs.org/master/static/html/single-file-example.html) mà bạn có thể tải xuống và chạy thử nó.
 
-This approach is fine for learning and creating simple demos. However, it makes your website slow and **isn't suitable for production**. When you're ready to move forward, remove this new `<script>` tag and the `type="text/babel"` attributes you've added. Instead, in the next section you will set up a JSX preprocessor to convert all your `<script>` tags automatically.
+Cách tiếp cận này khá ổn cho việc học và tạo các ví dụ demos đơn giản. Nhưng dù sao thì, nó cũng khiến cho website của bạn chậm và **không phù hợp cho môi trường production**. Khi bạn đã sẵn sàng để tiếp tục, hãy loại bỏ thẻ `<script>` này và thuộc tính `type="text/babel"` mà bạn vừa thêm. Thay vào đó, trong phần tiếp theo bạn sẽ thiết lập 1 bộ tiền xử lí (preprocessor) JSX để chuyển đổi các thẻ `<script>` một cách tự động.
 
-### Add JSX to a Project {#add-jsx-to-a-project}
+### Thêm JSX vào Project {#add-jsx-to-a-project}
 
-Adding JSX to a project doesn't require complicated tools like a bundler or a development server. Essentially, adding JSX **is a lot like adding a CSS preprocessor.** The only requirement is to have [Node.js](https://nodejs.org/) installed on your computer.
+Thêm JSX vào project không yêu cầu những công cụ phức tạp như bundler hoặc một development server. Cụ thể là, thêm JSX **khá giống như thêm 1 bộ tiền xử lí (preprocessor) của CSS.** Yêu cầu duy nhất đó là bạn phải cài đặt [Node.js](https://nodejs.org/) trong máy tính.
 
-Go to your project folder in the terminal, and paste these two commands:
+Di chuyển đến thư mục project của bạn trong terminal, dán và thực thi 2 câu lệnh sau:
 
-1. **Step 1:** Run `npm init -y` (if it fails, [here's a fix](https://gist.github.com/gaearon/246f6380610e262f8a648e3e51cad40d))
-2. **Step 2:** Run `npm install babel-cli@6 babel-preset-react-app@3`
+1. **Bước 1:** Chạy `npm init -y` (nếu thất bại, [đây là link hướng dẫn cách sửa](https://gist.github.com/gaearon/246f6380610e262f8a648e3e51cad40d))
+2. **Bước 2:** Chạy `npm install babel-cli@6 babel-preset-react-app@3`
 
 >Tip
 >
->We're **using npm here only to install the JSX preprocessor;** you won't need it for anything else. Both React and the application code can stay as `<script>` tags with no changes.
+>Chúng ta **đang chỉ sử dụng npm ở đây để cài đặt JSX preprocessor;** bạn sẽ không cần nó cho bất kì mục đích nào khác. Cả React và application code có thể nằm trong thẻ `<script>` mà không có sự thay đổi nào.
 
-Congratulations! You just added a **production-ready JSX setup** to your project.
+Chúc mừng! Bạn vừa thêm **production-ready JSX setup** cho project của bạn.
 
 
-### Run JSX Preprocessor {#run-jsx-preprocessor}
+### Chạy JSX Preprocessor {#run-jsx-preprocessor}
 
-Create a folder called `src` and run this terminal command:
+Tạo một thư mục có tên là `src` và chạy câu lệnh terminal sau đây:
 
 ```
 npx babel --watch src --out-dir . --presets react-app/prod 
 ```
 
->Note
+>Chú ý
 >
->`npx` is not a typo -- it's a [package runner tool that comes with npm 5.2+](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b).
+>`npx` không phải lỗi đánh máy -- Nó là [công cụ chạy package đi cùng với npm 5.2+](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b).
 >
->If you see an error message saying "You have mistakenly installed the `babel` package", you might have missed [the previous step](#add-jsx-to-a-project). Perform it in the same folder, and then try again.
+>Nếu bạn thấy thông báo lỗi "You have mistakenly installed the `babel` package", bạn có thể đã bỏ lỡ [bước trước](#add-jsx-to-a-project). Thực thi nó trong cùng một thư mục, và thử lại sau đó.
 
-Don't wait for it to finish -- this command starts an automated watcher for JSX.
+Đừng đợi cho đến khi nó kết thúc -- Câu lệnh này sẽ bắt đầu theo dõi JSX một cách tự động.
 
-If you now create a file called `src/like_button.js` with this **[JSX starter code](https://cdn.rawgit.com/gaearon/c8e112dc74ac44aac4f673f2c39d19d1/raw/09b951c86c1bf1116af741fa4664511f2f179f0a/like_button.js)**, the watcher will create a preprocessed `like_button.js` with the plain JavaScript code suitable for the browser. When you edit the source file with JSX, the transform will re-run automatically.
+Nếu bạn tạo một file với tên `src/like_button.js` với **[đoạn code JSX này](https://cdn.rawgit.com/gaearon/c8e112dc74ac44aac4f673f2c39d19d1/raw/09b951c86c1bf1116af741fa4664511f2f179f0a/like_button.js)**, watcher sẽ tạo một preprocessed `like_button.js` với code Javascript thuần túy phù hợp với trình duyệt. Khi bạn chỉnh sửa file nguồn với JSX, bộ thông dịch sẽ tự động chạy lại.
 
-As a bonus, this also lets you use modern JavaScript syntax features like classes without worrying about breaking older browsers. The tool we just used is called Babel, and you can learn more about it from [its documentation](https://babeljs.io/docs/en/babel-cli/).
+Thông tin thêm, điều này cũng cho phép bạn sử dụng các cú pháp Javascript hiện đại như classes mà không cần phải lo lắng về vấn đề tương thích với các trình duyệt thế hệ cũ. Công cụ chúng ta vừa sử dụng được gọi là Babel, và bạn có thể nghiên cứu thêm về nó thông qua [tài liệu](https://babeljs.io/docs/en/babel-cli/).
 
-If you notice that you're getting comfortable with build tools and want them to do more for you, [the next section](/docs/create-a-new-react-app.html) describes some of the most popular and approachable toolchains. If not -- those script tags will do just fine!
+Nếu bạn nhận thấy rằng bạn đang có được sự tiện lợi với các công cụ build và muốn chúng làm nhiều thứ hơn cho bạn, [phần tiếp theo](/docs/create-a-new-react-app.html) sẽ trình bày về một vài công cụ phổ biến và dễ tiếp cận nhất. Nếu không - các thẻ scripts vẫn là một sự lựa chọn ổn cho bạn!
