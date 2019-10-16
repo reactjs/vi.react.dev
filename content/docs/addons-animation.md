@@ -10,21 +10,21 @@ redirect_from:
   - "docs/animation-zh-CN.html"
 ---
 
-> Note:
+> Chú ý:
 >
-> `ReactTransitionGroup` and `ReactCSSTransitionGroup` have been moved to the [`react-transition-group`](https://github.com/reactjs/react-transition-group/tree/v1-stable) package that is maintained by the community. Its 1.x branch is completely API-compatible with the existing addons. Please file bugs and feature requests in the [new repository](https://github.com/reactjs/react-transition-group/tree/v1-stable).
+> `ReactTransitionGroup` và `ReactCSSTransitionGroup` đã được di chuyển tới [`react-transition-group`](https://github.com/reactjs/react-transition-group/tree/v1-stable) package và được bảo trì bởi cộng đồng. Nhánh 1.x của nó gồm các API tương thích với các addons đang có. Hãy thông báo bugs và tạo các feature requests cho [repository mới](https://github.com/reactjs/react-transition-group/tree/v1-stable).
 
-The [`ReactTransitionGroup`](#low-level-api-reacttransitiongroup) add-on component is a low-level API for animation, and [`ReactCSSTransitionGroup`](#high-level-api-reactcsstransitiongroup) is an add-on component for easily implementing basic CSS animations and transitions.
+[`ReactTransitionGroup`](#low-level-api-reacttransitiongroup) add-on component là API cấp thấp (low-level) cho animation (hiệu ứng), [`ReactCSSTransitionGroup`](#high-level-api-reactcsstransitiongroup) là một add-on component giúp triển khai CSS animations và transitions một cách dễ dàng.
 
-## High-level API: ReactCSSTransitionGroup {#high-level-api-reactcsstransitiongroup}
+## API cấp cao (high-level): ReactCSSTransitionGroup {#high-level-api-reactcsstransitiongroup}
 
-`ReactCSSTransitionGroup` is a high-level API based on [`ReactTransitionGroup`](#low-level-api-reacttransitiongroup) and is an easy way to perform CSS transitions and animations when a React component enters or leaves the DOM. It's inspired by the excellent [ng-animate](https://docs.angularjs.org/api/ngAnimate) library.
+`ReactCSSTransitionGroup` là một API cấp cao dựa trên [`ReactTransitionGroup`](#low-level-api-reacttransitiongroup), khá dễ dàng để thực hiện các CSS transitions và animations khi một React component được thêm vào hoặc bị loại bỏ khỏi DOM. Điều này được lấy cảm hứng từ một thư viện tuyệt vời là [ng-animate](https://docs.angularjs.org/api/ngAnimate).
 
-**Importing**
+**Tiến hành triển khai**
 
 ```javascript
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
-var ReactCSSTransitionGroup = require('react-addons-css-transition-group'); // ES5 with npm
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group'); // ES5 với npm
 ```
 
 ```javascript{31-36}
@@ -70,13 +70,13 @@ class TodoList extends React.Component {
 }
 ```
 
-> Note:
+> Chú ý:
 >
-> You must provide [the `key` attribute](/docs/lists-and-keys.html#keys) for all children of `ReactCSSTransitionGroup`, even when only rendering a single item. This is how React will determine which children have entered, left, or stayed.
+> Bạn phải cung cấp [thuộc tính `key`](/docs/lists-and-keys.html#keys) cho tất cả các phần tử con của `ReactCSSTransitionGroup`, kể cả khi chỉ render một phần tử đơn duy nhất. Đây là cách React sẽ chỉ ra rằng phần tử con nào ở trung tâm, bên trái hoặc giữ nguyên vị trí hiện tại.
 
-In this component, when a new item is added to `ReactCSSTransitionGroup` it will get the `example-enter` CSS class and the `example-enter-active` CSS class added in the next tick. This is a convention based on the `transitionName` prop.
+Trong component này, khi một item mới được thêm vào `ReactCSSTransitionGroup` nó sẽ lấy về được `example-enter` CSS class và `example-enter-active` CSS class được thêm ở ngay sau. Đây là quy tắc dựa trên `transitionName` prop.
 
-You can use these classes to trigger a CSS animation or transition. For example, try adding this CSS and adding a new list item:
+Bạn có thể sử dụng các classes này để kích hoạt CSS animation hoặc transition. Ví dụ, thử thêm đoạn code CSS này và thêm một danh sách các phần tử mới:
 
 ```css
 .example-enter {
@@ -98,11 +98,11 @@ You can use these classes to trigger a CSS animation or transition. For example,
 }
 ```
 
-You'll notice that animation durations need to be specified in both the CSS and the render method; this tells React when to remove the animation classes from the element and -- if it's leaving -- when to remove the element from the DOM.
+Bạn sẽ nhận ra rằng khoảng thời gian animation chạy cần phải chỉ định ở cả CSS và phương thức render; nó sẽ thông báo cho React khi nào loại bỏ animation classes của element và -- Nếu nó đang rời đi -- khi loại bỏ element khỏi DOM.
 
 ### Animate Initial Mounting {#animate-initial-mounting}
 
-`ReactCSSTransitionGroup` provides the optional prop `transitionAppear`, to add an extra transition phase at the initial mount of the component. There is generally no transition phase at the initial mount as the default value of `transitionAppear` is `false`. The following is an example which passes the prop `transitionAppear` with the value `true`.
+`ReactCSSTransitionGroup` cung cấp tuỳ chọn prop là `transitionAppear`, để thêm một pha transition khác ở thời điểm component được initial mount. Không hề có pha transition ở thời điểm initial mount với giá trị mặc định của `transitionAppear` là `false`. Sau đây là một ví dụ mà sẽ truyền prop  `transitionAppear` với giá trị là `true`.
 
 ```javascript{5-6}
 render() {
@@ -119,7 +119,7 @@ render() {
 }
 ```
 
-During the initial mount `ReactCSSTransitionGroup` will get the `example-appear` CSS class and the `example-appear-active` CSS class added in the next tick.
+Trong quá trình initial mount `ReactCSSTransitionGroup` sẽ lấy `example-appear` CSS class và `example-appear-active` CSS class được thêm ngay sau.
 
 ```css
 .example-appear {
@@ -132,17 +132,17 @@ During the initial mount `ReactCSSTransitionGroup` will get the `example-appear`
 }
 ```
 
-At the initial mount, all children of the `ReactCSSTransitionGroup` will `appear` but not `enter`. However, all children later added to an existing `ReactCSSTransitionGroup` will `enter` but not `appear`.
+Ở thời điểm initial mount, mọi phần tử con của `ReactCSSTransitionGroup` sẽ  `appear` nhưng không `enter`. Dù vậy, mọi phần tử con sau này được thêm vào `ReactCSSTransitionGroup` đang tồn tại sẽ là `enter` chứ không phải là `appear`.
 
-> Note:
+> Chú ý:
 >
-> The prop `transitionAppear` was added to `ReactCSSTransitionGroup` in version `0.13`. To maintain backwards compatibility, the default value is set to `false`.
+> prop `transitionAppear` đã được thêm vào `ReactCSSTransitionGroup` ở phiên bản `0.13`. Để đảm bảo tính tương thích ngược, giá trị mặc định sẽ được thiết lập là `false`.
 >
-> However, the default values of `transitionEnter` and `transitionLeave` are `true` so you must specify `transitionEnterTimeout` and `transitionLeaveTimeout` by default. If you don't need either enter or leave animations, pass `transitionEnter={false}` or `transitionLeave={false}`.
+> Tuy nhiên, các giá trị mặc định của `transitionEnter` và `transitionLeave` đều là `true` nên mặc định bạn phải chỉ ra `transitionEnterTimeout` và `transitionLeaveTimeout`. Nếu bạn không cần việc bắt đầu cũng như kết thúc các animations, truyền `transitionEnter={false}` hoặc `transitionLeave={false}`.
 
 ### Custom Classes {#custom-classes}
 
-It is also possible to use custom class names for each of the steps in your transitions. Instead of passing a string into transitionName you can pass an object containing either the `enter` and `leave` class names, or an object containing the `enter`, `enter-active`, `leave-active`, and `leave` class names. If only the enter and leave classes are provided, the enter-active and leave-active classes will be determined by appending '-active' to the end of the class name. Here are two examples using custom classes:
+Hoàn toàn có thể sử dụng các custom class names cho mỗi một bước trong transitions của bạn. Thay vì truyền một xâu vào transitionName bạn có thể truyền một object bao gồm hoặc là `enter` và `leave` class names, hoặc là một object bao gồm `enter`, `enter-active`, `leave-active`, và `leave` class names. Nếu chỉ đưa vào và bỏ đi các classes được cung cấp, enter-active và leave-active classes sẽ được chỉ ra bằng cách thêm hậu tố '-active' vào tên của class. Đây là hai ví dụ sử dụng custom classes:
 
 ```javascript
 // ...
@@ -169,11 +169,11 @@ It is also possible to use custom class names for each of the steps in your tran
 // ...
 ```
 
-### Animation Group Must Be Mounted To Work {#animation-group-must-be-mounted-to-work}
+### Animation Group phải được mounted để hoạt động {#animation-group-must-be-mounted-to-work}
 
-In order for it to apply transitions to its children, the `ReactCSSTransitionGroup` must already be mounted in the DOM or the prop `transitionAppear` must be set to `true`.
+Để có thể áp dụng transitions cho các phần tử con của nó, `ReactCSSTransitionGroup` phải được mounted trong DOM hoặc prop `transitionAppear` phải được thiết lập giá trị `true`.
 
-The example below would **not** work, because the `ReactCSSTransitionGroup` is being mounted along with the new item, instead of the new item being mounted within it. Compare this to the [Getting Started](#getting-started) section above to see the difference.
+Ví dụ bên dưới sẽ **không** hoạt động, vì `ReactCSSTransitionGroup` đang được mounted với item mới, thay vì item mới đang được mounted bên trong nó. So sánh với phần [khởi động](#getting-started) phía trên để thấy sự khác biệt.
 
 ```javascript{4,6,13}
 render() {
@@ -194,9 +194,9 @@ render() {
 }
 ```
 
-### Animating One or Zero Items {#animating-one-or-zero-items}
+### Animating Một hoặc Không items nào {#animating-one-or-zero-items}
 
-In the example above, we rendered a list of items into `ReactCSSTransitionGroup`. However, the children of `ReactCSSTransitionGroup` can also be one or zero items. This makes it possible to animate a single element entering or leaving. Similarly, you can animate a new element replacing the current element. For example, we can implement a simple image carousel like this:
+Trong ví dụ phía trên, chúng ta đã rendered ra 1 danh sách các items vào bên trong `ReactCSSTransitionGroup`. Tuy nhiên, phần tử con của `ReactCSSTransitionGroup` cũng có thể là một hoặc không có phần tử nào. Điều này khiến cho nó hoàn toàn có thể animate một element đơn đi vào hoặc rời đi. Tương tự, bạn có thể animate một element mới thay thế cho element hiện tại. Ví dụ, chúng ta có thể triển khai một image carousel đơn giản như sau:
 
 ```javascript{10}
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
@@ -215,26 +215,26 @@ function ImageCarousel(props) {
 }
 ```
 
-### Disabling Animations {#disabling-animations}
+### Tắt các Animations {#disabling-animations}
 
-You can disable animating `enter` or `leave` animations if you want. For example, sometimes you may want an `enter` animation and no `leave` animation, but `ReactCSSTransitionGroup` waits for an animation to complete before removing your DOM node. You can add `transitionEnter={false}` or `transitionLeave={false}` props to `ReactCSSTransitionGroup` to disable these animations.
+Bạn có thể tắt (vô hiệu hoá) các hiệu ứng `enter` hoặc `leave` nếu bạn muốn. Ví dụ, đôi khi có thể bạn muốn chỉ có `enter` animation mà không có `leave` animation, nhưng `ReactCSSTransitionGroup` đợi một animation kết thúc hoàn toàn trước khi loại bỏ DOM node của bạn. Bạn có thể thêm `transitionEnter={false}` hoặc `transitionLeave={false}` props cho `ReactCSSTransitionGroup` để vô hiệu hoá các animations đó.
 
-> Note:
+> Chú ý:
 >
-> When using `ReactCSSTransitionGroup`, there's no way for your components to be notified when a transition has ended or to perform any more complex logic around animation. If you want more fine-grained control, you can use the lower-level `ReactTransitionGroup` API which provides the hooks you need to do custom transitions.
+> Khi sử dụng `ReactCSSTransitionGroup`, không có cách nào để cho các components của bạn được thông báo rằng khi nào hết hoặc thực thi nhiều hơn các logic phức tạp xung quanh animation. Nếu bạn muốn nhiều hơn các fine-grained control, bạn có thể sử dụng các API cấp thấp của `ReactTransitionGroup`, chúng sẽ cung cấp các hooks mà bạn cần để thực hiện custom transitions.
 
 * * *
 
-## Low-level API: ReactTransitionGroup {#low-level-api-reacttransitiongroup}
+## API cấp thấp: ReactTransitionGroup {#low-level-api-reacttransitiongroup}
 
 **Importing**
 
 ```javascript
 import ReactTransitionGroup from 'react-addons-transition-group' // ES6
-var ReactTransitionGroup = require('react-addons-transition-group') // ES5 with npm
+var ReactTransitionGroup = require('react-addons-transition-group') // ES5 với npm
 ```
 
-`ReactTransitionGroup` is the basis for animations. When children are declaratively added or removed from it (as in the [example above](#getting-started)), special lifecycle methods are called on them.
+`ReactTransitionGroup` là nền tảng cho animations. Khi các phần tử con được thêm hoặc bị loại bỏ khỏi nó (như ở [ví dụ trên](#getting-started)), các phương thức vòng đời (lifecycle) sẽ được gọi trên chúng.
 
  - [`componentWillAppear()`](#componentwillappear)
  - [`componentDidAppear()`](#componentdidappear)
@@ -243,9 +243,9 @@ var ReactTransitionGroup = require('react-addons-transition-group') // ES5 with 
  - [`componentWillLeave()`](#componentwillleave)
  - [`componentDidLeave()`](#componentdidleave)
 
-#### Rendering a Different Component {#rendering-a-different-component}
+#### Rendering một Component khác {#rendering-a-different-component}
 
-`ReactTransitionGroup` renders as a `span` by default. You can change this behavior by providing a `component` prop. For example, here's how you would render a `<ul>`:
+`ReactTransitionGroup` mặc định renders như một phần tử `span`. Bạn có thể thay đổi đặc điểm này bằng cách truyền một `component` prop. Ví dụ, đây là cách bạn sẽ render một phần tử `<ul>`:
 
 ```javascript{1}
 <ReactTransitionGroup component="ul">
@@ -253,7 +253,7 @@ var ReactTransitionGroup = require('react-addons-transition-group') // ES5 with 
 </ReactTransitionGroup>
 ```
 
-Any additional, user-defined, properties will become properties of the rendered component. For example, here's how you would render a `<ul>` with CSS class:
+Bất kì các thuộc tính bổ sung hay các thuộc tính user-defined (định nghĩa bởi developer) sẽ trở thành thuộc tính của component đã rendered. Ví dụ, đây là cách mà bạn render một phần tử `<ul>` với CSS class:
 
 ```javascript{1}
 <ReactTransitionGroup component="ul" className="animated-list">
@@ -261,13 +261,13 @@ Any additional, user-defined, properties will become properties of the rendered 
 </ReactTransitionGroup>
 ```
 
-Every DOM component that React can render is available for use. However, `component` does not need to be a DOM component. It can be any React component you want; even ones you've written yourself! Just write `component={List}` and your component will receive `this.props.children`.
+Mọi DOM component mà React có thể render đều sẵn sàng để sử dụng. Tuy nhiên, `component` không nhất thiết phải là một DOM component. Nó có thể là bất kì React component nào mà bạn muốn; kể cả những components do bạn tự viết! Chỉ cần viết `component={List}` và component của bạn sẽ nhận được `this.props.children`.
 
-#### Rendering a Single Child {#rendering-a-single-child}
+#### Rendering một phần tử con duy nhất {#rendering-a-single-child}
 
-People often use `ReactTransitionGroup` to animate mounting and unmounting of a single child such as a collapsible panel. Normally `ReactTransitionGroup` wraps all its children in a `span` (or a custom `component` as described above). This is because any React component has to return a single root element, and `ReactTransitionGroup` is no exception to this rule.
+Chúng ta thường sử dụng `ReactTransitionGroup` để mounting cũng như unmounting các hiệu ứng của một phần tử con đơn như là panel có thể đóng mở (collapsible). Thông thường `ReactTransitionGroup` bao lấy toàn bộ con của nó trong một phần tử `span` (hoặc là một custom `component` như đã mô tả phía trên). Điều này là bởi vì bất kì React component nào cũng phải trả về 1 root element duy nhất, và `ReactTransitionGroup` cũng phải là một ngoại lệ của quy tắc này.
 
-However if you only need to render a single child inside `ReactTransitionGroup`, you can completely avoid wrapping it in a `<span>` or any other DOM component. To do this, create a custom component that renders the first child passed to it directly:
+Tuy nhiên nếu bạn chỉ render một phần tử con duy nhất bên trong `ReactTransitionGroup`, bạn có thể hoàn toàn tránh được việc bao nó trong một phần tử `<span>` hoặc bất kì DOM component nào khác. Để làm điều này, tạo một custom component mà nó sẽ renders ra phần từ con đầu tiên được truyền vào nó một cách trực tiếp:
 
 ```javascript
 function FirstChild(props) {
@@ -276,7 +276,7 @@ function FirstChild(props) {
 }
 ```
 
-Now you can specify `FirstChild` as the `component` prop in `<ReactTransitionGroup>` props and avoid any wrappers in the result DOM:
+Bây giờ bạn có thể chỉ định `FirstChild` như là `component` prop trong `<ReactTransitionGroup>` props và tránh bất kì wrappers nào trong kết quả DOM thu được:
 
 ```javascript
 <ReactTransitionGroup component={FirstChild}>
@@ -284,11 +284,11 @@ Now you can specify `FirstChild` as the `component` prop in `<ReactTransitionGro
 </ReactTransitionGroup>
 ```
 
-This only works when you are animating a single child in and out, such as a collapsible panel. This approach wouldn't work when animating multiple children or replacing the single child with another child, such as an image carousel. For an image carousel, while the current image is animating out, another image will animate in, so `<ReactTransitionGroup>` needs to give them a common DOM parent. You can't avoid the wrapper for multiple children, but you can customize the wrapper with the `component` prop as described above.
+Đoạn code này chỉ hoạt động khi bạn tạo hiệu ứng xuất hiện và biến mất của một phần tử con duy nhất, như là panel có khả năng đóng-mở. Cách tiếp cận này sẽ không hoạt động khi tạo hiệu ứng cho nhiều phần tử con hoặc thay thế một phần tử con bởi một phần tử con khác, ví dụ như là image carousel. Với một image carousel, trong khi hình ảnh hiện tại đang được animating out, thì hình ảnh khác sẽ animate in, nên `<ReactTransitionGroup>` cần đem đến cho chúng một phần tử DOM chung. Bạn không thể tránh được wrapper cho nhiều phần tử con, nhưng bạn có thể customize wrapper đó với `component` prop như đã mô tả ở trên.
 
 * * *
 
-## Reference {#reference}
+## Tham khảo {#reference}
 
 ### `componentWillAppear()` {#componentwillappear}
 
@@ -296,7 +296,7 @@ This only works when you are animating a single child in and out, such as a coll
 componentWillAppear(callback)
 ```
 
-This is called at the same time as `componentDidMount()` for components that are initially mounted in a `TransitionGroup`. It will block other animations from occurring until `callback` is called. It is only called on the initial render of a `TransitionGroup`.
+Phương thức này được gọi ở cùng thời điểm với phương thức `componentDidMount()` cho components mới được mounted trong một `TransitionGroup`. Nó sẽ chặn các animations khác từ lúc diễn ra cho đến khi `callback` được gọi. Nó chỉ được gọi trong lần render đầu tiên của `TransitionGroup`.
 
 * * *
 
@@ -306,7 +306,7 @@ This is called at the same time as `componentDidMount()` for components that are
 componentDidAppear()
 ```
 
-This is called after the `callback` function that was passed to `componentWillAppear` is called.
+Phương thức này được gọi sau khi hàm `callback` được truyền cho phương thức `componentWillAppear` được gọi.
 
 * * *
 
@@ -316,7 +316,7 @@ This is called after the `callback` function that was passed to `componentWillAp
 componentWillEnter(callback)
 ```
 
-This is called at the same time as `componentDidMount()` for components added to an existing `TransitionGroup`. It will block other animations from occurring until `callback` is called. It will not be called on the initial render of a `TransitionGroup`.
+Phương thức này được gọi cùng thời điểm với phương thức `componentDidMount()` khi các components được thêm vào một `TransitionGroup` đang tồn tại. Nó sẽ chặn các animations khác từ khi chạy cho đến khi hàm `callback` được gọi. Nó sẽ không được gọi trong lần render đầu tiên của `TransitionGroup`.
 
 * * *
 
@@ -326,7 +326,7 @@ This is called at the same time as `componentDidMount()` for components added to
 componentDidEnter()
 ```
 
-This is called after the `callback` function that was passed to [`componentWillEnter()`](#componentwillenter) is called.
+Phương thức này được gọi sau khi hàm `callback` truyền vào phương thức [`componentWillEnter()`](#componentwillenter) được gọi.
 
 * * *
 
@@ -336,7 +336,7 @@ This is called after the `callback` function that was passed to [`componentWillE
 componentWillLeave(callback)
 ```
 
-This is called when the child has been removed from the `ReactTransitionGroup`. Though the child has been removed, `ReactTransitionGroup` will keep it in the DOM until `callback` is called.
+Phương thức này được gọi khi phần tử con bị loại bỏ khỏi `ReactTransitionGroup`. Tuy nhiên khi phần tử con bị loại bỏ, `ReactTransitionGroup` sẽ giữ nó trong DOM cho đến khi hàm `callback` được gọi.
 
 * * *
 
@@ -346,4 +346,4 @@ This is called when the child has been removed from the `ReactTransitionGroup`. 
 componentDidLeave()
 ```
 
-This is called when the `willLeave` `callback` is called (at the same time as `componentWillUnmount()`).
+Phương thức này được gọi khi `willLeave` `callback` được gọi (cùng thời điểm với `componentWillUnmount()`).
