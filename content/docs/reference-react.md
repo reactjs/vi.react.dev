@@ -337,7 +337,11 @@ Lưu ý việc "biểu diễn" (rendering) các "thành phần" (components) `la
 
 ### `React.Suspense` {#reactsuspense}
 
+<<<<<<< HEAD
 `React.Suspense` cho phép bạn chỉ định "chỉ thị tải" trong trường hợp một số "thành phần" (component) trong cây bên dưới chưa sẵn sàng để "biểu diễn" (render). Hiện tại, các "thành phần" (component) lazy loading là trường hợp sử dụng **duy nhất** được hỗ trợ bởi `<React.Suspense>`:
+=======
+`React.Suspense` lets you specify the loading indicator in case some components in the tree below it are not yet ready to render. Today, lazy loading components is the **only** use case supported by `<React.Suspense>`:
+>>>>>>> d2ade76cce133af47ab198188fa2de03fa51834b
 
 ```js
 // This component is loaded dynamically
