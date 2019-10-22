@@ -200,9 +200,9 @@ Yêu cầu một [function as a child](/docs/render-props.html#using-props-other
 
 ### `Context.displayName` {#contextdisplayname}
 
-Context object chấp nhận một thuộc tính kiểu chuỗi `displayName`. React DevTools sử dụng chuỗi này để xách định những gì hiển thị cho context.
+Context object nhận một thuộc tính `displayName` kiểu chuỗi (string). React DevTools sử dụng chuỗi này để xác định cái sẽ hiển thị cho context.
 
-Lấy ví dụ bên dưới, các component theo sau sẽ xuất hiện như MyDisplayName trong DevTools:
+Với ví dụ dưới đây, component sẽ hiển thị như MyDisplayName trong DevTools:
 
 ```js{2}
 const MyContext = React.createContext(/* vài giá trị */);

@@ -109,9 +109,9 @@ Bạn có thể tiếp tục sử dụng  chính xác các API đã và đang s�
 
 React Redux từ phiên bản v7.1.0 [hỗ trợ Hooks API](https://react-redux.js.org/api/hooks) và expose hooks `useDispatch` hoặc `useSelector`.
 
-React Router [hỗ trợ hooks](https://reacttraining.com/react-router/web/api/Hooks) từ phiên bản v5.1.
+React Router [đã hỗ trợ hooks] từ phiên bản v5.1 (https://reacttraining.com/react-router/web/api/Hooks).
 
-Các thư viện khác có thể hỗ trợ hooks trong tương lai.
+Các thư viện khác cũng có thể hỗ trợ hook trong tương lai.
 
 ### Hook có làm việc với kiểu static không? {#do-hooks-work-with-static-typing}
 
