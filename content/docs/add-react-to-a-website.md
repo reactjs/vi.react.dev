@@ -69,13 +69,13 @@ Hai thẻ đầu tiên sẽ load React. Thẻ thứ ba sẽ load component code 
 
 Tạo một file với tên `like_button.js` cùng với trang HTML của bạn.
 
-Mở **[đoạn code khởi tạo sau](https://cdn.rawgit.com/gaearon/0b180827c190fe4fd98b4c7f570ea4a8/raw/b9157ce933c79a4559d2aa9ff3372668cce48de7/LikeButton.js)** và dán nó vào trong file mà bạn vừa tạo.
+Mở **[đoạn code khởi tạo sau](https://gist.github.com/gaearon/0b180827c190fe4fd98b4c7f570ea4a8/raw/b9157ce933c79a4559d2aa9ff3372668cce48de7/LikeButton.js)** và dán nó vào trong file mà bạn vừa tạo.
 
 >Tip
 >
 >Đoạn code này định nghĩa một React component gọi là `LikeButton`. Đừng lo lắng nếu bạn không hiểu nó ngay lập tức -- chúng tôi sẽ giải thích về building blocks của React trong phần [hands-on tutorial](/tutorial/tutorial.html) của chúng tôi và [hướng dẫn các khái niệm chính](/docs/hello-world.html). Còn bây giờ, hãy cùng hiển thị chúng trên màn hình!
 
-Sau **[đoạn code khởi tạo](https://cdn.rawgit.com/gaearon/0b180827c190fe4fd98b4c7f570ea4a8/raw/b9157ce933c79a4559d2aa9ff3372668cce48de7/LikeButton.js)**, thêm 2 dòng vào cuối file `like_button.js`:
+Sau **[đoạn code khởi tạo](https://gist.github.com/gaearon/0b180827c190fe4fd98b4c7f570ea4a8/raw/b9157ce933c79a4559d2aa9ff3372668cce48de7/LikeButton.js)**, thêm 2 dòng vào cuối file `like_button.js`:
 
 ```js{3,4}
 // ... Đoạn code khởi tạo bạn vừa dán ...
@@ -84,7 +84,7 @@ const domContainer = document.querySelector('#like_button_container');
 ReactDOM.render(e(LikeButton), domContainer);
 ```
 
-Hai dòng code này tìm thẻ `<div>` mà chúng ta đã thêm vào trang HTML ở bước đầu tiên, và sau đó hiển thị nút "Like" (một React component) bên trong div ở trên. 
+Hai dòng code này tìm thẻ `<div>` mà chúng ta đã thêm vào trang HTML ở bước đầu tiên, và sau đó hiển thị nút "Like" (một React component) bên trong div ở trên.
 
 ### Và đó là tất cả những gì cần làm! {#thats-it}
 
@@ -184,7 +184,7 @@ Chúc mừng! Bạn vừa thêm **production-ready JSX setup** cho project của
 Tạo một thư mục có tên là `src` và chạy câu lệnh terminal sau đây:
 
 ```
-npx babel --watch src --out-dir . --presets react-app/prod 
+npx babel --watch src --out-dir . --presets react-app/prod
 ```
 
 >Chú ý
@@ -195,7 +195,7 @@ npx babel --watch src --out-dir . --presets react-app/prod
 
 Đừng đợi cho đến khi nó kết thúc -- Câu lệnh này sẽ bắt đầu theo dõi JSX một cách tự động.
 
-Nếu bạn tạo một file với tên `src/like_button.js` với **[đoạn code JSX này](https://cdn.rawgit.com/gaearon/c8e112dc74ac44aac4f673f2c39d19d1/raw/09b951c86c1bf1116af741fa4664511f2f179f0a/like_button.js)**, watcher sẽ tạo một preprocessed `like_button.js` với code Javascript thuần túy phù hợp với trình duyệt. Khi bạn chỉnh sửa file nguồn với JSX, bộ thông dịch sẽ tự động chạy lại.
+Nếu bạn tạo một file với tên `src/like_button.js` với **[đoạn code JSX này](https://gist.github.com/gaearon/c8e112dc74ac44aac4f673f2c39d19d1/raw/09b951c86c1bf1116af741fa4664511f2f179f0a/like_button.js)**, watcher sẽ tạo một preprocessed `like_button.js` với code Javascript thuần túy phù hợp với trình duyệt. Khi bạn chỉnh sửa file nguồn với JSX, bộ thông dịch sẽ tự động chạy lại.
 
 Thông tin thêm, điều này cũng cho phép bạn sử dụng các cú pháp Javascript hiện đại như classes mà không cần phải lo lắng về vấn đề tương thích với các trình duyệt thế hệ cũ. Công cụ chúng ta vừa sử dụng được gọi là Babel, và bạn có thể nghiên cứu thêm về nó thông qua [tài liệu](https://babeljs.io/docs/en/babel-cli/).
 

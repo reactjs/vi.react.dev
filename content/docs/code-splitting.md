@@ -49,7 +49,9 @@ Nếu không, bạn sẽ cần phải tự thiết lập. Ví dụ, tham khảo 
 
 Đóng gói hẵn rất tuyệt vời, nhưng khi ứng dụng của bạn trở nên lớn hơn, file đóng gói của bạn cũng sẽ lớn theo. Đặc biệt khi bạn sử dụng third-party library (thư viện bên thứ 3) lớn. Bạn cần phải cẩn thận với những đoạn code bạn đang include vào bundle của mình, bằng cách đó bạn sẽ không vô tình làm nó trở nên quá lớn khiến ứng dụng mất nhiều thời gian để tải.
 
-Để tránh việc hỏng bundle vì file đóng gói quá lớn. Bạn nên chủ động bắt đầu "phân chia" bundle của mình ngay từ đầu. [Code-Splitting](https://webpack.js.org/guides/code-splitting/) là một tính năng được hỗ trợ bởi nhiều bundlers như Webpack và Browserfy (bằng [factor-bundle](https://github.com/browserify/factor-bundle)) có thể tạo ra nhiều bundles để load động tại thời điểm runtime.
+Để tránh việc nhận được một bundle lớn, tốt nhất nên bắt đầu "splitting (chia nhỏ)" gói bundle của bạn.
+Code-Splitting là một feature hỗ trợ bởi bundler như [Webpack](https://webpack.js.org/guides/code-splitting/), [Rollup](https://rollupjs.org/guide/en/#code-splitting) và Browserify (via
+[factor-bundle](https://github.com/browserify/factor-bundle)) nó có thể tạo ra nhiều bundle nhỏ có thể được load một cách tự động tại thời điểm runtime.
 
 Phân chia code cho ứng dụng giúp "lazy-load" chỉ những phần người dùng đang cần, tăng đáng kể hiệu suất mà không cần phải giảm số lượng code trong ứng dụng, bạn đã tránh phải tải những đoạn code người dùng có thể sẽ không bao giờ cần đến, và giảm số lượng code cần tải lên trong lần đầu tiên.
 

@@ -17,7 +17,7 @@ Thông thường với một ứng dụng React, data được truyền từ tr�
   - [Class.contextType](#classcontexttype)
   - [Context.Consumer](#contextconsumer)
   - [Context.displayName](#contextdisplayname)
-- [Các ví dụ](#examples)
+- [Ví dụ](#examples)
   - [Dynamic Context](#dynamic-context)
   - [Cập nhật Context từ Nested Component](#updating-context-from-a-nested-component)
   - [Sử dụng Multiple Contexts](#consuming-multiple-contexts)
@@ -205,7 +205,7 @@ Context object nhận một thuộc tính `displayName` kiểu chuỗi (string).
 Với ví dụ dưới đây, component sẽ hiển thị như MyDisplayName trong DevTools:
 
 ```js{2}
-const MyContext = React.createContext(/* some value */);
+const MyContext = React.createContext(/* vài giá trị */);
 MyContext.displayName = 'MyDisplayName';
 
 <MyContext.Provider> // "MyDisplayName.Provider" in DevTools
