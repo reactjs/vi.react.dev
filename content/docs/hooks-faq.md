@@ -489,7 +489,7 @@ function MeasureExample() {
 }
 ```
 
-Chúng tôi đã không sử dụng `useRef` trong ví dụ  trê, bởi vì một ref object  sẽ không thông báo chúng ta *những thay đổi* của giá trị ref hiện tại. Sử dụng ref callback đảm bảo [thậm chí nếu một component con hiển thị node đã đo sau đó](https://codesandbox.io/s/818zzk8m78) (ví dụ để response lại click), chúng ta sẽ vẫn nhận được thông báo trong component cha và có thể cập nhập giá trị kích thước.
+Chúng tôi đã không sử dụng `useRef` trong ví dụ  trên, bởi vì một ref object  sẽ không thông báo chúng ta *những thay đổi* của giá trị ref hiện tại. Sử dụng ref callback đảm bảo [thậm chí nếu một component con hiển thị node đã đo sau đó](https://codesandbox.io/s/818zzk8m78) (ví dụ để response lại click), chúng ta sẽ vẫn nhận được thông báo trong component cha và có thể cập nhập giá trị kích thước.
 
 Để ý chúng ta truyền `[]` như một dependency array vào `useCallback`. Đảm bảo ref callback của chúng ta không thay đổi giữa những lần re-render, như vậy React sẽ không gọi nó không cần thiết.
 
