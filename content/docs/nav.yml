@@ -8,13 +8,9 @@
       title: Create a New React App
     - id: cdn-links
       title: CDN Links
-<<<<<<< HEAD
-- title: Khái niệm chính
-=======
     - id: release-channels
       title: Release Channels
-- title: Main Concepts
->>>>>>> 3846b501066388c4d0bc84fc8389918d9080d5d2
+- title: Khái niệm chính
   isOrdered: true
   items:
     - id: hello-world
@@ -112,8 +108,7 @@
       title: JS Environment Requirements
     - id: glossary
       title: Glossary
-<<<<<<< HEAD
-- title: Hooks (mới)
+- title: Hooks
   isOrdered: true
   items:
       - id: hooks-intro
@@ -132,27 +127,6 @@
         title: Tham chiếu Hooks API
       - id: hooks-faq
         title: Hooks FAQ
-=======
-- title: Hooks
-  isOrdered: true
-  items:
-    - id: hooks-intro
-      title: Introducing Hooks
-    - id: hooks-overview
-      title: Hooks at a Glance
-    - id: hooks-state
-      title: Using the State Hook
-    - id: hooks-effect
-      title: Using the Effect Hook
-    - id: hooks-rules
-      title: Rules of Hooks
-    - id: hooks-custom
-      title: Building Your Own Hooks
-    - id: hooks-reference
-      title: Hooks API Reference
-    - id: hooks-faq
-      title: Hooks FAQ
->>>>>>> 3846b501066388c4d0bc84fc8389918d9080d5d2
 - title: Testing
   items:
     - id: testing
