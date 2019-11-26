@@ -75,22 +75,9 @@ import("./math").then(math => {
 });
 ```
 
-<<<<<<< HEAD
-> Chú ý:
->
-> Cú pháp `import()` động là một đoạn ECMAScript (JavaScript)
-> [proposal](https://github.com/tc39/proposal-dynamic-import) hiện tại chưa được xem
-> như một phần tiêu chuẩn của ngôn ngữ. Nó mong đợi sẽ được chấp nhận trong tương lai gần.
-
 Khi Webpack chạy đến cú pháp này, nó sẽ tự động phân chia code trong ứng dụng của bạn. Nếu bạn sử dụng Create React App,
 việc này đã được thiết lập sẵn cho bạn và bạn có thể [bắt đầu sử dụng](https://facebook.github.io/create-react-app/docs/code-splitting)
 ngay. Nó cũng được hỗ trợ sẵn trong [Next.js](https://github.com/zeit/next.js/#dynamic-import).
-=======
-When Webpack comes across this syntax, it automatically starts code-splitting
-your app. If you're using Create React App, this is already configured for you
-and you can [start using it](https://facebook.github.io/create-react-app/docs/code-splitting) immediately. It's also supported
-out of the box in [Next.js](https://github.com/zeit/next.js/#dynamic-import).
->>>>>>> 99b790188735016c72a9265a42dbfc87c3221729
 
 Nếu bạn đang tự mình cấu hình Webpack, bạn có thể sẽ muốn tham khảo Webpack's
 [hướng dẫn phân chia code](https://webpack.js.org/guides/code-splitting/). Cấu hình Webpack của bạn có thể sẽ trông mơ hồ [như thế này](https://gist.github.com/gaearon/ca6e803f5c604d37468b0091d9959269).
