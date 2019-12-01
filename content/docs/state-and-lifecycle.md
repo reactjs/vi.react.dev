@@ -10,7 +10,7 @@ next: handling-events.html
 
 Trang này giới thiếu khái niệm về state và lifecycle trong React component. Ban có thể tìm [thành phần tham chiếu API chi tiết tại đây](/docs/react-component.html).
 
-Cân nhắc ví dụ đồng hồ đếm giây từ [một trong phần của chương trước](/docs/rendering-elements.html#updating-the-rendered-element). Trong [Rendering Elements](/docs/rendering-elements.html#rendering-an-element-into-the-dom), chúng ta chỉ học cách để update UI. chúng ta gọi `ReactDOM.render()` để thay đổi kết xuất đầu ra (rendered output):
+Xem xem lại ví dụ đồng hồ tíc tắc [một phần của chương trước](/docs/rendering-elements.html#updating-the-rendered-element). Trong [Rendering Elements](/docs/rendering-elements.html#rendering-an-element-into-the-dom), chúng ta chỉ học cách để update UI. chúng ta gọi `ReactDOM.render()` để thay đổi đầu ra được kết xuất (rendered output):
 
 ```js{8-11}
 function tick() {
@@ -31,7 +31,7 @@ setInterval(tick, 1000);
 
 [**Thử trên Codepen**](https://codepen.io/gaearon/pen/gwoJZk?editors=0010)
 
-Trong chương này, chúng ta sẽ học làm thế thế nào để tạo thành phần `Clock` có thể tái sử dụng và đóng gói. Nó sẽ tự đặt thời gian của mình và cập nhập mỗi giây
+Trong chương này, chúng ta sẽ học làm thế thế nào để tạo thành phần `Clock` có thể tái sử dụng và đóng gói. Nó sẽ tự đặt bộ hẹn giờ của mình và tự cập nhập mỗi giây
 
 Chúng ta có thể bắt đầu đóng gói và trông nó sẽ như thế này:
 
@@ -57,9 +57,9 @@ setInterval(tick, 1000);
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/dpdoYR?editors=0010)
 
-Tuy nhiên, nó thiếu một yêu cầu quan trọng: sự thật là `Clock` đặt thời gian và cập nhập lại UI mỗi giây nên là sự thực hiện đầy đủ của `Clock`
+Tuy nhiên, nó thiếu một yêu cầu quan trọng: thực tế thì `Clock` đặt bộ hẹn giờ và cập nhập lại UI mỗi giây vi vậy `Clock` nên được làm chi tiết
 
-Lý tưởng nhất là ta làm điều này một lần duy nhất và có một `Clock` tự cập nhập:
+Lý tưởng nhất là ta viết một lần duy nhất và có một `Clock` tự cập nhập:
 
 ```js{2}
 ReactDOM.render(
@@ -68,7 +68,7 @@ ReactDOM.render(
 );
 ```
 
-Để thực hiện điều này, ta cần thêm "state" vào thành phần `Clock`
+Để thực hiện điều này, ta cần thêm "state" vào component `Clock`
 
 State cũng tương tự như props, nhưng nó là của riêng component và được kiểm soát hoàn toàn bởi chúng
 
@@ -76,15 +76,15 @@ State cũng tương tự như props, nhưng nó là của riêng component và �
 
 Bạn có thể chuyển đổi một function của thành phần như `Clock` thành class trong năm bước:
 
-1. Tạo một [ES6 class](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes), cùng tên, cho nó extends`React.Component`.
+1. Tạo một [ES6 class](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes), cùng tên, cho nó extends `React.Component`.
 
 2. Thêm một phương thức rỗng được gọi là `render()`.
 
 3. Di chuyển nội dung của function vào bên trong phương thức `render()`
 
-4. Tha thế `props` thành `this.props` trong nội dung của `render()`.
+4. Thay thế `props` thành `this.props` trong nội dung của `render()`.
 
-5. Xóa khai báo rỗng còn lại của function .
+5. Xóa khai function rỗng còn lại mà ta đã lấy nội dụng .
 
 ```js
 class Clock extends React.Component {
@@ -103,7 +103,7 @@ class Clock extends React.Component {
 
 `Clock` giờ sẽ được định nghĩa là một class chứ không còn là một function.
 
-Phương thức `render` sẽ được gọi mỗi khi sự cập nhập xảy ra, nhưng miễn là chúng ta render `<Clock/>` bên trong cùng DOM node, chỉ có duy nhất instance đơn lẻ của class `Clock` sẽ được sử dụng. Điều này làm ta có thể sử dụng thêm các features khác như local state và các phương thức lifecycle
+Phương thức `render` sẽ được gọi mỗi khi sự cập nhập xảy ra, nhưng miễn là chúng ta render `<Clock/>` bên trong cùng DOM node, chỉ có duy nhất instance đơn lẻ của class `Clock` sẽ được sử dụng. Điều này làm ta có thể sử dụng thêm các feature khác như local state và các phương thức lifecycle
 
 ## Thêm Local State vào Class {#adding-local-state-to-a-class}
 
@@ -124,7 +124,7 @@ class Clock extends React.Component {
 }
 ```
 
-2) Thêm một [class constructor](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes#Constructor) gán `this.state`: ban đầu:
+2) Thêm một [class constructor](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes#Constructor) gán `this.state` ban đầu:
 
 ```js{4}
 class Clock extends React.Component {
@@ -153,7 +153,7 @@ Lưu ý cách ta truyền `props` vào base contructor
   }
 ```
 
-Thành phần Class nên luôn luôn goi đến base contructor với `props`
+Thành phần Class nên luôn luôn gọi đến base contructor với `props`
 
 3) Xóa prop `date` từ thành phần `<Clock />`: 
 
@@ -164,7 +164,7 @@ ReactDOM.render(
 );
 ```
 
-Sau đó chúng ta sẽ truyền timer code trở về component đó.
+Sau đó chúng ta sẽ truyền code của bộ hẹn giờ trở về component đó.
 
 Kết quả sẽ trông như sau:
 
@@ -193,7 +193,7 @@ ReactDOM.render(
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/KgQpJd?editors=0010)
 
-Tiếp theo, chúng ta sẽ cho `Clock` bộ hẹn giờ và tự cập nhập mỗi giây.
+Tiếp theo, chúng ta sẽ cho `Clock` một bộ hẹn giờ và tự cập nhập mỗi giây.
 
 ## Thêm phương thức Lifecycle vào Class {#adding-lifecycle-methods-to-a-class}
 
@@ -233,7 +233,7 @@ class Clock extends React.Component {
 
 Những phương thức đặc biệt đó được gọi là "lifecycle methods".
 
-Phương thức `componentDidMount()` chạy sau khi đầu ra component đã được render vào trong DOM. Đây là vị trị thuận lợi để đặt bộ hẹn giờ:
+Phương thức `componentDidMount()` chạy sau khi đầu ra component đã được render vào trong DOM. Đây là vị trí thuận lợi để đặt bộ hẹn giờ:
 
 ```js{2-5}
   componentDidMount() {
@@ -302,11 +302,11 @@ ReactDOM.render(
 
 [**Thử trên Codepen**](https://codepen.io/gaearon/pen/amqdNA?editors=0010)
 
-Giờ đồng hồ sẽ được 'tick' mỗi giây
+Giờ đồng hồ sẽ được đếm mỗi giây
 
-Hãy tóm tắt nhanh những gì đã diễn ra và thứ tự các mehthod được gọi:
+Hãy tóm tắt nhanh những gì đã diễn ra và thứ tự các method được gọi:
 
-1) Khi `<Clocl/>` được truyền vào `ReactDOM.render()`, React gọi đến contructor của component `Clock`. Kể từ khi `Clock` cần hiển thị thời gian hiện tại, nó khởi tọa `this.state` với một object bao gồm cả thời gian hiện tại. Chúng ta sẽ cập nhập trạng thái này sau đó
+1) Khi `<Clock/>` được truyền vào `ReactDOM.render()`, React gọi đến contructor của component `Clock`. Kể từ khi `Clock` cần hiển thị thời gian hiện tại, nó khởi tạo `this.state` với một object bao gồm cả thời gian hiện tại. Chúng ta sẽ cập nhập trạng thái này sau đó
 
 2) React sau đó gọi phương thức render() của component `Clock`. Đây là cách React học(đọc) những gì nên được hiện thị ra màn hình. React sau đó cập nhập DOM để trùng khớp với đầu ra kết xuất(render) của `Clock`
 
@@ -314,8 +314,7 @@ Hãy tóm tắt nhanh những gì đã diễn ra và thứ tự các mehthod đ�
 
 4) Mỗi giây trình duyệt gọi đến phương thức `tick()`. Bên trong nó, component `Clock` lên lịch trình để UI cập nhập bằng cách gọi `setState()` với một object chứa thời gian hiện tại. Nhờ vào `setState()`, React biết răng state đã được thay đổi, và phương thức `render()` được gọi là để học (đọc) cái gì sẽ được in ra màn hình. Thời điểm này, `this.state.date` bên trong phương thức `render()` sẽ khác, vì vậy kết xuất đầu ra sẽ bao gồm thời gian đã được cập nhập. React cập nhập DOM sao phù hợp
 
-5) If the `Clock` component is ever removed from the DOM, React calls the `componentWillUnmount()` lifecycle method so the timer is stopped.
-5) Nếu component `Clock` chưa bị xóa khỏi DOM, React gọi đến phương thức `componentWillUnmount()` lifecycle thì bộ hẹn giờ bị dừng lại
+5) Nếu component `Clock` chưa bị xóa khỏi DOM, React gọi đến phương thức lifecycle `componentWillUnmount()` thì bộ hẹn giờ bị dừng lại
 
 ## Sử dụng state đúng cách {#using-state-correctly}
 
@@ -339,13 +338,13 @@ this.setState({comment: 'Hello'});
 
 Nơi duy nhất mà bạn có thể gán `this.state` là contructor
 
-### Cập nhập trạng thái có thể là bất đồng bộ {#state-updates-may-be-asynchronous}
+### Cập nhập state có thể là bất đồng bộ {#state-updates-may-be-asynchronous}
 
-React có thể call gộp nhiều lệnh gọi `setState()` vào một lần cập nhập để tăng hiệu năng
+React có thể gộp nhiều lệnh gọi `setState()` vào một lần cập nhập để tăng hiệu năng
 
 Bởi vì `this.props` và `this.state` có thể được cập nhập bất đồng bộ, bạn không nên dựa vào giá trị của chúng để tính toán state tiếp theo
 
-Ví dụ, đoạn mã này có thể thất bại để cập nhập counter
+Ví dụ, đoạn mã này có thể thất bại để cập nhập counter:
 
 ```js
 // Wrong
@@ -354,7 +353,7 @@ this.setState({
 });
 ```
 
-Để sửa nó, sử dụng một dạng thứ hai của `setState()` nó nhận một funtion chứ không phải object. Funtion này sẽ nhận state trước đó làm tham số đầu tiên, và props tại thời điểm cập nhập được nhận làm tham sso thứ hai:
+Để sửa nó, sử dụng một dạng thứ hai của `setState()` nó nhận một funtion chứ không phải object. Funtion này sẽ nhận state trước đó làm tham số đầu tiên, và props tại thời điểm cập nhập được nhận làm tham số thứ hai:
 
 ```js
 // Correct
@@ -363,7 +362,7 @@ this.setState((state, props) => ({
 }));
 ```
 
-Ta đã sử dụng [arrow function](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions) ở trước, nhưng nó vẫn hoạt động với funtion truyền thống:
+Ta đã sử dụng [arrow function](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions) ở đằng trước, nhưng nó vẫn hoạt động với funtion truyền thống:
 
 ```js
 // Correct
@@ -374,7 +373,7 @@ this.setState(function(state, props) {
 });
 ```
 
-### Cập nhập trạng thái được hợp nhất {#state-updates-are-merged}
+### Cập nhập trạng thái được gộp lại {#state-updates-are-merged}
 
 Khi mà bạn gọi `setState()`, React gộp object bạn cung cấp vào state hiện tại
 
@@ -408,11 +407,11 @@ Sau đó bạn có cập nhập chúng một cách độc lập bằng cách g�
   }
 ```
 
-Sự hợp nhất là nông (shallow), nên `this.setState({comments})` chừa lại `this.state.posts` nguyên vẹn, còn `this.state.comments` sẽ hoàn toàn được thay thế bằng value mới.
+Sự hợp nhất là nông (shallow), nên `this.setState({comments})` để lại `this.state.posts` nguyên vẹn, còn `this.state.comments` sẽ hoàn toàn được thay thế bằng value mới.
 
 ## Dữ liệu chảy từ trên xuống dưới {#the-data-flows-down}
 
-Cả parent và child component, cả hai có thể không hiểu dù component có là stateful hoặc stateless, và chúng sẽ không quan tâm liệu rằng nó được định nghĩa là một function hoặc một class
+Parent và child component, cả hai có thể không hiểu dù component có là stateful hoặc stateless, và chúng sẽ không quan tâm liệu rằng nó được định nghĩa là một function hoặc một class
 
 Đó là lý do vì sao state thường xuyên được gọi cục bộ hoặc và được khép kín. Nó không truy cập đến bất cứ component khác ngoài cái mà đang sở hữu và đặt giá trị cho nó
 
@@ -439,7 +438,7 @@ function FormattedDate(props) {
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/zKRqNB?editors=0010)
 
-Đây được gọi chung là dòng chảy dữ liệu "top-down" hoặc "unidirectional". Bất kỳ state luôn được sở hữu bởi một vài component đặc biệt, và bất cứ dữ liệu hoặc nguồn gốc UI từ state đó có thế ảnh hưởng đến những component "phía dưới" chúng và trong "tree"
+Đây được gọi chung là dòng chảy dữ liệu "top-down" hoặc "unidirectional". Bất kỳ state luôn được sở hữu bởi một vài component đặc biệt, và bất cứ dữ liệu hoặc nguồn gốc UI sinh ra từ state có thế ảnh hưởng đến những component "phía dưới" chúng và trong "tree"
 
 Nếu bạn tưởng tượng một "component tree" như một thác nước của những props, mỗi state của component như bổ sung thêm nguồn nước tụ lại tại một điểm nhưng cuối cùng vẫn chảy xuống
 
