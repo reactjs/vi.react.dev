@@ -8,7 +8,7 @@ prev: components-and-props.html
 next: handling-events.html
 ---
 
-Trang này giới thiệu khái niệm về state và lifecycle trong React component. Ban có thể tìm [tham chiếu component API chi tiết tại đây](/docs/react-component.html).
+Trang này giới thiệu khái niệm về state và lifecycle trong React component. Bạn có thể tìm [tham chiếu component API chi tiết tại đây](/docs/react-component.html).
 
 Xem xem lại ví dụ đồng hồ tíc tắc [một phần của chương trước](/docs/rendering-elements.html#updating-the-rendered-element). Trong [Rendering Elements](/docs/rendering-elements.html#rendering-an-element-into-the-dom), chúng ta chỉ học cách để update UI. chúng ta gọi `ReactDOM.render()` để thay đổi đầu ra được kết xuất (rendered output):
 
