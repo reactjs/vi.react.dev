@@ -244,7 +244,7 @@ Khi chúng ta khai báo một biến state với `useState`. Nó trả về mộ
 
 >Lưu ý
 >
->Bạn có thể tò mò làm thế nào React biết đuợc component nào dùng `useState` khi mà chúng ta không truyền bất kì thứ gì giống như `this` vào React. Câu hỏi này sẽ được giải thích [ở đây](/docs/hooks-faq.html#how-does-react-associate-hook-calls-with-components) và trong phần FAQs cùng với các câu hỏi khác.
+>Bạn có thể tò mò làm thế nào React biết đuợc component nào dùng `useState` khi mà chúng ta không truyền bất kì thứ gì giống như `this` vào React. Câu hỏi này sẽ được giải thích [trong Một số câu hỏi thường gặp với Hook](/docs/hooks-faq.html#how-does-react-associate-hook-calls-with-components) cùng với các câu hỏi khác.
 
 ### Mẹo: dùng nhiều biến state {#tip-using-multiple-state-variables}
 
@@ -270,7 +270,7 @@ Trong component ở trên, chúng ta có các biến/state cục bộ `age`, `fr
 Bạn **không cần thiết phải** sử dụng nhiều biến state. Biến state có thể chứ dữ liệu dạng đối tượng và mảng. Vì vậy bạn có thể nhóm các dữ liệu liên quan với nhau vào cùng một biến. Tuy nhiên, không giống như `this.setState` trong class, cập nhật biến state luôn luôn **thay thế** mà không trộn chúng lại (giống như `setState`).
 
 
-Chúng tôi có đề cập một số khuyến nghị về việc chia tách các biến state [trong FAQ](/docs/hooks-faq.html#should-i-use-one-or-many-state-variables).
+Chúng tôi có đề cập một số khuyến nghị về việc chia tách các biến state [trong phần Một số câu hỏi thường gặp với Hook](/docs/hooks-faq.html#should-i-use-one-or-many-state-variables).
 
 ## Bước kế tiếp {#next-steps}
 
