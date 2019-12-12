@@ -1,38 +1,38 @@
 ---
 id: hooks-state
-title: Using the State Hook
+title: Sử dụng State Hook
 permalink: docs/hooks-state.html
 next: hooks-effect.html
 prev: hooks-overview.html
 ---
 
-*Hooks* are a new addition in React 16.8. They let you use state and other React features without writing a class.
+*Hooks* mới được thêm vào trong React 16.8. Chúng cho phép sử dụng state và những tính năng khác của React mà không cần phải dùng tới class.
 
-The [introduction page](/docs/hooks-intro.html) used this example to get familiar with Hooks:
+Trang [Giới thiệu về Hook](/docs/hooks-intro.html) sử dụng ví dụ này để làm quen với Hooks:
 
 ```js{4-5}
 import React, { useState } from 'react';
 
 function Example() {
-  // Declare a new state variable, which we'll call "count"
+  // Khai báo 1 biến trạng thái mới đặt tên là "count"
   const [count, setCount] = useState(0);
 
   return (
     <div>
-      <p>You clicked {count} times</p>
+      <p>Bạn đã click {count} lần</p>
       <button onClick={() => setCount(count + 1)}>
-        Click me
+        Click vào tôi
       </button>
     </div>
   );
 }
 ```
 
-We'll start learning about Hooks by comparing this code to an equivalent class example.
+Chúng ta sẽ bắt đầu tìm hiểu thêm về Hooks bằng cách so sánh đoạn code này với một ví dụ tương tự dùng class.
 
-## Equivalent Class Example {#equivalent-class-example}
+## Ví dụ tương tự dùng class {#equivalent-class-example}
 
-If you used classes in React before, this code should look familiar:
+Nếu bạn đã dùng class trong React trước đây, bạn có thể hiểu được đoạn code này:
 
 ```js
 class Example extends React.Component {
@@ -46,9 +46,9 @@ class Example extends React.Component {
   render() {
     return (
       <div>
-        <p>You clicked {this.state.count} times</p>
+        <p>Bạn đã bấm {this.state.count} lần</p>
         <button onClick={() => this.setState({ count: this.state.count + 1 })}>
-          Click me
+          Bấm vào tôi
         </button>
       </div>
     );
@@ -56,39 +56,39 @@ class Example extends React.Component {
 }
 ```
 
-The state starts as `{ count: 0 }`, and we increment `state.count` when the user clicks a button by calling `this.setState()`. We'll use snippets from this class throughout the page.
+State ban đầu là `{ count: 0 }`, và chúng ta gia tăng `state.count` khi người dùng bấm vào nút bằng cách gọi hàm `this.setState()`. chúng ta sẽ sử dụng đoạn code mẫu này xuyên suốt bài viết.
 
->Note
+>Lưu ý
 >
->You might be wondering why we're using a counter here instead of a more realistic example. This is to help us focus on the API while we're still making our first steps with Hooks.
+>Bạn có thể thắc mắc tại sao chúng ta sử dụng một ví dụ về bộ đếm thay vì một ví dụ thực tế hơn. Bởi vì chúng ta đang tập trung vào API trong bước đầu làm quen với Hooks.
 
-## Hooks and Function Components {#hooks-and-function-components}
+## Hooks và Function Components {#hooks-and-function-components}
 
-As a reminder, function components in React look like this:
+Nhắc nhẹ lại, function components trong React trông giống như thế này:
 
 ```js
 const Example = (props) => {
-  // You can use Hooks here!
+  // Bạn có thể sử dụng hooks tại đây!
   return <div />;
 }
 ```
 
-or this:
+hoặc là:
 
 ```js
 function Example(props) {
-  // You can use Hooks here!
+  // Bạn có thể sử dụng hooks tại đây!
   return <div />;
 }
 ```
 
-You might have previously known these as "stateless components". We're now introducing the ability to use React state from these, so we prefer the name "function components".
+Bạn có thể đã biết ở trên gọi là "stateless components". Chúng ta sẽ thử sử dụng state trong những component này , vì vậy chúng tôi khuyến khích gọi chúng là "function components".
 
-Hooks **don't** work inside classes. But you can use them instead of writing classes.
+Hooks **không** hoạt động bên trong các class. Nhưng bạn có thể sử dụng hooks thay vì dùng class.
 
-## What's a Hook? {#whats-a-hook}
+## Hook là gì? {#whats-a-hook}
 
-Our new example starts by importing the `useState` Hook from React:
+Trong ví dụ mới này chúng ta import `useState` Hook từ React:
 
 ```js{1}
 import React, { useState } from 'react';
@@ -98,17 +98,17 @@ function Example() {
 }
 ```
 
-**What is a Hook?** A Hook is a special function that lets you "hook into" React features. For example, `useState` is a Hook that lets you add React state to function components. We'll learn other Hooks later.
+**Hook là gì?** Hook là một hàm đặc biệt cho phép bạn sử dụng các tính năng của React (mà không cần phải tạo class). Ví dụ, `useState` là một hook cho phép bạn thêm React state vào function components. Chúng ta sẽ tìm hiểu các hook còn lại trong các chương kế tiếp.
 
-**When would I use a Hook?** If you write a function component and realize you need to add some state to it, previously you had to convert it to a class. Now you can use a Hook inside the existing function component. We're going to do that right now!
+**Khi nào tôi nên dùng hook?** Nếu bạn viết một function component và nhận ra bạn cần thêm một số state vào chúng, trước đây bạn cần phải chuyển nó thành một class. Bây giờ bạn có thể sử dụng hook bên trong function component đã sẵn có. Chúng ta sẽ làm đều đó ngay bây giờ!
 
->Note:
+>Lưu ý:
 >
->There are some special rules about where you can and can't use Hooks within a component. We'll learn them in [Rules of Hooks](/docs/hooks-rules.html).
+>Có một số nguyên tắc đặc biệt về việc bạn có thể dùng hoặc không thể dùng hook trong component. Chúng ta sẽ xem qua chúng trong [Nguyên tắc sử dụng Hook](/docs/hooks-rules.html).
 
-## Declaring a State Variable {#declaring-a-state-variable}
+## Khai báo một biến state {#declaring-a-state-variable}
 
-In a class, we initialize the `count` state to `0` by setting `this.state` to `{ count: 0 }` in the constructor:
+Trong một class, chúng ta khởi tạo `count` state về `0` bằng cách cài đặt `this.state` về `{ count: 0 }` bên trong constructor:
 
 ```js{4-6}
 class Example extends React.Component {
@@ -120,76 +120,76 @@ class Example extends React.Component {
   }
 ```
 
-In a function component, we have no `this`, so we can't assign or read `this.state`. Instead, we call the `useState` Hook directly inside our component:
+Bên trong một function component, chúng ta không có `this`, cho nên chúng ta không thể cài đặt hoặc đọc `this.state`. Thay vào đó, chúng ta gọi `useState` Hook trực tiếp bên trong component:
 
 ```js{4,5}
 import React, { useState } from 'react';
 
 function Example() {
-  // Declare a new state variable, which we'll call "count"
+  // Khai báo một biến state mới, gọi nó là "count"
   const [count, setCount] = useState(0);
 ```
 
-**What does calling `useState` do?** It declares a "state variable". Our variable is called `count` but we could call it anything else, like `banana`. This is a way to "preserve" some values between the function calls — `useState` is a new way to use the exact same capabilities that `this.state` provides in a class. Normally, variables "disappear" when the function exits but state variables are preserved by React.
+**Hàm `useState` làm gì khi được gọi?** Nó khai báo một "state variable" (biến state). Biến này gọi là `count` nhưng ta có thể gọi nó với bất kì tên nào, ví dụ gọi là `banana`. Đây là cách để "lưu giữ" các giá trị giữa các lần gọi hàm — `useState` là một cách mới để sử dụng như là cách `this.state` được dùng trong class. Thông thường, các biến này "biến mất" khi hàm kết thúc nhưng các biến state này được React giữ lại.
 
-**What do we pass to `useState` as an argument?** The only argument to the `useState()` Hook is the initial state. Unlike with classes, the state doesn't have to be an object. We can keep a number or a string if that's all we need. In our example, we just want a number for how many times the user clicked, so pass `0` as initial state for our variable. (If we wanted to store two different values in state, we would call `useState()` twice.)
+**Hàm `useState` nhận tham số gì?** Tham số duy nhất được truyền vào hook `useState()` là state ban đầu. Không giống như khai báo với Class, state không cần thiết phải là object mà có thể là số hoặc chuỗi. Với ví dụ trên, ta chỉ cần biết người dùng click bao nhiêu lần, vì vậy ta truyền vào giá trị khởi tạo là `0`. (Nếu ta muốn lưu hai giá trị khác nhau, ta sẽ gọi `useState()` hai lần.)
 
-**What does `useState` return?** It returns a pair of values: the current state and a function that updates it. This is why we write `const [count, setCount] = useState()`. This is similar to `this.state.count` and `this.setState` in a class, except you get them in a pair. If you're not familiar with the syntax we used, we'll come back to it [at the bottom of this page](/docs/hooks-state.html#tip-what-do-square-brackets-mean).
+**`useState` trả về gì?** Nó trả về một cặp giá trị dưới dạng mảng: state hiện tại và một hàm để update nó. Đây là lý do chúng ta viết `const [count, setCount] = useState()`. Cặp này tương tự như `this.state.count` và `this.setState` trong class, khác là ta dùng chúng theo cặp. Nếu bạn không quen với cách dùng này, chúng ta sẽ quay trở lại thêm [ở cuối trang](/docs/hooks-state.html#tip-what-do-square-brackets-mean).
 
-Now that we know what the `useState` Hook does, our example should make more sense:
+Vậy chúng ta đã biết `useState` Hook để làm gì, việc đó giúp ví dụ dưới đây dễ hiểu hơn:
 
 ```js{4,5}
 import React, { useState } from 'react';
 
 function Example() {
-  // Declare a new state variable, which we'll call "count"
+  // Khai báo một biến state mới, gọi nó là "count"
   const [count, setCount] = useState(0);
 ```
 
-We declare a state variable called `count`, and set it to `0`. React will remember its current value between re-renders, and provide the most recent one to our function. If we want to update the current `count`, we can call `setCount`.
+Ví dụ trên khai báo một biến state gọi là `count` và set nó về `0`. React sẽ nhớ giá trị hiện tại của nó và cung cấp cho hàm của chúng ta giá trị mới nhất giữa những lần re-render. Nếu chúng ta muốn cập nhật giá trị `count` hiện tại, có thể gọi hàm `setCount`.
 
->Note
+>Lưu ý
 >
->You might be wondering: why is `useState` not named `createState` instead?
+>Có thể bạn thắc mắc: tại sao đặt tên hàm là `useState` mà không phải là `createState`?
 >
->"Create" wouldn't be quite accurate because the state is only created the first time our component renders. During the next renders, `useState` gives us the current state. Otherwise it wouldn't be "state" at all! There's also a reason why Hook names *always* start with `use`. We'll learn why later in the [Rules of Hooks](/docs/hooks-rules.html).
+>"Create" không được chính xác lắm bởi vì "state" chỉ được "create" lần đầu tiên khi component render. Trong những lần render tiếp theo, `useState` trả về state hiện tại. Nếu không thì nó không thể là nào gọi là "state"! Còn một lý do khác tại sao Hook luôn bắt đầu với `use`. Chúng ta sẽ tìm hiểu sau trong phần [Nguyên tắc sử dụng Hook](/docs/hooks-rules.html).
 
-## Reading State {#reading-state}
+## Đọc State {#reading-state}
 
-When we want to display the current count in a class, we read `this.state.count`:
+Khi muốn hiển thị giá trị hiện tại của state `count` trong class, chúng ta đọc từ `this.state.count`:
 
 ```js
-  <p>You clicked {this.state.count} times</p>
+  <p>Bạn đã click{this.state.count} lần</p>
 ```
 
-In a function, we can use `count` directly:
+Trong hàm (sử dụng với hooks), chúng ta dùng trực tiếp biến `count`:
 
 
 ```js
-  <p>You clicked {count} times</p>
+  <p>Bạn đã click{count} lần</p>
 ```
 
 ## Updating State {#updating-state}
 
-In a class, we need to call `this.setState()` to update the `count` state:
+Trong class, chúng ta cần gọi `this.setState()` để update state `count`:
 
 ```js{1}
   <button onClick={() => this.setState({ count: this.state.count + 1 })}>
-    Click me
+    Click vào 
   </button>
 ```
 
-In a function, we already have `setCount` and `count` as variables so we don't need `this`:
+Trong hàm (sử dụng với hooks), chúng ta đã có biến `setCount` và `count` cho nên không cần `this`:
 
 ```js{1}
   <button onClick={() => setCount(count + 1)}>
-    Click me
+    Click vào 
   </button>
 ```
 
-## Recap {#recap}
+## Tóm tắt {#recap}
 
-Let's now **recap what we learned line by line** and check our understanding.
+Cùng **xem lại từng dòng một** và kiểm tra xem chúng ta đã học được những gì.
 
 <!--
   I'm not proud of this line markup. Please somebody fix this.
@@ -203,52 +203,52 @@ Let's now **recap what we learned line by line** and check our understanding.
  5:
  6:    return (
  7:      <div>
- 8:        <p>You clicked {count} times</p>
+ 8:        <p>Bạn đã click {count} lần</p>
  9:        <button onClick={() => setCount(count + 1)}>
-10:         Click me
+10:         Click vào tôi
 11:        </button>
 12:      </div>
 13:    );
 14:  }
 ```
 
-* **Line 1:** We import the `useState` Hook from React. It lets us keep local state in a function component.
-* **Line 4:** Inside the `Example` component, we declare a new state variable by calling the `useState` Hook. It returns a pair of values, to which we give names. We're calling our variable `count` because it holds the number of button clicks. We initialize it to zero by passing `0` as the only `useState` argument. The second returned item is itself a function. It lets us update the `count` so we'll name it `setCount`.
-* **Line 9:** When the user clicks, we call `setCount` with a new value. React will then re-render the `Example` component, passing the new `count` value to it.
+* **Line 1:** Chúng ta import hook `useState` từ React. Nó cho phép chúng ta lưu trữ state cục bộ trong function component.
+* **Line 4:** bên trong `Example` component, chúng ta khai báo một biến state mới bằng cách gọi hook `useState`. Nó trả về môt cặp giá trị và chúng ta đặt tên chúng là `count` và `setCount`. Giá trị đầu tiên chúng ta đặt là `count` bởi vì biến `count` lưu trữ số lần buttion được click, ta khởi tạo giá trị là `0` bằng cách truyền `0` khi gọi hàm `useState`, tham số giá trị khởi tạo cũng là tham số duy nhất của hàm `useState`. Giá trị thứ hai trả về một hàm, cho phép cập nhật giá trị của `count`, vì vậy chúng ta gọi nó là `setCount`.
+* **Line 9:** Khi người dùng click button, ta gọi hàm `setCount` với giá trị mới. React sẽ re-render component `Example`, và truyền giá trị của `count` vào nó.
 
-This might seem like a lot to take in at first. Don't rush it! If you're lost in the explanation, look at the code above again and try to read it from top to bottom. We promise that once you try to "forget" how state works in classes, and look at this code with fresh eyes, it will make sense.
+Có thể đây là quá nhiều đối với bạn. Nhưng đừng lo lắng, nếu bạn vẫn không hiểu, hãy cố gắng nhìn lại đoạn code ở trên một lần nữa và đọc từ đầu tới cuối. Tôi hứa nếu bạn cố "quên" đi cách state hoạt động trong class, và xem nó như một cái mới, sẽ dễ hiểu hơn!
 
-### Tip: What Do Square Brackets Mean? {#tip-what-do-square-brackets-mean}
+### Mẹo: Cặp ngoặc vuông nghĩa là gì? {#tip-what-do-square-brackets-mean}
 
-You might have noticed the square brackets when we declare a state variable:
+Có thể bạn để ý chúng ta dùng cặp ngoặc vuông khi khai báo biến state:
 
 ```js
   const [count, setCount] = useState(0);
 ```
 
-The names on the left aren't a part of the React API. You can name your own state variables:
+Tên của các biến bên trái `=` không phải là một phần của React API. Bạn có thể đặt tên biến state bất kì:
 
 ```js
   const [fruit, setFruit] = useState('banana');
 ```
 
-This JavaScript syntax is called ["array destructuring"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring). It means that we're making two new variables `fruit` and `setFruit`, where `fruit` is set to the first value returned by `useState`, and `setFruit` is the second. It is equivalent to this code:
+Cú pháp Javascript này được gọi là ["array destructuring"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Array_destructuring). Nó nghĩa là bạn đang tạo hai biến mới `fruit` và `setFruit`. Trong đó, `fruit` là giá trị đầu tiên trả về bởi `useState`, và `setFruit` là giá trị thứ hai. Tương ứng với đoạn code:
 
 ```js
-  var fruitStateVariable = useState('banana'); // Returns a pair
-  var fruit = fruitStateVariable[0]; // First item in a pair
-  var setFruit = fruitStateVariable[1]; // Second item in a pair
+  var fruitStateVariable = useState('banana'); // Trả về một cặp (mảng 2 phần tử)
+  var fruit = fruitStateVariable[0]; // Phần tử đầu tiên
+  var setFruit = fruitStateVariable[1]; // Phần tử thứ hai
 ```
 
-When we declare a state variable with `useState`, it returns a pair — an array with two items. The first item is the current value, and the second is a function that lets us update it. Using `[0]` and `[1]` to access them is a bit confusing because they have a specific meaning. This is why we use array destructuring instead.
+Khi chúng ta khai báo một biến state với `useState`. Nó trả về một cặp - mảng có 2 phần tử. Phần tử đầu tiên là giá trị hiện tại, phần tử thứ hai là hàm cập nhật giá trị đó. Sử dụng `[0]` and `[1]` để truy cập chúng thì dễ gây hoang mang bởi vậy chúng có ý nghĩa nhất định. Đây là lý do chúng ta dùng array destructuring.
 
->Note
+>Lưu ý
 >
->You might be curious how React knows which component `useState` corresponds to since we're not passing anything like `this` back to React. We'll answer [this question](/docs/hooks-faq.html#how-does-react-associate-hook-calls-with-components) and many others in the FAQ section.
+>Bạn có thể tò mò làm thế nào React biết đuợc component nào dùng `useState` khi mà chúng ta không truyền bất kì thứ gì giống như `this` vào React. Câu hỏi này sẽ được giải thích [trong Một số câu hỏi thường gặp với Hook](/docs/hooks-faq.html#how-does-react-associate-hook-calls-with-components) cùng với các câu hỏi khác.
 
-### Tip: Using Multiple State Variables {#tip-using-multiple-state-variables}
+### Mẹo: dùng nhiều biến state {#tip-using-multiple-state-variables}
 
-Declaring state variables as a pair of `[something, setSomething]` is also handy because it lets us give *different* names to different state variables if we want to use more than one:
+Khai báo biến state dưới dạng một cặp giá trị `[something, setSomething]` thì tiện lợi bởi vì chúng cho phép chúng ta đặt tên biến state khác nhau nếu chúng ta muốn dùng nhiều hơn 1 state:
 
 ```js
 function ExampleWithManyStates() {
@@ -258,7 +258,7 @@ function ExampleWithManyStates() {
   const [todos, setTodos] = useState([{ text: 'Learn Hooks' }]);
 ```
 
-In the above component, we have `age`, `fruit`, and `todos` as local variables, and we can update them individually:
+Trong component ở trên, chúng ta có các biến/state cục bộ `age`, `fruit`, và `todos`. Và chúng ta có thể cập nhật chúng riêng rẽ:
 
 ```js
   function handleOrangeClick() {
@@ -267,14 +267,15 @@ In the above component, we have `age`, `fruit`, and `todos` as local variables, 
   }
 ```
 
-You **don't have to** use many state variables. State variables can hold objects and arrays just fine, so you can still group related data together. However, unlike `this.setState` in a class, updating a state variable always *replaces* it instead of merging it.
+Bạn **không cần thiết phải** sử dụng nhiều biến state. Biến state có thể chứ dữ liệu dạng đối tượng và mảng. Vì vậy bạn có thể nhóm các dữ liệu liên quan với nhau vào cùng một biến. Tuy nhiên, không giống như `this.setState` trong class, cập nhật biến state luôn luôn **thay thế** mà không trộn chúng lại (giống như `setState`).
 
-We provide more recommendations on splitting independent state variables [in the FAQ](/docs/hooks-faq.html#should-i-use-one-or-many-state-variables).
 
-## Next Steps {#next-steps}
+Chúng tôi có đề cập một số khuyến nghị về việc chia tách các biến state [trong phần Một số câu hỏi thường gặp với Hook](/docs/hooks-faq.html#should-i-use-one-or-many-state-variables).
 
-On this page we've learned about one of the Hooks provided by React, called `useState`. We're also sometimes going to refer to it as the "State Hook". It lets us add local state to React function components -- which we did for the first time ever!
+## Bước kế tiếp {#next-steps}
 
-We also learned a little bit more about what Hooks are. Hooks are functions that let you "hook into" React features from function components. Their names always start with `use`, and there are more Hooks we haven't seen yet.
+Ở chương này chúng ta đã tìm hiểu về một trong các hook cung cấp bởi React, gọi là `useState`. Thỉnh thoảng chúng ta gọi chúng là `State Hook`. Nó cho phép thêm state cục bộ vào React function component -- lần đầu làm chuyện ấy!
 
-**Now let's continue by [learning the next Hook: `useEffect`.](/docs/hooks-effect.html)** It lets you perform side effects in components, and is similar to lifecycle methods in classes.
+Chúng ta cũng tìm hiểu một chút về các hook. Hook là các hàm cho phép bạn "móc" các tính năng của React vào function components. Tên của chúng luôn bắt đầu với `use`, có nhiều hook mà chúng ta chưa khám phá.
+
+**Bây giờ hãy bắt đầu [tìm hiểu Hoook kế tiếp: `useEffect`.](/docs/hooks-effect.html)** Nó cho phép bạn thực hiện side effects bên trong components, nó tưong tự như các phương thức lifecycle bên trong class.
