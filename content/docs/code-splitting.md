@@ -89,7 +89,11 @@ bị biến đổi. Bạn sẽ cần [babel-plugin-syntax-dynamic-import](https:
 
 > Chú ý:
 >
+<<<<<<< HEAD
 > `React.lazy` và Suspense chưa có sẵn cho server-side rendering. Nếu bạn muốn phân chia code ở những ứng dụng render tại server, chúng tôi xin giới thiệu [Loadable Components](https://github.com/smooth-code/loadable-components). Nó có [hướng dẫn phân chia code với server-side rendering](https://www.smooth-code.com/open-source/loadable-components/docs/server-side-rendering/).
+=======
+> `React.lazy` and Suspense are not yet available for server-side rendering. If you want to do code-splitting in a server rendered app, we recommend [Loadable Components](https://github.com/gregberge/loadable-components). It has a nice [guide for bundle splitting with server-side rendering](https://loadable-components.com/docs/server-side-rendering/).
+>>>>>>> 401b97e9591ac573eaf35c7cf57e5f145276d140
 
 Chức năng `React.lazy` cho phép bạn render một import động như một component bình thường.
 
