@@ -46,7 +46,11 @@ npm install eslint-plugin-react-hooks --save-dev
 }
 ```
 
+<<<<<<< HEAD
 Trong tương lai, chúng tôi có định sẽ gộp luôn 2 plugin này vào trong Create React App và các bộ công cụ tương tự
+=======
+This plugin is included by default in [Create React App](/docs/create-a-new-react-app.html#create-react-app).
+>>>>>>> 071f5b0e1622465fb6fe5cf6c1cbd2aaef7c5ef4
 
 **Bạn có thể bỏ qua và đọc tiếp trang chỉ dẫn [tạo custom Hook](/docs/hooks-custom.html) bây giờ.** Ở đây, chúng ta sẽ tiếp tục giải thích lý do đằng sau những quy luật này.
 
