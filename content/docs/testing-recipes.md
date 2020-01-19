@@ -1,4 +1,3 @@
-
 ---
 id: testing-recipes
 title: Phương thức Test
