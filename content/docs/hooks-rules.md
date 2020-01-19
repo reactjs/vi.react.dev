@@ -46,7 +46,7 @@ npm install eslint-plugin-react-hooks --save-dev
 }
 ```
 
-Trong tương lai, chúng tôi có định sẽ gộp luôn 2 plugin này vào trong Create React App và các bộ công cụ tương tự
+Mặc định, plugin này được bao gồm trong [Create React App](/docs/create-a-new-react-app.html#create-react-app).
 
 **Bạn có thể bỏ qua và đọc tiếp trang chỉ dẫn [tạo custom Hook](/docs/hooks-custom.html) bây giờ.** Ở đây, chúng ta sẽ tiếp tục giải thích lý do đằng sau những quy luật này.
 
@@ -83,7 +83,7 @@ Vậy làm sao React biết được state nào ứng với lúc gọi `useState
 // Lần đầu render
 // ------------
 useState('Mary')           // 1. Khởi tạo  biết name với giá trị 'Mary'
-useEffect(persistForm)     // 2. Thêm một effect 
+useEffect(persistForm)     // 2. Thêm một effect
 useState('Poppins')        // 3. KHởi tạo biến surname với giá trị 'Poppins'
 useEffect(updateTitle)     // 4. Thêm một effect cập nhập title
 

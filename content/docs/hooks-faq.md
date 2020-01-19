@@ -431,8 +431,8 @@ Chúng ta lưu lại giá trị prop `row` trước đó trong một biến stat
 
 ```js
 function ScrollView({row}) {
-  let [isScrollingDown, setIsScrollingDown] = useState(false);
-  let [prevRow, setPrevRow] = useState(null);
+  const [isScrollingDown, setIsScrollingDown] = useState(false);
+  const [prevRow, setPrevRow] = useState(null);
 
   if (row !== prevRow) {
     // Row đã thay đổi sau lần render cuối cùng. Cập nhập isScrollingDown.
@@ -468,7 +468,7 @@ Bởi vì bạn không thường xuyên cần đến, bạn có thể nghĩ đ�
 
 ### Làm sao tôi có thể đo được 1 DOM node? {#how-can-i-measure-a-dom-node}
 
-Để đo vị trí hoặc kích thước của DOM node, bạn có thể sử dụng một [ref callback](/docs/refs-and-the-dom.html#callback-refs). React sẽ gọi callback này khi ref được đính vào một node khác. Đây là [một demo nhỏ](https://codesandbox.io/s/l7m0v5x4v9)
+Có một cách để đo vị trí hoặc kích thước của DOM node là sử dụng một [callback rè](/docs/refs-and-the-dom.html#callback-refs). React sẽ gọi callback này bất cứ khi nào ref được đính vào một node khác. Đây là [một demo nhỏ](https://codesandbox.io/s/l7m0v5x4v9)
 
 ```js{4-8,12}
 function MeasureExample() {
@@ -492,6 +492,9 @@ function MeasureExample() {
 Chúng tôi đã không sử dụng `useRef` trong ví dụ  trên, bởi vì một ref object  sẽ không thông báo chúng ta *những thay đổi* của giá trị ref hiện tại. Sử dụng ref callback đảm bảo [thậm chí nếu một component con hiển thị node đã đo sau đó](https://codesandbox.io/s/818zzk8m78) (ví dụ để response lại click), chúng ta sẽ vẫn nhận được thông báo trong component cha và có thể cập nhập giá trị kích thước.
 
 Để ý chúng ta truyền `[]` như một dependency array vào `useCallback`. Đảm bảo ref callback của chúng ta không thay đổi giữa những lần re-render, như vậy React sẽ không gọi nó không cần thiết.
+
+In this example, the callback ref will be called only when the component mounts and unmounts, since the rendered `<h1>` component stays present throughout any rerenders. If you want to be notified any time a component resizes, you may want to use [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver) or a third-party Hook built on it.
+Trong ví dụ này, callback ref chỉ được gọi khi component mount và unmount,
 
 Nếu bạn muốn, bạn có thể [tách  logic](https://codesandbox.io/s/m5o42082xy) vào một hook để sử dụng:
 
@@ -717,7 +720,7 @@ Như là cách cuối cùng, nếu bạn muốn cái gì đó giống với `thi
 
 ```js{2-6,10-11,16}
 function Example(props) {
-  // Giữ giá trị prop cuối cùng trong 1 ref.
+  // Giữ giá trị prop trong 1 ref.
   let latestProps = useRef(props);
   useEffect(() => {
     latestProps.current = props;

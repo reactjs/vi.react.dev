@@ -107,7 +107,7 @@ function Page(props) {
 
 Pattern này hoàn toàn hiệu quả cho nhiều trường hợp khi bạn cần tách một child component từ những partents component trung gian của nó. Bạn có thể tiến xa hơn nữa với [render props](/docs/render-props.html) nếu child component cần giao tiếp với parent component trước khi render.
 
-Tuy nhiên, đôi khi có những data trùng lặp cần được truy cập bởi nhiều components trong component tree, và ở nhiều tầng khác nhau. Context cho phép bạn "Phát sóng" những data như vậy, và trao đổi nó đến tất cả những components bên dưới. Ví dụ như khi sử dụng context có thể sẽ đơn giãn hơn so với những lựa chọn thay thế bao gồm quản lý current locale, theme, hay data caching.
+Tuy nhiên, đôi khi có những data trùng lặp cần được truy cập bởi nhiều components trong component tree, và ở nhiều tầng khác nhau. Context cho phép bạn "Phát sóng (broadcast)" những data như vậy, và trao đổi nó đến tất cả những components bên dưới. Ví dụ như khi sử dụng context có thể sẽ đơn giãn hơn so với những lựa chọn thay thế bao gồm quản lý current locale, theme, hay data caching.
 
 ## API {#api}
 
@@ -131,7 +131,7 @@ Mỗi Context object đi cùng với một Provider React component cho phép co
 
 Nhận một `value` prop để truyền đến consuming components mà nó là con của Provider này. Một Provider có thể kết nối đến nhiều comsumers. Providers có thể lồng nhau để ghi đè giá trị sâu hơn trong component tree.
 
-Tất cả consumers con của một Provider sẽ được re-rerender bất cứ khi nào `value` của Provider đó thay đổi. Sự lan truyền từ Provider đến consumer con của nó không bị lệ thuộc vào `shouldComponentUpdate` method, vì vậy consumer được cập nhật ngay cả khi một component cha thoát ra khỏi sự cập nhật đó.
+Tất cả consumers con của một Provider sẽ được re-rerender bất cứ khi nào `value` của Provider đó thay đổi. Sự lan truyền từ Provider đến consumer con của nó (bao gồm [`.contextType`](#classcontexttype) và [`useContext`](/docs/hooks-reference.html#usecontext)) không bị lệ thuộc vào `shouldComponentUpdate` method, vì vậy consumer được cập nhật ngay cả khi một component cha thoát ra khỏi sự cập nhật đó.
 
 Những thay đổi được xác định bằng cách so sánh những giá trị mới và cũ sử dụng chung một thuật toán như [`Object.is`](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description).
 
@@ -264,4 +264,3 @@ Bởi vì context sử dụng reference identity để xác định khi nào nê
 > Lưu ý
 >
 > React vừa mang đến một context API thử nghiệm. API cũ sẽ hỗ trợ trong tất cả phiên bản 16.x, nhưng những ứng dụng sử dụng nó nên nâng cấp lên phiên bản mới hơn. API cũ sẽ bị xóa trong tương lại qua những lần cập nhật lớn của React. Tham khảo [legacy context docs here](/docs/legacy-context.html).
-
