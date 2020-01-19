@@ -1,20 +1,23 @@
+
 ---
 id: testing-recipes
-title: Testing Recipes
+title: Phương thức Test
 permalink: docs/testing-recipes.html
 prev: testing.html
 next: testing-environments.html
 ---
 
-Common testing patterns for React components.
+Một vài cách viết test phổ biến cho component React.
 
-> Note:
+
+> Lưu ý:
 >
-> This page assumes you're using [Jest](https://jestjs.io/) as a test runner. If you use a different test runner, you may need to adjust the API, but the overall shape of the solution will likely be the same. Read more details on setting up a testing environment on the [Testing Environments](/docs/testing-environments.html) page.
+> Trang này mặc định bạn đang dùng [Jest](https://jestjs.io/) làm test runner. Nếu dùng một test runner khác, bạn cần thay đổi API cho phù hợp, giải pháp sẽ gần như nhau. Đọc thêm chi tiết cách cài đặt môi trường test ở [Môi trường Test](/docs/testing-environments.html).
 
-On this page, we will primarily use function components. However, these testing strategies don't depend on implementation details, and work just as well for class components too.
 
-- [Setup/Teardown](#setup--teardown)
+Trên trang này, chúng tôi sẽ tập chung vào function component. Tuy nhiên, cách để tiếp cận test không phụ thuộc vào phần hiện thực cụ thể, nó cũng sẽ làm việc tốt với class component.
+
+- [Cài đặt cụ thể](#setup--teardown)
 - [`act()`](#act)
 - [Rendering](#rendering)
 - [Data Fetching](#data-fetching)
@@ -27,58 +30,58 @@ On this page, we will primarily use function components. However, these testing 
 
 ---
 
-### Setup/Teardown {#setup--teardown}
+### Cài đặt cụ thể {#setup--teardown}
 
-For each test, we usually want to render our React tree to a DOM element that's attached to `document`. This is important so that it can receive DOM events. When the test ends, we want to "clean up" and unmount the tree from the `document`.
+Trên mỗi test, chúng ta thường muốn render React tree của chúng ta thành DOM element và chèn nó vào `document`. Chỉ như thế chúng ta mới nhận được các sự kiện trên DOM. Khi kết thúc một test, chúng ta muốn "dọn dẹp" và *gỡ bỏ* cây này khỏi DOM.
 
-A common way to do it is to use a pair of `beforeEach` and `afterEach` blocks so that they'll always run and isolate the effects of a test to itself:
+Một cách phổ biến để làm nó là sử dụng bộ đôi `beforeEach` và `afterEach`, để  chúng luôn chạy một cách độc lập và không ảnh hưởng đến test khác:
 
 ```jsx
 import { unmountComponentAtNode } from "react-dom";
 
 let container = null;
 beforeEach(() => {
-  // setup a DOM element as a render target
+  // cài đặt một DOM element như là target cho render
   container = document.createElement("div");
   document.body.appendChild(container);
 });
 
 afterEach(() => {
-  // cleanup on exiting
+  // dọn dẹp lúc thoát
   unmountComponentAtNode(container);
   container.remove();
   container = null;
 });
 ```
 
-You may use a different pattern, but keep in mind that we want to execute the cleanup _even if a test fails_. Otherwise, tests can become "leaky", and one test can change the behavior of another test. That makes them difficult to debug.
+Bạn có thể sử dụng một cách khác, nhưng hãy nhớ chúng ta muốn chạy việc dọn dẹp ngay cả khi test *fail*. Nếu không, test có thể trở nên "bất ổn", và một test có thể ảnh hưởng đến hoạt động của test khác. Như vậy sẽ rất khó để debug.
 
 ---
 
 ### `act()` {#act}
 
-When writing UI tests, tasks like rendering, user events, or data fetching can be considered as "units" of interaction with a user interface. React provides a helper called `act()` that makes sure all updates related to these "units" have been processed and applied to the DOM before you make any assertions:
+Khi viết UI test, công việc như render, sự kiện từ user, hoặc fetch dữ liệu có thể được xem như một "đơn vị" tương tác với giao diện người dùng. React cung cấp một hàm trợ giúp `act()` để đảm bảo tất cả mọi cập nhập liên quan đến "đơn vị" đã được thực thi và áp dụng đến DOM trước khi chúng ta xác nhận kết quả:
 
 ```js
 act(() => {
-  // render components
+  // render component
 });
-// make assertions
+// xác nhận kết quả
 ```
 
-This helps make your tests run closer to what real users would experience when using your application. The rest of these examples use `act()` to make these guarantees.
+Nó giúp test chạy giống nhất với những gì user nhận được khi sử dụng ứng dụng. Tất cả những ví dụ bên dưới sử dụng `act()` để đảm bảo điều này.
 
-You might find using `act()` directly a bit too verbose. To avoid some of the boilerplate, you could use a library like [React Testing Library](https://testing-library.com/react), whose helpers are wrapped with `act()`.
+Bạn có thể thấy sử dụng `act()` trực tiếp rất rườm rà. Để tránh rườm rà, bạn có thể sử dụng một thư viện như [React Testing Library](https://testing-library.com/react), các hàm hỗ trợ đã được wrap lại sẵn trong `act()`.
 
-> Note:
+> Lưu ý:
 >
-> The name `act` comes from the [Arrange-Act-Assert](http://wiki.c2.com/?ArrangeActAssert) pattern.
+> Tên `act` có nguồn gốc từ cách làm [Arrange-Act-Assert](http://wiki.c2.com/?ArrangeActAssert).
 
 ---
 
 ### Rendering {#rendering}
 
-Commonly, you might want to test whether a component renders correctly for given props. Consider a simple component that renders a message based on a prop:
+Thường thì, chúng ta muốn test xem một component render đúng hay không với các prop nhận được. Xem xét một component đơn giản sẽ render một thông tin dựa vào prop:
 
 ```jsx
 // hello.js
@@ -94,7 +97,7 @@ export default function Hello(props) {
 }
 ```
 
-We can write a test for this component:
+Chúng ta có thể viết test cho component:
 
 ```jsx{24-27}
 // hello.test.js
@@ -107,13 +110,13 @@ import Hello from "./hello";
 
 let container = null;
 beforeEach(() => {
-  // setup a DOM element as a render target
+  // cài đặt một DOM element như là target cho render
   container = document.createElement("div");
   document.body.appendChild(container);
 });
 
 afterEach(() => {
-  // cleanup on exiting
+  // dọn dẹp lúc thoát
   unmountComponentAtNode(container);
   container.remove();
   container = null;
@@ -139,9 +142,9 @@ it("renders with or without a name", () => {
 
 ---
 
-### Data Fetching {#data-fetching}
+### Fetch dữ liệu {#data-fetching}
 
-Instead of calling real APIs in all your tests, you can mock requests with dummy data. Mocking data fetching with "fake" data prevents flaky tests due to an unavailable backend, and makes them run faster. Note: you may still want to run a subset of tests using an ["end-to-end"](/docs/testing-environments.html#end-to-end-tests-aka-e2e-tests) framework that tells whether the whole app is working together.
+Thay vì gọi APIs thật trong test, chúng ta có thể giả lập các request này bằng dữ liệu giả. Giả lập dữ liệu với dữ liệu "fake" để tránh ảnh hưởng đến test khi backend không sử dụng được, và để nó chạy nhanh hơn. Lưu ý: bạn có thể muốn nó chạy danh sách các test con sử dụng framework ["end-to-end"](/docs/testing-environments.html#end-to-end-tests-aka-e2e-tests)  để xem toàn bộ ứng dụng có làm việc với nhau không.
 
 ```jsx
 // user.js
@@ -175,7 +178,7 @@ export default function User(props) {
 }
 ```
 
-We can write tests for it:
+Bạn có thể viết test cho nó:
 
 ```jsx{23-33,44-45}
 // user.test.js
@@ -187,13 +190,13 @@ import User from "./user";
 
 let container = null;
 beforeEach(() => {
-  // setup a DOM element as a render target
+  // cài đặt một DOM element như là target cho render
   container = document.createElement("div");
   document.body.appendChild(container);
 });
 
 afterEach(() => {
-  // cleanup on exiting
+  // dọn dẹp lúc thoát
   unmountComponentAtNode(container);
   container.remove();
   container = null;
@@ -212,7 +215,7 @@ it("renders user data", async () => {
     })
   );
 
-  // Use the asynchronous version of act to apply resolved promises
+  // sử dụng một phiên bản async để áp dụng resolved promise
   await act(async () => {
     render(<User id="123" />, container);
   });
@@ -221,18 +224,18 @@ it("renders user data", async () => {
   expect(container.querySelector("strong").textContent).toBe(fakeUser.age);
   expect(container.textContent).toContain(fakeUser.address);
 
-  // remove the mock to ensure tests are completely isolated
+  // xóa giả lập để đảm bảo test chạy tách biệt
   global.fetch.mockRestore();
 });
 ```
 
 ---
 
-### Mocking Modules {#mocking-modules}
+### Giả lập các module {#mocking-modules}
 
-Some modules might not work well inside a testing environment, or may not be as essential to the test itself. Mocking out these modules with dummy replacements can make it easier to write tests for your own code.
+Một vài module không làm việc tốt trong môi trường test, hoặc không cần thiết cho test đó. Giả lập các module này bằng dummy để dễ dàng test hơn phần code của chúng ta.
 
-Consider a `Contact` component that embeds a third-party `GoogleMap` component:
+Component `Contact` có nhúng một component third-party `GoogleMap`:
 
 ```jsx
 // map.js
@@ -271,7 +274,7 @@ function Contact(props) {
 }
 ```
 
-If we don't want to load this component in our tests, we can mock out the dependency itself to a dummy component, and run our tests:
+Nếu không muốn load component  `GoogleMap` trong test của chúng ta,  giả lập bằng một dummy component và chạy test:
 
 ```jsx{10-18}
 // contact.test.js
@@ -295,13 +298,13 @@ jest.mock("./map", () => {
 
 let container = null;
 beforeEach(() => {
-  // setup a DOM element as a render target
+  // cài đặt một DOM element như là target cho render
   container = document.createElement("div");
   document.body.appendChild(container);
 });
 
 afterEach(() => {
-  // cleanup on exiting
+  // dọn dẹp lúc thoát
   unmountComponentAtNode(container);
   container.remove();
   container = null;
@@ -337,9 +340,9 @@ it("should render contact information", () => {
 
 ---
 
-### Events {#events}
+### Event {#events}
 
-We recommend dispatching real DOM events on DOM elements, and then asserting on the result. Consider a `Toggle` component:
+Chúng tôi khuyến nghị dispatch một event DOM thật trên DOM element, và đặt phần xác nhận kết quả. Xem một component `Toggle`:
 
 ```jsx
 // toggle.js
@@ -362,7 +365,7 @@ export default function Toggle(props) {
 }
 ```
 
-We could write tests for it:
+Chúng ta có thể viết test cho nó:
 
 ```jsx{13-14,35,43}
 // toggle.test.js
@@ -375,14 +378,14 @@ import Toggle from "./toggle";
 
 let container = null;
 beforeEach(() => {
-  // setup a DOM element as a render target
+  // cài đặt một DOM element như là target cho render
   container = document.createElement("div");
-  // container *must* be attached to document so events work correctly.
+  // container *phải* được chèn vào document để event chạy đúng.
   document.body.appendChild(container);
 });
 
 afterEach(() => {
-  // cleanup on exiting
+  // dọn dẹp lúc thoát
   unmountComponentAtNode(container);
   container.remove();
   container = null;
@@ -394,16 +397,16 @@ it("changes value when clicked", () => {
     render(<Toggle onChange={onChange} />, container);
   });
 
-  // get ahold of the button element, and trigger some clicks on it
+  // lấy toàn bộ các element, và trigger một vài sự kiện click
   const button = document.querySelector("[data-testid=toggle]");
-  expect(button.innerHTML).toBe("Turn off");
+  expect(button.innerHTML).toBe("Turn on");
 
   act(() => {
     button.dispatchEvent(new MouseEvent("click", { bubbles: true }));
   });
 
   expect(onChange).toHaveBeenCalledTimes(1);
-  expect(button.innerHTML).toBe("Turn on");
+  expect(button.innerHTML).toBe("Turn off");
 
   act(() => {
     for (let i = 0; i < 5; i++) {
@@ -416,17 +419,17 @@ it("changes value when clicked", () => {
 });
 ```
 
-Different DOM events and their properties are described in [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent). Note that you need to pass `{ bubbles: true }` in each event you create for it to reach the React listener because React automatically delegates events to the document.
+Các event DOM và thuộc tính được mô tả trong [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent). Lưu ý bạn phải truyền vào `{ bubbles: true }` trên từng event bạn tạo cho nó để đến React listener vì React tự động truyền các event này đến document.
 
-> Note:
+> Lưu ý:
 >
-> React Testing Library offers a [more concise helper](https://testing-library.com/docs/dom-testing-library/api-events) for firing events.
+> React Testing Library cung cấp [một số hàm hỗ trợ](https://testing-library.com/docs/dom-testing-library/api-events) cho việc bắn sự kiện.
 
 ---
 
-### Timers {#timers}
+### Timer {#timers}
 
-Your code might use timer-based functions like `setTimeout` to schedule more work in the future. In this example, a multiple choice panel waits for a selection and advances, timing out if a selection isn't made in 5 seconds:
+Code có thể sử dụng hàm liên quan thời gian như `setTimeout` để lên lịch các công việc sẽ thực hiện trong tương lai. Trong ví dụ, một cửa sổ nhiều lựa chọn đợi cho đến khi có lựa chọn, nếu sau 5 giây sẽ không thể chọn:
 
 ```jsx
 // card.js
@@ -455,7 +458,7 @@ export default function Card(props) {
 }
 ```
 
-We can write tests for this component by leveraging [Jest's timer mocks](https://jestjs.io/docs/en/timer-mocks), and testing the different states it can be in.
+Chúng ta có thể viết test cho component bằng cách dùng [Jest's timer mocks](https://jestjs.io/docs/en/timer-mocks) và test sự khác nhau của state.
 
 ```jsx{7,31,37,49,59}
 // card.test.js
@@ -468,13 +471,13 @@ jest.useFakeTimers();
 
 let container = null;
 beforeEach(() => {
-  // setup a DOM element as a render target
+  // cài đặt một DOM element như là target cho render
   container = document.createElement("div");
   document.body.appendChild(container);
 });
 
 afterEach(() => {
-  // cleanup on exiting
+  // dọn dẹp lúc thoát
   unmountComponentAtNode(container);
   container.remove();
   container = null;
@@ -486,13 +489,13 @@ it("should select null after timing out", () => {
     render(<Card onSelect={onSelect} />, container);
   });
 
-  // move ahead in time by 100ms
+  // chạy đến lúc 100ms
   act(() => {
     jest.advanceTimersByTime(100);
   });
   expect(onSelect).not.toHaveBeenCalled();
 
-  // and then move ahead by 5 seconds
+  // và chạy đến lúc 5 giây
   act(() => {
     jest.advanceTimersByTime(5000);
   });
@@ -510,7 +513,7 @@ it("should cleanup on being removed", () => {
   });
   expect(onSelect).not.toHaveBeenCalled();
 
-  // unmount the app
+  // unmount app
   act(() => {
     render(null, container);
   });
@@ -537,15 +540,15 @@ it("should accept selections", () => {
 });
 ```
 
-You can use fake timers only in some tests. Above, we enabled them by calling `jest.useFakeTimers()`. The main advantage they provide is that your test doesn't actually have to wait five seconds to execute, and you also didn't need to make the component code more convoluted just for testing.
+Bạn có thể giả lập thời gian trong một test. Ở trên, chúng ta bật lên bằng cách gọi `jest.useFakeTimers()`. Ưu điểm chính của chúng cho ta là test không cần thực sự đợi đến 5 giây để chạy, và bạn cũng không cần thay đổi component để phục vụ việc test.
 
 ---
 
-### Snapshot Testing {#snapshot-testing}
+### Snapshot Test {#snapshot-testing}
 
-Frameworks like Jest also let you save "snapshots" of data with [`toMatchSnapshot` / `toMatchInlineSnapshot`](https://jestjs.io/docs/en/snapshot-testing). With these, we can "save" the rendered component output and ensure that a change to it has to be explicitly committed as a change to the snapshot.
+Framework như Jest cho chúng ta lưu "ảnh" với [`toMatchSnapshot` / `toMatchInlineSnapshot`](https://jestjs.io/docs/en/snapshot-testing). Với chúng, bạn có thể "lưu" một kết quả render và đảm bảo một thay đổi có thể làm thay đổi của kết quả snapshot.
 
-In this example, we render a component and format the rendered HTML with the [`pretty`](https://www.npmjs.com/package/pretty) package, before saving it as an inline snapshot:
+Trong ví dụ,  chúng ta render một component và định dạng HTML đã render với thư viện [`pretty`](https://www.npmjs.com/package/pretty), trước khi lưu nó như một snapshot inline:
 
 ```jsx{29-31}
 // hello.test.js, again
@@ -559,13 +562,13 @@ import Hello from "./hello";
 
 let container = null;
 beforeEach(() => {
-  // setup a DOM element as a render target
+  // cài đặt một DOM element như là target cho render
   container = document.createElement("div");
   document.body.appendChild(container);
 });
 
 afterEach(() => {
-  // cleanup on exiting
+  // dọn dẹp lúc thoát
   unmountComponentAtNode(container);
   container.remove();
   container = null;
@@ -578,7 +581,7 @@ it("should render a greeting", () => {
 
   expect(
     pretty(container.innerHTML)
-  ).toMatchInlineSnapshot(); /* ... gets filled automatically by jest ... */
+  ).toMatchInlineSnapshot(); /* ... được tự động điền bởi jest ... */
 
   act(() => {
     render(<Hello name="Jenny" />, container);
@@ -586,7 +589,7 @@ it("should render a greeting", () => {
 
   expect(
     pretty(container.innerHTML)
-  ).toMatchInlineSnapshot(); /* ... gets filled automatically by jest ... */
+  ).toMatchInlineSnapshot(); /* ... được tự động điền bởi jest ... */
 
   act(() => {
     render(<Hello name="Margaret" />, container);
@@ -594,17 +597,17 @@ it("should render a greeting", () => {
 
   expect(
     pretty(container.innerHTML)
-  ).toMatchInlineSnapshot(); /* ... gets filled automatically by jest ... */
+  ).toMatchInlineSnapshot(); /* ... được tự động điền bởi jest ... */
 });
 ```
 
-It's typically better to make more specific assertions than to use snapshots. These kinds of tests include implementation details so they break easily, and teams can get desensitized to snapshot breakages. Selectively [mocking some child components](#mocking-modules) can help reduce the size of snapshots and keep them readable for the code review.
+Thường sẽ tốt hơn nếu chỉ rõ kết quả muốn nhận được thay vì snapshot. Những kiểu test này bao gồm phần hiện thực chi tiết để chúng dễ dàng bị fail. Chọn [giả lập một vài component con](#mocking-modules) có thể giúp giảm kích thước snapshot và giữ chúng dễ độc lúc review code.
 
 ---
 
-### Multiple Renderers {#multiple-renderers}
+### Multiple Renderer {#multiple-renderers}
 
-In rare cases, you may be running a test on a component that uses multiple renderers. For example, you may be running snapshot tests on a component with `react-test-renderer`, that internally uses `ReactDOM.render` inside a child component to render some content. In this scenario, you can wrap updates with `act()`s corresponding to their renderers.
+Trong những tình huống hiếm, bạn có thể chạy một test trên một component sử dụng multiple renderer. Lấy ví dụ, bạn có thể chạy snapshot test trên một component với `react-test-renderer`, bên trong đó nó dùng `ReactDOM.render`trong một child component để render một vài nội dung. Tình huống đó, bạn có thể wrap phần cập nhập với `act()` ứng với từng renderer
 
 ```jsx
 import { act as domAct } from "react-dom/test-utils";
@@ -621,6 +624,8 @@ expect(root).toMatchSnapshot();
 
 ---
 
-### Something Missing? {#something-missing}
+### Còn thiếu gì đó? {#something-missing}
 
-If some common scenario is not covered, please let us know on the [issue tracker](https://github.com/reactjs/reactjs.org/issues) for the documentation website.
+Nếu các tình huống hay gặp không được đề cập ở đây, có thể liên hệ với chúng tôi qua [issue tracker](https://github.com/reactjs/reactjs.org/issues) cho toàn bộ tài liệu của website
+
+
