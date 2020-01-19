@@ -468,11 +468,7 @@ Bởi vì bạn không thường xuyên cần đến, bạn có thể nghĩ đ�
 
 ### Làm sao tôi có thể đo được 1 DOM node? {#how-can-i-measure-a-dom-node}
 
-<<<<<<< HEAD
-Để đo vị trí hoặc kích thước của DOM node, bạn có thể sử dụng một [ref callback](/docs/refs-and-the-dom.html#callback-refs). React sẽ gọi callback này khi ref được đính vào một node khác. Đây là [một demo nhỏ](https://codesandbox.io/s/l7m0v5x4v9)
-=======
-One rudimentary way to measure the position or size of a DOM node is to use a [callback ref](/docs/refs-and-the-dom.html#callback-refs). React will call that callback whenever the ref gets attached to a different node. Here is a [small demo](https://codesandbox.io/s/l7m0v5x4v9):
->>>>>>> 99a18287c163e328f87709cb224742ccac3e113a
+Có một cách để đo vị trí hoặc kích thước của DOM node là sử dụng một [callback rè](/docs/refs-and-the-dom.html#callback-refs). React sẽ gọi callback này bất cứ khi nào ref được đính vào một node khác. Đây là [một demo nhỏ](https://codesandbox.io/s/l7m0v5x4v9)
 
 ```js{4-8,12}
 function MeasureExample() {
@@ -497,13 +493,10 @@ Chúng tôi đã không sử dụng `useRef` trong ví dụ  trên, bởi vì m�
 
 Để ý chúng ta truyền `[]` như một dependency array vào `useCallback`. Đảm bảo ref callback của chúng ta không thay đổi giữa những lần re-render, như vậy React sẽ không gọi nó không cần thiết.
 
-<<<<<<< HEAD
-Nếu bạn muốn, bạn có thể [tách  logic](https://codesandbox.io/s/m5o42082xy) vào một hook để sử dụng:
-=======
 In this example, the callback ref will be called only when the component mounts and unmounts, since the rendered `<h1>` component stays present throughout any rerenders. If you want to be notified any time a component resizes, you may want to use [`ResizeObserver`](https://developer.mozilla.org/en-US/docs/Web/API/ResizeObserver) or a third-party Hook built on it.
+Trong ví dụ này, callback ref chỉ được gọi khi component mount và unmount,
 
-If you want, you can [extract this logic](https://codesandbox.io/s/m5o42082xy) into a reusable Hook:
->>>>>>> 99a18287c163e328f87709cb224742ccac3e113a
+Nếu bạn muốn, bạn có thể [tách  logic](https://codesandbox.io/s/m5o42082xy) vào một hook để sử dụng:
 
 ```js{2}
 function MeasureExample() {
@@ -727,13 +720,8 @@ Như là cách cuối cùng, nếu bạn muốn cái gì đó giống với `thi
 
 ```js{2-6,10-11,16}
 function Example(props) {
-<<<<<<< HEAD
-  // Giữ giá trị prop cuối cùng trong 1 ref.
+  // Giữ giá trị prop trong 1 ref.
   let latestProps = useRef(props);
-=======
-  // Keep latest props in a ref.
-  const latestProps = useRef(props);
->>>>>>> 99a18287c163e328f87709cb224742ccac3e113a
   useEffect(() => {
     latestProps.current = props;
   });

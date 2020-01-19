@@ -104,11 +104,7 @@ Xem thêm [React.Component API Reference](/docs/react-component.html) để tìm
 
 ### `React.PureComponent` {#reactpurecomponent}
 
-<<<<<<< HEAD
 `React.PureComponent` cũng giống như [`React.Component`](#reactcomponent). Điểm khác biệt giữa chúng là [`React.Component`](#reactcomponent) không thực hiện hàm [`shouldComponentUpdate()`](/docs/react-component.html#shouldcomponentupdate), trong khi đó `React.PureComponent` thì có, nó sẽ so sánh nông (shallow) tất cả các thuộc tính của props và state để quyết định xem component này có cần update hay không.
-=======
-`React.PureComponent` is similar to [`React.Component`](#reactcomponent). The difference between them is that [`React.Component`](#reactcomponent) doesn't implement [`shouldComponentUpdate()`](/docs/react-component.html#shouldcomponentupdate), but `React.PureComponent` implements it with a shallow prop and state comparison.
->>>>>>> 99a18287c163e328f87709cb224742ccac3e113a
 
 Nếu như những React components của bạn gọi đến `render()` function để biểu diễn cùng kết quả với cùng props và state, bạn có thể sử dụng `React.PureComponent` để tăng hiệu suất cho ứng dụng trong một số trường hợp.
 
@@ -132,13 +128,9 @@ const MyComponent = React.memo(function MyComponent(props) {
 
 Nếu function component của bạn biểu diễn cùng kết quả với cùng props, bạn có thể gói chúng lại và gọi đến `React.memo` để tăng hiệu năng trong một số trường hợp bằng cách ghi nhớ kết quả. Điều này có nghĩa là React sẽ bỏ qua việc render component, và sử dụng lại kết quả đã render lần cuối cùng.
 
-<<<<<<< HEAD
-Mặc định nó sẽ chỉ so sánh nông (shallow) các đối tượng phức tạp bên trong đối tượng props. Nếu bạn muốn kiểm soát toàn bộ việc so sánh, bạn cũng có thể cung cấp một hàm so sánh tuỳ chỉnh ở đối số thứ hai.
-=======
-`React.memo` only affects props changes. If your function component wrapped in `React.memo` has a [`useState`](/docs/hooks-state.html) or [`useContext`](/docs/hooks-reference.html#usecontext) Hook in its implementation, it will still rerender when state or context change.
+`React.memo` chỉ ảnh hưởng đến sự thay đổi của props. Nếu function component của bạn được wrap với `React.memo` có một [`useState`](/docs/hooks-state.html) hoặc [`useContext`](/docs/hooks-reference.html#usecontext) Hook, nó vẫn render lại khi state hoặc context thay đổi.
 
-By default it will only shallowly compare complex objects in the props object. If you want control over the comparison, you can also provide a custom comparison function as the second argument.
->>>>>>> 99a18287c163e328f87709cb224742ccac3e113a
+Mặc định nó sẽ chỉ so sánh nông (shallow) các đối tượng phức tạp bên trong đối tượng props. Nếu bạn muốn kiểm soát toàn bộ việc so sánh, bạn cũng có thể cung cấp một hàm so sánh tuỳ chỉnh ở đối số thứ hai.
 
 ```javascript
 function MyComponent(props) {

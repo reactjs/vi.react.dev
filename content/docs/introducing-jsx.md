@@ -181,8 +181,4 @@ Chúng ta sẽ khám phá cách các React Element được render vào DOM th�
 
 >**Gợi ý:**
 >
-<<<<<<< HEAD
->Chúng tôi khuyến khích sử dụng [Định nghĩa ngôn ngữ "Babel"](https://babeljs.io/docs/editors) cho trình soạn thảo của bạn như vậy cả mã ES6 và JSX đều có thể được tô sáng rõ ràng. Trang web này dùng tập màu [Oceanic Next](https://github.com/voronianski/oceanic-next-color-scheme) cái mà phù hợp cho việc này.
-=======
->We recommend using the ["Babel" language definition](https://babeljs.io/docs/editors) for your editor of choice so that both ES6 and JSX code is properly highlighted.
->>>>>>> 99a18287c163e328f87709cb224742ccac3e113a
+>Chúng tôi khuyến khích sử dụng [Định nghĩa ngôn ngữ "Babel"](https://babeljs.io/docs/editors) cho trình soạn thảo của bạn như vậy cả mã ES6 và JSX đều có thể được tô sáng rõ ràng.

@@ -107,11 +107,7 @@ function Page(props) {
 
 Pattern này hoàn toàn hiệu quả cho nhiều trường hợp khi bạn cần tách một child component từ những partents component trung gian của nó. Bạn có thể tiến xa hơn nữa với [render props](/docs/render-props.html) nếu child component cần giao tiếp với parent component trước khi render.
 
-<<<<<<< HEAD
-Tuy nhiên, đôi khi có những data trùng lặp cần được truy cập bởi nhiều components trong component tree, và ở nhiều tầng khác nhau. Context cho phép bạn "Phát sóng" những data như vậy, và trao đổi nó đến tất cả những components bên dưới. Ví dụ như khi sử dụng context có thể sẽ đơn giãn hơn so với những lựa chọn thay thế bao gồm quản lý current locale, theme, hay data caching.
-=======
-However, sometimes the same data needs to be accessible by many components in the tree, and at different nesting levels. Context lets you "broadcast" such data, and changes to it, to all components below. Common examples where using context might be simpler than the alternatives include managing the current locale, theme, or a data cache.
->>>>>>> 99a18287c163e328f87709cb224742ccac3e113a
+Tuy nhiên, đôi khi có những data trùng lặp cần được truy cập bởi nhiều components trong component tree, và ở nhiều tầng khác nhau. Context cho phép bạn "Phát sóng (broadcast)" những data như vậy, và trao đổi nó đến tất cả những components bên dưới. Ví dụ như khi sử dụng context có thể sẽ đơn giãn hơn so với những lựa chọn thay thế bao gồm quản lý current locale, theme, hay data caching.
 
 ## API {#api}
 
@@ -135,23 +131,13 @@ Mỗi Context object đi cùng với một Provider React component cho phép co
 
 Nhận một `value` prop để truyền đến consuming components mà nó là con của Provider này. Một Provider có thể kết nối đến nhiều comsumers. Providers có thể lồng nhau để ghi đè giá trị sâu hơn trong component tree.
 
-<<<<<<< HEAD
-Tất cả consumers con của một Provider sẽ được re-rerender bất cứ khi nào `value` của Provider đó thay đổi. Sự lan truyền từ Provider đến consumer con của nó không bị lệ thuộc vào `shouldComponentUpdate` method, vì vậy consumer được cập nhật ngay cả khi một component cha thoát ra khỏi sự cập nhật đó.
+Tất cả consumers con của một Provider sẽ được re-rerender bất cứ khi nào `value` của Provider đó thay đổi. Sự lan truyền từ Provider đến consumer con của nó (bao gồm [`.contextType`](#classcontexttype) và [`useContext`](/docs/hooks-reference.html#usecontext)) không bị lệ thuộc vào `shouldComponentUpdate` method, vì vậy consumer được cập nhật ngay cả khi một component cha thoát ra khỏi sự cập nhật đó.
 
 Những thay đổi được xác định bằng cách so sánh những giá trị mới và cũ sử dụng chung một thuật toán như [`Object.is`](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description).
 
 > Lưu ý
 >
 > Cách những thay đổi được xác định có thể gây nên một số vấn đề khi truyền object như một `value`: xem [Caveats](#caveats).
-=======
-All consumers that are descendants of a Provider will re-render whenever the Provider's `value` prop changes. The propagation from Provider to its descendant consumers (including [`.contextType`](#classcontexttype) and [`useContext`](/docs/hooks-reference.html#usecontext)) is not subject to the `shouldComponentUpdate` method, so the consumer is updated even when an ancestor component skips an update.
-
-Changes are determined by comparing the new and old values using the same algorithm as [`Object.is`](//developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description).
-
-> Note
->
-> The way changes are determined can cause some issues when passing objects as `value`: see [Caveats](#caveats).
->>>>>>> 99a18287c163e328f87709cb224742ccac3e113a
 
 ### `Class.contextType` {#classcontexttype}
 
@@ -208,15 +194,9 @@ Khi một React component subcribe tới sự thay đổi của context. Điều
 
 Yêu cầu một [function as a child](/docs/render-props.html#using-props-other-than-render). Function nhận giá trị context hiện tại và trả về một React node. Tham số `value` truyền đến function sẽ bằng với `value` prop của Provider gần nhất trong context này trên tree component. Nếu không có Provider nào cho context này ở trên nó, tham số `value` sẽ bằng với `defaultValue` đã được truyền tới `createContext()`.
 
-<<<<<<< HEAD
 > Lưu ý
 >
 > Để biết thêm thông tin về 'function as a child' pattern, xem [render props](/docs/render-props.html).
-=======
-> Note
->
-> For more information about the 'function as a child' pattern, see [render props](/docs/render-props.html).
->>>>>>> 99a18287c163e328f87709cb224742ccac3e113a
 
 ### `Context.displayName` {#contextdisplayname}
 
@@ -262,11 +242,7 @@ Chúng ta thường cần cập nhật context từ một component đã đượ
 
 ### Consuming nhiều Contexts {#consuming-multiple-contexts}
 
-<<<<<<< HEAD
 Để giữ context re-rendering nhanh chóng, React cần làm cho mỗi context consumer tách rời nhau trong component tree.
-=======
-To keep context re-rendering fast, React needs to make each context consumer a separate node in the tree.
->>>>>>> 99a18287c163e328f87709cb224742ccac3e113a
 
 `embed:context/multiple-contexts.js`
 
@@ -285,13 +261,6 @@ Bởi vì context sử dụng reference identity để xác định khi nào nê
 
 ## Legacy API {#legacy-api}
 
-<<<<<<< HEAD
 > Lưu ý
 >
 > React vừa mang đến một context API thử nghiệm. API cũ sẽ hỗ trợ trong tất cả phiên bản 16.x, nhưng những ứng dụng sử dụng nó nên nâng cấp lên phiên bản mới hơn. API cũ sẽ bị xóa trong tương lại qua những lần cập nhật lớn của React. Tham khảo [legacy context docs here](/docs/legacy-context.html).
-=======
-> Note
->
-> React previously shipped with an experimental context API. The old API will be supported in all 16.x releases, but applications using it should migrate to the new version. The legacy API will be removed in a future major React version. Read the [legacy context docs here](/docs/legacy-context.html).
->>>>>>> 99a18287c163e328f87709cb224742ccac3e113a
-

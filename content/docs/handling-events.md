@@ -56,11 +56,7 @@ function ActionLink() {
 
 Ở đây, `e` là một sự kiện ảo. React định nghĩa những sự kiện ảo này dựa trên [chuẩn W3C](https://www.w3.org/TR/DOM-Level-3-Events/), nên bạn không cần lo lắng về sự tương thích giữa những browser. Hãy tham khảo tài liệu về [`SyntheticEvent`](/docs/events.html) để tìm hiểu thêm.
 
-<<<<<<< HEAD
 Khi làm việc với React, bạn thường không cần phải gọi `addEventListener` để gắn listener cho element DOM sau khi nó được khởi tạo. Thay vào đó, bạn chỉ cần cung cấp một listener ngay lần đầu element được render.
-=======
-When using React, you generally don't need to call `addEventListener` to add listeners to a DOM element after it is created. Instead, just provide a listener when the element is initially rendered.
->>>>>>> 99a18287c163e328f87709cb224742ccac3e113a
 
 Khi bạn định nghĩa component bằng [class ES6](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Classes), một mẫu thiết kế phổ biến là sử dụng phương thức của class để bắt sự kiện. Ví dụ, component `Toggle` dưới đây render một chiếc nút để người dùng thay đổi giữa state “ON” và “OFF":
 
@@ -146,11 +142,7 @@ Vấn đề với cú pháp này nằm ở chỗ một callback khác sẽ đư�
 
 ## Truyền Tham số vào Hàm Bắt Sự kiện {#passing-arguments-to-event-handlers}
 
-<<<<<<< HEAD
 Bên trong một vòng lặp, người ta thường muốn truyền thêm một parameter cho một event handler. Ví dụ như, nếu `id` là ID của dòng (row), thì 2 dòng code bên dưới sẽ work:
-=======
-Inside a loop, it is common to want to pass an extra parameter to an event handler. For example, if `id` is the row ID, either of the following would work:
->>>>>>> 99a18287c163e328f87709cb224742ccac3e113a
 
 ```js
 <button onClick={(e) => this.deleteRow(id, e)}>Delete Row</button>
