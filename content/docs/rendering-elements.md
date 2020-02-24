@@ -71,6 +71,10 @@ Bạn có thể xác minh điều trên bằng cách kiểm tra [ví dụ cuối
 ![DOM inspector showing granular updates](../images/docs/granular-dom-updates.gif)
 !["thanh kiểm tra" (inspector) DOM chỉ ra những cập nhật cần thiết](../images/docs/granular-dom-updates.gif)
 
+<<<<<<< HEAD
 Mặc dù chúng ta tạo ra một element miêu tả toàn bộ cây "giao diện" (UI) trên mỗi "đánh dấu" (tick), chỉ những "nốt văn bản" (text node) có nội dung thay đổi mới nhận sự cập nhật bởi React DOM.
+=======
+Even though we create an element describing the whole UI tree on every tick, only the text node whose contents have changed gets updated by React DOM.
+>>>>>>> 821e20726266bc8113353d0c2b6d885f82e584a8
 
 Với kinh nghiệm của chúng tôi thì chúng ta nên suy nghĩ về cách "giao diện" (UI) nên trông như thế nào tại mọi thời điểm hơn là suy nghĩ làm thế nào để thay đổi "giao diện" (UI) theo thời gian, điều này sẽ loại bỏ được rất nhiều "lỗi" (bug).
