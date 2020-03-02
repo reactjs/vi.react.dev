@@ -376,7 +376,11 @@ Trải nghiệm người dùng phức tạp không nên khiến mức độ acce
 Môi loại widget có một design pattern riêng và đáp ứng chức năng nhất định bởi người dùng như:
 
 - [WAI-ARIA Authoring Practices - Design Patterns and Widgets](https://www.w3.org/TR/wai-aria-practices/#aria_ex)
+<<<<<<< HEAD
 - [Heydon Pickering - ARIA Examples](http://heydonworks.com/practical_aria_examples/)
+=======
+- [Heydon Pickering - ARIA Examples](https://heydonworks.com/article/practical-aria-examples/)
+>>>>>>> 2ab1ca5007a37ca509863a212293f1c6b26d0afc
 - [Inclusive Components](https://inclusive-components.design/)
 
 ## Những điểm khác cần lưu ý {#other-points-for-consideration}
