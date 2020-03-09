@@ -303,6 +303,7 @@ Bây giờ, bạn có thể thay đổi bất kì input nào, thì `this.state.t
 
 Hãy cùng điểm lại điều gì sẽ xảy ra khi bạn thay đổi giá trị của một input:
 
+<<<<<<< HEAD
 * React sẽ gọi hàm `onChange` tương ứng trên DOM `<input>`. trong trường hợp này, đây là hàm `handleChange` trong component `TemperatureInput`.
 * Hàm `handleChange` trong component `TemperatureInput` được gọi `this.props.onTemperatureChange()` và truyền vào một giá trị mới. Các props của nó, bao gồm `onTemperatureChange`, sẽ được component cha `Calculator` cung cấp.
 * Trước đây, khi nó được tạo ra, component `Calculator` đã được lập trình rằng `onTemperatureChange` của Celsius `TemperatureInput` là hàm `handleCelsiusChange` của component `Calculator`, và `onTemperatureChange` của Fahrenheit `TemperatureInput` là hàm `handleFahrenheitChange` từ component `Calculator`. Vì thế nên một trong hai hàm của `Calculator` sẽ được gọi dựa trên input nào bị thay đổi.
@@ -311,6 +312,16 @@ Hãy cùng điểm lại điều gì sẽ xảy ra khi bạn thay đổi giá tr
 * React gọi hàm `render` của mỗi component `TemperatureInput` riêng với giá trị mới của props được truyền từ `Calculator`. Nó sẽ hiểu được giao diện người dùng như thế nào.
 * React gọi hàm `render` từ component `BoilingVerdict`, truyền nhiệt độ bằng Celsius như là một props của nó.
 * React DOM cập nhật DOM với nhiệt độ sôi và để phù hợp với những giá trị mong muốn của input. Input chúng ta vừa thay đổi sẽ nhận giá trị hiện thời, và những input khác được cập nhật với nhiệt độ sau khi chuyển đổi.
+=======
+* React calls the function specified as `onChange` on the DOM `<input>`. In our case, this is the `handleChange` method in the `TemperatureInput` component.
+* The `handleChange` method in the `TemperatureInput` component calls `this.props.onTemperatureChange()` with the new desired value. Its props, including `onTemperatureChange`, were provided by its parent component, the `Calculator`.
+* When it previously rendered, the `Calculator` had specified that `onTemperatureChange` of the Celsius `TemperatureInput` is the `Calculator`'s `handleCelsiusChange` method, and `onTemperatureChange` of the Fahrenheit `TemperatureInput` is the `Calculator`'s `handleFahrenheitChange` method. So either of these two `Calculator` methods gets called depending on which input we edited.
+* Inside these methods, the `Calculator` component asks React to re-render itself by calling `this.setState()` with the new input value and the current scale of the input we just edited.
+* React calls the `Calculator` component's `render` method to learn what the UI should look like. The values of both inputs are recomputed based on the current temperature and the active scale. The temperature conversion is performed here.
+* React calls the `render` methods of the individual `TemperatureInput` components with their new props specified by the `Calculator`. It learns what their UI should look like.
+* React calls the `render` method of the `BoilingVerdict` component, passing the temperature in Celsius as its props.
+* React DOM updates the DOM with the boiling verdict and to match the desired input values. The input we just edited receives its current value, and the other input is updated to the temperature after conversion.
+>>>>>>> 9fa6418ada9b24bdacf4cb1facbe69160d0740a9
 
 Tất cả những cập nhật đi qua cùng một lộ trình nên các input sẽ luôn được đồng bộ hoá.
 

@@ -23,8 +23,13 @@ redirect_from:
 **Tiến hành triển khai**
 
 ```javascript
+<<<<<<< HEAD
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group'); // ES5 với npm
+=======
+import ReactCSSTransitionGroup from 'react-transition-group'; // ES6
+var ReactCSSTransitionGroup = require('react-transition-group'); // ES5 with npm
+>>>>>>> 9fa6418ada9b24bdacf4cb1facbe69160d0740a9
 ```
 
 ```javascript{31-36}
@@ -199,7 +204,7 @@ render() {
 Trong ví dụ phía trên, chúng ta đã rendered ra 1 danh sách các items vào bên trong `ReactCSSTransitionGroup`. Tuy nhiên, phần tử con của `ReactCSSTransitionGroup` cũng có thể là một hoặc không có phần tử nào. Điều này khiến cho nó hoàn toàn có thể animate một element đơn đi vào hoặc rời đi. Tương tự, bạn có thể animate một element mới thay thế cho element hiện tại. Ví dụ, chúng ta có thể triển khai một image carousel đơn giản như sau:
 
 ```javascript{10}
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import ReactCSSTransitionGroup from 'react-transition-group';
 
 function ImageCarousel(props) {
   return (

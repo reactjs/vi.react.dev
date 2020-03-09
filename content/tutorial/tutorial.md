@@ -290,7 +290,11 @@ class Square extends React.Component {
 
 >Chú ý
 >
+<<<<<<< HEAD
 >Trong [JavaScript classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), bạn luôn luôn cần gọi hàm `super` khi định nghĩa hàm khởi tạo của lớp con. Tất cả các React component class nếu có hàm khởi tạo `constructor` sẽ cần bắt đầu với việc gọi hàm `super(props)`.
+=======
+>In [JavaScript classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), you need to always call `super` when defining the constructor of a subclass. All React component classes that have a `constructor` should start with a `super(props)` call.
+>>>>>>> 9fa6418ada9b24bdacf4cb1facbe69160d0740a9
 
 Bây giờ, chúng ta sẽ thay đổi phương thức `render` của component Square để hiển thị giá trị state khi nó được bấm: 
 
