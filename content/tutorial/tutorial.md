@@ -31,7 +31,7 @@ Hướng dẫn này bao gồm 4 phần chính như sau:
 
 Bạn không cần phải hoàn thành toàn bộ các phần trên trong một lần để có được kiến thức mà nó mang lại. Tuy nhiên, hãy cố gắng hoàn thành càng nhiều phần càng tốt -- kể cả là một hay hai phần
 
-### Chúng ta sẽ xây dựng cái gì? {#what-are-we-building}
+### Chúng ta sẽ làm gì? {#what-are-we-building}
 
 Trong bài hướng dẫn này, Chúng ta sẽ xây dựng một trò chơi tương tác có tên là tic-tac-toe bằng React.
 
@@ -522,7 +522,7 @@ Khi các Square component không còn nắm giữ state nữa, Square component 
 
 Chú ý rằng trong hàm `handleClick`, chúng ta sử dụng `.slice()` để tạo ra một bản sao của mảng `squares` và sửa đổi trên bản sao đó chứ không thay đổi trực tiếp mảng squares. Chúng tôi sẽ giải thích kỹ hơn vì sao cần tạo ra một bản sao của `squares` trong phần tiếp theo.
 
-### Tại sao tính bất biến là quan trọng Why {#why-immutability-is-important}
+### Tại sao tính bất biến là quan trọng {#why-immutability-is-important}
 
 Trong phần code ví dụ trước, ta đã sử dụng hàm `.slice()` để tạo ra bản sao của mảng `squares` thay vì sửa trực tiếp nó. Giờ ta sẽ thảo luận về tính bất biến và vì sao tính bất biến lại quan trọng.
 
