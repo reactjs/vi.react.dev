@@ -27,6 +27,8 @@ Khi tuân theo quy luật này, chúng ta đảm bảo tất cả logic trong 1 
 
 Chúng tôi có cung cấp plugin ESLint tên là [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks) đảm bảo 2 luật này luôn được áp dụng. Nếu thích bạn có thể thêm vào project:
 
+This plugin is included by default in [Create React App](/docs/create-a-new-react-app.html#create-react-app).
+
 ```bash
 npm install eslint-plugin-react-hooks --save-dev
 ```
@@ -46,9 +48,13 @@ npm install eslint-plugin-react-hooks --save-dev
 }
 ```
 
+<<<<<<< HEAD
 Mặc định, plugin này được bao gồm trong [Create React App](/docs/create-a-new-react-app.html#create-react-app).
 
 **Bạn có thể bỏ qua và đọc tiếp trang chỉ dẫn [tạo custom Hook](/docs/hooks-custom.html) bây giờ.** Ở đây, chúng ta sẽ tiếp tục giải thích lý do đằng sau những quy luật này.
+=======
+**You can skip to the next page explaining how to write [your own Hooks](/docs/hooks-custom.html) now.** On this page, we'll continue by explaining the reasoning behind these rules.
+>>>>>>> 2ef0ee1e4fc4ce620dce1f3e0530471195dc64d1
 
 ## Giải thích {#explanation}
 
