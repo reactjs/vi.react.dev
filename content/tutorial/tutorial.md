@@ -31,11 +31,11 @@ Hướng dẫn này bao gồm 4 phần chính như sau:
 
 Bạn không cần phải hoàn thành toàn bộ các phần trên trong một lần để có được kiến thức mà nó mang lại. Tuy nhiên, hãy cố gắng hoàn thành càng nhiều phần càng tốt -- kể cả là một hay hai phần
 
-### Chúng ta sẽ xây dựng cái gì? {#what-are-we-building}
+### Chúng ta sẽ làm gì? {#what-are-we-building}
 
 Trong bài hướng dẫn này, Chúng ta sẽ xây dựng một trò chơi tương tác có tên là tic-tac-toe bằng React.
 
-Bạn có thể tìm thấy phiên bản hoàn thiện mà chúng ta sẽ xây dựng tại **[đây](https://codepen.io/gaearon/pen/gWWZgR?editors=0010)**. Nếu bạn không hiểu cú pháp hoặc ý nghĩa của đoạn code đó, đừng lo lắng! Mục tiêu của bài hướng dẫn này là giúp bạn hiểu được React cũng như cú pháp trong React 
+Bạn có thể tìm thấy phiên bản hoàn thiện mà chúng ta sẽ xây dựng tại **[đây](https://codepen.io/gaearon/pen/gWWZgR?editors=0010)**. Nếu bạn không hiểu cú pháp hoặc ý nghĩa của đoạn code đó, đừng lo lắng! Mục tiêu của bài hướng dẫn này là giúp bạn hiểu được React cũng như cú pháp trong React
 
 Chúng tôi khuyến khích bạn tìm hiểu trò tic-tac-toe trước khi tiếp tục. Một trong những tính năng của trò chơi mà bạn cần chú ý đó là danh sách bên phải của bàn cờ. Danh sách đó chính là lịch sử của tất cả các bước đi trong một ván chơi.
 
@@ -172,7 +172,7 @@ Component `ShoppingList` ở trên chỉ render những DOM component có sẵn 
 
 ## Xem xét đoạn code khởi đầu {#inspecting-the-starter-code}
 
-Nếu bạn code trên trình duyệt, mở đường dẫn này trong trang mới: **[Code khởi đầu](https://codepen.io/gaearon/pen/oWWQNa?editors=0010)**. Nếu bạn code trên **máy cá nhân,** mở tệp `src/index.js` trong thư mục project (bạn đã tạo tệp này trong mục [cài đặt](#setup-option-2-local-development-environment)) 
+Nếu bạn code trên trình duyệt, mở đường dẫn này trong trang mới: **[Code khởi đầu](https://codepen.io/gaearon/pen/oWWQNa?editors=0010)**. Nếu bạn code trên **máy cá nhân,** mở tệp `src/index.js` trong thư mục project (bạn đã tạo tệp này trong mục [cài đặt](#setup-option-2-local-development-environment))
 
 Đoạn code khởi đầu này là cơ sở cho những gì chúng ta sẽ xây dựng. Chúng tôi đã cung cấp sẵn CSS, vì vậy bạn chỉ cần tập trung vào việc sử dụng React để tạo ra trò chơi tic-tac-toe.
 
@@ -229,7 +229,7 @@ Chúc mừng! Bạn vừa "truyền một prop" từ component cha xuống compo
 ### Tạo ra một component có thể tương tác được {#making-an-interactive-component}
 
 Hãy điền giá trị "X" vào Square component khi ta bấm vào nó.
-Đầu tiên, thay đổi thẻ button trong hàm `render()` của Square component như sau: 
+Đầu tiên, thay đổi thẻ button trong hàm `render()` của Square component như sau:
 
 ```javascript{4}
 class Square extends React.Component {
@@ -243,7 +243,7 @@ class Square extends React.Component {
 }
 ```
 
-Nếu bạn bấm vào một ô Square, bạn sẽ nhìn thấy một cảnh báo hiện ra trên trình duyệt 
+Nếu bạn bấm vào một ô Square, bạn sẽ nhìn thấy một cảnh báo hiện ra trên trình duyệt
 
 >Chú ý
 >
@@ -290,13 +290,9 @@ class Square extends React.Component {
 
 >Chú ý
 >
-<<<<<<< HEAD
->Trong [JavaScript classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), bạn luôn luôn cần gọi hàm `super` khi định nghĩa hàm khởi tạo của lớp con. Tất cả các React component class nếu có hàm khởi tạo `constructor` sẽ cần bắt đầu với việc gọi hàm `super(props)`.
-=======
->In [JavaScript classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), you need to always call `super` when defining the constructor of a subclass. All React component classes that have a `constructor` should start with a `super(props)` call.
->>>>>>> 2ef0ee1e4fc4ce620dce1f3e0530471195dc64d1
+>Trong [JavaScript classes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes), bạn luôn luôn cần gọi hàm `super` khi định nghĩa hàm khởi tạo của một lớp con (subclass). Tất cả các React component dạng class nếu có hàm khởi tạo `constructor` nên bắt đầu với việc gọi hàm `super(props)`.
 
-Bây giờ, chúng ta sẽ thay đổi phương thức `render` của component Square để hiển thị giá trị state khi nó được bấm: 
+Bây giờ, chúng ta sẽ thay đổi phương thức `render` của component Square để hiển thị giá trị state khi nó được bấm:
 
 * Thay thế `this.props.value` bằng `this.state.value` trong thẻ `<button>`.
 * Thay thế hàm xử lý sự kiện `onClick={...}` bằng `onClick={() => this.setState({value: 'X'})}`.
@@ -465,7 +461,7 @@ Khi một Square được bấm, hàm `onClick` cung cấp bởi Board sẽ đư
 >
 >Thuộc tính (props) `onClick` của thẻ DOM `<button>` có một ý nghĩa đặc biệt đối với React vì nó là component có sẵn. Đối với những component tự định nghĩa như Square component thì việc đặt tên prop này là tùy ý. Chúng ta có thể đặt tên tùy ý cho prop `onClick` của Square component hay hàm `handleClick` của Board component mà code vẫn chạy với cùng một kết quả. Trong React, ta thường hay sử dụng `on[Event]` cho những prop thể hiện cho sự kiện và `handle[Event]` cho những phương thức xử lý sự kiện.
 
-Khi thử bấm vào một Square component, chúng ta sẽ nhận được lỗi vì hàm `handleClick` chưa được định nghĩa. Bây giờ, ta sẽ thêm hàm `handleClick` vào Board component như sau: 
+Khi thử bấm vào một Square component, chúng ta sẽ nhận được lỗi vì hàm `handleClick` chưa được định nghĩa. Bây giờ, ta sẽ thêm hàm `handleClick` vào Board component như sau:
 
 ```javascript{9-13}
 class Board extends React.Component {
@@ -526,7 +522,7 @@ Khi các Square component không còn nắm giữ state nữa, Square component 
 
 Chú ý rằng trong hàm `handleClick`, chúng ta sử dụng `.slice()` để tạo ra một bản sao của mảng `squares` và sửa đổi trên bản sao đó chứ không thay đổi trực tiếp mảng squares. Chúng tôi sẽ giải thích kỹ hơn vì sao cần tạo ra một bản sao của `squares` trong phần tiếp theo.
 
-### Tại sao tính bất biến là quan trọng Why {#why-immutability-is-important}
+### Tại sao tính bất biến là quan trọng {#why-immutability-is-important}
 
 Trong phần code ví dụ trước, ta đã sử dụng hàm `.slice()` để tạo ra bản sao của mảng `squares` thay vì sửa trực tiếp nó. Giờ ta sẽ thảo luận về tính bất biến và vì sao tính bất biến lại quan trọng.
 
@@ -574,7 +570,7 @@ Bây giờ ta sẽ sửa đổi Square component để nó trở thành một **
 
 Trong React, **function components** là một cách đơn giản để viết các component chỉ chứa phương thức `render` và không chứa bất kỳ state nào. Thay vì phải định nghĩa một lớp kế thừa `React.Component`, chúng ta có thể viết một hàm nhận vào các prop để hiển thị ra giao diện. Các Functional component thường sẽ ít tẻ nhạt hơn class component, và khá nhiều component có thể viết dưới dạng này.
 
-Chuyển class Square thành dạng function: 
+Chuyển class Square thành dạng function:
 
 ```javascript
 function Square(props) {
@@ -624,7 +620,7 @@ Sau mỗi bước đi, `xIsNext` (một giá trị đúng sai (boolean)) sẽ đ
   }
 ```
 
-Với thay đổi này, "X" và "0" đã có thể có lượt đi của mình. 
+Với thay đổi này, "X" và "0" đã có thể có lượt đi của mình.
 
 Tiếp theo, hãy cùng thay đổi dòng "trạng thái" trong phương thức `render` của Board component để hiển thị lượt chơi tiếp theo thuộc về ai:
 
@@ -961,7 +957,7 @@ Do Game component hiện tại đang hiển thị trạng thái của trò chơi
   }
 ```
 
-Cuối cùng, chúng ta cần chuyển hàm `handleClick` từ Board component lên Game component. Chúng ta cũng cần sửa lại hàm `handleClick` vì cấu trúc state của Game component khác với của Board component trước đó. Trong phương thức `handleClick`, ta sẽ nối thêm vào `history` một lịch sử mới. 
+Cuối cùng, chúng ta cần chuyển hàm `handleClick` từ Board component lên Game component. Chúng ta cũng cần sửa lại hàm `handleClick` vì cấu trúc state của Game component khác với của Board component trước đó. Trong phương thức `handleClick`, ta sẽ nối thêm vào `history` một lịch sử mới.
 
 ```javascript{2-4,10-12}
   handleClick(i) {
@@ -1212,4 +1208,4 @@ Nếu có thời gian hoặc muốn thực hành nhiều hơn nữa, dưới đ�
 5. Khi một người chơi thắng cuộc, highlight ba ô vuông dẫn đến chiến thắng.
 6. Khi không ai thắng cuộc, hiển thị thông báo kết quả hòa.
 
-Xuyên suốt bài hướng dẫn này, chúng tôi đã đề cập các khái niệm trong React bao gồm elements, components, props và state. Để tìm hiểu chi tiết hơn về từng khái niệm, bạn có thể xem [phần còn lại của tài lại](/docs/hello-world.html). Để tìm hiểu sâu hơn về định nghĩa components, hãy ghé thăm [`React.Component` API reference](/docs/react-component.html).
+Xuyên suốt bài hướng dẫn này, chúng tôi đã đề cập các khái niệm trong React bao gồm elements, components, props và state. Để tìm hiểu chi tiết hơn về từng khái niệm, bạn có thể xem [phần còn lại của tài liệu](/docs/hello-world.html). Để tìm hiểu sâu hơn về định nghĩa components, hãy ghé thăm [`React.Component` API reference](/docs/react-component.html).

@@ -34,11 +34,7 @@ Chúng tôi gọi cái này là một nốt (node) DOM gốc "root" bởi về m
 
 Các ứng dụng đã xây dựng với React thường có duy nhất một nốt (node) DOM "gốc" (root). Nếu bạn kết hợp React vào trong một ứng dụng đã tồn tại, bạn có thể có nhiều "nốt" (node) DOM gốc "bị cô lập" (isolated) như bạn muốn.
 
-<<<<<<< HEAD
-Để render một React element vào bên trong một "nốt" (node) DOM gốc, truyền tất cả vào `ReactDOM.render()`:
-=======
-To render a React element into a root DOM node, pass both to [`ReactDOM.render()`](/docs/react-dom.html#render):
->>>>>>> 2ef0ee1e4fc4ce620dce1f3e0530471195dc64d1
+Để render một React element vào bên trong một "nốt" (node) DOM gốc, truyền tất cả vào [`ReactDOM.render()`](/docs/react-dom.html#render):
 
 `embed:rendering-elements/render-an-element.js`
 
@@ -50,11 +46,7 @@ Ví dụ trên hiển thị dòng chữ "Hello, world" trên trang web.
 
 Các React element là [bất biến](https://vi.wikipedia.org/wiki/%C4%90%E1%BB%91i_t%C6%B0%E1%BB%A3ng_b%E1%BA%A5t_bi%E1%BA%BFn). Một khi bạn tạo ra một element, bạn không thể thay đổi các "con" (children) hoặc các "thuộc tính" (attribute) của nó. Một element giống như một khung hình duy nhất trong một bộ phim: nó đại diện cho "giao diện" (UI) tại một thời điểm nhất định.
 
-<<<<<<< HEAD
-Với sự hiểu biết của chúng tôi cho đến thời điểm này, thì chỉ có một cách duy nhất để cập nhật "giao diện" (UI) đó là tạo ra một element mới và truyền nó vào `ReactDOM.render()`.
-=======
-With our knowledge so far, the only way to update the UI is to create a new element, and pass it to [`ReactDOM.render()`](/docs/react-dom.html#render).
->>>>>>> 2ef0ee1e4fc4ce620dce1f3e0530471195dc64d1
+Với sự hiểu biết của chúng tôi cho đến thời điểm này, thì chỉ có một cách duy nhất để cập nhật "giao diện" (UI) đó là tạo ra một element mới và truyền nó vào [`ReactDOM.render()`](/docs/react-dom.html#render).
 
 Hãy xem xét ví dụ đồng hồ "đánh dấu" (tick) này:
 
@@ -62,19 +54,11 @@ Hãy xem xét ví dụ đồng hồ "đánh dấu" (tick) này:
 
 [](codepen://rendering-elements/update-rendered-element)
 
-<<<<<<< HEAD
-Nó gọi `ReactDOM.render()` mỗi giây từ một "lời gọi lại" (callback) [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval).
-=======
-It calls [`ReactDOM.render()`](/docs/react-dom.html#render) every second from a [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval) callback.
->>>>>>> 2ef0ee1e4fc4ce620dce1f3e0530471195dc64d1
+Nó gọi [`ReactDOM.render()`](/docs/react-dom.html#render) mỗi giây từ một "lời gọi lại" (callback) [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval).
 
 >**Ghi chú:**
 >
-<<<<<<< HEAD
->Trong thực tế, hầu hết các ứng dụng React chỉ gọi `ReactDOM.render()` một lần duy nhất. Trong những phần tiếp theo, chúng ta sẽ tìm hiểu làm thế nào để "mã" (code) được đóng gói vào ["những component có trạng thái" (stateful components)](/docs/state-and-lifecycle.html).
-=======
->In practice, most React apps only call [`ReactDOM.render()`](/docs/react-dom.html#render) once. In the next sections we will learn how such code gets encapsulated into [stateful components](/docs/state-and-lifecycle.html).
->>>>>>> 2ef0ee1e4fc4ce620dce1f3e0530471195dc64d1
+>Trong thực tế, hầu hết các ứng dụng React chỉ gọi [`ReactDOM.render()`](/docs/react-dom.html#render) một lần duy nhất. Trong những phần tiếp theo, chúng ta sẽ tìm hiểu làm thế nào để "mã" (code) được đóng gói vào ["những component có trạng thái" (stateful components)](/docs/state-and-lifecycle.html).
 >
 >Chúng tôi khuyên bạn đừng bỏ qua các "chủ đề" (topic) vì chúng có tính xây dựng lẫn nhau.
 
@@ -89,8 +73,4 @@ Bạn có thể xác minh điều trên bằng cách kiểm tra [ví dụ cuối
 
 Mặc dù chúng ta tạo ra một element miêu tả toàn bộ cây "giao diện" (UI) trên mỗi "đánh dấu" (tick), chỉ những "nốt văn bản" (text node) có nội dung thay đổi mới nhận sự cập nhật bởi React DOM.
 
-<<<<<<< HEAD
 Với kinh nghiệm của chúng tôi thì chúng ta nên suy nghĩ về cách "giao diện" (UI) nên trông như thế nào tại mọi thời điểm hơn là suy nghĩ làm thế nào để thay đổi "giao diện" (UI) theo thời gian, điều này sẽ loại bỏ được rất nhiều "lỗi" (bug).
-=======
-In our experience, thinking about how the UI should look at any given moment, rather than how to change it over time, eliminates a whole class of bugs.
->>>>>>> 2ef0ee1e4fc4ce620dce1f3e0530471195dc64d1
