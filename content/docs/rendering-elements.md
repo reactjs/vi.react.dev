@@ -34,7 +34,7 @@ Chúng tôi gọi cái này là một nốt (node) DOM gốc "root" bởi về m
 
 Các ứng dụng đã xây dựng với React thường có duy nhất một nốt (node) DOM "gốc" (root). Nếu bạn kết hợp React vào trong một ứng dụng đã tồn tại, bạn có thể có nhiều "nốt" (node) DOM gốc "bị cô lập" (isolated) như bạn muốn.
 
-Để render một React element vào bên trong một "nốt" (node) DOM gốc, truyền tất cả vào `ReactDOM.render()`:
+Để render một React element vào bên trong một "nốt" (node) DOM gốc, truyền tất cả vào [`ReactDOM.render()`](/docs/react-dom.html#render):
 
 `embed:rendering-elements/render-an-element.js`
 
@@ -46,7 +46,7 @@ Ví dụ trên hiển thị dòng chữ "Hello, world" trên trang web.
 
 Các React element là [bất biến](https://vi.wikipedia.org/wiki/%C4%90%E1%BB%91i_t%C6%B0%E1%BB%A3ng_b%E1%BA%A5t_bi%E1%BA%BFn). Một khi bạn tạo ra một element, bạn không thể thay đổi các "con" (children) hoặc các "thuộc tính" (attribute) của nó. Một element giống như một khung hình duy nhất trong một bộ phim: nó đại diện cho "giao diện" (UI) tại một thời điểm nhất định.
 
-Với sự hiểu biết của chúng tôi cho đến thời điểm này, thì chỉ có một cách duy nhất để cập nhật "giao diện" (UI) đó là tạo ra một element mới và truyền nó vào `ReactDOM.render()`.
+Với sự hiểu biết của chúng tôi cho đến thời điểm này, thì chỉ có một cách duy nhất để cập nhật "giao diện" (UI) đó là tạo ra một element mới và truyền nó vào [`ReactDOM.render()`](/docs/react-dom.html#render).
 
 Hãy xem xét ví dụ đồng hồ "đánh dấu" (tick) này:
 
@@ -54,11 +54,11 @@ Hãy xem xét ví dụ đồng hồ "đánh dấu" (tick) này:
 
 [](codepen://rendering-elements/update-rendered-element)
 
-Nó gọi `ReactDOM.render()` mỗi giây từ một "lời gọi lại" (callback) [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval).
+Nó gọi [`ReactDOM.render()`](/docs/react-dom.html#render) mỗi giây từ một "lời gọi lại" (callback) [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval).
 
 >**Ghi chú:**
 >
->Trong thực tế, hầu hết các ứng dụng React chỉ gọi `ReactDOM.render()` một lần duy nhất. Trong những phần tiếp theo, chúng ta sẽ tìm hiểu làm thế nào để "mã" (code) được đóng gói vào ["những component có trạng thái" (stateful components)](/docs/state-and-lifecycle.html).
+>Trong thực tế, hầu hết các ứng dụng React chỉ gọi [`ReactDOM.render()`](/docs/react-dom.html#render) một lần duy nhất. Trong những phần tiếp theo, chúng ta sẽ tìm hiểu làm thế nào để "mã" (code) được đóng gói vào ["những component có trạng thái" (stateful components)](/docs/state-and-lifecycle.html).
 >
 >Chúng tôi khuyên bạn đừng bỏ qua các "chủ đề" (topic) vì chúng có tính xây dựng lẫn nhau.
 

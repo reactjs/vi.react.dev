@@ -166,7 +166,7 @@ class TemperatureInput extends React.Component {
 
   render() {
     const temperature = this.state.temperature;
-    // ...  
+    // ...
 ```
 
 Tuy nhiên, chúng ta muốn hai input này được đồng bộ hoá. Khi chúng ta cập nhật nhiệt độ cho Celsius input, Fahrenheit input cũng phải được cập nhật nhiệt độ sau khi đã chuyển đổi và ngược lại.
@@ -190,7 +190,7 @@ Chúng ta biết rằng [props không thể thay đổi](/docs/components-and-pr
 
 Trong React, điều này được giải quyết bằng cách tạo ra một component "kiểm soát". Cũng tương tự như DOM `<input>` chấp nhận thuộc tính `value` và `onChange`, thì tuỳ chỉnh `TemperatureInput` có thể chấp nhận cả `temperature` và `onTemperatureChange` props từ component cha `Calculator`.
 
-Bây giờ, khi `TemperatureInput` muốn cập nhật nhiệt độ, nó gọi `this.props.onTemperatureChange`: 
+Bây giờ, khi `TemperatureInput` muốn cập nhật nhiệt độ, nó gọi `this.props.onTemperatureChange`:
 
 ```js{3}
   handleChange(e) {
@@ -303,14 +303,14 @@ Bây giờ, bạn có thể thay đổi bất kì input nào, thì `this.state.t
 
 Hãy cùng điểm lại điều gì sẽ xảy ra khi bạn thay đổi giá trị của một input:
 
-* React sẽ gọi hàm `onChange` tương ứng trên DOM `<input>`. trong trường hợp này, đây là hàm `handleChange` trong component `TemperatureInput`.
-* Hàm `handleChange` trong component `TemperatureInput` được gọi `this.props.onTemperatureChange()` và truyền vào một giá trị mới. Các props của nó, bao gồm `onTemperatureChange`, sẽ được component cha `Calculator` cung cấp.
-* Trước đây, khi nó được tạo ra, component `Calculator` đã được lập trình rằng `onTemperatureChange` của Celsius `TemperatureInput` là hàm `handleCelsiusChange` của component `Calculator`, và `onTemperatureChange` của Fahrenheit `TemperatureInput` là hàm `handleFahrenheitChange` từ component `Calculator`. Vì thế nên một trong hai hàm của `Calculator` sẽ được gọi dựa trên input nào bị thay đổi.
-* Bên trong các hàm này, component `Calculator` sẽ yêu cầu React để tạo lại chính nó bằng cách gọi `this.setState()` với giá trị mới từ input và đơn vị hiện tại của input bị thay đổi.
-* React gọi hàm `render` từ component `Calculator` để xem giao diện người dùng trông như thế nào. Giá trị của cả hai input sẽ được tính toán lại dựa trên nhiệt độ hiện thời và đơn vị đo đang được sử dụng. Nhiệt độ được chuyển đổi tại đây.
-* React gọi hàm `render` của mỗi component `TemperatureInput` riêng với giá trị mới của props được truyền từ `Calculator`. Nó sẽ hiểu được giao diện người dùng như thế nào.
-* React gọi hàm `render` từ component `BoilingVerdict`, truyền nhiệt độ bằng Celsius như là một props của nó.
-* React DOM cập nhật DOM với nhiệt độ sôi và để phù hợp với những giá trị mong muốn của input. Input chúng ta vừa thay đổi sẽ nhận giá trị hiện thời, và những input khác được cập nhật với nhiệt độ sau khi chuyển đổi.
+* React gọi hàm `onChange` trên cây DOM `<input>`. Trong trường hợp này, nó là hàm `handleChange` trong component `TemperatureInput`.
+* Hàm `handleChange` trong component `TemperatureInput` gọi `this.props.onTemperatureChange()` với kết quả mới nhất. Các thuộc tính (props) của nó, bao gồm `onTemperatureChange`, được cung cấp bởi component cha, `Calculator`.
+* Khi ở lần render trước, `Calculator` đã chỉ định rằng hàm `onTemperatureChange` của Celsius `TemperatureInput` là phương thức `handleCelsiusChange` của `Calculator`.Vì thế một trong hay phương thức này của `Calculator` được gọi phụ thuộc vào dữ liệu đầu vào mà chúng ta cung cấp.
+* Bên trong những phương thức này, component `Calculator` sẽ yêu cầu React để render lại (re-render) chính nó bằng cách gọi `this.setState()` với giá trị đầu vào mới và giá trị scale hiện tại mà chúng ta vừa mới thay đổi.
+* React gọi phương thức `render` của component `Calculator` để xem giao diện (UI) sẽ trông như thế nào. Những giá trị đầu vào của cả hai sẽ được tính toán lại dựa trên nhiệt độ hiện tại và tỉ lệ active tương ứng. Việc chuyển đổi nhiệt độ được thực hiện tại đây.
+* React gọi phương thức `render` của các component `TemperatureInput` với những thuộc tính (props) mới của chúng được chỉ định bởi `Calculator`. Nó 'học' (learn) từ giao diện UI.
+* React gọi phương thức `render` của component `BoilingVerdict`, truyền nhiệt độ (temperature) vào Celsius như thuộc tính (props) của nó.
+* React DOM cập nhật DOM với boiling verdict và để khớp với những giá trị đầu vào mong muốn. Giá trị đầu vào chúng ta đã thay đổi nhận giá trị hiện tại của nó, và giá trị đầu vào khác được cập nhật đến nhiệt độ (temperature) sau khi chuyển đổi.
 
 Tất cả những cập nhật đi qua cùng một lộ trình nên các input sẽ luôn được đồng bộ hoá.
 
@@ -322,11 +322,6 @@ Chuyển state liên quan tới thêm vào nhiều code "chuẩn" hơn là phư�
 
 Nếu một vài thứ có thể bắt nguồn từ props hoặc state, nó có thể không nên là state. Ví dụ, thay vì lưu trữ cả `celsiusValue` và `fahrenheitValue`, chúng ta sẽ lưu trữ giá trị được thay đổi gần nhất của `temperature` và `scale` của nó. Giá trị của input khác có thể được tính toán từ chúng trong hàm `render()`. Nó sẽ cho phép chúng ta dọn dẹp hoặc áp dụng để làm tròn giá trị của trường khác mà không làm mất đi tính chính xác của giá trị người dùng nhập vào.
 
-<<<<<<< HEAD
-Khi bạn thấy giao diện người dùng không chính xác, bạn có thể dùng [Công cụ phát triển React](https://github.com/facebook/react-devtools) để kiểm tra props và di chuyển lên theo cây component cho tới khi bạn có thể tìm thấy component chịu trách nhiệm cho việc cập nhật state. Nó sẽ giúp bạn theo dõi nguồn gốc của các lỗi:
-=======
-When you see something wrong in the UI, you can use [React Developer Tools](https://github.com/facebook/react/tree/master/packages/react-devtools) to inspect the props and move up the tree until you find the component responsible for updating the state. This lets you trace the bugs to their source:
->>>>>>> 81124465ac68335b2e3fdf21952a51265de6877f
+Khi bạn thấy cái gì đó sai trên giao diện người dùng (UI), bạn có thể sử dụng [React Developer Tools](https://github.com/facebook/react/tree/master/packages/react-devtools) để tìm các thuộc tính (props) và chuyển lên trên cho đến khi bạn thấy component chịu trách nhiệm cho việc cập nhật state. Điều này giúp bạn tìm ra (trace) những lỗi (bug) trong source:
 
 <img src="../images/docs/react-devtools-state.gif" alt="Monitoring State in React DevTools" max-width="100%" height="100%">
-

@@ -91,11 +91,11 @@ Hook là kiến trúc mới có nhiều điều cần để học. Nếu tài li
 
 Khi bạn đã sẵn sàng, chúng tôi khuyến khích bạn bắt đầu thử dùng Hook khi viết một component mới. Đảm bảo mọi người trong team đồng thuận sử dụng chúng và đã đọc qua tài liệu này. Chúng tôi không khuyến khích viết lại toàn bộ các class component trước đây sang dùng Hook, trừ khi bạn cũng đã có ý định viết lại chúng (ví dụ như để fix bug).
 
-Bạn không thể sử dụng Hook *bên trong* một class component, nhưng tất nhiên bạn có thể kết hợp class và function component với Hook trong một cây. Class hay function component sử dụng Hook đều được. Trong tương lai, chúng tôi kỳ vọng Hook sẽ là cách chính để mọi người viết React component.
+Bạn không thể sử dụng Hook *bên trong* một class component, nhưng tất nhiên bạn có thể kết hợp class và function component với Hook trong một cây (single tree). Bất kể là một component được tạo bởi class hay function đều sử dụng Hook được. Trong tương lai, chúng tôi kỳ vọng Hook sẽ là cách chính để mọi người viết React component.
 
 ### Hook có đã bao gồm tất cả trường hợp sử dụng của class? {#do-hooks-cover-all-use-cases-for-classes}
 
-Mục tiêu của chúng tôi cho Hook là bao gồm tất cả trường hợp sử dụng của class sớm nhất có thế. Sẽ không có những Hook tương ứng với các phương thức lifecycle không phổ biến  `getSnapshotBeforeUpdate` và `componentDidCatch`, nhưng chúng tôi sẽ sớm thêm chúng
+Mục tiêu của chúng tôi cho Hook là bao gồm tất cả trường hợp sử dụng của class sớm nhất có thế. Sẽ không có những Hook tương ứng với các phương thức lifecycle không phổ biến  `getSnapshotBeforeUpdate`, `getDerivedStateFromError` và `componentDidCatch`, nhưng chúng tôi sẽ sớm thêm chúng.
 
 Trong giai đoạn đầu của Hook, có một vài thư viện third-party có thể sẽ không tương thích với Hook
 
@@ -218,7 +218,7 @@ Có một vài nguyên tắc khác, chúng có thể thay đổi theo thời gia
 
 * `componentDidMount`, `componentDidUpdate`, `componentWillUnmount`: [`useEffect` Hook](/docs/hooks-reference.html#useeffect) được dùng để kết hợp cho cả ba trường hợp (bao gồm các tính huống [ít](#can-i-skip-an-effect-on-updates) [phổ biến](#can-i-run-an-effect-only-on-updates)).
 
-* `componentDidCatch` và `getDerivedStateFromError`: Hiện tại không có Hook nào tương ứng với các phương thức này, chúng tôi sẽ sớm thêm nó.
+* `getSnapshotBeforeUpdate`, `componentDidCatch` và `getDerivedStateFromError`: Hiện tại không có Hook nào tương ứng với các phương thức này, chúng tôi sẽ sớm thêm nó.
 
 ### Làm thế nào tôi có thể fetching data với Hook? {#how-can-i-do-data-fetching-with-hooks}
 
@@ -288,8 +288,9 @@ Giờ giả dụ bạn muốn viết một logic để thay đổi giá trị `l
   // ...
 ```
 
-Đó là bởi vì khi chúng ta cập nhập lại biến state, chúng ta *thay thế* giá trị của nó. Nó khác với `this.setState` bên trong class, *merge* các field được update vào trong object.
-Nếu vẫn muốn dùng cách merge tự động, bạn có thể viết một custom hook `useLegacyState`. Tuy nhiên, thay vào đó **chúng tôi đề xuất bạn nên tách state ra thành nhiều biến khác nhau dựa trên các giá trị có khuynh hướng thay đổi cùng nhau**
+Đó là bởi vì khi chúng ta cập nhập lại biến state, chúng ta *thay thế* giá trị của nó. Điều này khác với `this.setState` bên trong class, *merge* các field được update vào trong object.
+
+Nếu bạn muốn dùng cách merge tự động, bạn có thể viết một custom hook `useLegacyState`. Tuy nhiên, thay vào đó **chúng tôi đề xuất bạn nên tách state ra thành nhiều biến khác nhau dựa trên các giá trị có khuynh hướng thay đổi cùng nhau**
 
 Lấy ví dụ, bạn có thể tách state `position` và `size`, và luôn luôn thay thế `position` mà không phải merge:
 
@@ -585,7 +586,7 @@ Tuy theo tình huống, có một vài lựa chọn như bên dưới
 
 Cùng xem tại sao nó quan trọng
 
-Nếu bạn cung cấp một [danh sách phụ thuộc](/docs/hooks-reference.html#conditionally-firing-an-effect) cho `useEffect`, `useMemo`, `useCallback`, hoặc `useImperativeHandle`, nó phải bao gồm tất cả các giá trị sử dụng bên trong hàm liên quan đến luồng dữ liệu của React, bao gồm prop, state và những giá trị có nguồn gốc từ chúng.
+Nếu bạn cung cấp một [danh sách phụ thuộc](/docs/hooks-reference.html#conditionally-firing-an-effect) như là tham số (argument) cho `useEffect`, `useMemo`, `useCallback`, hoặc `useImperativeHandle`, nó phải bao gồm tất cả các giá trị sử dụng bên trong hàm callback liên quan đến luồng dữ liệu của React, bao gồm prop, state và những giá trị có nguồn gốc từ chúng.
 
 Chỉ **an toàn** khi omit một function từ danh sách phụ thuộc nếu không có gì bên trong (hoặc các hàm được gọi bởi nó) tham chiếu đến prop, state, các giá trị có nguồn gốc từ chúng. Ví dụ như bên dưới sẽ có có bug
 
