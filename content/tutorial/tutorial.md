@@ -1208,4 +1208,4 @@ Nếu có thời gian hoặc muốn thực hành nhiều hơn nữa, dưới đ�
 5. Khi một người chơi thắng cuộc, highlight ba ô vuông dẫn đến chiến thắng.
 6. Khi không ai thắng cuộc, hiển thị thông báo kết quả hòa.
 
-Xuyên suốt bài hướng dẫn này, chúng tôi đã đề cập các khái niệm trong React bao gồm elements, components, props và state. Để tìm hiểu chi tiết hơn về từng khái niệm, bạn có thể xem [phần còn lại của tài lại](/docs/hello-world.html). Để tìm hiểu sâu hơn về định nghĩa components, hãy ghé thăm [`React.Component` API reference](/docs/react-component.html).
+Xuyên suốt bài hướng dẫn này, chúng tôi đã đề cập các khái niệm trong React bao gồm elements, components, props và state. Để tìm hiểu chi tiết hơn về từng khái niệm, bạn có thể xem [phần còn lại của tài liệu](/docs/hello-world.html). Để tìm hiểu sâu hơn về định nghĩa components, hãy ghé thăm [`React.Component` API reference](/docs/react-component.html).
