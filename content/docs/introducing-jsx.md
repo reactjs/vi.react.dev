@@ -177,11 +177,7 @@ const element = {
 
 Những đối tượng này được gọi là "Những phần tử React" (React elements). Bạn có thể xem chúng như là mô tả những gì bạn muốn thấy trên màn hình. React đọc những đối tượng này và dùng chúng để xây dựng DOM và cập nhật nó.
 
-<<<<<<< HEAD
-Chúng ta sẽ khám phá cách các React Element được render vào DOM thế nào trong phần kế tiếp.
-=======
-We will explore rendering React elements to the DOM in the [next section](/docs/rendering-elements.html).
->>>>>>> 9fa6418ada9b24bdacf4cb1facbe69160d0740a9
+Chúng ta sẽ khám phá cách các React Element được render vào DOM thế nào trong [phần kế tiếp](/docs/rendering-elements.html)..
 
 >**Gợi ý:**
 >

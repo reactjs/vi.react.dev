@@ -23,13 +23,8 @@ redirect_from:
 **Tiến hành triển khai**
 
 ```javascript
-<<<<<<< HEAD
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'; // ES6
-var ReactCSSTransitionGroup = require('react-addons-css-transition-group'); // ES5 với npm
-=======
 import ReactCSSTransitionGroup from 'react-transition-group'; // ES6
 var ReactCSSTransitionGroup = require('react-transition-group'); // ES5 with npm
->>>>>>> 9fa6418ada9b24bdacf4cb1facbe69160d0740a9
 ```
 
 ```javascript{31-36}

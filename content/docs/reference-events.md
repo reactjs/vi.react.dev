@@ -178,16 +178,13 @@ DOMEventTarget relatedTarget
 Tên Event:
 
 ```
-onChange onInput onInvalid onReset onSubmit 
+onChange onInput onInvalid onReset onSubmit
 ```
 
 Xem thêm thông tin về onChange event [Forms](/docs/forms.html).
 
 * * *
 
-<<<<<<< HEAD
-### Event chuột {#mouse-events}
-=======
 ### Generic Events {#generic-events}
 
 Event names:
@@ -199,7 +196,6 @@ onError onLoad
 * * *
 
 ### Mouse Events {#mouse-events}
->>>>>>> 9fa6418ada9b24bdacf4cb1facbe69160d0740a9
 
 Tên Event:
 
