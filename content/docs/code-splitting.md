@@ -77,7 +77,7 @@ import("./math").then(math => {
 
 Khi Webpack chạy đến cú pháp này, nó sẽ tự động phân chia code trong ứng dụng của bạn. Nếu bạn sử dụng Create React App,
 việc này đã được thiết lập sẵn cho bạn và bạn có thể [bắt đầu sử dụng](https://facebook.github.io/create-react-app/docs/code-splitting)
-ngay. Nó cũng được hỗ trợ sẵn trong [Next.js](https://github.com/zeit/next.js/#dynamic-import).
+ngay. Nó cũng được hỗ trợ sẵn trong [Next.js](https://nextjs.org/docs/advanced-features/dynamic-import).
 
 Nếu bạn đang tự mình cấu hình Webpack, bạn có thể sẽ muốn tham khảo Webpack's
 [hướng dẫn phân chia code](https://webpack.js.org/guides/code-splitting/). Cấu hình Webpack của bạn có thể sẽ trông mơ hồ [như thế này](https://gist.github.com/gaearon/ca6e803f5c604d37468b0091d9959269).
