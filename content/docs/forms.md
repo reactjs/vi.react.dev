@@ -68,6 +68,7 @@ class NameForm extends React.Component {
 
 Khi `value` attribute được gán vào form element, giá trị hiển thị lên màn hình sẽ luôn là `this.state.value`. Sau mỗi lần tương tác với bàn phím, `handleChange` được gọi để cập nhật lại React state, giá trị hiển thị lên màn hình sẽ luôn được cập nhật mỗi khi người dùng gõ phím.
 
+<<<<<<< HEAD
 Với một controlled component, tất cả các sự thay đổi của state sẽ luôn liên kết với các hàm xử lý. Từ đó làm đơn giản việc sửa hay xác minh dữ liệu người dùng nhập vào. Ví dụ, nếu ta muốn các giá trị nhập vào luôn được viết dưới dạng in hoa, ta có thể viết hàm `handleChange` như sau:
 
 ```javascript{2}
@@ -75,6 +76,9 @@ handleChange(event) {
   this.setState({value: event.target.value.toUpperCase()});
 }
 ```
+=======
+With a controlled component, the input's value is always driven by the React state. While this means you have to type a bit more code, you can now pass the value to other UI elements too, or reset it from other event handlers.
+>>>>>>> fa5e6e7a988b4cb465601e4c3beece321edeb812
 
 ## Thẻ textarea {#the-textarea-tag}
 
