@@ -9,7 +9,7 @@ redirect_from:
   - "docs/forms-zh-CN.html"
 ---
 
-Trong React, HTML form element sẽ hoạt động hơi khác một chút so với các DOM element còn lại, form element sẽ giữ và tự xử lí một số state nội bộ (internal state) của riêng nó. Ví dụ như form dưới đây trong HTML sẽ nhận vào giá trị của input name. 
+Trong React, HTML form element sẽ hoạt động hơi khác một chút so với các DOM element còn lại, form element sẽ giữ và tự xử lí một số state nội bộ (internal state) của riêng nó. Ví dụ như form dưới đây trong HTML sẽ nhận vào giá trị của input name.
 
 ```html
 <form>
@@ -68,17 +68,7 @@ class NameForm extends React.Component {
 
 Khi `value` attribute được gán vào form element, giá trị hiển thị lên màn hình sẽ luôn là `this.state.value`. Sau mỗi lần tương tác với bàn phím, `handleChange` được gọi để cập nhật lại React state, giá trị hiển thị lên màn hình sẽ luôn được cập nhật mỗi khi người dùng gõ phím.
 
-<<<<<<< HEAD
-Với một controlled component, tất cả các sự thay đổi của state sẽ luôn liên kết với các hàm xử lý. Từ đó làm đơn giản việc sửa hay xác minh dữ liệu người dùng nhập vào. Ví dụ, nếu ta muốn các giá trị nhập vào luôn được viết dưới dạng in hoa, ta có thể viết hàm `handleChange` như sau:
-
-```javascript{2}
-handleChange(event) {
-  this.setState({value: event.target.value.toUpperCase()});
-}
-```
-=======
-With a controlled component, the input's value is always driven by the React state. While this means you have to type a bit more code, you can now pass the value to other UI elements too, or reset it from other event handlers.
->>>>>>> fa5e6e7a988b4cb465601e4c3beece321edeb812
+Đối với một controlled component, giá trị của input luôn luôn được điều khiển bởi state của React. Điều này có nghĩa là bạn phải gõ (type) nhiều code hơn một chút, từ đó bạn có thể truyền giá trị này đến những thành phần (element) khác của UI, hoặc là làm mới (reset) nó từ những sự kiện (event handler) khác.
 
 ## Thẻ textarea {#the-textarea-tag}
 
@@ -209,7 +199,7 @@ Bời vì giá trị của file input chặn quyền ghi (read-only), nên nó l
 
 Khi bạn cần xử lí nhiều controlled `input`, bạn có thể thêm thuộc tính `name` vào từng element và để hàm xử lí (handler function) lựa chọn được chính xác element nào đang tương tác với người dùng thông qua  `event.target.name`
 
-Ví dụ: 
+Ví dụ:
 
 ```javascript{15,18,28,37}
 class Reservation extends React.Component {
@@ -277,7 +267,7 @@ partialState[name] = value;
 this.setState(partialState);
 ```
 
-Ngoài ra, kể từ khi `setState()` tự động [gộp các phần của state thành state hiện tại](/docs/state-and-lifecycle.html#state-updates-are-merged), ta chỉ cần gọi hàm `setState()` đối với những phần của state bị thay đổi. 
+Ngoài ra, kể từ khi `setState()` tự động [gộp các phần của state thành state hiện tại](/docs/state-and-lifecycle.html#state-updates-are-merged), ta chỉ cần gọi hàm `setState()` đối với những phần của state bị thay đổi.
 
 ## Controlled Input với giá trị null {#controlled-input-null-value}
 
