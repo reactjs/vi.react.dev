@@ -1045,11 +1045,7 @@ Hãy `map` mảng `history` trong phương thức `render` của Game component:
 
 **[Xem code chi tiết tại bước này](https://codepen.io/gaearon/pen/EmmGEa?editors=0010)**
 
-<<<<<<< HEAD
-Với mỗi lịch sử bước đi, ta tạo ra một danh sách các `<li>` chứa một `<button>`. Button sẽ có một hàm xử lý `onClick`, hàm này sẽ gọi phương thức `this.jumpTo()`. Hiện tại ta chưa có hàm `jumpTo()`. Đến bước này, bạn sẽ thấy một danh sách các bước đi được hiển thị trên màn hình và cảnh báo trong console của công cụ cho nhà phát triển với thông điệp như sau:
-=======
-For each move in the tic-tac-toe game's history, we create a list item `<li>` which contains a button `<button>`. The button has a `onClick` handler which calls a method called `this.jumpTo()`. We haven't implemented the `jumpTo()` method yet. For now, we should see a list of the moves that have occurred in the game and a warning in the developer tools console that says:
->>>>>>> bc91fe4101420f98454a59ac34c1cf1d4d4f4476
+Với mỗi lịch sử bước đi trong game tic-tac-toe, ta tạo ra một danh sách các `<li>` chứa một `<button>`. Button sẽ có một hàm xử lý `onClick`, hàm này sẽ gọi phương thức `this.jumpTo()`. Hiện tại ta chưa có hàm `jumpTo()`. Đến bước này, bạn sẽ thấy một danh sách các bước đi được hiển thị trên màn hình và cảnh báo trong console của công cụ cho nhà phát triển với thông điệp như sau:
 
 >  Warning:
 >  Each child in an array or iterator should have a unique "key" prop. Check the render method of "Game".
