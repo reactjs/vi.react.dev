@@ -4,7 +4,7 @@ title: Fragments
 permalink: docs/fragments.html
 ---
 
-A common pattern in React is for a component to return multiple elements. Fragments let you group a list of children without adding extra nodes to the DOM.
+Một trong những pattern phổ biến của React là trả về nhiều element trong một component. Fragment cho phép bạn nhóm một danh sách các childrent mà không cần thêm bất kì node dư thừa vào DOM tree.
 
 ```js
 render() {
@@ -18,11 +18,11 @@ render() {
 }
 ```
 
-There is also a new [short syntax](#short-syntax) for declaring them.
+React đồng thời cung cấp [cú pháp rút gọn](#short-syntax) để khai báo Fragment.
 
-## Motivation {#motivation}
+## Lí do {#motivation}
 
-A common pattern is for a component to return a list of children. Take this example React snippet:
+Một trong những pattern phổ biến là trả về một danh sách các childrent trong một component. Xem xét phân đoạn code React dưới đây:
 
 ```jsx
 class Table extends React.Component {
@@ -38,7 +38,7 @@ class Table extends React.Component {
 }
 ```
 
-`<Columns />` would need to return multiple `<td>` elements in order for the rendered HTML to be valid. If a parent div was used inside the `render()` of `<Columns />`, then the resulting HTML will be invalid.
+`<Columns />` cần trả về nhiều phần tử <td> để có thể đáp ứng việc render ra HTML chính xác. Nếu parent là `div` được sử dụng bên trong hàm `render()` của `<Columns>`, kết quả HTML sau khi được render sẽ không chính xác.
 
 ```jsx
 class Columns extends React.Component {
@@ -53,7 +53,7 @@ class Columns extends React.Component {
 }
 ```
 
-results in a `<Table />` output of:
+Điều này kéo theo việc HTML được render của `<Table />` không chính xác:
 
 ```jsx
 <table>
@@ -66,9 +66,9 @@ results in a `<Table />` output of:
 </table>
 ```
 
-Fragments solve this problem.
+Fragment giúp giải quyết vấn đề này.
 
-## Usage {#usage}
+## Sử dụng {#usage}
 
 ```jsx{4,7}
 class Columns extends React.Component {
@@ -83,7 +83,7 @@ class Columns extends React.Component {
 }
 ```
 
-which results in a correct `<Table />` output of:
+làm cho kết quả HTML được render một cách chính xác của `<Table />`:
 
 ```jsx
 <table>
@@ -94,9 +94,9 @@ which results in a correct `<Table />` output of:
 </table>
 ```
 
-### Short Syntax {#short-syntax}
+### Cú pháp rút gọn {#short-syntax}
 
-There is a new, shorter syntax you can use for declaring fragments. It looks like empty tags:
+Fragment cung cấp một cú pháp mới, ngắn gọn hơn để khai báo. Trông nó sẽ giống 1 thẻ rỗng:
 
 ```jsx{4,7}
 class Columns extends React.Component {
@@ -111,11 +111,11 @@ class Columns extends React.Component {
 }
 ```
 
-You can use `<></>` the same way you'd use any other element except that it doesn't support keys or attributes.
+Bạn có thể sử dung `<></>` giống như cách bạn sử dụng bất kì element nào khác ngoại trừ việc nó không hỡ trợ từ khóa (key) và các thuộc tính (attribute).
 
 ### Keyed Fragments {#keyed-fragments}
 
-Fragments declared with the explicit `<React.Fragment>` syntax may have keys. A use case for this is mapping a collection to an array of fragments -- for example, to create a description list:
+ Fragment đươc khai báo dưới dạng cú pháp rõ ràng `<React.Fragment>` có hỡ trợ khai báo từ khóa (key). Ví dụ dưới đây cho trường hợp này là việc ánh xạ một collection sang một mảng các fragment, để tạo nên một danh sách các mô tả chi tiết:
 
 ```jsx
 function Glossary(props) {
@@ -133,8 +133,8 @@ function Glossary(props) {
 }
 ```
 
-`key` is the only attribute that can be passed to `Fragment`. In the future, we may add support for additional attributes, such as event handlers.
+`key` là thuộc tính duy nhất có thể khai báo trong `Fragment`. Trong thời gian tới, chúng tôi có thể bổ sung thêm các thuộc tính, chẳng hạn xử lí sự kiện (event handler).
 
 ### Live Demo {#live-demo}
 
-You can try out the new JSX fragment syntax with this [CodePen](https://codepen.io/reactjs/pen/VrEbjE?editors=1000).
+Bạn có thể trải nghiệm cú pháp JSX Fragment với [CodePen](https://codepen.io/reactjs/pen/VrEbjE?editors=1000).
