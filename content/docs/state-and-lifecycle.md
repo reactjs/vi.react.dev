@@ -155,7 +155,7 @@ Lưu ý cách ta truyền `props` vào base contructor
 
 Thành phần Class nên luôn luôn gọi đến base contructor bằng `props`
 
-3) Xóa prop `date` từ phần tử `<Clock />`: 
+3) Xóa prop `date` từ phần tử `<Clock />`:
 
 ```js{2}
 ReactDOM.render(
@@ -418,15 +418,6 @@ Parent và child component, cả hai có thể không hiểu dù component có l
 Một component có thể chọn để truyền state của nó như một prop cho những child component của nó:
 
 ```js
-<<<<<<< HEAD
-<h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-```
-
-Điều này cũng hoạt động cho những component 'user-defined' :
-
-```js
-=======
->>>>>>> b4b59062e59d56da37274c6de1fa4a134d2d8f49
 <FormattedDate date={this.state.date} />
 ```
 
