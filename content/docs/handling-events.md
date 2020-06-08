@@ -8,11 +8,7 @@ redirect_from:
   - "docs/events-ko-KR.html"
 ---
 
-<<<<<<< HEAD
 Việc bắt sự kiện của những element React rất giống với những element DOM. Có một số khác biệt về cú pháp như:
-=======
-Handling events with React elements is very similar to handling events on DOM elements. There are some syntax differences:
->>>>>>> 2ef0ee1e4fc4ce620dce1f3e0530471195dc64d1
 
 * Những sự kiện của React được đặt tên theo dạng camelCase, thay vì lowercase.
 * Với JSX, bạn có thể sử dụng "hàm" (function) để bắt sự kiện thay vì phải truyền vào một chuỗi.
