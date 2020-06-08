@@ -60,7 +60,7 @@ function NumberList(props) {
   );
   return (
     <ul>{listItems}</u
-    
+
     l>
   );
 }
@@ -186,14 +186,8 @@ function ListItem(props) {
 function NumberList(props) {
   const numbers = props.numbers;
   const listItems = numbers.map((number) =>
-<<<<<<< HEAD
-    // Đúng! Key nên được cụ thể bên trong mảng.
-    <ListItem key={number.toString()}
-              value={number} />
-=======
     // Correct! Key should be specified inside the array.
     <ListItem key={number.toString()} value={number} />
->>>>>>> c9b990070fc35d31b56957263e1ea9fe2fe67b40
   );
   return (
     <ul>

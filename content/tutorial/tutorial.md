@@ -1195,11 +1195,7 @@ Chúc mừng! Bạn vừa tạo thành công trò chơi tic-tac-toe với các t
 * Lưu trữ lịch sử các bước đi,
 * Cho phép người chơi xem lại các bước đi.
 
-<<<<<<< HEAD
-Làm tốt lắm! Chúng tôi hy vọng bạn đã nắm bắt tốt React hoạt động như thế nào.
-=======
-Nice work! We hope you now feel like you have a decent grasp of how React works.
->>>>>>> c9b990070fc35d31b56957263e1ea9fe2fe67b40
+Làm tốt lắm! Chúng tôi hy vọng bây giờ bạn cảm thấy bạn đã có một hiểu biết đáng kể về cách thức hoạt động của React.
 
 Xem lại phiên bản cuối cùng tại đây: **[Final Result](https://codepen.io/gaearon/pen/gWWZgR?editors=0010)**.
 
