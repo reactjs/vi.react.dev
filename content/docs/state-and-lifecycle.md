@@ -418,12 +418,15 @@ Parent và child component, cả hai có thể không hiểu dù component có l
 Một component có thể chọn để truyền state của nó như một prop cho những child component của nó:
 
 ```js
+<<<<<<< HEAD
 <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
 ```
 
 Điều này cũng hoạt động cho những component 'user-defined' :
 
 ```js
+=======
+>>>>>>> c9b990070fc35d31b56957263e1ea9fe2fe67b40
 <FormattedDate date={this.state.date} />
 ```
 
