@@ -123,7 +123,8 @@ Trong khi việc khởi tạo một biến và sử dụng lệnh `if` là cách
 
 ### Thay thế If bằng toán tử logic && {#inline-if-with-logical--operator}
 
-Bạn có thể nhúng toán tử logic `&&` cũng như [nhúng các biểu thức vào JSX](/docs/introducing-jsx.html#embedding-expressions-in-jsx) bằng cách bọc chúng lại trong cặp ngoặc nhọn `{}`. Việc này rất hữu ích khi xử lí các điều kiện có element bên trong.
+Bạn có thể [nhúng các biểu thức (expression) trong JSX](/docs/introducing-jsx.html#embedding-expressions-in-jsx)
+You may [embed expressions in JSX](/docs/introducing-jsx.html#embedding-expressions-in-jsx) bằng cách bọc chúng lại trong cặp ngoặc nhọn `{}`. Điều này bao gồm cả toán tử mang tính logic`&&` JavaScript.Việc này rất hữu ích khi xử lí các điều kiện có element bên trong:
 
 ```js{6-10}
 function Mailbox(props) {
