@@ -560,7 +560,11 @@ Việc phát hiện thay đổi trên immutable object là dễ dàng hơn khá 
 
 #### Xác định khi nào component render lại trong React {#determining-when-to-re-render-in-react}
 
+<<<<<<< HEAD
 Lợi ích chính của tính bất biến là giúp chúng ta xây dựng các _pure component_ trong React. Những dữ liệu bất biến có thể dễ dàng xác định khi nào nó thay đổi, từ đó giúp ta xác định được khi nào một component cần phải render lại.
+=======
+The main benefit of immutability is that it helps you build _pure components_ in React. Immutable data can easily determine if changes have been made, which helps to determine when a component requires re-rendering.
+>>>>>>> 63332462bb5afa18ac7a716975b679f4c23cc8a1
 
 Bạn có thể đọc thêm về `shouldComponentUpdate()` và làm sao để xây dựng các *pure component* qua bài viết [Tối ưu Hiệu năng](/docs/optimizing-performance.html#examples)
 

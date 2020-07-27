@@ -40,8 +40,13 @@ console.log(add(16, 26)); // 42
 >
 > Bundle của bạn có thể sẽ trông rất khác bên trên.
 
+<<<<<<< HEAD
 Nếu bạn đang sử dụng [Create React App](https://github.com/facebookincubator/create-react-app), [Next.js](https://github.com/zeit/next.js/), [Gatsby](https://www.gatsbyjs.org/), hay một công cụ tương tự,
 bạn sẽ được thiết lập sẵn webpack để đóng gói ứng dụng của mình.
+=======
+If you're using [Create React App](https://create-react-app.dev/), [Next.js](https://nextjs.org/), [Gatsby](https://www.gatsbyjs.org/), or a similar tool, you will have a Webpack setup out of the box to bundle your
+app.
+>>>>>>> 63332462bb5afa18ac7a716975b679f4c23cc8a1
 
 Nếu không, bạn sẽ cần phải tự thiết lập. Ví dụ, tham khảo [Cách cài đặt](https://webpack.js.org/guides/installation/) và [Làm thê nào để bắt đầu sử dụng](https://webpack.js.org/guides/getting-started/) hướng dẫn ở tài liệu Webpack.
 

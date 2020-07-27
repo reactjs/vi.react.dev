@@ -230,7 +230,11 @@ function FriendListItem(props) {
 }
 ```
 
+<<<<<<< HEAD
 Trạng thái của các components hoàn toàn độc lập. Hooks là một cách để sử dụng lại *logic có trạng thái*, không chỉ bản thân state. Thực tế, mỗi lần *gọi* vào một Hook có hoàn toàn một trạng thái độc lập -- bạn có thể sử dụng cùng một Hook hai lần trong một component.
+=======
+The state of each component is completely independent. Hooks are a way to reuse *stateful logic*, not state itself. In fact, each *call* to a Hook has a completely isolated state -- so you can even use the same custom Hook twice in one component.
+>>>>>>> 63332462bb5afa18ac7a716975b679f4c23cc8a1
 
 Tuỳ chọn Hooks nhiều về quy ước(convention) hơn là một tính năng. Nếu một tên hàm bắt đầu với "`use`" và nó gọi các Hooks khác, chúng tôi gọi đó là một Hook tuỳ chọn. `useSomething` quy ước đặt tên là cách linter plugin của chúng tôi có khả năng để tìm bugs trong code sử dụng Hooks.
 
