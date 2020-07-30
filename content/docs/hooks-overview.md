@@ -174,7 +174,7 @@ Chúng tôi cung cấp [linter plugin](https://www.npmjs.com/package/eslint-plug
 
 ## 💡 Xây dựng Hooks của bạn {#building-your-own-hooks}
 
-Thỉnh thoảng, chúng ta muốn sử dụng lại vài logic có trạng thái giữa các components. 
+Thỉnh thoảng, chúng ta muốn sử dụng lại vài logic có trạng thái giữa các components.
 Sometimes, we want to reuse some stateful logic between components. Theo truyền thống, có hai cách phổ biến cho vấn đề này: [higher-order components](/docs/higher-order-components.html) và [render props](/docs/render-props.html). Tuỳ chọn Hooks cho phép bạn làm việc nàu, mà không cần phải add thêm components vào cây components của bạn.
 
 Phần trước của trang này, chúng tôi giới thiệu `FriendStatus` component cái mà gọi `useState` và `useEffect` Hooks để đăng ký vào trạng thái online của bạn bè. Chúng ta muốn sử dụng logic đăng ký nàu trong một component khác.
@@ -230,7 +230,7 @@ function FriendListItem(props) {
 }
 ```
 
-Trạng thái của các components hoàn toàn độc lập. Hooks là một cách để sử dụng lại *logic có trạng thái*, không chỉ bản thân state. Thực tế, mỗi lần *gọi* vào một Hook có hoàn toàn một trạng thái độc lập -- bạn có thể sử dụng cùng một Hook hai lần trong một component.
+Trạng thái (state) của các components hoàn toàn độc lập. Hooks là một cách để sử dụng lại *logic có trạng thái*, không chỉ bản thân state. Thực tế, mỗi lần *gọi* vào một Hook có hoàn toàn một trạng thái độc lập -- vì thế bạn có thể sử dụng cùng một Hook hai lần trong một component.
 
 Tuỳ chọn Hooks nhiều về quy ước(convention) hơn là một tính năng. Nếu một tên hàm bắt đầu với "`use`" và nó gọi các Hooks khác, chúng tôi gọi đó là một Hook tuỳ chọn. `useSomething` quy ước đặt tên là cách linter plugin của chúng tôi có khả năng để tìm bugs trong code sử dụng Hooks.
 
