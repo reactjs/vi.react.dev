@@ -2,6 +2,8 @@
 id: fragments
 title: Fragments
 permalink: docs/fragments.html
+prev: context.html
+next: portals.html
 ---
 
 Một trong những pattern phổ biến của React là trả về nhiều element trong một component. Fragment cho phép bạn nhóm một danh sách các childrent mà không cần thêm bất kì node dư thừa vào DOM tree.

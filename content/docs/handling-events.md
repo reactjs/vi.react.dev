@@ -54,7 +54,11 @@ function ActionLink() {
 }
 ```
 
+<<<<<<< HEAD
 Ở đây, `e` là một sự kiện ảo. React định nghĩa những sự kiện ảo này dựa trên [chuẩn W3C](https://www.w3.org/TR/DOM-Level-3-Events/), nên bạn không cần lo lắng về sự tương thích giữa những browser. Hãy tham khảo tài liệu về [`SyntheticEvent`](/docs/events.html) để tìm hiểu thêm.
+=======
+Here, `e` is a synthetic event. React defines these synthetic events according to the [W3C spec](https://www.w3.org/TR/DOM-Level-3-Events/), so you don't need to worry about cross-browser compatibility. React events do not work exactly the same as native events. See the [`SyntheticEvent`](/docs/events.html) reference guide to learn more.
+>>>>>>> d16f1ee7958b5f80ef790265ba1b8711d4f228d6
 
 Khi làm việc với React, bạn thường không cần phải gọi `addEventListener` để gắn listener cho element DOM sau khi nó được khởi tạo. Thay vào đó, bạn chỉ cần cung cấp một listener ngay lần đầu element được render.
 

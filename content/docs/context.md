@@ -2,6 +2,8 @@
 id: context
 title: Context
 permalink: docs/context.html
+prev: reconciliation.html
+next: fragments.html
 ---
 
 Context cung cấp phương pháp truyền data xuyên suốt component tree mà không cần phải truyền props một cách thủ công qua từng level.
