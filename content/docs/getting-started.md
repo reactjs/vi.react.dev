@@ -18,31 +18,31 @@ redirect_from:
   - "docs/environments.html"
 ---
 
-This page is an overview of the React documentation and related resources.
+Trang này là tổng quan về tài liệu React và các tài nguyên liên quan.
 
-**React** is a JavaScript library for building user interfaces. Learn what React is all about on [our homepage](/) or [in the tutorial](/tutorial/tutorial.html).
+**React** là thư viện JavaScript dùng để tạo giao diện người dùng. Tìm hiểu tất cả về React trên [trang chủ của chúng tôi](/) hoặc [trong hướng dẫn](/tutorial/tutorial.html).
 
 ---
 
-- [Try React](#try-react)
-- [Learn React](#learn-react)
-- [Staying Informed](#staying-informed)
-- [Versioned Documentation](#versioned-documentation)
-- [Something Missing?](#something-missing)
+- [Thử React](#try-react)
+- [Học React](#learn-react)
+- [Cập nhật thông tin](#staying-informed)
+- [Tài liệu phiên bản](#versioned-documentation)
+- [Thiếu gì đó?](#something-missing)
 
-## Try React {#try-react}
+## Thử React {#try-react}
 
-React has been designed from the start for gradual adoption, and **you can use as little or as much React as you need.** Whether you want to get a taste of React, add some interactivity to a simple HTML page, or start a complex React-powered app, the links in this section will help you get started.
+React đã được thiết kế ngay từ đầu để áp dụng dần dần và **bạn có thể sử dụng ít hoặc nhiều React tùy theo nhu cầu.** Cho dù bạn muốn thưởng thức React, hãy thêm một số tương tác vào một trang HTML đơn giản hoặc bắt đầu một ứng dụng phức tạp do React hỗ trợ, các liên kết trong phần này sẽ giúp bạn bắt đầu.
 
-### Online Playgrounds {#online-playgrounds}
+### Thử ngay {#online-playgrounds}
 
-If you're interested in playing around with React, you can use an online code playground. Try a Hello World template on [CodePen](codepen://hello-world), [CodeSandbox](https://codesandbox.io/s/new), [Glitch](https://glitch.com/edit/#!/remix/starter-react-template), or [Stackblitz](https://stackblitz.com/fork/react).
+Nếu bạn muốn thử React ngay bây giờ, bạn có thể dùng một công cụ code trực tuyến. Thử với ví dụ Hello World trên [CodePen](codepen://hello-world), [CodeSandbox](https://codesandbox.io/s/new), [Glitch](https://glitch.com/edit/#!/remix/starter-react-template), hoặc [Stackblitz](https://stackblitz.com/fork/react).
 
-If you prefer to use your own text editor, you can also [download this HTML file](https://raw.githubusercontent.com/reactjs/reactjs.org/master/static/html/single-file-example.html), edit it, and open it from the local filesystem in your browser. It does a slow runtime code transformation, so we'd only recommend using this for simple demos.
+Nếu bạn muốn sử dụng công cụ code của bạn, bạn có thể [tải file HTML này](https://raw.githubusercontent.com/reactjs/reactjs.org/master/static/html/single-file-example.html), rồi sửa nó, sau đó mở tệp trên máy bạn bằng trình duyệt web. Nó sẽ khá chậm trong quá trình truyển đổi code, chúng tôi chỉ khuyến khích dùng nó cho ví dụ đơn giản.
 
-### Add React to a Website {#add-react-to-a-website}
+### Thêm React vào một trang web {#add-react-to-a-website}
 
-You can [add React to an HTML page in one minute](/docs/add-react-to-a-website.html). You can then either gradually expand its presence, or keep it contained to a few dynamic widgets.
+Bạn có thể [thêm React vào một trang HTML chỉ với một phút](/docs/add-react-to-a-website.html). You can then either gradually expand its presence, or keep it contained to a few dynamic widgets.
 
 ### Create a New React App {#create-a-new-react-app}
 
