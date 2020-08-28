@@ -1,22 +1,22 @@
 - title: Cài đặt
   items:
     - id: getting-started
-      title: Getting Started
+      title: Bắt đầu
     - id: add-react-to-a-website
-      title: Add React to a Website
+      title: Thêm React vào một Website
     - id: create-a-new-react-app
-      title: Create a New React App
+      title: Tạo mới một React App
     - id: cdn-links
-      title: CDN Links
+      title: Các liên kết CDN 
     - id: release-channels
-      title: Release Channels
+      title: Các kênh phát hành
 - title: Khái niệm chính
   isOrdered: true
   items:
     - id: hello-world
       title: Hello World
     - id: introducing-jsx
-      title: Introducing JSX
+      title: Giới thiệu JSX
     - id: rendering-elements
       title: Rendering Elements
     - id: components-and-props
@@ -24,9 +24,9 @@
     - id: state-and-lifecycle
       title: State and Lifecycle
     - id: handling-events
-      title: Handling Events
+      title: Xử lý Events
     - id: conditional-rendering
-      title: Conditional Rendering
+      title: Điều kiện Rendering
     - id: lists-and-keys
       title: Lists and Keys
     - id: forms
@@ -36,11 +36,11 @@
     - id: composition-vs-inheritance
       title: Composition vs Inheritance
     - id: thinking-in-react
-      title: Thinking In React
+      title: Tư duy trong React
 - title: Hướng dẫn nâng cao
   items:
     - id: accessibility
-      title: Accessibility
+      title: Khả năng tiếp cận
     - id: code-splitting
       title: Code-Splitting
     - id: context
@@ -48,25 +48,25 @@
     - id: error-boundaries
       title: Error Boundaries
     - id: forwarding-refs
-      title: Forwarding Refs
+      title: Chuyển tiếp Refs
     - id: fragments
       title: Fragments
     - id: higher-order-components
       title: Higher-Order Components
     - id: integrating-with-other-libraries
-      title: Integrating with Other Libraries
+      title: Tích hợp với các thư viện khác
     - id: jsx-in-depth
       title: JSX In Depth
     - id: optimizing-performance
-      title: Optimizing Performance
+      title: Tối ưu hiệu năng
     - id: portals
       title: Portals
     - id: profiler
       title: Profiler
     - id: react-without-es6
-      title: React Without ES6
+      title: React không sử dụng ES6
     - id: react-without-jsx
-      title: React Without JSX
+      title: React không sử dụng JSX
     - id: reconciliation
       title: Reconciliation
     - id: refs-and-the-dom
@@ -137,7 +137,7 @@
   isOrdered: true
   items:
     - id: concurrent-mode-intro
-      title: Introducing Concurrent Mode
+      title: Giới thiệu Concurrent Mode
     - id: concurrent-mode-suspense
       title: Suspense for Data Fetching
     - id: concurrent-mode-patterns
@@ -149,7 +149,7 @@
 - title: Contributing
   items:
     - id: how-to-contribute
-      title: How to Contribute
+      title: Làm sao để đóng góp
     - id: codebase-overview
       title: Codebase Overview
     - id: implementation-notes
