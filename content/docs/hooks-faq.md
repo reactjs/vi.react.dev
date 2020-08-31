@@ -586,7 +586,11 @@ Tuy theo tình huống, có một vài lựa chọn như bên dưới
 
 Cùng xem tại sao nó quan trọng
 
+<<<<<<< HEAD
 Nếu bạn cung cấp một [danh sách phụ thuộc](/docs/hooks-reference.html#conditionally-firing-an-effect) như là tham số (argument) cho `useEffect`, `useMemo`, `useCallback`, hoặc `useImperativeHandle`, nó phải bao gồm tất cả các giá trị sử dụng bên trong hàm callback liên quan đến luồng dữ liệu của React, bao gồm prop, state và những giá trị có nguồn gốc từ chúng.
+=======
+If you specify a [list of dependencies](/docs/hooks-reference.html#conditionally-firing-an-effect) as the last argument to `useEffect`, `useLayoutEffect`, `useMemo`, `useCallback`, or `useImperativeHandle`, it must include all values that are used inside the callback and participate in the React data flow. That includes props, state, and anything derived from them.
+>>>>>>> 25cc703d1f23f1782ff96c5c7882a806f8741ec4
 
 Chỉ **an toàn** khi omit một function từ danh sách phụ thuộc nếu không có gì bên trong (hoặc các hàm được gọi bởi nó) tham chiếu đến prop, state, các giá trị có nguồn gốc từ chúng. Ví dụ như bên dưới sẽ có có bug
 

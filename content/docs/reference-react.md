@@ -124,9 +124,15 @@ const MyComponent = React.memo(function MyComponent(props) {
 });
 ```
 
+<<<<<<< HEAD
 `React.memo` là một [component bậc cao](/docs/higher-order-components.html) (higher order component). Nó tương tự như [`React.PureComponent`](#reactpurecomponent) nhưng là dạng function components chứ không phải là classes.
 
 Nếu function component của bạn biểu diễn cùng kết quả với cùng props, bạn có thể gói chúng lại và gọi đến `React.memo` để tăng hiệu năng trong một số trường hợp bằng cách ghi nhớ kết quả. Điều này có nghĩa là React sẽ bỏ qua việc render component, và sử dụng lại kết quả đã render lần cuối cùng.
+=======
+`React.memo` is a [higher order component](/docs/higher-order-components.html).
+
+If your component renders the same result given the same props, you can wrap it in a call to `React.memo` for a performance boost in some cases by memoizing the result. This means that React will skip rendering the component, and reuse the last rendered result.
+>>>>>>> 25cc703d1f23f1782ff96c5c7882a806f8741ec4
 
 <<<<<<< HEAD
 `React.memo` chỉ ảnh hưởng đến sự thay đổi của props. Nếu function component của bạn được wrap với `React.memo` có một [`useState`](/docs/hooks-state.html) hoặc [`useContext`](/docs/hooks-reference.html#usecontext) Hook, nó vẫn render lại khi state hoặc context thay đổi.
