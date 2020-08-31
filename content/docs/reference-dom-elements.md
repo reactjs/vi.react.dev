@@ -56,12 +56,8 @@ Sự kiện `onChange` hoạt động đúng như tên gọi của nó: khi mộ
 
 ### selected {#selected}
 
-<<<<<<< HEAD
 Thuộc tính `selected` được sử dụng trong `<option>` để đánh dấu option nào được chọn trong một `<select>`. Điều này hữu ích khi tạo ra các Component Kiểm Soát.
-=======
-If you want to mark an `<option>` as selected, reference the value of that option in the `value` of its `<select>` instead.
-Check out ["The select Tag"](/docs/forms.html#the-select-tag) for detailed instructions.
->>>>>>> 25cc703d1f23f1782ff96c5c7882a806f8741ec4
+Nếu bạn muốn đánh dấu một `<option>` đã được select, tham chiếu giá trị của option đó bằng `value` của `<select>`. Tham khảo tại chi tiết tại ["Thẻ select [The select Tag]"](/docs/forms.html#the-select-tag).
 
 ### style {#style}
 
@@ -125,11 +121,7 @@ Nếu bạn để `suppressHydrationWarning` là `true`, React sẽ không cản
 
 ### value {#value}
 
-<<<<<<< HEAD
-Thuộc tính `value` được hỗ trợ bởi những component `<input>` và `<textarea>`. Ban có thể sử dụng nó để đặt giá trị của component. Điều này là cần thiết để tạo Component Kiểm Soát. `defaultValue` là thuộc tính tương đương trong Component Không Kiểm Soát, nó đặt giá trị cho Component khi nó được mount lần đầu tiên.
-=======
-The `value` attribute is supported by `<input>`, `<select>` and `<textarea>` components. You can use it to set the value of the component. This is useful for building controlled components. `defaultValue` is the uncontrolled equivalent, which sets the value of the component when it is first mounted.
->>>>>>> 25cc703d1f23f1782ff96c5c7882a806f8741ec4
+Thuộc tính `value` được hỗ trợ bởi những component `<input>`, `select` và `<textarea>`. Ban có thể sử dụng nó để đặt giá trị của component. Điều này là cần thiết để tạo Component Kiểm Soát. `defaultValue` là thuộc tính tương đương trong Component Không Kiểm Soát, nó đặt giá trị cho Component khi nó được mount lần đầu tiên.
 
 ## Tất cả thuộc tính HTML được hỗ trợ {#all-supported-html-attributes}
 

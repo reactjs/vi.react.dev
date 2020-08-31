@@ -10,15 +10,9 @@ Tài liệu này nhằm giải thích `SyntheticEvent` trong Hệ thống Event 
 
 ## Tổng quan {#overview}
 
-<<<<<<< HEAD
 Các hàm xử lý sự kiện sẽ được truyền vào một instance của `SyntheticEvent` (một lớp bọc các event để triệt tiêu sự khác nhau về event của các trình duyệt). Nó có giao diện (interface) tương tự như một event của trình duyệt, bao gồm `stopPropagation()`, và `preventDefault()` và hoạt động giống nhau trên mọi trình duyệt.
 
-Nếu bạn cần lấy event từ trình duyệt vì một lý do nào đó, chỉ cần sử dụng thuộc tính `nativeEvent` là được. Mọi `SyntheticEvent` object đều có những thuộc tính sau:
-=======
-Your event handlers will be passed instances of `SyntheticEvent`, a cross-browser wrapper around the browser's native event. It has the same interface as the browser's native event, including `stopPropagation()` and `preventDefault()`, except the events work identically across all browsers. 
-
-If you find that you need the underlying browser event for some reason, simply use the `nativeEvent` attribute to get it. The synthetic events are different from, and do not map directly to, the browser's native events. For example in `onMouseLeave` `event.nativeEvent` will point to a `mouseout` event. The specific mapping is not part of the public API and may change at any time. Every `SyntheticEvent` object has the following attributes:
->>>>>>> 25cc703d1f23f1782ff96c5c7882a806f8741ec4
+Nếu bạn cần lấy event từ trình duyệt vì một lý do nào đó, chỉ cần sử dụng thuộc tính `nativeEvent` là được. Mọi sự kiện synthetic thì khác nhau và không có map trực tiếp đến các sự kiện của trình duyệt. Ví dự như trong sự kiện `onMouseLeave` `event.nativeEvent` sẽ trỏ đến một sự kiện `mouseout`. Việc mapping không phải là một phần của public API và có thể thay đổi bất cứ lúc nào. Mọi `SyntheticEvent` object đều có những thuộc tính sau:
 
 ```javascript
 boolean bubbles
