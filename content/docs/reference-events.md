@@ -12,7 +12,7 @@ Tài liệu này nhằm giải thích `SyntheticEvent` trong Hệ thống Event 
 
 Các hàm xử lý sự kiện sẽ được truyền vào một instance của `SyntheticEvent` (một lớp bọc các event để triệt tiêu sự khác nhau về event của các trình duyệt). Nó có giao diện (interface) tương tự như một event của trình duyệt, bao gồm `stopPropagation()`, và `preventDefault()` và hoạt động giống nhau trên mọi trình duyệt.
 
-Nếu bạn cần lấy event từ trình duyệt vì một lý do nào đó, chỉ cần sử dụng thuộc tính `nativeEvent` là được. Mọi `SyntheticEvent` object đều có những thuộc tính sau:
+Nếu bạn cần lấy event từ trình duyệt vì một lý do nào đó, chỉ cần sử dụng thuộc tính `nativeEvent` là được. Mọi sự kiện synthetic thì khác nhau và không có map trực tiếp đến các sự kiện của trình duyệt. Ví dự như trong sự kiện `onMouseLeave` `event.nativeEvent` sẽ trỏ đến một sự kiện `mouseout`. Việc mapping không phải là một phần của public API và có thể thay đổi bất cứ lúc nào. Mọi `SyntheticEvent` object đều có những thuộc tính sau:
 
 ```javascript
 boolean bubbles
