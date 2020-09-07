@@ -59,7 +59,11 @@ Bạn có thể sử dụng một cách khác, nhưng hãy nhớ chúng ta muố
 
 ### `act()` {#act}
 
+<<<<<<< HEAD
 Khi viết UI test, công việc như render, sự kiện từ user, hoặc fetch dữ liệu có thể được xem như một "đơn vị" tương tác với giao diện người dùng. React cung cấp một hàm trợ giúp `act()` để đảm bảo tất cả mọi cập nhập liên quan đến "đơn vị" đã được thực thi và áp dụng đến DOM trước khi chúng ta xác nhận kết quả:
+=======
+When writing UI tests, tasks like rendering, user events, or data fetching can be considered as "units" of interaction with a user interface. `react-dom/test-utils` provides a helper called [`act()`](/docs/test-utils.html#act) that makes sure all updates related to these "units" have been processed and applied to the DOM before you make any assertions:
+>>>>>>> 657658aa1f19c65e35055ddca4452c98d569552f
 
 ```js
 act(() => {
