@@ -59,7 +59,7 @@ Bạn có thể sử dụng một cách khác, nhưng hãy nhớ chúng ta muố
 
 ### `act()` {#act}
 
-Khi viết UI test, công việc như render, sự kiện từ user, hoặc fetch dữ liệu có thể được xem như một "đơn vị" tương tác với giao diện người dùng. React cung cấp một hàm trợ giúp `act()` để đảm bảo tất cả mọi cập nhập liên quan đến "đơn vị" đã được thực thi và áp dụng đến DOM trước khi chúng ta xác nhận kết quả:
+Khi viết UI test, công việc như render, sự kiện từ user, hoặc fetch dữ liệu có thể được xem như một "đơn vị" tương tác với giao diện người dùng. `react-dom/test-utils` cung cấp một hàm trợ giúp [`act()`](/docs/test-utils.html#act) để đảm bảo tất cả mọi cập nhập liên quan đến "đơn vị" đã được thực thi và áp dụng đến DOM trước khi chúng ta xác nhận kết quả:
 
 ```js
 act(() => {
@@ -628,5 +628,3 @@ expect(root).toMatchSnapshot();
 ### Còn thiếu gì đó? {#something-missing}
 
 Nếu các tình huống hay gặp không được đề cập ở đây, có thể liên hệ với chúng tôi qua [issue tracker](https://github.com/reactjs/reactjs.org/issues) cho toàn bộ tài liệu của website
-
-
