@@ -170,7 +170,11 @@ JSX đi kèm với toàn bộ sức mạnh của JavaScript. Trong JSX, bạn c�
 
 Component `ShoppingList` ở trên chỉ render những DOM component có sẵn như `<div />` và `<li />`. Tuy nhiên bạn cũng có thể tạo ra và render những React component tùy biến. Ví dụ, chúng ta có thể chỉ định đến danh sách các cửa hàng bằng cách viết `<ShoppingList />`. Mỗi React component được đóng gói và có thể hoạt động độc lập; việc này cho phép bạn xây dựng những UI phức tạp từ các component đơn giản.
 
+<<<<<<< HEAD
 ## Xem xét đoạn code khởi đầu {#inspecting-the-starter-code}
+=======
+### Inspecting the Starter Code {#inspecting-the-starter-code}
+>>>>>>> 954a16f1d358009505ae881afaefe463dc6388a5
 
 Nếu bạn code trên trình duyệt, mở đường dẫn này trong trang mới: **[Code khởi đầu](https://codepen.io/gaearon/pen/oWWQNa?editors=0010)**. Nếu bạn code trên **máy cá nhân,** mở tệp `src/index.js` trong thư mục project (bạn đã tạo tệp này trong mục [cài đặt](#setup-option-2-local-development-environment))
 
