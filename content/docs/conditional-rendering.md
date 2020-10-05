@@ -156,7 +156,24 @@ Vì thế, nếu điều kiện trả về giá trị là `true`, element phía 
 
 ### Thay thế If-Else bằng toán tử điều kiện {#inline-if-else-with-conditional-operator}
 
+<<<<<<< HEAD
 Một phương thức khác dùng để thực hiện render có điều kiện trực tiếp trên JSX là dùng toán tử điều kiện (ba ngôi) [`condition ? true : false`](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Operators/Conditional_Operator).
+=======
+Note that returning a falsy expression will still cause the element after `&&` to be skipped but will return the falsy expression. In the example below, `<div>0</div>` will be returned by the render method.
+
+```javascript{2,5}
+render() {
+  const count = 0;
+  return (
+    <div>
+      { count && <h1>Messages: {count}</h1>}
+    </div>
+  );
+}
+```
+
+### Inline If-Else with Conditional Operator {#inline-if-else-with-conditional-operator}
+>>>>>>> 8f7ffa473905148fd5c7ecfd7fed5dabbd261bf0
 
 
 Trong ví dụ phía dưới, ta sử dụng phương thức đã được nêu ở trên để render có điều kiện một đoạn văn bản nhỏ.

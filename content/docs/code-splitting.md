@@ -74,15 +74,27 @@ import("./math").then(math => {
 });
 ```
 
+<<<<<<< HEAD
 Khi Webpack chạy đến cú pháp này, nó sẽ tự động phân chia code trong ứng dụng của bạn. Nếu bạn sử dụng Create React App,
 việc này đã được thiết lập sẵn cho bạn và bạn có thể [bắt đầu sử dụng](https://facebook.github.io/create-react-app/docs/code-splitting)
 ngay. Nó cũng được hỗ trợ sẵn trong [Next.js](https://nextjs.org/docs/advanced-features/dynamic-import).
+=======
+When Webpack comes across this syntax, it automatically starts code-splitting
+your app. If you're using Create React App, this is already configured for you
+and you can [start using it](https://create-react-app.dev/docs/code-splitting/) immediately. It's also supported
+out of the box in [Next.js](https://nextjs.org/docs/advanced-features/dynamic-import).
+>>>>>>> 8f7ffa473905148fd5c7ecfd7fed5dabbd261bf0
 
 Nếu bạn đang tự mình cấu hình Webpack, bạn có thể sẽ muốn tham khảo Webpack's
 [hướng dẫn phân chia code](https://webpack.js.org/guides/code-splitting/). Cấu hình Webpack của bạn có thể sẽ trông mơ hồ [như thế này](https://gist.github.com/gaearon/ca6e803f5c604d37468b0091d9959269).
 
+<<<<<<< HEAD
 Khi sử dụng [Babel](https://babeljs.io/), bạn sẽ cần phải chắc chắn rằng Babel có thể phân giải cú pháp import động nhưng không làm nó
 bị biến đổi. Bạn sẽ cần [babel-plugin-syntax-dynamic-import](https://yarnpkg.com/en/package/babel-plugin-syntax-dynamic-import).
+=======
+When using [Babel](https://babeljs.io/), you'll need to make sure that Babel can
+parse the dynamic import syntax but is not transforming it. For that you will need [@babel/plugin-syntax-dynamic-import](https://classic.yarnpkg.com/en/package/@babel/plugin-syntax-dynamic-import).
+>>>>>>> 8f7ffa473905148fd5c7ecfd7fed5dabbd261bf0
 
 ## `React.lazy` {#reactlazy}
 
