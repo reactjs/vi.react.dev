@@ -54,8 +54,8 @@ Tiếp theo, thêm ba thẻ `<script>` vào trang HTML ngay trước thẻ đón
 
   <!-- Load React. -->
   <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
 
   <!-- Load our React component. -->
   <script src="like_button.js"></script>
@@ -84,7 +84,11 @@ const domContainer = document.querySelector('#like_button_container');
 ReactDOM.render(e(LikeButton), domContainer);
 ```
 
+<<<<<<< HEAD
 Hai dòng code này tìm thẻ `<div>` mà chúng ta đã thêm vào trang HTML ở bước đầu tiên, và sau đó hiển thị nút "Like" (một React component) bên trong div ở trên.
+=======
+These two lines of code find the `<div>` we added to our HTML in the first step, and then display our "Like" button React component inside of it.
+>>>>>>> 30baecf59de28a8cd3c91a2cd878e3822f864061
 
 ### Và đó là tất cả những gì cần làm! {#thats-it}
 
@@ -115,8 +119,8 @@ Trước khi deploy website của bạn lên môi trường production, hãy ch�
 Nếu bạn đã nén các scripts của ứng dụng, **trang của bạn sẽ sẵn sàng để được deploy lên môi trường production** nếu bạn đảm bảo rằng HTML đã deploy sẽ tải phiên bản của React được chứa trong file `production.min.js`:
 
 ```js
-<script src="https://unpkg.com/react@16/umd/react.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
 ```
 
 Nếu bạn không có bước nén - thu nhỏ cho scripts, thì [đây là một cách thiết lập](https://gist.github.com/gaearon/42a2ffa41b8319948f9be4076286e1f3).

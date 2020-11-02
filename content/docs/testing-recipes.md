@@ -379,7 +379,10 @@ let container = null;
 beforeEach(() => {
   // cài đặt một DOM element như là target cho render
   container = document.createElement("div");
+<<<<<<< HEAD
   // container *phải* được chèn vào document để event chạy đúng.
+=======
+>>>>>>> 30baecf59de28a8cd3c91a2cd878e3822f864061
   document.body.appendChild(container);
 });
 
@@ -418,7 +421,11 @@ it("changes value when clicked", () => {
 });
 ```
 
+<<<<<<< HEAD
 Các event DOM và thuộc tính được mô tả trong [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent). Lưu ý bạn phải truyền vào `{ bubbles: true }` trên từng event bạn tạo cho nó để đến React listener vì React tự động truyền các event này đến document.
+=======
+Different DOM events and their properties are described in [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent). Note that you need to pass `{ bubbles: true }` in each event you create for it to reach the React listener because React automatically delegates events to the root.
+>>>>>>> 30baecf59de28a8cd3c91a2cd878e3822f864061
 
 > Lưu ý:
 >
