@@ -32,9 +32,11 @@ number timeStamp
 string type
 ```
 
+>Lưu ý:
+> Từ bản v17, `e.persist()` không làm bất cứ điều gì bởi vì `SyntheticEvent` không còn được [pooled](/docs/legacy-event-pooling.html).
+
 > Lưu ý:
 >
-<<<<<<< HEAD
 > Từ bản v0.14, hàm xử lý event trả về `false` sẽ không ngừng sự lan truyền của event đó. `e.stopPropagation()` hoặc `e.preventDefault()` phải được gọi để ngăn event đó đi tiếp.
 
 ### Gộp Event {#event-pooling}
@@ -61,17 +63,6 @@ function onClick(event) {
   this.setState({eventType: event.type});
 }
 ```
-=======
-> As of v17, `e.persist()` doesn't do anything because the `SyntheticEvent` is no longer [pooled](/docs/legacy-event-pooling.html).
->>>>>>> 30baecf59de28a8cd3c91a2cd878e3822f864061
-
-> Lưu ý:
->
-<<<<<<< HEAD
-> Nếu bạn muốn giữ lại thuộc tính của event sau khi chạy hàm xử lý, bạn phải gọi `event.persist()` để tách event object ra (event object mới sẽ được tạo) và giữ lại các thuộc tính của nó.
-=======
-> As of v0.14, returning `false` from an event handler will no longer stop event propagation. Instead, `e.stopPropagation()` or `e.preventDefault()` should be triggered manually, as appropriate.
->>>>>>> 30baecf59de28a8cd3c91a2cd878e3822f864061
 
 ## Các Events được hỗ trợ {#supported-events}
 
@@ -386,15 +377,11 @@ Tên Event:
 onScroll
 ```
 
-<<<<<<< HEAD
-Thuộc tính:
-=======
->Note
+>Lưu ý:
 >
->Starting with React 17, the `onScroll` event **does not bubble** in React. This matches the browser behavior and prevents the confusion when a nested scrollable element fires events on a distant parent.
+>Bắt đầu từ React 17, sự kiện `onScroll` **không có bubble** trong React. Điều này phù hợp với trạng thái của browser và hạn chế sự nhầm lẫn khi một thành phần (a nested scrollable element) fires các sự kiện trên một thành phần cha xa.
 
 Properties:
->>>>>>> 30baecf59de28a8cd3c91a2cd878e3822f864061
 
 ```javascript
 number detail

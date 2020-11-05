@@ -129,11 +129,7 @@ Tạo một Context object. Khi React render một component mà nó subcribe đ
 
 Mỗi Context object đi cùng với một Provider React component cho phép consuming component theo dõi sự thay đổi của context đó.
 
-<<<<<<< HEAD
-Nhận một `value` prop để truyền đến consuming components mà nó là con của Provider này. Một Provider có thể kết nối đến nhiều comsumers. Providers có thể lồng nhau để ghi đè giá trị sâu hơn trong component tree.
-=======
-The Provider component accepts a `value` prop to be passed to consuming components that are descendants of this Provider. One Provider can be connected to many consumers. Providers can be nested to override values deeper within the tree.
->>>>>>> 30baecf59de28a8cd3c91a2cd878e3822f864061
+Provider component nhận một `value` prop để truyền đến consuming components mà nó là con của Provider này. Một Provider có thể kết nối đến nhiều comsumers. Providers có thể lồng nhau để ghi đè giá trị sâu hơn trong component tree.
 
 Tất cả consumers con của một Provider sẽ được re-rerender bất cứ khi nào `value` của Provider đó thay đổi. Sự lan truyền từ Provider đến consumer con của nó (bao gồm [`.contextType`](#classcontexttype) và [`useContext`](/docs/hooks-reference.html#usecontext)) không bị lệ thuộc vào `shouldComponentUpdate` method, vì vậy consumer được cập nhật ngay cả khi một component cha thoát ra khỏi sự cập nhật đó.
 
