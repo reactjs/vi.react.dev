@@ -130,9 +130,15 @@ Trong React 16, [tất cả](/blog/2017/09/08/dom-attributes-in-react-16.html) t
 React luôn cung cấp một API với trọng tâm là javascript cho DOM. Bời vì những React component thường nhận những props được tuỳ chỉnh hoặc có liên quan tới DOM, React sử dụng quy ước `camelCase` như là các DOM APIs. Ví dụ như:
 
 ```js
+<<<<<<< HEAD
 <div tabIndex="-1" />      // tương tự node.tabIndex DOM API
 <div className="Button" /> // tương tự node.className DOM API
 <input readOnly={true} />  // tương tự node.readOnly DOM API
+=======
+<div tabIndex={-1} />      // Just like node.tabIndex DOM API
+<div className="Button" /> // Just like node.className DOM API
+<input readOnly={true} />  // Just like node.readOnly DOM API
+>>>>>>> 5e437a10ed4e89cd5eaf990ce4f43e0857592b53
 ```
 
 Những thuộc tính này hoạt động tương tự với thuộc tính HTML, với những ngoại lệ liệt kê ở trên.
