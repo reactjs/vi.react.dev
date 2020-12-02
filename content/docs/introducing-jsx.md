@@ -92,7 +92,7 @@ function getGreeting(user) {
 Bạn có thể dùng dấu nháy để khai báo một chuỗi như là thuộc tính của thẻ:
 
 ```js
-const element = <div tabIndex="0"></div>;
+const element = <div tabIndex={0}></div>;
 ```
 
 Bạn có thể dùng dấu ngoặc nhọn để nhúng một biểu thức Javascript vào trong thuộc tính:
