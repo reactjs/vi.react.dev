@@ -31,7 +31,7 @@ Chúng ta có thể kết hợp hai cách xử lí đó lại với nhau bằng 
 
 Từ đoạn code ví dụ ở phía trên, nếu ta muốn xuất ra màn hình một thông báo chứa dữ liệu nhập vào khi form được submit ,ta có thể viết form theo định dạng của một controlled component, như đoạn code sau đây:
 
-```javascript{4,10-12,24}
+```javascript{4,10-12,21,24}
 class NameForm extends React.Component {
   constructor(props) {
     super(props);
