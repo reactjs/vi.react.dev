@@ -31,24 +31,23 @@ Trang này chứa các thông tin tổng quan về React và các tài liệu li
 - [Bổ sung thiếu sót](#something-missing)
 
 ## Thử React {#try-react}
+React được thiết kế khởi đầu để phục vụ cho việc thích nghi dần dần, nghĩa là **bạn có thể sử dụng ít hoặc nhiều React tuỳ vào nhu cầu của bạn.** Cho dù bạn chỉ muốn thử một chút React, thêm một số tương tác vào trang HTML, hoặc xây dựng một ứng dụng React phức tạp, những hướng dẫn trong phần này sẽ giúp bạn bắt đầu.
 
-React has been designed from the start for gradual adoption, and **you can use as little or as much React as you need.** Whether you want to get a taste of React, add some interactivity to a simple HTML page, or start a complex React-powered app, the links in this section will help you get started.
+### Các Nền Tảng Code Online {#online-playgrounds}
 
-### Online Playgrounds {#online-playgrounds}
+Nếu bạn có hứng thú trải nghiệm các tính năng của React, bạn có thể sử dụng các nền tảng code online. Hãy thử bản mẫu Hello World trên [CodePen](codepen://hello-world), [CodeSandbox](https://codesandbox.io/s/new), hoặc [Stackblitz](https://stackblitz.com/fork/react).
 
-If you're interested in playing around with React, you can use an online code playground. Try a Hello World template on [CodePen](codepen://hello-world), [CodeSandbox](https://codesandbox.io/s/new), or [Stackblitz](https://stackblitz.com/fork/react).
+Nếu bạn thích sử dụng trình soạn thảo code của riêng mình, bạn cũng có thể [tải xuống file HTML này](https://raw.githubusercontent.com/reactjs/reactjs.org/master/static/html/single-file-example.html), sửa và mở file này từ hệ thống tập tin trên trình duyệt của máy bạn. Thời gian dịch mã sẽ khá chậm, vì vậy chúng tôi khuyên bạn chỉ nên sử dụng phương pháp này với các demo đơn giản.
 
-If you prefer to use your own text editor, you can also [download this HTML file](https://raw.githubusercontent.com/reactjs/reactjs.org/master/static/html/single-file-example.html), edit it, and open it from the local filesystem in your browser. It does a slow runtime code transformation, so we'd only recommend using this for simple demos.
+### Thêm React vào một Website {#add-react-to-a-website}
 
-### Add React to a Website {#add-react-to-a-website}
+Bạn có thể [thêm React vào một trang HTML chỉ trong vòng một phút](/docs/add-react-to-a-website.html). Sau đó, bạn có thể dần dần mở rộng sự hiện diện của React hoặc giữ React trong một vài widget động.
 
-You can [add React to an HTML page in one minute](/docs/add-react-to-a-website.html). You can then either gradually expand its presence, or keep it contained to a few dynamic widgets.
+### Tạo mới một React App {#create-a-new-react-app}
 
-### Create a New React App {#create-a-new-react-app}
+Khi bạn bắt đầu một dự án React, một [trang HTML đơn giản với script tags](/docs/add-react-to-a-website.html) có thể là lựa chọn tốt nhất. Bạn chỉ mất một phút để thiết lập!
 
-When starting a React project, a [simple HTML page with script tags](/docs/add-react-to-a-website.html) might still be the best option. It only takes a minute to set up!
-
-As your application grows, you might want to consider a more integrated setup. There are several JavaScript toolchains we recommend for larger applications. Each of them can work with little to no configuration and lets you take full advantage of the rich React ecosystem. [Learn how.](/docs/create-a-new-react-app.html)
+Khi ứng dụng của bạn phát triển, bạn có thể muốn xem xét thiết lập cài đặt sâu hơn. Có một số công cụ Javascript chúng tôi khuyên bạn nên sử dụng cho các ứng dụng lớn. Mỗi công cụ có thể hoạt động với ít hoặc không cần cấu hình và cho phép bạn tận dụng tối đa sự phong phú của hệ sinh thái React. [Tìm hiểu cách thực hiện tại đây.](/docs/create-a-new-react-app.html)
 
 ## Learn React {#learn-react}
 
