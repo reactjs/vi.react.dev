@@ -1,6 +1,6 @@
 ---
 id: getting-started
-title: Getting Started
+title: Bắt Đầu
 permalink: docs/getting-started.html
 next: add-react-to-a-website.html
 redirect_from:
@@ -18,19 +18,19 @@ redirect_from:
   - "docs/environments.html"
 ---
 
-This page is an overview of the React documentation and related resources.
+Trang này chứa các thông tin tổng quan về React và các tài liệu liên quan.
 
-**React** is a JavaScript library for building user interfaces. Learn what React is all about on [our homepage](/) or [in the tutorial](/tutorial/tutorial.html).
+**React** là một thư viện JavaScript được dùng để xây dựng giao diện người dùng (UI - User interfaces). Bạn có thể tìm hiểu tất cả về React trên [trang chủ của chúng tôi](/) hoặc [trong hướng dẫn](/tutorial/tutorial.html).
 
 ---
 
-- [Try React](#try-react)
-- [Learn React](#learn-react)
-- [Staying Informed](#staying-informed)
-- [Versioned Documentation](#versioned-documentation)
-- [Something Missing?](#something-missing)
+- [Thử React](#try-react)
+- [Học React](#learn-react)
+- [Theo dõi cập nhật mới nhất](#staying-informed)
+- [Phiên bản của tài liệu](#versioned-documentation)
+- [Bổ sung thiếu sót](#something-missing)
 
-## Try React {#try-react}
+## Thử React {#try-react}
 
 React has been designed from the start for gradual adoption, and **you can use as little or as much React as you need.** Whether you want to get a taste of React, add some interactivity to a simple HTML page, or start a complex React-powered app, the links in this section will help you get started.
 
