@@ -49,38 +49,38 @@ Khi bạn bắt đầu một dự án React, một [trang HTML đơn giản vớ
 
 Khi ứng dụng của bạn phát triển, bạn có thể muốn xem xét thiết lập cài đặt sâu hơn. Có một số công cụ Javascript chúng tôi khuyên bạn nên sử dụng cho các ứng dụng lớn. Mỗi công cụ có thể hoạt động với ít hoặc không cần cấu hình và cho phép bạn tận dụng tối đa sự phong phú của hệ sinh thái React. [Tìm hiểu cách thực hiện tại đây.](/docs/create-a-new-react-app.html)
 
-## Learn React {#learn-react}
+## Học React {#learn-react}
 
-People come to React from different backgrounds and with different learning styles. Whether you prefer a more theoretical or a practical approach, we hope you'll find this section helpful.
+Mỗi người đến với React từ một nền tảng kiến thức khác nhau và với các cách học khác nhau. Cho dù bạn thích cách tiếp cận lý thuyết hay thực hành, chúng tôi hi vọng bạn sẽ thấy phần này hữu ích.
 
-* If you prefer to **learn by doing**, start with our [practical tutorial](/tutorial/tutorial.html).
-* If you prefer to **learn concepts step by step**, start with our [guide to main concepts](/docs/hello-world.html).
+* Nếu bạn thích **học bằng thực hành**, hãy bắt đầu với [hướng dẫn thực hành](/tutorial/tutorial.html).
+* Nếu bạn thích **tìm hiểu từng bước các khái niệm**, hãy bắt đầu với [hướng dẫn về các khái niệm chính](/docs/hello-world.html).
 
-Like any unfamiliar technology, React does have a learning curve. With practice and some patience, you *will* get the hang of it.
+Giống như bất kỳ công nghệ mới lạ nào, React có một đường cong học tập. Với thực hành và một số kiên nhẫn, bạn *sẽ* hiểu được nó.
 
-### First Examples {#first-examples}
+### Ví Dụ Đầu Tiên {#first-examples}
 
-The [React homepage](/) contains a few small React examples with a live editor. Even if you don't know anything about React yet, try changing their code and see how it affects the result.
+[Trang chủ React](/) có chứa một số ví dụ về React với trình soạn thảo trực tuyến. Cho dù bạn chưa biết gì về React, hãy thử thay đổi một số đoạn code và xem nó ảnh hưởng như thế nào tới kết quả.
 
-### React for Beginners {#react-for-beginners}
+### React cho Người mới bắt đầu {#react-for-beginners}
 
-If you feel that the React documentation goes at a faster pace than you're comfortable with, check out [this overview of React by Tania Rascia](https://www.taniarascia.com/getting-started-with-react/). It introduces the most important React concepts in a detailed, beginner-friendly way. Once you're done, give the documentation another try!
+Nếu bạn cảm thấy tài liệu hướng dẫn React này trình bày quá nhanh và khó hiểu, hãy xem [tổng quan về React bởi Tania Rascia](https://www.taniarascia.com/getting-started-with-react/). Nó giới thiệu chi tiết các khái niệm quan trọng trong React theo một cách đơn giản, thân thiện với người mới. Khi bạn đã hoàn tất, hãy quay lại đây và thử đọc lại tài liệu này một lần nữa.
 
-### React for Designers {#react-for-designers}
+### React cho Designers {#react-for-designers}
 
-If you're coming from a design background, [these resources](https://reactfordesigners.com/) are a great place to get started.
+Nếu bạn đến với React từ nền tảng một Designer, [nguồn tài liệu này](https://reactfordesigners.com/) là điểm bắt đầu thích hợp cho bạn.
 
-### JavaScript Resources {#javascript-resources}
+### Tài nguyên JavaScript {#javascript-resources}
 
-The React documentation assumes some familiarity with programming in the JavaScript language. You don't have to be an expert, but it's harder to learn both React and JavaScript at the same time.
+Tài liệu hướng dẫn React này giả định rằng bạn đã quen thuộc với việc lập trình sử dụng ngôn ngữ Javascript. Bạn không cần thiết phải là một chuyên gia Javascript, nhưng nó sẽ khó hơn cho bạn khi phải học cả React và JavaScript tại cùng một thời điểm.
 
-We recommend going through [this JavaScript overview](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript) to check your knowledge level. It will take you between 30 minutes and an hour but you will feel more confident learning React.
+Chúng tôi khuyến khích bạn nên xem qua [tổng quan về Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript) để kiểm tra trình độ kiến thức hiện tại. Nó sẽ mất khoảng 30 phút đến một giờ để hoàn thành nhưng sau đó bạn sẽ cảm thấy tự tin hơn khi học React.
 
->Tip
+>Lời khuyên
 >
->Whenever you get confused by something in JavaScript, [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript) and [javascript.info](https://javascript.info/) are great websites to check. There are also [community support forums](/community/support.html) where you can ask for help.
+>Bất kể khi nào bạn cảm thấy bối rối bởi thứ gì đó trong Javascript, [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript) và [javascript.info](https://javascript.info/) là những trang web tuyệt vời để kiểm tra. Ngoài ra còn có các [diễn đàn hỗ trợ cộng đồng](/community/support.html) nơi bạn có thể yêu cầu sự giúp đỡ.
 
-### Practical Tutorial {#practical-tutorial}
+### Hướng dẫn thực hành {#practical-tutorial}
 
 If you prefer to **learn by doing,** check out our [practical tutorial](/tutorial/tutorial.html). In this tutorial, we build a tic-tac-toe game in React. You might be tempted to skip it because you're not into building games -- but give it a chance. The techniques you'll learn in the tutorial are fundamental to building *any* React apps, and mastering it will give you a much deeper understanding.
 
