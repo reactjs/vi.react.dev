@@ -53,8 +53,8 @@ Khi ứng dụng của bạn phát triển, bạn có thể muốn xem xét thi�
 
 Mỗi người đến với React từ một nền tảng kiến thức khác nhau và với các cách học khác nhau. Cho dù bạn thích cách tiếp cận lý thuyết hay thực hành, chúng tôi hi vọng bạn sẽ thấy phần này hữu ích.
 
-* Nếu bạn thích **học bằng thực hành**, hãy bắt đầu với [hướng dẫn thực hành](/tutorial/tutorial.html).
-* Nếu bạn thích **tìm hiểu từng bước các khái niệm**, hãy bắt đầu với [hướng dẫn về các khái niệm chính](/docs/hello-world.html).
+* Nếu bạn thích **học thông qua thực hành**, hãy bắt đầu với [hướng dẫn thực hành](/tutorial/tutorial.html).
+* Nếu bạn thích **học từ lý thuyết cơ bản**, hãy bắt đầu với [hướng dẫn về các khái niệm chính](/docs/hello-world.html).
 
 Giống như bất kỳ công nghệ mới lạ nào, React có một đường cong học tập. Với thực hành và một số kiên nhẫn, bạn *sẽ* hiểu được nó.
 
@@ -82,31 +82,33 @@ Chúng tôi khuyến khích bạn nên xem qua [tổng quan về Javascript](htt
 
 ### Hướng dẫn thực hành {#practical-tutorial}
 
-If you prefer to **learn by doing,** check out our [practical tutorial](/tutorial/tutorial.html). In this tutorial, we build a tic-tac-toe game in React. You might be tempted to skip it because you're not into building games -- but give it a chance. The techniques you'll learn in the tutorial are fundamental to building *any* React apps, and mastering it will give you a much deeper understanding.
+Nếu bạn thích cách **học thông qua thực hành,** hãy xem qua [hướng dẫn thực hành](/tutorial/tutorial.html). Trong hướng dẫn này, chúng ta sẽ xây dựng game tic-tac-toe bằng React. Bạn có thể không muốn đọc tiếp vì bạn không làm game — Đừng làm vậy nhé! Hãy kiên nhẫn một chút.
+Kiến thức trong bài này chính là lý thuyết cơ bản để xây dựng *bất kỳ* ứng dụng React nào, thành thạo nó sẽ giúp bạn hiểu sâu hơn về React.
 
-### Step-by-Step Guide {#step-by-step-guide}
+### Hướng dẫn Step-by-Step {#step-by-step-guide}
 
-If you prefer to **learn concepts step by step,** our [guide to main concepts](/docs/hello-world.html) is the best place to start. Every next chapter in it builds on the knowledge introduced in the previous chapters so you won't miss anything as you go along.
+Nếu bạn thích **học từ các lý thuyết cơ bản,** [hướng dẫn về các khái niệm chính](/docs/hello-world.html) là điểm khởi đầu thích hợp dành cho bạn. Mỗi chương tiếp theo đều được xây dựng dựa trên kiến ​​thức đã giới thiệu trong các chương trước, do đó bạn sẽ không bỏ lỡ bất cứ điều gì trong quá trình học.
 
-### Thinking in React {#thinking-in-react}
+### Tư duy trong React {#thinking-in-react}
 
-Many React users credit reading [Thinking in React](/docs/thinking-in-react.html) as the moment React finally "clicked" for them. It's probably the oldest React walkthrough but it's still just as relevant.
+Rất nhiều người dùng của React xác nhận việc đọc [Tư duy trong React](/docs/thinking-in-react.html) chính là khoảng khắc mà họ "nghiện" React. Đây có lẽ là hướng dẫn về React lâu đời nhất nhưng nó vẫn phù hợp cho tới ngày nay.
 
-### Recommended Courses {#recommended-courses}
+### Các khoá học được đề xuất {#recommended-courses}
 
-Sometimes people find third-party books and video courses more helpful than the official documentation. We maintain [a list of commonly recommended resources](/community/courses.html), some of which are free.
+Đôi khi, mọi người thấy sách và khóa học video của bên thứ ba hữu ích hơn là tài liệu chính thức này. Vì vậy, chúng tôi duy trì [một danh sách các tài liệu thường được đề xuất](/community/courses.html), trong đó có một số là miễn phí.
 
-### Advanced Concepts {#advanced-concepts}
+### Các khái niệm Nâng cao {#advanced-concepts}
 
-Once you're comfortable with the [main concepts](/docs/hello-world.html) and played with React a little bit, you might be interested in more advanced topics. This section will introduce you to the powerful, but less commonly used React features like [context](/docs/context.html) and [refs](/docs/refs-and-the-dom.html).
+Khi bạn đã hiểu được các [khái niệm chính](/docs/hello-world.html) và đã thực hành với React một chút, có thể bạn sẽ có hứng thú với các khái niệm nâng cao. Phần này sẽ giới thiệu cho bạn các tính năng mạnh mẽ của React nhưng ít được sử dụng hơn như [context](/docs/context.html) và [refs](/docs/refs-and-the-dom.html).
 
-### API Reference {#api-reference}
+### Tài liệu về API {#api-reference}
 
-This documentation section is useful when you want to learn more details about a particular React API. For example, [`React.Component` API reference](/docs/react-component.html) can provide you with details on how `setState()` works, and what different lifecycle methods are useful for.
+Phần này sẽ rất hữu ích khi bạn muốn tìm hiểu chi tiết cụ thể về một React API nào đó. Ví dụ, [tài liệu về `React.Component` API](/docs/react-component.html) có thể cung cấp cho bạn thông tin chi tiết cách thức `setState()` hoạt động, và sự khác nhau của từng phương thức trong một lifecycle.
 
-### Glossary and FAQ {#glossary-and-faq}
 
-The [glossary](/docs/glossary.html) contains an overview of the most common terms you'll see in the React documentation. There is also a FAQ section dedicated to short questions and answers about common topics, including [making AJAX requests](/docs/faq-ajax.html), [component state](/docs/faq-state.html), and [file structure](/docs/faq-structure.html).
+### Thuật ngữ và Câu hỏi thường gặp {#glossary-and-faq}
+
+[Trang thuật ngữ](/docs/glossary.html) bao gồm tổng quan về các thuật ngữ phổ biến nhất mà bạn sẽ thấy trong tài liệu React. Ngoài ra còn có phần Câu hỏi thường gặp dành riêng cho các câu hỏi ngắn và câu trả lời về các chủ đề phổ biến, bao gồm [tạo AJAX requests](/docs/faq-ajax.html), [component state](/docs/faq-state.html), and [cấu trúc file](/docs/faq-structure.html).
 
 ## Staying Informed {#staying-informed}
 
