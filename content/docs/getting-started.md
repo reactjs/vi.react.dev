@@ -33,7 +33,7 @@ Trang này chứa các thông tin tổng quan về React và các tài liệu li
 ## Thử React {#try-react}
 React được thiết kế khởi đầu để phục vụ cho việc thích nghi dần dần, nghĩa là **bạn có thể sử dụng ít hoặc nhiều React tuỳ vào nhu cầu của bạn.** Cho dù bạn chỉ muốn thử một chút React, thêm một số tương tác vào trang HTML, hoặc xây dựng một ứng dụng React phức tạp, những hướng dẫn trong phần này sẽ giúp bạn bắt đầu.
 
-### Các Nền Tảng Code Online {#online-playgrounds}
+### Các nền tảng Code Online {#online-playgrounds}
 
 Nếu bạn có hứng thú trải nghiệm các tính năng của React, bạn có thể sử dụng các nền tảng code online. Hãy thử bản mẫu Hello World trên [CodePen](codepen://hello-world), [CodeSandbox](https://codesandbox.io/s/new), hoặc [Stackblitz](https://stackblitz.com/fork/react).
 
@@ -56,9 +56,9 @@ Mỗi người đến với React từ một nền tảng kiến thức khác nh
 * Nếu bạn thích **học thông qua thực hành**, hãy bắt đầu với [hướng dẫn thực hành](/tutorial/tutorial.html).
 * Nếu bạn thích **học từ lý thuyết cơ bản**, hãy bắt đầu với [hướng dẫn về các khái niệm chính](/docs/hello-world.html).
 
-Giống như bất kỳ công nghệ mới lạ nào, React có một đường cong học tập. Với thực hành và một số kiên nhẫn, bạn *sẽ* hiểu được nó.
+Giống như bất kỳ công nghệ mới lạ nào, React có một đường cong học tập. Với thực hành và một chút kiên nhẫn, bạn *sẽ* hiểu được nó.
 
-### Ví Dụ Đầu Tiên {#first-examples}
+### Ví dụ đầu tiên {#first-examples}
 
 [Trang chủ React](/) có chứa một số ví dụ về React với trình soạn thảo trực tuyến. Cho dù bạn chưa biết gì về React, hãy thử thay đổi một số đoạn code và xem nó ảnh hưởng như thế nào tới kết quả.
 
@@ -97,7 +97,7 @@ Rất nhiều người dùng của React xác nhận việc đọc [Tư duy tron
 
 Đôi khi, mọi người thấy sách và khóa học video của bên thứ ba hữu ích hơn là tài liệu chính thức này. Vì vậy, chúng tôi duy trì [một danh sách các tài liệu thường được đề xuất](/community/courses.html), trong đó có một số là miễn phí.
 
-### Các khái niệm Nâng cao {#advanced-concepts}
+### Các khái niệm nâng cao {#advanced-concepts}
 
 Khi bạn đã hiểu được các [khái niệm chính](/docs/hello-world.html) và đã thực hành với React một chút, có thể bạn sẽ có hứng thú với các khái niệm nâng cao. Phần này sẽ giới thiệu cho bạn các tính năng mạnh mẽ của React nhưng ít được sử dụng hơn như [context](/docs/context.html) và [refs](/docs/refs-and-the-dom.html).
 
@@ -110,18 +110,19 @@ Phần này sẽ rất hữu ích khi bạn muốn tìm hiểu chi tiết cụ t
 
 [Trang thuật ngữ](/docs/glossary.html) bao gồm tổng quan về các thuật ngữ phổ biến nhất mà bạn sẽ thấy trong tài liệu React. Ngoài ra còn có phần Câu hỏi thường gặp dành riêng cho các câu hỏi ngắn và câu trả lời về các chủ đề phổ biến, bao gồm [tạo AJAX requests](/docs/faq-ajax.html), [component state](/docs/faq-state.html), and [cấu trúc file](/docs/faq-structure.html).
 
-## Staying Informed {#staying-informed}
+## Theo dõi cập nhật mới nhất {#staying-informed}
 
-The [React blog](/blog/) is the official source for the updates from the React team. Anything important, including release notes or deprecation notices, will be posted there first.
+Trang [React blog](/blog/) là nguồn tài liệu chính thức cho những cập nhật từ đội ngũ phát triển React. Tất cả các thông tin quan trọng, bao gồm ghi chú phát hành hoặc thông báo ngừng sử dụng, sẽ được đăng ở đây trước.
 
-You can also follow the [@reactjs account](https://twitter.com/reactjs) on Twitter, but you won't miss anything essential if you only read the blog.
+Bạn cũng có thể theo dõi tài khoản [@reactjs](https://twitter.com/reactjs) trên Twitter, nhưng bạn cũng sẽ không bỏ lỡ bất kỳ thông tin quan trọng nào nếu bạn chỉ đọc blog.
 
-Not every React release deserves its own blog post, but you can find a detailed changelog for every release in the [`CHANGELOG.md` file in the React repository](https://github.com/facebook/react/blob/master/CHANGELOG.md), as well as on the [Releases](https://github.com/facebook/react/releases) page.
+Không phải tất cả các bản phát hành của React đều có một bài blog riêng, nhưng bạn có thể tìm được thông tin thay đổi chi tiết cho mỗi bản phát hành trong [file `CHANGELOG.md` ở trong  React repository](https://github.com/facebook/react/blob/master/CHANGELOG.md), cũng như ở trong trang [Releases](https://github.com/facebook/react/releases).
 
-## Versioned Documentation {#versioned-documentation}
+## Phiên bản của tài liệu {#versioned-documentation}
 
-This documentation always reflects the latest stable version of React. Since React 16, you can find older versions of the documentation on a [separate page](/versions). Note that documentation for past versions is snapshotted at the time of the release, and isn't being continuously updated.
+Tài liệu này luôn phản ánh phiên bản ổn định mới nhất của React. Kể từ React 16, bạn có thể tìm thấy các phiên bản cũ hơn của tài liệu trên một [trang riêng biệt](/versions). Lưu ý rằng tài liệu cho các phiên bản trước đây chỉ là một bản sao chép tại thời điểm phát hành phiên bản mới và sẽ không được cập nhật liên tục.
 
-## Something Missing? {#something-missing}
+## Bổ sung thiếu sót {#something-missing}
 
-If something is missing in the documentation or if you found some part confusing, please [file an issue for the documentation repository](https://github.com/reactjs/reactjs.org/issues/new) with your suggestions for improvement, or tweet at the [@reactjs account](https://twitter.com/reactjs). We love hearing from you!
+Nếu bạn cảm thấy thiếu điều gì đó trong tài liệu hoặc phần nào đó khó hiểu, vui lòng [gửi một thông báo cho chúng tôi trên Github](https://github.com/reactjs/reactjs.org/issues/new) với đề xuất để cải thiện của bạn, hoặc gửi tin nhắn đến tài khoản [@reactjs](https://twitter.com/reactjs) trên Twitter. Chúng tôi rất vui nếu nhận được phản hồi từ bạn!
+
