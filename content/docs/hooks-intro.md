@@ -5,7 +5,7 @@ permalink: docs/hooks-intro.html
 next: hooks-overview.html
 ---
 
-*Hooks* mới được thêm ở phiên bản React 16.8. Cho phép bạn sử dụng state và các chức năng khác của React class component.
+*Hooks* mới được thêm ở phiên bản React 16.8.  Với Hooks, bạn có sử dụng state và các chức năng khác của một React class component mà không cần phải viết một class.
 
 ```js{4,5}
 import React, { useState } from 'react';
@@ -25,24 +25,17 @@ function Example() {
 }
 ```
 
-Tính năng mới `useState` này là "Hook" đầu tiên chúng ta học, ví dụ này chỉ để giới thiệu. Đừng lo nếu nó chưa dễ hình dung!
+`useState` này là "Hook" đầu tiên chúng ta học, và ví dụ này chỉ để giới thiệu bạn với một Hook thôi. Vì vậy, nếu bạn chưa hiểu thì đừng vội lo lắng!
 
-**Bạn có thể bắt đầu học Hook [ở trang tiếp theo](/docs/hooks-overview.html).** Ở đây, giải thích tại sao chúng tôi thêm Hook vào React và nó giúp bạn giải quyết những vấn đề gì.
+**Bạn có thể bắt đầu học Hook [ở trang tiếp theo](/docs/hooks-overview.html).** Còn ở đây, chúng tôi sẽ giải thích tại sao chúng tôi thêm Hook vào React và những Hook sẽ giúp bạn giải quyết những vấn đề gì.
 
-<<<<<<< HEAD
 >Chú ý
 >React 16.8.0 là phiên bản đầu tiên hỗ trợ Hook. Khi nâng cấp, đừng quên cập nhật tất cả các package bao gồm React DOM.
 >React Native hỗ trợ Hooks từ [phiên bản 0.59 của React Native](https://facebook.github.io/react-native/blog/2019/03/12/releasing-react-native-059).
-=======
->Note
->
->React 16.8.0 is the first release to support Hooks. When upgrading, don't forget to update all packages, including React DOM.
->React Native supports Hooks since [the 0.59 release of React Native](https://reactnative.dev/blog/2019/03/12/releasing-react-native-059).
->>>>>>> 2ef0ee1e4fc4ce620dce1f3e0530471195dc64d1
 
 ## Video Giới Thiệu {#video-introduction}
 
-Tại React Conf 2018, Sophie Alpert và Dan Abramov đã giới thiệu Hook, tiếp theo Ryan Florence trình bày cách để tái cấu trúc một ứng dụng để sử dụng chúng. Xem video tại đây:
+Tại React Conf 2018, Sophie Alpert và Dan Abramov đã giới thiệu Hook, và Ryan Florence trình bày cách để tái cấu trúc một ứng dụng để sử dụng chúng. Xem video tại đây:
 
 <br>
 
@@ -58,23 +51,23 @@ Trước khi chúng ta tiếp tục, lưu ý rằng Hook:
 
 **Không có kế hoạch xóa class component khỏi React.** Bạn có thể đọc thêm về chiến lược áp dụng Hook dần dần trong [phần dưới](#gradual-adoption-strategy) của trang này.
 
-**Hooks không thay đổi kiến thức của bạn về các khái niệm của React.** Thay vì thế, Hook cung cấp các API trực tiếp tới các khái niệm React mà bạn đã biết: prop, state, context, refs, và lifecycle. Chúng tôi sẽ chỉ ra sau, Hook cũng đưa ra 1 cách mới, mạnh mẽ hơn để kết hợp với chúng.
+**Hooks không thay đổi kiến thức của bạn về các khái niệm của React.** Thay vì thế, Hook cung cấp các API trực tiếp tới các khái niệm React mà bạn đã biết như prop, state, context, refs, và lifecycle. Sau này, chúng tôi cũng sẽ cho bạn thấy rằng các Hook sẽ cho bạn một cách mới và hữu dụng để kết hợp chúng.
 
 **Nếu bạn chỉ muốn tìm hiểu Hook, bạn có thể [xem luôn trang tiếp theo!](/docs/hooks-overview.html)** Bạn cũng có thể tiếp tục đọc để biết thêm tại sao chúng tôi thêm Hook, và cách chúng tôi bắt đầu sử dụng mà không phải viết lại các ứng dụng.
 
 ## Động lực {#motivation}
 
-Hook giải quyết nhiều vấn đề có vẻ không liên quan trong React mà chúng tôi gặp phải trong hơn 5 năm qua với việc viết và phát triển 10 nghìn component giao diện. Kể cả bạn đang học React, sử dụng nó hàng ngày hoặc ngay cả bạn thích 1 thư viện khác tương tự với component model, bạn có thể nhận ra một số vấn đề.
+Hook giải quyết nhiều vấn đề có vẻ không liên quan trong React mà chúng tôi gặp phải trong hơn 5 năm qua với việc viết và phát triển 10 nghìn component giao diện. Kể cả nếu bạn đang học React, sử dụng nó hàng ngày hoặc ngay cả bạn thích 1 thư viện khác với component model gần giống, bạn có thể nhận ra một số vấn đề.
 
 ### Khó để sử dụng lại logic giữa các component{#its-hard-to-reuse-stateful-logic-between-components}
 
-React không đưa ra cách nào để "gắn" các thao tác hay sử dụng lại tới một component (ví dụ, kết nối với store). Nếu đã làm việc với React một thời gian, có thể thấy quen thuộc với pattern như [render prop](/docs/render-props.html) và [higher-order component](/docs/higher-order-components.html) để xử lý vấn đề này. Nhưng các pattern đó yêu cầu bạn phải cấu trúc lại component khi sử dụng, có thể làm cho code dài dòng khó theo dõi. Nếu bạn xem cấu trúc của một ứng dụng React bằng React DevTools bạn sẽ thấy "wrapper hell" (lồng nhau nhiều lớp) của các component bọc bởi các lớp của provider, consumer, higher-order component, render prop, và các abstraction khác. Trong khi chúng ta có thể [lọc chúng khỏi DevTools](https://github.com/facebook/react-devtools/pull/503), điều này chỉ ra một vấn đề sâu hơn nằm bên dưới: React cần một kiểu nguyên thuỷ tốt hơn để chia sẻ logic.
+React không đưa ra cách nào để "gắn" các thao tác hay sử dụng lại với một component (ví dụ, kết nối với store). Nếu đã làm việc với React một thời gian, bạn có thể thấy quen thuộc với những pattern như [render prop](/docs/render-props.html) và [higher-order component](/docs/higher-order-components.html) để xử lý vấn đề này. Nhưng các pattern đó yêu cầu bạn phải cấu trúc lại component khi sử dụng, và chúng có thể khiến cho code của bạn dài dòng và khó theo dõi. Nếu bạn xem cấu trúc của một ứng dụng React bằng React DevTools, bạn sẽ thấy "wrapper hell" (lồng nhau nhiều lớp) của các component bọc bởi các lớp của provider, consumer, higher-order component, render prop, và các abstraction khác. Trong khi chúng ta có thể [lọc chúng khỏi DevTools](https://github.com/facebook/react-devtools/pull/503), điều này chỉ ra một vấn đề sâu hơn nằm bên dưới: React cần một kiểu nguyên thuỷ tốt hơn để chia sẻ logic.
 
-Với Hook, bạn có thể tách logic từ component, nó có thể test độc lập và sử dụng lại. **Hook cho phép sử dụng lại logic mà không phải thay đổi cấu trúc component.** Điều này cho phép chia sẻ Hook qua nhiều component hoặc với cộng đồng.
+Với Hook, bạn có thể tách logic từ component, và bạn có thể test độc lập và sử dụng lại những logic này. **Hook cho phép sử dụng lại logic mà không phải thay đổi cấu trúc component.** Điều này cho phép bạn chia sẻ Hook qua nhiều component hoặc với cộng đồng.
 
-Chúng tôi sẽ thảo luận về điều này nhiều hơn tại [Xây dựng Hook của tùy biến](/docs/hooks-custom.html).
+Chúng tôi sẽ thảo luận về điều này nhiều hơn tại [Xây dựng Hook của riêng bạn](/docs/hooks-custom.html).
 
-### Component phức tạp trở nên khó hiểu {#complex-components-become-hard-to-understand}
+### Component phức tạp và trở nên khó hiểu {#complex-components-become-hard-to-understand}
 
 Chúng ta thường phải làm những component đầu tiên đơn giản, nhưng trở nên khó quản lý và bừa bộn các logic và side effect. Mỗi phương thức lifecycle kết hợp những logic không liên quan. Ví dụ, component có thể thực hiện lấy dữ liệu trong `componentDidMount` và `componentDidUpdate`. Tuy nhiên, cùng phương thức `componentDidMount` có thể chứa vài logic không liên quan để cài đặt event listener, và dọn dẹp trong `componentWillUnmount`. Những đoạn code liên quan và hỗ trợ lẫn nhau bị chia ra, và đoạn code không liên quan lại nằm trong cùng một phương thức. Điều này dễ dàng gây ra bug và không nhất quán.
 

@@ -1,6 +1,6 @@
 ---
 id: hooks-custom
-title: Building Your Own Hooks
+title: Xây dựng Hook của riêng bạn
 permalink: docs/hooks-custom.html
 next: hooks-reference.html
 prev: hooks-rules.html
