@@ -1,6 +1,6 @@
 ---
 id: getting-started
-title: Getting Started
+title: Bắt Đầu
 permalink: docs/getting-started.html
 next: add-react-to-a-website.html
 redirect_from:
@@ -18,109 +18,111 @@ redirect_from:
   - "docs/environments.html"
 ---
 
-This page is an overview of the React documentation and related resources.
+Trang này chứa các thông tin tổng quan về React và các tài liệu liên quan.
 
-**React** is a JavaScript library for building user interfaces. Learn what React is all about on [our homepage](/) or [in the tutorial](/tutorial/tutorial.html).
+**React** là một thư viện JavaScript được dùng để xây dựng giao diện người dùng (UI - User interfaces). Bạn có thể tìm hiểu tất cả về React trên [trang chủ của chúng tôi](/) hoặc [trong hướng dẫn](/tutorial/tutorial.html).
 
 ---
 
-- [Try React](#try-react)
-- [Learn React](#learn-react)
-- [Staying Informed](#staying-informed)
-- [Versioned Documentation](#versioned-documentation)
-- [Something Missing?](#something-missing)
+- [Thử React](#try-react)
+- [Học React](#learn-react)
+- [Theo dõi cập nhật mới nhất](#staying-informed)
+- [Phiên bản của tài liệu](#versioned-documentation)
+- [Bổ sung thiếu sót](#something-missing)
 
-## Try React {#try-react}
+## Thử React {#try-react}
+React được thiết kế khởi đầu để phục vụ cho việc thích nghi dần dần, nghĩa là **bạn có thể sử dụng ít hoặc nhiều React tuỳ vào nhu cầu của bạn.** Cho dù bạn chỉ muốn thử một chút React, thêm một số tương tác vào trang HTML, hoặc xây dựng một ứng dụng React phức tạp, những hướng dẫn trong phần này sẽ giúp bạn bắt đầu.
 
-React has been designed from the start for gradual adoption, and **you can use as little or as much React as you need.** Whether you want to get a taste of React, add some interactivity to a simple HTML page, or start a complex React-powered app, the links in this section will help you get started.
+### Các nền tảng Code Online {#online-playgrounds}
 
-### Online Playgrounds {#online-playgrounds}
+Nếu bạn có hứng thú trải nghiệm các tính năng của React, bạn có thể sử dụng các nền tảng code online. Hãy thử bản mẫu Hello World trên [CodePen](codepen://hello-world), [CodeSandbox](https://codesandbox.io/s/new), hoặc [Stackblitz](https://stackblitz.com/fork/react).
 
-If you're interested in playing around with React, you can use an online code playground. Try a Hello World template on [CodePen](codepen://hello-world), [CodeSandbox](https://codesandbox.io/s/new), or [Stackblitz](https://stackblitz.com/fork/react).
+Nếu bạn thích sử dụng trình soạn thảo code của riêng mình, bạn cũng có thể [tải xuống file HTML này](https://raw.githubusercontent.com/reactjs/reactjs.org/master/static/html/single-file-example.html), sửa và mở file này từ hệ thống tập tin trên trình duyệt của máy bạn. Thời gian dịch mã sẽ khá chậm, vì vậy chúng tôi khuyên bạn chỉ nên sử dụng phương pháp này với các demo đơn giản.
 
-If you prefer to use your own text editor, you can also [download this HTML file](https://raw.githubusercontent.com/reactjs/reactjs.org/master/static/html/single-file-example.html), edit it, and open it from the local filesystem in your browser. It does a slow runtime code transformation, so we'd only recommend using this for simple demos.
+### Thêm React vào một Website {#add-react-to-a-website}
 
-### Add React to a Website {#add-react-to-a-website}
+Bạn có thể [thêm React vào một trang HTML chỉ trong vòng một phút](/docs/add-react-to-a-website.html). Sau đó, bạn có thể dần dần mở rộng sự hiện diện của React hoặc giữ React trong một vài widget động.
 
-You can [add React to an HTML page in one minute](/docs/add-react-to-a-website.html). You can then either gradually expand its presence, or keep it contained to a few dynamic widgets.
+### Tạo mới một React App {#create-a-new-react-app}
 
-### Create a New React App {#create-a-new-react-app}
+Khi bạn bắt đầu một dự án React, một [trang HTML đơn giản với script tags](/docs/add-react-to-a-website.html) có thể là lựa chọn tốt nhất. Bạn chỉ mất một phút để thiết lập!
 
-When starting a React project, a [simple HTML page with script tags](/docs/add-react-to-a-website.html) might still be the best option. It only takes a minute to set up!
+Khi ứng dụng của bạn phát triển, bạn có thể muốn xem xét thiết lập cài đặt sâu hơn. Có một số công cụ Javascript chúng tôi khuyên bạn nên sử dụng cho các ứng dụng lớn. Mỗi công cụ có thể hoạt động với ít hoặc không cần cấu hình và cho phép bạn tận dụng tối đa sự phong phú của hệ sinh thái React. [Tìm hiểu cách thực hiện tại đây.](/docs/create-a-new-react-app.html)
 
-As your application grows, you might want to consider a more integrated setup. There are several JavaScript toolchains we recommend for larger applications. Each of them can work with little to no configuration and lets you take full advantage of the rich React ecosystem. [Learn how.](/docs/create-a-new-react-app.html)
+## Học React {#learn-react}
 
-## Learn React {#learn-react}
+Mỗi người đến với React từ một nền tảng kiến thức khác nhau và với các cách học khác nhau. Cho dù bạn thích cách tiếp cận lý thuyết hay thực hành, chúng tôi hi vọng bạn sẽ thấy phần này hữu ích.
 
-People come to React from different backgrounds and with different learning styles. Whether you prefer a more theoretical or a practical approach, we hope you'll find this section helpful.
+* Nếu bạn thích **học thông qua thực hành**, hãy bắt đầu với [hướng dẫn thực hành](/tutorial/tutorial.html).
+* Nếu bạn thích **học từ lý thuyết cơ bản**, hãy bắt đầu với [hướng dẫn về các khái niệm chính](/docs/hello-world.html).
 
-* If you prefer to **learn by doing**, start with our [practical tutorial](/tutorial/tutorial.html).
-* If you prefer to **learn concepts step by step**, start with our [guide to main concepts](/docs/hello-world.html).
+Giống như bất kỳ công nghệ mới lạ nào, React có một đường cong học tập. Với thực hành và một chút kiên nhẫn, bạn *sẽ* hiểu được nó.
 
-Like any unfamiliar technology, React does have a learning curve. With practice and some patience, you *will* get the hang of it.
+### Ví dụ đầu tiên {#first-examples}
 
-### First Examples {#first-examples}
+[Trang chủ React](/) có chứa một số ví dụ về React với trình soạn thảo trực tuyến. Cho dù bạn chưa biết gì về React, hãy thử thay đổi một số đoạn code và xem nó ảnh hưởng như thế nào tới kết quả.
 
-The [React homepage](/) contains a few small React examples with a live editor. Even if you don't know anything about React yet, try changing their code and see how it affects the result.
+### React cho Người mới bắt đầu {#react-for-beginners}
 
-### React for Beginners {#react-for-beginners}
+Nếu bạn cảm thấy tài liệu hướng dẫn React này trình bày quá nhanh và khó hiểu, hãy xem [tổng quan về React bởi Tania Rascia](https://www.taniarascia.com/getting-started-with-react/). Nó giới thiệu chi tiết các khái niệm quan trọng trong React theo một cách đơn giản, thân thiện với người mới. Khi bạn đã hoàn tất, hãy quay lại đây và thử đọc lại tài liệu này một lần nữa.
 
-If you feel that the React documentation goes at a faster pace than you're comfortable with, check out [this overview of React by Tania Rascia](https://www.taniarascia.com/getting-started-with-react/). It introduces the most important React concepts in a detailed, beginner-friendly way. Once you're done, give the documentation another try!
+### React cho Designers {#react-for-designers}
 
-### React for Designers {#react-for-designers}
+Nếu bạn đến với React từ nền tảng một Designer, [nguồn tài liệu này](https://reactfordesigners.com/) là điểm bắt đầu thích hợp cho bạn.
 
-If you're coming from a design background, [these resources](https://reactfordesigners.com/) are a great place to get started.
+### Tài nguyên JavaScript {#javascript-resources}
 
-### JavaScript Resources {#javascript-resources}
+Tài liệu hướng dẫn React này giả định rằng bạn đã quen thuộc với việc lập trình sử dụng ngôn ngữ Javascript. Bạn không cần thiết phải là một chuyên gia Javascript, nhưng nó sẽ khó hơn cho bạn khi phải học cả React và JavaScript tại cùng một thời điểm.
 
-The React documentation assumes some familiarity with programming in the JavaScript language. You don't have to be an expert, but it's harder to learn both React and JavaScript at the same time.
+Chúng tôi khuyến khích bạn nên xem qua [tổng quan về Javascript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript) để kiểm tra trình độ kiến thức hiện tại. Nó sẽ mất khoảng 30 phút đến một giờ để hoàn thành nhưng sau đó bạn sẽ cảm thấy tự tin hơn khi học React.
 
-We recommend going through [this JavaScript overview](https://developer.mozilla.org/en-US/docs/Web/JavaScript/A_re-introduction_to_JavaScript) to check your knowledge level. It will take you between 30 minutes and an hour but you will feel more confident learning React.
-
->Tip
+>Lời khuyên
 >
->Whenever you get confused by something in JavaScript, [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript) and [javascript.info](https://javascript.info/) are great websites to check. There are also [community support forums](/community/support.html) where you can ask for help.
+>Bất kể khi nào bạn cảm thấy bối rối bởi thứ gì đó trong Javascript, [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript) và [javascript.info](https://javascript.info/) là những trang web tuyệt vời để kiểm tra. Ngoài ra còn có các [diễn đàn hỗ trợ cộng đồng](/community/support.html) nơi bạn có thể yêu cầu sự giúp đỡ.
 
-### Practical Tutorial {#practical-tutorial}
+### Hướng dẫn thực hành {#practical-tutorial}
 
-If you prefer to **learn by doing,** check out our [practical tutorial](/tutorial/tutorial.html). In this tutorial, we build a tic-tac-toe game in React. You might be tempted to skip it because you're not into building games -- but give it a chance. The techniques you'll learn in the tutorial are fundamental to building *any* React apps, and mastering it will give you a much deeper understanding.
+Nếu bạn thích cách **học thông qua thực hành,** hãy xem qua [hướng dẫn thực hành](/tutorial/tutorial.html). Trong hướng dẫn này, chúng ta sẽ xây dựng game tic-tac-toe bằng React. Bạn có thể không muốn đọc tiếp vì bạn không làm game — Đừng làm vậy nhé! Hãy kiên nhẫn một chút.
+Kiến thức trong bài này chính là lý thuyết cơ bản để xây dựng *bất kỳ* ứng dụng React nào, thành thạo nó sẽ giúp bạn hiểu sâu hơn về React.
 
-### Step-by-Step Guide {#step-by-step-guide}
+### Hướng dẫn Step-by-Step {#step-by-step-guide}
 
-If you prefer to **learn concepts step by step,** our [guide to main concepts](/docs/hello-world.html) is the best place to start. Every next chapter in it builds on the knowledge introduced in the previous chapters so you won't miss anything as you go along.
+Nếu bạn thích **học từ các lý thuyết cơ bản,** [hướng dẫn về các khái niệm chính](/docs/hello-world.html) là điểm khởi đầu thích hợp dành cho bạn. Mỗi chương tiếp theo đều được xây dựng dựa trên kiến ​​thức đã giới thiệu trong các chương trước, do đó bạn sẽ không bỏ lỡ bất cứ điều gì trong quá trình học.
 
-### Thinking in React {#thinking-in-react}
+### Tư duy trong React {#thinking-in-react}
 
-Many React users credit reading [Thinking in React](/docs/thinking-in-react.html) as the moment React finally "clicked" for them. It's probably the oldest React walkthrough but it's still just as relevant.
+Rất nhiều người dùng của React xác nhận việc đọc [Tư duy trong React](/docs/thinking-in-react.html) chính là khoảng khắc mà họ "nghiện" React. Đây có lẽ là hướng dẫn về React lâu đời nhất nhưng nó vẫn phù hợp cho tới ngày nay.
 
-### Recommended Courses {#recommended-courses}
+### Các khoá học được đề xuất {#recommended-courses}
 
-Sometimes people find third-party books and video courses more helpful than the official documentation. We maintain [a list of commonly recommended resources](/community/courses.html), some of which are free.
+Đôi khi, mọi người thấy sách và khóa học video của bên thứ ba hữu ích hơn là tài liệu chính thức này. Vì vậy, chúng tôi duy trì [một danh sách các tài liệu thường được đề xuất](/community/courses.html), trong đó có một số là miễn phí.
 
-### Advanced Concepts {#advanced-concepts}
+### Các khái niệm nâng cao {#advanced-concepts}
 
-Once you're comfortable with the [main concepts](/docs/hello-world.html) and played with React a little bit, you might be interested in more advanced topics. This section will introduce you to the powerful, but less commonly used React features like [context](/docs/context.html) and [refs](/docs/refs-and-the-dom.html).
+Khi bạn đã hiểu được các [khái niệm chính](/docs/hello-world.html) và đã thực hành với React một chút, có thể bạn sẽ có hứng thú với các khái niệm nâng cao. Phần này sẽ giới thiệu cho bạn các tính năng mạnh mẽ của React nhưng ít được sử dụng hơn như [context](/docs/context.html) và [refs](/docs/refs-and-the-dom.html).
 
-### API Reference {#api-reference}
+### Tài liệu về API {#api-reference}
 
-This documentation section is useful when you want to learn more details about a particular React API. For example, [`React.Component` API reference](/docs/react-component.html) can provide you with details on how `setState()` works, and what different lifecycle methods are useful for.
+Phần này sẽ rất hữu ích khi bạn muốn tìm hiểu chi tiết cụ thể về một React API nào đó. Ví dụ, [tài liệu về `React.Component` API](/docs/react-component.html) có thể cung cấp cho bạn thông tin chi tiết cách thức `setState()` hoạt động, và sự khác nhau của từng phương thức trong một lifecycle.
 
-### Glossary and FAQ {#glossary-and-faq}
 
-The [glossary](/docs/glossary.html) contains an overview of the most common terms you'll see in the React documentation. There is also a FAQ section dedicated to short questions and answers about common topics, including [making AJAX requests](/docs/faq-ajax.html), [component state](/docs/faq-state.html), and [file structure](/docs/faq-structure.html).
+### Thuật ngữ và Câu hỏi thường gặp {#glossary-and-faq}
 
-## Staying Informed {#staying-informed}
+[Trang thuật ngữ](/docs/glossary.html) bao gồm tổng quan về các thuật ngữ phổ biến nhất mà bạn sẽ thấy trong tài liệu React. Ngoài ra còn có phần Câu hỏi thường gặp dành riêng cho các câu hỏi ngắn và câu trả lời về các chủ đề phổ biến, bao gồm [tạo AJAX requests](/docs/faq-ajax.html), [component state](/docs/faq-state.html), and [cấu trúc file](/docs/faq-structure.html).
 
-The [React blog](/blog/) is the official source for the updates from the React team. Anything important, including release notes or deprecation notices, will be posted there first.
+## Theo dõi cập nhật mới nhất {#staying-informed}
 
-You can also follow the [@reactjs account](https://twitter.com/reactjs) on Twitter, but you won't miss anything essential if you only read the blog.
+Trang [React blog](/blog/) là nguồn tài liệu chính thức cho những cập nhật từ đội ngũ phát triển React. Tất cả các thông tin quan trọng, bao gồm ghi chú phát hành hoặc thông báo ngừng sử dụng, sẽ được đăng ở đây trước.
 
-Not every React release deserves its own blog post, but you can find a detailed changelog for every release in the [`CHANGELOG.md` file in the React repository](https://github.com/facebook/react/blob/master/CHANGELOG.md), as well as on the [Releases](https://github.com/facebook/react/releases) page.
+Bạn cũng có thể theo dõi tài khoản [@reactjs](https://twitter.com/reactjs) trên Twitter, nhưng bạn cũng sẽ không bỏ lỡ bất kỳ thông tin quan trọng nào nếu bạn chỉ đọc blog.
 
-## Versioned Documentation {#versioned-documentation}
+Không phải tất cả các bản phát hành của React đều có một bài blog riêng, nhưng bạn có thể tìm được thông tin thay đổi chi tiết cho mỗi bản phát hành trong [file `CHANGELOG.md` ở trong  React repository](https://github.com/facebook/react/blob/master/CHANGELOG.md), cũng như ở trong trang [Releases](https://github.com/facebook/react/releases).
 
-This documentation always reflects the latest stable version of React. Since React 16, you can find older versions of the documentation on a [separate page](/versions). Note that documentation for past versions is snapshotted at the time of the release, and isn't being continuously updated.
+## Phiên bản của tài liệu {#versioned-documentation}
 
-## Something Missing? {#something-missing}
+Tài liệu này luôn phản ánh phiên bản ổn định mới nhất của React. Kể từ React 16, bạn có thể tìm thấy các phiên bản cũ hơn của tài liệu trên một [trang riêng biệt](/versions). Lưu ý rằng tài liệu cho các phiên bản trước đây chỉ là một bản sao chép tại thời điểm phát hành phiên bản mới và sẽ không được cập nhật liên tục.
 
-If something is missing in the documentation or if you found some part confusing, please [file an issue for the documentation repository](https://github.com/reactjs/reactjs.org/issues/new) with your suggestions for improvement, or tweet at the [@reactjs account](https://twitter.com/reactjs). We love hearing from you!
+## Bổ sung thiếu sót {#something-missing}
+
+Nếu bạn cảm thấy thiếu điều gì đó trong tài liệu hoặc phần nào đó khó hiểu, vui lòng [gửi một thông báo cho chúng tôi trên Github](https://github.com/reactjs/reactjs.org/issues/new) với đề xuất để cải thiện của bạn, hoặc gửi tin nhắn đến tài khoản [@reactjs](https://twitter.com/reactjs) trên Twitter. Chúng tôi rất vui nếu nhận được phản hồi từ bạn!
+
