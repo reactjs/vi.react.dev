@@ -12,7 +12,11 @@ Hook là các function JavaScript, có những quy luật bạn cần phải tu�
 
 ### Chỉ gọi Hook ở trên cùng {#only-call-hooks-at-the-top-level}
 
+<<<<<<< HEAD
 **Không gọi hook bên trong loop, câu điều kiện, hay các function lồng với nhau.** Thay vì đó, luôn sử dụng Hook ở phần trên cùng của function. Với cách này, bạn đảm bảo các Hook được gọi theo đúng thứ tự trong các lần render. Nó cho phép React có được đúng state giữa nhiều lần gọi `useState` và `useEffect`. (Nếu bạn có thắc mắc, chúng tôi sẽ giải thích trong phần giải thích cụ thể hơn [bên dưới](#explanation).)
+=======
+**Don't call Hooks inside loops, conditions, or nested functions.** Instead, always use Hooks at the top level of your React function, before any early returns. By following this rule, you ensure that Hooks are called in the same order each time a component renders. That's what allows React to correctly preserve the state of Hooks between multiple `useState` and `useEffect` calls. (If you're curious, we'll explain this in depth [below](#explanation).)
+>>>>>>> 4fa06486cdb8c5a1cd7e3d88b24e76b1920f33fd
 
 ### Chỉ gọi Hook từ React Function {#only-call-hooks-from-react-functions}
 

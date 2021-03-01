@@ -6,6 +6,10 @@ permalink: docs/context.html
 
 Context cung cấp phương pháp truyền data xuyên suốt component tree mà không cần phải truyền props một cách thủ công qua từng level.
 
+<<<<<<< HEAD
+=======
+In a typical React application, data is passed top-down (parent to child) via props, but such usage can be cumbersome for certain types of props (e.g. locale preference, UI theme) that are required by many components within an application. Context provides a way to share values like these between components without having to explicitly pass a prop through every level of the tree.
+>>>>>>> 4fa06486cdb8c5a1cd7e3d88b24e76b1920f33fd
 
 Thông thường với một ứng dụng React, data được truyền từ trên xuống (cha tới con) thông qua props, điều này có vẻ khá cồng kềnh đối với một số loại props (e.g. locale preference, UI theme) chúng thường được sử dụng bởi rất nhiều component trong ứng dụng. Context cho phép chúng ta chia sẽ values giống như vậy giữa các components mà không cần truyền giá trị tới tất cả level trong component tree.
 
@@ -81,7 +85,11 @@ function Page(props) {
 
 Với sự thay đổi này, chỉ có tầng trên cùng của Page component biết được `Link` và `Avatar` components sử dụng `user` và `avatarSize`.
 
+<<<<<<< HEAD
 Sự *đảo ngược quyền kiểm soát (inversion of control)* này có thể giúp code của bạn rõ ràng hơn ở nhiều trường hợp bằng cách giảm số lượng props cần phải truyền xuyên suốt ứng dụng của và cho phép sự kiểm soát đến root component. Tuy nhiên, đây không phải là một sự lựa chọn tốt cho mọi trường hợp: Nó khiến độ phức tạp cao hơn trong component tree khiến higher-level components trở nên phức tạp hơn và khiến cho lower-level components trở nên quá linh động.
+=======
+This *inversion of control* can make your code cleaner in many cases by reducing the amount of props you need to pass through your application and giving more control to the root components. Such inversion, however, isn't the right choice in every case; moving more complexity higher in the tree makes those higher-level components more complicated and forces the lower-level components to be more flexible than you may want.
+>>>>>>> 4fa06486cdb8c5a1cd7e3d88b24e76b1920f33fd
 
 Bạn không bị gới hạn vào một child duy nhất cho mỗi component. Bạn có thể truyền nhiều children, hay thậm chí là nhiều "slots" tách biệt cho children, [Như tài liệu ở đây](/docs/composition-vs-inheritance.html#containment):
 
@@ -119,7 +127,11 @@ const MyContext = React.createContext(defaultValue);
 
 Tạo một Context object. Khi React render một component mà nó subcribe đến Context object này, nó sẽ đọc giá trị hiện tại của context đó từ `Provider` gần nhất trên component tree.
 
+<<<<<<< HEAD
 Đối số `defaultValue` **chỉ** sử dụng khi một component không có Provider nào bên trên nó trong component tree. Điều này có thể hữu dụng cho việc kiểm thử component một cách cô lập mà không cần phải wrap chúng lại. Lưu ý: truyền `undefined` như một giá trị Provider sẽ không khiến consuming components sử dụng `defaultValue`.
+=======
+The `defaultValue` argument is **only** used when a component does not have a matching Provider above it in the tree. This default value can be helpful for testing components in isolation without wrapping them. Note: passing `undefined` as a Provider value does not cause consuming components to use `defaultValue`.
+>>>>>>> 4fa06486cdb8c5a1cd7e3d88b24e76b1920f33fd
 
 ### `Context.Provider` {#contextprovider}
 
@@ -163,7 +175,11 @@ class MyClass extends React.Component {
 MyClass.contextType = MyContext;
 ```
 
+<<<<<<< HEAD
 `contextType` property trong một class có thể được gán vào một Context object tạo bởi [`React.createContext()`](#reactcreatecontext). Điều này giúp bạn tiêu thụ giá trị gần nhất ở thời điểm hiện tại của loại Context đó sử dụng `this.context`. Bạn có thể tham khảo điều này trong mọi lifecycle methods bao gồm render function.
+=======
+The `contextType` property on a class can be assigned a Context object created by [`React.createContext()`](#reactcreatecontext). Using this property lets you consume the nearest current value of that Context type using `this.context`. You can reference this in any of the lifecycle methods including the render function.
+>>>>>>> 4fa06486cdb8c5a1cd7e3d88b24e76b1920f33fd
 
 > Lưu ý:
 >
@@ -190,7 +206,11 @@ class MyClass extends React.Component {
 </MyContext.Consumer>
 ```
 
+<<<<<<< HEAD
 Khi một React component subcribe tới sự thay đổi của context. Điều này cho phép bạn subcribe tới một context trong một [function component](/docs/components-and-props.html#function-and-class-components).
+=======
+A React component that subscribes to context changes. Using this component lets you subscribe to a context within a [function component](/docs/components-and-props.html#function-and-class-components).
+>>>>>>> 4fa06486cdb8c5a1cd7e3d88b24e76b1920f33fd
 
 Yêu cầu một [function as a child](/docs/render-props.html#using-props-other-than-render). Function nhận giá trị context hiện tại và trả về một React node. Tham số `value` truyền đến function sẽ bằng với `value` prop của Provider gần nhất trong context này trên tree component. Nếu không có Provider nào cho context này ở trên nó, tham số `value` sẽ bằng với `defaultValue` đã được truyền tới `createContext()`.
 
