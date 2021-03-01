@@ -12,11 +12,7 @@ Hook là các function JavaScript, có những quy luật bạn cần phải tu�
 
 ### Chỉ gọi Hook ở trên cùng {#only-call-hooks-at-the-top-level}
 
-<<<<<<< HEAD
-**Không gọi hook bên trong loop, câu điều kiện, hay các function lồng với nhau.** Thay vì đó, luôn sử dụng Hook ở phần trên cùng của function. Với cách này, bạn đảm bảo các Hook được gọi theo đúng thứ tự trong các lần render. Nó cho phép React có được đúng state giữa nhiều lần gọi `useState` và `useEffect`. (Nếu bạn có thắc mắc, chúng tôi sẽ giải thích trong phần giải thích cụ thể hơn [bên dưới](#explanation).)
-=======
-**Don't call Hooks inside loops, conditions, or nested functions.** Instead, always use Hooks at the top level of your React function, before any early returns. By following this rule, you ensure that Hooks are called in the same order each time a component renders. That's what allows React to correctly preserve the state of Hooks between multiple `useState` and `useEffect` calls. (If you're curious, we'll explain this in depth [below](#explanation).)
->>>>>>> 4fa06486cdb8c5a1cd7e3d88b24e76b1920f33fd
+**Không gọi hook bên trong loop, câu điều kiện, hay các function lồng với nhau.** Thay vì đó, luôn sử dụng Hook ở phần trên cùng của React function, trước bất cứ việc trả về (return) nào. Với cách này, bạn đảm bảo các Hook được gọi theo đúng thứ tự trong các lần render. Nó cho phép React có được đúng state giữa nhiều lần gọi `useState` và `useEffect`. (Nếu bạn có thắc mắc, chúng tôi sẽ giải thích trong phần giải thích cụ thể hơn [bên dưới](#explanation).)
 
 ### Chỉ gọi Hook từ React Function {#only-call-hooks-from-react-functions}
 
@@ -31,7 +27,7 @@ Khi tuân theo quy luật này, chúng ta đảm bảo tất cả logic trong 1 
 
 Chúng tôi có cung cấp plugin ESLint tên là [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks) đảm bảo 2 luật này luôn được áp dụng. Nếu thích bạn có thể thêm vào project:
 
-This plugin is included by default in [Create React App](/docs/create-a-new-react-app.html#create-react-app).
+Plugin có mặc định trong [Create React App](/docs/create-a-new-react-app.html#create-react-app).
 
 ```bash
 npm install eslint-plugin-react-hooks --save-dev
@@ -52,13 +48,7 @@ npm install eslint-plugin-react-hooks --save-dev
 }
 ```
 
-<<<<<<< HEAD
-Mặc định, plugin này được bao gồm trong [Create React App](/docs/create-a-new-react-app.html#create-react-app).
-
-**Bạn có thể bỏ qua và đọc tiếp trang chỉ dẫn [tạo custom Hook](/docs/hooks-custom.html) bây giờ.** Ở đây, chúng ta sẽ tiếp tục giải thích lý do đằng sau những quy luật này.
-=======
-**You can skip to the next page explaining how to write [your own Hooks](/docs/hooks-custom.html) now.** On this page, we'll continue by explaining the reasoning behind these rules.
->>>>>>> 2ef0ee1e4fc4ce620dce1f3e0530471195dc64d1
+**Bạn có thể bỏ qua và đọc tiếp trang chỉ dẫn [tạo custom Hook](/docs/hooks-custom.html) ngay bây giờ.** Ở đây, chúng ta sẽ tiếp tục giải thích lý do đằng sau những quy luật này.
 
 ## Giải thích {#explanation}
 
