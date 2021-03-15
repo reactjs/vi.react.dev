@@ -128,7 +128,11 @@ const MyComponent = React.memo(function MyComponent(props) {
 
 Nếu function component của bạn biểu diễn cùng kết quả với cùng props, bạn có thể gói chúng lại và gọi đến `React.memo` để tăng hiệu năng trong một số trường hợp bằng cách ghi nhớ kết quả. Điều này có nghĩa là React sẽ bỏ qua việc render component, và sử dụng lại kết quả đã render lần cuối cùng.
 
+<<<<<<< HEAD
 `React.memo` chỉ kiểm tra các thay đổi của props. Nếu function component của bạn được wrap với `React.memo` có một [`useState`](/docs/hooks-state.html) hoặc [`useContext`](/docs/hooks-reference.html#usecontext) Hook, nó vẫn render lại khi state hoặc context thay đổi.
+=======
+`React.memo` only checks for prop changes. If your function component wrapped in `React.memo` has a [`useState`](/docs/hooks-state.html), [`useReducer`](/docs/hooks-reference.html#usereducer) or [`useContext`](/docs/hooks-reference.html#usecontext) Hook in its implementation, it will still rerender when state or context change.
+>>>>>>> 54a331d7eff285b87b6865b3ad65a5fea1a86547
 
 Mặc định nó sẽ chỉ so sánh nông (shallow) các đối tượng phức tạp bên trong đối tượng props. Nếu bạn muốn kiểm soát toàn bộ việc so sánh, bạn cũng có thể cung cấp một hàm so sánh tuỳ chỉnh ở đối số thứ hai.
 
