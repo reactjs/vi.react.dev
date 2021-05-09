@@ -16,13 +16,13 @@ prev: rendering-elements.html
 next: state-and-lifecycle.html
 ---
 
-Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page provides an introduction to the idea of components. You can find a [detailed component API reference here](/docs/react-component.html).
+Components cho phép bạn chia UI thành các phần độc lập, có thể tái sử dụng, và hoàn toàn tách biệt nhau. Tài liệu này đem đến những giới thiệu sơ lược về components. Bạn có thể tìm [tài liệu chi tiết về API ở đây](/docs/react-component.html).
 
-Conceptually, components are like JavaScript functions. They accept arbitrary inputs (called "props") and return React elements describing what should appear on the screen.
+Về mặt khái niệm, components cũng giống như các hàm Javascript. Chúng nhận vào bất kì đầu vào nào (còn được gọi là "props") và trả về các React elements mô tả những gì sẽ xuất hiện trên màn hình.
 
-## Function and Class Components {#function-and-class-components}
+## Function Components và Class Components {#function-and-class-components}
 
-The simplest way to define a component is to write a JavaScript function:
+Cách đơn giản nhất để định nghĩa một component đó là viết một hàm JavaScript:
 
 ```js
 function Welcome(props) {
@@ -30,9 +30,9 @@ function Welcome(props) {
 }
 ```
 
-This function is a valid React component because it accepts a single "props" (which stands for properties) object argument with data and returns a React element. We call such components "function components" because they are literally JavaScript functions.
+Hàm này là một React component hợp lệ về nó nhận đầu vào là một tham số object "props" (viết tắt của properties) với dữ liệu và trả về một React element. Chúng ta gọi các components này là "function components" vì chúng là các hàm JavaScript theo đúng nghĩa đen.
 
-You can also use an [ES6 class](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes) to define a component:
+Bạn cũng có thể sử dụng [ES6 class](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes) để định nghĩa một component:
 
 ```js
 class Welcome extends React.Component {
@@ -42,19 +42,19 @@ class Welcome extends React.Component {
 }
 ```
 
-The above two components are equivalent from React's point of view.
+Hai components phía trên là tương đương nhau dưới góc độ của React.
 
-Function and Class components both have some additional features that we will discuss in the [next sections](/docs/state-and-lifecycle.html).
+Function và Class components đều có các tính năng bổ sung khác mà chúng ta sẽ thảo luận ở [phần tiếp theo](/docs/state-and-lifecycle.html).
 
-## Rendering a Component {#rendering-a-component}
+## Rendering một Component {#rendering-a-component}
 
-Previously, we only encountered React elements that represent DOM tags:
+Ở phần trước, chúng ta mới chỉ đề cập đến các React elements biểu diễn các DOM tags:
 
 ```js
 const element = <div />;
 ```
 
-However, elements can also represent user-defined components:
+Thế nhưng, elements cũng có thể biểu diễn các components do người dùng định nghĩa:
 
 ```js
 const element = <Welcome name="Sara" />;
