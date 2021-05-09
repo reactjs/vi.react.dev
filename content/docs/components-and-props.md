@@ -93,9 +93,9 @@ Chúng ta hãy cùng xem những gì diễn ra ở ví dụ này:
 
 ## Tạo Components {#composing-components}
 
-Components can refer to other components in their output. This lets us use the same component abstraction for any level of detail. A button, a form, a dialog, a screen: in React apps, all those are commonly expressed as components.
+Các components có thể tham chiếu đến các components khác tại đầu ra của chúng. Điều này cho phép chúng ta sử dụng cùng một component abstraction cho mọi mức độ chi tiết. Một button, form, dialog, màn hình: trong React apps, chúng đều được hiển thị như là các components.
 
-For example, we can create an `App` component that renders `Welcome` many times:
+Ví dụ, chúng ta có thể tạo ra `App` component mà nó sẽ render ra `Welcome` nhiều lần:
 
 ```js{8-10}
 function Welcome(props) {
@@ -120,9 +120,9 @@ ReactDOM.render(
 
 [](codepen://components-and-props/composing-components)
 
-Typically, new React apps have a single `App` component at the very top. However, if you integrate React into an existing app, you might start bottom-up with a small component like `Button` and gradually work your way to the top of the view hierarchy.
+Thông thường, các React apps mới tạo sẽ có một `App` component ở tầng cao nhất. Thế nhưng, nếu bạn tích hợp React vào ứng dụng hiện có, bạn có thể bắt đầu bằng cách tiếp cận bottom-up với một component nhỏ như là `Button` và dần dần đi lên các tầng trên cùng của cây kế thừa giao diện.
 
-## Extracting Components {#extracting-components}
+## Tách Components {#extracting-components}
 
 Don't be afraid to split components into smaller components.
 
