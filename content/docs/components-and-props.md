@@ -60,9 +60,9 @@ Thế nhưng, elements cũng có thể biểu diễn các components do người
 const element = <Welcome name="Sara" />;
 ```
 
-When React sees an element representing a user-defined component, it passes JSX attributes and children to this component as a single object. We call this object "props".
+Khi React thấy một element biểu diễn component do người dùng định nghĩa, nó ssẽ truyền các thuộc tính JSX và các phần tử con vào component này như là một object (đối tượng). Chúng ta gọi object đó là "props".
 
-For example, this code renders "Hello, Sara" on the page:
+Ví dụ, đoạn code này render ra "Hello, Sara" trên page:
 
 ```js{1,5}
 function Welcome(props) {
@@ -78,20 +78,20 @@ ReactDOM.render(
 
 [](codepen://components-and-props/rendering-a-component)
 
-Let's recap what happens in this example:
+Chúng ta hãy cùng xem những gì diễn ra ở ví dụ này:
 
-1. We call `ReactDOM.render()` with the `<Welcome name="Sara" />` element.
-2. React calls the `Welcome` component with `{name: 'Sara'}` as the props.
-3. Our `Welcome` component returns a `<h1>Hello, Sara</h1>` element as the result.
-4. React DOM efficiently updates the DOM to match `<h1>Hello, Sara</h1>`.
+1. Chúng ta gọi `ReactDOM.render()` với `<Welcome name="Sara" />` element.
+2. React gọi đến `Welcome` component với `{name: 'Sara'}` là props.
+3. `Welcome` component của chúng ta trả về kết quả là `<h1>Hello, Sara</h1>` element.
+4. React DOM sẽ cập nhật DOM để hiển thị `<h1>Hello, Sara</h1>`.
 
->**Note:** Always start component names with a capital letter.
+>**Chú ý:** Luôn luôn bắt đầu tên của component bằng chữ in hoa.
 >
->React treats components starting with lowercase letters as DOM tags. For example, `<div />` represents an HTML div tag, but `<Welcome />` represents a component and requires `Welcome` to be in scope.
+>React xử lí các components bắt đầu với chữ thường giống như các DOM tags. Ví dụ, `<div />` biểu diễn HTML div tag, nhưng `<Welcome />` biểu diễn một component và yêu cầu `Welcome` nằm trong scope.
 >
->To learn more about the reasoning behind this convention, please read [JSX In Depth](/docs/jsx-in-depth.html#user-defined-components-must-be-capitalized).
+>Để hiểu hơn về cách viết này, hãy đọc [JSX Chuyên Sâu](/docs/jsx-in-depth.html#user-defined-components-must-be-capitalized).
 
-## Composing Components {#composing-components}
+## Tạo Components {#composing-components}
 
 Components can refer to other components in their output. This lets us use the same component abstraction for any level of detail. A button, a form, a dialog, a screen: in React apps, all those are commonly expressed as components.
 
