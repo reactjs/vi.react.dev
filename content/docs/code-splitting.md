@@ -42,11 +42,7 @@ console.log(add(16, 26)); // 42
 
 Nếu bạn đang sử dụng [Create React App](https://create-react-app.dev/), [Next.js](https://nextjs.org/), [Gatsby](https://www.gatsbyjs.org/), hay một công cụ tương tự, bạn sẽ được thiết lập sẵn webpack để đóng gói ứng dụng của mình.
 
-<<<<<<< HEAD
 Nếu không, bạn sẽ cần phải tự thiết lập. Ví dụ, tham khảo [Cách cài đặt](https://webpack.js.org/guides/installation/) và [Làm thê nào để bắt đầu sử dụng](https://webpack.js.org/guides/getting-started/) hướng dẫn ở tài liệu Webpack.
-=======
-If you aren't, you'll need to set up bundling yourself. For example, see the [Installation](https://webpack.js.org/guides/installation/) and [Getting Started](https://webpack.js.org/guides/getting-started/) guides on the Webpack docs.
->>>>>>> e60bca04f3da690256ce019bd8907c2b368589ee
 
 ## Phân chia Code {#code-splitting}
 
