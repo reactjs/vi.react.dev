@@ -124,9 +124,9 @@ Thông thường, các React apps mới tạo sẽ có một `App` component ở
 
 ## Tách Components {#extracting-components}
 
-Don't be afraid to split components into smaller components.
+Đừng ngại ngần việc tách components thành các components nhỏ hơn.
 
-For example, consider this `Comment` component:
+Ví dụ, cùng xem component `Comment` dưới đây:
 
 ```js
 function Comment(props) {
@@ -154,11 +154,11 @@ function Comment(props) {
 
 [](codepen://components-and-props/extracting-components)
 
-It accepts `author` (an object), `text` (a string), and `date` (a date) as props, and describes a comment on a social media website.
+Nó nhận `author` (một object), `text` (một sâu kí tự), và `date` (ngày tháng) làm props, và mô phỏng lại một bình luận trên mạng xã hội.
 
-This component can be tricky to change because of all the nesting, and it is also hard to reuse individual parts of it. Let's extract a few components from it.
+Component này có thể khó để thay đổi vì cấu trúc lồng nhau, đồng thời cũng khó có thể tái sử dụng lại các thành phần con bên trong nó. Hãy thử chia một vài components từ nó.
 
-First, we will extract `Avatar`:
+Đầu tiên, chúng ta sẽ chia `Avatar`:
 
 ```js{3-6}
 function Avatar(props) {
@@ -171,11 +171,11 @@ function Avatar(props) {
 }
 ```
 
-The `Avatar` doesn't need to know that it is being rendered inside a `Comment`. This is why we have given its prop a more generic name: `user` rather than `author`.
+`Avatar` không cần phải biết nó đang được render bên trong `Comment`. Đây là lí do tại sao chúng ta truyền vào nó một prop với cái tên tổng quát là: `user` thay vì `author`.
 
-We recommend naming props from the component's own point of view rather than the context in which it is being used.
+Chúng tôi khuyến khích việc đặt tên cho props dựa trên góc nhìn từ chính component hơn là ngữ cảnh mà component được sử dụng.
 
-We can now simplify `Comment` a tiny bit:
+Chúng ta có thể đơn giản hoá `Comment` đi một chút:
 
 ```js{5}
 function Comment(props) {
@@ -198,7 +198,7 @@ function Comment(props) {
 }
 ```
 
-Next, we will extract a `UserInfo` component that renders an `Avatar` next to the user's name:
+Tiếp theo, chúng ta sẽ chia component `UserInfo`, component này sẽ render `Avatar` bên cạnh tên của user:
 
 ```js{3-8}
 function UserInfo(props) {
@@ -213,7 +213,7 @@ function UserInfo(props) {
 }
 ```
 
-This lets us simplify `Comment` even further:
+Điều này giúp chúng ta có thể đơn giản hoá `Comment` hơn nữa:
 
 ```js{4}
 function Comment(props) {
@@ -233,11 +233,11 @@ function Comment(props) {
 
 [](codepen://components-and-props/extracting-components-continued)
 
-Extracting components might seem like grunt work at first, but having a palette of reusable components pays off in larger apps. A good rule of thumb is that if a part of your UI is used several times (`Button`, `Panel`, `Avatar`), or is complex enough on its own (`App`, `FeedStory`, `Comment`), it is a good candidate to be extracted to a separate component.
+Chia các components ngay từ đầu là một công việc không đơn giản, nhưng bù lại chúng ta sẽ có được một tập hợp các components có thể tái sử dụng trong các ứng dụng lớn hơn khác. Một nguyên tắc quan trọng đó là nếu một phần UI của bạn được sử dụng lại nhiều lần (`Button`, `Panel`, `Avatar`), hoặc đủ phức tạp (`App`, `FeedStory`, `Comment`), thì đó là thời điểm thích hợp để chia chúng thành các component riêng.
 
-## Props are Read-Only {#props-are-read-only}
+## Props chỉ dùng để đọc {#props-are-read-only}
 
-Whether you declare a component [as a function or a class](#function-and-class-components), it must never modify its own props. Consider this `sum` function:
+Khi bạn định nghĩa một component [dưới dạng function hoặc class](#function-and-class-components), thì nó không được phép thay đổi props của chính nó. Hãy cùng phân tích hàm `sum` dưới đây:
 
 ```js
 function sum(a, b) {
