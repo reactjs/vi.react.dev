@@ -245,9 +245,9 @@ function sum(a, b) {
 }
 ```
 
-Such functions are called ["pure"](https://en.wikipedia.org/wiki/Pure_function) because they do not attempt to change their inputs, and always return the same result for the same inputs.
+Các hàm này được gọi là ["pure"](https://en.wikipedia.org/wiki/Pure_function) vì chúng không thay đổi giá trị của tham số đầu vào, và luôn trả về cùng một kết quả với các tham số đầu vào giống nhau.
 
-In contrast, this function is impure because it changes its own input:
+Ngược lại, hàm dưới đây được gọi là impure vì nó thay đổi giá trị của tham số đầu vào:
 
 ```js
 function withdraw(account, amount) {
@@ -255,8 +255,8 @@ function withdraw(account, amount) {
 }
 ```
 
-React is pretty flexible but it has a single strict rule:
+React có tính khả chuyển cao nhưng nó cũng có một quy tắc riêng:
 
-**All React components must act like pure functions with respect to their props.**
+**Mọi React components đều phải giống như các pure functions đối với props của chúng.**
 
-Of course, application UIs are dynamic and change over time. In the [next section](/docs/state-and-lifecycle.html), we will introduce a new concept of "state". State allows React components to change their output over time in response to user actions, network responses, and anything else, without violating this rule.
+Tất nhiên, giao diện của ứng dụng là động và luôn luôn thay đổi theo thời gian. Trong [phần tiếp theo](/docs/state-and-lifecycle.html), chúng tôi sẽ giới thiệu một khái niệm mới, đó là "state". State cho phép React components thay đổi đầu ra của chúng theo thời gian tương ứng với các hành động của người dùng, network responses, và bất kì thứ gì khác, mà không vi phạm quy tắc đối với React component.
