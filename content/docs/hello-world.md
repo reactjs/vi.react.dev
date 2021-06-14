@@ -40,7 +40,11 @@ React là một thư viện JavaScript, và vì thế chúng tôi giả định 
 
 >Ghi chú
 >
+<<<<<<< HEAD
 >Hướng dẫn này thỉnh thoảng sử dụng một vài cấu trúc JavaScript mới trong các ví dụ. Nếu bạn chưa từng làm việc với JavaScript trong những năm gần đây, [Ba điều này](https://gist.github.com/gaearon/683e676101005de0add59e8bb345340c) sẽ mang cho bạn kiến thức để bạn cảm thấy thoải mái hơn khi đọc các tài liệu của React.
+=======
+>This guide occasionally uses some newer JavaScript syntax in the examples. If you haven't worked with JavaScript in the last few years, [these three points](https://gist.github.com/gaearon/683e676101005de0add59e8bb345340c) should get you most of the way.
+>>>>>>> f3baa6d075c8de475b688abf035d7054bc8a9606
 
 
 ## Hãy cùng bắt đầu nhé! {#lets-get-started}
