@@ -159,7 +159,11 @@ Cách nhanh nhất để thử JSX trong project của bạn đó là thêm th�
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 ```
 
+<<<<<<< HEAD
 Bây giờ bạn có thể sử dụng JSX trong bất kì thẻ `<script>` nào bằng cách thêm thuộc tính `type="text/babel"` cho nó. Đây là [file HTML ví dụ với JSX](https://raw.githubusercontent.com/reactjs/reactjs.org/master/static/html/single-file-example.html) mà bạn có thể tải xuống và chạy thử nó.
+=======
+Now you can use JSX in any `<script>` tag by adding `type="text/babel"` attribute to it. Here is [an example HTML file with JSX](https://raw.githubusercontent.com/reactjs/reactjs.org/main/static/html/single-file-example.html) that you can download and play with.
+>>>>>>> 0bb0303fb704147452a568472e968993f0729c28
 
 Cách tiếp cận này khá ổn cho việc học và tạo các ví dụ demos đơn giản. Nhưng dù sao thì, nó cũng khiến cho website của bạn chậm và **không phù hợp cho môi trường production**. Khi bạn đã sẵn sàng để tiếp tục, hãy loại bỏ thẻ `<script>` này và thuộc tính `type="text/babel"` mà bạn vừa thêm. Thay vào đó, trong phần tiếp theo bạn sẽ thiết lập 1 bộ tiền xử lí (preprocessor) JSX để chuyển đổi các thẻ `<script>` một cách tự động.
 

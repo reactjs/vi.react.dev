@@ -17,13 +17,18 @@ September 13-15, 2021. Atlanta, GA, USA
 
 [Website](https://renderatl.com) - [Twitter](https://twitter.com/renderATL) - [Instagram](https://www.instagram.com/renderatl/) - [Facebook](https://www.facebook.com/renderatl/) - [LinkedIn](https://www.linkedin.com/company/renderatl)
 
+### React Conference Live 2021 {#react-conference-live-2021} 
+October 7-8, 2021. In-person in Amsterdam, Netherlands + remote (hybrid event)
+
+[Website](https://www.reactlive.nl/) - [Twitter](https://twitter.com/reactlivenl) - [LinkedIn](https://www.linkedin.com/company/frontendlove/)
+
 ### React Advanced 2021 {#react-advanced-2021}
 October 22-23, 2021. In-person in London, UK + remote (hybrid event)
 
-[Website](https://reactadvanced.com) - [Twitter](http://twitter.com/reactadvanced) - [Facebook](https://www.facebook.com/ReactAdvanced) - [Videos](https://youtube.com/c/ReactConferences)
+[Website](https://reactadvanced.com) - [Twitter](https://twitter.com/reactadvanced) - [Facebook](https://www.facebook.com/ReactAdvanced) - [Videos](https://youtube.com/c/ReactConferences)
 
 ### React India 2021 {#react-india-2021}
-November 12-13, 2021 in Mumbai, India
+November 12-14, 2021 - remote event
 
 [Website](https://www.reactindia.io) - [Twitter](https://twitter.com/react_india) - [Facebook](https://www.facebook.com/ReactJSIndia/) - [LinkedIn](https://www.linkedin.com/showcase/14545585) - [YouTube](https://www.youtube.com/channel/UCaFbHCBkPvVv1bWs_jwYt3w/videos)
 

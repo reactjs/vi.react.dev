@@ -322,6 +322,10 @@ Chuyển state liên quan tới thêm vào nhiều code "chuẩn" hơn là phư�
 
 Nếu một vài thứ có thể bắt nguồn từ props hoặc state, nó có thể không nên là state. Ví dụ, thay vì lưu trữ cả `celsiusValue` và `fahrenheitValue`, chúng ta sẽ lưu trữ giá trị được thay đổi gần nhất của `temperature` và `scale` của nó. Giá trị của input khác có thể được tính toán từ chúng trong hàm `render()`. Nó sẽ cho phép chúng ta dọn dẹp hoặc áp dụng để làm tròn giá trị của trường khác mà không làm mất đi tính chính xác của giá trị người dùng nhập vào.
 
+<<<<<<< HEAD
 Khi bạn thấy cái gì đó sai trên giao diện người dùng (UI), bạn có thể sử dụng [React Developer Tools](https://github.com/facebook/react/tree/master/packages/react-devtools) để tìm các thuộc tính (props) và chuyển lên trên cho đến khi bạn thấy component chịu trách nhiệm cho việc cập nhật state. Điều này giúp bạn tìm ra (trace) những lỗi (bug) trong source:
+=======
+When you see something wrong in the UI, you can use [React Developer Tools](https://github.com/facebook/react/tree/main/packages/react-devtools) to inspect the props and move up the tree until you find the component responsible for updating the state. This lets you trace the bugs to their source:
+>>>>>>> 0bb0303fb704147452a568472e968993f0729c28
 
 <img src="../images/docs/react-devtools-state.gif" alt="Monitoring State in React DevTools" max-width="100%" height="100%">
