@@ -39,9 +39,15 @@ Nhưng làm thế nào để chia nhỏ giao diện thành những component? H�
 
 Vì mô hình dữ liệu thường hiển thị dưới dạng chuỗi JSON, nếu mô hình của bạn được thực hiện đúng, giao diện người dùng (và vì thế cấu trúc component) sẽ hoàn toàn tương thích. Đó là bởi vì giao diện người dùng và mô hình dữ liệu thường có xu hướng tuân thủ cùng một kiểu *thông tin kiến trúc*, có nghĩa rằng bạn sẽ không phải dành nhiều thời gian cho việc chia nhỏ giao diện người dùng. Mỗi component sẽ tượng trưng cho một phần mô hình dữ liệu.
 
+<<<<<<< HEAD
 ![Sơ đồ Component](../images/blog/thinking-in-react-components.png)
 
 Trong ứng dụng dưới đây, bạn sẽ thấy chúng ta có 5 component, dữ liệu mà mỗi component hiển thị sẽ được in nghiêng
+=======
+![Diagram showing nesting of components](../images/blog/thinking-in-react-components.png)
+
+You'll see here that we have five components in our app. We've italicized the data each component represents. The numbers in the image correspond to the numbers below.
+>>>>>>> a11c2534062bd79cc1e6e34db0e149f928df35bb
 
   1. **`FilterableProductTable` (orange):** chứa toàn bộ cả ứng dụng
   2. **`SearchBar` (blue):** nơi *người dùng nhập từ khoá tìm kiếm*
@@ -84,7 +90,11 @@ Có 2 kiểu "mô hình" dữ liệu trong React: props và state. Hiểu ra s�
 
 Để xây dựng ứng dụng của bạn một cách chuẩn xác, đầu tiên cần suy nghĩ về một tập hợp tối thiểu các state có khả năng thay đổi trong ứng dựng. Trọng điểm là [DRY: *Không lập lại*](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) Xác định tập hợp này và tính toán những yêu cầu khác. Ví dụ, bạn tạo ra một danh sách TODO, không nên dùng state để đếm phần tử của mảng TODO. Thay vào đó khi in ra số lượng TODO, chỉ cần tính độ dài của mảng TODO.
 
+<<<<<<< HEAD
 Suy tính về các thành phần dữ liệu trong ví dụ ứng dựng, nó bao gồm:
+=======
+Think of all the pieces of data in our example application. We have:
+>>>>>>> a11c2534062bd79cc1e6e34db0e149f928df35bb
 
   * Danh sách gốc các sản phẩm
   * Từ khoá tìm kiếm từ phía người dùng
