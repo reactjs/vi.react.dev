@@ -29,11 +29,7 @@ sẽ có đôi chút khác biệt trong React:
 </button>
 ```
 
-<<<<<<< HEAD
 Một điểm khác biệt nữa trong React là bạn không thể trả về `false` để chặn những hành vi mặc định mà phải gọi `preventDefault` trực tiếp. Lấy ví dụ với đoạn HTML sau, để chặn hành vi mặc định của đường dẫn là mở trang mới, bạn có thể viết:
-=======
-Another difference is that you cannot return `false` to prevent default behavior in React. You must call `preventDefault` explicitly. For example, with plain HTML, to prevent the default form behavior of submitting, you can write:
->>>>>>> 25f756d8e3800afb032cb31ce3626d6134e31e38
 
 ```html
 <form onsubmit="console.log('You clicked submit.'); return false">
