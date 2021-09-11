@@ -209,11 +209,7 @@ Một nguyên tắc nhỏ đó là các element bên trong hàm gọi `map()` c�
 
 ### Các Key Chỉ Bắt Buộc Là Duy Nhất Giữa Các Nút Anh Em (Siblings) {#keys-must-only-be-unique-among-siblings}
 
-<<<<<<< HEAD
 Các Key được sử dụng bên trong các mảng nên là duy nhất giữa các nút anh em của chúng. Tuy nhiên chúng không cần là duy nhất đối với toàn bộ component. Chúng ta có thể sử dụng các key giống nhau khi chúng ta tạo hai mảng khác nhau:
-=======
-Keys used within arrays should be unique among their siblings. However, they don't need to be globally unique. We can use the same keys when we produce two different arrays:
->>>>>>> f3baa6d075c8de475b688abf035d7054bc8a9606
 
 ```js{2,5,11,12,19,21}
 function Blog(props) {
