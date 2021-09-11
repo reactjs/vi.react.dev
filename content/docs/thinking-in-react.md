@@ -84,11 +84,7 @@ Có 2 kiểu "mô hình" dữ liệu trong React: props và state. Hiểu ra s�
 
 Để xây dựng ứng dụng của bạn một cách chuẩn xác, đầu tiên cần suy nghĩ về một tập hợp tối thiểu các state có khả năng thay đổi trong ứng dựng. Trọng điểm là [DRY: *Không lập lại*](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) Xác định tập hợp này và tính toán những yêu cầu khác. Ví dụ, bạn tạo ra một danh sách TODO, không nên dùng state để đếm phần tử của mảng TODO. Thay vào đó khi in ra số lượng TODO, chỉ cần tính độ dài của mảng TODO.
 
-<<<<<<< HEAD
 Suy tính về các thành phần dữ liệu trong ví dụ ứng dựng, nó bao gồm:
-=======
-Think of all the pieces of data in our example application. We have:
->>>>>>> 68e4efcf93b6e589355f6aa3cbc3f3c811c0ad37
 
   * Danh sách gốc các sản phẩm
   * Từ khoá tìm kiếm từ phía người dùng
