@@ -6,13 +6,15 @@ layout: docs
 category: FAQ
 ---
 
-### Is there a recommended way to structure React projects? {#is-there-a-recommended-way-to-structure-react-projects}
+### Có cách nào được khuyên dùng để sắp xếp các dự án React? {#is-there-a-recommended-way-to-structure-react-projects}
 
-React doesn't have opinions on how you put files into folders. That said there are a few common approaches popular in the ecosystem you may want to consider.
+React không có ý kiến về cách bạn sắp xếp các files trong các thư mục. Tuy nhiên, có một số cách tiếp cận thông dụng mà các bạn nên cân nhắc.
 
-#### Grouping by features or routes {#grouping-by-features-or-routes}
 
-One common way to structure projects is to locate CSS, JS, and tests together inside folders grouped by feature or route.
+#### Phân nhóm theo tính năng hoặc đường dẫn {#grouping-by-features-or-routes}
+
+Một cách thông thường để hệ thống hoá dự án là nhóm các file CSS, JS, và tests chung một thư mục và phân các thư mục này theo tính năng hoặc đường dẫn.
+
 
 ```
 common/
@@ -35,11 +37,13 @@ profile/
   ProfileAPI.js
 ```
 
-The definition of a "feature" is not universal, and it is up to you to choose the granularity. If you can't come up with a list of top-level folders, you can ask the users of your product what major parts it consists of, and use their mental model as a blueprint.
+Định nghĩa của "tính năng" tuỳ thuộc vào cách các bạn định nghĩa, không có khái niệm chung ở đây. Nếu bạn không thể nghĩ ra một danh sách các thư mục top-level, bạn có thể hỏi những người dùng đâu là các thành phần thiết yếu của sản phẩm, và dùng các thành phần này để định hình cách sắp xếp cho dự án. 
 
-#### Grouping by file type {#grouping-by-file-type}
 
-Another popular way to structure projects is to group similar files together, for example:
+#### Nhóm các file theo phân loại{#grouping-by-file-type}
+
+Một cách phổ biến khác để sắp xếp dự án chính là nhóm các file giống nhau lại chung với nhau, ví dụ:
+
 
 ```
 api/
@@ -59,16 +63,19 @@ components/
   ProfileHeader.css
 ```
 
-Some people also prefer to go further, and separate components into different folders depending on their role in the application. For example, [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) is a design methodology built on this principle. Remember that it's often more productive to treat such methodologies as helpful examples rather than strict rules to follow.
+Một vài người sẽ muốn tối ưu hơn, và sắp xếp các components vào những thư mục tuỳ vào nhiệm vụ của chúng trong ứng dụng. Ví dụ, [Atomic Design](http://bradfrost.com/blog/post/atomic-web-design/) là một phương pháp thiết kế được xây dựng dựa trên nguyên tắc này. Hãy nhớ rằng đôi lúc nên sử dụng các phương pháp này như những ví dụ thay vì xem chúng như những quy luật cần phải tuân thủ.
 
-#### Avoid too much nesting {#avoid-too-much-nesting}
 
-There are many pain points associated with deep directory nesting in JavaScript projects. It becomes harder to write relative imports between them, or to update those imports when the files are moved. Unless you have a very compelling reason to use a deep folder structure, consider limiting yourself to a maximum of three or four nested folders within a single project. Of course, this is only a recommendation, and it may not be relevant to your project.
+#### Tránh đan xen quá nhiều {#avoid-too-much-nesting}
 
-#### Don't overthink it {#dont-overthink-it}
+Nhiều niềm đau khổ xuất phát từ các thư mục JavaScript bị đan xen quá nhiều trong các dự án. Nó trở nên quá khó khăn để viết các lệnh import giữa chúng, hoặc để cập nhật các import khi các file bị di chuyển. Trừ khi bạn có một lý do khá thuyết phục để dùng một cấu trúc thư mục chằn chịt, hãy hạn chế bản thân bạn ở 3 đến 4 lớp thư mục trong 1 dự án. Đương nhiên, đây chỉ là một lời khuyên, và nó có thề sẽ không phù hợp với dự án của bạn.
 
-If you're just starting a project, [don't spend more than five minutes](https://en.wikipedia.org/wiki/Analysis_paralysis) on choosing a file structure. Pick any of the above approaches (or come up with your own) and start writing code! You'll likely want to rethink it anyway after you've written some real code.
 
-If you feel completely stuck, start by keeping all files in a single folder. Eventually it will grow large enough that you will want to separate some files from the rest. By that time you'll have enough knowledge to tell which files you edit together most often. In general, it is a good idea to keep files that often change together close to each other. This principle is called "colocation".
+#### Đừng suy nghĩ phức tạp {#dont-overthink-it}
 
-As projects grow larger, they often use a mix of both of the above approaches in practice. So choosing the "right" one in the beginning isn't very important.
+Nếu bạn vừa bắt đầu một dự án, [đừng tốn quá 5 phút](https://en.wikipedia.org/wiki/Analysis_paralysis) cho việc lựa chọn một cấu trúc file. Hãy chọn bất kỳ cách tiếp cận được nêu trên (hoặc hãy tự nghĩ ra cách của bạn) và bắt đầu viết code! Khả năng cao là bạn sẽ phải suy nghĩ lại về cách sắp xếp sau khi bạn bắt đầu viết code thực sự.
+
+Nếu bạn cảm thấy hoàn toàn bế tắc, hãy bắt đầu bằng cách để hết tất cả các file vào chỉ duy nhất 1 thư mục. Dần dần thư mục này sẽ đủ lớn để bạn bắt đầu cảm thấy phải tách một số file khỏi các file còn lại. Tới khi đó bạn sẽ có đủ am tường để nhận ra các file nào bạn thường xuyên phải chỉnh sửa chung với nhau. Nhìn chung, bạn nên giữ các file bạn thường xuyên chỉnh sửa chung cùng một thư mục. Nguyên tắc này được gọi là "colocation".
+
+Một khi các dự án trở nên lớn hơn chúng sẽ dùng kết hợp của 2 cách tiếp cận trên. Vì vậy việc lựa chọn "đúng" cách tiếp cận khi đang bắt đầu dự án là việc không quan trọng.
+
