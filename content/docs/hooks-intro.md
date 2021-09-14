@@ -100,11 +100,7 @@ Chúng tôi cũng hiểu rằng việc thêm một điều mới hoàn toàn và
 
 Chúng tôi dự định cho Hook bao gồm tất cả các trường hợp dùng class, nhưng **chúng tôi sẽ tiếp tục hỗ trợ class component cho tương lai.** Tại Facebook, chúng tôi có hàng nghìn component viết dưới dạng class, và chúng tôi tuyệt đối không có kế hoạch viết lại chúng. Thay vì thế, chúng tôi bắt đầu sử dụng Hook cho code mới bên cạnh với class.
 
-<<<<<<< HEAD
 ## Các câu hỏi thường gặp {#frequently-asked-questions}
-=======
-**Crucially, Hooks work side-by-side with existing code so you can adopt them gradually.** There is no rush to migrate to Hooks. We recommend avoiding any "big rewrites", especially for existing, complex class components. It takes a bit of a mind shift to start "thinking in Hooks". In our experience, it's best to practice using Hooks in new and non-critical components first, and ensure that everybody on your team feels comfortable with them. After you give Hooks a try, please feel free to [send us feedback](https://github.com/facebook/react/issues/new), positive or negative.
->>>>>>> a11c2534062bd79cc1e6e34db0e149f928df35bb
 
 Chúng tôi đã chuẩn bị [câu hỏi thường gặp về Hook](/docs/hooks-faq.html) để trả lời những câu hỏi phổ biến nhất về Hook.
 
