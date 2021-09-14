@@ -1,6 +1,6 @@
 ---
 id: create-a-new-react-app
-title: Create a New React App
+title: Tạo mới một ứng dụng bằng React
 permalink: docs/create-a-new-react-app.html
 redirect_from:
   - "docs/add-react-to-a-new-app.html"
@@ -8,38 +8,38 @@ prev: add-react-to-a-website.html
 next: cdn-links.html
 ---
 
-Use an integrated toolchain for the best user and developer experience.
+Sử dụng chuỗi công cụ tích hợp để có trải nghiệm tốt nhất cho người dùng và nhà phát triển.
 
-This page describes a few popular React toolchains which help with tasks like:
+Trang này mô tả một số công cụ React phổ biến giúp thực hiện các tác vụ như:
 
-* Scaling to many files and components.
-* Using third-party libraries from npm.
-* Detecting common mistakes early.
-* Live-editing CSS and JS in development.
-* Optimizing the output for production.
+* Mở rộng quy mô cho nhiều tệp và components.
+* Sử dụng thư viện của bên thứ ba từ npm.
+* Phát hiện sớm những lỗi thường mắc phải.
+* Chỉnh sửa trực tiếp CSS và JS khi đang phát triển.
+* Tối ưu hóa cho môi trường production.
 
-The toolchains recommended on this page **don't require configuration to get started**.
+Chuỗi công cụ giới thiệu ở trang này **không cần phải cấu hình trước khi bắt đầu**.
 
-## You Might Not Need a Toolchain {#you-might-not-need-a-toolchain}
+## Bạn có thể Không Cần một Công Cụ {#you-might-not-need-a-toolchain}
 
-If you don't experience the problems described above or don't feel comfortable using JavaScript tools yet, consider [adding React as a plain `<script>` tag on an HTML page](/docs/add-react-to-a-website.html), optionally [with JSX](/docs/add-react-to-a-website.html#optional-try-react-with-jsx).
+Nếu bạn không gặp phải vấn đề được mô tả bên trên hoặc chưa thấy thoải mái khi sử dụng các công cụ JavaScript, hãy cân nhắc [thêm React với thẻ `<script>` trên một trang HTML](/docs/add-react-to-a-website.html), tùy chọn [với JSX](/docs/add-react-to-a-website.html#optional-try-react-with-jsx).
 
-This is also **the easiest way to integrate React into an existing website.** You can always add a larger toolchain if you find it helpful!
+Đây cũng là **cách dễ nhất để tích hợp React vào một website đang hoạt động.** Bạn lúc nào cũng có thể thêm một công cụ mạnh hơn nếu bạn thấy nó có ích!
 
-## Recommended Toolchains {#recommended-toolchains}
+## Các Công Cụ khuyến nghị {#recommended-toolchains}
 
-The React team primarily recommends these solutions:
+Đội ngũ React chủ yếu khuyến nghị các giải pháp sau:
 
-- If you're **learning React** or **creating a new [single-page](/docs/glossary.html#single-page-application) app,** use [Create React App](#create-react-app).
-- If you're building a **server-rendered website with Node.js,** try [Next.js](#nextjs).
-- If you're building a **static content-oriented website,** try [Gatsby](#gatsby).
-- If you're building a **component library** or **integrating with an existing codebase**, try [More Flexible Toolchains](#more-flexible-toolchains).
+- Nếu bạn **đang học React** hoặc **tạo mới một [single-page](/docs/glossary.html#single-page-application) app,** hãy sử dụng [Create React App](#create-react-app).
+- Nếu bạn đang xây dựng một **trang web server-rendered bằng Node.js,** thử [Next.js](#nextjs).
+- Nếu bạn đang xây dựng một **trang web tĩnh hướng nội dung,** thử [Gatsby](#gatsby).
+- Nếu bạn đang xây dựng một **thư viện component** hoặc **tích hợp với bộ code của bạn**, thử [Các loại công cụ linh hoạt](#more-flexible-toolchains).
 
 ### Create React App {#create-react-app}
 
-[Create React App](https://github.com/facebookincubator/create-react-app) is a comfortable environment for **learning React**, and is the best way to start building **a new [single-page](/docs/glossary.html#single-page-application) application** in React.
+[Create React App](https://github.com/facebookincubator/create-react-app) là môi trường thoải mái để **học React**, và là cách tốt nhất để xây dựng **một ứng dụng [single-page](/docs/glossary.html#single-page-application) ** với React.
 
-It sets up your development environment so that you can use the latest JavaScript features, provides a nice developer experience, and optimizes your app for production. You’ll need to have [Node >= 8.10 and npm >= 5.6](https://nodejs.org/en/) on your machine. To create a project, run:
+Nó cài đặt môi trường phát triển của bạn để sử dụng các tính năng mới nhất của JavaScript, cung cấp trải nghiệp tốt cho nhà phát triển, và tối ưu ứng dụng của bạn trên môi trường production. Bạn sẽ cần [Node >= 8.10 and npm >= 5.6](https://nodejs.org/en/) trên máy của bạn. Để tạo mới dự án, chạy:
 
 ```bash
 npx create-react-app my-app
@@ -47,48 +47,48 @@ cd my-app
 npm start
 ```
 
->Note
+>Ghi chú
 >
->`npx` on the first line is not a typo -- it's a [package runner tool that comes with npm 5.2+](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b).
+>`npx` ở dòng đầu tiên không phải là lỗi đánh máy -- nó là một [công cụ đóng gói đi kèm với npm 5.2+](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b).
 
-Create React App doesn't handle backend logic or databases; it just creates a frontend build pipeline, so you can use it with any backend you want. Under the hood, it uses [Babel](https://babeljs.io/) and [webpack](https://webpack.js.org/), but you don't need to know anything about them.
+Create React App không xử lý backend logic hoặc cơ sở dữ liệu; nó chỉ tạo ra một công cụ xây dựng ứng dụng frontend, vì thế bạn có thể sử dụng nó với mọi loại backend mà bạn muốn. Ngoài ra, nó dùng [Babel](https://babeljs.io/) và [webpack](https://webpack.js.org/), nhưng bạn không cần phải biết mọi thứ về chúng.
 
-When you're ready to deploy to production, running `npm run build` will create an optimized build of your app in the `build` folder. You can learn more about Create React App [from its README](https://github.com/facebookincubator/create-react-app#create-react-app--) and the [User Guide](https://facebook.github.io/create-react-app/).
+Khi bạn sẵ sàng để triển khai lên môi trường production, chạy lệnh `npm run build` sẽ tạo ra một bản đã được tối ưu hóa ở thư mục `build`. Bạn có thể xem thêm về Create React App [từ README của nó](https://github.com/facebookincubator/create-react-app#create-react-app--) và [Hướng dẫn sử dụng](https://facebook.github.io/create-react-app/).
 
 ### Next.js {#nextjs}
 
-[Next.js](https://nextjs.org/) is a popular and lightweight framework for **static and server‑rendered applications** built with React. It includes **styling and routing solutions** out of the box, and assumes that you're using [Node.js](https://nodejs.org/) as the server environment.
+[Next.js](https://nextjs.org/) là một framework phổ biến và nhẹ cho phát triển **ứng dụng tĩnh và ứng dụng server-rendered** được làm bởi React. Nó tích hợp sẵn **giải pháp cho giao diện và điều hướng**, và giả định rằng bạn đang sử dụng [Node.js](https://nodejs.org/) giống với môi trường hệ thống.
 
-Learn Next.js from [its official guide](https://nextjs.org/learn/).
+Xem thêm Next.js ở [trang chủ của nó](https://nextjs.org/learn/).
 
 ### Gatsby {#gatsby}
 
-[Gatsby](https://www.gatsbyjs.org/) is the best way to create **static websites** with React. It lets you use React components, but outputs pre-rendered HTML and CSS to guarantee the fastest load time.
+[Gatsby](https://www.gatsbyjs.org/) cách tốt nhất để tạo **trang web tĩnh** bằng React. Nó cho phép bạn sử dụng React components, nhưng kết quả sẽ được tạo sẵn dưới dạng HTML và CSS để đảm bảo thời gian tải nhanh nhất.
 
-Learn Gatsby from [its official guide](https://www.gatsbyjs.org/docs/) and a [gallery of starter kits](https://www.gatsbyjs.org/docs/gatsby-starters/).
+Xem thêm Gatsby ở [trang chủ của nó](https://www.gatsbyjs.org/docs/) và [thư viện để bắt đầu](https://www.gatsbyjs.org/docs/gatsby-starters/).
 
-### More Flexible Toolchains {#more-flexible-toolchains}
+### Các loại công cụ linh hoạt {#more-flexible-toolchains}
 
-The following toolchains offer more flexibility and choice. We recommend them to more experienced users:
+Các công cụ sau cung cấp nhiều sự lựa chọn và linh hoạt hơn. Chúng tôi giới thiệu chúng cho những người dùng có kinh nghiệm hơn:
 
-- **[Neutrino](https://neutrinojs.org/)** combines the power of [webpack](https://webpack.js.org/) with the simplicity of presets, and includes a preset for [React apps](https://neutrinojs.org/packages/react/) and [React components](https://neutrinojs.org/packages/react-components/).
+- **[Neutrino](https://neutrinojs.org/)** kết hợp sức mạnh của [webpack](https://webpack.js.org/) với sự đơn giản của các cài đặt sẵn có, và bao gồm một cài đặt có sẵn cho [ứng dụng React](https://neutrinojs.org/packages/react/) và [React components](https://neutrinojs.org/packages/react-components/).
 
-- **[Nx](https://nx.dev/react)** is a toolkit for full-stack monorepo development, with built-in support for React, Next.js, [Express](https://expressjs.com/), and more.
+- **[Nx](https://nx.dev/react)** là một công cụ cho phát triển full-stack monorepo, đã tích hợp sẵn để hỗ trợ React, Next.js, [Express](https://expressjs.com/), và nhiều thứ khác.
 
-- **[Parcel](https://parceljs.org/)** is a fast, zero configuration web application bundler that [works with React](https://parceljs.org/recipes.html#react).
+- **[Parcel](https://parceljs.org/)** là một gói ứng dụng web nhanh, không cần cấu hình và [hoạt động với React](https://parceljs.org/recipes.html#react).
 
-- **[Razzle](https://github.com/jaredpalmer/razzle)** is a server-rendering framework that doesn't require any configuration, but offers more flexibility than Next.js.
+- **[Razzle](https://github.com/jaredpalmer/razzle)** là một framework hỗ trợ server-rendering không cần cấu hình, nhưng cung cấp sự linh hoạt hơn Next.js.
 
-## Creating a Toolchain from Scratch {#creating-a-toolchain-from-scratch}
+## Tạo mới chuỗi công cụ từ đầu {#creating-a-toolchain-from-scratch}
 
-A JavaScript build toolchain typically consists of:
+Chuỗi công cụ xây dựng JavaScript thường bao gồm: 
 
-* A **package manager**, such as [Yarn](https://yarnpkg.com/) or [npm](https://www.npmjs.com/). It lets you take advantage of a vast ecosystem of third-party packages, and easily install or update them.
+* Một **package manager**, ví dụ [Yarn](https://yarnpkg.com/) hoặc [npm](https://www.npmjs.com/). Nó cho phép bạn tận dụng hệ sinh thái rộng lớn của các gói bên thứ ba và dễ dàng cài đặt hoặc cập nhật chúng.
 
-* A **bundler**, such as [webpack](https://webpack.js.org/) or [Parcel](https://parceljs.org/). It lets you write modular code and bundle it together into small packages to optimize load time.
+* Một **bundler**, ví dụ [webpack](https://webpack.js.org/) hoặc [Parcel](https://parceljs.org/). Nó cho phép bạn viết mã theo module và gói nó lại với nhau thành các gói nhỏ để tối ưu hóa thời gian tải.
 
-* A **compiler** such as [Babel](https://babeljs.io/). It lets you write modern JavaScript code that still works in older browsers.
+* Một **compiler**, ví dụ [Babel](https://babeljs.io/). Nó cho phép bạn viết mã JavaScript hiện đại vẫn hoạt động trong các trình duyệt cũ hơn.
 
-If you prefer to set up your own JavaScript toolchain from scratch, [check out this guide](https://blog.usejournal.com/creating-a-react-app-from-scratch-f3c693b84658) that re-creates some of the Create React App functionality.
+Nếu bạn muốn thiết lập chuỗi công cụ JavaScript của riêng mình từ đầu, [xem thử hướng dẫn](https://blog.usejournal.com/creating-a-react-app-from-scratch-f3c693b84658) tái tạo lại một số chức năng của thư viện Create React App.
 
-Don't forget to ensure your custom toolchain [is correctly set up for production](/docs/optimizing-performance.html#use-the-production-build).
+Đừng quên đảm bảo chuỗi công cụ của bận được [thiết đặt chính xác cho môi trường production](/docs/optimizing-performance.html#use-the-production-build).
