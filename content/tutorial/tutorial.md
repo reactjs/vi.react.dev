@@ -243,11 +243,7 @@ class Square extends React.Component {
 }
 ```
 
-<<<<<<< HEAD
 Nếu bạn bấm vào một ô Square, bạn sẽ nhìn thấy một cảnh báo hiện ra trên trình duyệt
-=======
-If you click on a Square now, you should see 'click' in your browser's devtools console.
->>>>>>> a11c2534062bd79cc1e6e34db0e149f928df35bb
 
 >Chú ý
 >
@@ -265,11 +261,7 @@ If you click on a Square now, you should see 'click' in your browser's devtools 
 >}
 >```
 >
-<<<<<<< HEAD
 >Để ý thấy rằng bằng cách viết `onClick={() => alert('click')}`, ta đã truyền *một hàm (function)* thông qua prop `onClick`. React sẽ chỉ thực hiện hàm này khi Square component được bấm. Quên không viết `() =>` mà chỉ viết `onClick={alert('click')}` là một lỗi cơ bản trong react, khi viết như thế, cảnh báo (alert) sẽ được hiện mỗi khi component render lại.
-=======
->Notice how with `onClick={() => console.log('click')}`, we're passing *a function* as the `onClick` prop. React will only call this function after a click. Forgetting `() =>` and writing `onClick={console.log('click')}` is a common mistake, and would fire every time the component re-renders.
->>>>>>> a11c2534062bd79cc1e6e34db0e149f928df35bb
 
 Ở bước tiếp theo, chúng ta muốn Square component "ghi nhớ" rằng nó đã được bấm, và hiện giá trị "X" trên nó. Để "ghi nhớ" mọi thứ, các component sử dụng **state**.
 
