@@ -17,21 +17,21 @@ import LinkedStateMixin from 'react-addons-linked-state-mixin'; // ES6
 var LinkedStateMixin = require('react-addons-linked-state-mixin'); // ES5 with npm
 ```
 
-## Overview {#overview}
+## Tổng quan {#overview}
 
-`LinkedStateMixin` là một cách dễ dàng để thể hiện ràng buộc (binding) hai chiều với React..
+`LinkedStateMixin` là một cách đơn giản để thể hiện ràng buộc (binding) hai chiều với React..
 
-Trong React, dữ liệu đổ theo một chiều: từ chủ sở hữu sang con. Chúng tôi nghĩ rằng điều này làm cho code ứng dụng của bạn dễ hiểu hơn. Bạn có thể coi nó là "ràng buộc (binding) dữ liệu một chiều".
+Trong React, dữ liệu chạy theo một chiều: từ cha sang con. Chúng tôi nghĩ rằng điều này làm cho code của bạn trong ứng dụng dễ hiểu hơn. Bạn có thể coi nó là "ràng buộc (binding) dữ liệu một chiều".
 
-Tuy nhiên, có rất nhiều ứng dụng yêu cầu bạn đọc một số dữ liệu và chuyển nó trở lại chương trình của bạn. Ví dụ: khi phát triển forms, bạn thường muốn cập nhật một số `state` của React khi nhận được thông tin đầu vào của người dùng. Hoặc có lẽ bạn muốn thực hiện layout trong JavaScript và react thay đổi một số kích thước phần tử DOM.
+Tuy nhiên, có rất nhiều trường hợp ứng dụng yêu cầu bạn đọc một số dữ liệu đầu vào và đổ nó quay lại chương trình của bạn. Ví dụ: khi tạo forms, bạn thường muốn cập nhật một số `state` của React khi nhận được thông tin đầu vào của người dùng. Hoặc có lẽ bạn muốn thực hiện layout trong JavaScript và react sẽ thay đổi một số kích thước phần tử DOM.
 
-Trong React, bạn sẽ triển khai điều này bằng cách lắng nghe sự kiện "thay đổi", đọc từ nguồn dữ liệu của bạn (thường là DOM) và gọi `setState()` trên một trong các components. "Dừng vòng lặp dữ liệu" cho ra các chương trình dễ hiểu hơn và dễ bảo trì hơn. Xem [our forms documentation](/docs/forms.html) để biết thêm chi tiết.
+Trong React, bạn sẽ triển khai điều này bằng cách lắng nghe sự kiện "event", đọc từ nguồn dữ liệu của bạn (thường là DOM) và gọi `setState()` trên một trong các components. "Dừng vòng lặp dữ liệu" cho ra các chương trình dễ hiểu hơn và dễ bảo trì hơn. Xem [our forms documentation](/docs/forms.html) để biết thêm chi tiết.
 
-Ràng buộc hai chiều -- ngầm thực thi rằng một số giá trị trong DOM luôn nhất quán với một số trong React `state` -- ngắn gọn và hỗ trợ nhiều ứng dụng. Chúng tôi đã cung cấp `LinkedStateMixin`: cú pháp để thiết lập mẫu vòng lặp luồng dữ liệu chung được mô tả ở trên, hoặc "kết nối" một số nguồn dữ liệu tới React `state`.
+Ràng buộc hai chiều -- ngầm thực thi rằng một số giá trị trong DOM luôn nhất quán với một số khác trong React `state` -- ngắn gọn và hỗ trợ nhiều ứng dụng. Chúng tôi đã cung cấp `LinkedStateMixin`: cú pháp để thiết lập mẫu vòng lặp luồng dữ liệu chung được mô tả ở trên, hoặc "kết nối" một số nguồn dữ liệu tới React `state`.
 
 > Note:
 >
-> `LinkedStateMixin` chỉ là một lớp vỏ bọc mỏng và quy ước xung quanh `onChange`/`setState()`. Về cơ bản, nó không thay đổi cách dữ liệu hoạt động trong ứng dụng React của bạn.
+> `LinkedStateMixin` chỉ là một lớp vỏ và quy ước xung quanh `onChange`/`setState()`. Về cơ bản, nó không thay đổi cách dữ liệu hoạt động trong ứng dụng React của bạn.
 
 ## LinkedStateMixin: Trước và sau {#linkedstatemixin-before-and-after}
 
@@ -70,18 +70,18 @@ var WithLink = createReactClass({
 });
 ```
 
-`LinkedStateMixin` thêm một phương thức vào thành phần React của bạn được gọi là `linkState()`. `linkState()` trả về một `valueLink` đối tượng chứa giá trị hiện tại của trạng thái React và một lệnh gọi lại để thay đổi nó.
+`LinkedStateMixin` thêm một phương thức vào thành phần React của bạn được gọi là `linkState()`. `linkState()` trả về một `valueLink` đối tượng chứa giá trị hiện tại của React và một lệnh gọi lại để thay đổi trạng thái của nó.
 
-`valueLink` object có thể được đưa lên và xuống "cây" làm props, vì vậy nó dễ dàng (và rõ ràng) để thiết lập ràng buộc hai chiều giữa một thành phần nằm sâu trong hệ thống phân cấp và trạng thái tồn tại cao hơn trong hệ thống phân cấp.
+`valueLink` object có thể được đưa lên và xuống "tree" làm props, vì vậy nó dễ dàng (và rõ ràng) dùng để thiết lập ràng buộc hai chiều giữa một thành phần nằm sâu trong hệ thống phân cấp và trạng thái tồn tại cao hơn trong hệ thống phân cấp.
 
-Lưu ý rằng các hộp kiểm có một hành vi đặc biệt liên quan đến thuộc tính `value`, là giá trị sẽ được gửi khi gửi biểu mẫu nếu hộp kiểm được chọn (mặc định là `on`). Thuộc tính `value` không được cập nhật khi hộp kiểm được chọn hoặc bỏ chọn. Đối với các hộp kiểm, bạn nên dùng `checkedLink` thay cho `valueLink`:
+Lưu ý rằng checkboxes có một hình thức đặc biệt liên quan đến thuộc tính `value`, là giá trị sẽ được truyền đi khi gửi biểu mẫu nếu checkboxes được chọn (mặc định là `on`). Thuộc tính `value` không được cập nhật khi hộp kiểm được chọn hoặc bỏ chọn. Đối với checkboxes, bạn nên dùng `checkedLink` thay cho `valueLink`:
 ```
 <input type="checkbox" checkedLink={this.linkState('booleanValue')} />
 ```
 
 ## Under the Hood {#under-the-hood}
 
-Có hai mặt để `LinkedStateMixin`: nơi bạn tạo ra `valueLink` và nơi bạn sử dụng nó. Để chứng minh một cách đơn giản `LinkedStateMixin` là gì, hãy viết lại từng bên riêng biệt để rõ ràng hơn.
+Có hai mặt trong `LinkedStateMixin`: nơi bạn tạo ra `valueLink` và nơi bạn sử dụng nó. Để chứng minh một cách đơn giản `LinkedStateMixin` là gì, hãy viết lại từng cái một để rõ ràng hơn.
 
 ### valueLink Without LinkedStateMixin {#valuelink-without-linkedstatemixin}
 
