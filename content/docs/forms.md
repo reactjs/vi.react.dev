@@ -9,11 +9,7 @@ redirect_from:
   - "docs/forms-zh-CN.html"
 ---
 
-<<<<<<< HEAD
 Trong React, HTML form element sẽ hoạt động hơi khác một chút so với các DOM element còn lại, form element sẽ giữ và tự xử lí một số state nội bộ (internal state) của riêng nó. Ví dụ như form dưới đây trong HTML sẽ nhận vào giá trị của input name.
-=======
-HTML form elements work a bit differently from other DOM elements in React, because form elements naturally keep some internal state. For example, this form in plain HTML accepts a single name:
->>>>>>> 0bb0303fb704147452a568472e968993f0729c28
 
 ```html
 <form>
