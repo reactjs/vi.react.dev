@@ -6,32 +6,32 @@ prev: create-a-new-react-app.html
 next: release-channels.html
 ---
 
-Both React and ReactDOM are available over a CDN.
+Cả React và ReactDOM đều có thể sử dụng thông qua một CDN
 
 ```html
 <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
 ```
 
-The versions above are only meant for development, and are not suitable for production. Minified and optimized production versions of React are available at:
+Những phiên bản trên đều chỉ được áp dụng cho phiên bản thử nghiệm, không phù hợp để đưa vào thực tế. Những phiên bản nhỏ gọn và tối ưu cho dự án thực tế là:
 
 ```html
 <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 ```
 
-To load a specific version of `react` and `react-dom`, replace `17` with the version number.
+Để chạy một phiên bản cụ thể của `react` và `react-dom`, thay thế `17` bằng số phiên bản.
 
-### Why the `crossorigin` Attribute? {#why-the-crossorigin-attribute}
+### Tại sao là thuộc tính `crossorigin`? {#why-the-crossorigin-attribute}
 
-If you serve React from a CDN, we recommend to keep the [`crossorigin`](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) attribute set:
+Nếu bạn sử dụng React từ một CDN, chúng tôi khuyến khích giữ lại thuộc tính [`crossorigin`](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes):
 
 ```html
 <script crossorigin src="..."></script>
 ```
 
-We also recommend to verify that the CDN you are using sets the `Access-Control-Allow-Origin: *` HTTP header:
+Chúng tôi cũng khuyến khích kiểm tra xem CDN của bạn đã thiết lập `Access-Control-Allow-Origin: *` vào HTTP header hay chưa:
 
 ![Access-Control-Allow-Origin: *](../images/docs/cdn-cors-header.png)
 
-This enables a better [error handling experience](/blog/2017/07/26/error-handling-in-react-16.html) in React 16 and later.
+Điều này sẽ tốt hơn cho [error handling experience](/blog/2017/07/26/error-handling-in-react-16.html) trong phiên bản React 16 hoặc hơn.
