@@ -39,11 +39,7 @@ Nếu bạn có hứng thú trải nghiệm các tính năng của React, bạn 
 
 Nếu bạn thích sử dụng trình soạn thảo code của riêng mình, bạn cũng có thể [tải xuống file HTML này](https://raw.githubusercontent.com/reactjs/reactjs.org/master/static/html/single-file-example.html), sửa và mở file này từ hệ thống tập tin trên trình duyệt của máy bạn. Thời gian dịch mã sẽ khá chậm, vì vậy chúng tôi khuyên bạn chỉ nên sử dụng phương pháp này với các demo đơn giản.
 
-<<<<<<< HEAD
 ### Thêm React vào một Website {#add-react-to-a-website}
-=======
-If you prefer to use your own text editor, you can also [download this HTML file](https://raw.githubusercontent.com/reactjs/reactjs.org/main/static/html/single-file-example.html), edit it, and open it from the local filesystem in your browser. It does a slow runtime code transformation, so we'd only recommend using this for simple demos.
->>>>>>> 0bb0303fb704147452a568472e968993f0729c28
 
 Bạn có thể [thêm React vào một trang HTML chỉ trong vòng một phút](/docs/add-react-to-a-website.html). Sau đó, bạn có thể dần dần mở rộng sự hiện diện của React hoặc giữ React trong một vài widget động.
 
@@ -122,11 +118,7 @@ Bạn cũng có thể theo dõi tài khoản [@reactjs](https://twitter.com/reac
 
 Không phải tất cả các bản phát hành của React đều có một bài blog riêng, nhưng bạn có thể tìm được thông tin thay đổi chi tiết cho mỗi bản phát hành trong [file `CHANGELOG.md` ở trong  React repository](https://github.com/facebook/react/blob/master/CHANGELOG.md), cũng như ở trong trang [Releases](https://github.com/facebook/react/releases).
 
-<<<<<<< HEAD
 ## Phiên bản của tài liệu {#versioned-documentation}
-=======
-Not every React release deserves its own blog post, but you can find a detailed changelog for every release in the [`CHANGELOG.md` file in the React repository](https://github.com/facebook/react/blob/main/CHANGELOG.md), as well as on the [Releases](https://github.com/facebook/react/releases) page.
->>>>>>> 0bb0303fb704147452a568472e968993f0729c28
 
 Tài liệu này luôn phản ánh phiên bản ổn định mới nhất của React. Kể từ React 16, bạn có thể tìm thấy các phiên bản cũ hơn của tài liệu trên một [trang riêng biệt](/versions). Lưu ý rằng tài liệu cho các phiên bản trước đây chỉ là một bản sao chép tại thời điểm phát hành phiên bản mới và sẽ không được cập nhật liên tục.
 
