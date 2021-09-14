@@ -180,11 +180,7 @@ React.cloneElement(
 )
 ```
 
-<<<<<<< HEAD
 Sao chép và trả về một React element mới bằng cách sử dụng `element` làm điểm bắt đầu. Element kết quả có các props của element gốc kết hợp nông (shallowly) với các props mới. Thành phần con mới sẽ thay thế thành phần con hiện có. `key` và `ref` từ element gốc sẽ được giữ nguyên.
-=======
-Clone and return a new React element using `element` as the starting point. `config` should contain all new props, `key`, or `ref`. The resulting element will have the original element's props with the new props merged in shallowly. New children will replace existing children. `key` and `ref` from the original element will be preserved if no `key` and `ref` present in the `config`.
->>>>>>> a11c2534062bd79cc1e6e34db0e149f928df35bb
 
 `React.cloneElement()` gần như là tương đương với:
 
@@ -192,11 +188,7 @@ Clone and return a new React element using `element` as the starting point. `con
 <element.type {...element.props} {...props}>{children}</element.type>
 ```
 
-<<<<<<< HEAD
 Tuy nhiên, nó cũng sẽ giữ lại các `ref`. Điều này có nghĩa rằng nếu bạn có một thành phần con cùng với một `ref` trên nó, bạn đã vô tình đánh cắp nó từ các thành phần cha. Bạn sẽ nhận được cùng `ref` đính kèm trên element mới của bạn.
-=======
-However, it also preserves `ref`s. This means that if you get a child with a `ref` on it, you won't accidentally steal it from your ancestor. You will get the same `ref` attached to your new element. The new `ref` or `key` will replace old ones if present.
->>>>>>> a11c2534062bd79cc1e6e34db0e149f928df35bb
 
 API này được giới thiệu như là một giải pháp thay thế cho `React.addons.cloneWithProps()` không được dùng nữa.
 
