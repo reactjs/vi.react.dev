@@ -123,11 +123,7 @@ Nếu bạn không có bước nén - thu nhỏ cho scripts, thì [đây là m�
 
 ## Tuỳ chọn: Trải nghiệm React với JSX {#optional-try-react-with-jsx}
 
-<<<<<<< HEAD
 Trong các ví dụ ở trên, chúng ta chỉ dựa trên các tính năng được hỗ trợ bởi trình duyệt. Đó chính là lý do tại sao chúng ta lại sử dụng lời gọi hàm của Javascript để gửi đến React những gì ta muốn hiển thị:
-=======
-In the examples above, we only relied on features that are natively supported by browsers. This is why we used a JavaScript function call to tell React what to display:
->>>>>>> 95e15d063b205007a92c52efb5311f76ad5a0b6c
 
 ```js
 const e = React.createElement;
@@ -163,11 +159,7 @@ Cách nhanh nhất để thử JSX trong project của bạn đó là thêm th�
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 ```
 
-<<<<<<< HEAD
 Bây giờ bạn có thể sử dụng JSX trong bất kì thẻ `<script>` nào bằng cách thêm thuộc tính `type="text/babel"` cho nó. Đây là [file HTML ví dụ với JSX](https://raw.githubusercontent.com/reactjs/reactjs.org/master/static/html/single-file-example.html) mà bạn có thể tải xuống và chạy thử nó.
-=======
-Now you can use JSX in any `<script>` tag by adding `type="text/babel"` attribute to it. Here is [an example HTML file with JSX](https://raw.githubusercontent.com/reactjs/reactjs.org/main/static/html/single-file-example.html) that you can download and play with.
->>>>>>> 95e15d063b205007a92c52efb5311f76ad5a0b6c
 
 Cách tiếp cận này khá ổn cho việc học và tạo các ví dụ demos đơn giản. Nhưng dù sao thì, nó cũng khiến cho website của bạn chậm và **không phù hợp cho môi trường production**. Khi bạn đã sẵn sàng để tiếp tục, hãy loại bỏ thẻ `<script>` này và thuộc tính `type="text/babel"` mà bạn vừa thêm. Thay vào đó, trong phần tiếp theo bạn sẽ thiết lập 1 bộ tiền xử lí (preprocessor) JSX để chuyển đổi các thẻ `<script>` một cách tự động.
 
