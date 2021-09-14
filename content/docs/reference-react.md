@@ -175,7 +175,7 @@ Mã được viết bằng [JSX](/docs/introducing-jsx.html) sẽ được chuy�
 ```
 React.cloneElement(
   element,
-  [props],
+  [config],
   [...children]
 )
 ```
