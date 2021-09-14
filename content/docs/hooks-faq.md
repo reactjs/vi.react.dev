@@ -990,7 +990,6 @@ Có một danh sách ngầm của “các vùng ghi nhớ” liên kết với t
 
 Hook tổng hợp ý tưởng từ nhiều nguồn khác nhau:
 
-<<<<<<< HEAD
 * Trãi nghiệm trước đây của chúng tôi với APIs functional trong repo [react-future](https://github.com/reactjs/react-future/tree/master/07%20-%20Returning%20State).
 * Kinh nghiệm từ cộng đồng sử dụng React với render prop APIs, gồm [Ryan Florence](https://github.com/ryanflorence)'s [Reactions Component](https://github.com/reactions/component).
 * [Dominic Gannaway](https://github.com/trueadm)'s [`adopt` keyword](https://gist.github.com/trueadm/17beb64288e30192f3aa29cad0218067) đề xuất một syntax đẹp hơn cho render props.
@@ -998,14 +997,5 @@ Hook tổng hợp ý tưởng từ nhiều nguồn khác nhau:
 * [Reducer components](https://reasonml.github.io/reason-react/docs/en/state-actions-reducer.html) trong ReasonReact.
 * [Subscriptions](http://reactivex.io/rxjs/class/es6/Subscription.js~Subscription.html) trong Rx.
 * [Algebraic effects](https://github.com/ocamllabs/ocaml-effects-tutorial#2-effectful-computations-in-a-pure-setting) trong Multicore OCaml.
-=======
-* Our old experiments with functional APIs in the [react-future](https://github.com/reactjs/react-future/tree/main/07%20-%20Returning%20State) repository.
-* React community's experiments with render prop APIs, including [Ryan Florence](https://github.com/ryanflorence)'s [Reactions Component](https://github.com/reactions/component).
-* [Dominic Gannaway](https://github.com/trueadm)'s [`adopt` keyword](https://gist.github.com/trueadm/17beb64288e30192f3aa29cad0218067) proposal as a sugar syntax for render props.
-* State variables and state cells in [DisplayScript](http://displayscript.org/introduction.html).
-* [Reducer components](https://reasonml.github.io/reason-react/docs/en/state-actions-reducer.html) in ReasonReact.
-* [Subscriptions](http://reactivex.io/rxjs/class/es6/Subscription.js~Subscription.html) in Rx.
-* [Algebraic effects](https://github.com/ocamllabs/ocaml-effects-tutorial#2-effectful-computations-in-a-pure-setting) in Multicore OCaml.
->>>>>>> 0bb0303fb704147452a568472e968993f0729c28
 
 [Sebastian Markbåge](https://github.com/sebmarkbage) nghĩ ra thiết kế đầu tiên cho Hook, sau đó được chỉnh sửa bởi [Andrew Clark](https://github.com/acdlite), [Sophie Alpert](https://github.com/sophiebits), [Dominic Gannaway](https://github.com/trueadm), và các thành viên khác trong React team.
