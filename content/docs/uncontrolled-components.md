@@ -45,7 +45,7 @@ Nếu những giải thích trên vẫn chưa rõ về loại component sử d�
 
 ### Giá trị mặc định {#default-values}
 
-Trong vòng đời render component React, thuộc tính `value` của các thành phần trong form sẽ override các giá trị trong DOM. Với uncontrolled component, bạn thường cần sử dụng React để chỉ định giá trị mặc định, nhưng bạn không thể kiểm soát được các bản thay đổi ở phía sau. Để xử lí trong trường hợp này, bạn phải chỉ định giá trị của `defaultValue` thay vì `value`. Việc thay đổi giá trị của `defaultValue` sau khi component được mounted sẽ không làm cập nhật giá trị trên cây DOM.
+Trong vòng đời render component React, thuộc tính `value` của các thành phần trong form sẽ override các giá trị trong DOM. Với uncontrolled component, bạn thường cần sử dụng React để chỉ định giá trị mặc định, nhưng bạn không thể kiểm soát được các bản thay đổi ở phía sau (nếu bạn dùng `value` mỗi khi form render, nó sẽ luôn gán giá trị này cho input). Để xử lí trong trường hợp này, bạn phải chỉ định giá trị của `defaultValue` thay vì `value`. Việc thay đổi giá trị của `defaultValue` sau khi component được mounted sẽ không làm cập nhật giá trị trên cây DOM.
 
 ```javascript{7}
 render() {
