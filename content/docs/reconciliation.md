@@ -4,32 +4,32 @@ title: Reconciliation
 permalink: docs/reconciliation.html
 ---
 
-React cung cấp một API khai báo để bạn không phải lo lắng về những thay đổi chính xác trên mỗi bản cập nhật. Điều này làm cho việc viết ứng dụng trở nên dễ dàng hơn rất nhiều, nhưng có thể không rõ ràng điều này được thực hiện như thế nào trong React. Bài viết này giải thích các lựa chọn mà chúng tôi đã thực hiện trong thuật toán "khác biệt" của React để các bản cập nhật thành phần có thể dự đoán được trong khi vẫn đủ nhanh cho các ứng dụng hiệu suất cao.
+React cung cấp một API tự động xác định những nơi bị thay đổi sau những lần cập nhật. Điều này làm cho việc viết ứng dụng trở nên dễ dàng hơn rất nhiều, nhưng có thể bạn muốn tìm hiểu thêm về cách React xác định những thay đổi trong DOM như thế nào. Bài viết này sẽ giải thích cách mà React đã thực hiện trong thuật toán "diffing" để đưa ra quyết định cập nhật components của bạn một cách có kiểm soát và đảm bảo performance (hiệu năng) của ứng dụng.
 
 ## Motivation {#motivation}
 
-Khi bạn sử dụng React, tại một thời điểm nào đó, bạn có thể nghĩ `render()` function giống như việc tạo một tree (cây) các React element. Trong lần cập nhật state hoặc props tiếp theo, `render()` function đó sẽ trả về một cây các React element khác. Sau đó, React cần tìm ra cách cập nhật giao diện người dùng (UI) một cách hiệu quả để phù hợp với cây gần đây nhất.
+Khi bạn sử dụng React, tại một thời điểm nào đó, bạn có nhận ra function (hàm) `render()` giống như việc tạo một tree (cây) các React element. Trong lần cập nhật state hoặc props tiếp theo, function `render()` đó sẽ trả về một tree các React element khác. Sau đó, React cần tìm ra cách cập nhật UI (giao diện người dùng) một cách hiệu quả để phù hợp với tree gần đây nhất.
 
-Có một số giải pháp chung cho vấn đề algorithmic (thuật toán) này là tạo ra số lượng phép toán tối thiểu để biến đổi một tree này thành một tree khác. Tuy nhiên, [state of the art algorithms (các thuật toán hiện đại)](https://grfia.dlsi.ua.es/ml/algorithms/references/editsurvey_bille.pdf) có độ phức tạp theo thứ tự là O(n<sup>3</sup>) trong đó n là số phần tử trong cây.
+Có một số giải pháp chung cho vấn đề algorithmic (thuật toán) này là tạo ra số lượng phép toán tối thiểu để biến đổi một tree này thành một tree khác. Tuy nhiên, [state of the art algorithms (các thuật toán hiện đại)](https://grfia.dlsi.ua.es/ml/algorithms/references/editsurvey_bille.pdf) có độ phức tạp theo thứ tự là O(n<sup>3</sup>) trong đó n là số phần tử trong tree.
 
-Nếu chúng tôi sử dụng điều này trong React, việc hiển thị 1000 phần tử sẽ yêu cầu theo thứ tự của một tỷ phép so sánh. Đây là sự trả giá quá đắt. Thay vào đó, React triển khai thuật toán heuristic O(n) dựa trên hai giả định:
+Nếu chúng tôi sử dụng điều này trong React, việc hiển thị 1000 phần tử sẽ yêu cầu cần phải chạy lên đến một tỷ phép so sánh. Đó quả là một sự trả giá quá đắt. Thay vào đó, React triển khai thuật toán heuristic O(n) dựa trên hai giả định:
 
-1. Hai yếu tố của các loại khác nhau sẽ tạo ra các tree khác nhau.
-2. Developer có thể gợi ý tại các child element để có thể ổn định trên các kết xuất khác nhau bằng một `key` prop.
+1. Hai element khác loại nhau sẽ tạo ra các tree khác nhau.
+2. Developer có thể gợi ý tại các child element để có thể ổn định trên các hiển thị khác nhau bằng một `key` prop.
 
 Trong thực tế, những giả định này có giá trị đối với hầu hết các trường hợp sử dụng thực tế.
 
 ## The Diffing Algorithm {#the-diffing-algorithm}
 
-Khi khác biệt hai tree, React đầu tiên sẽ so sánh hai root element. Hành vi khác nhau tùy thuộc vào loại của các root element.
+Khi hai tree khác nhau, React đầu tiên sẽ so sánh hai root element. Hành vi khác nhau tùy thuộc vào loại của các root element.
 
 ### Elements Of Different Types (Khác loại) {#elements-of-different-types}
 
 Bất cứ khi nào các root element có nhiều loại khác nhau, React sẽ phá bỏ tree cũ và xây dựng tree mới từ đầu. Đi từ `<a>` đến `<img>`, hoặc từ `<Article>` đến `<Comment>`, hoặc từ `<Button>` đến `<div>` - bất kỳ điều gì trong số đó sẽ dẫn đến việc xây dựng lại toàn bộ.
 
-Khi phá bỏ một tree, các DOM node cũ sẽ bị destroy (phá hủy). Component instances nhận `componentWillUnmount()`. Khi xây dựng một tree mới, các DOM node mới sẽ được chèn vào DOM. Component instances nhận `UNSAFE_componentWillMount()` và sau đó là `componentDidMount()`. Trạng thái nào gắn với tree cũ đều bị mất.
+Khi phá bỏ một tree, các DOM node cũ sẽ bị destroy (phá hủy). Component instances nhận `componentWillUnmount()`. Khi xây dựng một tree mới, các DOM node mới sẽ được chèn vào DOM. Component instances nhận `UNSAFE_componentWillMount()` và sau đó là `componentDidMount()`. Bất kỳ state nào gắn với tree cũ đều sẽ bị mất đi.
 
-Bất kỳ component nào bên dưới root cũng sẽ bị unmounted (ngắt kết nối) và state của chúng bị destroy. Ví dụ, khi khác nhau:
+Bất kỳ component nào bên dưới root cũng sẽ bị unmounted (ngắt kết nối) và state của chúng sẽ bị destroy. Ví dụ, khi diffing:
 
 ```xml
 <div>
@@ -45,7 +45,7 @@ Thao tác này sẽ destroy `Counter` cũ và remount (gắn lại) một `Count
 
 >Ghi chú:
 >
->Các method này được coi là legacy (kế thừa) và bạn nên [tránh chúng](/blog/2018/03/27/update-on-async-rendering.html) trong code mới:
+>Các method này được coi là legacy (đã lỗi thời) và bạn nên [tránh chúng](/blog/2018/03/27/update-on-async-rendering.html) trong code mới:
 >
 >- `UNSAFE_componentWillMount()`
 
@@ -75,20 +75,20 @@ Sau khi xử lý DOM node, React sau đó sẽ lặp lại trên các children (
 
 ### Component Elements Of The Same Type {#component-elements-of-the-same-type}
 
-Khi một component cập nhật, phiên bản vẫn giữ nguyên, do đó state đó được duy trì qua các lần render (hiển thị). React cập nhật các prop của cá thể component bên dưới để khớp với element mới và gọi `UNSAFE_componentWillReceiveProps()`, `UNSAFE_componentWillUpdate()` và `componentDidUpdate()` trên cá thể bên dưới.
+Khi một component được cập nhật, trường hợp vẫn như cũ, thì state đó được duy trì qua các lần render (hiển thị). React cập nhật các prop của các component instance bên dưới để khớp với element mới và gọi `UNSAFE_componentWillReceiveProps()`, `UNSAFE_componentWillUpdate()` và `componentDidUpdate()` trên cá thể bên dưới.
 
 Tiếp theo, `render()` method được gọi và thuật toán diff lặp lại trên kết quả trước đó và kết quả mới.
 
 >Ghi chú:
 >
->Các phương pháp này được coi là legacy và bạn nên và bạn nên [tránh chúng](/blog/2018/03/27/update-on-async-rendering.html) trong code mới:
+>Các method này được coi là legacy (đã lỗi thời) và bạn nên [tránh chúng](/blog/2018/03/27/update-on-async-rendering.html) trong code mới:
 >
 >- `UNSAFE_componentWillUpdate()`
 >- `UNSAFE_componentWillReceiveProps()`
 
 ### Recursing On Children {#recursing-on-children}
 
-Theo mặc định, khi recursing (đệ quy) trên các children của một DOM node, React chỉ lặp lại trên cả hai danh sách children cùng một lúc và tạo ra đột biến bất cứ khi nào có sự khác biệt.
+Theo mặc định, khi recursing (đệ quy) trên các children của một DOM node, React chỉ lặp lại trên cả hai danh sách children cùng một lúc và tạo ra một sự biến đổi bất cứ khi nào thấy sự khác biệt.
 
 Ví dụ: khi thêm một element vào cuối phần tử children, việc chuyển đổi giữa hai tree này hoạt động tốt:
 
@@ -105,9 +105,9 @@ Ví dụ: khi thêm một element vào cuối phần tử children, việc chuy�
 </ul>
 ```
 
-React sẽ so khớp hai tree `<li>first</li>`, so khớp hai tree `<li>second</li>`, sau đó chèn tree `<li>third</li>`.
+React sẽ so sánh và thấy khớp giữa hai tree `<li>first</li>`, tương tự hai tree `<li>second</li>` và sau đó chèn tree `<li>third</li>`.
 
-Nếu bạn triển khai nó một cách ngây thơ, việc chèn một element vào đầu sẽ có hiệu suất kém hơn. Ví dụ: chuyển đổi giữa hai tree này đang hoạt động kém:
+Nếu bạn triển khai nó một cách ngây thơ, đơn thuần thì việc chèn một element vào đầu sẽ có thể gây ra hiệu suất kém hơn. Ví dụ: chuyển đổi giữa hai tree này đang hoạt động kém:
 
 ```xml
 <ul>
@@ -126,7 +126,7 @@ React sẽ thay đổi mọi child thay vì nhận ra rằng nó có thể giữ
 
 ### Keys {#keys}
 
-Để giải quyết vấn đề này, React hỗ trợ một `key` attribute. Khi children có key, React sử dụng key để ghép những children ở tree ban đầu với những children ở tree tiếp theo. Ví dụ: thêm một `key` vào ví dụ kém hiệu quả của chúng tôi ở trên có thể làm cho việc chuyển đổi tree trở nên hiệu quả:
+Để giải quyết vấn đề này, React hỗ trợ một `key` attribute. Khi children có key, React sử dụng key để ghép những children ở tree ban đầu với những children ở tree tiếp theo. Ví dụ: thêm một `key` vào từ ví dụ kém hiệu quả của chúng tôi ở trên có thể làm cho việc chuyển đổi tree trở nên có hiệu quả hơn:
 
 ```xml
 <ul>
