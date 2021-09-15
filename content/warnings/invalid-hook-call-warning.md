@@ -10,7 +10,7 @@ permalink: warnings/invalid-hook-call-warning.html
 
 Có ba nguyên nhân phổ biến bạn có thể thấy:
 1. Bạn có thể có **phiên bản không trùng khớp** của React và React DOM.
-2. Bạn có thể đang **vi phạm [Quy tắc của Hooks](/docs/hooks-rules.html)**.
+2. Bạn có thể đang **vi phạm [Rules of Hooks](/docs/hooks-rules.html)**.
 3. Bạn có thể đang có **một hoặc nhiều hơn bản React** trong cùng một ứng dụng.
 
 Hãy nhìn vào từng trường hợp ở dưới đaay.
@@ -26,7 +26,7 @@ Bạn chỉ có thể gọi Hooks **trong khi React đang xuất một function 
 * ✅ Gọi nó ở đầu phần thân của một function component.
 * ✅ Gọi nó ở đầu phần thân của một [custom Hook](/docs/hooks-custom.html).
 
-**Tìm hiệu thêm về điều này ở [Quy tắc của Hooks](/docs/hooks-rules.html).**
+**Tìm hiệu thêm về điều này ở [Rules of Hooks](/docs/hooks-rules.html).**
 
 ```js{2-3,8-9}
 function Counter() {
