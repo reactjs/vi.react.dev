@@ -1,9 +1,9 @@
 ---
-title: JSFiddle Integration
+title: Tích hợp JSFiddle
 author: [vjeux]
 ---
 
-[JSFiddle](https://jsfiddle.net) just announced support for React. This is an exciting news as it makes collaboration on snippets of code a lot easier. You can play around this **[base React JSFiddle](http://jsfiddle.net/vjeux/kb3gN/)**, fork it and share it! A [fiddle without JSX](http://jsfiddle.net/vjeux/VkebS/) is also available.
+[JSFiddle](https://jsfiddle.net) vừa mới thông báo hỗ trợ cho React. Đây là một tin thú vị vì nó giúp cho việc cộng tác với các đoạn code trở nên dễ dàng hơn rất nhiều. Bạn có thể làm việc với **[nền tảng React JSFiddle](http://jsfiddle.net/vjeux/kb3gN/)**, sửa đổi và chia sẻ nó! Một [fiddle không cần JSX](http://jsfiddle.net/vjeux/VkebS/) cũng đã có.
 
 
-<blockquote class="twitter-tweet" align="center"><p>React (by Facebook) is now available on JSFiddle. <a href="http://t.co/wNQf9JPv5u" title="http://facebook.github.io/react/">facebook.github.io/react/</a></p>&mdash; JSFiddle (@jsfiddle) <a href="https://twitter.com/jsfiddle/status/341114115781177344">June 2, 2013</a></blockquote>
+<blockquote class="twitter-tweet" align="center"><p>React (bởi Facebook) hiện đã có trên JSFiddle. <a href="http://t.co/wNQf9JPv5u" title="http://facebook.github.io/react/">facebook.github.io/react/</a></p>&mdash; JSFiddle (@jsfiddle) <a href="https://twitter.com/jsfiddle/status/341114115781177344">Ngày 2 tháng 6 năm 2013</a></blockquote>
