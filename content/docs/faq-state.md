@@ -6,7 +6,7 @@ layout: docs
 category: FAQ
 ---
 
-### `setState` làm gì? {#what-does-setstate-do}
+### `setState` để làm gì? {#what-does-setstate-do}
 
 `setState()` lên lịch cập nhật cho một object `state` của component. Khi state thay đổi, component phản hồi bằng cách hiển thị lại.
 
@@ -14,7 +14,7 @@ category: FAQ
 
 [`props`](/docs/components-and-props.html) (viết tắt của "properties") và [`state`](/docs/state-and-lifecycle.html) đều là các object JavaScript đơn giản. Mặc dù cả hai đều nắm giữ thông tin ảnh hưởng đến kết quả hiển thị, nhưng chúng khác nhau ở một điểm quan trọng: `props` được chuyển *cho* component (tương tự như các tham số function) nhưng trái lại `state` được quản lý *trong* component (tương tự như các biến được khai báo trong một function).
 
-Dưới đây là một số tài nguyên tốt để đọc thêm về thời điểm sử dụng `props` so với `state`:
+Dưới đây là một số nguồn tốt để đọc thêm về thời điểm sử dụng `props` so với `state`:
 * [Props với State](https://github.com/uberVU/react-guide/blob/master/props-vs-state.md)
 * [ReactJS: Props với State](https://lucybain.com/blog/2016/react-state-vs-pros/)
 
