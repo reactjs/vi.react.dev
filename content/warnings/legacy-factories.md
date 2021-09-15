@@ -4,7 +4,7 @@ layout: single
 permalink: warnings/legacy-factories.html
 ---
 
-You probably came here because your code is calling your component as a plain function call. This is now deprecated:
+Bạn có thể đã đến đây bởi vì đoạn mã của bạn đang gọi thành phần (component) như một cách gọi hàm đơn giản. Cách này bây giờ đã không còn sử dụng nữa:
 
 ```javascript
 var MyComponent = require('MyComponent');
@@ -16,7 +16,7 @@ function render() {
 
 ## JSX {#jsx}
 
-React components can no longer be called directly like this. Instead [you can use JSX](/docs/jsx-in-depth.html).
+React components không còn được gọi một cách trực tiếp như vầy. Thay vào đó [bạn có thể sử dụng JSX](/docs/jsx-in-depth.html).
 
 ```javascript
 var React = require('react');
@@ -27,9 +27,9 @@ function render() {
 }
 ```
 
-## Without JSX {#without-jsx}
+## Không sử dụng JSX {#without-jsx}
 
-If you don't want to, or can't use JSX, then you'll need to wrap your component in a factory before calling it:
+Nếu bạn không muốn, hoặc không thể sử dụng JSX, thì bạn sẽ cần bọc thành phần (component) của bạn trong một factory trước khi gọi nó:
 
 ```javascript
 var React = require('react');
@@ -40,11 +40,11 @@ function render() {
 }
 ```
 
-This is an easy upgrade path if you have a lot of existing function calls.
+Đây là một cách nâng cấp dễ dàng nếu bạn đã có nhiều lời gọi hàm (function call) tồn tại.
 
-## Dynamic components without JSX {#dynamic-components-without-jsx}
+## Những thành phần động mà không có JSX {#dynamic-components-without-jsx}
 
-If you get a component class from a dynamic source, then it might be unnecessary to create a factory that you immediately invoke. Instead you can just create your element inline:
+Nếu bạn lấy được một class component từ mã nguồn động, thì không cần thiết tạo một factory cái mà bạn thực hiện một cách tức thì. Thay vào đó, bạn chỉ cần tạo những phần tử nội tuyến:
 
 ```javascript
 var React = require('react');
@@ -54,6 +54,6 @@ function render(MyComponent) {
 }
 ```
 
-## In Depth {#in-depth}
+## Chuyên sâu {#in-depth}
 
-[Read more about WHY we're making this change.](https://gist.github.com/sebmarkbage/d7bce729f38730399d28)
+[Đọc thêm về TẠI SAO chúng tôi thực hiện thay đổi này.](https://gist.github.com/sebmarkbage/d7bce729f38730399d28)

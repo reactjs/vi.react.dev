@@ -40,7 +40,7 @@ render() {
 }
 ```
 
-Một trường hợp thưởng dùng Portals là khi một thành phần mẹ có thuộc tính `overflow: hidden` hoặc `z-index`, nhưng bạn muốn hiển thị nó một cách "độc lập" khỏi thành phần mẹ. Ví dụ, các hộp thoại (dialogs), hovercards, và tooltips.
+Một trường hợp thuờng dùng Portals là khi một thành phần mẹ có thuộc tính `overflow: hidden` hoặc `z-index`, nhưng bạn muốn hiển thị nó một cách "độc lập" khỏi thành phần mẹ. Ví dụ, các hộp thoại (dialogs), hovercards, và tooltips.
 
 > Lưu ý:
 >
@@ -65,7 +65,7 @@ Bao gồm các event bubbling. Một sự kiện được kích hoạt từ bên
 </html>
 ```
 
-Một phần tử `Parent` trong `#app-root` sẽ có thể bắt được một bubbling event chưa được bắt từ sibling node `#modal-root`.
+Một thành phần `Parent` trong `#app-root` sẽ có thể bắt được một bubbling event chưa được bắt từ sibling node `#modal-root`.
 
 ```js{28-31,42-49,53,61-63,70-71,74}
 // Đây là 2 container cùng cấp trong DOM

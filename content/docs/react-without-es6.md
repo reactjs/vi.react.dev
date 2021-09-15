@@ -1,10 +1,10 @@
 ---
 id: react-without-es6
-title: React Without ES6
+title: React Không Dùng ES6
 permalink: docs/react-without-es6.html
 ---
 
-Normally you would define a React component as a plain JavaScript class:
+Thông thường, bạn sẽ định nghĩa một React component như là một JavaScript class:
 
 ```javascript
 class Greeting extends React.Component {
@@ -14,7 +14,7 @@ class Greeting extends React.Component {
 }
 ```
 
-If you don't use ES6 yet, you may use the `create-react-class` module instead:
+Nếu bạn chưa sử dụng ES6, bạn có thể sử dụng `create-react-class` module để thay thế:
 
 
 ```javascript
@@ -26,11 +26,11 @@ var Greeting = createReactClass({
 });
 ```
 
-The API of ES6 classes is similar to `createReactClass()` with a few exceptions.
+API của các ES6 class tương tự như `createReactClass()` với một vài trường hợp ngoại lệ.
 
-## Declaring Default Props {#declaring-default-props}
+## Khai báo Props mặc định {#declaring-default-props}
 
-With functions and ES6 classes `defaultProps` is defined as a property on the component itself:
+Với các function và các ES6 class, `defaultProps` được định nghĩa như là một property trên chính component:
 
 ```javascript
 class Greeting extends React.Component {
@@ -42,7 +42,7 @@ Greeting.defaultProps = {
 };
 ```
 
-With `createReactClass()`, you need to define `getDefaultProps()` as a function on the passed object:
+Với `createReactClass()`, bạn cần xác định `getDefaultProps()` như là một function trên đối tượng được truyền:
 
 ```javascript
 var Greeting = createReactClass({
@@ -57,9 +57,9 @@ var Greeting = createReactClass({
 });
 ```
 
-## Setting the Initial State {#setting-the-initial-state}
+## Cài đặt State ban đầu {#setting-the-initial-state}
 
-In ES6 classes, you can define the initial state by assigning `this.state` in the constructor:
+Trong các ES6 class, bạn cần định nghĩa state ban đầu bằng cách gán `this.state` bên trong constructor:
 
 ```javascript
 class Counter extends React.Component {
@@ -71,7 +71,7 @@ class Counter extends React.Component {
 }
 ```
 
-With `createReactClass()`, you have to provide a separate `getInitialState` method that returns the initial state:
+Với `createReactClass()`, bạn phải cung cấp một `getInitialState` method trả về state ban đầu::
 
 ```javascript
 var Counter = createReactClass({
@@ -84,7 +84,7 @@ var Counter = createReactClass({
 
 ## Autobinding {#autobinding}
 
-In React components declared as ES6 classes, methods follow the same semantics as regular ES6 classes. This means that they don't automatically bind `this` to the instance. You'll have to explicitly use `.bind(this)` in the constructor:
+Trong các React component được khai báo như là các ES6 class, các method tuân theo ngữ nghĩa giống như các ES6 class thông thường. Điều này có nghĩa là chúng không tự động bind `this` đến instance. Bạn sẽ phải sử dụng rõ ràng `.bind(this)` bên trong constructor:
 
 ```javascript
 class SayHello extends React.Component {
@@ -110,7 +110,7 @@ class SayHello extends React.Component {
 }
 ```
 
-With `createReactClass()`, this is not necessary because it binds all methods:
+Với `createReactClass()`, điều này là không cần thiết vì nó sẽ bind tất cả các method:
 
 ```javascript
 var SayHello = createReactClass({
@@ -132,9 +132,9 @@ var SayHello = createReactClass({
 });
 ```
 
-This means writing ES6 classes comes with a little more boilerplate code for event handlers, but the upside is slightly better performance in large applications.
+Điều này có nghĩa là viết các ES6 class đi kèm với một chút code soạn sẵn cho các trình xử lý event, nhưng mặt trái của nó là performance tốt hơn một chút trong các ứng dụng lớn.
 
-If the boilerplate code is too unattractive to you, you may enable the **experimental** [Class Properties](https://babeljs.io/docs/plugins/transform-class-properties/) syntax proposal with Babel:
+Nếu code soạn sẵn quá không hấp dẫn đối với bạn, bạn có thể bật **experimental** [Class Properties](https://babeljs.io/docs/plugins/transform-class-properties/) syntax proposal với Babel:
 
 
 ```javascript
@@ -159,27 +159,27 @@ class SayHello extends React.Component {
 }
 ```
 
-Please note that the syntax above is **experimental** and the syntax may change, or the proposal might not make it into the language.
+Xin lưu ý rằng cú pháp ở trên là **experimental** và cú pháp có thể thay đổi, hoặc đề xuất có thể không biến nó thành ngôn ngữ.
 
-If you'd rather play it safe, you have a few options:
+Nếu bạn muốn an toàn hơn, bạn có thể có một số lựa chọn bên dưới:
 
-* Bind methods in the constructor.
-* Use arrow functions, e.g. `onClick={(e) => this.handleClick(e)}`.
-* Keep using `createReactClass`.
+* Bind methods bên trong constructor.
+* Sử dụng arrow functions, e.g. `onClick={(e) => this.handleClick(e)}`.
+* Tiếp tục sử dụng `createReactClass`.
 
 ## Mixins {#mixins}
 
->**Note:**
+>**Ghi chú:**
 >
->ES6 launched without any mixin support. Therefore, there is no support for mixins when you use React with ES6 classes.
+>ES6 ra mắt mà không có bất kỳ hỗ trợ mixin nào. Do đó, sẽ không có hỗ trợ cho các mixin khi bạn sử dụng React với các ES6 class.
 >
->**We also found numerous issues in codebases using mixins, [and don't recommend using them in the new code](/blog/2016/07/13/mixins-considered-harmful.html).**
+>**Chúng tôi cũng tìm thấy nhiều vấn đề trong các codebase sử dụng các mixin [và không khuyên bạn sử dụng chúng trong code mới](/blog/2016/07/13/mixins-considered-harmful.html).**
 >
->This section exists only for the reference.
+>Phần này chỉ để tham khảo.
 
-Sometimes very different components may share some common functionality. These are sometimes called [cross-cutting concerns](https://en.wikipedia.org/wiki/Cross-cutting_concern). `createReactClass` lets you use a legacy `mixins` system for that.
+Đôi khi các component rất khác nhau có thể chia sẻ một số chức năng chung. Đây đôi khi được gọi là [cross-cutting concerns](https://en.wikipedia.org/wiki/Cross-cutting_concern). `createReactClass` cho phép bạn sử dụng hệ thống `mixins` kế thừa cho việc đó.
 
-One common use case is a component wanting to update itself on a time interval. It's easy to use `setInterval()`, but it's important to cancel your interval when you don't need it anymore to save memory. React provides [lifecycle methods](/docs/react-component.html#the-component-lifecycle) that let you know when a component is about to be created or destroyed. Let's create a simple mixin that uses these methods to provide an easy `setInterval()` function that will automatically get cleaned up when your component is destroyed.
+Một trường hợp sử dụng phổ biến là một component muốn tự cập nhật trong một khoảng thời gian (time interval). Thật dễ dàng để sử dụng `setInterval()`, nhưng điều quan trọng là phải hủy interval của bạn khi bạn không cần nó nữa để tiết kiệm bộ nhớ. React cung cấp các [lifecycle methods](/docs/react-component.html#the-component-lifecycle) cho bạn biết khi nào một component sắp được tạo hoặc bị phá hủy. Hãy tạo một mixin đơn giản sử dụng các method này để cung cấp một `setInterval()` function dễ dàng sẽ tự động được dọn dẹp khi component của bạn bị phá hủy.
 
 ```javascript
 var SetIntervalMixin = {
@@ -222,4 +222,4 @@ ReactDOM.render(
 );
 ```
 
-If a component is using multiple mixins and several mixins define the same lifecycle method (i.e. several mixins want to do some cleanup when the component is destroyed), all of the lifecycle methods are guaranteed to be called. Methods defined on mixins run in the order mixins were listed, followed by a method call on the component.
+Nếu một component đang sử dụng nhiều mixin và một số mixin xác định cùng một lifecycle method (tức là một số mixin muốn thực hiện một số dọn dẹp khi component bị phá hủy), tất cả các lifecycle method được đảm bảo sẽ được gọi. Các method được xác định trên các mixin chạy theo thứ tự các mixin được liệt kê, theo sau là một lệnh gọi method trên component.
