@@ -5,7 +5,7 @@
     - id: add-react-to-a-website
       title: Thêm React vào một Website
     - id: create-a-new-react-app
-      title: Tạo một ứng dụng React mới
+      title: Tạo một App React mới
     - id: cdn-links
       title: Các liên kết CDN 
     - id: release-channels
@@ -62,11 +62,11 @@
     - id: portals
       title: Portals
     - id: profiler
-      title: Profiler
+      title: Phân tích (Profiler)
     - id: react-without-es6
-      title: React không sử dụng ES6
+      title: React nhưng không sử dụng ES6
     - id: react-without-jsx
-      title: React không sử dụng JSX
+      title: React nhưng không sử dụng JSX
     - id: reconciliation
       title: Reconciliation
     - id: refs-and-the-dom
@@ -78,7 +78,7 @@
     - id: strict-mode
       title: Strict Mode
     - id: typechecking-with-proptypes
-      title: Typechecking With PropTypes
+      title: Kiểm tra kiểu với PropTypes
     - id: uncontrolled-components
       title: Uncontrolled Components
     - id: web-components
@@ -103,9 +103,9 @@
     - id: test-renderer
       title: Test Renderer
     - id: javascript-environment-requirements
-      title: JS Environment Requirements
+      title: Yêu cầu môi trường JS
     - id: glossary
-      title: Glossary
+      title: Bảng chú giải
 - title: Hooks
   isOrdered: true
   items:
@@ -124,26 +124,26 @@
       - id: hooks-reference
         title: Tham chiếu Hooks API
       - id: hooks-faq
-        title: Hooks FAQ
-- title: Testing
+        title: Hooks và các câu hỏi thường gặp
+- title: Kiểm thử
   items:
     - id: testing
-      title: Testing Overview
+      title: Tổng quan kiểm thử
     - id: testing-recipes
-      title: Testing Recipes
+      title: Phương thức kiểu thử
     - id: testing-environments
-      title: Testing Environments
-- title: Contributing
+      title: Môi trường kiểm thử
+- title: Đóng góp
   items:
     - id: how-to-contribute
       title: Làm sao để đóng góp
     - id: codebase-overview
-      title: Codebase Overview
+      title: Tổng quan về Codebase
     - id: implementation-notes
-      title: Implementation Notes
+      title: Ghi chú Triển khai
     - id: design-principles
-      title: Design Principles
-- title: FAQ
+      title: Nguyên tắc thiết kế
+- title: Cầu hỏi thường gặp
   items:
     - id: faq-ajax
       title: AJAX và APIs
@@ -156,8 +156,8 @@
     - id: faq-styling
       title: Styling và CSS
     - id: faq-structure
-      title: File Structure
+      title: Cấu trúc File
     - id: faq-versioning
-      title: Versioning Policy
+      title: Quy tắc đặt tên phiên bản
     - id: faq-internals
       title: Virtual DOM and Internals
