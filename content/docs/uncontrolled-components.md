@@ -39,9 +39,9 @@ class NameForm extends React.Component {
 
 [**Xem ví dụ trên CodePen**](https://codepen.io/gaearon/pen/WooRWa?editors=0010)
 
-Vì uncontrolled component chỉ dựa trên DOM, điều này khiến việc tương tác với code React và non-React khá dễ dàng. Nếu bạn muốn code nhanh và bẩn, uncontrolled component có thể giúp bạn code ít code hơn. Nếu không, bạn nên sử dụng controlled components.
+Vì uncontrolled component chỉ dựa trên DOM, điều này khiến việc tương tác với code React và non-React khá dễ dàng. Nếu bạn muốn code nhanh và bẩn, uncontrolled components có thể giúp bạn code ít code hơn. Nếu không, bạn nên sử dụng controlled components.
 
-Nếu những giải thích trên vẫn chưa rõ về loại component sử dụng cho các trường hợp cụ thể, bạn có thể tìm thêm ở [bài viết về controlled và uncontrolled inputs](https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/)..
+Nếu những giải thích trên vẫn chưa rõ về loại component sử dụng cho các trường hợp cụ thể, bạn có thể tìm thêm ở [bài viết về controlled và uncontrolled inputs](https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/).
 
 ### Giá trị mặc định {#default-values}
 
@@ -80,5 +80,5 @@ Bạn nên sử dụng File API để tương tác với những files này. Ví
 
 `embed:uncontrolled-components/input-type-file.js`
 
-[**Xem ví dụ trên CodePen**](codepen://uncontrolled-components/input-type-file)
+[](codepen://uncontrolled-components/input-type-file)
 
