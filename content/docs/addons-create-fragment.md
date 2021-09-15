@@ -6,11 +6,11 @@ layout: docs
 category: Add-Ons
 ---
 
-> Note:
+> Chú ý:
 >
-> `React.addons` entry point is deprecated as of React v15.5. We now have first class support for fragments which you can read about [here](/docs/fragments.html).
+> `React.addons` entry point không được dùng kể từ React v15.5. Hiện đã có hỗ trợ tốt nhất, bạn có thể đọc thêm tại  [đây](/docs/fragments.html).
 
-## Importing {#importing}
+## Tiến hành triển khai {#importing}
 
 ```javascript
 import createFragment from 'react-addons-create-fragment'; // ES6
@@ -19,9 +19,9 @@ var createFragment = require('react-addons-create-fragment'); // ES5 with npm
 
 ## Overview {#overview}
 
-In most cases, you can use the `key` prop to specify keys on the elements you're returning from `render`. However, this breaks down in one situation: if you have two sets of children that you need to reorder, there's no way to put a key on each set without adding a wrapper element.
+Trong hầu hết các trường hợp, bạn sẽ sử dụng `key` để hỗ trợ chỉ định các khóa trên các phần từ mà bạn đang trả về sau khi `render`. Tuy nhiên, điều này phá phỡ một trường hợp: nếu bạn có hai nhóm con cần sắp xếp lại, ta sẽ không có cách nào để đặt một khóa trên mỗi tập hợp mà không thêm một wrapper element.
 
-That is, if you have a component such as:
+Nếu bạn có một component như sau:
 
 ```js
 function Swapper(props) {
@@ -35,13 +35,13 @@ function Swapper(props) {
 }
 ```
 
-The children will unmount and remount as you change the `swapped` prop because there aren't any keys marked on the two sets of children.
+Các nhóm con sẽ ngắt kết nối và liên kết lại khi bạn thay đổi `swapped` vì không có bất kỳ khóa nào được đánh dấu trên hai nhóm con.
 
-To solve this problem, you can use the `createFragment` add-on to give keys to the sets of children.
+Để giải quyết vấn đề này, bạn có thể sử dụng `createFragment` để bổ sung khóa cho các nhóm con.
 
 #### `Array<ReactNode> createFragment(object children)` {#arrayreactnode-createfragmentobject-children}
 
-Instead of creating arrays, we write:
+Thay vì tạo mảng, chúng ta sẽ làm như sau:
 
 ```javascript
 import createFragment from 'react-addons-create-fragment';
@@ -63,6 +63,6 @@ function Swapper(props) {
 }
 ```
 
-The keys of the passed object (that is, `left` and `right`) are used as keys for the entire set of children, and the order of the object's keys is used to determine the order of the rendered children. With this change, the two sets of children will be properly reordered in the DOM without unmounting.
+Các khóa sẽ được truyền vào đối tượng (đấy là `left` và `right`) được sử dụng để làm chìa khóa cho các nhóm con, và thứ tự các khóa của đối tượng được sử dụng để xác định thứ tự của các nhóm con được hiển thị. Với thay đổi này, hai nhóm con sẽ được sắp xếp lại đúng thứ tự trong DOM mà không cần ngắt kết nối.
 
-The return value of `createFragment` should be treated as an opaque object; you can use the [`React.Children`](/docs/react-api.html#react.children) helpers to loop through a fragment but should not access it directly. Note also that we're relying on the JavaScript engine preserving object enumeration order here, which is not guaranteed by the spec but is implemented by all major browsers and VMs for objects with non-numeric keys.
+Giá trị trả về của `createFragment` nên được coi là một đối tượng mờ đục; bạn có thể dùng [`React.Children`](/docs/react-api.html#react.children) để lặp qua một đoạn nhưng không nên truy cập trực tiếp vào nó. Chú ý rằng chúng ta đang dùng Javascript để bảo toàn thứ tự các đối tượng được liệt kê, thứ tự này không được đảm bảo bởi thông số kỹ thuật nhưng được triển khai bởi tất cả các trình duyệt và máy ảo cho các đối tượng có khóa không phải là số.

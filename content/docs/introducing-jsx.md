@@ -181,4 +181,4 @@ Chúng ta sẽ khám phá cách các React Element được render vào DOM th�
 
 >**Gợi ý:**
 >
->Chúng tôi khuyến khích sử dụng [Định nghĩa ngôn ngữ "Babel"](https://babeljs.io/docs/editors) cho trình soạn thảo của bạn như vậy cả mã ES6 và JSX đều có thể được tô sáng rõ ràng.
+>Chúng tôi khuyến khích sử dụng [Định nghĩa ngôn ngữ "Babel"](https://babeljs.io/docs/en/next/editors) cho trình soạn thảo của bạn như vậy cả mã ES6 và JSX đều có thể được tô sáng rõ ràng.

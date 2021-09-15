@@ -42,7 +42,7 @@ Các class CSS thường sẽ có hiệu suất tốt hơn là inline styles.
 
 ### CSS-in-JS là gì? {#what-is-css-in-js}
 
-"CSS-in-JS" đề cập đến một pattern trong đó CSS ​​được tạo bằng JavaScript thay vì được định nghĩa trong các tệp bên ngoài. Đọc một bài viết so sánh các thư viện CSS-in-JS [ở đây](https://github.com/MicheleBertoli/css-in-js).
+"CSS-in-JS" đề cập đến một pattern trong đó CSS ​​được tạo bằng JavaScript thay vì được định nghĩa trong các tệp bên ngoài.
 
 _Lưu ý đây không phải là thư viện của React, nhưng được cung câp bởi thư viện thứ ba._ React không có ý kiến về cách xác định style; nếu nghi ngờ, bạn có thể định nghĩa style trong một tệp `*.css` riêng và tham chiếu tới chúng sử dụng [`className`](/docs/dom-elements.html#classname).
 

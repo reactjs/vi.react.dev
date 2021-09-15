@@ -6,18 +6,17 @@ layout: docs
 category: FAQ
 ---
 
-### What is the Virtual DOM? {#what-is-the-virtual-dom}
+### Virtual DOM là gì?{#what-is-the-virtual-dom}
 
-The virtual DOM (VDOM) is a programming concept where an ideal, or "virtual", representation of a UI is kept in memory and synced with the "real" DOM by a library such as ReactDOM. This process is called [reconciliation](/docs/reconciliation.html).
+Virtual DOM (VDOM) là một khái niệm lập trình trong đó dạng đại diện tiêu chuẩn, hoặc đại diện "ảo" của giao diện người dùng sẽ được lưu trong bộ nhớ và được đồng bộ hóa với DOM "thật" bởi một dạng thư viện như là ReactDOM. Quá trình đó được gọi là [reconciliation](https://reactjs.org/docs/reconciliation.html).
 
-This approach enables the declarative API of React: You tell React what state you want the UI to be in, and it makes sure the DOM matches that state. This abstracts out the attribute manipulation, event handling, and manual DOM updating that you would otherwise have to use to build your app.
+Cách tiếp cận này kích hoạt API khai báo của React: Bạn cho React biết bạn muốn giao diện người dùng ở trạng thái nào và nó đảm bảo DOM khớp với trạng thái đó. Nhờ vậy sẽ rút gọn thao tác thuộc tính, xử lý sự kiện, và cập nhật DOM thủ công, tất cả mọi thứ bạn cần phải làm để xây dựng ứng dụng của mình.
 
-Since "virtual DOM" is more of a pattern than a specific technology, people sometimes say it to mean different things. In React world, the term "virtual DOM" is usually associated with [React elements](/docs/rendering-elements.html) since they are the objects representing the user interface. React, however, also uses internal objects called "fibers" to hold additional information about the component tree. They may also be considered a part of "virtual DOM" implementation in React.
+Vì "virtual DOM" giống một kiểu mẫu có sẵn hơn là một công nghệ cụ thể, nên đôi khi mọi người nói nó có một ý nghĩa khác. Trong thế giới React, thuật ngữ "virtual DOM" thường được kết hợp với các phần tử React vì chúng là các đối tượng đại diện cho giao diện người dùng. Tuy nhiên, các phần tử của React cũng sử dụng các đối tượng bên trong, hay còn gọi là "sợi", để giữ thông tin bổ sung theo sơ đồ cây. Chúng cũng có thể được coi là một phần của việc triển khai "virtual DOM" trong React.
+### Shadow DOM có giống Virtual DOM không? {#is-the-shadow-dom-the-same-as-the-virtual-dom}
 
-### Is the Shadow DOM the same as the Virtual DOM? {#is-the-shadow-dom-the-same-as-the-virtual-dom}
+Không, chúng khác nhau. Shadow DOM là một công nghệ trình duyệt được thiết kế chủ yếu cho các Variable Scope(phạm vi của biến) và CSS trong các thành web(components). Virtual DOM là một khái niệm được thực hiện bởi các thư viện bằng JavaScript trên các API của trình duyệt.
 
-No, they are different. The Shadow DOM is a browser technology designed primarily for scoping variables and CSS in web components. The virtual DOM is a concept implemented by libraries in JavaScript on top of browser APIs.
+### "React Fiber" là gì? {#what-is-react-fiber}
 
-### What is "React Fiber"? {#what-is-react-fiber}
-
-Fiber is the new reconciliation engine in React 16. Its main goal is to enable incremental rendering of the virtual DOM. [Read more](https://github.com/acdlite/react-fiber-architecture).
+React Fiber là bản tái cấu trúc thuật toán nền tảng của React trong React 16. Mục tiêu của React Fiber là tăng cường khả năng thích ứng với một số khía cạnh như hoạt ảnh (animation), bố cục (layout) hay cử chỉ (gestures). [Read more](https://github.com/acdlite/react-fiber-architecture).

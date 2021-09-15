@@ -57,6 +57,7 @@ Sự kiện `onChange` hoạt động đúng như tên gọi của nó: khi mộ
 ### selected {#selected}
 
 Thuộc tính `selected` được sử dụng trong `<option>` để đánh dấu option nào được chọn trong một `<select>`. Điều này hữu ích khi tạo ra các Component Kiểm Soát.
+Nếu bạn muốn đánh dấu một `<option>` đã được select, tham chiếu giá trị của option đó bằng `value` của `<select>`. Tham khảo tại chi tiết tại ["Thẻ select [The select Tag]"](/docs/forms.html#the-select-tag).
 
 ### style {#style}
 
@@ -120,7 +121,7 @@ Nếu bạn để `suppressHydrationWarning` là `true`, React sẽ không cản
 
 ### value {#value}
 
-Thuộc tính `value` được hỗ trợ bởi những component `<input>` và `<textarea>`. Ban có thể sử dụng nó để đặt giá trị của component. Điều này là cần thiết để tạo Component Kiểm Soát. `defaultValue` là thuộc tính tương đương trong Component Không Kiểm Soát, nó đặt giá trị cho Component khi nó được mount lần đầu tiên.
+Thuộc tính `value` được hỗ trợ bởi những component `<input>`, `select` và `<textarea>`. Ban có thể sử dụng nó để đặt giá trị của component. Điều này là cần thiết để tạo Component Kiểm Soát. `defaultValue` là thuộc tính tương đương trong Component Không Kiểm Soát, nó đặt giá trị cho Component khi nó được mount lần đầu tiên.
 
 ## Tất cả thuộc tính HTML được hỗ trợ {#all-supported-html-attributes}
 
@@ -129,9 +130,9 @@ Trong React 16, [tất cả](/blog/2017/09/08/dom-attributes-in-react-16.html) t
 React luôn cung cấp một API với trọng tâm là javascript cho DOM. Bời vì những React component thường nhận những props được tuỳ chỉnh hoặc có liên quan tới DOM, React sử dụng quy ước `camelCase` như là các DOM APIs. Ví dụ như:
 
 ```js
-<div tabIndex="-1" />      // tương tự node.tabIndex DOM API
-<div className="Button" /> // tương tự node.className DOM API
-<input readOnly={true} />  // tương tự node.readOnly DOM API
+<div tabIndex={-1} />      // Just like node.tabIndex DOM API
+<div className="Button" /> // Just like node.className DOM API
+<input readOnly={true} />  // Just like node.readOnly DOM API
 ```
 
 Những thuộc tính này hoạt động tương tự với thuộc tính HTML, với những ngoại lệ liệt kê ở trên.

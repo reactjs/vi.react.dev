@@ -32,29 +32,29 @@ sẽ có đôi chút khác biệt trong React:
 Một điểm khác biệt nữa trong React là bạn không thể trả về `false` để chặn những hành vi mặc định mà phải gọi `preventDefault` trực tiếp. Lấy ví dụ với đoạn HTML sau, để chặn hành vi mặc định của đường dẫn là mở trang mới, bạn có thể viết:
 
 ```html
-<a href="#" onclick="console.log('The link was clicked.'); return false">
-  Click me
-</a>
+<form onsubmit="console.log('You clicked submit.'); return false">
+  <button type="submit">Submit</button>
+</form>
 ```
 
 Còn trong React, bạn có thể làm như thế này:
 
-```js{2-5,8}
-function ActionLink() {
-  function handleClick(e) {
+```js{3}
+function Form() {
+  function handleSubmit(e) {
     e.preventDefault();
-    console.log('The link was clicked.');
+    console.log('You clicked submit.');
   }
 
   return (
-    <a href="#" onClick={handleClick}>
-      Click me
-    </a>
+    <form onSubmit={handleSubmit}>
+      <button type="submit">Submit</button>
+    </form>
   );
 }
 ```
 
-Ở đây, `e` là một sự kiện ảo. React định nghĩa những sự kiện ảo này dựa trên [chuẩn W3C](https://www.w3.org/TR/DOM-Level-3-Events/), nên bạn không cần lo lắng về sự tương thích giữa những browser. Hãy tham khảo tài liệu về [`SyntheticEvent`](/docs/events.html) để tìm hiểu thêm.
+Ở đây, `e` là một sự kiện ảo (synthetic event). React định nghĩa những sự kiện ảo này dựa trên [chuẩn W3C](https://www.w3.org/TR/DOM-Level-3-Events/), nên bạn không cần lo lắng về sự tương thích giữa những browser. React events không hoạt động chính xác giống như những event nguyên bản (native event). Hãy tham khảo tài liệu về [`SyntheticEvent`](/docs/events.html) để tìm hiểu thêm.
 
 Khi làm việc với React, bạn thường không cần phải gọi `addEventListener` để gắn listener cho element DOM sau khi nó được khởi tạo. Thay vào đó, bạn chỉ cần cung cấp một listener ngay lần đầu element được render.
 
@@ -71,8 +71,8 @@ class Toggle extends React.Component {
   }
 
   handleClick() {
-    this.setState(state => ({
-      isToggleOn: !state.isToggleOn
+    this.setState(prevState => ({
+      isToggleOn: !prevState.isToggleOn
     }));
   }
 

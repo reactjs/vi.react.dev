@@ -18,7 +18,7 @@ const FeedbackForm = () => {
   } else {
     return (
       <span>
-        Is this page useful?
+        Trang này có hữu ích không?
         <button
           css={[sharedStyles.articleLayout.feedbackButton, {marginLeft: '6px'}]}
           aria-label="Yes"
@@ -53,6 +53,7 @@ const FeedbackForm = () => {
               label: window.location.pathname,
               value: 0,
             });
+            setFeedbackGiven(true);
           }}>
           <svg
             css={{

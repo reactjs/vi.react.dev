@@ -12,7 +12,7 @@ Tài liệu này nhằm giải thích `SyntheticEvent` trong Hệ thống Event 
 
 Các hàm xử lý sự kiện sẽ được truyền vào một instance của `SyntheticEvent` (một lớp bọc các event để triệt tiêu sự khác nhau về event của các trình duyệt). Nó có giao diện (interface) tương tự như một event của trình duyệt, bao gồm `stopPropagation()`, và `preventDefault()` và hoạt động giống nhau trên mọi trình duyệt.
 
-Nếu bạn cần lấy event từ trình duyệt vì một lý do nào đó, chỉ cần sử dụng thuộc tính `nativeEvent` là được. Mọi `SyntheticEvent` object đều có những thuộc tính sau:
+Nếu bạn cần lấy event từ trình duyệt vì một lý do nào đó, chỉ cần sử dụng thuộc tính `nativeEvent` là được. Mọi sự kiện synthetic thì khác nhau và không có map trực tiếp đến các sự kiện của trình duyệt. Ví dự như trong sự kiện `onMouseLeave` `event.nativeEvent` sẽ trỏ đến một sự kiện `mouseout`. Việc mapping không phải là một phần của public API và có thể thay đổi bất cứ lúc nào. Mọi `SyntheticEvent` object đều có những thuộc tính sau:
 
 ```javascript
 boolean bubbles
@@ -31,6 +31,9 @@ DOMEventTarget target
 number timeStamp
 string type
 ```
+
+>Lưu ý:
+> Từ bản v17, `e.persist()` không làm bất cứ điều gì bởi vì `SyntheticEvent` không còn được [pooled](/docs/legacy-event-pooling.html).
 
 > Lưu ý:
 >
@@ -60,10 +63,6 @@ function onClick(event) {
   this.setState({eventType: event.type});
 }
 ```
-
-> Lưu ý:
->
-> Nếu bạn muốn giữ lại thuộc tính của event sau khi chạy hàm xử lý, bạn phải gọi `event.persist()` để tách event object ra (event object mới sẽ được tạo) và giữ lại các thuộc tính của nó.
 
 ## Các Events được hỗ trợ {#supported-events}
 
@@ -167,8 +166,81 @@ Những event focus sẽ hoạt động trên tất cả React DOM, không chỉ
 
 Thuộc tính:
 
-```javascript
+```js
 DOMEventTarget relatedTarget
+```
+
+#### onFocus {#onfocus}
+
+The `onFocus` event is called when the element (or some element inside of it) receives focus. For example, it's called when the user clicks on a text input.
+
+```javascript
+function Example() {
+  return (
+    <input
+      onFocus={(e) => {
+        console.log('Focused on input');
+      }}
+      placeholder="onFocus is triggered when you click this input."
+    />
+  )
+}
+```
+
+#### onBlur {#onblur}
+
+The `onBlur` event handler is called when focus has left the element (or left some element inside of it). For example, it's called when the user clicks outside of a focused text input.
+
+```javascript
+function Example() {
+  return (
+    <input
+      onBlur={(e) => {
+        console.log('Triggered because this input lost focus');
+      }}
+      placeholder="onBlur is triggered when you click this input and then you click outside of it."
+    />
+  )
+}
+```
+
+#### Detecting Focus Entering and Leaving {#detecting-focus-entering-and-leaving}
+
+You can use the `currentTarget` and `relatedTarget` to differentiate if the focusing or blurring events originated from _outside_ of the parent element. Here is a demo you can copy and paste that shows how to detect focusing a child, focusing the element itself, and focus entering or leaving the whole subtree.
+
+```javascript
+function Example() {
+  return (
+    <div
+      tabIndex={1}
+      onFocus={(e) => {
+        if (e.currentTarget === e.target) {
+          console.log('focused self');
+        } else {
+          console.log('focused child', e.target);
+        }
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+          // Not triggered when swapping focus between children
+          console.log('focus entered self');
+        }
+      }}
+      onBlur={(e) => {
+        if (e.currentTarget === e.target) {
+          console.log('unfocused self');
+        } else {
+          console.log('unfocused child', e.target);
+        }
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+          // Not triggered when swapping focus between children
+          console.log('focus left self');
+        }
+      }}
+    >
+      <input id="1" />
+      <input id="2" />
+    </div>
+  );
+}
 ```
 
 * * *
@@ -305,7 +377,11 @@ Tên Event:
 onScroll
 ```
 
-Thuộc tính:
+>Lưu ý:
+>
+>Bắt đầu từ React 17, sự kiện `onScroll` **không có bubble** trong React. Điều này phù hợp với trạng thái của browser và hạn chế sự nhầm lẫn khi một thành phần (a nested scrollable element) fires các sự kiện trên một thành phần cha xa.
+
+Properties:
 
 ```javascript
 number detail
