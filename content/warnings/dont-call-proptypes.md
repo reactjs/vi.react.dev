@@ -97,4 +97,4 @@ export default function deprecated(propType, explanation) {
 }
 ```
 
-Điều này sẽ giúp xoá warning ở console
+Điều này sẽ giúp xoá warning ở console.
