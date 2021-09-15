@@ -149,9 +149,9 @@ Trong thực tế, việc tìm một key thường không khó. Element bạn s�
 <li key={item.id}>{item.name}</li>
 ```
 
-Khi không phải như vậy, bạn có thể thêm property ID mới vào model của mình hoặc băm một số phần nội dung để tạo key. Key phải là duy nhất trong số các anh chị em của nó, không phải là duy nhất trên toàn cầu.
+Khi không phải như vậy, bạn có thể thêm property ID mới vào model của mình hoặc dùng cách băm một số phần nội dung để tạo key. Key phải là duy nhất trong số các element đồng cấp của nó, tuy nhiên nó không yêu cầu phải là duy nhất trên global.
 
-Phương án cuối cùng, bạn có thể chuyển chỉ mục của một mục trong mảng làm khóa. Điều này có thể hoạt động tốt nếu các mục không bao giờ được sắp xếp lại, nhưng việc sắp xếp lại sẽ rất chậm.
+Phương án cuối cùng, bạn có dùng index của một item trong array (mảng) làm key. Điều này có thể hoạt động tốt nếu các mục không bao giờ được sắp xếp lại, nhưng nếu phải sắp xếp lại thì sẽ rất chậm.
 
 Việc sắp xếp lại cũng có thể gây ra sự cố với component state khi các index được sử dụng làm key. Các component instance được cập nhật và sử dụng lại dựa trên key của chúng. Nếu key là một index, việc di chuyển một item sẽ thay đổi nó. Do đó, component state cho những thứ như input không được kiểm soát có thể bị trộn lẫn và cập nhật theo những cách không mong muốn.
 
@@ -161,7 +161,7 @@ Dưới đây là [ví dụ về các sự cố có thể gây ra khi sử dụn
 
 Điều quan trọng cần nhớ là reconciliation algorithm là một implementation detail. React có thể rerender toàn bộ ứng dụng trên mọi action; kết quả cuối cùng sẽ giống nhau. Nói dễ hiểu hơn, rerender trong ngữ cảnh này có nghĩa là gọi `render` cho tất cả các component, nó không có nghĩa là React sẽ unmount (ngắt kết nối) và remount (gắn kết lại) chúng. Nó sẽ chỉ áp dụng những điểm khác biệt theo các quy tắc đã nêu trong các phần trước.
 
-Chúng tôi thường xuyên tinh chỉnh phương pháp phỏng đoán để làm cho các trường hợp sử dụng phổ biến nhanh hơn. Trong triển khai hiện tại, bạn có thể thể hiện thực tế rằng một subtree đã được di chuyển giữa các anh chị em của nó, nhưng bạn không thể nói rằng nó đã di chuyển đến một nơi khác. Thuật toán sẽ rerender đầy đủ subtree đó.
+Chúng tôi thường xuyên tinh chỉnh phương pháp phỏng đoán để làm cho các trường hợp sử dụng phổ biến nhanh hơn. Trong triển khai hiện tại, trên thực tế bạn có thể thấy rằng một subtree đã được di chuyển giữa các anh chị em của nó, nhưng bạn không thể nói rằng nó đã di chuyển đến một nơi khác. Thuật toán sẽ rerender đầy đủ subtree đó.
 
 Bởi vì React dựa trên heuristics, nếu các giả định đằng sau chúng không được đáp ứng, hiệu suất sẽ bị ảnh hưởng.
 
