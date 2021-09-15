@@ -22,7 +22,7 @@ Các phiên bản trên chỉ dành cho việc phát triển, và không thích 
 
 Để tải một phiên bản cụ thể của `react` và `react-dom`, thay `17` bằng số phiên bản.
 
-### Tại sao là `crossorigin` Thuộc tính? {#why-the-crossorigin-attribute}
+### Tại sao là thuộc tính `crossorigin`? {#why-the-crossorigin-attribute}
 
 Nếu bạn dùng React từ CDN, chúng tôi khuyên bạn nên giữ tập thuộc tính [`crossorigin`](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes):
 
