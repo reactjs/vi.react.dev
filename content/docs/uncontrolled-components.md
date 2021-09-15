@@ -80,5 +80,5 @@ Bạn nên sử dụng File API để tương tác với những files này. Ví
 
 `embed:uncontrolled-components/input-type-file.js`
 
-[](codepen://uncontrolled-components/input-type-file)
+[**Xem ví dụ trên CodePen**](codepen://uncontrolled-components/input-type-file)
 
