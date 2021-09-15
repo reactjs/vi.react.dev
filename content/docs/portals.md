@@ -27,7 +27,7 @@ render() {
 }
 ```
 
-Tuy nhiên, đôi khi sẽ hữu ích nếu chèn trẻ vào một vị trí khác trong DOM:
+Tuy nhiên, đôi khi sẽ hữu ích nếu chèn một phần tử con vào một vị trí khác trong DOM:
 
 ```js{6}
 render() {
