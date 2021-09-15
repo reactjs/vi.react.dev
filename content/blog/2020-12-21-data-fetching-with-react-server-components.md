@@ -1,6 +1,6 @@
 ---
-tiêu đề: "Giới thiệu Zero-Bundle-Size React Server Components"
-tác giả: [gaearon,laurentan,josephsavona,sebmarkbage]
+title: "Giới thiệu Zero-Bundle-Size React Server Components"
+author: [gaearon,laurentan,josephsavona,sebmarkbage]
 ---
 
 2020 là một năm dài. Năm cũ sắp hết, chúng tôi muốn mang đến một cập nhật đặc biệt cho mùa lễ hội này, đó là nghiên cứu của chúng tôi về zero-bundle-size **React Server Components**.
