@@ -10,7 +10,7 @@ permalink: warnings/dont-call-proptypes.html
 >
 >Chúng tôi cung cấp [tập lệnh codemod](/blog/2017/04/07/react-v15.5.0.html#migrating-from-react.proptypes) để tự động chuyển đổi.
 
-Trong một bản phát hành chính trong tương lai của React, mã thực hiện các chức năng xác thực PropType sẽ bị loại bỏ trong quá trình sản xuất. Khi điều này xảy ra, bất kỳ mã nào gọi các chức năng này theo cách thủ công (không bị loại bỏ trong quá trình sản xuất) sẽ gây ra lỗi.
+Trong một bản phát hành chính trong tương lai của React, code thực hiện các chức năng xác thực PropType sẽ bị loại bỏ trong quá trình sản xuất. Khi điều này xảy ra, bất kỳ code nào gọi các chức năng này theo cách thủ công (không bị loại bỏ trong quá trình sản xuất) sẽ gây ra lỗi.
 
 ### Khai báo PropTypes vẫn ổn {#declaring-proptypes-is-still-fine}
 
@@ -26,7 +26,7 @@ Không có gì thay đổi ở đây.
 
 ### Không gọi trực tiếp PropTypes {#dont-call-proptypes-directly}
 
-Sử dụng PropTypes theo bất kỳ cách nào khác ngoài việc chú thích các thành phần React với chúng không còn được hỗ trợ:
+Sử dụng PropTypes theo bất kỳ cách nào khác ngoài việc chú thích các React component với chúng không còn được hỗ trợ:
 
 ```javascript
 var apiShape = PropTypes.shape({
@@ -40,11 +40,11 @@ var error = apiShape(json, 'response');
 
 Nếu bạn phụ thuộc vào việc sử dụng PropTypes như thế này, chúng tôi khuyến khích bạn sử dụng hoặc tạo một nhánh của PropTypes (chẳng hạn như 2 gói này [aackerman/PropTypes](https://github.com/aackerman/PropTypes) [developit/proptypes](https://github.com/developit/proptypes)).
 
-Nếu bạn không khắc phục cảnh báo, mã này sẽ gặp sự cố trong quá trình sản xuất với React 16.
+Nếu bạn không khắc phục cảnh báo, code này sẽ gặp sự cố trong quá trình sản xuất với React 16.
 
 ### Nếu bạn không gọi trực tiếp cho PropTypes nhưng vẫn nhận được cảnh báo {#if-you-dont-call-proptypes-directly-but-still-get-the-warning}
 
-Kiểm tra dấu vết ngăn xếp được tạo ra bởi cảnh báo. Bạn sẽ thấy định nghĩa thành phần chịu trách nhiệm cho cuộc gọi trực tiếp PropTypes. Rất có thể, vấn đề là do PropTypes của bên thứ ba bao bọc React’s PropTypes, ví dụ:
+Kiểm tra stack trace được tạo ra bởi cảnh báo. Bạn sẽ thấy định nghĩa component chịu trách nhiệm cho cuộc gọi trực tiếp PropTypes. Rất có thể, vấn đề là do PropTypes của bên thứ ba bao bọc React’s PropTypes, ví dụ:
 
 ```js
 Button.propTypes = {
@@ -55,13 +55,13 @@ Button.propTypes = {
 }
 ```
 
-Trong trường hợp này, `ThirdPartyPropTypes.deprecated` là một trình bao bọc gọi `PropTypes.bool`. Bản thân mô hình này là tốt, nhưng kích hoạt dương tính giả vì React cho rằng bạn đang gọi trực tiếp PropTypes. Phần tiếp theo giải thích cách khắc phục sự cố này cho một thư viện triển khai thứ gì đó như `ThirdPartyPropTypes`. Nếu đó không phải là thư viện bạn đã viết, bạn có thể gửi vấn đề về thư viện đó.
+Trong trường hợp này, `ThirdPartyPropTypes.deprecated` là một trình bao bọc gọi `PropTypes.bool`. Bản thân mô hình này là tốt, nhưng kích hoạt false positive vì React cho rằng bạn đang gọi trực tiếp PropTypes. Phần tiếp theo giải thích cách khắc phục sự cố này cho một thư viện triển khai thứ gì đó như `ThirdPartyPropTypes`. Nếu đó không phải là thư viện bạn đã viết, bạn có thể gửi vấn đề về thư viện đó.
 
-### Sửa lỗi dương tính giả trong PropTypes của bên thứ ba {#fixing-the-false-positive-in-third-party-proptypes}
+### Sửa lỗi false positive trong PropTypes của bên thứ ba {#fixing-the-false-positive-in-third-party-proptypes}
 
-Nếu bạn là tác giả của thư viện PropTypes của bên thứ ba và bạn để người tiêu dùng bọc các React PropTypes hiện có, họ có thể bắt đầu thấy cảnh báo này đến từ thư viện của bạn. Điều này xảy ra vì React không thấy đối số cuối cùng "bí mật" mà nó [chuyển qua](https://github.com/facebook/react/pull/7132) để phát hiện các lệnh gọi PropTypes thủ công.
+Nếu bạn là tác giả của thư viện PropTypes của bên thứ ba và bạn để người tiêu dùng bọc các React PropTypes hiện có, họ có thể bắt đầu thấy cảnh báo này đến từ thư viện của bạn. Điều này xảy ra vì React không thấy đối số cuối cùng "bí mật" mà [nó chuyển qua](https://github.com/facebook/react/pull/7132) để phát hiện các lệnh gọi PropTypes thủ công.
 
-Đây là cách để sửa chữa nó. Chúng tôi sẽ sử dụng từ [react-bootstrap/react-prop-type](https://github.com/react-bootstrap/react-prop-types/blob/0d1cd3a49a93e513325e3258b28a82ce7d38e690/src/deprecated.js) `không được dùng nữa` làm ví dụ. Việc triển khai hiện tại chỉ chuyển xuống các đối số `props`, `propName` và `componentName`:
+Đây là cách để sửa chữa nó. Chúng tôi sẽ sử dụng `deprecated` từ [react-bootstrap/react-prop-type](https://github.com/react-bootstrap/react-prop-types/blob/0d1cd3a49a93e513325e3258b28a82ce7d38e690/src/deprecated.js) làm ví dụ. Việc triển khai hiện tại chỉ chuyển xuống các đối số `props`, `propName` và `componentName`:
 
 ```javascript
 export default function deprecated(propType, explanation) {
@@ -79,7 +79,7 @@ export default function deprecated(propType, explanation) {
 }
 ```
 
-Để sửa lỗi dương tính giả, hãy đảm bảo rằng bạn chuyển **tất cả** các đối số xuống PropType được bao bọc. Điều này rất dễ thực hiện với ký hiệu `...rest` của ES6:
+Để sửa lỗi false positive, hãy đảm bảo rằng bạn chuyển **tất cả** các đối số xuống PropType được bao bọc. Điều này rất dễ thực hiện với ký hiệu `...rest` của ES6:
 
 ```javascript
 export default function deprecated(propType, explanation) {
