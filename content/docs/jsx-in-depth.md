@@ -70,7 +70,7 @@ function WarningButton() {
 }
 ```
 
-Nếu bạn không sử dụng một trình đóng gói JavaScript(JavaScript bundler) và tải React từ một thẻ  `<script>`,  thì `React` đã nằm trong scope toàn cục(global).
+Nếu bạn không sử dụng một trình đóng gói JavaScript(JavaScript bundler) và tải React từ một thẻ  `<script>`, thì `React` đã có sẵn trong scope toàn cục(global).
 
 ### Sử Dụng Ký Hiệu Chấm cho JSX Type {#using-dot-notation-for-jsx-type}
 
@@ -92,7 +92,7 @@ function BlueDatePicker() {
 
 ### Component Người Dùng Tự Định Nghĩa Phải Được Viết Hoa {#user-defined-components-must-be-capitalized}
 
-Khi một kiểu element bắt đầu mới chữ cái thường, nó đang ám chỉ đến một built-in component như `<div>` hay `<span>` và kết quả là một chuỗi `'div'` hay `'span'` được truyền tới `React.createElement`. Các kiểu bắt đầu với chữ cái viết hoa như `<Foo />` được biên dịch thành `React.createElement(Foo)` và tương ứng với một component đã được định nghĩa hoặc đã được import vào tệp JavaScript của bạn.
+Khi một kiểu element bắt đầu với chữ cái thường, nó đang ám chỉ đến một built-in component như `<div>` hay `<span>` và kết quả là một chuỗi `'div'` hay `'span'` được truyền tới `React.createElement`. Các kiểu bắt đầu với chữ cái viết hoa như `<Foo />` được biên dịch thành `React.createElement(Foo)` và tương ứng với một component đã được định nghĩa hoặc đã được import vào tệp JavaScript của bạn.
 
 Chúng tôi khuyến khích đặt tên cho các component với chữ cái đầu viết hoa. Nếu bạn có một component bắt đầu với chữ cái viết thường, gán nó cho một biến được viết hoa trước khi sử dụng nó trong JSX.
 
