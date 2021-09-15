@@ -7,12 +7,12 @@ redirect_from:
 next: testing-recipes.html
 ---
 
-Bạn có thể kiểm tra các React component tương tự như việc kiểm tra những code Javascript khác.
+Bạn có thể test các React components tương tự như việc test những code Javascript khác.
 
-Có một số cách để testing các React component. Nói chung, chúng được chia thành 2 thành phần:
+Có một số cách để testing các React component. Nói chung, chúng được chia thành 2 loại như sau:
 
-* **Rendering component trees** trong một môi trường test được đơn giản hóa và khẳng định trên kết quả đầu ra của chúng.
-* **Running a complete app** trong một môi trường trình duyệt thực tế (hay còn được gọi là “end-to-end” tests).
+* **Rendering những cây component** trong một môi trường test được đơn giản hóa và khẳng định trên kết quả đầu ra của chúng.
+* **Chạy một ứng dụng hoàn chỉnh** trong một môi trường trình duyệt thực tế (hay còn được gọi là “end-to-end” tests).
 
 Phần tài liệu này tập trung vào chiến lược testing cho trường hợp đầu tiên. Mặc dù các end-to-end tests đầy đủ có thể rất hữu ích để ngăn ngừa sự hồi quy
 đối với những luồng làm việc quan trọng, nhưng các tests đó không liên quan đến các React component nói chung, và nằm ngoài phạm vi của phần này.
