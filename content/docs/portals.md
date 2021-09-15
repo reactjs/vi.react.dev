@@ -4,21 +4,21 @@ title: Portals
 permalink: docs/portals.html
 ---
 
-Portals cung cấp một cách hạng nhất để kết xuất phần tử con thành một nút DOM tồn tại bên ngoài phân cấp DOM của thành phần cha.
+Portals cung cấp một cách render các phần tử DOM bên ngoài phân cấp của DOM chính.
 
 ```js
 ReactDOM.createPortal(child, container)
 ```
 
-Đối số đầu tiên (`child`) là bất kỳ [phần tử con nào của React có thể kết xuất được](/docs/react-component.html#render), chẳng hạn như một phần tử, chuỗi, hoặc đoạn. Đối số thứ hai (`container`) là một phần tử DOM.
+Tham số đầu tiên (`child`) là bất bỳ [thành phần có thể render của React](/docs/react-component.html#render), như là element, string, hoặc fragment. Tham số thứ hai (`container`) là một DOM element.
 
-## Sử dụng {#usage}
+## Cách dùng {#usage}
 
-Thông thường, khi bạn trả về một phần tử từ phương thức kết xuất của một thành phần, nó sẽ được gắn vào DOM dưới dạng phần tử con của nút cha gần nhất:
+Thông thường, khi bạn trả về một phần tử từ phương thức render của một component, nó sẽ được gắn vào DOM dưới dạng phần tử con của nút cha gần nhất:
 
 ```js{4,6}
 render() {
-  // React mounts a new div and renders the children into it
+  // React tạo một thẻ div mới và render các phần tử con vào trong thẻ div đó:
   return (
     <div>
       {this.props.children}
@@ -27,12 +27,12 @@ render() {
 }
 ```
 
-Tuy nhiên, đôi khi sẽ hữu ích nếu chèn một phần tử con vào một vị trí khác trong DOM:
+Tuy nhiên, đôi khi sẽ thuận tiện hơn nếu chèn phần tử con đó vào một vị trí khác trong DOM:
 
 ```js{6}
 render() {
-  // React does *not* create a new div. It renders the children into `domNode`.
-  // `domNode` is any valid DOM node, regardless of its location in the DOM.
+  // React *không* tạo mới thẻ div. Nó render phần tử con vào `domNode`.
+  // `domNode` là bất kỳ phần tử DOM hợp lệ nào, ở bất kỳ vị trí nào trong DOM.
   return ReactDOM.createPortal(
     this.props.children,
     domNode
@@ -40,21 +40,21 @@ render() {
 }
 ```
 
-Một trường hợp điển hình sử dụng cho các portals là khi một thành phần cha có kiểu `overflow: hidden` or `z-index`, nhưng bạn cần thành phần con “thoát ra” khỏi vùng chứa của nó một cách trực quan. Ví dụ: hộp thoại, thẻ di chuột và chú giải công cụ.
+Một trường hợp thuờng dùng Portals là khi một thành phần mẹ có thuộc tính `overflow: hidden` hoặc `z-index`, nhưng bạn muốn hiển thị nó một cách "độc lập" khỏi thành phần mẹ. Ví dụ, các hộp thoại (dialogs), hovercards, và tooltips.
 
-> Chú ý:
+> Lưu ý:
 >
-> Khi làm việc với các portals, hãy nhớ rằng việc [quản lý tiêu điểm bàn phím](/docs/accessibility.html#programmatically-managing-focus) trở nên rất quan trọng.
+> Khi làm việc với Portals, hãy nhớ [quản lý các sự kiện focus từ bàn phím](/docs/accessibility.html#programmatically-managing-focus) là rất quan trọng.
 >
-> Đối với modal dialogs, hãy đảm bảo rằng mọi người đều có thể tương tác với chúng bằng cách tuân theo [WAI-ARIA Modal Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal).
+> Đối với hộp thoại, hãy đảm bảo rằng mọi người có thể tương tác với chúng bằng cách làm theo [WAI-ARIA Modal Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal).
 
 [**Try it on CodePen**](https://codepen.io/gaearon/pen/yzMaBd)
 
-## Sự Kiện Bong Bóng qua Portals {#event-bubbling-through-portals}
+## Xử lý sự kiện ở Portals {#event-bubbling-through-portals}
 
-Mặc dù một portal có thể ở bất kỳ đâu trong DOM tree, nhưng theo mọi cách khác, nó hoạt động giống như một React con bình thường. Các tính năng như ngữ cảnh hoạt động giống hệt nhau bất kể thành phần con có phải là portal hay không, vì portal vẫn tồn tại trong *React tree* bất kể vị trí trong *DOM tree*.
+Mặc dù Portals có thể ở bất kỳ đâu trong cây DOM, nhưng theo mọi cách khác, nó hoạt động giống như một React component bình thường. Các tính năng như context hoạt động giống hệt nhau bất kể component đó có phải là Portals hay không, vì Portals vẫn tồn tại trong *React tree* bất kể vị trí nào trong *DOM tree*.
 
-Điều này bao gồm sự kiện bong bóng. Một sự kiện được kích hoạt từ bên trong portal sẽ truyền đến ancestors trong *React tree* có chứa, ngay cả khi những phần tử đó không phải là ancestors trong *DOM tree*. Giả sử cấu trúc HTML sau:
+Bao gồm các event bubbling. Một sự kiện được kích hoạt từ bên trong Portals sẽ truyền đến tất node cha trong *React tree* chứa portals đó, ngay cả khi những phần tử đó không phải là node cha trong *DOM tree*. Giả sử với cấu trúc HTML sau:
 
 ```html
 <html>
@@ -65,10 +65,10 @@ Mặc dù một portal có thể ở bất kỳ đâu trong DOM tree, nhưng the
 </html>
 ```
 
-Một thành phần `Parent` trong `#app-root` sẽ có thể bắt được một sự kiện bong bóng chưa được giải quyết từ nút anh chị em `#modal-root`.
+Một thành phần `Parent` trong `#app-root` sẽ có thể bắt được một bubbling event chưa được bắt từ sibling node `#modal-root`.
 
 ```js{28-31,42-49,53,61-63,70-71,74}
-// These two containers are siblings in the DOM
+// Đây là 2 container cùng cấp trong DOM
 const appRoot = document.getElementById('app-root');
 const modalRoot = document.getElementById('modal-root');
 
@@ -79,14 +79,14 @@ class Modal extends React.Component {
   }
 
   componentDidMount() {
-    // The portal element is inserted in the DOM tree after
-    // the Modal's children are mounted, meaning that children
-    // will be mounted on a detached DOM node. If a child
-    // component requires to be attached to the DOM tree
-    // immediately when mounted, for example to measure a
-    // DOM node, or uses 'autoFocus' in a descendant, add
-    // state to Modal and only render the children when Modal
-    // is inserted in the DOM tree.
+    // Phần tử Portals được chèn vào cây DOM sau khi
+    // phần tử con của Modal được hiển thị, có nghĩa là những phần tử con đó
+    // sẽ được gắn trên một phần tử DOM tách rời độc lập. Nếu một phần tử con
+    // yêu cầu được gắn vào DOM tree ngay tức khắc khi 'mounted',
+    // ví dụ để đo lường thuộc tính DOM, hoặc sử dụng 'autoFocus' 
+    // trong các phần tử con, thêm state vào Modal và
+    // chỉ render các phẩn tử con khi Modal
+    // được chèn vào DOM tree.
     modalRoot.appendChild(this.el);
   }
 
@@ -110,9 +110,9 @@ class Parent extends React.Component {
   }
 
   handleClick() {
-    // This will fire when the button in Child is clicked,
-    // updating Parent's state, even though button
-    // is not direct descendant in the DOM.
+    // Hàm này sẽ kích hoạt khi button tại Child được click,
+    // cập nhật Parent's state, mặc dù button
+    // không phải là phần tử con trực tiếp trong DOM.
     this.setState(state => ({
       clicks: state.clicks + 1
     }));
@@ -121,12 +121,12 @@ class Parent extends React.Component {
   render() {
     return (
       <div onClick={this.handleClick}>
-        <p>Number of clicks: {this.state.clicks}</p>
+        <p>Số lượng clicks: {this.state.clicks}</p>
         <p>
-          Open up the browser DevTools
-          to observe that the button
-          is not a child of the div
-          with the onClick handler.
+          Mở DevTools của trình duyệt
+          để quan sát rằng button
+          không phải con của div
+          xử lý sự kiện onClick.
         </p>
         <Modal>
           <Child />
@@ -137,8 +137,8 @@ class Parent extends React.Component {
 }
 
 function Child() {
-  // The click event on this button will bubble up to parent,
-  // because there is no 'onClick' attribute defined
+  // Sự kiện nhấp chuột vào nút này sẽ xuất hiện đối với phần tử cha chứa nó
+  // bởi vì không có thuộc tính 'onClick' được định nghĩa
   return (
     <div className="modal">
       <button>Click</button>
@@ -149,6 +149,6 @@ function Child() {
 ReactDOM.render(<Parent />, appRoot);
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/jGBWpE)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/jGBWpE)
 
-Việc nắm bắt một sự kiện xảy ra từ một portal trong thành phần cha cho phép phát triển các tính năng trừu tượng linh hoạt hơn vốn không phụ thuộc vào các portal. Ví dụ: nếu bạn hiển thị một thành phần `<Modal />`, thành phần gốc có thể nắm bắt các sự kiện của nó bất kể nó có được triển khai bằng portal hay không.
+Việc nắm bắt một sự kiện xảy ra từ một Portals trong một component cha cho phép phát triển các tính năng trừu tượng linh hoạt hơn vốn không phụ thuộc vào các Portals. Ví dụ, nếu bạn render một phần tử `<Modal />` , thành phần cha có thể nhận được các sự kiện của nó dù cho nó có được triển khai bằng portals hay không.
