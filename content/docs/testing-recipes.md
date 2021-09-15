@@ -59,7 +59,7 @@ Bạn có thể sử dụng một cách khác, nhưng hãy nhớ chúng ta muố
 
 ### `act()` {#act}
 
-Khi viết UI test, công việc như render, sự kiện từ user, hoặc fetch dữ liệu có thể được xem như một "đơn vị" tương tác với giao diện người dùng. React cung cấp một hàm trợ giúp `act()` để đảm bảo tất cả mọi cập nhập liên quan đến "đơn vị" đã được thực thi và áp dụng đến DOM trước khi chúng ta xác nhận kết quả:
+Khi viết UI test, công việc như render, sự kiện từ user, hoặc fetch dữ liệu có thể được xem như một "đơn vị" tương tác với giao diện người dùng. `react-dom/test-utils` cung cấp một hàm trợ giúp [`act()`](/docs/test-utils.html#act) để đảm bảo tất cả mọi cập nhập liên quan đến "đơn vị" đã được thực thi và áp dụng đến DOM trước khi chúng ta xác nhận kết quả:
 
 ```js
 act(() => {
@@ -255,7 +255,7 @@ export default function Map(props) {
 import React from "react";
 import Map from "./map";
 
-function Contact(props) {
+export default function Contact(props) {
   return (
     <div>
       <address>
@@ -379,7 +379,6 @@ let container = null;
 beforeEach(() => {
   // cài đặt một DOM element như là target cho render
   container = document.createElement("div");
-  // container *phải* được chèn vào document để event chạy đúng.
   document.body.appendChild(container);
 });
 
@@ -418,7 +417,7 @@ it("changes value when clicked", () => {
 });
 ```
 
-Các event DOM và thuộc tính được mô tả trong [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent). Lưu ý bạn phải truyền vào `{ bubbles: true }` trên từng event bạn tạo cho nó để đến React listener vì React tự động truyền các event này đến document.
+Các event DOM và thuộc tính được mô tả trong [MDN](https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent). Lưu ý bạn phải truyền vào `{ bubbles: true }` trên từng event bạn tạo cho nó để đến React listener vì React tự động truyền các event này đến gốc (root).
 
 > Lưu ý:
 >
@@ -468,13 +467,12 @@ import { act } from "react-dom/test-utils";
 
 import Card from "./card";
 
-jest.useFakeTimers();
-
 let container = null;
 beforeEach(() => {
   // cài đặt một DOM element như là target cho render
   container = document.createElement("div");
   document.body.appendChild(container);
+  jest.useFakeTimers();
 });
 
 afterEach(() => {
@@ -482,6 +480,7 @@ afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
   container = null;
+  jest.useRealTimers();
 });
 
 it("should select null after timing out", () => {
@@ -628,5 +627,3 @@ expect(root).toMatchSnapshot();
 ### Còn thiếu gì đó? {#something-missing}
 
 Nếu các tình huống hay gặp không được đề cập ở đây, có thể liên hệ với chúng tôi qua [issue tracker](https://github.com/reactjs/reactjs.org/issues) cho toàn bộ tài liệu của website
-
-

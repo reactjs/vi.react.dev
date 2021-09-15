@@ -6,8 +6,7 @@ permalink: docs/context.html
 
 Context cung cấp phương pháp truyền data xuyên suốt component tree mà không cần phải truyền props một cách thủ công qua từng level.
 
-
-Thông thường với một ứng dụng React, data được truyền từ trên xuống (cha tới con) thông qua props, điều này có vẻ khá cồng kềnh đối với một số loại props (e.g. locale preference, UI theme) chúng thường được sử dụng bởi rất nhiều component trong ứng dụng. Context cho phép chúng ta chia sẽ values giống như vậy giữa các components mà không cần truyền giá trị tới tất cả level trong component tree.
+Thông thường với một ứng dụng React, data được truyền từ trên xuống (cha tới con) thông qua props, điều này có vẻ khá cồng kềnh đối với một số loại props (Ví dụ như locale preference, UI theme) chúng thường được sử dụng bởi rất nhiều component trong ứng dụng. Context cung cấp một cách làm cho phép chúng ta chia sẽ values giống như vậy giữa các components mà không cần truyền giá trị tới tất cả level trong component tree.
 
 - [Khi nào nên dùng Context](#when-to-use-context)
 - [Trước khi bạn sử dụng Context](#before-you-use-context)
@@ -81,7 +80,7 @@ function Page(props) {
 
 Với sự thay đổi này, chỉ có tầng trên cùng của Page component biết được `Link` và `Avatar` components sử dụng `user` và `avatarSize`.
 
-Sự *đảo ngược quyền kiểm soát (inversion of control)* này có thể giúp code của bạn rõ ràng hơn ở nhiều trường hợp bằng cách giảm số lượng props cần phải truyền xuyên suốt ứng dụng của và cho phép sự kiểm soát đến root component. Tuy nhiên, đây không phải là một sự lựa chọn tốt cho mọi trường hợp: Nó khiến độ phức tạp cao hơn trong component tree khiến higher-level components trở nên phức tạp hơn và khiến cho lower-level components trở nên quá linh động.
+Sự *đảo ngược quyền kiểm soát (inversion of control)* này có thể giúp code của bạn rõ ràng hơn ở nhiều trường hợp bằng cách giảm số lượng props cần phải truyền xuyên suốt ứng dụng của và cho phép sự kiểm soát đến root component. Tuy nhiên, đây không phải là một sự lựa chọn tốt cho mọi trường hợp, di chuyển độ phức tạp lên mức cao hơn trong component tree khiến những component ở cấp cao (higher-level components) trở nên phức tạp và buộc cho những component ở mức thấp hơn (lower-level components) trở nên quá linh động.
 
 Bạn không bị gới hạn vào một child duy nhất cho mỗi component. Bạn có thể truyền nhiều children, hay thậm chí là nhiều "slots" tách biệt cho children, [Như tài liệu ở đây](/docs/composition-vs-inheritance.html#containment):
 
@@ -129,7 +128,7 @@ Tạo một Context object. Khi React render một component mà nó subcribe đ
 
 Mỗi Context object đi cùng với một Provider React component cho phép consuming component theo dõi sự thay đổi của context đó.
 
-Nhận một `value` prop để truyền đến consuming components mà nó là con của Provider này. Một Provider có thể kết nối đến nhiều comsumers. Providers có thể lồng nhau để ghi đè giá trị sâu hơn trong component tree.
+Provider component nhận một `value` prop để truyền đến consuming components mà nó là con của Provider này. Một Provider có thể kết nối đến nhiều comsumers. Providers có thể lồng nhau để ghi đè giá trị sâu hơn trong component tree.
 
 Tất cả consumers con của một Provider sẽ được re-rerender bất cứ khi nào `value` của Provider đó thay đổi. Sự lan truyền từ Provider đến consumer con của nó (bao gồm [`.contextType`](#classcontexttype) và [`useContext`](/docs/hooks-reference.html#usecontext)) không bị lệ thuộc vào `shouldComponentUpdate` method, vì vậy consumer được cập nhật ngay cả khi một component cha thoát ra khỏi sự cập nhật đó.
 

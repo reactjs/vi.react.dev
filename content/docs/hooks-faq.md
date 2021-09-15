@@ -586,7 +586,7 @@ Tuy theo tình huống, có một vài lựa chọn như bên dưới
 
 Cùng xem tại sao nó quan trọng
 
-Nếu bạn cung cấp một [danh sách phụ thuộc](/docs/hooks-reference.html#conditionally-firing-an-effect) như là tham số (argument) cho `useEffect`, `useMemo`, `useCallback`, hoặc `useImperativeHandle`, nó phải bao gồm tất cả các giá trị sử dụng bên trong hàm callback liên quan đến luồng dữ liệu của React, bao gồm prop, state và những giá trị có nguồn gốc từ chúng.
+Nếu bạn cung cấp một [danh sách phụ thuộc](/docs/hooks-reference.html#conditionally-firing-an-effect) như là tham số (argument) cuối cùng cho `useEffect`, `useMemo`, `useCallback`, hoặc `useImperativeHandle`, nó phải bao gồm tất cả các giá trị sử dụng bên trong hàm callback liên quan đến luồng dữ liệu của React, bao gồm prop, state và những giá trị có nguồn gốc từ chúng.
 
 Chỉ **an toàn** khi omit một function từ danh sách phụ thuộc nếu không có gì bên trong (hoặc các hàm được gọi bởi nó) tham chiếu đến prop, state, các giá trị có nguồn gốc từ chúng. Ví dụ như bên dưới sẽ có có bug
 

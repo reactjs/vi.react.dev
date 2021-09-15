@@ -6,101 +6,101 @@ layout: docs
 category: FAQ
 ---
 
-### What does `setState` do? {#what-does-setstate-do}
+### `setState` để làm gì? {#what-does-setstate-do}
 
-`setState()` schedules an update to a component's `state` object. When state changes, the component responds by re-rendering.
+`setState()` lên lịch cập nhật cho một object `state` của component. Khi state thay đổi, component phản hồi bằng cách hiển thị lại.
 
-### What is the difference between `state` and `props`? {#what-is-the-difference-between-state-and-props}
+### Sự khác biệt giữa `state` và `props`? {#what-is-the-difference-between-state-and-props}
 
-[`props`](/docs/components-and-props.html) (short for "properties") and [`state`](/docs/state-and-lifecycle.html) are both plain JavaScript objects. While both hold information that influences the output of render, they are different in one important way: `props` get passed *to* the component (similar to function parameters) whereas `state` is managed *within* the component (similar to variables declared within a function).
+[`props`](/docs/components-and-props.html) (viết tắt của "properties") và [`state`](/docs/state-and-lifecycle.html) đều là các object JavaScript đơn giản. Mặc dù cả hai đều nắm giữ thông tin ảnh hưởng đến kết quả hiển thị, nhưng chúng khác nhau ở một điểm quan trọng: `props` được chuyển *cho* component (tương tự như các tham số function) nhưng trái lại `state` được quản lý *trong* component (tương tự như các biến được khai báo trong một function).
 
-Here are some good resources for further reading on when to use `props` vs `state`:
-* [Props vs State](https://github.com/uberVU/react-guide/blob/master/props-vs-state.md)
-* [ReactJS: Props vs. State](https://lucybain.com/blog/2016/react-state-vs-pros/)
+Dưới đây là một số nguồn tốt để đọc thêm về thời điểm sử dụng `props` so với `state`:
+* [Props với State](https://github.com/uberVU/react-guide/blob/master/props-vs-state.md)
+* [ReactJS: Props với State](https://lucybain.com/blog/2016/react-state-vs-pros/)
 
-### Why is `setState` giving me the wrong value? {#why-is-setstate-giving-me-the-wrong-value}
+### Tại sao `setState` lại cho tôi giá trị sai? {#why-is-setstate-giving-me-the-wrong-value}
 
-In React, both `this.props` and `this.state` represent the *rendered* values, i.e. what's currently on the screen.
+Trong React, cả `this.props` và `this.state` đều đại diện cho các giá trị *được hiển thị*, tức là những gì hiện có trên màn hình.
 
-Calls to `setState` are asynchronous - don't rely on `this.state` to reflect the new value immediately after calling `setState`. Pass an updater function instead of an object if you need to compute values based on the current state (see below for details).
+Các lệnh gọi đến `setState` là bất đồng bộ - đừng dựa vào `this.state` để phản ánh giá trị mới sau khi gọi `setState`. Truyền một function cập nhật thay vì một object nếu bạn cần tính toán các giá trị dựa trên state hiện tại (xem chi tiết bên dưới).
 
-Example of code that will *not* behave as expected:
+Ví dụ về code sẽ *không* hoạt động như mong đợi:
 
 ```jsx
 incrementCount() {
-  // Note: this will *not* work as intended.
+  // Ghi chú: điều này sẽ *không* hoạt động như dự định.
   this.setState({count: this.state.count + 1});
 }
 
 handleSomething() {
-  // Let's say `this.state.count` starts at 0.
+  // Giả sử `this.state.count` bắt đầu 0.
   this.incrementCount();
   this.incrementCount();
   this.incrementCount();
-  // When React re-renders the component, `this.state.count` will be 1, but you expected 3.
+  // Khi React hiển thị lại component, `this.state.count` sẽ là 1, bạn mong muốn là 3.
 
-  // This is because `incrementCount()` function above reads from `this.state.count`,
-  // but React doesn't update `this.state.count` until the component is re-rendered.
-  // So `incrementCount()` ends up reading `this.state.count` as 0 every time, and sets it to 1.
+  // Điều này do hàm `incrementCount()` ở trên đọc từ `this.state.count`,
+  // nhưng React không cập nhật `this.state.count` cho đến khi thành phần được hiển thị lại.
+  // Vì vậy `incrementCount()` kết thúc bằng cách đọc `this.state.count` là 0 mỗi lần, và đặt nó thành 1.
 
-  // The fix is described below!
+  // Cách khắc phục được mô tả bên dưới!
 }
 ```
 
-See below for how to fix this problem.
+Xem bên dưới để biết cách khắc phục sự cố này.
 
-### How do I update state with values that depend on the current state? {#how-do-i-update-state-with-values-that-depend-on-the-current-state}
+### Làm cách nào để cập nhật state với các giá trị phụ thuộc vào state hiện tại? {#how-do-i-update-state-with-values-that-depend-on-the-current-state}
 
-Pass a function instead of an object to `setState` to ensure the call always uses the most updated version of state (see below). 
+Truyền một function thay vì một object vào `setState` để đảm bảo cuộc gọi luôn sử dụng state cập nhật mới nhất (xem bên dưới). 
 
-### What is the difference between passing an object or a function in `setState`? {#what-is-the-difference-between-passing-an-object-or-a-function-in-setstate}
+### Sự khác biệt giữa truyền một object hoặc một function trong `setState` là gì? {#what-is-the-difference-between-passing-an-object-or-a-function-in-setstate}
 
-Passing an update function allows you to access the current state value inside the updater. Since `setState` calls are batched, this lets you chain updates and ensure they build on top of each other instead of conflicting:
+Chuyển một function cập nhật cho phép bạn truy cập giá trị trạng thái hiện tại bên trong trình cập nhật. Vì các lệnh gọi `setState` được thực hiện theo đợt, điều này cho phép bạn cập nhật chuỗi và đảm bảo chúng xây dựng dựa trên nhau thay vì xung đột:
 
 ```jsx
 incrementCount() {
   this.setState((state) => {
-    // Important: read `state` instead of `this.state` when updating.
+    // Quan trọng: đọc `state` thay vì` this.state` khi cập nhật.
     return {count: state.count + 1}
   });
 }
 
 handleSomething() {
-  // Let's say `this.state.count` starts at 0.
+  // Giả sử `this.state.count` bắt đầu từ 0.
   this.incrementCount();
   this.incrementCount();
   this.incrementCount();
 
-  // If you read `this.state.count` now, it would still be 0.
-  // But when React re-renders the component, it will be 3.
+  // Nếu bây giờ bạn đọc `this.state.count`, nó vẫn là 0.
+  // Nhưng khi React hiển thị component, nó sẽ là 3.
 }
 ```
 
-[Learn more about setState](/docs/react-component.html#setstate)
+[Tìm hiểu thêm về setState](/docs/react-component.html#setstate)
 
-### When is `setState` asynchronous? {#when-is-setstate-asynchronous}
+### Khi nào `setState` bất đồng bộ? {#when-is-setstate-asynchronous}
 
-Currently, `setState` is asynchronous inside event handlers.
+Hiện tại, `setState` là bất đồng bộ bên trong các trình xử lý sự kiện.
 
-This ensures, for example, that if both `Parent` and `Child` call `setState` during a click event, `Child` isn't re-rendered twice. Instead, React "flushes" the state updates at the end of the browser event. This results in significant performance improvements in larger apps.
+Ví dụ, điều này đảm bảo rằng nếu cả `Cha` và `Con` gọi `setState` trong một sự kiện nhấp chuột, `Con` con không được hiển thị lại 2 lần. Thay vào đó, React “xóa” các cập nhật state vào cuối sự kiện trình duyệt. Điều này dẫn đến cải thiện hiệu suất đáng kể trong các ứng dụng lớn hơn.
 
-This is an implementation detail so avoid relying on it directly. In the future versions, React will batch updates by default in more cases.
+Đây là một chi tiết hoàn thiện nên tránh dựa dẫm vào nó trực tiếp. Trong các phiên bản tương lai, React sẽ cập nhật hàng loạt theo mặc định trong nhiều trường hợp hơn.
 
-### Why doesn't React update `this.state` synchronously? {#why-doesnt-react-update-thisstate-synchronously}
+### Tại sao React không cập nhật `this.state` một cách đồng bộ? {#why-doesnt-react-update-thisstate-synchronously}
 
-As explained in the previous section, React intentionally "waits" until all components call `setState()` in their event handlers before starting to re-render. This boosts performance by avoiding unnecessary re-renders.
+Như đã giải thích trong phần trước, React chủ ý "đợi" cho đến khi tất cả các thành phần gọi `setState()` trong trình xử lý sự kiện của họ trước khi bắt đầu hiển thị lại. Điều này tăng hiệu suất bằng cách tránh các hiển thị không cần thiết.
 
-However, you might still be wondering why React doesn't just update `this.state` immediately without re-rendering.
+Tuy nhiên, bạn vẫn có thể thắc mắc tại sao React không cập nhật `this.state` ngay lập tức mà không hiển thị lại.
 
-There are two main reasons:
+Có hai lý do chính:
 
-* This would break the consistency between `props` and `state`, causing issues that are very hard to debug.
-* This would make some of the new features we're working on impossible to implement.
+* Điều này sẽ phá vỡ sự nhất quán giữa `props` và `state`, gây ra các vấn đề rất khó gỡ lỗi.
+* Điều này sẽ khiến một số tính năng mới mà chúng tôi đang nghiên cứu không thể triển khai.
 
-This [GitHub comment](https://github.com/facebook/react/issues/11527#issuecomment-360199710) dives deep into the specific examples.
+[Nhận xét Github](https://github.com/facebook/react/issues/11527#issuecomment-360199710) này đi sâu vào các ví dụ cụ thể.
 
-### Should I use a state management library like Redux or MobX? {#should-i-use-a-state-management-library-like-redux-or-mobx}
+### Tôi có nên sử dụng thư viện quản lý state như Redux hoặc MobX không? {#should-i-use-a-state-management-library-like-redux-or-mobx}
 
-[Maybe.](https://redux.js.org/faq/general#when-should-i-use-redux)
+[Có lẽ.](https://redux.js.org/faq/general#when-should-i-use-redux)
 
-It's a good idea to get to know React first, before adding in additional libraries. You can build quite complex applications using only React.
+Bạn nên làm quen với React trước, trước khi sử dụng các thư viện bổ sung. Bạn có thể xây dựng các ứng dụng khá phức tạp chỉ bằng React.

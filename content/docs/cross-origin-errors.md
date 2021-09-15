@@ -1,28 +1,28 @@
 ---
 id: cross-origin-errors
-title: Cross-origin Errors
+title: Lỗi Cross-origin
 permalink: docs/cross-origin-errors.html
 ---
 
-> Note:
+> Ghi chú:
 >
-> The following section applies only to the development mode of React. Error handling in production mode is done with regular try/catch statements.
+> Bài này chỉ áp dụng trong chế độ phát triển của React. Xử lý lỗi trong chế độ sản phẩm (production mode) được thực hiện với các câu lệnh try/catch.
 
-In [development mode](/docs/optimizing-performance.html), React uses a global `error` event handler to preserve the "pause on exceptions" behavior of browser DevTools. It also logs errors to the developer console.
+Trong [chế độ phát triển](/docs/optimizing-performance.html), React sử dụng trình xử lý sự kiện `error` toàn cục để duy trình hành vi "pause on exceptions" ("Tạm dừng khi xảy ra ngoại lệ") của công cụ phát triển của trình duyệt. Nó cũng ghi lại lỗi vào bảng điều khiển dành cho nhà phát triển.
 
-If an error is thrown from a [different origin](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) the browser will mask its details and React will not be able to log the original error message. This is a security precaution taken by browsers to avoid leaking sensitive information.
+Nếu có một lỗi được đưa ra từ một [nguồn khác](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) trình duyệt sẽ che đi các chi tiết của nó và React sẽ không thể ghi lại thông báo lỗi gốc. Đây là biện pháp phòng ngừa bảo mật được thực hiện bởi trình duyệt nhằm tránh rò rỉ thông tin nhạy cảm.
 
-You can simplify the development/debugging process by ensuring that errors are thrown with a same-origin policy. Below are some common causes of cross-origin errors and ways to address them.
+Bạn có thể đơn giản hóa quy trình phát triển/gỡ lỗi bằng cách đảm bảo rằng các lỗi được đưa ra với cùng một nguồn. Dưới đây là một số nguyên nhân phổ biến gây ra lỗi có nguồn gốc khác nhau và cách giải quyết chúng.
 
 ### CDN {#cdn}
 
-When loading React (or other libraries that might throw errors) from a CDN, add the [`crossorigin`](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) attribute to your `<script>` tags:
+Khi tải React (hoặc các thư viện khác có thể gây ra lỗi) từ một CDN (mạng phân phối nội dung), hãy thêm thuộc tính [`crossorigin`](https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_settings_attributes) vào trong thẻ `<script>` của bạn:
 
 ```html
 <script crossorigin src="..."></script>
 ```
 
-Also ensure the CDN responds with the `Access-Control-Allow-Origin: *` HTTP header:
+Đồng thời chắc chắn rằng CDN phản hồi với một HTTP header `Access-Control-Allow-Origin: *`:
 
 ![Access-Control-Allow-Origin: *](../images/docs/cdn-cors-header.png)
 
@@ -30,12 +30,12 @@ Also ensure the CDN responds with the `Access-Control-Allow-Origin: *` HTTP head
 
 #### Source maps {#source-maps}
 
-Some JavaScript bundlers may wrap the application code with `eval` statements in development. (For example Webpack will do this if [`devtool`](https://webpack.js.org/configuration/devtool/) is set to any value containing the word "eval".) This may cause errors to be treated as cross-origin.
+Một số công cụ đóng gói Javascript có thể bọc mã ứng dụng bằng các câu lệnh `eval` trong quá trình phát triển. (Ví dụ: Webpack sẽ thực hiện việc này nếu [`devtool`](https://webpack.js.org/configuration/devtool/) được thiết lập từ bất kỳ giá trị nào có chưa từ khóa "eval".) Điều này có thể khiến các lỗi được coi là có nguồn gốc chéo nhau.
 
-If you use Webpack, we recommend using the `cheap-module-source-map` setting in development to avoid this problem.
+Nếu bạn sử dụng Webpack, chúng tôi khuyên bạn nên sử dụng cài đặt `cheap-module-source-map` trong quá trình phát triển để tránh vấn đề này.
 
-#### Code splitting {#code-splitting}
+#### Tách code {#code-splitting}
 
-If your application is split into multiple bundles, these bundles may be loaded using JSONP. This may cause errors thrown in the code of these bundles to be treated as cross-origin.
+Nếu ứng dụng của bạn được chia thành nhiều gói, các gói này có thể được tải bằng JSONP. Điều này có thể gây ra lỗi được đưa ra trong code của các gói này sẽ được coi là có nguồn gốc chéo nhau.
 
-To resolve this, use the [`crossOriginLoading`](https://webpack.js.org/configuration/output/#output-crossoriginloading) setting in development to add the `crossorigin` attribute to the `<script>` tags generated for the JSONP requests.
+Để giải quyết vấn đề này, sử dụng cài đặt [`crossOriginLoading`](https://webpack.js.org/configuration/output/#output-crossoriginloading) trong khi phát triển để thêm thuộc tính `crossorigin` vào thẻ `<script>` được tạo ra bởi JSONP request.

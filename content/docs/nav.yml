@@ -1,11 +1,11 @@
 - title: Cài đặt
   items:
     - id: getting-started
-      title: Bắt đầu
+      title: Bắt Đầu
     - id: add-react-to-a-website
       title: Thêm React vào một Website
     - id: create-a-new-react-app
-      title: Tạo mới một React App
+      title: Tạo một ứng dụng React mới
     - id: cdn-links
       title: Các liên kết CDN 
     - id: release-channels
@@ -133,19 +133,6 @@
       title: Testing Recipes
     - id: testing-environments
       title: Testing Environments
-- title: Concurrent Mode (Experimental)
-  isOrdered: true
-  items:
-    - id: concurrent-mode-intro
-      title: Giới thiệu Concurrent Mode
-    - id: concurrent-mode-suspense
-      title: Suspense for Data Fetching
-    - id: concurrent-mode-patterns
-      title: Concurrent UI Patterns
-    - id: concurrent-mode-adoption
-      title: Adopting Concurrent Mode
-    - id: concurrent-mode-reference
-      title: Concurrent Mode API Reference
 - title: Contributing
   items:
     - id: how-to-contribute

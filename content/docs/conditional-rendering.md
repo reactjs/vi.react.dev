@@ -154,10 +154,22 @@ ReactDOM.render(
 
 Vì thế, nếu điều kiện trả về giá trị là `true`, element phía sau toán tử logic `&&` sẽ xuất hiện ở màn hình. Nếu giá trị trả về là `false`, React sẽ bỏ qua nó.
 
+Chú ý rằng việc trả về một falsy expression sẽ vẫn làm cho element phía sau `&&` bị giữ lại nhưng sẽ trả về một falsy expression. Trong ví dụ bên dưới, `<div>0</div>` sẽ được trả về bởi phương thức render.
+
+```javascript{2,5}
+render() {
+  const count = 0;
+  return (
+    <div>
+      { count && <h1>Messages: {count}</h1>}
+    </div>
+  );
+}
+```
+
 ### Thay thế If-Else bằng toán tử điều kiện {#inline-if-else-with-conditional-operator}
 
 Một phương thức khác dùng để thực hiện render có điều kiện trực tiếp trên JSX là dùng toán tử điều kiện (ba ngôi) [`condition ? true : false`](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Operators/Conditional_Operator).
-
 
 Trong ví dụ phía dưới, ta sử dụng phương thức đã được nêu ở trên để render có điều kiện một đoạn văn bản nhỏ.
 
