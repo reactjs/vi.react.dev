@@ -68,7 +68,7 @@ Tương tự như vậy, `<input type="checkbox">` và `<input type="radio">` c�
 
 ## Thẻ input type file  {#the-file-input-tag}
 
-Trong HTML, thẻ`<input type="file">` cho phép người dùng chọn một hoặc nhiều files từ bộ nhớ thiết bị của họ và gửi đến server hoặc xử lí bằng javascript thông qua [File API] (https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications).
+Trong HTML, thẻ`<input type="file">` cho phép người dùng chọn một hoặc nhiều files từ bộ nhớ thiết bị của họ và gửi đến server hoặc xử lí bằng javascript thông qua [File API](https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications).
 
 ```html
 <input type="file" />
