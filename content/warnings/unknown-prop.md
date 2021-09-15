@@ -15,7 +15,7 @@ Có một số lý do có thể khiến cho cảnh báo này xuất hiện:
 
 
 2. Bạn đang sử dụng một thuộc tính DOM không tiêu chuẩn trên một DOM node gốc, có lẽ là đại diện cho một data tùy chỉnh. Nếu bạn đang cố gắng đính kèm data tùy chỉnh
-vào một DOM element tiêu chuẩn, bạn có thể xem xét sử dụng thuộc tính data tùy chỉnh như đã được mô tảtrên [MDN](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes).
+vào một DOM element tiêu chuẩn, bạn có thể xem xét sử dụng thuộc tính data tùy chỉnh như đã được mô tả trên [MDN](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Using_data_attributes).
 
 3. React chưa thể nhận ra thuộc tính mà bạn đã chỉ định. Điều này có thể được khắc phục trong một phiên bản React mới trong tương lai. Tuy nhiên, React hiện tại sẽ 
 loại bỏ tất cả các thuộc tính không được xác định, vì vậy việc bạn chỉ định chúng trong ứng dụng React của bạn sẽ khiến chúng không được render.
@@ -24,7 +24,7 @@ loại bỏ tất cả các thuộc tính không được xác định, vì vậ
 
 ---
 
-Để khắc phục điều này, các composite components nên "sử dụng hết" bất kỳ prop nào dành cho composite components và không dành cho component con. Ví dụ:
+Để khắc phục điều này, các composite components nên "sử dụng hết" bất kỳ prop nào dành cho composite component và không dành cho component con. Ví dụ:
 
 **Tệ:** Prop `layout` không mong muốn đã được chuyển tiếp đến thẻ `div`.
 
