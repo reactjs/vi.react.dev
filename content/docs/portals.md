@@ -4,17 +4,17 @@ title: Portals
 permalink: docs/portals.html
 ---
 
-Portals provide a first-class way to render children into a DOM node that exists outside the DOM hierarchy of the parent component.
+Portals cung cấp một cách hạng nhất để kết xuất phần tử con thành một nút DOM tồn tại bên ngoài phân cấp DOM của thành phần cha.
 
 ```js
 ReactDOM.createPortal(child, container)
 ```
 
-The first argument (`child`) is any [renderable React child](/docs/react-component.html#render), such as an element, string, or fragment. The second argument (`container`) is a DOM element.
+Đối số đầu tiên (`child`) là bất kỳ [phần tử con nào của React có thể kết xuất được](/docs/react-component.html#render), chẳng hạn như một phần tử, chuỗi, hoặc đoạn. Đối số thứ hai (`container`) là một phần tử DOM.
 
-## Usage {#usage}
+## Sử dụng {#usage}
 
-Normally, when you return an element from a component's render method, it's mounted into the DOM as a child of the nearest parent node:
+Thông thường, khi bạn trả về một phần tử từ phương thức kết xuất của một thành phần, nó sẽ được gắn vào DOM dưới dạng phần tử con của nút cha gần nhất:
 
 ```js{4,6}
 render() {
@@ -27,7 +27,7 @@ render() {
 }
 ```
 
-However, sometimes it's useful to insert a child into a different location in the DOM:
+Tuy nhiên, đôi khi sẽ hữu ích nếu chèn một phần tử con vào một vị trí khác trong DOM:
 
 ```js{6}
 render() {
@@ -40,21 +40,21 @@ render() {
 }
 ```
 
-A typical use case for portals is when a parent component has an `overflow: hidden` or `z-index` style, but you need the child to visually "break out" of its container. For example, dialogs, hovercards, and tooltips.
+Một trường hợp điển hình sử dụng cho các portals là khi một thành phần cha có kiểu `overflow: hidden` or `z-index`, nhưng bạn cần thành phần con “thoát ra” khỏi vùng chứa của nó một cách trực quan. Ví dụ: hộp thoại, thẻ di chuột và chú giải công cụ.
 
-> Note:
+> Chú ý:
 >
-> When working with portals, remember that [managing keyboard focus](/docs/accessibility.html#programmatically-managing-focus) becomes very important.
+> Khi làm việc với các portals, hãy nhớ rằng việc [quản lý tiêu điểm bàn phím](/docs/accessibility.html#programmatically-managing-focus) trở nên rất quan trọng.
 >
-> For modal dialogs, ensure that everyone can interact with them by following the [WAI-ARIA Modal Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal).
+> Đối với modal dialogs, hãy đảm bảo rằng mọi người đều có thể tương tác với chúng bằng cách tuân theo [WAI-ARIA Modal Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal).
 
 [**Try it on CodePen**](https://codepen.io/gaearon/pen/yzMaBd)
 
-## Event Bubbling Through Portals {#event-bubbling-through-portals}
+## Sự Kiện Bong Bóng qua Portals {#event-bubbling-through-portals}
 
-Even though a portal can be anywhere in the DOM tree, it behaves like a normal React child in every other way. Features like context work exactly the same regardless of whether the child is a portal, as the portal still exists in the *React tree* regardless of position in the *DOM tree*.
+Mặc dù một portal có thể ở bất kỳ đâu trong DOM tree, nhưng theo mọi cách khác, nó hoạt động giống như một React con bình thường. Các tính năng như ngữ cảnh hoạt động giống hệt nhau bất kể thành phần con có phải là portal hay không, vì portal vẫn tồn tại trong *React tree* bất kể vị trí trong *DOM tree*.
 
-This includes event bubbling. An event fired from inside a portal will propagate to ancestors in the containing *React tree*, even if those elements are not ancestors in the *DOM tree*. Assuming the following HTML structure:
+Điều này bao gồm sự kiện bong bóng. Một sự kiện được kích hoạt từ bên trong portal sẽ truyền đến ancestors trong *React tree* có chứa, ngay cả khi những phần tử đó không phải là ancestors trong *DOM tree*. Giả sử cấu trúc HTML sau:
 
 ```html
 <html>
@@ -65,7 +65,7 @@ This includes event bubbling. An event fired from inside a portal will propagate
 </html>
 ```
 
-A `Parent` component in `#app-root` would be able to catch an uncaught, bubbling event from the sibling node `#modal-root`.
+Một thành phần `Parent` trong `#app-root` sẽ có thể bắt được một sự kiện bong bóng chưa được giải quyết từ nút anh chị em `#modal-root`.
 
 ```js{28-31,42-49,53,61-63,70-71,74}
 // These two containers are siblings in the DOM
@@ -151,4 +151,4 @@ ReactDOM.render(<Parent />, appRoot);
 
 [**Try it on CodePen**](https://codepen.io/gaearon/pen/jGBWpE)
 
-Catching an event bubbling up from a portal in a parent component allows the development of more flexible abstractions that are not inherently reliant on portals. For example, if you render a `<Modal />` component, the parent can capture its events regardless of whether it's implemented using portals.
+Việc nắm bắt một sự kiện xảy ra từ một portal trong thành phần cha cho phép phát triển các tính năng trừu tượng linh hoạt hơn vốn không phụ thuộc vào các portal. Ví dụ: nếu bạn hiển thị một thành phần `<Modal />`, thành phần gốc có thể nắm bắt các sự kiện của nó bất kể nó có được triển khai bằng portal hay không.
