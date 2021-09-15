@@ -1,6 +1,6 @@
 ---
-Tiêu đề: JSFiddle Integration
-Tác giả: [vjeux]
+title: JSFiddle Integration
+author: [vjeux]
 ---
 
 [JSFiddle](https://jsfiddle.net) thông báo hỗ trợ cho React. Đây là một thông tin thú vị vì nó giúp làm việc trên các đoạn mã trở nên dễ dàng hơn rất nhiều. bạn có thể thử nó tại **[base React JSFiddle](http://jsfiddle.net/vjeux/kb3gN/)**, fork nó và chia sẻ nó! Một [fiddle Không sử dụng JSX](http://jsfiddle.net/vjeux/VkebS/) cũng có sẵn.
