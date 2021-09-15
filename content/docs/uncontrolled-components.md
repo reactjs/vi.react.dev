@@ -39,9 +39,9 @@ class NameForm extends React.Component {
 
 [**Xem ví dụ trên CodePen**](https://codepen.io/gaearon/pen/WooRWa?editors=0010)
 
-Vì uncontrolled component chỉ dựa trên DOM, điều này khiến việc tương tác với code React và non-React khá dễ dàng. Nếu bạn muốn code nhanh và bẩn, uncontrolled component có thể giúp bạn code ít code hơn. Nếu không, bạn nên sử dụng controlled components.
+Vì uncontrolled component chỉ dựa trên DOM, điều này khiến việc tương tác với code React và non-React khá dễ dàng. Nếu bạn muốn code nhanh và bẩn, uncontrolled components có thể giúp bạn code ít code hơn. Nếu không, bạn nên sử dụng controlled components.
 
-Nếu những giải thích trên vẫn chưa rõ về loại component sử dụng cho các trường hợp cụ thể, bạn có thể tìm thêm ở [bài viết về controlled và uncontrolled inputs](https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/)..
+Nếu những giải thích trên vẫn chưa rõ về loại component sử dụng cho các trường hợp cụ thể, bạn có thể tìm thêm ở [bài viết về controlled và uncontrolled inputs](https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/).
 
 ### Giá trị mặc định {#default-values}
 
@@ -68,7 +68,7 @@ Tương tự như vậy, `<input type="checkbox">` và `<input type="radio">` c�
 
 ## Thẻ input type file  {#the-file-input-tag}
 
-Trong HTML, thẻ`<input type="file">` cho phép người dùng chọn một hoặc nhiều files từ bộ nhớ thiết bị của họ và gửi đến server hoặc xử lí bằng javascript thông qua [File API] (https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications).
+Trong HTML, thẻ`<input type="file">` cho phép người dùng chọn một hoặc nhiều files từ bộ nhớ thiết bị của họ và gửi đến server hoặc xử lí bằng javascript thông qua [File API](https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications).
 
 ```html
 <input type="file" />
