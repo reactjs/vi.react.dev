@@ -6,14 +6,14 @@ permalink: warnings/invalid-hook-call-warning.html
 
  Bạn có thể ở đây bởi vì bạn nhận được nhũng thông báo lỗi dưới đây:
 
- > Hooks chỉ có thể được gọi bên trong phần thân của một function component.
+ > Hooks chỉ có thể được gọi bên trong code của một function component.
 
 Có ba nguyên nhân phổ biến bạn có thể thấy:
-1. Bạn có thể có **phiên bản không trùng khớp** của React và React DOM.
+1. Có thể bạn đang dùng **phiên bản không trùng khớp** của React và React DOM.
 2. Bạn có thể đang **vi phạm [Rules of Hooks](/docs/hooks-rules.html)**.
 3. Bạn có thể đang có **một hoặc nhiều hơn bản React** trong cùng một ứng dụng.
 
-Hãy nhìn vào từng trường hợp ở dưới đaay.
+Hãy nhìn vào từng trường hợp ở dưới đây.
 
 ## Phiên bản không trùng khớp của React và React DOM {#mismatching-versions-of-react-and-react-dom}
 
@@ -46,7 +46,7 @@ function useWindowWidth() {
 
 * 🔴 Đừng gọi Hooks trong class components.
 * 🔴 Đừng gọi Hooks trong event handlers.
-* 🔴 Đừng gọi Hooks trong những hàm truyền vào `useMemo`, `useReducer`, hoặc `useEffect`.
+* 🔴 Đừng gọi Hooks bên trong các hàm được dùng trong `useMemo`, `useReducer`, hoặc `useEffect`.
 
 Nếu bạn vi phạm những quy tắc này, bạn có thể thấy lỗi này.
 
