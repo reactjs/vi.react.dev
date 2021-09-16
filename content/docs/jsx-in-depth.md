@@ -1,6 +1,6 @@
 ---
 id: jsx-in-depth
-title: JSX In Depth
+title: JSX Chuyên Sâu
 permalink: docs/jsx-in-depth.html
 redirect_from:
   - "docs/jsx-spread.html"
@@ -13,7 +13,7 @@ redirect_from:
   - "docs/jsx-in-depth-ko-KR.html"
 ---
 
-Fundamentally, JSX just provides syntactic sugar for the `React.createElement(component, props, ...children)` function. The JSX code:
+Về cơ bản, JSX chỉ cung cấp cú pháp đặc biệt cho hàm `React.createElement(component, props, ...children)`. Đoạn mã JSX:
 
 ```js
 <MyButton color="blue" shadowSize={2}>
@@ -21,7 +21,7 @@ Fundamentally, JSX just provides syntactic sugar for the `React.createElement(co
 </MyButton>
 ```
 
-compiles into:
+được biên dịch thành:
 
 ```js
 React.createElement(
@@ -31,13 +31,13 @@ React.createElement(
 )
 ```
 
-You can also use the self-closing form of the tag if there are no children. So:
+Bạn cũng có thể sử dụng dạng thẻ tự đóng(self-closing) nếu không có children. Do vậy:
 
 ```js
 <div className="sidebar" />
 ```
 
-compiles into:
+được biên dịch thành:
 
 ```js
 React.createElement(
@@ -46,19 +46,19 @@ React.createElement(
 )
 ```
 
-If you want to test out how some specific JSX is converted into JavaScript, you can try out [the online Babel compiler](babel://jsx-simple-example).
+Nếu bạn muốn kiểm tra xem cách mà JSX được chuyển đổi sang JavaScript, bạn có thể thử [the online Babel compiler](babel://jsx-simple-example).
 
-## Specifying The React Element Type {#specifying-the-react-element-type}
+## Chỉ Định Kiểu React Element {#specifying-the-react-element-type}
 
-The first part of a JSX tag determines the type of the React element.
+Phần đầu tiên của một thẻ JSX xác định kiểu của React element.
 
-Capitalized types indicate that the JSX tag is referring to a React component. These tags get compiled into a direct reference to the named variable, so if you use the JSX `<Foo />` expression, `Foo` must be in scope.
+Các kiểu viết hoa thể hiện rằng thẻ JSX đang ám chỉ tới một React component. Những thẻ này được biên dịch thành một tham chiếu trực tiếp đến biến được đặt tên, do vậy nếu bạn sử dụng biểu thức JSX `<Foo />`, `Foo` phải nằm trong scope.
 
-### React Must Be in Scope {#react-must-be-in-scope}
+### React Phải Nằm trong Scope {#react-must-be-in-scope}
 
-Since JSX compiles into calls to `React.createElement`, the `React` library must also always be in scope from your JSX code.
+Vì JSX đuợc biên dịch thành lời gọi tới `React.createElement`, nên thư viện `React` phải luôn nằm trong scope mã JSX của bạn.
 
-For example, both of the imports are necessary in this code, even though `React` and `CustomButton` are not directly referenced from JavaScript:
+Ví dụ, cả hai import đều cần thiết trong đoạn mã này, mặc dù `React` và `CustomButton` không được tham chiếu trực tiếp từ JavaScript:
 
 ```js{1,2,5}
 import React from 'react';
@@ -70,11 +70,11 @@ function WarningButton() {
 }
 ```
 
-If you don't use a JavaScript bundler and loaded React from a `<script>` tag, it is already in scope as the `React` global.
+Nếu bạn không sử dụng một trình đóng gói JavaScript(JavaScript bundler) và tải React từ một thẻ  `<script>`, thì `React` đã có sẵn trong scope toàn cục(global).
 
-### Using Dot Notation for JSX Type {#using-dot-notation-for-jsx-type}
+### Sử Dụng Ký Hiệu Chấm cho JSX Type {#using-dot-notation-for-jsx-type}
 
-You can also refer to a React component using dot-notation from within JSX. This is convenient if you have a single module that exports many React components. For example, if `MyComponents.DatePicker` is a component, you can use it directly from JSX with:
+Bạn cũng có thể tham chiếu đến một React component sử dụng ký hiệu chấm từ JSX. Điều này rất tiện lợi nếu bạn có một module export nhiều React component. Ví dụ, nếu `MyComponents.DatePicker` là một component, bạn có thể sử dụng nó trực tiếp từ JSX với:
 
 ```js{10}
 import React from 'react';
@@ -90,49 +90,49 @@ function BlueDatePicker() {
 }
 ```
 
-### User-Defined Components Must Be Capitalized {#user-defined-components-must-be-capitalized}
+### Component Người Dùng Tự Định Nghĩa Phải Được Viết Hoa {#user-defined-components-must-be-capitalized}
 
-When an element type starts with a lowercase letter, it refers to a built-in component like `<div>` or `<span>` and results in a string `'div'` or `'span'` passed to `React.createElement`. Types that start with a capital letter like `<Foo />` compile to `React.createElement(Foo)` and correspond to a component defined or imported in your JavaScript file.
+Khi một kiểu element bắt đầu với chữ cái thường, nó đang ám chỉ đến một built-in component như `<div>` hay `<span>` và kết quả là một chuỗi `'div'` hay `'span'` được truyền tới `React.createElement`. Các kiểu bắt đầu với chữ cái viết hoa như `<Foo />` được biên dịch thành `React.createElement(Foo)` và tương ứng với một component đã được định nghĩa hoặc đã được import vào tệp JavaScript của bạn.
 
-We recommend naming components with a capital letter. If you do have a component that starts with a lowercase letter, assign it to a capitalized variable before using it in JSX.
+Chúng tôi khuyến khích đặt tên cho các component với chữ cái đầu viết hoa. Nếu bạn có một component bắt đầu với chữ cái viết thường, gán nó cho một biến được viết hoa trước khi sử dụng nó trong JSX.
 
-For example, this code will not run as expected:
+Ví dụ, đoạn mã bên dưới sẽ không chạy như mong đợi:
 
 ```js{3,4,10,11}
 import React from 'react';
 
-// Wrong! This is a component and should have been capitalized:
+// Sai! Đây là một component và nên được viết hoa:
 function hello(props) {
-  // Correct! This use of <div> is legitimate because div is a valid HTML tag:
+  // Chính xác! Sử dụng <div> là hợp lệ vì div là một thẻ HTML:
   return <div>Hello {props.toWhat}</div>;
 }
 
 function HelloWorld() {
-  // Wrong! React thinks <hello /> is an HTML tag because it's not capitalized:
+  // Sai! React nghĩ <hello /> là một thẻ HTML vì nó không được viết hoa chữ cái đầu:
   return <hello toWhat="World" />;
 }
 ```
 
-To fix this, we will rename `hello` to `Hello` and use `<Hello />` when referring to it:
+Để khắc phục vấn đề này, chúng tôi sẽ đổi tên `hello` thành `Hello` và sử dụng `<Hello />` khi tham chiếu đến nó:
 
 ```js{3,4,10,11}
 import React from 'react';
 
-// Correct! This is a component and should be capitalized:
+// Chính xác! Đây là một component và nên được viết hoa:
 function Hello(props) {
-  // Correct! This use of <div> is legitimate because div is a valid HTML tag:
+  // Chính xác! Sử dụng <div> là hợp lệ vì div là một thẻ HTML:
   return <div>Hello {props.toWhat}</div>;
 }
 
 function HelloWorld() {
-  // Correct! React knows <Hello /> is a component because it's capitalized.
+  // Chính xác! React biết <Hello /> là một component vì nó được viết hoa.
   return <Hello toWhat="World" />;
 }
 ```
 
-### Choosing the Type at Runtime {#choosing-the-type-at-runtime}
+### Chọn Kiểu tại Thời Điểm Thực Thi {#choosing-the-type-at-runtime}
 
-You cannot use a general expression as the React element type. If you do want to use a general expression to indicate the type of the element, just assign it to a capitalized variable first. This often comes up when you want to render a different component based on a prop:
+Bạn không thể sử dụng một biểu thức tổng hợp để làm một kiểu React element. Nếu bạn muốn sử dụng một biểu thức tổng hợp để thể hiện kiểu của element, chỉ cần gán nó cho một biến được viết hoa trước. Vấn đề này thường xuất hiện khi bạn muốn render một component khác dựa trên một prop:
 
 ```js{10,11}
 import React from 'react';
@@ -144,12 +144,12 @@ const components = {
 };
 
 function Story(props) {
-  // Wrong! JSX type can't be an expression.
+  // Sai! JSX type không thể là một biểu thức.
   return <components[props.storyType] story={props.story} />;
 }
 ```
 
-To fix this, we will assign the type to a capitalized variable first:
+Để khắc phục vấn đề này, chúng tôi sẽ gán kiểu cho một biến được viết hoa trước:
 
 ```js{10-12}
 import React from 'react';
@@ -161,27 +161,27 @@ const components = {
 };
 
 function Story(props) {
-  // Correct! JSX type can be a capitalized variable.
+  // Chính xác! JSX type có thể là một biến được viết hoa.
   const SpecificStory = components[props.storyType];
   return <SpecificStory story={props.story} />;
 }
 ```
 
-## Props in JSX {#props-in-jsx}
+## Props trong JSX {#props-in-jsx}
 
-There are several different ways to specify props in JSX.
+Có vài cách khác nhau để chỉ định props trong JSX.
 
-### JavaScript Expressions as Props {#javascript-expressions-as-props}
+### Biểu thức JavaScript làm Props {#javascript-expressions-as-props}
 
-You can pass any JavaScript expression as a prop, by surrounding it with `{}`. For example, in this JSX:
+Bạn có thể truyền bất kỳ biểu thức JavaScript nào làm prop, bằng cách bao quanh nó với  `{}`. Ví dụ, trong đoạn mã JSX bên dưới:
 
 ```js
 <MyComponent foo={1 + 2 + 3 + 4} />
 ```
 
-For `MyComponent`, the value of `props.foo` will be `10` because the expression `1 + 2 + 3 + 4` gets evaluated.
+Đối với `MyComponent`, giá trị của `props.foo` sẽ là `10` vì biểu thức `1 + 2 + 3 + 4` đã được tính toán.
 
-`if` statements and `for` loops are not expressions in JavaScript, so they can't be used in JSX directly. Instead, you can put these in the surrounding code. For example:
+Câu lệnh `if` và vòng lặp `for` không phải là biểu thức trong JavaScript, do vậy chúng không thể được sử dụng trong JSX một cách trực tiếp. Thay vào đó, bạn có thể đặt chúng ở đoạn mã xung quanh. Ví dụ:
 
 ```js{3-7}
 function NumberDescriber(props) {
@@ -195,11 +195,11 @@ function NumberDescriber(props) {
 }
 ```
 
-You can learn more about [conditional rendering](/docs/conditional-rendering.html) and [loops](/docs/lists-and-keys.html) in the corresponding sections.
+Bạn có thể tìm hiểu thêm về [render có điều kiện](/docs/conditional-rendering.html) vầ [vòng lặp](/docs/lists-and-keys.html) ở những mục tương ứng.
 
 ### String Literals {#string-literals}
 
-You can pass a string literal as a prop. These two JSX expressions are equivalent:
+Bạn có thể truyền một string literal làm một prop. Hai biểu thức JSX bên dưới là tương đương:
 
 ```js
 <MyComponent message="hello world" />
@@ -207,7 +207,7 @@ You can pass a string literal as a prop. These two JSX expressions are equivalen
 <MyComponent message={'hello world'} />
 ```
 
-When you pass a string literal, its value is HTML-unescaped. So these two JSX expressions are equivalent:
+Khi bạn truyền một string literal, giá trị của nó là HTML-unescaped. Do vậy hai biểu thức JSX bên dưới là tương đương:
 
 ```js
 <MyComponent message="&lt;3" />
@@ -215,11 +215,11 @@ When you pass a string literal, its value is HTML-unescaped. So these two JSX ex
 <MyComponent message={'<3'} />
 ```
 
-This behavior is usually not relevant. It's only mentioned here for completeness.
+Hành vi này thường không phù hợp. Nó chỉ được đề cập ở đây cho đầy đủ.
 
-### Props Default to "True" {#props-default-to-true}
+### Props Mặc Định là "True" {#props-default-to-true}
 
-If you pass no value for a prop, it defaults to `true`. These two JSX expressions are equivalent:
+Nếu bạn không truyền giá trị cho một prop, nó sẽ được mặc định là `true`. Hai biểu thức JSX bên dưới là tương đương:
 
 ```js
 <MyTextBox autocomplete />
@@ -227,11 +227,11 @@ If you pass no value for a prop, it defaults to `true`. These two JSX expression
 <MyTextBox autocomplete={true} />
 ```
 
-In general, we don't recommend *not* passing a value for a prop, because it can be confused with the [ES6 object shorthand](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Object_initializer#New_notations_in_ECMAScript_2015) `{foo}` which is short for `{foo: foo}` rather than `{foo: true}`. This behavior is just there so that it matches the behavior of HTML.
+Nhìn chung, chúng tôi không khuyến khích việc *không* truyền giá trị cho một prop, vì nó có thể gây nhầm lẫn với [ES6 object shorthand](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Object_initializer#New_notations_in_ECMAScript_2015) `{foo}` là viết tắt của `{foo: foo}` thay vì `{foo: true}`. Hành vi này tồn tại để phù hợp với hành vi của HTML.
 
 ### Spread Attributes {#spread-attributes}
 
-If you already have `props` as an object, and you want to pass it in JSX, you can use `...` as a "spread" operator to pass the whole props object. These two components are equivalent:
+Nếu bạn đã có một `props` là một object, và bạn muốn truyền nó trong JSX, bạn có thể sử dụng `...` như một toán tử "spread" để truyền toàn bộ props object. Hai component bên dưới là tương đương:
 
 ```js{7}
 function App1() {
@@ -244,7 +244,7 @@ function App2() {
 }
 ```
 
-You can also pick specific props that your component will consume while passing all other props using the spread operator.
+Bạn cũng có thể chọn một vài props mà component của bạn sẽ sử dụng trong khi truyền toàn bộ những props còn lại sử dụng toán tử spread.
 
 ```js{2}
 const Button = props => {
@@ -264,30 +264,29 @@ const App = () => {
 };
 ```
 
-In the example above, the `kind` prop is safely consumed and *is not* passed on to the `<button>` element in the DOM.
-All other props are passed via the `...other` object making this component really flexible. You can see that it passes an `onClick` and `children` props.
+Ở ví dụ bên trên, `kind` prop được sử dụng một cách an toàn và *không* bị truyền tới `<button>` element trong DOM. Tất cả props còn lại được truyền thông qua `...other` object làm cho component này thực sự linh hoạt. Bạn có thể thấy rằng nó truyền `onClick` và `children` props.
 
-Spread attributes can be useful but they also make it easy to pass unnecessary props to components that don't care about them or to pass invalid HTML attributes to the DOM. We recommend using this syntax sparingly.  
+Spread attributes có thể hữu dụng nhưng chúng cũng dễ dàng khiển bạn truyền những props không cần thiết tới những component mà không quan tâm tới những props đó hoặc truyền những HTML attribute không hợp lệ tới DOM. Chúng tôi khuyến khích sử dụng cú pháp này một cách hạn chế. 
 
-## Children in JSX {#children-in-jsx}
+## Children trong JSX {#children-in-jsx}
 
-In JSX expressions that contain both an opening tag and a closing tag, the content between those tags is passed as a special prop: `props.children`. There are several different ways to pass children:
+Trong biểu thức JSX mà chứa cả thẻ mở và thẻ đóng, nội dung nằm giữa hai thẻ được truyền như một prop đặc biệt: `props.children`. Có vài cách khác nhau để truyền children:
 
 ### String Literals {#string-literals-1}
 
-You can put a string between the opening and closing tags and `props.children` will just be that string. This is useful for many of the built-in HTML elements. For example:
+Bạn có thể đặt một chuỗi ký tự giữa thẻ đóng và thẻ mở và `props.children` sẽ là chuỗi ký tự đó. Điều này rất hữu ích cho nhiều built-in HTML elements. Ví dụ:
 
 ```js
 <MyComponent>Hello world!</MyComponent>
 ```
 
-This is valid JSX, and `props.children` in `MyComponent` will simply be the string `"Hello world!"`. HTML is unescaped, so you can generally write JSX just like you would write HTML in this way:
+Đây là một JSX hợp lệ, và `props.children` trong `MyComponent` sẽ là chuỗi ký tự `"Hello world!"`. HTML là unescaped, do vậy bạn có thể viết JSX giống như cách mà bạn viết HTML:
 
 ```html
 <div>This is valid HTML &amp; JSX at the same time.</div>
 ```
 
-JSX removes whitespace at the beginning and ending of a line. It also removes blank lines. New lines adjacent to tags are removed; new lines that occur in the middle of string literals are condensed into a single space. So these all render to the same thing:
+JSX loại bỏ khoẳng trắng ở đầu và cuối của một dòng. Nó cũng loại bỏ dòng trống. Dòng mới liền kề với các thẻ sẽ bị loại bỏ; dòng mới ở giữa của string literals được thay thế bằng một khoảng trắng. Do vậy tất cả được render ra kết quả giống nhau:
 
 ```js
 <div>Hello World</div>
@@ -309,7 +308,7 @@ JSX removes whitespace at the beginning and ending of a line. It also removes bl
 
 ### JSX Children {#jsx-children}
 
-You can provide more JSX elements as the children. This is useful for displaying nested components:
+Bạn có thể cung cấp nhiều JSX elements làm children. Điều này rất hữu ích để hiển thị các component lồng nhau:
 
 ```js
 <MyContainer>
@@ -318,7 +317,7 @@ You can provide more JSX elements as the children. This is useful for displaying
 </MyContainer>
 ```
 
-You can mix together different types of children, so you can use string literals together with JSX children. This is another way in which JSX is like HTML, so that this is both valid JSX and valid HTML:
+Bạn có thể kết hợp nhiều kiểu children, do vậy bạn có thể sử dụng string literals cùng với JSX children. Đây là một cách khác mà JSX tương tự như HTML, cả hai đều là JSX hợp lệ và HTML hợp lệ:
 
 ```html
 <div>
@@ -330,13 +329,13 @@ You can mix together different types of children, so you can use string literals
 </div>
 ```
 
-A React component can also return an array of elements:
+Một React component cũng có thể trả về một mảng các element:
 
 ```js
 render() {
-  // No need to wrap list items in an extra element!
+  // Không cần bao list items trong một element khác!
   return [
-    // Don't forget the keys :)
+    // Đừng có mà quên key đấy :)
     <li key="A">First item</li>,
     <li key="B">Second item</li>,
     <li key="C">Third item</li>,
@@ -344,9 +343,9 @@ render() {
 }
 ```
 
-### JavaScript Expressions as Children {#javascript-expressions-as-children}
+### Biểu Thức JavaScript làm Children {#javascript-expressions-as-children}
 
-You can pass any JavaScript expression as children, by enclosing it within `{}`. For example, these expressions are equivalent:
+Bạn có thể truyền biểu thức JavaScript bất kỳ làm children, bằng cách bao quanh nó với `{}`. Ví dụ, những biểu thức bên dưới là tương đương:
 
 ```js
 <MyComponent>foo</MyComponent>
@@ -354,7 +353,7 @@ You can pass any JavaScript expression as children, by enclosing it within `{}`.
 <MyComponent>{'foo'}</MyComponent>
 ```
 
-This is often useful for rendering a list of JSX expressions of arbitrary length. For example, this renders an HTML list:
+Điều này khá hữu ích khi render một danh sách các biểu thức JSX với độ dài bất kỳ. Ví dụ, đoạn mã render một danh sách HTML:
 
 ```js{2,9}
 function Item(props) {
@@ -371,7 +370,7 @@ function TodoList() {
 }
 ```
 
-JavaScript expressions can be mixed with other types of children. This is often useful in lieu of string templates:
+Các biểu thức JavaScript có thể được kết hợp với những loại children khác. Điều này khá hữu ích thay cho string templates:
 
 ```js{2}
 function Hello(props) {
@@ -379,12 +378,12 @@ function Hello(props) {
 }
 ```
 
-### Functions as Children {#functions-as-children}
+### Hàm làm Children {#functions-as-children}
 
-Normally, JavaScript expressions inserted in JSX will evaluate to a string, a React element, or a list of those things. However, `props.children` works just like any other prop in that it can pass any sort of data, not just the sorts that React knows how to render. For example, if you have a custom component, you could have it take a callback as `props.children`:
+Thông thường, các biểu thức JavaScript khi chèn vào trong JSX sẽ được coi như là một chuỗi, một hoặc một danh sách các React element. Tuy nhiên, `props.children` hoạt động tương tự như những prop khác ở chỗ là nó có thể truyền bất kỳ loại dữ liệu nào, không phải chỉ là những loại dữ liệu mà React biết cách để render. Ví dụ, nếu bạn có một component tùy chỉnh, bạn có thể để nó nhận một callback làm `props.children`:
 
 ```js{4,13}
-// Calls the children callback numTimes to produce a repeated component
+// Gọi children callback numTimes để tạo ra một component lặp
 function Repeat(props) {
   let items = [];
   for (let i = 0; i < props.numTimes; i++) {
@@ -402,11 +401,11 @@ function ListOfTenThings() {
 }
 ```
 
-Children passed to a custom component can be anything, as long as that component transforms them into something React can understand before rendering. This usage is not common, but it works if you want to stretch what JSX is capable of.
+Children truyền cho một component tùy chỉnh có thể là bất cứ thứ gì, miễn là component đó biến đổi chúng thành thứ mà React có thể hiểu được trước khi render. Cách sử dụng này không phổ biến, nhưng nó vẫn hoạt động nếu bạn muốn mở rộng khả năng của JSX.
 
-### Booleans, Null, and Undefined Are Ignored {#booleans-null-and-undefined-are-ignored}
+### Booleans, Null, và Undefined Được Bỏ Qua {#booleans-null-and-undefined-are-ignored}
 
-`false`, `null`, `undefined`, and `true` are valid children. They simply don't render. These JSX expressions will all render to the same thing:
+`false`, `null`, `undefined`, và `true` đều là children hợp lệ. Chúng đơn giản là không được render. Những biểu thức JSX này đều sẽ được render ra kết quả giống nhau:
 
 ```js
 <div />
@@ -422,7 +421,7 @@ Children passed to a custom component can be anything, as long as that component
 <div>{true}</div>
 ```
 
-This can be useful to conditionally render React elements. This JSX renders the `<Header />` component only if `showHeader` is `true`:
+Điều này có thể hữu ích để render có điều kiện các React element. Đoạn mã JSX bên dưới render `<Header />` component chỉ khi `showHeader` là `true`:
 
 ```js{2}
 <div>
@@ -431,7 +430,7 @@ This can be useful to conditionally render React elements. This JSX renders the 
 </div>
 ```
 
-One caveat is that some ["falsy" values](https://developer.mozilla.org/en-US/docs/Glossary/Falsy), such as the `0` number, are still rendered by React. For example, this code will not behave as you might expect because `0` will be printed when `props.messages` is an empty array:
+Có một lưu ý là một vài [giá trị "falsy"](https://developer.mozilla.org/en-US/docs/Glossary/Falsy), như số `0`, thì vẫn được render bởi React. Ví dụ, đoạn mã bên dưới sẽ không hoạt động như bạn mong muốn vì `0` sẽ được in ra khi `props.messages` là một mảng rỗng:
 
 ```js{2}
 <div>
@@ -441,7 +440,7 @@ One caveat is that some ["falsy" values](https://developer.mozilla.org/en-US/doc
 </div>
 ```
 
-To fix this, make sure that the expression before `&&` is always boolean:
+Để xử lý vấn đề này, hãy đảm bảo rằng những biểu thức nằm trước `&&` luôn là boolean:
 
 ```js{2}
 <div>
@@ -451,7 +450,7 @@ To fix this, make sure that the expression before `&&` is always boolean:
 </div>
 ```
 
-Conversely, if you want a value like `false`, `true`, `null`, or `undefined` to appear in the output, you have to [convert it to a string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String#String_conversion) first:
+Ngược lại, nếu bạn muốn một giá trị như `false`, `true`, `null`, hoặc `undefined` xuất hiện ở đầu ra, bạn phải [chuyển đổi nó thành một chuỗi ký tự](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String#String_conversion) trước:
 
 ```js{2}
 <div>
