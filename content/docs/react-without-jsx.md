@@ -1,14 +1,14 @@
 ---
 id: react-without-jsx
-title: React Without JSX
+title: React Không Dùng JSX
 permalink: docs/react-without-jsx.html
 ---
 
-JSX is not a requirement for using React. Using React without JSX is especially convenient when you don't want to set up compilation in your build environment.
+JSX không phải là một yêu cầu bắt buộc để sử dụng React. Sử dụng React mà không dùng JSX đặc biệt thuận tiện khi bạn không muốn thiết lập compilation trong môi trường build của bạn.
 
-Each JSX element is just syntactic sugar for calling `React.createElement(component, props, ...children)`. So, anything you can do with JSX can also be done with just plain JavaScript.
+Mỗi phần tử JSX chỉ là một syntactic sugar để gọi `React.createElement(component, props, ...children)`. Vì vậy, bất cứ điều gì bạn có thể làm với JSX thì cũng có thể thực hiện được chỉ với JavaScript đơn giản.
 
-For example, this code written with JSX:
+Ví dụ, đoạn code này được viết bằng JSX:
 
 ```js
 class Hello extends React.Component {
@@ -23,7 +23,7 @@ ReactDOM.render(
 );
 ```
 
-can be compiled to this code that does not use JSX:
+có thể được biên dịch thành đoạn code bên dưới, không sử dụng JSX:
 
 ```js
 class Hello extends React.Component {
@@ -38,11 +38,11 @@ ReactDOM.render(
 );
 ```
 
-If you're curious to see more examples of how JSX is converted to JavaScript, you can try out [the online Babel compiler](babel://jsx-simple-example).
+Nếu bạn tò mò muốn xem thêm các ví dụ về cách JSX được chuyển đổi sang JavaScript, bạn có thể thử [trình biên dịch Babel online](babel://jsx-simple-example).
 
-The component can either be provided as a string, as a subclass of `React.Component`, or a plain function.
+Component có thể được cung cấp dưới dạng một string, dưới dạng subclass của `React.Component` hoặc một function thuần túy.
 
-If you get tired of typing `React.createElement` so much, one common pattern is to assign a shorthand:
+Nếu bạn cảm thấy mệt mỏi với việc gõ `React.createElement` quá nhiều, một pattern phổ biến là hãy gán cho một biến và dùng nó như dạng viết tắt:
 
 ```js
 const e = React.createElement;
@@ -53,7 +53,7 @@ ReactDOM.render(
 );
 ```
 
-If you use this shorthand form for `React.createElement`, it can be almost as convenient to use React without JSX.
+Nếu bạn sử dụng dạng viết tắt này cho `React.createElement`, thì việc sử dụng React mà không có JSX có thể rất thuận tiện.
 
-Alternatively, you can refer to community projects such as [`react-hyperscript`](https://github.com/mlmorg/react-hyperscript) and [`hyperscript-helpers`](https://github.com/ohanhi/hyperscript-helpers) which offer a terser syntax.
+Ngoài ra, bạn có thể tham khảo các dự án cộng đồng như [`react-hyperscript`](https://github.com/mlmorg/react-hyperscript) và [`hyperscript-helpers`](https://github.com/ohanhi/hyperscript-helpers) sẽ cung cấp cho bạn cú pháp ngắn gọn hơn.
 

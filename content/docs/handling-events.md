@@ -30,6 +30,7 @@ sẽ có đôi chút khác biệt trong React:
 ```
 
 Một điểm khác biệt nữa trong React là bạn không thể trả về `false` để chặn những hành vi mặc định mà phải gọi `preventDefault` trực tiếp. Lấy ví dụ với đoạn HTML sau, để chặn hành vi mặc định của đường dẫn là mở trang mới, bạn có thể viết:
+
 ```html
 <form onsubmit="console.log('You clicked submit.'); return false">
   <button type="submit">Submit</button>

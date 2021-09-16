@@ -6,25 +6,25 @@ sectionid: community
 permalink: community/podcasts.html
 ---
 
-Podcasts dedicated to React and individual podcast episodes with React discussions.
+Podcasts dành riêng cho React và các tập podcast riêng lẻ có thảo luận về React.
 
 ## Podcasts {#podcasts}
 
-- [The React Podcast](https://reactpodcast.simplecast.fm/) - The podcast about everything React.js, hosted by [React Training](https://reacttraining.com)
+- [The React Podcast](https://reactpodcast.simplecast.fm/) - Podcast mọi thứ về React.js, tổ chức bởi [React Training](https://reacttraining.com)
 
-- [JavaScript Air](https://javascriptair.com/) - All about JavaScript (currently not producing new episodes)
+- [JavaScript Air](https://javascriptair.com/) - Giới thiệu về JavaScript (hiện không sản xuất các tập mới)
 
-- [React 30](https://react30.com/) - A 30-minute podcast all about React (moved to [The React Podcast](https://reactpodcast.simplecast.fm/)).
+- [React 30](https://react30.com/) - Một podcast dài 30 phút giới thiệu về React (chuyển từ [The React Podcast](https://reactpodcast.simplecast.fm/)).
 
-- [React Native Radio](https://reactnativeradio.com) - Exploring React Native Together, hosted by [Infinite Red](https://infinite.red)
+- [React Native Radio](https://reactnativeradio.com) - Cùng nhau khám phá React Native, tổ chức bởi [Infinite Red](https://infinite.red)
 
-- [React Wednesdays](https://www.telerik.com/react-wednesdays) - Weekly live streams with the best and brightest in the React world
+- [React Wednesdays](https://www.telerik.com/react-wednesdays) - Live stream hàng tuần với những người giỏi và sáng giá nhất trong thế giới React
 
-- [The React Native Show](https://callstack.com/podcast-react-native-show) - Discuss everything React Native, hosted by [Callstack](https://callstack.com/?utm_campaign=Podcast&utm_source=reactjs_org&utm_medium=community_podcasts)
+- [The React Native Show](https://callstack.com/podcast-react-native-show) - Thảo luận mọi thứ về React Native, tổ chức bởi [Callstack](https://callstack.com/?utm_campaign=Podcast&utm_source=reactjs_org&utm_medium=community_podcasts)
 
 ## Episodes {#episodes}
 
-- [CodeWinds Episode 4](https://codewinds.com/podcast/004.html) - Pete Hunt talks with Jeff Barczewski about React.
+- [CodeWinds Episode 4](https://codewinds.com/podcast/004.html) - Pete Hunt nói chuyện với Jeff Barczewski về React.
 
 
-- [JavaScript Jabber 73](https://devchat.tv/js-jabber/073-jsj-react-with-pete-hunt-and-jordan-walke) - Pete Hunt and Jordan Walke talk about React.
+- [JavaScript Jabber 73](https://devchat.tv/js-jabber/073-jsj-react-with-pete-hunt-and-jordan-walke) - Pete Hunt và Jordan Walke nói về React.

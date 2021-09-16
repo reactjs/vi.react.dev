@@ -42,7 +42,6 @@ Vì mô hình dữ liệu thường hiển thị dưới dạng chuỗi JSON, n�
 ![Sơ đồ Component](../images/blog/thinking-in-react-components.png)
 
 Trong ứng dụng dưới đây, bạn sẽ thấy chúng ta có 5 component, dữ liệu mà mỗi component hiển thị sẽ được in nghiêng
-
   1. **`FilterableProductTable` (orange):** chứa toàn bộ cả ứng dụng
   2. **`SearchBar` (blue):** nơi *người dùng nhập từ khoá tìm kiếm*
   3. **`ProductTable` (green):** lọc và hiển thị *kết quả* dựa trên *từ khoá tìm kiếm*
