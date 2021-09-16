@@ -96,11 +96,11 @@ const [state, setState] = useState(() => {
 });
 ```
 
-#### Bailing out of a state update {#bailing-out-of-a-state-update}
+#### Bỏ qua một cập nhật state {#bailing-out-of-a-state-update}
 
-If you update a State Hook to the same value as the current state, React will bail out without rendering the children or firing effects. (React uses the [`Object.is` comparison algorithm](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description).)
+Nếu bạn cập nhật một State Hook với một giá trị giống với state hiện tại, React sẽ bỏ qua việc render the children hoặc bắn effects. (React sử dụng [Thuật toán so sánh `Object.is` ](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is#Description).)
 
-Note that React may still need to render that specific component again before bailing out. That shouldn't be a concern because React won't unnecessarily go "deeper" into the tree. If you're doing expensive calculations while rendering, you can optimize them with `useMemo`.
+Lưu ý rằng React có thể cần render lại component đặc biệt trước khi bỏ qua. Bạn không cần quan tâm đến nó bởi React sẽ không "đi sâu" vào cây (tree) một cách không cần thiết. Nếu bạn thực hiện việc tính toán phức tạp khi render, bạn có thể tối ưu nó bằng `useMemo`.
 
 ### `useEffect` {#useeffect}
 
@@ -108,29 +108,29 @@ Note that React may still need to render that specific component again before ba
 useEffect(didUpdate);
 ```
 
-Accepts a function that contains imperative, possibly effectful code.
+Xác định một hàm với code có thể có effect hoặc không (possibly effectful code).
 
-Mutations, subscriptions, timers, logging, and other side effects are not allowed inside the main body of a function component (referred to as React's _render phase_). Doing so will lead to confusing bugs and inconsistencies in the UI.
+Mutations, subscriptions, timers, logging, và các side effects không được phép sử dụng bên trong body của function component (gọi là React's _render phase_). Nếu làm vậy có thể sẽ dẫn đến những lỗi kì lạ và không nhất quán trên giao diện.
 
-Instead, use `useEffect`. The function passed to `useEffect` will run after the render is committed to the screen. Think of effects as an escape hatch from React's purely functional world into the imperative world.
+Thay vào đó, sử dụng `useEffect`. Hàm được gọi bởi `useEffect` sẽ chạy sau khi render hoàn thành (render is committed to the screen). Hãy coi các effects như là cách để biến các hàm thuần túy trở thành các hàm của React.
 
-By default, effects run after every completed render, but you can choose to fire them [only when certain values have changed](#conditionally-firing-an-effect).
+Mặc định, effetcs sẽ chạy mỗi lần sau khi render hoàn tất, nhưng bạn có thể điều chỉnh nó [chỉ khi chắc chắn giá trị thay đổi](#conditionally-firing-an-effect).
 
-#### Cleaning up an effect {#cleaning-up-an-effect}
+#### Loại bỏ một effect (Cleaning up an effect) {#cleaning-up-an-effect}
 
-Often, effects create resources that need to be cleaned up before the component leaves the screen, such as a subscription or timer ID. To do this, the function passed to `useEffect` may return a clean-up function. For example, to create a subscription:
+Thông thường, effets tạo ra tài nguyên mà nó cần được loại bỏ trước khi component rời khỏi màn hình, ví dụ như là subscription hoặc timer ID. Để làm vậy, hàm sử dụng ở `useEffect` có thể trả về một hàm clean-up. Ví dụ, để tạo một subscription:
 
 ```js
 useEffect(() => {
   const subscription = props.source.subscribe();
   return () => {
-    // Clean up the subscription
+    // Loại bỏ subscription
     subscription.unsubscribe();
   };
 });
 ```
 
-The clean-up function runs before the component is removed from the UI to prevent memory leaks. Additionally, if a component renders multiple times (as they typically do), the **previous effect is cleaned up before executing the next effect**. In our example, this means a new subscription is created on every update. To avoid firing an effect on every update, refer to the next section.
+Hàm clean-up chạy trước khi component bị loại bỏ khỏi UI để tránh bị rò rỉ bộ nhớ (memory leaks). Ngoài ra, nếu compoment render nhiều lần (thường sẽ như thế), **effect trước đó sẽ bị loại bỏ trước khi effect mới thực thi**. Trong ví dụ trên, subscription mới sẽ được tạo mỗi lần cập nhật. Để tránh bị effect mỗi khi update, hãy xem phần kế tiếp.
 
 #### Timing of effects {#timing-of-effects}
 
