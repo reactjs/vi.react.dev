@@ -6,7 +6,7 @@ sectionid: community
 permalink: community/meetups.html
 ---
 
-Do you have a local React.js meetup? Add it here! (Please keep the list alphabetical)
+Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó vào đây! (Vui lòng giữ danh sách theo thứ tự bảng chữ cái)
 
 ## Albania {#albania}
 * [Tirana](https://www.meetup.com/React-User-Group-Albania/)
