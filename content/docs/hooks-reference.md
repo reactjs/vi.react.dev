@@ -1,22 +1,22 @@
 ---
 id: hooks-reference
-title: Hooks API Reference
+title: Tài liệu tham khảo Hooks API
 permalink: docs/hooks-reference.html
 prev: hooks-custom.html
 next: hooks-faq.html
 ---
 
-*Hooks* are a new addition in React 16.8. They let you use state and other React features without writing a class.
+*Hooks* được thêm ở phiên bản React 16.8. Nó giúp bạn sử dụng state và các tính năng khác của React mà không cần viết một `class`.
 
-This page describes the APIs for the built-in Hooks in React.
+Trang này mô tả các APIs có sẵn của Hooks trong React. 
 
-If you're new to Hooks, you might want to check out [the overview](/docs/hooks-overview.html) first. You may also find useful information in the [frequently asked questions](/docs/hooks-faq.html) section.
+Nếu bạn mới làm quen với Hooks, bạn có thể muốn xem [tổng quan](/docs/hooks-overview.html) trước. Bạn có thể tìn thấy vài thông tin có ích ở mục [câu hỏi thường gặp](/docs/hooks-faq.html).
 
-- [Basic Hooks](#basic-hooks)
+- [Hooks Cơ bản](#basic-hooks)
   - [`useState`](#usestate)
   - [`useEffect`](#useeffect)
   - [`useContext`](#usecontext)
-- [Additional Hooks](#additional-hooks)
+- [Bổ sung Hooks](#additional-hooks)
   - [`useReducer`](#usereducer)
   - [`useCallback`](#usecallback)
   - [`useMemo`](#usememo)
@@ -25,7 +25,7 @@ If you're new to Hooks, you might want to check out [the overview](/docs/hooks-o
   - [`useLayoutEffect`](#uselayouteffect)
   - [`useDebugValue`](#usedebugvalue)
 
-## Basic Hooks {#basic-hooks}
+## Hooks Cơ bản {#basic-hooks}
 
 ### `useState` {#usestate}
 
@@ -33,21 +33,21 @@ If you're new to Hooks, you might want to check out [the overview](/docs/hooks-o
 const [state, setState] = useState(initialState);
 ```
 
-Returns a stateful value, and a function to update it.
+Trả về một giá trị stateful, và hàm để cập nhật nó.
 
-During the initial render, the returned state (`state`) is the same as the value passed as the first argument (`initialState`).
+Với lần render đầu tiên, trạng thái trả về của (`state`) là giống với giá trị mà bạn để ở tham số đầu tiên (`initialState`).
 
-The `setState` function is used to update the state. It accepts a new state value and enqueues a re-render of the component.
+Hàm `setState` được dùng để thay đổi state. Nó chấp nhận giá trị state mới và sẽ thực hiện render lại (re-render) component.
 
 ```js
 setState(newState);
 ```
 
-During subsequent re-renders, the first value returned by `useState` will always be the most recent state after applying updates.
+Trong những lần re-renders tiếp theo, giá trị đầu tiên trả về bởi `useState` sẽ luôn là state mới nhất sau khi hoàn thành các thay đổi.
 
->Note
+>Ghi chú
 >
->React guarantees that `setState` function identity is stable and won't change on re-renders. This is why it's safe to omit from the `useEffect` or `useCallback` dependency list.
+>React đảm bảm rằng identity của hàm `setState` là stable và sẽ không thay đổi khi re-renders. Nó giải thích tại sao nó an toàn để có thể bỏ qua danh sách phụ thuộc của hàm `useEffect` hay `useCallback` (xem thêm về danh sách phụ thuộc ở bên dưới).
 
 #### Functional updates {#functional-updates}
 
