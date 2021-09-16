@@ -26,7 +26,7 @@
     - id: handling-events
       title: Xử lý Events
     - id: conditional-rendering
-      title: Điều kiện Rendering
+      title: Rendering có điều kiện
     - id: lists-and-keys
       title: Lists and Keys
     - id: forms
