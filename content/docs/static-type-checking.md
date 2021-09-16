@@ -146,7 +146,7 @@ Theo mặc định, Flow chỉ kiểm tra các tệp bao gồm chú thích(annot
 // @flow
 ```
 
-Thông thường, nó được đặt ở đầu tệp. Hãy thử thêm nó vào một số tệp trong project của bạn và chạy `yarn flow` hoặc `npm run flow` để xem Flow đã tìm thấy bất kỳ vấn đề nào chưa.
+Thông thường, nó được đặt ở đầu file. Hãy thử thêm nó vào một số tệp trong project của bạn và chạy `yarn flow` hoặc `npm run flow` để xem Flow đã tìm thấy bất kỳ vấn đề nào chưa.
 
 Ngoài ra còn có [một tùy chọn](https://flow.org/en/docs/config/options/#toc-all-boolean) để buộc Flow kiểm tra *tất cả* các file bất kể chú thích(annotation) là gì. Điều này có thể sẽ hơi bất tiện đối với các project đang làm dở, nhưng hợp lý đối với các project mới nếu bạn muốn nhập đầy đủ nó bằng Flow.
 
