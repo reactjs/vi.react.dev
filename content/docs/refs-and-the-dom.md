@@ -37,7 +37,7 @@ Xu hướng đầu tiên của bạn có thể là sử dụng ref để "làm c
 
 ### Tạo Refs {#creating-refs}
 
-Refs được tạo bằng `React.createRef()` và gán cho React elements thông qua thuộc tính `ref`. Refs thường được gán cho một instance property Khi một component được xây dựng để chúng có thể được tham chiếu khắp component.
+Refs được tạo bằng `React.createRef()` và gán cho React elements thông qua thuộc tính `ref`. Refs thường được gán cho một instance property khi một component được xây dựng để chúng có thể được tham chiếu khắp component.
 
 ```javascript{4,7}
 class MyComponent extends React.Component {
@@ -163,7 +163,7 @@ class Parent extends React.Component {
 
 Nếu bạn muốn cho phép mọi người lấy một `ref` cho function component của bạn, bạn có thể sử dụng [`forwardRef`](/docs/forwarding-refs.html) (có thể kết hợp với [`useImperativeHandle`](/docs/hooks-reference.html#useimperativehandle)), hoặc bạn có thể chuyển component sang class.
 
-Tuy nhiên, ban có thể **sử dụng thuộc tính `ref` bên trong một function component** miễn là bạn tham chiếu đến một DOM element hoặc một class component:
+Tuy nhiên, bạn có thể **sử dụng thuộc tính `ref` bên trong một function component** miễn là bạn tham chiếu đến một DOM element hoặc một class component:
 
 ```javascript{2,3,6,13}
 function CustomTextInput(props) {
@@ -195,11 +195,11 @@ Trong một số ít trường hợp, bạn có thể muốn truy cập vào m�
 
 Mặc dù bạn có thể [thêm một ref cho child component](#adding-a-ref-to-a-class-component), đây không phải là một giải pháp lý tưởng, vì bạn sẽ chỉ nhận một component instance thay vì một DOM node. Ngoài ra, cách này sẽ không hoạt động với function components.
 
-Nếu bạn sử dụng React 16.3 hoặc cao hơn, chúng tôi khuyến nghị sử dụng [ref forwarding](/docs/forwarding-refs.html) cho những trường hợp này. **Ref forwarding cho phép các components tham gia vào việc phơi bày bất kì child component's ref như là của chính chúng**. Bạn có thể tìm một ví dụ chi tiết về cách phơi bày một child's DOM node cho một parent component [in the ref forwarding documentation](/docs/forwarding-refs.html#forwarding-refs-to-dom-components).
+Nếu bạn sử dụng React 16.3 hoặc cao hơn, chúng tôi khuyến nghị sử dụng [ref forwarding](/docs/forwarding-refs.html) cho những trường hợp này. **Ref forwarding cho phép các components tham gia vào việc phơi bày bất kì child component's ref như là của chính chúng**. Bạn có thể tìm một ví dụ chi tiết về cách phơi bày một child's DOM node cho một parent component [trong tài liệu ref forwarding](/docs/forwarding-refs.html#forwarding-refs-to-dom-components).
 
 Nếu bạn sử dụng React 16.2 hoặc thấp hơn, hoặc nếu bạn cần nhiều sự linh hoạt hơn mức được cung cấp bởi ref forwarding, bạn có thể sử dụng [cách tiếp cận thay thế này](https://gist.github.com/gaearon/1a018a023347fe1c2476073330cc5509) và truyền một cách rõ ràng một ref dưới dạng một prop tên khác.
 
-Nếu có thể, chúng tôi khuyên bạn không nên để lộ các DOM nodes, nhưng nó có thể là một lối thoát hiểm hữu ích. Chú ý rằng phương pháp này yêu cầu bạn thêm vào một số code vào child component. Nếu bạn hoàn toàn không kiểm soát được triển khai của child component, lựa chọn cuối cùng của bạn là sử dụng [`findDOMNode()`](/docs/react-dom.html#finddomnode), nhưng nó không được khuyến khích và chấp nhận trong [`StrictMode`](/docs/strict-mode.html#warning-about-deprecated-finddomnode-usage).
+Nếu có thể, chúng tôi khuyên bạn không nên để lộ các DOM nodes, nhưng nó có thể là một lối thoát hiểm hữu ích. Chú ý rằng phương pháp này yêu cầu bạn thêm một số code vào child component. Nếu bạn hoàn toàn không kiểm soát được triển khai của child component, lựa chọn cuối cùng của bạn là sử dụng [`findDOMNode()`](/docs/react-dom.html#finddomnode), nhưng nó không được khuyến khích và chấp nhận trong [`StrictMode`](/docs/strict-mode.html#warning-about-deprecated-finddomnode-usage).
 
 ### Callback Refs {#callback-refs}
 
@@ -283,7 +283,7 @@ Nếu bạn đã làm việc với React trước đây, bạn có thể quen th
 
 > Chú ý
 >
-> Nếu bạn hiện đang sử dụng `this.refs.textInput` để truy cập refs, chúng tôi khuyến nghị bạn sử dụng [callback pattern](#callback-refs) hoặc [`createRef` API](#creating-refs) để thay thế.
+> Nếu bạn hiện đang sử dụng `this.refs.textInput` để truy cập refs, chúng tôi khuyến nghị bạn sử dụng [mẫu callback](#callback-refs) hoặc [`createRef` API](#creating-refs) để thay thế.
 
 ### Cảnh báo với callback refs {#caveats-with-callback-refs}
 
