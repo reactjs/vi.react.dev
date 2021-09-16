@@ -6,24 +6,24 @@ layout: docs
 category: Reference
 ---
 
-> Note:
+> Lưu ý:
 >
-> `shallowCompare` is a legacy add-on. Use [`React.memo`](/docs/react-api.html#reactmemo) or [`React.PureComponent`](/docs/react-api.html#reactpurecomponent) instead.
+> `shallowCompare` được kế thừa từ add-on. Sử dụng [`React.memo`](/docs/react-api.html#reactmemo) hoặc [`React.PureComponent`](/docs/react-api.html#reactpurecomponent) thay thế.
 
 **Importing**
 
 ```javascript
 import shallowCompare from 'react-addons-shallow-compare'; // ES6
-var shallowCompare = require('react-addons-shallow-compare'); // ES5 with npm
+var shallowCompare = require('react-addons-shallow-compare'); // ES5 với npm
 ```
 
-## Overview {#overview}
+## Tổng quát {#overview}
 
-Before [`React.PureComponent`](/docs/react-api.html#reactpurecomponent) was introduced, `shallowCompare` was commonly used to achieve the same functionality as [`PureRenderMixin`](pure-render-mixin.html) while using ES6 classes with React.
+Trước đây [`React.PureComponent`](/docs/react-api.html#reactpurecomponent) đã được giới thiệu, `shallowCompare` thường được sử dụng với chức năng tương tự như [`PureRenderMixin`](pure-render-mixin.html) khi sử dụng ES6 class với React.
 
-If your React component's render function is "pure" (in other words, it renders the same result given the same props and state), you can use this helper function for a performance boost in some cases.
+Nếu function render của React component của bạn là "pure" (hay nói cách khác, nó render cùng một kết quả với cùng prop và state), bạn có thể sử dụng helper function này để tăng hiệu suất trong một số trường hợp.
 
-Example:
+Ví dụ:
 
 ```js
 export class SampleComponent extends React.Component {
@@ -37,8 +37,8 @@ export class SampleComponent extends React.Component {
 }
 ```
 
-`shallowCompare` performs a shallow equality check on the current `props` and `nextProps` objects as well as the current `state` and `nextState` objects.  
-It does this by iterating on the keys of the objects being compared and returning true when the values of a key in each object are not strictly equal.
+`shallowCompare` thực hiện so sánh nông object để kiểm tra `props` hiện tại và `nextProps` cũng như `state` hiện tại và `nextState`.  
+Nó thực hiện bằng cách lặp lại các key của các object được so sánh và trả về true khi giá trị của key trong mỗi object không hoàn toàn bằng nhau.
 
-`shallowCompare` returns `true` if the shallow comparison for props or state fails and therefore the component should update.  
-`shallowCompare` returns `false` if the shallow comparison for props and state both pass and therefore the component does not need to update.
+`shallowCompare` trả về `true` nếu so sánh nông cho prop or state không thành công và do đó component sẽ được cập nhật.  
+`shallowCompare` trả về `false` nếu so sánh nông cho prop and state đều thành công và do đó component không cần cập nhật.
