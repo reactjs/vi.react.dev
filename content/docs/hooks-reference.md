@@ -51,15 +51,15 @@ Trong những lần re-renders tiếp theo, giá trị đầu tiên trả về b
 
 #### Functional updates {#functional-updates}
 
-If the new state is computed using the previous state, you can pass a function to `setState`. The function will receive the previous value, and return an updated value. Here's an example of a counter component that uses both forms of `setState`:
+Nếu state mới được tính dựa vào state trước đó, bạn có thể dùng hàm trong `setState`. Hàm sẽ nhận về giá trị trước đó, và trả về giá trị đã được cập nhật. Dưới đây là component ví dụ về bộ đếm sử dụng 2 dạng của `setState`:
 
 ```js
 function Counter({initialCount}) {
   const [count, setCount] = useState(initialCount);
   return (
     <>
-      Count: {count}
-      <button onClick={() => setCount(initialCount)}>Reset</button>
+      Bộ đếm: {count}
+      <button onClick={() => setCount(initialCount)}>Chạy lại</button>
       <button onClick={() => setCount(prevCount => prevCount - 1)}>-</button>
       <button onClick={() => setCount(prevCount => prevCount + 1)}>+</button>
     </>
@@ -67,27 +67,27 @@ function Counter({initialCount}) {
 }
 ```
 
-The "+" and "-" buttons use the functional form, because the updated value is based on the previous value. But the "Reset" button uses the normal form, because it always sets the count back to the initial value.
+Các nút "+" và "-" sử dụng hàm bởi vì chúng thay đổi giá trị dựa vào giá trị cũ. Nhưng nút "Chạy lại" sử dụng giá trị trực tiếp, bởi chúng lúc nào cũng gán lại biến `count` về giá trị ban đầu.
 
-If your update function returns the exact same value as the current state, the subsequent rerender will be skipped completely.
+Nếu hàm cập nhật của bạn trả về giống với giá trị của state hiện tại, việc rerender tiếp theo sẽ được bỏ qua hoàn toàn.
 
-> Note
+> Ghi chú
 >
-> Unlike the `setState` method found in class components, `useState` does not automatically merge update objects. You can replicate this behavior by combining the function updater form with object spread syntax:
+> Không giống method `setState` method ở class components, `useState` sẽ không tự động merge objects. Tuy nhiên bạn có thể tự triển khai function đó với cú pháp (spread syntax) như bên dưới:
 >
 > ```js
 > const [state, setState] = useState({});
 > setState(prevState => {
->   // Object.assign would also work
+>   // Object.assign cũng có thể sử dụng được ở đây
 >   return {...prevState, ...updatedValues};
 > });
 > ```
 >
-> Another option is `useReducer`, which is more suited for managing state objects that contain multiple sub-values.
+> Một lựa chọn khác là `useReducer`, có thể sẽ phù hợp hơn nếu bạn cần quản lý state mà nó chưa nhiều giá trị con (sub-values).
 
 #### Lazy initial state {#lazy-initial-state}
 
-The `initialState` argument is the state used during the initial render. In subsequent renders, it is disregarded. If the initial state is the result of an expensive computation, you may provide a function instead, which will be executed only on the initial render:
+`initialState` argument là một state được sử dụng ở lần render đầu tiên. Trong các lần render tiếp theo, nó sẽ bị bỏ qua. Nếu initial state kết quả của một phép tính phức tạp, bạn có thể phải chuẩn bị một hàm để thay thể, để nó chỉ chạy khi render lần đầu tiên:
 
 ```js
 const [state, setState] = useState(() => {
