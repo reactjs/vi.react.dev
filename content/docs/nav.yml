@@ -103,7 +103,7 @@
     - id: test-renderer
       title: Test Renderer
     - id: javascript-environment-requirements
-      title: Yêu cầu môi trường JS
+      title: Môi trường JS yêu cầu
     - id: glossary
       title: Bảng chú giải
 - title: Hooks
