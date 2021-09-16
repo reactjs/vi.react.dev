@@ -4,7 +4,7 @@ layout: single
 permalink: warnings/invalid-hook-call-warning.html
 ---
 
- Bạn có thể ở đây bởi vì bạn nhận được nhũng thông báo lỗi dưới đây:
+ Bạn có thể ở đây bởi vì bạn gặp những thông báo lỗi dưới đây:
 
  > Hooks chỉ có thể được gọi bên trong code của một function component.
 
@@ -17,14 +17,14 @@ Hãy nhìn vào từng trường hợp ở dưới đây.
 
 ## Phiên bản không trùng khớp của React và React DOM {#mismatching-versions-of-react-and-react-dom}
 
-Bạn có thể đang sử dụng phiên bản `react-dom` (< 16.8.0) hoặc `react-native` (< 0.59) những cái này chưa hỗ trợ Hooks. Bạn có thể chạy `npm ls react-dom` hoặc `npm ls react-native` trong thư mục ứng dụng của bạn để kiểm tra bạn đang sử dụng phiên bản nào. Nếu bạn thấy nhiều hơn một phiên bản, điều này sẽ gây ra những vấn đề (nhiều hơn ở dưới).
+Bạn có thể đang sử dụng phiên bản `react-dom` (< 16.8.0) hoặc `react-native` (< 0.59) những phiên bản này chưa hỗ trợ Hooks. Bạn có thể chạy `npm ls react-dom` hoặc `npm ls react-native` trong thư mục ứng dụng của bạn để kiểm tra bạn đang sử dụng phiên bản nào. Nếu bạn thấy nhiều hơn một phiên bản, điều này sẽ gây ra những vấn đề (liệt kê bên dưới).
 
 ## Vi phạm những quy tắc của Hooks {#breaking-the-rules-of-hooks}
 
-Bạn chỉ có thể gọi Hooks **trong khi React đang xuất một function component**:
+Bạn chỉ có thể gọi Hooks **trong khi React render một function component**:
 
-* ✅ Gọi nó ở đầu phần thân của một function component.
-* ✅ Gọi nó ở đầu phần thân của một [custom Hook](/docs/hooks-custom.html).
+* ✅ Gọi nó ở đầu, bên trong  một function component.
+* ✅ Gọi nó ở đầu, bên trong một [custom Hook](/docs/hooks-custom.html).
 
 **Tìm hiệu thêm về điều này ở [Rules of Hooks](/docs/hooks-rules.html).**
 
@@ -42,13 +42,13 @@ function useWindowWidth() {
 }
 ```
 
-Để tránh nhầm kẫn , Nó **không** được hỗ trợ để gọi Hooks trong những trường hợp:
+Để tránh nhầm lẫn , Nó **không** được hỗ trợ để gọi Hooks trong những trường hợp:
 
 * 🔴 Đừng gọi Hooks trong class components.
 * 🔴 Đừng gọi Hooks trong event handlers.
-* 🔴 Đừng gọi Hooks bên trong các hàm được dùng trong `useMemo`, `useReducer`, hoặc `useEffect`.
+* 🔴 Đừng gọi Hooks bên trong các function được dùng trong `useMemo`, `useReducer`, hoặc `useEffect`.
 
-Nếu bạn vi phạm những quy tắc này, bạn có thể thấy lỗi này.
+Nếu bạn vi phạm những quy tắc trên, bạn có thể thấy lỗi này.
 
 ```js{3-4,11-12,20-21}
 function Bad1() {
@@ -81,16 +81,16 @@ Bạn có thể sử dụng [`eslint-plugin-react-hooks` plugin](https://www.npm
 
 >Ghi chú
 >
->[Custom Hooks](/docs/hooks-custom.html) *có thể* gọi những Hooks khác (hoàn toàn do mục đích của nó). Điều này hoàn toàn hữu hiệu bởi vì custom Hooks được hỗ trợ chỉ để được gọi khi một function component đang xuất.
+>[Custom Hooks](/docs/hooks-custom.html) *có thể* gọi những Hooks khác (hoàn toàn do mục đích của nó). Điều này hoàn toàn hữu hiệu bởi vì custom Hooks được hỗ trợ chỉ để được gọi khi một function component đang render.
 
 
 ## Trùng lặp React {#duplicate-react}
 
-Để cho Hooks hoạt động,  `react` được thêm từ mã ứng dụng cần được giải quyết giống như `react` được thêm từ gói `react-dom`.
+Để Hooks hoạt động,  `react` được import từ mã ứng dụng cần được giải quyết giống như `react` được import từ package `react-dom`.
 
-Nếu những `react` được nhập này giải quyết hai đôi tượng xuất khác nhau, bạn sẽ thấy cảnh báo. Điều có thể xảy ra nếu bạn **đột ngột kết thúc với hai phiên bản** của gói `react`.
+Nếu những `react` được nhập này giải quyết hai đối tượng xuất (export) khác nhau, bạn sẽ thấy cảnh báo. Điều có thể xảy ra nếu bạn **đột ngột kết thúc với hai phiên bản** của package `react`.
 
-Nếu bạn sử dụng Node để quản lý gói, bạn có thể kiểm tra nó bằng cách chạy câu lệnh này trong thư mục dự án của bạn:
+Nếu bạn sử dụng Node để quản lý package, bạn có thể kiểm tra nó bằng cách chạy câu lệnh này trong thư mục dự án của bạn:
 
     npm ls react
 
