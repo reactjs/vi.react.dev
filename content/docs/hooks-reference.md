@@ -134,19 +134,19 @@ Hàm clean-up chạy trước khi component bị loại bỏ khỏi UI để tr�
 
 #### Timing of effects {#timing-of-effects}
 
-Unlike `componentDidMount` and `componentDidUpdate`, the function passed to `useEffect` fires **after** layout and paint, during a deferred event. This makes it suitable for the many common side effects, like setting up subscriptions and event handlers, because most types of work shouldn't block the browser from updating the screen.
+Không giống `componentDidMount` và `componentDidUpdate`, hàm được gán cho `useEffect` sẽ chạy **sau khi** render hoàn tất, trong khi trì hoãn event này. Điều đó khiến nó phù hợp cho rất nhiều dạng side effects cơ bản, như là subscriptions và event handles, bời vì đa số tác vụ không nên chặn (block) trình duyệt thực hiện cập nhật thay đổi màn hình.
 
-However, not all effects can be deferred. For example, a DOM mutation that is visible to the user must fire synchronously before the next paint so that the user does not perceive a visual inconsistency. (The distinction is conceptually similar to passive versus active event listeners.) For these types of effects, React provides one additional Hook called [`useLayoutEffect`](#uselayouteffect). It has the same signature as `useEffect`, and only differs in when it is fired.
+Tuy nhiên, không phải tất cả effects có thể trì hoãn. Lấy ví dụ, một DOM mutation mà nó hiển thị cho người dùng bắt buộc cập nhật đồng bộ trước khi có sự thay đổi kế tiếp để người dùng không cảm thấy có sự không thống nhất. (Sự khác nhau ở đây về mặt khái niệm tương tự như event listeners chủ động so với bị động.) Đối với những loại effects này, React cung cấp một bổ sung cho Hook gọi là [`useLayoutEffect`](#uselayouteffect). Nó có những đặc tính giống như `useEffect`, và chỉ khác ở thời gian mà nó thực thi (fired).
 
-Although `useEffect` is deferred until after the browser has painted, it's guaranteed to fire before any new renders. React will always flush a previous render's effects before starting a new update.
+Mặc dù `useEffect` trì hoãn đến khi trình duyệt vẽ xong (painted), nó được đảm bảo sẽ thực thi trước mỗi khi có một render mới. React sẽ luôn loại bỏ các effect của render cũ trước khi bắt đầu thực hiện thay đổi mới.
 
-#### Conditionally firing an effect {#conditionally-firing-an-effect}
+#### Thực thi có điều kiện của một effect {#conditionally-firing-an-effect}
 
-The default behavior for effects is to fire the effect after every completed render. That way an effect is always recreated if one of its dependencies changes.
+Hành vi mặc định của các effetcs là thực thi mỗi khi hoàn thành việc render. Với cách này một effect sẽ luôn được khởi tạo lại nếu một trong những dependencies (danh sách phụ thuộc) của nó thay đổi. 
 
-However, this may be overkill in some cases, like the subscription example from the previous section. We don't need to create a new subscription on every update, only if the `source` prop has changed.
+Tuy nhiên, điều này có thể quá đà trong một số trường hợp, giống như ví dụ về subscription ở mục bên trên. Chúng ta không cần thiết phải tạo lại một subscription mỗi lần cập nhật, chỉ cần nếu `nguồn đầu vào` thay đổi 
 
-To implement this, pass a second argument to `useEffect` that is the array of values that the effect depends on. Our updated example now looks like this:
+Để triển khai code, hãy để argument thứ hai vào `useEffect` dưới dạng mảng những giá trị mà effect này phụ thuộc vào. Sửa lại ví dụ bên trên ta có:
 
 ```js
 useEffect(
@@ -160,7 +160,7 @@ useEffect(
 );
 ```
 
-Now the subscription will only be recreated when `props.source` changes.
+Từ giờ subscription sẽ chỉ tạo lại khi `props.source` thay đổi.
 
 >Note
 >
