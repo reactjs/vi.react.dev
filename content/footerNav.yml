@@ -1,24 +1,24 @@
 community:
-  title: Community
+  title: Cộng đồng
 
 docs:
-  title: Docs
+  title: Tài liệu
 
 more:
-  title: More
+  title: Xem thêm
   items:
-    - title: Tutorial
+    - title: Hướng dẫn
       to: /tutorial/tutorial.html
     - title: Blog
       to: /blog
-    - title: Acknowledgements
+    - title: Lời cảm ơn
       to: /acknowledgements.html
     - title: React Native
       to: https://reactnative.dev/
       external: true
 
 channels:
-  title: Channels
+  title: Các kênh
   items:
     - title: GitHub
       to: https://github.com/facebook/react
@@ -26,7 +26,7 @@ channels:
     - title: Stack Overflow
       to: https://stackoverflow.com/questions/tagged/reactjs
       external: true
-    - title: Discussion Forums
+    - title: Diễn đàn
       to: https://reactjs.org/community/support.html#popular-discussion-forums
       external: true
     - title: Reactiflux Chat
