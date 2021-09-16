@@ -7,16 +7,16 @@
     - id: create-a-new-react-app
       title: Tạo một App React mới
     - id: cdn-links
-      title: CDN Links
+      title: Các liên kết CDN 
     - id: release-channels
-      title: Release Channels
+      title: Các kênh phát hành
 - title: Khái niệm chính
   isOrdered: true
   items:
     - id: hello-world
       title: Hello World
     - id: introducing-jsx
-      title: Introducing JSX
+      title: Giới thiệu JSX
     - id: rendering-elements
       title: Rendering Elements
     - id: components-and-props
@@ -24,9 +24,9 @@
     - id: state-and-lifecycle
       title: State and Lifecycle
     - id: handling-events
-      title: Handling Events
+      title: Xử lý Events
     - id: conditional-rendering
-      title: Conditional Rendering
+      title: Rendering có điều kiện
     - id: lists-and-keys
       title: Lists and Keys
     - id: forms
@@ -36,11 +36,11 @@
     - id: composition-vs-inheritance
       title: Composition vs Inheritance
     - id: thinking-in-react
-      title: Thinking In React
+      title: Tư duy trong React
 - title: Hướng dẫn nâng cao
   items:
     - id: accessibility
-      title: Accessibility
+      title: Khả năng tiếp cận
     - id: code-splitting
       title: Code-Splitting
     - id: context
@@ -48,25 +48,25 @@
     - id: error-boundaries
       title: Error Boundaries
     - id: forwarding-refs
-      title: Forwarding Refs
+      title: Chuyển tiếp Refs
     - id: fragments
       title: Fragments
     - id: higher-order-components
       title: Higher-Order Components
     - id: integrating-with-other-libraries
-      title: Integrating with Other Libraries
+      title: Tích hợp với các thư viện khác
     - id: jsx-in-depth
       title: JSX In Depth
     - id: optimizing-performance
-      title: Optimizing Performance
+      title: Tối ưu hiệu năng
     - id: portals
       title: Portals
     - id: profiler
-      title: Profiler
+      title: Phân tích (Profiler)
     - id: react-without-es6
-      title: React Without ES6
+      title: React nhưng không sử dụng ES6
     - id: react-without-jsx
-      title: React Without JSX
+      title: React nhưng không sử dụng JSX
     - id: reconciliation
       title: Reconciliation
     - id: refs-and-the-dom
@@ -78,7 +78,7 @@
     - id: strict-mode
       title: Strict Mode
     - id: typechecking-with-proptypes
-      title: Typechecking With PropTypes
+      title: Kiểm tra kiểu với PropTypes
     - id: uncontrolled-components
       title: Uncontrolled Components
     - id: web-components
@@ -103,9 +103,9 @@
     - id: test-renderer
       title: Test Renderer
     - id: javascript-environment-requirements
-      title: JS Environment Requirements
+      title: Môi trường JS yêu cầu
     - id: glossary
-      title: Glossary
+      title: Bảng chú giải
 - title: Hooks
   isOrdered: true
   items:
@@ -124,26 +124,26 @@
       - id: hooks-reference
         title: Tham chiếu Hooks API
       - id: hooks-faq
-        title: Hooks FAQ
-- title: Testing
+        title: Hooks và các câu hỏi thường gặp
+- title: Kiểm thử
   items:
     - id: testing
-      title: Testing Overview
+      title: Tổng quan kiểm thử
     - id: testing-recipes
-      title: Testing Recipes
+      title: Phương thức kiểu thử
     - id: testing-environments
-      title: Testing Environments
-- title: Contributing
+      title: Môi trường kiểm thử
+- title: Đóng góp
   items:
     - id: how-to-contribute
-      title: How to Contribute
+      title: Làm sao để đóng góp
     - id: codebase-overview
-      title: Codebase Overview
+      title: Tổng quan về Codebase
     - id: implementation-notes
-      title: Implementation Notes
+      title: Ghi chú Triển khai
     - id: design-principles
-      title: Design Principles
-- title: FAQ
+      title: Nguyên tắc thiết kế
+- title: Cầu hỏi thường gặp
   items:
     - id: faq-ajax
       title: AJAX và APIs
@@ -156,8 +156,8 @@
     - id: faq-styling
       title: Styling và CSS
     - id: faq-structure
-      title: File Structure
+      title: Cấu trúc File
     - id: faq-versioning
-      title: Versioning Policy
+      title: Quy tắc đặt tên phiên bản
     - id: faq-internals
       title: Virtual DOM and Internals
