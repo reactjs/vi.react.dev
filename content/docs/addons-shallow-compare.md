@@ -6,22 +6,24 @@ layout: docs
 category: Reference
 ---
 
-> Note:
+> Lưu ý:
 >
-> `shallowCompare` is a legacy add-on. Use [`React.memo`](/docs/react-api.html#reactmemo) or [`React.PureComponent`](/docs/react-api.html#reactpurecomponent) instead.
+> `shallowCompare` được kế thừa từ add-on. Sử dụng [`React.memo`](/docs/react-api.html#reactmemo) hoặc [`React.PureComponent`](/docs/react-api.html#reactpurecomponent) thay thế.
 
 **Importing**
 
 ```javascript
 import shallowCompare from 'react-addons-shallow-compare'; // ES6
-var shallowCompare = require('react-addons-shallow-compare'); // ES5 with npm
+var shallowCompare = require('react-addons-shallow-compare'); // ES5 với npm
 ```
 
-## Overview {#overview}
+## Tổng quát {#overview}
+
 
 Trước khi [`React.PureComponent`](/docs/react-api.html#reactpurecomponent) được giới thiệu, `shallowCompare` thường được sử dụng có chức năng tương tự như [`PureRenderMixin`](pure-render-mixin.html) trong khi sử dụng các lớp ES6 với React.
 
 Nếu render function của React component là "thuần" (nói một cách khác, nó trả về cùng một kết quả với cùng props và state), bạn có thể dùng helper function để tăng cường hiệu suất trong một số trường hợp.
+
 
 Ví dụ:
 
@@ -42,3 +44,4 @@ export class SampleComponent extends React.Component {
 `shallowCompare` trả về `true` nếu phép so sánh shallow cho props hoặc state thất bại và component sẽ được cập nhật.
 
 `shallowCompare` trả về `false` nếu phép so sánh shallow cho props hoặc state thành công và component không cần cập nhật.
+
