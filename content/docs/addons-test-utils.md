@@ -62,10 +62,10 @@ class Counter extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
-    document.title = `You clicked ${this.state.count} times`;
+    document.title = `Bạn click ${this.state.count} lần`;
   }
   componentDidUpdate() {
-    document.title = `You clicked ${this.state.count} times`;
+    document.title = `Bạn click ${this.state.count} lần`;
   }
   handleClick() {
     this.setState(state => ({
@@ -105,22 +105,22 @@ afterEach(() => {
   container = null;
 });
 
-it('can render and update a counter', () => {
+it('có thể render và cập nhật counter', () => {
   // Test first render and componentDidMount
   act(() => {
     ReactDOM.render(<Counter />, container);
   });
-  const button = container.querySelector('button');
+  const button = container.querySelector('nút bấm');
   const label = container.querySelector('p');
-  expect(label.textContent).toBe('You clicked 0 times');
-  expect(document.title).toBe('You clicked 0 times');
+  expect(label.textContent).toBe('Bạn click 0 lần');
+  expect(document.title).toBe('Bạn click 0 lần');
 
   // Test second render and componentDidUpdate
   act(() => {
     button.dispatchEvent(new MouseEvent('click', {bubbles: true}));
   });
-  expect(label.textContent).toBe('You clicked 1 times');
-  expect(document.title).toBe('You clicked 1 times');
+  expect(label.textContent).toBe('Bạn click 1 lần');
+  expect(document.title).toBe('Bạn click 1 lần');
 });
 ```
 
