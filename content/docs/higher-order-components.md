@@ -289,16 +289,15 @@ const enhance = compose(
 const EnhancedComponent = enhance(WrappedComponent)
 ```
 
-(This same property also allows `connect` and other enhancer-style HOCs to be used as decorators, an experimental JavaScript proposal.)
+(Property này cũng cho phép `connect` với enhancer-style HOCs để sử dụng như decorators, một JavaScript proposal.)
 
-The `compose` utility function is provided by many third-party libraries including lodash (as [`lodash.flowRight`](https://lodash.com/docs/#flowRight)), [Redux](https://redux.js.org/api/compose), and [Ramda](https://ramdajs.com/docs/#compose).
-Hàm `compose` thì được cung cấp bở nhiều thư viện third-party bao gồm lodash ([`lodash.flowRight`](https://lodash.com/docs/#flowRight)) và [Ramda](https://ramdajs.com/docs/#compose).
+Hàm `compose` được cung cấp bởi nhiều third-party libraries như lodash ([`lodash.flowRight`](https://lodash.com/docs/#flowRight)), [Redux](https://redux.js.org/api/compose), và  [Ramda](https://ramdajs.com/docs/#compose).
 
 ## Quy ước: Cách đặt tên HOC để tiện cho việc debug (tìm và gỡ lỗi){#convention-wrap-the-display-name-for-easy-debugging}
 
 Những container component tạo bởi HOCs đều xuất hiện trong [React Developer Tools](https://github.com/facebook/react/tree/main/packages/react-devtools) như bao component khác. Để dễ debug, chọn tên sao cho nó thể hiện rằng nó được sinh ra từ HOC.
 
-The most common technique is to wrap the display name of the wrapped component. So if your higher-order component is named `withSubscription`, and the wrapped component's display name is `CommentList`, use the display name `WithSubscription(CommentList)`:
+Một cách thông dụng nhất là bọc display name của component được bọc. Vì vậy nếu higher-order component của bạn có tên `withSubscription`, và tên của wrapped component hiển thị là `CommentList`, thì bạn nên sử dụng tên hiển thị là `WithSubscription(CommentList)`:
 Một kỹ thuật thường gặp là tạo tên với tên của component bên trong. Nếu HOC có tên là `withSubscription`, và component con có tên là `CommentList`, hãy dùng tên `WithSubscription(CommentList)`
 
 ```js
@@ -316,7 +315,7 @@ function getDisplayName(WrappedComponent) {
 
 ## Caveats {#caveats}
 
-Higher-order components come with a few caveats that aren't immediately obvious if you're new to React.
+Higher-order components có một số lưu ý không rõ ràng nếu bạn là người mới học React.
 
 ### Đừng dùng HOC bên trong hàm render {#dont-use-hocs-inside-the-render-method}
 
