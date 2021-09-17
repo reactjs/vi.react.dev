@@ -39,7 +39,11 @@ Nhóm React chủ yếu đề xuất các giải pháp sau:
 
 [Tạo App React](https://github.com/facebookincubator/create-react-app) là một môi trường thoải mái để **học React**, và là cách tốt nhất để bắt đầu xây dựng **một ứng dụng [single-page](/docs/glossary.html#single-page-application) mới** trong React.
 
+<<<<<<< HEAD
 Nó thiết lập môi trường phát triển của bạn để bạn có thể sử dụng các tính năng JavaScript mới nhất, cung cấp trải nghiệm tốt cho nhà phát triển và tối ưu hóa ứng dụng của bạn cho sản xuất. Bạn sẽ cần phải có [Node >= 10.16 và npm >= 5.6](https://nodejs.org/en/) trên máy của bạn. Để tạo một dự án, hãy chạy:
+=======
+It sets up your development environment so that you can use the latest JavaScript features, provides a nice developer experience, and optimizes your app for production. You’ll need to have [Node >= 14.0.0 and npm >= 5.6](https://nodejs.org/en/) on your machine. To create a project, run:
+>>>>>>> a88b1e1331126287ccf03f2f4ec25ec38513b911
 
 ```bash
 npx create-react-app my-app
