@@ -4,11 +4,11 @@ title: Uncontrolled Components
 permalink: docs/uncontrolled-components.html
 ---
 
-In most cases, we recommend using [controlled components](/docs/forms.html#controlled-components) to implement forms. In a controlled component, form data is handled by a React component. The alternative is uncontrolled components, where form data is handled by the DOM itself.
+Trong hầu hết các trường hợp, chúng tôi khuyên bạn nên sử dụng [controlled components](/docs/forms.html#controlled-components) để triển khai forms. Trong controlled component, dữ liệu trong form sẽ được quản lí hoàn toàn bởi React component. Trái ngược với điều đó, uncontrolled component, dữ liệu sẽ được quản lí trực tiếp bởi chính DOM.
 
-To write an uncontrolled component, instead of writing an event handler for every state update, you can [use a ref](/docs/refs-and-the-dom.html) to get form values from the DOM.
+Để tạo uncontrolled component, thay vì việc xử lí sự kiện mỗi khi state được update, bạn có thể [sử dụng ref](/docs/refs-and-the-dom.html) để lấy dữ liệu từ DOM.
 
-For example, this code accepts a single name in an uncontrolled component:
+Ví dụ, đoạn code bên dưới nhận vào "name" trong một uncontrolled component:
 
 ```javascript{5,9,18}
 class NameForm extends React.Component {
@@ -37,15 +37,15 @@ class NameForm extends React.Component {
 }
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/WooRWa?editors=0010)
+[**Xem ví dụ trên CodePen**](https://codepen.io/gaearon/pen/WooRWa?editors=0010)
 
-Since an uncontrolled component keeps the source of truth in the DOM, it is sometimes easier to integrate React and non-React code when using uncontrolled components. It can also be slightly less code if you want to be quick and dirty. Otherwise, you should usually use controlled components.
+Vì uncontrolled component chỉ dựa trên DOM, điều này khiến việc tương tác với code React và non-React khá dễ dàng. Nếu bạn muốn code nhanh và bẩn, uncontrolled components có thể giúp bạn code ít code hơn. Nếu không, bạn nên sử dụng controlled components.
 
-If it's still not clear which type of component you should use for a particular situation, you might find [this article on controlled versus uncontrolled inputs](https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/) to be helpful.
+Nếu những giải thích trên vẫn chưa rõ về loại component sử dụng cho các trường hợp cụ thể, bạn có thể tìm thêm ở [bài viết về controlled và uncontrolled inputs](https://goshakkk.name/controlled-vs-uncontrolled-inputs-react/).
 
-### Default Values {#default-values}
+### Giá trị mặc định {#default-values}
 
-In the React rendering lifecycle, the `value` attribute on form elements will override the value in the DOM. With an uncontrolled component, you often want React to specify the initial value, but leave subsequent updates uncontrolled. To handle this case, you can specify a `defaultValue` attribute instead of `value`. Changing the value of `defaultValue` attribute after a component has mounted will not cause any update of the value in the DOM.
+Trong vòng đời render component React, thuộc tính `value` của các thành phần trong form sẽ override các giá trị trong DOM. Với uncontrolled component, bạn thường cần sử dụng React để chỉ định giá trị mặc định, nhưng bạn không thể kiểm soát được các bản thay đổi ở phía sau (nếu bạn dùng `value` mỗi khi form render, nó sẽ luôn gán giá trị này cho input). Để xử lí trong trường hợp này, bạn phải chỉ định giá trị của `defaultValue` thay vì `value`. Việc thay đổi giá trị của `defaultValue` sau khi component được mounted sẽ không làm cập nhật giá trị trên cây DOM.
 
 ```javascript{7}
 render() {
@@ -64,19 +64,19 @@ render() {
 }
 ```
 
-Likewise, `<input type="checkbox">` and `<input type="radio">` support `defaultChecked`, and `<select>` and `<textarea>` supports `defaultValue`.
+Tương tự như vậy, `<input type="checkbox">` và `<input type="radio">` có hỗ trợ `defaultChecked`, `<select>` và `<textarea>` hỗ trợ `defaultValue`.
 
-## The file input Tag {#the-file-input-tag}
+## Thẻ input type file  {#the-file-input-tag}
 
-In HTML, an `<input type="file">` lets the user choose one or more files from their device storage to be uploaded to a server or manipulated by JavaScript via the [File API](https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications).
+Trong HTML, thẻ`<input type="file">` cho phép người dùng chọn một hoặc nhiều files từ bộ nhớ thiết bị của họ và gửi đến server hoặc xử lí bằng javascript thông qua [File API](https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications).
 
 ```html
 <input type="file" />
 ```
 
-In React, an `<input type="file" />` is always an uncontrolled component because its value can only be set by a user, and not programmatically.
+Trong React, thẻ `<input type="file" />` luôn luôn là uncontrolled component vì giá trị của nó chỉ được gán bởi người dùng, không phải chương trình. 
 
-You should use the File API to interact with the files. The following example shows how to create a [ref to the DOM node](/docs/refs-and-the-dom.html) to access file(s) in a submit handler:
+Bạn nên sử dụng File API để tương tác với những files này. Ví dụ bên dưới mô tả cách tạo một [ref trong DOM node](/docs/refs-and-the-dom.html) để truy xuất các files khi submit:
 
 `embed:uncontrolled-components/input-type-file.js`
 

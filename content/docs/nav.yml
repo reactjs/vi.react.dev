@@ -10,13 +10,14 @@
       title: Các Đường Dẫn CDN
     - id: release-channels
       title: Các Kênh Phát Hành
+
 - title: Khái niệm chính
   isOrdered: true
   items:
     - id: hello-world
       title: Hello World
     - id: introducing-jsx
-      title: Giới thiệu về JSX
+      title: Giới thiệu JSX
     - id: rendering-elements
       title: Việc Render Các Elements
     - id: components-and-props
@@ -24,9 +25,9 @@
     - id: state-and-lifecycle
       title: State Và Vòng Đời
     - id: handling-events
-      title: Việc Bắt Các Sự Kiện
+      title: Xử lý Events
     - id: conditional-rendering
-      title: Render Có Điều Kiện
+      title: Rendering có điều kiện
     - id: lists-and-keys
       title: Lists Và Keys
     - id: forms
@@ -40,7 +41,7 @@
 - title: Hướng dẫn nâng cao
   items:
     - id: accessibility
-      title: Accessibility
+      title: Khả năng tiếp cận
     - id: code-splitting
       title: Code-Splitting
     - id: context
@@ -54,6 +55,7 @@
     - id: higher-order-components
       title: Higher-Order Components
     - id: integrating-with-other-libraries
+
       title: Tích Hợp Với Các Thư Viện Khác
     - id: jsx-in-depth
       title: JSX Chuyên Sâu
@@ -62,11 +64,11 @@
     - id: portals
       title: Portals
     - id: profiler
-      title: Profiler
+      title: Phân tích (Profiler)
     - id: react-without-es6
-      title: React Với Không ES6
+      title: React nhưng không sử dụng ES6
     - id: react-without-jsx
-      title: React Với Không JSX
+      title: React nhưng không sử dụng JSX
     - id: reconciliation
       title: Hoà Hợp Và Hoà Giải
     - id: refs-and-the-dom
@@ -78,7 +80,7 @@
     - id: strict-mode
       title: Strict Mode
     - id: typechecking-with-proptypes
-      title: Typechecking Với PropTypes
+      title: Kiểm tra kiểu với PropTypes
     - id: uncontrolled-components
       title: Các Components Không Kiểm Soát
     - id: web-components
@@ -106,6 +108,7 @@
       title: Yêu Cầu Môi Trường JS
     - id: glossary
       title: Bảng Chú Giải
+
 - title: Hooks
   isOrdered: true
   items:
@@ -124,8 +127,8 @@
       - id: hooks-reference
         title: Tham chiếu Hooks API
       - id: hooks-faq
-        title: Hooks FAQ
-- title: Testing
+        title: Hooks và các câu hỏi thường gặp
+- title: Kiểm thử
   items:
     - id: testing
       title: Tổng Quan Testing
@@ -158,6 +161,6 @@
     - id: faq-structure
       title: Cấu trúc dự án
     - id: faq-versioning
-      title: Chính Sách Đặt Phiên Bản
+      title: Quy Tắc Đặt Phiên Bản
     - id: faq-internals
       title: Virtual DOM and Internals

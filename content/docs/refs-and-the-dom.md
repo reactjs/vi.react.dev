@@ -11,33 +11,33 @@ redirect_from:
   - "tips/children-undefined.html"
 ---
 
-Refs provide a way to access DOM nodes or React elements created in the render method.
+Refs cung cấp một cách để truy cập DOM nodes hoặc các React elements được tạo trong phương thức render.
 
-In the typical React dataflow, [props](/docs/components-and-props.html) are the only way that parent components interact with their children. To modify a child, you re-render it with new props. However, there are a few cases where you need to imperatively modify a child outside of the typical dataflow. The child to be modified could be an instance of a React component, or it could be a DOM element. For both of these cases, React provides an escape hatch.
+Trong luồng dữ liệu đặc trưng của React, [props](/docs/components-and-props.html) là cách duy nhất để các parent components tương tác với child của chúng. Để thay đổi child, bạn re-render nó với props mới. Tuy nhiên, có một vài trường hợp mà ở đó bạn cần thay đổi child bên ngoài luồng dữ liệu đặc trưng ở thức mệnh lệnh. Child được thay đổi có thể là một thể hiện của một React component, hoặc nó có thể là DOM element. Đối với cả hai trường hợp này, React cung cấp một cách để giải quyết.
 
-### When to Use Refs {#when-to-use-refs}
+### Khi nào sử dụng Refs {#when-to-use-refs}
 
-There are a few good use cases for refs:
+Có vài trường hợp tốt để sử dụng refs:
 
-* Managing focus, text selection, or media playback.
-* Triggering imperative animations.
-* Integrating with third-party DOM libraries.
+* Quản lý focus, text selection, hoặc media playback.
+* Kích hoạt animations quan trọng.
+* Tích hợp với những thư viện DOM của bên thứ ba.
 
-Avoid using refs for anything that can be done declaratively.
+Tránh sử dụng refs cho bất cứ điều gì mà có thể được hoàn thành một cách khai báo.
 
-For example, instead of exposing `open()` and `close()` methods on a `Dialog` component, pass an `isOpen` prop to it.
+Ví dụ, thay vì sử dụng các phương thức `open()` và `close()` cho một `Dialog` component, truyền một thuộc tính `isOpen` cho nó.
 
-### Don't Overuse Refs {#dont-overuse-refs}
+### Đừng lạm dụng Refs {#dont-overuse-refs}
 
-Your first inclination may be to use refs to "make things happen" in your app. If this is the case, take a moment and think more critically about where state should be owned in the component hierarchy. Often, it becomes clear that the proper place to "own" that state is at a higher level in the hierarchy. See the [Lifting State Up](/docs/lifting-state-up.html) guide for examples of this.
+Xu hướng đầu tiên của bạn có thể là sử dụng ref để "làm cái gì đó hoạt động" trong ứng dụng của bạn. Nếu đúng như vậy, hãy dành một chút thời gian và suy nghĩ kỹ hơn về state nên được sử dụng ở đâu trong hệ thống phân cấp component. Thông thường, rõ ràng là nơi thích hợp để "đặt" state đó là ở một cấp cao hơn trong hệ thống phân cấp. Xem hướng dẫn [Lifting State Up](/docs/lifting-state-up.html) cho nhiều ví dụ về cách này.
 
-> Note
+> Chú ý
 >
-> The examples below have been updated to use the `React.createRef()` API introduced in React 16.3. If you are using an earlier release of React, we recommend using [callback refs](#callback-refs) instead.
+> Các ví dụ phía dưới đã được cập nhật để sử dụng `React.createRef()` API được giới thiệu trong React 16.3. Nếu bạn đang sử dụng các phiên bản React trước, chúng tôi khuyến nghị bạn sử dụng [callback refs](#callback-refs) để thay thế.
 
-### Creating Refs {#creating-refs}
+### Tạo Refs {#creating-refs}
 
-Refs are created using `React.createRef()` and attached to React elements via the `ref` attribute. Refs are commonly assigned to an instance property when a component is constructed so they can be referenced throughout the component.
+Refs được tạo bằng `React.createRef()` và gán cho React elements thông qua thuộc tính `ref`. Refs thường được gán cho một instance property khi một component được xây dựng để chúng có thể được tham chiếu khắp component.
 
 ```javascript{4,7}
 class MyComponent extends React.Component {
@@ -51,25 +51,25 @@ class MyComponent extends React.Component {
 }
 ```
 
-### Accessing Refs {#accessing-refs}
+### Truy cập Refs {#accessing-refs}
 
-When a ref is passed to an element in `render`, a reference to the node becomes accessible at the `current` attribute of the ref.
+Khi một ref được truyền cho một element trong `render`, một tham chiếu đến node có thể truy cập được bằng thuộc tính `current` của ref.
 
 ```javascript
 const node = this.myRef.current;
 ```
 
-The value of the ref differs depending on the type of the node:
+Giá trị của ref khác nhau phụ thuộc vào loại của node:
 
-- When the `ref` attribute is used on an HTML element, the `ref` created in the constructor with `React.createRef()` receives the underlying DOM element as its `current` property.
-- When the `ref` attribute is used on a custom class component, the `ref` object receives the mounted instance of the component as its `current`.
-- **You may not use the `ref` attribute on function components** because they don't have instances.
+- khi thuộc tính `ref` được sử dụng trên một HTML element, `ref` tạo một constructor với `React.createRef()` nhận DOM element bên dưới là thuộc tính `current` của nó.
+- Khi thuộc tính `ref` được sử dụng trên một custom class component, đối tượng `ref` nhận mounted instance của component là `current` của nó.
+- **Bạn có thể không sử dụng thuộc tính `ref` cho function components** bởi vì chúng không có instances.
 
-The examples below demonstrate the differences.
+Các ví dụ dưới đây chứng minh sự khác biệt.
 
-#### Adding a Ref to a DOM Element {#adding-a-ref-to-a-dom-element}
+#### Thêm một Ref cho một DOM Element {#adding-a-ref-to-a-dom-element}
 
-This code uses a `ref` to store a reference to a DOM node:
+Đoạn code này sử dụng một `ref` để lưu một tham chiếu đến một DOM node:
 
 ```javascript{5,12,22}
 class CustomTextInput extends React.Component {
@@ -105,11 +105,11 @@ class CustomTextInput extends React.Component {
 }
 ```
 
-React will assign the `current` property with the DOM element when the component mounts, and assign it back to `null` when it unmounts. `ref` updates happen before `componentDidMount` or `componentDidUpdate` lifecycle methods.
+React sẽ gán thuộc tính `current` với DOM element khi component mounts, và gán nó trở lại `null` khi nó unmounts. Các cập nhật `ref` xảy ra trước các phương thức trong lifecycle như `componentDidMount` hoặc `componentDidUpdate`.
 
-#### Adding a Ref to a Class Component {#adding-a-ref-to-a-class-component}
+#### Thêm một Ref cho một Class Component {#adding-a-ref-to-a-class-component}
 
-If we wanted to wrap the `CustomTextInput` above to simulate it being clicked immediately after mounting, we could use a ref to get access to the custom input and call its `focusTextInput` method manually:
+Nếu chúng ta muốn bọc `CustomTextInput` bên trên để mô phỏng nó đang được click ngay lập tức sau khi mounting, chúng ta có thể sử dụng một ref để có thể truy cập custom input và gọi phương thức `focusTextInput` của nó một cách thủ công:
 
 ```javascript{4,8,13}
 class AutoFocusTextInput extends React.Component {
@@ -130,7 +130,7 @@ class AutoFocusTextInput extends React.Component {
 }
 ```
 
-Note that this only works if `CustomTextInput` is declared as a class:
+Chú ý rằng điều này chỉ hoạt động nếu `CustomTextInput` được khai báo là một class:
 
 ```js{1}
 class CustomTextInput extends React.Component {
@@ -138,9 +138,9 @@ class CustomTextInput extends React.Component {
 }
 ```
 
-#### Refs and Function Components {#refs-and-function-components}
+#### Refs và Function Components {#refs-and-function-components}
 
-By default, **you may not use the `ref` attribute on function components** because they don't have instances:
+Theo mặc định, **bạn không thể sử dụng thuộc tính `ref` trên function components** bởi vì chúng không có các instances:
 
 ```javascript{1,8,13}
 function MyFunctionComponent() {
@@ -161,9 +161,9 @@ class Parent extends React.Component {
 }
 ```
 
-If you want to allow people to take a `ref` to your function component, you can use [`forwardRef`](/docs/forwarding-refs.html) (possibly in conjunction with [`useImperativeHandle`](/docs/hooks-reference.html#useimperativehandle)), or you can convert the component to a class.
+Nếu bạn muốn cho phép mọi người lấy một `ref` cho function component của bạn, bạn có thể sử dụng [`forwardRef`](/docs/forwarding-refs.html) (có thể kết hợp với [`useImperativeHandle`](/docs/hooks-reference.html#useimperativehandle)), hoặc bạn có thể chuyển component sang class.
 
-You can, however, **use the `ref` attribute inside a function component** as long as you refer to a DOM element or a class component:
+Tuy nhiên, bạn có thể **sử dụng thuộc tính `ref` bên trong một function component** miễn là bạn tham chiếu đến một DOM element hoặc một class component:
 
 ```javascript{2,3,6,13}
 function CustomTextInput(props) {
@@ -189,25 +189,25 @@ function CustomTextInput(props) {
 }
 ```
 
-### Exposing DOM Refs to Parent Components {#exposing-dom-refs-to-parent-components}
+### Phơi bày DOM Refs cho Parent Components {#exposing-dom-refs-to-parent-components}
 
-In rare cases, you might want to have access to a child's DOM node from a parent component. This is generally not recommended because it breaks component encapsulation, but it can occasionally be useful for triggering focus or measuring the size or position of a child DOM node.
+Trong một số ít trường hợp, bạn có thể muốn truy cập vào một child's DOM node từ một parent component. Điều này thường không được khuyến nghị bởi vì nó phá vỡ tính đóng gói của component, nhưng đôi khi nó có thể hữu ích cho việc kích hoạt focus hoặc đo kích thước hoặc vị trí của một child DOM node.
 
-While you could [add a ref to the child component](#adding-a-ref-to-a-class-component), this is not an ideal solution, as you would only get a component instance rather than a DOM node. Additionally, this wouldn't work with function components.
+Mặc dù bạn có thể [thêm một ref cho child component](#adding-a-ref-to-a-class-component), đây không phải là một giải pháp lý tưởng, vì bạn sẽ chỉ nhận một component instance thay vì một DOM node. Ngoài ra, cách này sẽ không hoạt động với function components.
 
-If you use React 16.3 or higher, we recommend to use [ref forwarding](/docs/forwarding-refs.html) for these cases. **Ref forwarding lets components opt into exposing any child component's ref as their own**. You can find a detailed example of how to expose a child's DOM node to a parent component [in the ref forwarding documentation](/docs/forwarding-refs.html#forwarding-refs-to-dom-components).
+Nếu bạn sử dụng React 16.3 hoặc cao hơn, chúng tôi khuyến nghị sử dụng [ref forwarding](/docs/forwarding-refs.html) cho những trường hợp này. **Ref forwarding cho phép các components tham gia vào việc phơi bày bất kì child component's ref như là của chính chúng**. Bạn có thể tìm một ví dụ chi tiết về cách phơi bày một child's DOM node cho một parent component [trong tài liệu ref forwarding](/docs/forwarding-refs.html#forwarding-refs-to-dom-components).
 
-If you use React 16.2 or lower, or if you need more flexibility than provided by ref forwarding, you can use [this alternative approach](https://gist.github.com/gaearon/1a018a023347fe1c2476073330cc5509) and explicitly pass a ref as a differently named prop.
+Nếu bạn sử dụng React 16.2 hoặc thấp hơn, hoặc nếu bạn cần nhiều sự linh hoạt hơn mức được cung cấp bởi ref forwarding, bạn có thể sử dụng [cách tiếp cận thay thế này](https://gist.github.com/gaearon/1a018a023347fe1c2476073330cc5509) và truyền một cách rõ ràng một ref dưới dạng một prop tên khác.
 
-When possible, we advise against exposing DOM nodes, but it can be a useful escape hatch. Note that this approach requires you to add some code to the child component. If you have absolutely no control over the child component implementation, your last option is to use [`findDOMNode()`](/docs/react-dom.html#finddomnode), but it is discouraged and deprecated in [`StrictMode`](/docs/strict-mode.html#warning-about-deprecated-finddomnode-usage).
+Nếu có thể, chúng tôi khuyên bạn không nên để lộ các DOM nodes, nhưng nó có thể là một lối thoát hiểm hữu ích. Chú ý rằng phương pháp này yêu cầu bạn thêm một số code vào child component. Nếu bạn hoàn toàn không kiểm soát được triển khai của child component, lựa chọn cuối cùng của bạn là sử dụng [`findDOMNode()`](/docs/react-dom.html#finddomnode), nhưng nó không được khuyến khích và chấp nhận trong [`StrictMode`](/docs/strict-mode.html#warning-about-deprecated-finddomnode-usage).
 
 ### Callback Refs {#callback-refs}
 
-React also supports another way to set refs called "callback refs", which gives more fine-grain control over when refs are set and unset.
+React cũng hỗ trợ một cách khác để thiết lập các refs được gọi là "callback refs", cách này giúp kiểm soát chi tiết hơn khi refs được thiết lập và bị hủy bỏ.
 
-Instead of passing a `ref` attribute created by `createRef()`, you pass a function. The function receives the React component instance or HTML DOM element as its argument, which can be stored and accessed elsewhere. 
+Thay vì truyền vào một thuộc tính `ref` được tạo bởi `createRef()`, bạn truyền một function. Function này nhận React component instance hoặc HTML DOM element làm đối số của nó, được lưu trữ và truy cập ở nơi khác.
 
-The example below implements a common pattern: using the `ref` callback to store a reference to a DOM node in an instance property.
+Ví dụ dưới đây triển khai một mẫu phổ thông: sử dụng `ref` callback để lưu trữ một tham chiếu đến một DOM node trong một instance property.
 
 ```javascript{5,7-9,11-14,19,29,34}
 class CustomTextInput extends React.Component {
@@ -251,9 +251,9 @@ class CustomTextInput extends React.Component {
 }
 ```
 
-React will call the `ref` callback with the DOM element when the component mounts, and call it with `null` when it unmounts. Refs are guaranteed to be up-to-date before `componentDidMount` or `componentDidUpdate` fires.
+React sẽ gọi `ref` callback với DOM element khi component mounts, và gọi nó với `null` khi component unmounts. Refs được đảm bảo được cập nhật trước `componentDidMount` hoặc `componentDidUpdate` kích hoạt.
 
-You can pass callback refs between components like you can with object refs that were created with `React.createRef()`.
+Bạn có thể truyền callback refs giữa các components như bạn có thể với object refs được tạo bằng `React.createRef()`.
 
 ```javascript{4,13}
 function CustomTextInput(props) {
@@ -275,16 +275,16 @@ class Parent extends React.Component {
 }
 ```
 
-In the example above, `Parent` passes its ref callback as an `inputRef` prop to the `CustomTextInput`, and the `CustomTextInput` passes the same function as a special `ref` attribute to the `<input>`. As a result, `this.inputElement` in `Parent` will be set to the DOM node corresponding to the `<input>` element in the `CustomTextInput`.
+Trong ví dụ trên, `Parent` truyền ref callback của nó như một thuộc tính `inputRef` cho `CustomTextInput`, và `CustomTextInput` truyền function này như một thuộc tính `ref` đặc biệt cho `<input>`. Do đó, `this.inputElement` trong `Parent` sẽ được thiết lập cho DOM node tương ứng với `<input>` element trong `CustomTextInput`.
 
-### Legacy API: String Refs {#legacy-api-string-refs}
+### API lỗi thời: String Refs {#legacy-api-string-refs}
 
-If you worked with React before, you might be familiar with an older API where the `ref` attribute is a string, like `"textInput"`, and the DOM node is accessed as `this.refs.textInput`. We advise against it because string refs have [some issues](https://github.com/facebook/react/pull/8333#issuecomment-271648615), are considered legacy, and **are likely to be removed in one of the future releases**. 
+Nếu bạn đã làm việc với React trước đây, bạn có thể quen thuộc với một API cũ hơn trong đó thuộc tính `ref` là một string, như `"textInput"`, và DOM node được truy cập như `this.refs.textInput`. Chúng tôi khuyên bạn không nên làm như vậy bởi vì string refs có [một vài vấn đề](https://github.com/facebook/react/pull/8333#issuecomment-271648615), được cân nhắc là lỗi thời, và **có khả năng bị xóa trong một trong những bản phát hành trong tương lai**. 
 
-> Note
+> Chú ý
 >
-> If you're currently using `this.refs.textInput` to access refs, we recommend using either the [callback pattern](#callback-refs) or the [`createRef` API](#creating-refs) instead.
+> Nếu bạn hiện đang sử dụng `this.refs.textInput` để truy cập refs, chúng tôi khuyến nghị bạn sử dụng [mẫu callback](#callback-refs) hoặc [`createRef` API](#creating-refs) để thay thế.
 
-### Caveats with callback refs {#caveats-with-callback-refs}
+### Cảnh báo với callback refs {#caveats-with-callback-refs}
 
-If the `ref` callback is defined as an inline function, it will get called twice during updates, first with `null` and then again with the DOM element. This is because a new instance of the function is created with each render, so React needs to clear the old ref and set up the new one. You can avoid this by defining the `ref` callback as a bound method on the class, but note that it shouldn't matter in most cases.
+Nếu `ref` callback được định nghĩa như một inline function, nó sẽ được gọi hai lần trong quá trình cập nhật, lần đầu với `null` và lần sau với DOM element. Điều này là bởi vì một instance mới của function được tạo lại với mỗi lần render, vì vậy React cần xóa ref cũ và thiết lập ref mới. Bạn có thể tránh điều này bằng cách định nghĩa `ref` callback như là một thuộc tính trong class, nhưng lưu ý rằng nó không quan trọng trong hầu hết các trường hợp.

@@ -6,11 +6,11 @@ redirect_from:
   - "docs/webcomponents.html"
 ---
 
-React and [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) are built to solve different problems.  Web Components provide strong encapsulation for reusable components, while React provides a declarative library that keeps the DOM in sync with your data. The two goals are complementary. As a developer, you are free to use React in your Web Components, or to use Web Components in React, or both.
+React và [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) được xây dựng để giải quyết những vấn đề khác nhau. Web Components cung cấp sự đóng gói mạnh mẽ cho việc tái sử dụng components, trong khi đó React cung cấp một thư viện khai báo giữ DOM đồng bộ với dữ liệu của bạn. Hai mục tiêu này bổ trợ cho nhau. Là một developer, bạn có quyền sử dụng React trong Web Components của bạn, hoặc sử dụng Web Components trong React, hoặc cả hai.
 
-Most people who use React don't use Web Components, but you may want to, especially if you are using third-party UI components that are written using Web Components.
+Hầu hết những người sử dụng React thì không sử dụng Web Components, nhưng bạn có thể muốn sử dụng, đặc biệt là khi bạn đang sử dụng UI components của bên thứ ba được viết bằng Web Components.
 
-## Using Web Components in React {#using-web-components-in-react}
+## Sử dụng Web Components trong React {#using-web-components-in-react}
 
 ```javascript
 class HelloMessage extends React.Component {
@@ -20,14 +20,14 @@ class HelloMessage extends React.Component {
 }
 ```
 
-> Note:
+> Chú ý:
 >
-> Web Components often expose an imperative API. For instance, a `video` Web Component might expose `play()` and `pause()` functions. To access the imperative APIs of a Web Component, you will need to use a ref to interact with the DOM node directly. If you are using third-party Web Components, the best solution is to write a React component that behaves as a wrapper for your Web Component.
+> Web Components thường có các imperative API. Ví dụ, một `video` Web Component có thể có các hàm `play()` và `pause()`. Để tiếp cận các imperative APIs của một Web Component, bạn sẽ cần sử dụng một ref để tương tác với DOM node trực tiếp. Nếu bạn đang sử dụng Web Components của bên thứ ba, giải pháp tốt nhất là viết một React component vận hành như một vỏ bọc cho Web Component của bạn.
 >
-> Events emitted by a Web Component may not properly propagate through a React render tree.
-> You will need to manually attach event handlers to handle these events within your React components.
+> Events được phát ra bởi một Web Component có thể không được truyền đúng cách qua React render tree.
+> Bạn sẽ cần gán một cách thủ công các event handlers để xử lí các events bên trong React components của bạn.
 
-One common confusion is that Web Components use "class" instead of "className".
+Một sự nhầm lẫn phổ biến là Web Component sử dụng "class" thay vì "className".
 
 ```javascript
 function BrickFlipbox() {
@@ -40,7 +40,7 @@ function BrickFlipbox() {
 }
 ```
 
-## Using React in your Web Components {#using-react-in-your-web-components}
+## Sử dụng React trong Web Components của bạn {#using-react-in-your-web-components}
 
 ```javascript
 class XSearch extends HTMLElement {
@@ -56,7 +56,7 @@ class XSearch extends HTMLElement {
 customElements.define('x-search', XSearch);
 ```
 
->Note:
+>Chú ý:
 >
->This code **will not** work if you transform classes with Babel. See [this issue](https://github.com/w3c/webcomponents/issues/587) for the discussion.
->Include the [custom-elements-es5-adapter](https://github.com/webcomponents/polyfills/tree/master/packages/webcomponentsjs#custom-elements-es5-adapterjs) before you load your web components to fix this issue.
+>Đoạn code này **sẽ không** hoạt động nếu bạn thay đổi classes với Babel. Xem [vấn đề này](https://github.com/w3c/webcomponents/issues/587) về việc thảo luận.
+>Include [custom-elements-es5-adapter](https://github.com/webcomponents/polyfills/tree/master/packages/webcomponentsjs#custom-elements-es5-adapterjs) trước khi bạn tải web components để khắc phục vấn đề này.

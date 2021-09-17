@@ -4,45 +4,45 @@ layout: single
 permalink: warnings/refs-must-have-owner.html
 ---
 
-You are probably here because you got one of the following error messages:
+Có thể bạn đang ở đây vì bạn đang gặp một trong các thông báo lỗi sau đây:
 
 *React 16.0.0+*
-> Warning:
+> Lời cảnh báo:
 >
-> Element ref was specified as a string (myRefName) but no owner was set. You may have multiple copies of React loaded. (details: https://fb.me/react-refs-must-have-owner).
+> Element ref đã được chỉ định dưới dạng một string (myRefName) nhưng không có chủ sở hữu được thiết lập. Bạn có thể đang nạp nhiều bản sao của React. (thông tin chi tiết: https://fb.me/react-refs-must-have-owner).
 
-*earlier versions of React*
-> Warning:
+*đối với các phiên bản trước của React*
+> Lời cảnh báo:
 >
-> addComponentAsRefTo(...): Only a ReactOwner can have refs. You might be adding a ref to a component that was not created inside a component's `render` method, or you have multiple copies of React loaded.
+> addComponentAsRefTo(...): Chỉ duy nhất ReactOwner mới có thể có refs. Bạn có thể đang thêm một ref vào một component không được tạo ra bên trong phương thức `render` của component này, hoặc bạn có nhiều bản sao của React đang được nạp.
 
-This usually means one of three things:
+Điều này thường được hiểu theo một trong ba điều sau:
 
-- You are trying to add a `ref` to a function component.
-- You are trying to add a `ref` to an element that is being created outside of a component's render() function.
-- You have multiple (conflicting) copies of React loaded (eg. due to a misconfigured npm dependency)
+- Bạn đang cố gắng thêm một `ref` vào một function component.
+- Bạn đang cố gắng thêm một `ref` vào một element đang được khởi tạo bên ngoài hàm render của component bạn đang muốn thêm `ref`.
+- Bạn có nhiều (conflicting: xung đột) bản sao của React đang được nạp (ví dụ : do npm dependency bị cấu hình sai)
 
-## Refs on Function Components {#refs-on-function-components}
+## Refs trong Function Components {#refs-on-function-components}
 
-If `<Foo>` is a function component, you can't add a ref to it:
+Nếu `<Foo>` là một function component, Bạn không thể thêm một ref vào nó:
 
 ```js
-// Doesn't work if Foo is a function!
+// Không hoạt động nếu Foo là một function!
 <Foo ref={foo} />
 ```
 
-If you need to add a ref to a component, convert it to a class first, or consider not using refs as they are [rarely necessary](/docs/refs-and-the-dom.html#when-to-use-refs).
+Nếu bạn cần thêm một ref vào component, hãy chuyển component đó sang class thay vì dùng function, hoặc xem xét không sử dụng refs vì chúng [hiếm khi cần thiết](/docs/refs-and-the-dom.html#when-to-use-refs).
 
-## Strings Refs Outside the Render Method {#strings-refs-outside-the-render-method}
+## Strings Refs bên ngoài phương thức Render {#strings-refs-outside-the-render-method}
 
-This usually means that you're trying to add a ref to a component that doesn't have an owner (that is, was not created inside of another component's `render` method). For example, this won't work:
+Điều này thường có nghĩa là bạn đang cố gắng thêm một ref vào component không có chủ sở hữu (nghĩa là nó không được tạo bên trong phương thức `render` của component khác). Ví dụ, điều này sẽ không thể hoạt động:
 
 ```js
-// Doesn't work!
+// Không hoạt động!
 ReactDOM.render(<App ref="app" />, el);
 ```
 
-Try rendering this component inside of a new top-level component which will hold the ref. Alternatively, you may use a callback ref:
+Thử rendering component này bên trong một component cấp cao hơn (thường được gọi là component cha), component này sẽ giữ ref. Ngoài ra, bạn có thể sử dụng một callback ref như sau:
 
 ```js
 let app;
@@ -54,10 +54,10 @@ ReactDOM.render(
 );
 ```
 
-Consider if you [really need a ref](/docs/refs-and-the-dom.html#when-to-use-refs) before using this approach.
+Hãy cân nhắc xem bạn có  [thực sự cần một ref](/docs/refs-and-the-dom.html#when-to-use-refs) trước khi sử dụng phương pháp này hay không.
 
-## Multiple copies of React {#multiple-copies-of-react}
+## Các bản sao của React {#multiple-copies-of-react}
 
-Bower does a good job of deduplicating dependencies, but npm does not. If you aren't doing anything (fancy) with refs, there is a good chance that the problem is not with your refs, but rather an issue with having multiple copies of React loaded into your project. Sometimes, when you pull in a third-party module via npm, you will get a duplicate copy of the dependency library, and this can create problems.
+Bower thực hiện tốt công việc loại bỏ trùng lặp các dependency, nhưng npm thì không. Nếu bạn không làm bất cứ điều gì (yêu thích) với refs, đây là một cơ hội tốt vì vấn đề không phải ở refs của bạn, mà là vấn đề với việc đang có nhiều bản sao của React được nạp vào dự án của bạn. Đôi khi, khi bạn đang tải về một module thứ ba thông qua npm, bạn sẽ nhận được một bản sao của thư viện dependency, và điều này có thể đã tạo ra vấn đề.
 
-If you are using npm... `npm ls` or `npm ls react` might help illuminate.
+Nếu bạn đang sử dụng npm... `npm ls` hoặc `npm ls react` có thể giúp bạn giải quyết.

@@ -1,6 +1,7 @@
 .cache
 .DS_STORE
 .idea
+.history
 node_modules
 public
 yarn-error.log

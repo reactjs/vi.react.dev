@@ -1,25 +1,25 @@
 ---
 id: examples
-title: Example Projects
+title: Các dự án mẫu
 layout: community
 sectionid: community
 permalink: community/examples.html
 ---
 
-There are many example projects created by the React community. We're keeping this page focused on the ones that use React without third-party state management libraries.
+Có rất nhiều dự án mẫu được tạo bởi cộng đồng React. Chúng tôi đang duy trì trang này chỉ tập trung vào những dự án sử dụng React mà không có thư viện quản lý state của bên thứ ba.
 
-If you add a project, please commit to keeping it up to date with the latest versions of React.
+Nếu bạn thêm một dự án, hãy cam kết cập nhật nó với các phiên bản React mới nhất.
 
-## Small Examples {#small-examples}
+## Các dự án mẫu cỡ nhỏ {#small-examples}
 
-* **[Calculator](https://github.com/ahfarmer/calculator)** Implementation of the iOS calculator built in React
-* **[Emoji Search](https://github.com/ahfarmer/emoji-search)** React app for searching emoji
-* **[Snap Shot](https://github.com/Yog9/SnapShot)** A photo gallery with search
-* **[BMI Calculator](https://github.com/GermaVinsmoke/bmi-calculator)** A React Hooks app for calculating BMI
-* **[Image Compressor](https://github.com/RaulB-masai/react-image-compressor)** An offline image compressor built with React and browser-image-compression
-* **[Counter App](https://github.com/arnab-datta/counter-app)** A small shopping cart example
-* **[Tutorial Solutions](https://github.com/harman052/react-tutorial-solutions)** Solutions to challenges mentioned at the end of React tutorial
+* **[Calculator](https://github.com/ahfarmer/calculator)** Triển khai máy tính iOS xây dựng bằng React
+* **[Emoji Search](https://github.com/ahfarmer/emoji-search)** Ứng dụng React tìm kiếm biểu tượng cảm xúc
+* **[Snap Shot](https://github.com/Yog9/SnapShot)** Một thư viện ảnh với tính năng tìm kiếm
+* **[BMI Calculator](https://github.com/GermaVinsmoke/bmi-calculator)** Một ứng dụng React Hooks để tính chỉ số BMI
+* **[Image Compressor](https://github.com/RaulB-masai/react-image-compressor)** Một trình nén ảnh ngoại tuyến được xây dựng với React và browser-image-compression
+* **[Counter App](https://github.com/arnab-datta/counter-app)** Một ví dụ nhỏ về giỏ hàng
+* **[Tutorial Solutions](https://github.com/harman052/react-tutorial-solutions)** Giải pháp cho những thách thức được đề cập ở cuối hướng dẫn React
 
-## Complete Apps {#complete-apps}
+## Ứng dụng hoàn chỉnh {#complete-apps}
 
-* **[Builder Book](https://github.com/builderbook/builderbook)** Open-source web app to write and host documentation or sell books. Built with React, Material-UI, Next, Express, Mongoose, MongoDB
+* **[Builder Book](https://github.com/builderbook/builderbook)** Ứng dụng web mã nguồn mở để viết và lưu trữ tài liệu hoặc bán sách. Được xây dựng với React, Material-UI, Next, Express, Mongoose, MongoDB
