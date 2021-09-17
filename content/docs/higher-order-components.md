@@ -4,7 +4,7 @@ title: Higher-Order Components
 permalink: docs/higher-order-components.html
 ---
 
-Higher-order component (HOC) là một kĩ thuật nâng cao trong React để tái sử dụng logic của component. HOC không thuộc React API. Nó là một kiểu được sinh ra từ nền tảng cấu trúc của React.
+Higher-order component (HOC) là một kĩ thuật nâng cao trong React để tái sử dụng logic của component. HOC không thuộc React API. Nó là một kiểu được sinh ra từ pattern của React.
 
 Một cách cụ thể, **một higher-order component là một hàm nhận vào một component và trả về một component.**
 
@@ -26,7 +26,7 @@ Trong tài liệu này, chúng ta sẽ thảo luận tại sao higher-order comp
 
 Components là những đơn vị cơ bản trong việc tái sử dụng code trong React. Tuy nhiên, bạn có thể thấy một số patterns không thực sự phù hợp cho những components truyền thống.
 
-Ví dụ, bạn có component `CommentList` lấy dữ liệu từ bên ngoài và hiển thị một list các bình luận:
+Ví dụ, bạn có component `CommentList` lấy dữ liệu từ nguồn bên ngoài và hiển thị một list các bình luận:
 
 ```js
 class CommentList extends React.Component {
@@ -68,7 +68,7 @@ class CommentList extends React.Component {
 }
 ```
 
-Sau đó, bạn viết một component cho một bài blog, với những bước tương tự:
+Sau đó, bạn viết một component cho một bài blog, với pattern tương tự:
 
 ```js
 class BlogPost extends React.Component {
@@ -163,7 +163,7 @@ function withSubscription(WrappedComponent, selectData) {
 }
 ```
 
-Cần nhớ một điều là HOC không chỉnh sửa, làm khác đi component đầu vào mà nó chỉ kế thừa các hành vi của component đó. Một HOC *xào nấu* component gốc bằng cách gói nó vào một component. Một HOC là một hàm với 0 tác dụng phụ (side-effects).
+Cần nhớ một điều là HOC không chỉnh sửa, làm thay đổi component đầu vào mà nó chỉ kế thừa các hành vi của component đó. Một HOC *xào nấu* component gốc bằng cách gói nó vào một component. Một HOC là một hàm không có tác dụng phụ (side-effects).
 
 Và đó là tất cả! Component bên trong nhận tất cả các props của component bên ngoài, bên cạnh prop mới, `data`, cái mà được sử dụng để render. HOC không quan tâm dữ liệu được sử dụng như thế nào hoặc tại sao, và component bên trong cũng không quan tâm dữ liệu đến từ đâu.
 
@@ -171,7 +171,7 @@ Bởi vì `withSubscription` là một hàm bình thường, bạn có thể th�
 
 Giống như các components khác, mối quan hệ giữa `withSubscription` và component con hoàn toàn dựa vào props. Nó giúp cho việc đổi một HOC này với một HOC khác dễ dàng hơn, miễn là chúng cung cấp cùng props cho component con. Rất hữu ích nếu bạn thay đổi thư viện lấy dữ liệu.
 
-## Đừng thay đổi (mutate) Component Gốc. Hãy soạn lại component (composition).{#dont-mutate-the-original-component-use-composition}
+## Đừng thay đổi (mutate) Component Gốc. Hãy sử dụng Composition.{#dont-mutate-the-original-component-use-composition}
 
 Kiểm soát ham muốn chỉnh sửa prototype của component (nói cách khác là mutate nó) bên trong một HOC.
 
@@ -202,30 +202,30 @@ function logProps(WrappedComponent) {
       console.log('Previous props: ', prevProps);
     }
     render() {
-      // Gói component vào bên trong một component chứa, không mutate. Thật tuyệt!
+      // Thật tốt khi Input component được bọc bởi một container và nó không bị thay đổi (mutate)
       return <WrappedComponent {...this.props} />;
     }
   }
 }
 ```
 
-HOC này có đầy đủ chức năng với bản được mutate mà tránh được nguy cơ xung đột. Nó hoạt động hiệu quả cả với class và function component. And bởi vì là một pure function, nó có thể được ghép với những HOC khác, hoặc kể cả chính nó.
+HOC này có đầy đủ chức năng với bản được mutate mà tránh được nguy cơ xung đột. Nó hoạt động hiệu quả cả với class và function component. Vì nó là một pure function, nó có thể được ghép với những HOC khác, hoặc kể cả chính nó.
 
-Bạn có thể nhận ra điểm chung giữa HOCs và một pattern gọi là **container components**. Container components là một phần của chiến lược trách nhiệm phân chia giữa các điều high-level và low-level. Containers quản lý những thứ như lắng nghe (subscriptions) và trạng thái (state), và truyền props đến components con để thực hiện các nhiệm vụ như render UI. HOCs sử dụng container như một thừa kế. Bạn có thể nghĩ đến HOC như là container components có tham số.
+Bạn có thể nhận ra điểm chung giữa HOCs và một pattern gọi là **container components**. Container components là một phần của chiến lược trách nhiệm phân chia giữa các điều high-level và low-level. Containers quản lý những thứ như lắng nghe (subscriptions) và trạng thái (state), và truyền props đến components con để thực hiện các nhiệm vụ như render UI. HOCs sử dụng container như một thừa kế. Bạn có thể nghĩ đến HOC như là một container component có thể truyền tham số.
 
 ## Quy ước: Truyền những props không liên quan đến component con{#convention-pass-unrelated-props-through-to-the-wrapped-component}
 
 
-HOC thêm vào những tính năng mới đến component. Chúng không nên thay đổi mạnh mẽ cấu trúc. Component trả về từ HOC nên có chung interface với component con.
+HOC giúp bạn thêm các tính năng mới vào component. Chúng không nên thay đổi mạnh mẽ cấu trúc. Component trả về từ HOC nên có chung interface với component con.
 
-Những HOC nên truyền qus các props mà không liên quan đến những quan tâm đặc thù. Hầu hết các HOC đều chứa một hàm render có dạng như sau:
+Những HOC nên truyền qua các props mà không liên quan đến những quan tâm đặc thù. Hầu hết các HOC đều chứa một hàm render có dạng như sau:
 
 ```js
 render() {
   // Lọc những props mà chỉ liên quan đến HOC này mà không cần truyền xuống
   const { extraProp, ...passThroughProps } = this.props;
 
-  // Truyền những props vào component con. Chúng thường là giá trị trạng thái hoặc hàm.
+  // Truyền những props vào component con. Chúng thường là giá trị state hoặc method.
   const injectedProp = someStateOrInstanceMethod;
 
   // Truyền props đến component con
@@ -238,9 +238,9 @@ render() {
 }
 ```
 
-Quy tắc này giúp cho những HOC trở nên linh hoạt và tái sử dụng.
+Quy tắc này giúp cho những HOC trở nên linh hoạt và có thể tái sử dụng.
 
-## Quy tắc: Tăng tối đa Composability {#convention-maximizing-composability}
+## Quy tắc chung : Khả năng kết hợp tối đa (maximizing composability) {#convention-maximizing-composability}
 
 Không phải tất cả các HOC đều như sau. Đôi khi chúng chỉ nhận một tham số, component con:
 
@@ -271,7 +271,7 @@ const ConnectedComment = enhance(CommentList);
 ```
 Nói cách khác, `connect` là một higher-order function trả về một higher-order component!
 
-Dạng này có thể gây nhầm lẫn hoặc không cần thiết nhưng lại rất hữu ích.Những HOC nhận môt tham số giống như được trả về từ `connect` có đặc điểm `Component => Component`. Những hàm mà output type giống như input type thì rất dễ để kết hợp với nhau.
+Dạng này có thể gây nhầm lẫn hoặc không cần thiết nhưng lại rất hữu ích. Những HOC nhận môt tham số giống như được trả về từ `connect` có đặc điểm `Component => Component`. Những hàm mà output type giống như input type thì rất dễ để kết hợp với nhau.
 
 ```js
 // Thay vì làm như sau...
@@ -294,7 +294,7 @@ const EnhancedComponent = enhance(WrappedComponent)
 The `compose` utility function is provided by many third-party libraries including lodash (as [`lodash.flowRight`](https://lodash.com/docs/#flowRight)), [Redux](https://redux.js.org/api/compose), and [Ramda](https://ramdajs.com/docs/#compose).
 Hàm `compose` thì được cung cấp bở nhiều thư viện third-party bao gồm lodash ([`lodash.flowRight`](https://lodash.com/docs/#flowRight)) và [Ramda](https://ramdajs.com/docs/#compose).
 
-## Quy tắc: Gói những tên thể hiện để tiện cho debug{#convention-wrap-the-display-name-for-easy-debugging}
+## Quy tắc chung : Cách đặt tên HOC để tiện cho việc debug (tìm và gỡ lỗi){#convention-wrap-the-display-name-for-easy-debugging}
 
 Những container component tạo bởi HOCs đều xuất hiện trong [React Developer Tools](https://github.com/facebook/react/tree/main/packages/react-devtools) như bao component khác. Để dễ debug, chọn tên sao cho nó thể hiện rằng nó được sinh ra từ HOC.
 
@@ -334,25 +334,25 @@ render() {
 }
 ```
 
-Vấn đề ở đây không chỉ là về hiệu năng - việc remount một component gây ra tình trạng cả trạng thái cũng nhưng những children đều bị mất.
+Vấn đề ở đây không chỉ là về hiệu năng - việc remount một component gây ra tình trạng cả state cũng như những children đều bị mất.
 
 Áp dụng HOC bên ngoài định nghĩa của component để component sẽ chỉ tạo ra một lần. Định danh của nó sẽ không thay đổi qua mỗi lần render.
 
 Trong những trường hợp hiếm mà bạn cần phải dùng HOC một cách linh hoạt, bạn có thể dùng nó bên trong những hàm licycle hoặc constructor của component.
 
-### Những hàm tĩnh phải được sao chép qua {#static-methods-must-be-copied-over}
+### Những static methods phải được sao chép qua {#static-methods-must-be-copied-over}
 
-Đôi khi sẽ rất hữu ích nếu tạo một hàm tĩnh trong React component. Ví dụ, Relay containers có một hàm tĩnh `getFragment` để đơn giản hóa việc kết hợp của GraphQL fragment.
+Đôi khi sẽ rất hữu ích nếu tạo một static method trong React component. Ví dụ, Relay containers có một static method `getFragment` để đơn giản hóa việc kết hợp của GraphQL fragment.
 
-Khi dùng HOC với một component, mặc dù component được wrap bởi container, nó không có nghĩa là component mới sẽ có những hàm tĩnh của component ban đầu.
+Khi dùng HOC với một component, mặc dù component được bao bọc bởi container, nó không có nghĩa là component mới sẽ có những static methods của component ban đầu.
 
 ```js
-// Định nghĩa một hàm tĩnh
+// Định nghĩa một static method
 WrappedComponent.staticMethod = function() {/*...*/}
-// Sử dụng HOC
+// Bây giờ, áp dụng HOC
 const EnhancedComponent = enhance(WrappedComponent);
 
-// EnhancedComponent không có hàm tĩnh trên
+// EnhancedComponent không có static method trên
 typeof EnhancedComponent.staticMethod === 'undefined' // true
 ```
 
@@ -378,7 +378,7 @@ function enhance(WrappedComponent) {
 }
 ```
 
-Một cách khác là export những hàm tĩnh ra khỏi component.
+Một cách khác là export những static methods ra khỏi component.
 
 ```js
 // Thay vì...
@@ -394,7 +394,7 @@ import MyComponent, { someFunction } from './MyComponent.js';
 
 ### Refs không được truyền xuống {#refs-arent-passed-through}
 
-Mặc dù quy tắc của HOC là truyền tất cả props xuống component, nhưng điều này không áp dụng với refs. Bởi vì `ref` không hẳng là một prop - như `key`, nó được xử lý bởi React. Nếu bạn thêm 1 ref vào một element mà component là kết quả từ HOC, refs sẽ mặc nhiên là của container ngoài cùng nhất, không phải component được wrap.
+Mặc dù quy tắc của HOC là truyền tất cả props xuống component, nhưng điều này không áp dụng với refs. Bởi vì `ref` không hẳng là một prop - như `key`, nó được xử lý bởi React. Nếu bạn thêm một ref vào một element mà component là kết quả từ HOC, refs sẽ mặc nhiên là của container ngoài cùng nhất, không phải component được bao bọc.
 
 The solution for this problem is to use the `React.forwardRef` API (introduced with React 16.3). [Learn more about it in the forwarding refs section](/docs/forwarding-refs.html).
 Giải pháp cho vấn đề này là dùng `React.forwardRef` API (được giới thiệu ở React 16.3). [Tìm hiểu thêm về forward ref tại đây](/docs/forwarding-refs.html).
