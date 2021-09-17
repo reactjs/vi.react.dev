@@ -1,12 +1,12 @@
 ---
 id: meetups
-title: Các cuộc gặp gỡ trên khắp thế giới
+title: Meetups Around the World
 layout: community
 sectionid: community
 permalink: community/meetups.html
 ---
 
-Bạn có một buổi chia sẻ hay họp mặt về React.js ở khu vực của bạn không? Hãy thêm nó vào đây! (Và vui lòng hãy giữ nguyên danh sách theo thứ tự bảng chữ cái)
+Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó vào đây! (Vui lòng giữ danh sách theo thứ tự bảng chữ cái)
 
 ## Albania {#albania}
 * [Tirana](https://www.meetup.com/React-User-Group-Albania/)

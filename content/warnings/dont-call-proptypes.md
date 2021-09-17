@@ -4,17 +4,17 @@ layout: single
 permalink: warnings/dont-call-proptypes.html
 ---
 
-> Note:
+> Chú ý:
 >
-> `React.PropTypes` has moved into a different package since React v15.5. Please use [the `prop-types` library instead](https://www.npmjs.com/package/prop-types).
+> `React.PropTypes` đã chuyển sang một gói khác kể từ React v15.5. Vui lòng sử dụng [thư viện `prop-types` thay thế](https://www.npmjs.com/package/prop-types).
 >
->We provide [a codemod script](/blog/2017/04/07/react-v15.5.0.html#migrating-from-react.proptypes) to automate the conversion.
+>Chúng tôi cung cấp [tập lệnh codemod](/blog/2017/04/07/react-v15.5.0.html#migrating-from-react.proptypes) để tự động chuyển đổi.
 
-In a future major release of React, the code that implements PropType validation functions will be stripped in production. Once this happens, any code that calls these functions manually (that isn't stripped in production) will throw an error.
+Trong một bản phát hành chính trong tương lai của React, code thực hiện các chức năng xác thực PropType sẽ bị loại bỏ trong quá trình sản xuất. Khi điều này xảy ra, bất kỳ code nào gọi các chức năng này theo cách thủ công (không bị loại bỏ trong quá trình sản xuất) sẽ gây ra lỗi.
 
-### Declaring PropTypes is still fine {#declaring-proptypes-is-still-fine}
+### Khai báo PropTypes vẫn ổn {#declaring-proptypes-is-still-fine}
 
-The normal usage of PropTypes is still supported:
+Việc sử dụng bình thường PropTypes vẫn được hỗ trợ:
 
 ```javascript
 Button.propTypes = {
@@ -22,11 +22,11 @@ Button.propTypes = {
 };
 ```
 
-Nothing changes here.
+Không có gì thay đổi ở đây.
 
-### Don’t call PropTypes directly {#dont-call-proptypes-directly}
+### Không gọi trực tiếp PropTypes {#dont-call-proptypes-directly}
 
-Using PropTypes in any other way than annotating React components with them is no longer supported:
+Sử dụng PropTypes theo bất kỳ cách nào khác ngoài việc chú thích các React component với chúng không còn được hỗ trợ:
 
 ```javascript
 var apiShape = PropTypes.shape({
@@ -34,17 +34,17 @@ var apiShape = PropTypes.shape({
   statusCode: PropTypes.number.isRequired
 }).isRequired;
 
-// Not supported!
+// Không được hỗ trợ!
 var error = apiShape(json, 'response');
 ```
 
-If you depend on using PropTypes like this, we encourage you to use or create a fork of PropTypes (such as [these](https://github.com/aackerman/PropTypes) [two](https://github.com/developit/proptypes) packages).
+Nếu bạn phụ thuộc vào việc sử dụng PropTypes như thế này, chúng tôi khuyến khích bạn sử dụng hoặc tạo một nhánh của PropTypes (chẳng hạn như 2 gói này [aackerman/PropTypes](https://github.com/aackerman/PropTypes) [developit/proptypes](https://github.com/developit/proptypes)).
 
-If you don't fix the warning, this code will crash in production with React 16.
+Nếu bạn không khắc phục cảnh báo, code này sẽ gặp sự cố trong quá trình sản xuất với React 16.
 
-### If you don't call PropTypes directly but still get the warning {#if-you-dont-call-proptypes-directly-but-still-get-the-warning}
+### Nếu bạn không gọi trực tiếp cho PropTypes nhưng vẫn nhận được cảnh báo {#if-you-dont-call-proptypes-directly-but-still-get-the-warning}
 
-Inspect the stack trace produced by the warning. You will find the component definition responsible for the PropTypes direct call. Most likely, the issue is due to third-party PropTypes that wrap React’s PropTypes, for example:
+Kiểm tra stack trace được tạo ra bởi cảnh báo. Bạn sẽ thấy định nghĩa component chịu trách nhiệm cho cuộc gọi trực tiếp PropTypes. Rất có thể, vấn đề là do PropTypes của bên thứ ba bao bọc React’s PropTypes, ví dụ:
 
 ```js
 Button.propTypes = {
@@ -55,13 +55,13 @@ Button.propTypes = {
 }
 ```
 
-In this case, `ThirdPartyPropTypes.deprecated` is a wrapper calling `PropTypes.bool`. This pattern by itself is fine, but triggers a false positive because React thinks you are calling PropTypes directly. The next section explains how to fix this problem for a library implementing something like `ThirdPartyPropTypes`. If it's not a library you wrote, you can file an issue against it.
+Trong trường hợp này, `ThirdPartyPropTypes.deprecated` là một trình bao bọc gọi `PropTypes.bool`. Bản thân mô hình này là tốt, nhưng kích hoạt false positive vì React cho rằng bạn đang gọi trực tiếp PropTypes. Phần tiếp theo giải thích cách khắc phục sự cố này cho một thư viện triển khai thứ gì đó như `ThirdPartyPropTypes`. Nếu đó không phải là thư viện bạn đã viết, bạn có thể gửi vấn đề về thư viện đó.
 
-### Fixing the false positive in third party PropTypes {#fixing-the-false-positive-in-third-party-proptypes}
+### Sửa lỗi false positive trong PropTypes của bên thứ ba {#fixing-the-false-positive-in-third-party-proptypes}
 
-If you are an author of a third party PropTypes library and you let consumers wrap existing React PropTypes, they might start seeing this warning coming from your library. This happens because React doesn't see a "secret" last argument that [it passes](https://github.com/facebook/react/pull/7132) to detect manual PropTypes calls.
+Nếu bạn là tác giả của thư viện PropTypes của bên thứ ba và bạn để người tiêu dùng bọc các React PropTypes hiện có, họ có thể bắt đầu thấy cảnh báo này đến từ thư viện của bạn. Điều này xảy ra vì React không thấy đối số cuối cùng "bí mật" mà [nó chuyển qua](https://github.com/facebook/react/pull/7132) để phát hiện các lệnh gọi PropTypes thủ công.
 
-Here is how to fix it. We will use `deprecated` from [react-bootstrap/react-prop-types](https://github.com/react-bootstrap/react-prop-types/blob/0d1cd3a49a93e513325e3258b28a82ce7d38e690/src/deprecated.js) as an example. The current implementation only passes down the `props`, `propName`, and `componentName` arguments:
+Đây là cách để sửa chữa nó. Chúng tôi sẽ sử dụng `deprecated` từ [react-bootstrap/react-prop-type](https://github.com/react-bootstrap/react-prop-types/blob/0d1cd3a49a93e513325e3258b28a82ce7d38e690/src/deprecated.js) làm ví dụ. Việc triển khai hiện tại chỉ chuyển xuống các đối số `props`, `propName` và `componentName`:
 
 ```javascript
 export default function deprecated(propType, explanation) {
@@ -79,11 +79,11 @@ export default function deprecated(propType, explanation) {
 }
 ```
 
-In order to fix the false positive, make sure you pass **all** arguments down to the wrapped PropType. This is easy to do with the ES6 `...rest` notation:
+Để sửa lỗi false positive, hãy đảm bảo rằng bạn chuyển **tất cả** các đối số xuống PropType được bao bọc. Điều này rất dễ thực hiện với ký hiệu `...rest` của ES6:
 
 ```javascript
 export default function deprecated(propType, explanation) {
-  return function validate(props, propName, componentName, ...rest) { // Note ...rest here
+  return function validate(props, propName, componentName, ...rest) { // Chú ý ...rest ở đây
     if (props[propName] != null) {
       const message = `"${propName}" property of "${componentName}" has been deprecated.\n${explanation}`;
       if (!warned[message]) {
@@ -92,9 +92,9 @@ export default function deprecated(propType, explanation) {
       }
     }
 
-    return propType(props, propName, componentName, ...rest); // and here
+    return propType(props, propName, componentName, ...rest); // và ở đây
   };
 }
 ```
 
-This will silence the warning.
+Điều này sẽ giúp xoá warning ở console.
