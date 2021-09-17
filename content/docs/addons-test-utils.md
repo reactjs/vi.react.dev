@@ -328,7 +328,7 @@ Mô phỏng một sự kiện gửi đi trên một node DOM với tùy chọn `
 
 `Simulate` có một method cho [tất cả sự kiện mà React hiểu](/docs/events.html#supported-events).
 
-**Bấm vào một element**
+**Click vào một element**
 
 ```javascript
 // <button ref={(node) => this.button = node}>...</button>
@@ -348,6 +348,6 @@ ReactTestUtils.Simulate.keyDown(node, {key: "Enter", keyCode: 13, which: 13});
 
 > Lưu ý
 >
-> Bạn sẽ phải cung cấp bất kỳ sự kiện property mà bạn đang dùng trong component của bạn (v.d. keyCode, which, etc...) và React không tạo ra bất kỳ gì trong nó cho bạn.
+> Bạn sẽ phải cung cấp bất kỳ event property mà bạn đang dùng trong component của bạn (v.d. keyCode, which, etc...) mà React không tạo ra bất kỳ gì trong số đó cho bạn.
 
 * * *
