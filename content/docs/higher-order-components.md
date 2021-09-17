@@ -313,7 +313,7 @@ function getDisplayName(WrappedComponent) {
 ```
 
 
-## Caveats {#caveats}
+## Lưu Ý {#caveats}
 
 Higher-order components có một số lưu ý không rõ ràng nếu bạn là người mới học React.
 
