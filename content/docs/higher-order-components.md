@@ -4,7 +4,7 @@ title: Higher-Order Components
 permalink: docs/higher-order-components.html
 ---
 
-Higher-order component (HOC) là một kĩ thuật nâng cao trong React để tái sử dụng logic của component. HOC không thuộc React API. Nó là một kiểu được sinh ra từ pattern của React.
+Higher-order component (HOC) là một kĩ thuật nâng cao trong React để tái sử dụng logic của component. HOC không thuộc React API. Nó là một pattern được sinh ra từ khả năng sử dụng kết hợp (compositional) của React.
 
 Một cách cụ thể, **một higher-order component là một hàm nhận vào một component và trả về một component.**
 
@@ -238,9 +238,9 @@ render() {
 }
 ```
 
-Quy tắc này giúp cho những HOC trở nên linh hoạt và có thể tái sử dụng.
+Quy ước này giúp cho những HOC trở nên linh hoạt và có thể tái sử dụng.
 
-## Quy tắc chung : Khả năng kết hợp tối đa (maximizing composability) {#convention-maximizing-composability}
+## Quy ước : Khả năng kết hợp tối đa (maximizing composability) {#convention-maximizing-composability}
 
 Không phải tất cả các HOC đều như sau. Đôi khi chúng chỉ nhận một tham số, component con:
 
@@ -294,7 +294,7 @@ const EnhancedComponent = enhance(WrappedComponent)
 The `compose` utility function is provided by many third-party libraries including lodash (as [`lodash.flowRight`](https://lodash.com/docs/#flowRight)), [Redux](https://redux.js.org/api/compose), and [Ramda](https://ramdajs.com/docs/#compose).
 Hàm `compose` thì được cung cấp bở nhiều thư viện third-party bao gồm lodash ([`lodash.flowRight`](https://lodash.com/docs/#flowRight)) và [Ramda](https://ramdajs.com/docs/#compose).
 
-## Quy tắc chung : Cách đặt tên HOC để tiện cho việc debug (tìm và gỡ lỗi){#convention-wrap-the-display-name-for-easy-debugging}
+## Quy ước: Cách đặt tên HOC để tiện cho việc debug (tìm và gỡ lỗi){#convention-wrap-the-display-name-for-easy-debugging}
 
 Những container component tạo bởi HOCs đều xuất hiện trong [React Developer Tools](https://github.com/facebook/react/tree/main/packages/react-devtools) như bao component khác. Để dễ debug, chọn tên sao cho nó thể hiện rằng nó được sinh ra từ HOC.
 
@@ -394,7 +394,7 @@ import MyComponent, { someFunction } from './MyComponent.js';
 
 ### Refs không được truyền xuống {#refs-arent-passed-through}
 
-Mặc dù quy tắc của HOC là truyền tất cả props xuống component, nhưng điều này không áp dụng với refs. Bởi vì `ref` không hẳng là một prop - như `key`, nó được xử lý bởi React. Nếu bạn thêm một ref vào một element mà component là kết quả từ HOC, refs sẽ mặc nhiên là của container ngoài cùng nhất, không phải component được bao bọc.
+Mặc dù quy ước của HOC là truyền tất cả props xuống component, nhưng điều này không áp dụng với refs. Bởi vì `ref` không hẳng là một prop - như `key`, nó được xử lý bởi React. Nếu bạn thêm một ref vào một element mà component là kết quả từ HOC, refs sẽ mặc nhiên là của container ngoài cùng nhất, không phải component được bao bọc.
 
 The solution for this problem is to use the `React.forwardRef` API (introduced with React 16.3). [Learn more about it in the forwarding refs section](/docs/forwarding-refs.html).
 Giải pháp cho vấn đề này là dùng `React.forwardRef` API (được giới thiệu ở React 16.3). [Tìm hiểu thêm về forward ref tại đây](/docs/forwarding-refs.html).
