@@ -70,7 +70,7 @@
     - id: react-without-jsx
       title: React nhưng không sử dụng JSX
     - id: reconciliation
-      title: Hoà Hợp Và Hoà Giải
+      title: Reconciliation
     - id: refs-and-the-dom
       title: Refs Và DOM
     - id: render-props
@@ -82,7 +82,7 @@
     - id: typechecking-with-proptypes
       title: Kiểm tra kiểu với PropTypes
     - id: uncontrolled-components
-      title: Các Components Không Kiểm Soát
+      title: Uncontrolled Components
     - id: web-components
       title: Web Components
 - title: API Tham khảo
@@ -105,7 +105,7 @@
     - id: test-renderer
       title: Test Renderer
     - id: javascript-environment-requirements
-      title: Yêu Cầu Môi Trường JS
+      title: Môi trường JS yêu cầu
     - id: glossary
       title: Bảng Chú Giải
 
@@ -128,7 +128,7 @@
         title: Tham chiếu Hooks API
       - id: hooks-faq
         title: Hooks và các câu hỏi thường gặp
-- title: Kiểm thử
+- title: Testing
   items:
     - id: testing
       title: Tổng Quan Testing
@@ -161,6 +161,6 @@
     - id: faq-structure
       title: Cấu trúc dự án
     - id: faq-versioning
-      title: Quy Tắc Đặt Phiên Bản
+      title: Quy tắc đặt tên phiên bản
     - id: faq-internals
       title: Virtual DOM and Internals
