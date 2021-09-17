@@ -10,18 +10,18 @@ category: Reference
 
 ```javascript
 import ReactTestUtils from 'react-dom/test-utils'; // ES6
-var ReactTestUtils = require('react-dom/test-utils'); // ES5 with npm
+var ReactTestUtils = require('react-dom/test-utils'); // ES5 với npm
 ```
 
-## Overview {#overview}
+## Tổng quan {#overview}
 
-`ReactTestUtils` makes it easy to test React components in the testing framework of your choice. At Facebook we use [Jest](https://facebook.github.io/jest/) for painless JavaScript testing. Learn how to get started with Jest through the Jest website's [React Tutorial](https://jestjs.io/docs/tutorial-react).
+`ReactTestUtils` giúp cho việc test các React component dễ dàng trong một framework test mà bạn tùy chọn. Ở Facebook chúng tôi dùng [Jest](https://facebook.github.io/jest/) để test JavaScript mà không tốn nhiều công sức. Giờ hãy tìm hiểu cách bắt đầu với Jest thông qua Jest website's [React Tutorial](https://jestjs.io/docs/tutorial-react).
 
-> Note:
+> Lưu ý:
 >
-> We recommend using [React Testing Library](https://testing-library.com/react) which is designed to enable and encourage writing tests that use your components as the end users do.
+> Chúng tôi khuyến nghị dùng [React Testing Library](https://testing-library.com/react) được thiết kế để kích hoạt và hỗ trợ viết các test mà dùng các component của bạn như là những người dùng cuối cùng(có thể hiểu như là người dùng thực tế).
 > 
-> For React versions <= 16, the [Enzyme](https://airbnb.io/enzyme/) library makes it easy to assert, manipulate, and traverse your React Components' output.
+> Đối với phiên bản React <= 16, thư viện [Enzyme](https://airbnb.io/enzyme/) giúp bạn dễ dàng xác nhận, sử dụng, và kiểm qua output các React Component của bạn.
 
 
 
@@ -42,17 +42,17 @@ var ReactTestUtils = require('react-dom/test-utils'); // ES5 with npm
  - [`renderIntoDocument()`](#renderintodocument)
  - [`Simulate`](#simulate)
 
-## Reference {#reference}
+## Chức vụ {#reference}
 
 ### `act()` {#act}
 
-To prepare a component for assertions, wrap the code rendering it and performing updates inside an `act()` call. This makes your test run closer to how React works in the browser.
+Để chuẩn bị một component cho các assertion(assertion chính là những method dùng để kiểm tra kết quả của đơn vị cần test có đúng với mong đợi không), cho code render cái đó và thực hiện cập nhật bên trong hàm gọi `act()`. Điều này làm cho thử nghiệm của bạn chạy gần giống hơn với cách React chạy trên browser(trình duyệt).
 
->Note
+>Lưu ý
 >
->If you use `react-test-renderer`, it also provides an `act` export that behaves the same way.
+>Nếu bạn dùng `react-test-renderer`, nó cũng cung cấp một `act` hoạt động tương tự.
 
-For example, let's say we have this `Counter` component:
+Ví dụ, chúng ta có một `Counter` component:
 
 ```js
 class Counter extends React.Component {
@@ -85,7 +85,7 @@ class Counter extends React.Component {
 }
 ```
 
-Here is how we can test it:
+Đây là cách mà chúng ta test nó:
 
 ```js{3,20-22,29-31}
 import React from 'react';
@@ -124,9 +124,9 @@ it('can render and update a counter', () => {
 });
 ```
 
-- Don't forget that dispatching DOM events only works when the DOM container is added to the `document`. You can use a library like [React Testing Library](https://testing-library.com/react) to reduce the boilerplate code.
+- Đừng quên rằng việc điều phối các sự kiện DOM chỉ hoạt động khi vùng chứa DOM được thêm vào `document`. Bạn có thể dùng thư viện như [React Testing Library](https://testing-library.com/react) để giảm bớt code có sẵn.
 
-- The [`recipes`](/docs/testing-recipes.html) document contains more details on how `act()` behaves, with examples and usage.
+- Document này [`recipes`](/docs/testing-recipes.html) cho biết thông tin chi tiết cách `act()` hoạt động, gồm cả ví dụ lẫn cách sử dụng.
 
 * * *
 
@@ -139,11 +139,11 @@ mockComponent(
 )
 ```
 
-Pass a mocked component module to this method to augment it with useful methods that allow it to be used as a dummy React component. Instead of rendering as usual, the component will become a simple `<div>` (or other tag if `mockTagName` is provided) containing any provided children.
+Sơ qua một module component mocked đến phương pháp để tăng cường nó với các method hữu ích mà cho phép nó được sử dụng như một giả lập component trong React. Thay vì render nó ra như bình thường, component sẽ trở nên đơn giản như `<div>` (hoặc là một thẻ khác nếu `mockTagName` được đặt) chứa bất kỳ children nào được cung cấp.
 
-> Note:
+> Lưu ý:
 >
-> `mockComponent()` is a legacy API. We recommend using [`jest.mock()`](https://facebook.github.io/jest/docs/en/tutorial-react-native.html#mock-native-modules-using-jestmock) instead.
+> `mockComponent()` là một API kế thừa. Chúng tôi khuyên nên dùng [`jest.mock()`](https://facebook.github.io/jest/docs/en/tutorial-react-native.html#mock-native-modules-using-jestmock) thay cho nó.
 
 * * *
 
@@ -153,7 +153,7 @@ Pass a mocked component module to this method to augment it with useful methods 
 isElement(element)
 ```
 
-Returns `true` if `element` is any React element.
+Trả về `true` nếu `element` thuộc bất kỳ React element.
 
 * * *
 
