@@ -162,18 +162,17 @@ useEffect(
 
 Từ giờ subscription sẽ chỉ tạo lại khi `props.source` thay đổi.
 
->Note
+>Ghi chú
 >
->If you use this optimization, make sure the array includes **all values from the component scope (such as props and state) that change over time and that are used by the effect**. Otherwise, your code will reference stale values from previous renders. Learn more about [how to deal with functions](/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) and what to do when the [array values change too often](/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often).
+>Nếu bạn sử dụng cách này, hãy chắc chắn rằng mảng được thêm *tất cả giá trị từ component scope (ví dụ props và state), mà nó có thể thay đổi theo thời gian và được sử dụng bởi effect**. Nếu không thì code của bạn sẽ reference giá trị cũ từ lần render trước. Tìm hiều thêm về [các ứng xử với hàm](/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) và nên làm gì khi [mảng giá trị thường xuyên thay đổi](/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often).
 >
->If you want to run an effect and clean it up only once (on mount and unmount), you can pass an empty array (`[]`) as a second argument. This tells React that your effect doesn't depend on *any* values from props or state, so it never needs to re-run. This isn't handled as a special case -- it follows directly from how the dependencies array always works.
+>Nếu bạn muốn effect một lần duy nhất (lúc mount và unmount), bạn có thể để mảng rỗng (`[]`) ở argument thứ 2. Nó thông báo với React rằng effect không phụ thuộc vào *bất kỳ* giá trị nào từ props hay state, nên nó sẽ không bao giờ cần phải chạy lại. Đây không phải là trường hợp đặc biệt -- nó tuân theo chính xác cách mà mảng phụ thuộc hoạt động.
 >
->If you pass an empty array (`[]`), the props and state inside the effect will always have their initial values. While passing `[]` as the second argument is closer to the familiar `componentDidMount` and `componentWillUnmount` mental model, there are usually [better](/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) [solutions](/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often) to avoid re-running effects too often. Also, don't forget that React defers running `useEffect` until after the browser has painted, so doing extra work is less of a problem.
+>Nếu bạn dùng một mảng rỗng (`[]`), props và state bên trong effect sẽ luôn có giá trị khởi đầu của nó. Khi để `[]` ở argument vị trí thứ 2, nó sẽ khá giống với cách hoạt động của `componentDidMount` và `componentWillUnmount`, thường có những [giải pháp](/docs/hooks-faq.html#what-can-i-do-if-my-effect-dependencies-change-too-often) [tốt hơn](/docs/hooks-faq.html#is-it-safe-to-omit-functions-from-the-list-of-dependencies) để tránh việc chạy lại các effect quá nhiều lần. Và đừng quên React sẽ trì hoãn khởi chạy `useEffect` cho đến khi trình duyệt vẽ xong (has painted), nên nếu bạn xử lý công việc nhiều hơn sẽ giúp hạn chế được vấn đề phát sinh sau này.
 >
 >
->We recommend using the [`exhaustive-deps`](https://github.com/facebook/react/issues/14920) rule as part of our [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks#installation) package. It warns when dependencies are specified incorrectly and suggests a fix.
-
-The array of dependencies is not passed as arguments to the effect function. Conceptually, though, that's what they represent: every value referenced inside the effect function should also appear in the dependencies array. In the future, a sufficiently advanced compiler could create this array automatically.
+>Chúng tôi khuyên dùng quy tắc [`exhaustive-deps`](https://github.com/facebook/react/issues/14920) là một phần của [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks#installation). Nó sẽ cảnh báo khi dependencies có lỗi cụ thể và có thể gợi ý cách sửa lỗi.
+Không thêm mảng phụ thuộc vào arguments của hàm effect. Về mặt lý thuyết, mặc dù đây là điều đã được miêu tả: mọi giá trị được tham chiếu bên trong hàm effect nên xuất hiện trong mảng phụ thuộc. Trong tương lai, trình biên dịch đủ nâng cao sẽ có thể tạo mảng này một cách tự động.
 
 ### `useContext` {#usecontext}
 
@@ -182,20 +181,21 @@ const value = useContext(MyContext);
 ```
 
 Accepts a context object (the value returned from `React.createContext`) and returns the current context value for that context. The current context value is determined by the `value` prop of the nearest `<MyContext.Provider>` above the calling component in the tree.
+Chấp nhận một context object (giá trị trả về từ `React.createContext`) và trả về giá trị của context hiện tại. Giá trị context hiện tại được xác định bởi `giá trị` prop của `<MyContext.Provider>` gần nhất bên trên ở component trong một cây.
 
-When the nearest `<MyContext.Provider>` above the component updates, this Hook will trigger a rerender with the latest context `value` passed to that `MyContext` provider. Even if an ancestor uses [`React.memo`](/docs/react-api.html#reactmemo) or [`shouldComponentUpdate`](/docs/react-component.html#shouldcomponentupdate), a rerender will still happen starting at the component itself using `useContext`.
+Khi `<MyContext.Provider>` gần nhất bên trên component cập nhật, Hook này sẽ trigger render lại với context `value` mới nhất đã truyền vào `MyContext` provider. Ngay cả khi bạn dùng [`React.memo`](/docs/react-api.html#reactmemo) hoặc [`shouldComponentUpdate`](/docs/react-component.html#shouldcomponentupdate), việc rerender vẫn sẽ xảy ra khi component đó sử dụng `useContext`.
 
-Don't forget that the argument to `useContext` must be the *context object itself*:
+Đừng quên rằng argument của `useContext` phải là *context object của nó*:
 
- * **Correct:** `useContext(MyContext)`
- * **Incorrect:** `useContext(MyContext.Consumer)`
- * **Incorrect:** `useContext(MyContext.Provider)`
+ * **Đúng:** `useContext(MyContext)`
+ * **Sai:** `useContext(MyContext.Consumer)`
+ * **Sai:** `useContext(MyContext.Provider)`
 
-A component calling `useContext` will always re-render when the context value changes. If re-rendering the component is expensive, you can [optimize it by using memoization](https://github.com/facebook/react/issues/15156#issuecomment-474590693).
+Một component gọi `useContext` sẽ luôn render lại khi giá trị của context thay đổi. Nếu nó render lại một component phức tạp (expensive), bạn có thể [tối ưu nó bằng memoization](https://github.com/facebook/react/issues/15156#issuecomment-474590693).
 
->Tip
+>Mẹo
 >
->If you're familiar with the context API before Hooks, `useContext(MyContext)` is equivalent to `static contextType = MyContext` in a class, or to `<MyContext.Consumer>`.
+>Nếu bạn quen với context API trước Hooks, `useContext(MyContext)` tương đương với `static contextType = MyContext` trong một class, hoặc `<MyContext.Consumer>`.
 >
 >`useContext(MyContext)` only lets you *read* the context and subscribe to its changes. You still need a `<MyContext.Provider>` above in the tree to *provide* the value for this context.
 
