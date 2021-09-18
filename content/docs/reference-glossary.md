@@ -1,6 +1,6 @@
 ---
 id: glossary
-title: Glossary of React Terms
+title: Bảng chú giải thuật ngữ React
 layout: docs
 category: Reference
 permalink: docs/glossary.html
@@ -9,35 +9,34 @@ permalink: docs/glossary.html
 
 ## Single-page Application {#single-page-application}
 
-A single-page application is an application that loads a single HTML page and all the necessary assets (such as JavaScript and CSS) required for the application to run. Any interactions with the page or subsequent pages do not require a round trip to the server which means the page is not reloaded.
+Single-page application là một ứng dụng tải một trang HTML và tất cả nội dung cần thiết (chẳng hạn như JavaScript và CSS) để ứng dụng chạy. Bất kỳ tương tác nào với trang hoặc chuyển trang tiếp theo sẽ không yêu cầu chuyển đến máy chủ, có nghĩa là sẽ không cần tải lại trang.
 
-Though you may build a single-page application in React, it is not a requirement. React can also be used for enhancing small parts of existing websites with additional interactivity. Code written in React can coexist peacefully with markup rendered on the server by something like PHP, or with other client-side libraries. In fact, this is exactly how React is being used at Facebook.
+Mặc dù bạn có thể xây dựng single-page application trong React, nhưng nó không phải là một yêu cầu bắt buộc. React cũng có thể được sử dụng để tăng cường các phần nhỏ của các trang web hiện có với khả năng tương tác bổ sung. Code được viết bằng React có thể cùng tồn tại với ngôn ngữ kịch bản hiển thị trên máy chủ như PHP, hoặc các thư viện client-side khác. Trên thực tế, đây chính xác là cách React đang được sử dụng tại Facebook.
+## ES6, ES2015, ES2016, v.v. {#es6-es2015-es2016-etc}
 
-## ES6, ES2015, ES2016, etc {#es6-es2015-es2016-etc}
-
-These acronyms all refer to the most recent versions of the ECMAScript Language Specification standard, which the JavaScript language is an implementation of. The ES6 version (also known as ES2015) includes many additions to the previous versions such as: arrow functions, classes, template literals, `let` and `const` statements. You can learn more about specific versions [here](https://en.wikipedia.org/wiki/ECMAScript#Versions).
+ất cả các từ viết tắt này đều đề cập đến các phiên bản mới nhất của tiêu chuẩn Đặc tả ngôn ngữ ECMAScript, được triển khai bằng ngôn ngữ Javascript. Phiên bản ES6 (còn được gọi là ES2015) bao gồm nhiều bổ sung cho các phiên bản trước đó như: arrow functions, classes, template literals, `let` và `const`. Bạn có thể tìm hiểu thêm về các phiên bản cụ thể [tại đây](https://en.wikipedia.org/wiki/ECMAScript#Versions).
 
 ## Compilers {#compilers}
 
-A JavaScript compiler takes JavaScript code, transforms it and returns JavaScript code in a different format. The most common use case is to take ES6 syntax and transform it into syntax that older browsers are capable of interpreting. [Babel](https://babeljs.io/) is the compiler most commonly used with React.
+Một trình biên dịch JavaScript lấy code JavaScript, biến đổi nó và trả về code JavaScript ở một định dạng khác. Trường hợp sử dụng phổ biến nhất là sử dụng cú pháp ES6 và chuyển nó thành cú pháp mà các trình duyệt cũ hơn có khả năng thông dịch. [Babel](https://babeljs.io/) là trình biên dịch được sử dụng phổ biến nhất với React.
 
 ## Bundlers {#bundlers}
 
-Bundlers take JavaScript and CSS code written as separate modules (often hundreds of them), and combine them together into a few files better optimized for the browsers. Some bundlers commonly used in React applications include [Webpack](https://webpack.js.org/) and [Browserify](http://browserify.org/).
+Bundlers lấy code JavaScript và CSS được viết dưới dạng các mô-đun riêng biệt (thường là hàng trăm mô-đun), và kết hợp chúng với nhau thành một số tệp được tối ưu hóa tốt hơn cho trình duyệt. Một số Bundlers thường được sử dụng trong các ứng dụng React bao gồm [Webpack](https://webpack.js.org/) và [Browserify](http://browserify.org/).
 
 ## Package Managers {#package-managers}
 
-Package managers are tools that allow you to manage dependencies in your project. [npm](https://www.npmjs.com/) and [Yarn](https://yarnpkg.com/) are two package managers commonly used in React applications. Both of them are clients for the same npm package registry.
+Package managers là công cụ cho phép bạn quản lý các phần phụ thuộc trong dự án của mình. [npm](https://www.npmjs.com/) và [Yarn](https://yarnpkg.com/) là hai package managers thường được sử dụng trong các ứng dụng React. Cả hai đều ở phía clients và cùng quản lý thư viện bằng npm.
 
 ## CDN {#cdn}
 
-CDN stands for Content Delivery Network. CDNs deliver cached, static content from a network of servers across the globe. 
+CDN là viết tắt của Content Delivery Network. CDN cung cấp nội dung tĩnh, được lưu trong bộ nhớ cache từ một mạng máy chủ trên toàn cầu.
 
 ## JSX {#jsx}
 
-JSX is a syntax extension to JavaScript. It is similar to a template language, but it has full power of JavaScript. JSX gets compiled to `React.createElement()` calls which return plain JavaScript objects called "React elements". To get a basic introduction to JSX [see the docs here](/docs/introducing-jsx.html) and find a more in-depth tutorial on JSX [here](/docs/jsx-in-depth.html).
+JSX là một phần mở rộng cú pháp cho JavaScript. Nó tương tự một ngôn ngữ template, nhưng nó có đầy đủ sức mạnh của JavaScript. JSX được biên dịch thành `React.createElement()` được gọi trả về JavaScript thuần gọi là "React elements". Để biết về JSX giới thiệu cơ bản, [xem tài liệu tại đây](/docs/introducing-jsx.html) và tìm hướng dẫn chuyên sâu hơn về JSX [tại đây](/docs/jsx-in-depth.html).
 
-React DOM uses camelCase property naming convention instead of HTML attribute names. For example, `tabindex` becomes `tabIndex` in JSX. The attribute `class` is also written as `className` since `class` is a reserved word in JavaScript:
+React DOM sử dụng quy ước đặt tên thuộc tính camelCase thay vì tên thuộc tính HTML. Ví dụ, `tabindex` trở thành `tabIndex` trong JSX. Thuộc tính `class` cũng được viết dưới dạng `className` kể từ khi `class` là một từ dành riêng trong JavaScript:
 
 ```js
 const name = 'Clementine';
@@ -49,17 +48,17 @@ ReactDOM.render(
 
 ## [Elements](/docs/rendering-elements.html) {#elements}
 
-React elements are the building blocks of React applications. One might confuse elements with a more widely known concept of "components". An element describes what you want to see on the screen. React elements are immutable.
+React elements là các khối xây dựng của các ứng dụng React. Người ta có thể nhầm lẫn các element với một khái niệm được biết đến rộng rãi hơn là "components". Một element mô tả những gì bạn muốn xem trên màn hình. Các phần tử React là bất biến.
 
 ```js
 const element = <h1>Hello, world</h1>;
 ```
 
-Typically, elements are not used directly, but get returned from components.
+Thông thường, các phần tử không được sử dụng trực tiếp mà được trả về từ các components.
 
 ## [Components](/docs/components-and-props.html) {#components}
 
-React components are small, reusable pieces of code that return a React element to be rendered to the page. The simplest version of React component is a plain JavaScript function that returns a React element:
+React components là các đoạn mã nhỏ, có thể tái sử dụng, trả về một React element để được hiển thị trên trang. Phiên bản đơn giản nhất của React component là một hàm JavaScript thuần túy trả về một React element:
 
 ```js
 function Welcome(props) {
@@ -67,7 +66,7 @@ function Welcome(props) {
 }
 ```
 
-Components can also be ES6 classes:
+Các thành phần cũng có thể là các lớp ES6:
 
 ```js
 class Welcome extends React.Component {
@@ -77,30 +76,30 @@ class Welcome extends React.Component {
 }
 ```
 
-Components can be broken down into distinct pieces of functionality and used within other components. Components can return other components, arrays, strings and numbers. A good rule of thumb is that if a part of your UI is used several times (Button, Panel, Avatar), or is complex enough on its own (App, FeedStory, Comment), it is a good candidate to be a reusable component. Component names should also always start with a capital letter (`<Wrapper/>` **not** `<wrapper/>`). See [this documentation](/docs/components-and-props.html#rendering-a-component) for more information on rendering components. 
+Components có thể được chia nhỏ thành các phần chức năng riêng biệt và được sử dụng trong các components khác. Components có thể trả về các components, arrays, strings và numbers. Một nguyên tắc chung là nếu một phần của giao diện người dùng của bạn được sử dụng nhiều lần (Button, Panel, Avatar), hoặc tự nó đủ phức tạp (App, FeedStory, Comment), thì nó là một ứng cử viên sáng giá để trở thành một component có thể tái sử dụng. Tên component cũng phải luôn bắt đầu bằng chữ in hoa (`<Wrapper/>` **không phải** `<wrapper/>`). Xem [tài liệu này](/docs/components-and-props.html#rendering-a-component) để biết thêm thông tin về hiển thị components. 
 
 ### [`props`](/docs/components-and-props.html) {#props}
 
-`props` are inputs to a React component. They are data passed down from a parent component to a child component.
+`props` là đầu vào cho một React component. Chúng là dữ liệu được truyền từ component cha sang component con.
 
-Remember that `props` are readonly. They should not be modified in any way:
+Hãy nhớ rằng `props` chỉ có thể đọc. Chúng không nên được sửa đổi theo bất kỳ cách nào:
 
 ```js
 // Wrong!
 props.number = 42;
 ```
 
-If you need to modify some value in response to user input or a network response, use `state` instead.
+Nếu bạn cần sửa đổi một số giá trị để phản hồi thông tin đầu vào của người dùng hoặc phản hồi mạng, hãy sử dụng `state` để thay thế.
 
 ### `props.children` {#propschildren}
 
-`props.children` is available on every component. It contains the content between the opening and closing tags of a component. For example:
+`props.children` có sẵn trên mọi component. Nó chứa nội dung giữa thẻ mở và thẻ đóng của một component. Ví dụ:
 
 ```js
 <Welcome>Hello world!</Welcome>
 ```
 
-The string `Hello world!` is available in `props.children` in the `Welcome` component:
+Chuỗi  `Hello world!` có sẵn trong `props.children` của `Welcome` component:
 
 ```js
 function Welcome(props) {
@@ -108,7 +107,7 @@ function Welcome(props) {
 }
 ```
 
-For components defined as classes, use `this.props.children`:
+Đối với các thành phần được định nghĩa là các class, hãy sử dụng `this.props.children`:
 
 ```js
 class Welcome extends React.Component {
@@ -120,47 +119,47 @@ class Welcome extends React.Component {
 
 ### [`state`](/docs/state-and-lifecycle.html#adding-local-state-to-a-class) {#state}
 
-A component needs `state` when some data associated with it changes over time. For example, a `Checkbox` component might need `isChecked` in its state, and a `NewsFeed` component might want to keep track of `fetchedPosts` in its state.
+Một component cần `state` khi một số dữ liệu được liên kết với nó thay đổi theo thời gian. Ví dụ, một `Checkbox` component có thể cần state `isChecked` và một `NewsFeed` component có thể muốn theo dõi state `fetchedPosts`.
 
-The most important difference between `state` and `props` is that `props` are passed from a parent component, but `state` is managed by the component itself. A component cannot change its `props`, but it can change its `state`.
+Sự khác biệt quan trọng nhất giữa `state` và `props` là `props` được truyền từ một component cha, nhưng `state` được quản lý bởi chính component đó. Một component không thể thay đổi `props`, nhưng nó có thể thay đổi `state`.
 
-For each particular piece of changing data, there should be just one component that "owns" it in its state. Don't try to synchronize states of two different components. Instead, [lift it up](/docs/lifting-state-up.html) to their closest shared ancestor, and pass it down as props to both of them.
+Đối với mỗi phần dữ liệu thay đổi cụ thể, chỉ nên có một component "sở hữu" state đó. Đừng cố gắng đồng bộ hóa state của hai component khác nhau. Thay vào đó, hãy [nâng nó lên](/docs/lifting-state-up.html) tới cha chung gần nhất của họ, và truyền lại props xuống cho cả hai.
 
-## [Lifecycle Methods](/docs/state-and-lifecycle.html#adding-lifecycle-methods-to-a-class) {#lifecycle-methods}
+## [Phương thức Lifecycle](/docs/state-and-lifecycle.html#adding-lifecycle-methods-to-a-class) {#lifecycle-methods}
 
-Lifecycle methods are custom functionality that gets executed during the different phases of a component. There are methods available when the component gets created and inserted into the DOM ([mounting](/docs/react-component.html#mounting)), when the component updates, and when the component gets unmounted or removed from the DOM.
+Lifecycle là chức năng tùy chỉnh được thực thi trong các giai đoạn khác nhau của một component. Có các phương thức khả dụng khi thành phần được tạo và chèn vào DOM ([mounting](/docs/react-component.html#mounting)), khi thành phần cập nhật và khi thành phần được ngắt kết nối hoặc xóa khỏi DOM.
 
  ## [Controlled](/docs/forms.html#controlled-components) vs. [Uncontrolled Components](/docs/uncontrolled-components.html)
 
-React has two different approaches to dealing with form inputs. 
+React có hai cách tiếp cận khác nhau để xử lý các đầu vào của form inputs. 
 
-An input form element whose value is controlled by React is called a *controlled component*. When a user enters data into a controlled component a change event handler is triggered and your code decides whether the input is valid (by re-rendering with the updated value). If you do not re-render then the form element will remain unchanged.
+Một input form có giá trị được kiểm soát bởi React được gọi là *controlled component*. Khi người dùng nhập dữ liệu vào một controlled component, trình xử lý sự kiện thay đổi sẽ được kích hoạt và mã của bạn quyết định xem đầu vào có hợp lệ hay không (bằng cách hiển thị lại với giá trị được cập nhật). Nếu bạn không re-render thì form element sẽ không thay đổi
 
-An *uncontrolled component* works like form elements do outside of React. When a user inputs data into a form field (an input box, dropdown, etc) the updated information is reflected without React needing to do anything. However, this also means that you can't force the field to have a certain value.
+Một *uncontrolled component*  giống như các form element hoạt động bên ngoài React. Khi người dùng nhập dữ liệu vào một form field (một input box, dropdown, etc), thông tin cập nhật sẽ được phản ánh mà React không cần phải làm gì cả. Tuy nhiên, điều này cũng có nghĩa là bạn không thể buộc trường phải có một giá trị nhất định.
 
-In most cases you should use controlled components.
+Trong hầu hết các trường hợp, bạn nên sử dụng controlled components.
 
 ## [Keys](/docs/lists-and-keys.html) {#keys}
 
-A "key" is a special string attribute you need to include when creating arrays of elements. Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside an array to give the elements a stable identity.
+Một "key" là một thuộc tính chuỗi đặc biệt mà bạn cần đưa vào khi tạo mảng các elements. Keys giúp React xác định những mục nào đã thay đổi, được thêm vào hoặc bị xóa. Các Key phải được cấp cho các phần tử bên trong một mảng để cung cấp cho các phần tử một định danh ổn định.
 
-Keys only need to be unique among sibling elements in the same array. They don't need to be unique across the whole application or even a single component.
+Keys chỉ cần là duy nhất giữa các phần tử anh em trong cùng một mảng. Chúng không cần phải là duy nhất trên toàn bộ ứng dụng hoặc thậm chí là một thành phần duy nhất.
 
-Don't pass something like `Math.random()` to keys. It is important that keys have a "stable identity" across re-renders so that React can determine when items are added, removed, or re-ordered. Ideally, keys should correspond to unique and stable identifiers coming from your data, such as `post.id`.
+Đừng truyền thứ gì đó như `Math.random()` vào keys. Điều quan trọng là các key phải có "định danh ổn định" qua các lần hiển thị lại để React có thể xác định khi nào các mục được thêm, xóa hoặc sắp xếp lại. Tốt nhất, các key phải tương ứng với các số nhận dạng duy nhất và ổn định đến từ dữ liệu của bạn, chẳng hạn như `post.id`.
 
 ## [Refs](/docs/refs-and-the-dom.html) {#refs}
 
-React supports a special attribute that you can attach to any component. The `ref` attribute can be an object created by [`React.createRef()` function](/docs/react-api.html#reactcreateref) or a callback function, or a string (in legacy API). When the `ref` attribute is a callback function, the function receives the underlying DOM element or class instance (depending on the type of element) as its argument. This allows you to have direct access to the DOM element or component instance.
+React hỗ trợ một thuộc tính đặc biệt mà bạn có thể đính kèm vào bất kỳ thành phần nào. Các thuộc tính `ref` có thể là một đối tượng được tạo ra bởi [`React.createRef()` function](/docs/react-api.html#reactcreateref) hoặc một callback function, hoặc string (trong API cũ). Khi thuộc tính `ref` là một callback function, hàm nhận phần tử DOM cơ bản hoặc class (tùy thuộc vào loại phần tử) làm đối số của nó. Điều này cho phép bạn có quyền truy cập trực tiếp vào phần tử DOM hoặc cá thể component.
 
-Use refs sparingly. If you find yourself often using refs to "make things happen" in your app, consider getting more familiar with [top-down data flow](/docs/lifting-state-up.html).
+Hãy sử dụng refs một cách tiết kiệm. Nếu bạn thấy mình thường sử dụng refs để "làm mọi thứ" trong ứng dụng của mình, hãy cân nhắc làm quen hơn với [top-down data flow](/docs/lifting-state-up.html).
 
 ## [Events](/docs/handling-events.html) {#events}
 
-Handling events with React elements has some syntactic differences:
+Xử lý các event với React elements có một số khác biệt về cú pháp:
 
-* React event handlers are named using camelCase, rather than lowercase.
-* With JSX you pass a function as the event handler, rather than a string.
+* Các trình xử lý event trong React được đặt tên bằng cách sử dụng camelCase, thay vì chữ thường.
+* Với JSX bạn có thể truyền một function làm một trình xử lý event, thay vì một string.
 
 ## [Reconciliation](/docs/reconciliation.html) {#reconciliation}
 
-When a component's props or state change, React decides whether an actual DOM update is necessary by comparing the newly returned element with the previously rendered one. When they are not equal, React will update the DOM. This process is called "reconciliation".
+Khi component's props hoặc state thay đổi, sẽ quyết định xem liệu bản cập nhật DOM thực sự có cần thiết hay không bằng cách so sánh phần tử mới được trả về với phần tử được hiển thị trước đó. Khi chúng không bằng nhau, React sẽ cập nhật DOM. Quá trình này được gọi là "reconciliation".
