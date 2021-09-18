@@ -19,7 +19,7 @@
     - id: introducing-jsx
       title: Giới thiệu JSX
     - id: rendering-elements
-      title: Việc Render Các Elements
+      title: Rendering Elements
     - id: components-and-props
       title: Components Và Props
     - id: state-and-lifecycle
@@ -33,7 +33,7 @@
     - id: forms
       title: Forms
     - id: lifting-state-up
-      title: Chuyển State Lên Trên
+      title: Chuyển State Lên
     - id: composition-vs-inheritance
       title: Kết Hợp Và Kế Thừa
     - id: thinking-in-react
@@ -47,7 +47,7 @@
     - id: context
       title: Context
     - id: error-boundaries
-      title: Ranh giới lỗi
+      title: Error Boundaries
     - id: forwarding-refs
       title: Chuyển Tiếp Refs
     - id: fragments
