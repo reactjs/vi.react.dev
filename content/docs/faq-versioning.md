@@ -6,61 +6,61 @@ layout: docs
 category: FAQ
 ---
 
-React follows [semantic versioning (semver)](https://semver.org/) principles.
+React tuân theo nguyên tắc [semantic versioning (semver)](https://semver.org/).
 
-That means that with a version number **x.y.z**:
+Điều đó có nghĩa là với một số version **x.y.z**:
 
-* When releasing **critical bug fixes**, we make a **patch release** by changing the **z** number (ex: 15.6.2 to 15.6.3).
-* When releasing **new features** or **non-critical fixes**, we make a **minor release** by changing the **y** number (ex: 15.6.2 to 15.7.0).
-* When releasing **breaking changes**, we make a **major release** by changing the **x** number (ex: 15.6.2 to 16.0.0).
+* Khi phát hành **các bản sửa lỗi quan trọng**, chúng tôi tạo một bản **vá** bằng cách thay đổi số **z** (Ví dụ: 15.6.2 thành 15.6.3).
+* Khi phát hành **các tính năng mới** hoặc **các bản sửa lỗi không quan trọng**, chúng tôi tạo một bản **phát hành nhỏ** bằng cách thay đổi số **y** (ví dụ: 15.6.2 thành 15.7.0).
+* Khi phát hành **thay đổi đột phá**, chúng tôi tạo một bản **phát hành chính** bằng cách thay đổi số **x** (ví dụ: 15.6.2 thành 16.0.0).
 
-Major releases can also contain new features, and any release can include bug fixes.
+Các bản phát hành chính cũng có thể chứa các tính năng mới, và bất kỳ bản phát hành nào cũng có thể bao gồm các bản sửa lỗi.
 
-Minor releases are the most common type of release.
+Bản phát hành nhỏ là loại hay gặp nhất.
 
-> This versioning policy does not apply to prerelease builds in the Next or Experimental channels. [Learn more about prereleases.](/docs/release-channels.html)
+> Chính sách phát hành phiên bản này không áp dụng cho các bản prerelease trong các channel Tiếp Theo hoặc Thử nghiệm. [ Tìm hiểu thêm về predeceases.](/docs/release-channels.html)
 
-### Breaking Changes {#breaking-changes}
+### Các Thay Đổi Đột Phá {#breaking-changes}
 
-Breaking changes are inconvenient for everyone, so we try to minimize the number of major releases – for example, React 15 was released in April 2016 and React 16 was released in September 2017, and React 17 was released in October 2020.
+Breaking changes gây bất tiện cho mọi người, vì vậy chúng tôi cố gắng giảm thiểu số lượng bản phát hành chính – ví dụ, React 15 được phát hành vào tháng 4 năm 2016, React 16 được phát hành vào tháng 9 năm 2017 và React 17 được phát hành vào tháng 10 năm 2020.
 
-Instead, we release new features in minor versions. That means that minor releases are often more interesting and compelling than majors, despite their unassuming name.
+Thay vào đó, chúng tôi phát hành các tính năng mới trong các phiên bản nhỏ. Điều đó có nghĩa là các bản phát hành nhỏ thường thú vị và hấp dẫn hơn so với các bản chính, mặc dù tên của nó khá khiêm tốn.
 
-### Commitment to Stability {#commitment-to-stability}
+### Cam Kết Về Sự Ổn Định {#commitment-to-stability}
 
-As we change React over time, we try to minimize the effort required to take advantage of new features. When possible, we'll keep an older API working, even if that means putting it in a separate package. For example, [mixins have been discouraged for years](/blog/2016/07/13/mixins-considered-harmful.html) but they're supported to this day [via create-react-class](/docs/react-without-es6.html#mixins) and many codebases continue to use them in stable, legacy code.
+Khi chúng tôi thay đổi React theo thời gian, chúng tôi cố gắng giảm thiểu yêu cầu cần thiết để tận dụng các tính năng mới. Khi có thể, chúng tôi sẽ giữ một API cũ hơn hoạt động, ngay cả khi điều đó có nghĩa là đặt nó trong một package riêng biệt. Ví dụ, [mixins đã không được hỗ trợ trong nhiều năm](/blog/2016/07/13/mixins-considered-harmful.html) nhưng chúng được hỗ trợ cho tới ngày nay [bởi create-react-class](/docs/react-without-es6.html#mixins) và nhiều codebase tiếp tục sử dụng chúng ổn định, legacy code.
 
-Over a million developers use React, collectively maintaining millions of components. The Facebook codebase alone has over 50,000 React components. That means we need to make it as easy as possible to upgrade to new versions of React; if we make large changes without a migration path, people will be stuck on old versions. We test these upgrade paths on Facebook itself – if our team of less than 10 people can update 50,000+ components alone, we hope the upgrade will be manageable for anyone using React. In many cases, we write [automated scripts](https://github.com/reactjs/react-codemod) to upgrade component syntax, which we then include in the open-source release for everyone to use.
+Hơn một triệu nhà phát triển sử dụng React, bảo trì hàng triệu các component. Chỉ riêng codebase Facebook đã có hơn 50,000 component React. Điều đó có nghĩa là chúng ta cần làm cho việc nâng cấp lên các phiên bản React mới hơn càng dễ dàng càng tốt; Nếu chúng tôi thực hiện các thay đổi lớn mà không có một migration path, mọi người sẽ bị mắc kẹt với các phiên bản cũ. Chúng tôi kiểm tra các upgrade paths này trên chính Facebook – nếu nhóm của chúng tôi dưới 10 người có thể cập nhật hơn 50,000 component một mình, chúng tôi hy vọng việc nâng cấp có thể quản lý được với bất kỳ ai sử dụng React. Trong nhiều trường hợp, chúng tôi viết [các script tự động](https://github.com/reactjs/react-codemod) để nâng cấp cú pháp component, mà sau đó chúng tôi đưa vào bản phát hành open-source để mọi người sử dụng.
 
-### Gradual Upgrades via Warnings {#gradual-upgrades-via-warnings}
+### Nâng Cấp Dần Dần Thông Qua Cảnh Báo {#gradual-upgrades-via-warnings}
 
-Development builds of React include many helpful warnings. Whenever possible, we add warnings in preparation for future breaking changes. That way, if your app has no warnings on the latest release, it will be compatible with the next major release. This allows you to upgrade your apps one component at a time.
+Các bản dựng Development của React chứa nhiều cảnh báo hữu ích. Bất cứ khi nào có thể, chúng tôi sẽ thêm các cảnh báo để chuẩn bị cho những thay đổi đột phá trong tương lai. Bằng cách đó, nếu ứng dụng của bạn không có cảnh báo về bản phát hành mới nhất, thì ứng dụng đó sẽ tương thích với bản phát hành chính tiếp theo. Điều này cho phép bạn nâng cấp từng component trong ứng dụng của mình.
 
-Development warnings won't affect the runtime behavior of your app. That way, you can feel confident that your app will behave the same way between the development and production builds -- the only differences are that the production build won't log the warnings and that it is more efficient. (If you ever notice otherwise, please file an issue.)
+Cảnh báo Development sẽ không ảnh hưởng đến hoạt động chạy của ứng dụng của bạn. Bằng cách đó, bạn có thể cảm thấy tự tin rằng ứng dụng của mình sẽ hoạt động theo cùng một cách giữa các bản dựng development và production -- sự khác biệt duy nhất là phiên bản production sẽ không ghi lại các cảnh báo và nó hiệu quả hơn. (Nếu bạn nhận thấy có vấn đề, vui lòng gửi một issue.)
 
-### What Counts as a Breaking Change? {#what-counts-as-a-breaking-change}
+### Điều gì được coi là một Thay Đổi Đột Phá? {#what-counts-as-a-breaking-change}
 
-In general, we *don't* bump the major version number for changes to:
+Nói chung, chúng tôi *không* tăng số phiên bản chính cho các thay đổi đối với:
 
-* **Development warnings.** Since these don't affect production behavior, we may add new warnings or modify existing warnings in between major versions. In fact, this is what allows us to reliably warn about upcoming breaking changes.
-* **APIs starting with `unstable_`.** These are provided as experimental features whose APIs we are not yet confident in. By releasing these with an `unstable_` prefix, we can iterate faster and get to a stable API sooner.
-* **Alpha and canary versions of React.** We provide alpha versions of React as a way to test new features early, but we need the flexibility to make changes based on what we learn in the alpha period. If you use these versions, note that APIs may change before the stable release.
-* **Undocumented APIs and internal data structures.** If you access internal property names like `__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED` or `__reactInternalInstance$uk43rzhitjg`, there is no warranty.  You are on your own.
+* **Cảnh báo Development.** Vì những điều này không ảnh hưởng đến hoạt động production, chúng tôi có thể thêm các cảnh báo mới hoặc sửa đổi các cảnh báo hiện có giữa các phiên bản chính. Trên thực tế, nó cho phép chúng tôi cảnh báo một cách đáng tin cậy về những thay đổi lớn sắp tới.
+* **Các API bắt đầu bằng `unstable_`.** Chúng được cung cấp dưới dạng các tính năng thử nghiệm có API mà chúng tôi chưa tin tưởng. Bằng cách phát hành nó với tiền tố `unstable_`, chúng tôi có thể iterate nhanh hơn và có được một API ổn định sớm hơn.
+* **Các phiên bản Alpha và Canary của React.** Chúng tôi cung cấp phiên bản alpha của React như một cách để sớm thử nghiệm các tính năng mới, nhưng chúng tôi cần sự linh hoạt để thực hiện các thay đổi dựa trên những gì chúng tôi học được trong giai đoạn alpha. Nếu bạn sử dụng các phiên bản này, hãy lưu ý rằng các API có thể thay đổi trước bản phát hành ổn định.
+* **Các API không có tài liệu và cấu trúc dữ liệu nội bộ.** Nếu bạn truy cập các property nội bộ có tên như `__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED` hoặc `__reactInternalInstance$uk43rzhitjg`, nó không đảm bảo. Bạn sẽ phải tự thân.
 
-This policy is designed to be pragmatic: certainly, we don't want to cause headaches for you. If we bumped the major version for all of these changes, we would end up releasing more major versions and ultimately causing more versioning pain for the community. It would also mean that we can't make progress in improving React as fast as we'd like.
+Chính sách này được thiết kế để thực tế: chắc chắn, chúng tôi không muốn làm bạn đau đầu. Nếu chúng tôi chọn phiên bản chính cho tất cả những thay đổi này, chúng tôi sẽ kết thúc việc phát hành nhiều phiên bản chính hơn và cuối cùng gây ra nhiều vấn đề về phiên bản hơn cho cộng đồng. Điều đó cũng có nghĩa là chúng tôi không thể đạt được bước tiến trong việc cải thiện React nhanh như mong muốn.
 
-That said, if we expect that a change on this list will cause broad problems in the community, we will still do our best to provide a gradual migration path.
+Điều đó nói lên rằng, nếu chúng tôi kỳ vọng một thay đổi trong danh sách này sẽ gây ra nhiều vấn đề cho cộng đồng, chúng tôi vẫn sẽ cố gắng hết sức để cung cấp một migration path thay đổi dần dần.
 
-### If a Minor Release Includes No New Features, Why Isn't It a Patch? {#minors-versus-patches}
+### Nếu một bản Phát Hành Nhỏ Không Chứa Các Tính Năng Mới, tại sao Nó Không Phải là một Bản Vá? {#minors-versus-patches}
 
-It's possible that a minor release will not include new features. [This is allowed by semver](https://semver.org/#spec-item-7), which states **"[a minor version] MAY be incremented if substantial new functionality or improvements are introduced within the private code. It MAY include patch level changes."**
+Có thể một bản phát hành nhỏ sẽ không bao gồm các tính năng mới. [Điều này được phép bởi semver](https://semver.org/#spec-item-7), trong đó nêu rõ **"[một phiên bản nhỏ] CÓ THỂ được tăng lên nếu chức năng hoặc cải tiến mới đáng kể được giới thiệu trong private code. Nó CÓ THỂ bao gồm các thay đổi cấp độ bản vá."**
 
-However, it does raise the question of why these releases aren't versioned as patches instead.
+Tuy nhiên, nó đặt ra câu hỏi tại sao những bản phát hành này không được tạo phiên bản dưới dạng các bản vá.
 
-The answer is that any change to React (or other software) carries some risk of breaking in unexpected ways. Imagine a scenario where a patch release that fixes one bug accidentally introduces a different bug. This would not only be disruptive to developers, but also harm their confidence in future patch releases. It's especially regrettable if the original fix is for a bug that is rarely encountered in practice.
+Câu trả lời là bất kỳ thay đổi nào đối với React (hoặc phần mềm khác) đều có nguy cơ bị phá hỏng theo những cách không mong muốn. Hãy tưởng tượng một tình huống trong đó một bản vá lỗi sửa một lỗi nhưng vô tình gây ra một lỗi khác. Điều này không chỉ gây khó chịu cho các developer mà còn làm tổn hại đến niềm tin của họ vào các bản vá lỗi trong tương lai. Đặc biệt sẽ rất đáng tiếc nếu bản sửa lỗi ban đầu dành cho một lỗi hiếm khi gặp phải trong thực tế.
 
-We have a pretty good track record for keeping React releases free of bugs, but patch releases have an even higher bar for reliability because most developers assume they can be adopted without adverse consequences.
+Chúng tôi có một hồ sơ theo dõi khá tốt về việc giữ cho các bản phát hành React không có lỗi, nhưng các bản vá lỗi thậm chí còn có độ tin cậy cao hơn vì hầu hết các nhà phát triển đều cho rằng chúng có thể được áp dụng mà không có bất kì vấn đề gì.
 
-For these reasons, we reserve patch releases only for the most critical bugs and security vulnerabilities.
+Vì những lý do này, chúng tôi chỉ để dành các bản vá cho các lỗi và lỗ hổng bảo mật quan trọng nhất.
 
-If a release includes non-essential changes — such as internal refactors, changes to implementation details, performance improvements, or minor bugfixes — we will bump the minor version even when there are no new features.
+Nếu bản phát hành bao gồm các thay đổi không cần thiết — chẳng hạn như internal refactors, thay đổi các chi tiết implementation, cải tiến hiệu xuất, hoặc các lỗi nhỏ — chúng tôi sẽ nâng phiên bản nhỏ ngay cả khi không có tính năng mới.

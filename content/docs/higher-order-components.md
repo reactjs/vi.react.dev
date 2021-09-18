@@ -4,29 +4,29 @@ title: Higher-Order Components
 permalink: docs/higher-order-components.html
 ---
 
-A higher-order component (HOC) is an advanced technique in React for reusing component logic. HOCs are not part of the React API, per se. They are a pattern that emerges from React's compositional nature.
+Higher-order component (HOC) là một kĩ thuật nâng cao trong React để tái sử dụng logic của component. HOC không thuộc React API. Nó là một pattern được sinh ra từ khả năng sử dụng kết hợp (compositional) của React.
 
-Concretely, **a higher-order component is a function that takes a component and returns a new component.**
+Một cách cụ thể, **một higher-order component là một hàm nhận vào một component và trả về một component.**
 
 ```js
 const EnhancedComponent = higherOrderComponent(WrappedComponent);
 ```
 
-Whereas a component transforms props into UI, a higher-order component transforms a component into another component.
+Nếu như một component chuyển đổi props thành UI, thì một higher-order component chuyển đổi một component thành một component khác.
 
-HOCs are common in third-party React libraries, such as Redux's [`connect`](https://github.com/reduxjs/react-redux/blob/main/docs/api/connect.md#connect) and Relay's [`createFragmentContainer`](https://relay.dev/docs/v10.1.3/fragment-container/#createfragmentcontainer).
+HOCs rất phổ biến với các thư viện React, chẳng hạn như Redux [`connect`](https://github.com/reduxjs/react-redux/blob/main/docs/api/connect.md#connect) và Relay [`createFragmentContainer`](https://relay.dev/docs/v10.1.3/fragment-container/#createfragmentcontainer).
 
-In this document, we'll discuss why higher-order components are useful, and how to write your own.
+Trong tài liệu này, chúng ta sẽ thảo luận tại sao higher-order components lại có ích và cách tạo ra một HOC.
 
-## Use HOCs For Cross-Cutting Concerns {#use-hocs-for-cross-cutting-concerns}
+## Sử dụng HOCs cho Cross-Cutting Concerns {#use-hocs-for-cross-cutting-concerns}
 
-> **Note**
+> **Chú ý**
 >
-> We previously recommended mixins as a way to handle cross-cutting concerns. We've since realized that mixins create more trouble than they are worth. [Read more](/blog/2016/07/13/mixins-considered-harmful.html) about why we've moved away from mixins and how you can transition your existing components.
+> Trước đó chúng tôi đã khuyên sử dụng mixins như là một cách để đảm nhận những ảnh hưởng chung. Nhưng mixins gây ra nhiều khó khăn hơn là ích lợi. [Tham khảo](/blog/2016/07/13/mixins-considered-harmful.html) tại sao chúng tôi không còn sử dụng mixins và cách bạn có thể thay đổi những components đã tồn tại.
 
-Components are the primary unit of code reuse in React. However, you'll find that some patterns aren't a straightforward fit for traditional components.
+Components là những đơn vị cơ bản trong việc tái sử dụng code trong React. Tuy nhiên, bạn có thể thấy một số patterns không thực sự phù hợp cho những components truyền thống.
 
-For example, say you have a `CommentList` component that subscribes to an external data source to render a list of comments:
+Ví dụ, bạn có component `CommentList` lấy dữ liệu từ nguồn bên ngoài và hiển thị một list các bình luận:
 
 ```js
 class CommentList extends React.Component {
@@ -34,23 +34,23 @@ class CommentList extends React.Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      // "DataSource" is some global data source
+      // "DataSource" là nguồn dữ liệu từ bên ngoài
       comments: DataSource.getComments()
     };
   }
 
   componentDidMount() {
-    // Subscribe to changes
+    // Lắng nghe các thay đổi
     DataSource.addChangeListener(this.handleChange);
   }
 
   componentWillUnmount() {
-    // Clean up listener
+    // Dọn dẹp listener
     DataSource.removeChangeListener(this.handleChange);
   }
 
   handleChange() {
-    // Update component state whenever the data source changes
+    // Cập nhật lại component khi nguồn dữ liệu thay đổi
     this.setState({
       comments: DataSource.getComments()
     });
@@ -68,7 +68,7 @@ class CommentList extends React.Component {
 }
 ```
 
-Later, you write a component for subscribing to a single blog post, which follows a similar pattern:
+Sau đó, bạn viết một component cho một bài blog, với pattern tương tự:
 
 ```js
 class BlogPost extends React.Component {
@@ -100,15 +100,15 @@ class BlogPost extends React.Component {
 }
 ```
 
-`CommentList` and `BlogPost` aren't identical — they call different methods on `DataSource`, and they render different output. But much of their implementation is the same:
+`CommentList` và `BlogPost` không giống nhau - chúng gọi các hàm khác nhau trên `DataSource`, và hiển thị nội dung khác nhau. Tuy nhiên cách viết lại có điểm chung:
 
-- On mount, add a change listener to `DataSource`.
-- Inside the listener, call `setState` whenever the data source changes.
-- On unmount, remove the change listener.
+- Khi được mount, thêm một listener lắng nghe thay đổi từ `DataSource`.
+- Trong hàm listener, gọi `setState` khi dữ liệu thay đổi.
+- Khi unmount, xóa listener.
 
-You can imagine that in a large app, this same pattern of subscribing to `DataSource` and calling `setState` will occur over and over again. We want an abstraction that allows us to define this logic in a single place and share it across many components. This is where higher-order components excel.
+Bạn có thể tưởng tượng trong một ứng dụng lớn, việc lắng nghe `DataSource` và gọi `setState` sẽ lặp đi lặp lại rất nhiều lần. Chúng tôi muốn một khung sườn cho phép định nghĩa logic trên vào một nơi và chia sẻ nó cho các component khác. Đây chính là điểm nổi trội của higher-order component
 
-We can write a function that creates components, like `CommentList` and `BlogPost`, that subscribe to `DataSource`. The function will accept as one of its arguments a child component that receives the subscribed data as a prop. Let's call the function `withSubscription`:
+Chúng ta có thể viết một hàm tạo ra các component, như `CommentList` và `BlogPost`, lắng nghe `DataSource`. Hàm sẽ nhận vào một component con như là một đối số và lấy data trả về như là một prop. Gọi hàm đó là `withSubscription`:
 
 ```js
 const CommentListWithSubscription = withSubscription(
@@ -122,14 +122,14 @@ const BlogPostWithSubscription = withSubscription(
 );
 ```
 
-The first parameter is the wrapped component. The second parameter retrieves the data we're interested in, given a `DataSource` and the current props.
+Tham số đầu tiên là component đầu vào. Tham số thứ hai là dữ liệu mà chúng ta quan tâm, `DataSource` và các props hiện tại.
 
-When `CommentListWithSubscription` and `BlogPostWithSubscription` are rendered, `CommentList` and `BlogPost` will be passed a `data` prop with the most current data retrieved from `DataSource`:
+Khi `CommentListWithSubscription` và `BlogPostWithSubscription` được render, `CommentList` và `BlogPost` sẽ nhận vào prop `data` với dữ liệu được trả về từ `DataSource`:
 
 ```js
-// This function takes a component...
+// Hàm nhận vào một component...
 function withSubscription(WrappedComponent, selectData) {
-  // ...and returns another component...
+  // ...và trả về một component khác...
   return class extends React.Component {
     constructor(props) {
       super(props);
@@ -140,7 +140,7 @@ function withSubscription(WrappedComponent, selectData) {
     }
 
     componentDidMount() {
-      // ... that takes care of the subscription...
+      // ...đảm nhận việc lắng nghe thay đổi...
       DataSource.addChangeListener(this.handleChange);
     }
 
@@ -155,25 +155,25 @@ function withSubscription(WrappedComponent, selectData) {
     }
 
     render() {
-      // ... and renders the wrapped component with the fresh data!
-      // Notice that we pass through any additional props
+      // ... và render component đầu vào với dữ liệu mới!
+      // Chú ý ta có thể thêm vào các props khác
       return <WrappedComponent data={this.state.data} {...this.props} />;
     }
   };
 }
 ```
 
-Note that a HOC doesn't modify the input component, nor does it use inheritance to copy its behavior. Rather, a HOC *composes* the original component by *wrapping* it in a container component. A HOC is a pure function with zero side-effects.
+Cần nhớ một điều là HOC không chỉnh sửa, làm thay đổi component đầu vào mà nó chỉ kế thừa các hành vi của component đó. Một HOC *xào nấu* component gốc bằng cách gói nó vào một component. Một HOC là một hàm không có tác dụng phụ (side-effects).
 
-And that's it! The wrapped component receives all the props of the container, along with a new prop, `data`, which it uses to render its output. The HOC isn't concerned with how or why the data is used, and the wrapped component isn't concerned with where the data came from.
+Và đó là tất cả! Component bên trong nhận tất cả các props của component bên ngoài, bên cạnh prop mới, `data`, cái mà được sử dụng để render. HOC không quan tâm dữ liệu được sử dụng như thế nào hoặc tại sao, và component bên trong cũng không quan tâm dữ liệu đến từ đâu.
 
-Because `withSubscription` is a normal function, you can add as many or as few arguments as you like. For example, you may want to make the name of the `data` prop configurable, to further isolate the HOC from the wrapped component. Or you could accept an argument that configures `shouldComponentUpdate`, or one that configures the data source. These are all possible because the HOC has full control over how the component is defined.
+Bởi vì `withSubscription` là một hàm bình thường, bạn có thể thêm vào bao nhiêu tham số bạn muốn. Ví dụ, bạn muốn tên của `data` có thể tùy biến, để cho HOC độc lập với component bên trong. Hoặc bạn có thể nhận một tham số mà có thể tùy chỉnh `shouldComponentUpdate`, và một cho thay đổi nguồn dữ liệu. Những điều đó đều có thể vì HOC kiểm soát hoàn toàn cách một component định nghĩa.
 
-Like components, the contract between `withSubscription` and the wrapped component is entirely props-based. This makes it easy to swap one HOC for a different one, as long as they provide the same props to the wrapped component. This may be useful if you change data-fetching libraries, for example.
+Giống như các components khác, mối quan hệ giữa `withSubscription` và component con hoàn toàn dựa vào props. Nó giúp cho việc đổi một HOC này với một HOC khác dễ dàng hơn, miễn là chúng cung cấp cùng props cho component con. Rất hữu ích nếu bạn thay đổi thư viện lấy dữ liệu.
 
-## Don't Mutate the Original Component. Use Composition. {#dont-mutate-the-original-component-use-composition}
+## Đừng thay đổi (mutate) Component Gốc. Hãy sử dụng Composition.{#dont-mutate-the-original-component-use-composition}
 
-Resist the temptation to modify a component's prototype (or otherwise mutate it) inside a HOC.
+Kiểm soát ham muốn chỉnh sửa prototype của component (nói cách khác là mutate nó) bên trong một HOC.
 
 ```js
 function logProps(InputComponent) {
@@ -181,20 +181,18 @@ function logProps(InputComponent) {
     console.log('Current props: ', this.props);
     console.log('Previous props: ', prevProps);
   };
-  // The fact that we're returning the original input is a hint that it has
-  // been mutated.
+  // Việc trả về component ban đầu cho thấy nó đã được mutate
   return InputComponent;
 }
 
-// EnhancedComponent will log whenever props are received
+// EnhancedComponent sẽ được log khi có props được nhận vào
 const EnhancedComponent = logProps(InputComponent);
 ```
 
-There are a few problems with this. One is that the input component cannot be reused separately from the enhanced component. More crucially, if you apply another HOC to `EnhancedComponent` that *also* mutates `componentDidUpdate`, the first HOC's functionality will be overridden! This HOC also won't work with function components, which do not have lifecycle methods.
+Có một số vấn đề với việc này. InputComponent không thể được tái sử dụng tách rời với EnhancedComponent. Nếu bạn sử dụng một HOC khác lên `EnhancedComponent`, cái mà *cũng* mutate `componentDidUpdate`, chức năng của HOC đầu sẽ bị ghi đè. HOC này cũng không dùng được với function components, thứ mà không có các hàm lifecycle.
 
-Mutating HOCs are a leaky abstraction—the consumer must know how they are implemented in order to avoid conflicts with other HOCs.
-
-Instead of mutation, HOCs should use composition, by wrapping the input component in a container component:
+Những HOC được mutate thì khá mơ hồ - Những người sử dụng cần biết cách áp dụng để tránh bị xung đột với những HOC khác.
+Thay vì mutate, HOC nên sử dụng composition, bằng cách gói component đầu vào bên trong một container:
 
 ```js
 function logProps(WrappedComponent) {
@@ -204,34 +202,33 @@ function logProps(WrappedComponent) {
       console.log('Previous props: ', prevProps);
     }
     render() {
-      // Wraps the input component in a container, without mutating it. Good!
+      // Thật tốt khi Input component được bọc bởi một container và nó không bị thay đổi (mutate)
       return <WrappedComponent {...this.props} />;
     }
   }
 }
 ```
 
-This HOC has the same functionality as the mutating version while avoiding the potential for clashes. It works equally well with class and function components. And because it's a pure function, it's composable with other HOCs, or even with itself.
+HOC này có đầy đủ chức năng với bản được mutate mà tránh được nguy cơ xung đột. Nó hoạt động hiệu quả cả với class và function component. Vì nó là một pure function, nó có thể được ghép với những HOC khác, hoặc kể cả chính nó.
 
-You may have noticed similarities between HOCs and a pattern called **container components**. Container components are part of a strategy of separating responsibility between high-level and low-level concerns. Containers manage things like subscriptions and state, and pass props to components that handle things like rendering UI. HOCs use containers as part of their implementation. You can think of HOCs as parameterized container component definitions.
+Bạn có thể nhận ra điểm chung giữa HOCs và một pattern gọi là **container components**. Container components là một phần của chiến lược trách nhiệm phân chia giữa các điều high-level và low-level. Containers quản lý những thứ như lắng nghe (subscriptions) và trạng thái (state), và truyền props đến components con để thực hiện các nhiệm vụ như render UI. HOCs sử dụng container như một thừa kế. Bạn có thể nghĩ đến HOC như là một container component có thể truyền tham số.
 
-## Convention: Pass Unrelated Props Through to the Wrapped Component {#convention-pass-unrelated-props-through-to-the-wrapped-component}
+## Quy ước: Truyền những props không liên quan đến component con{#convention-pass-unrelated-props-through-to-the-wrapped-component}
 
-HOCs add features to a component. They shouldn't drastically alter its contract. It's expected that the component returned from a HOC has a similar interface to the wrapped component.
 
-HOCs should pass through props that are unrelated to its specific concern. Most HOCs contain a render method that looks something like this:
+HOC giúp bạn thêm các tính năng mới vào component. Chúng không nên thay đổi mạnh mẽ cấu trúc. Component trả về từ HOC nên có chung interface với component con.
+
+Những HOC nên truyền qua các props mà không liên quan đến những quan tâm đặc thù. Hầu hết các HOC đều chứa một hàm render có dạng như sau:
 
 ```js
 render() {
-  // Filter out extra props that are specific to this HOC and shouldn't be
-  // passed through
+  // Lọc những props mà chỉ liên quan đến HOC này mà không cần truyền xuống
   const { extraProp, ...passThroughProps } = this.props;
 
-  // Inject props into the wrapped component. These are usually state values or
-  // instance methods.
+  // Truyền những props vào component con. Chúng thường là giá trị state hoặc method.
   const injectedProp = someStateOrInstanceMethod;
 
-  // Pass props to wrapped component
+  // Truyền props đến component con
   return (
     <WrappedComponent
       injectedProp={injectedProp}
@@ -241,65 +238,67 @@ render() {
 }
 ```
 
-This convention helps ensure that HOCs are as flexible and reusable as possible.
+Quy ước này giúp cho những HOC trở nên linh hoạt và có thể tái sử dụng.
 
-## Convention: Maximizing Composability {#convention-maximizing-composability}
+## Quy ước : Khả năng kết hợp tối đa (maximizing composability) {#convention-maximizing-composability}
 
-Not all HOCs look the same. Sometimes they accept only a single argument, the wrapped component:
+Không phải tất cả các HOC đều như sau. Đôi khi chúng chỉ nhận một tham số, component con:
 
 ```js
 const NavbarWithRouter = withRouter(Navbar);
 ```
 
-Usually, HOCs accept additional arguments. In this example from Relay, a config object is used to specify a component's data dependencies:
+Thông thường, HOC nhận nhiều tham số. Trong ví dụ với Relay, config object được dùng để chỉ ra dữ liệu phụ thuộc của component:
 
 ```js
 const CommentWithRelay = Relay.createContainer(Comment, config);
 ```
 
-The most common signature for HOCs looks like this:
+Điển hình nhất cho một HOC:
 
 ```js
 // React Redux's `connect`
 const ConnectedComment = connect(commentSelector, commentActions)(CommentList);
 ```
 
-*What?!* If you break it apart, it's easier to see what's going on.
+Sẽ dễ dàng hơn nếu chia nhỏ nó ra.
 
 ```js
-// connect is a function that returns another function
+// connect là một hàm trả về một hàm khác
 const enhance = connect(commentListSelector, commentListActions);
-// The returned function is a HOC, which returns a component that is connected
-// to the Redux store
+// Hàm trả về là một HOC, thứ mà trả về một component kết nối với Redux store
 const ConnectedComment = enhance(CommentList);
 ```
-In other words, `connect` is a higher-order function that returns a higher-order component!
+Nói cách khác, `connect` là một higher-order function trả về một higher-order component!
 
-This form may seem confusing or unnecessary, but it has a useful property. Single-argument HOCs like the one returned by the `connect` function have the signature `Component => Component`. Functions whose output type is the same as its input type are really easy to compose together.
+Dạng này có thể gây nhầm lẫn hoặc không cần thiết nhưng lại rất hữu ích. Những HOC nhận môt tham số giống như được trả về từ `connect` có đặc điểm `Component => Component`. Những hàm mà output type giống như input type thì rất dễ để kết hợp với nhau.
 
 ```js
-// Instead of doing this...
+// Thay vì làm như sau...
 const EnhancedComponent = withRouter(connect(commentSelector)(WrappedComponent))
 
 // ... you can use a function composition utility
 // compose(f, g, h) is the same as (...args) => f(g(h(...args)))
+// bạn có thể sử dụng function composition
+// compose(f, g, h) giống với (...args) => f(g(h(...args)))
 const enhance = compose(
-  // These are both single-argument HOCs
+  // Đây đều là HOC đơn tham số
   withRouter,
   connect(commentSelector)
 )
 const EnhancedComponent = enhance(WrappedComponent)
 ```
 
-(This same property also allows `connect` and other enhancer-style HOCs to be used as decorators, an experimental JavaScript proposal.)
+(Property này cũng cho phép `connect` với enhancer-style HOCs để sử dụng như decorators, một JavaScript proposal.)
 
-The `compose` utility function is provided by many third-party libraries including lodash (as [`lodash.flowRight`](https://lodash.com/docs/#flowRight)), [Redux](https://redux.js.org/api/compose), and [Ramda](https://ramdajs.com/docs/#compose).
+Hàm `compose` được cung cấp bởi nhiều third-party libraries như lodash ([`lodash.flowRight`](https://lodash.com/docs/#flowRight)), [Redux](https://redux.js.org/api/compose), và  [Ramda](https://ramdajs.com/docs/#compose).
 
-## Convention: Wrap the Display Name for Easy Debugging {#convention-wrap-the-display-name-for-easy-debugging}
+## Quy ước: Cách đặt tên HOC để tiện cho việc debug (tìm và gỡ lỗi){#convention-wrap-the-display-name-for-easy-debugging}
 
-The container components created by HOCs show up in the [React Developer Tools](https://github.com/facebook/react/tree/main/packages/react-devtools) like any other component. To ease debugging, choose a display name that communicates that it's the result of a HOC.
+Những container component tạo bởi HOCs đều xuất hiện trong [React Developer Tools](https://github.com/facebook/react/tree/main/packages/react-devtools) như bao component khác. Để dễ debug, chọn tên sao cho nó thể hiện rằng nó được sinh ra từ HOC.
 
-The most common technique is to wrap the display name of the wrapped component. So if your higher-order component is named `withSubscription`, and the wrapped component's display name is `CommentList`, use the display name `WithSubscription(CommentList)`:
+Một cách thông dụng nhất là bọc display name của component được bọc. Vì vậy nếu higher-order component của bạn có tên `withSubscription`, và tên của wrapped component hiển thị là `CommentList`, thì bạn nên sử dụng tên hiển thị là `WithSubscription(CommentList)`:
+Một kỹ thuật thường gặp là tạo tên với tên của component bên trong. Nếu HOC có tên là `withSubscription`, và component con có tên là `CommentList`, hãy dùng tên `WithSubscription(CommentList)`
 
 ```js
 function withSubscription(WrappedComponent) {
@@ -314,60 +313,60 @@ function getDisplayName(WrappedComponent) {
 ```
 
 
-## Caveats {#caveats}
+## Lưu Ý {#caveats}
 
-Higher-order components come with a few caveats that aren't immediately obvious if you're new to React.
+Higher-order components có một số lưu ý không rõ ràng nếu bạn là người mới học React.
 
-### Don't Use HOCs Inside the render Method {#dont-use-hocs-inside-the-render-method}
+### Đừng dùng HOC bên trong hàm render {#dont-use-hocs-inside-the-render-method}
 
-React's diffing algorithm (called [Reconciliation](/docs/reconciliation.html)) uses component identity to determine whether it should update the existing subtree or throw it away and mount a new one. If the component returned from `render` is identical (`===`) to the component from the previous render, React recursively updates the subtree by diffing it with the new one. If they're not equal, the previous subtree is unmounted completely.
+Thuật toán diffing của React (gọi là [Reconciliation](/docs/reconciliation.html)) dùng nhận dạng của componet để quyết định xem có nên cập nhật substree hay mount một cái mới. Nếu một component trả về từ `render` giống (`===`) với component từ lần render trước, React sẽ đệ quy cập nhật substree bằng so sánh (diffing) với cái mới. Nếu chúng không giống nhau, substree được unmount hoàn tất.
 
-Normally, you shouldn't need to think about this. But it matters for HOCs because it means you can't apply a HOC to a component within the render method of a component:
+Bạn không cần nghĩ về điều này nhiều. Nó chỉ ảnh hưởng đến HOC vì bạn không thể áp dụng HOC cho một component bên trong hàm render của một component khác:
 
 ```js
 render() {
-  // A new version of EnhancedComponent is created on every render
+  // Một phiên bản mới của EnhancedComponent được tạo ra sau mỗi lần render
   // EnhancedComponent1 !== EnhancedComponent2
   const EnhancedComponent = enhance(MyComponent);
-  // That causes the entire subtree to unmount/remount each time!
+  // Điều đó gây ra việc mount/unmount substree mỗi lần như vậy!
   return <EnhancedComponent />;
 }
 ```
 
-The problem here isn't just about performance — remounting a component causes the state of that component and all of its children to be lost.
+Vấn đề ở đây không chỉ là về hiệu năng - việc remount một component gây ra tình trạng cả state cũng như những children đều bị mất.
 
-Instead, apply HOCs outside the component definition so that the resulting component is created only once. Then, its identity will be consistent across renders. This is usually what you want, anyway.
+Áp dụng HOC bên ngoài định nghĩa của component để component sẽ chỉ tạo ra một lần. Định danh của nó sẽ không thay đổi qua mỗi lần render.
 
-In those rare cases where you need to apply a HOC dynamically, you can also do it inside a component's lifecycle methods or its constructor.
+Trong những trường hợp hiếm mà bạn cần phải dùng HOC một cách linh hoạt, bạn có thể dùng nó bên trong những hàm licycle hoặc constructor của component.
 
-### Static Methods Must Be Copied Over {#static-methods-must-be-copied-over}
+### Những static methods phải được sao chép qua {#static-methods-must-be-copied-over}
 
-Sometimes it's useful to define a static method on a React component. For example, Relay containers expose a static method `getFragment` to facilitate the composition of GraphQL fragments.
+Đôi khi sẽ rất hữu ích nếu tạo một static method trong React component. Ví dụ, Relay containers có một static method `getFragment` để đơn giản hóa việc kết hợp của GraphQL fragment.
 
-When you apply a HOC to a component, though, the original component is wrapped with a container component. That means the new component does not have any of the static methods of the original component.
+Khi dùng HOC với một component, mặc dù component được bao bọc bởi container, nó không có nghĩa là component mới sẽ có những static methods của component ban đầu.
 
 ```js
-// Define a static method
+// Định nghĩa một static method
 WrappedComponent.staticMethod = function() {/*...*/}
-// Now apply a HOC
+// Bây giờ, áp dụng HOC
 const EnhancedComponent = enhance(WrappedComponent);
 
-// The enhanced component has no static method
+// EnhancedComponent không có static method trên
 typeof EnhancedComponent.staticMethod === 'undefined' // true
 ```
 
-To solve this, you could copy the methods onto the container before returning it:
+Để giải quyết điều này, bạn cần sao chép hàm qua container trước khi chạy:
 
 ```js
 function enhance(WrappedComponent) {
   class Enhance extends React.Component {/*...*/}
-  // Must know exactly which method(s) to copy :(
+  // Cần biết chính xác hàm nào cần sao chép :(
   Enhance.staticMethod = WrappedComponent.staticMethod;
   return Enhance;
 }
 ```
 
-However, this requires you to know exactly which methods need to be copied. You can use [hoist-non-react-statics](https://github.com/mridgway/hoist-non-react-statics) to automatically copy all non-React static methods:
+Tuy nhiên việc này yêu cầu bạn biết chính xác hàm nào cần sao chép. Bạn có thể sử dụng [hoist-non-react-statics](https://github.com/mridgway/hoist-non-react-statics) để tự động copy tất cả các hàm không phải dạng tĩnh của React:
 
 ```js
 import hoistNonReactStatic from 'hoist-non-react-statics';
@@ -378,22 +377,23 @@ function enhance(WrappedComponent) {
 }
 ```
 
-Another possible solution is to export the static method separately from the component itself.
+Một cách khác là export những static methods ra khỏi component.
 
 ```js
-// Instead of...
+// Thay vì...
 MyComponent.someFunction = someFunction;
 export default MyComponent;
 
-// ...export the method separately...
+// ...export hoàn toàn khỏi component...
 export { someFunction };
 
-// ...and in the consuming module, import both
+// ...import cả hai vào...
 import MyComponent, { someFunction } from './MyComponent.js';
 ```
 
-### Refs Aren't Passed Through {#refs-arent-passed-through}
+### Refs không được truyền xuống {#refs-arent-passed-through}
 
-While the convention for higher-order components is to pass through all props to the wrapped component, this does not work for refs. That's because `ref` is not really a prop — like `key`, it's handled specially by React. If you add a ref to an element whose component is the result of a HOC, the ref refers to an instance of the outermost container component, not the wrapped component.
+Mặc dù quy ước của HOC là truyền tất cả props xuống component, nhưng điều này không áp dụng với refs. Bởi vì `ref` không hẳng là một prop - như `key`, nó được xử lý bởi React. Nếu bạn thêm một ref vào một element mà component là kết quả từ HOC, refs sẽ mặc nhiên là của container ngoài cùng nhất, không phải component được bao bọc.
 
 The solution for this problem is to use the `React.forwardRef` API (introduced with React 16.3). [Learn more about it in the forwarding refs section](/docs/forwarding-refs.html).
+Giải pháp cho vấn đề này là dùng `React.forwardRef` API (được giới thiệu ở React 16.3). [Tìm hiểu thêm về forward ref tại đây](/docs/forwarding-refs.html).

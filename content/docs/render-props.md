@@ -4,9 +4,9 @@ title: Render Props
 permalink: docs/render-props.html
 ---
 
-The term ["render prop"](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) refers to a technique for sharing code between React components using a prop whose value is a function.
+Thuật ngữ ["render prop"](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) nói về một kĩ thuật chia sẻ code giữa các React components bằng cách dùng một đối tượng (prop) có giá trị là một hàm (function).
 
-A component with a render prop takes a function that returns a React element and calls it instead of implementing its own render logic.
+Một component có một render prop sẽ lấy một hàm trả về một phần tử React (React element) và gọi hàm đó thay vì phải thực hiện render với logic riêng biệt.
 
 ```jsx
 <DataProvider render={data => (
@@ -14,15 +14,15 @@ A component with a render prop takes a function that returns a React element and
 )}/>
 ```
 
-Libraries that use render props include [React Router](https://reacttraining.com/react-router/web/api/Route/render-func), [Downshift](https://github.com/paypal/downshift) and [Formik](https://github.com/jaredpalmer/formik).
+Những thư viện sử dụng render props gồm có [React Router](https://reacttraining.com/react-router/web/api/Route/render-func), [Downshift](https://github.com/paypal/downshift) và [Formik](https://github.com/jaredpalmer/formik).
 
-In this document, we’ll discuss why render props are useful, and how to write your own.
+Ở phần này, chúng ta sẽ bàn luận vì sao render props có thể trở nên hữu ích, và cách để tự viết render props.
 
-## Use Render Props for Cross-Cutting Concerns {#use-render-props-for-cross-cutting-concerns}
+## Sử Dụng Render Props Cho Cross-Cutting Concerns {#use-render-props-for-cross-cutting-concerns}
 
-Components are the primary unit of code reuse in React, but it's not always obvious how to share the state or behavior that one component encapsulates to other components that need that same state.
+Components là những đơn vị cơ bản để tái sử dụng trong React, nhưng có một sự mơ hồ trong cách chia sẻ kho dữ liệu (state) hay hành vi (behavior) mà một component đóng gói tới các components khác cũng cần kho dữ liệu đó.
 
-For example, the following component tracks the mouse position in a web app:
+Ví dụ, component sau đây sẽ theo dõi vị trí con chuột trong một web app:
 
 ```js
 class MouseTracker extends React.Component {
@@ -50,11 +50,11 @@ class MouseTracker extends React.Component {
 }
 ```
 
-As the cursor moves around the screen, the component displays its (x, y) coordinates in a `<p>`.
+Khi con trỏ di chuyển xung quanh màn hình, component này sẽ hiển thị tọa độ (x, y) của con trỏ trong tag `<p>`.
 
-Now the question is: How can we reuse this behavior in another component? In other words, if another component needs to know about the cursor position, can we encapsulate that behavior so that we can easily share it with that component?
+Câu hỏi phải đặt ra là: Làm sao để chúng biết tái sử dụng hành vi này ở một component khác? Nói cách khác, nếu một component nào đó cũng cần biết vị trí của con trỏ chuột, liệu chúng ta có thể đóng gói (encapsulate) hành vi trên để dễ dàng chia sẻ nó với component này?
 
-Since components are the basic unit of code reuse in React, let's try refactoring the code a bit to use a `<Mouse>` component that encapsulates the behavior we need to reuse elsewhere.
+Vì components là đơn vị cơ bản để tái sử dụng trong React, hãy thử thay đổi (refactor) code một chút để có thể dùng một component `<Mouse>` đóng gói được hành vi chúng ta cần tái sử dụng ở nơi khác.
 
 ```js
 // The <Mouse> component encapsulates the behavior we need...
@@ -95,11 +95,11 @@ class MouseTracker extends React.Component {
 }
 ```
 
-Now the `<Mouse>` component encapsulates all behavior associated with listening for `mousemove` events and storing the (x, y) position of the cursor, but it's not yet truly reusable.
+Bây giờ `<Mouse>` đã đóng gói được toàn bộ hành vi lắng nghe các sự kiện `mousemove` và chứa tọa độ (x, y) của con trỏ, nhưng component này vẫn chưa thực sự có thể tái sử dụng.
 
-For example, let's say we have a `<Cat>` component that renders the image of a cat chasing the mouse around the screen. We might use a `<Cat mouse={{ x, y }}>` prop to tell the component the coordinates of the mouse so it knows where to position the image on the screen.
+Ví dụ, giả sử chúng ta có một component `<Cat>` sẽ render hình ảnh một con mèo đang đuổi chuột quanh màn hình. Chúng ta có thể sẽ sử dụng `<Cat mouse={{ x, y }}>` để cho component này biết được tọa độ của con trỏ chuột và từ đó thay đổi vị trí hình ảnh trên màn hình.
 
-As a first pass, you might try rendering the `<Cat>` *inside `<Mouse>`'s `render` method*, like this:
+Lúc đầu, bạn có thể sẽ thử render `<Cat>` *bên trong phương thức `render` của `<Mouse>`* như thế này:
 
 ```js
 class Cat extends React.Component {
@@ -153,10 +153,9 @@ class MouseTracker extends React.Component {
 }
 ```
 
-This approach will work for our specific use case, but we haven't achieved the objective of truly encapsulating the behavior in a reusable way. Now, every time we want the mouse position for a different use case, we have to create a new component (i.e. essentially another `<MouseWithCat>`) that renders something specifically for that use case.
+Phương pháp này có thể đúng cho trường hợp cụ thể này, nhưng chúng ta vẫn chưa đạt được mục tiêu là hoàn toàn đóng gói hành vi trên để dễ dàng tái sử dụng. Bởi vì hiện tại, mỗi khi chúng ta muốn sử dụng vị trí con trỏ chuột cho một trường hợp nào đó, chúng ta phải tạo một component mới (như là một `<MouseWithCat>` khác) mà sẽ render riêng biệt cho trường hợp đó.
 
-Here's where the render prop comes in: Instead of hard-coding a `<Cat>` inside a `<Mouse>` component, and effectively changing its rendered output, we can provide `<Mouse>` with a function prop that it uses to dynamically determine what to render–a render prop.
-
+Đây là lúc render prop xuất hiện: Thay vì phải code cứng một `<Cat>` bên trong một component `<Mouse>`, và phải thay đổi đầu ra của nó khi render, chúng ta có thể truyền cho `<Mouse>` một function prop (prop là một hàm) để nó có thể quyết định cái gì cần render một cách linh hoạt-render prop chính là nó.
 ```js
 class Cat extends React.Component {
   render() {
@@ -209,13 +208,13 @@ class MouseTracker extends React.Component {
 }
 ```
 
-Now, instead of effectively cloning the `<Mouse>` component and hard-coding something else in its `render` method to solve for a specific use case, we provide a `render` prop that `<Mouse>` can use to dynamically determine what it renders.
+Lúc này, thay vì phải clone lại component `<Mouse>` và code cứng phương thức `render` của nó để giải quyết một trường hợp cụ thể, chúng ta cung cấp một `render` prop mà `<Mouse>` có thể sử dụng để render một cách linh hoạt.
 
-More concretely, **a render prop is a function prop that a component uses to know what to render.**
+Chính xác hơn thì, **một render prop là một function prop được component sử dụng để biết cái gì cần render.**
 
-This technique makes the behavior that we need to share extremely portable. To get that behavior, render a `<Mouse>` with a `render` prop that tells it what to render with the current (x, y) of the cursor.
+Kĩ thuật này giúp chúng ta chia sẻ hành vi cần thiết rất dễ dàng. Để lấy được hành vi lúc nãy, ta chỉ phải render `<Mouse>` với một `render` prop cho biết cần phải render gì với (x, y) hiện tại của con trỏ.
 
-One interesting thing to note about render props is that you can implement most [higher-order components](/docs/higher-order-components.html) (HOC) using a regular component with a render prop. For example, if you would prefer to have a `withMouse` HOC instead of a `<Mouse>` component, you could easily create one using a regular `<Mouse>` with a render prop:
+Một lưu ý thú vị về render props chính là bạn có thể thực hiện hầu hết [higher-order components](/docs/higher-order-components.html) (HOC) bằng cách dùng một component bình thường cùng với một render prop. Ví dụ, nếu bạn thích việc có HOC `withMouse` hơn là một component `<Mouse>`, bạn có thể dễ dàng tạo một `<Mouse>` bình thường cùng với một render prop:
 
 ```js
 // If you really want a HOC for some reason, you can easily
@@ -233,13 +232,13 @@ function withMouse(Component) {
 }
 ```
 
-So using a render prop makes it possible to use either pattern.
+Vậy nên render prop giúp ta có thể sử dụng giải pháp (pattern) nào trong 2 cái cũng được.
 
-## Using Props Other Than `render` {#using-props-other-than-render}
+## Sử Dụng Props Ngoài `render` {#using-props-other-than-render}
 
-It's important to remember that just because the pattern is called "render props" you don't *have to use a prop named `render` to use this pattern*. In fact, [*any* prop that is a function that a component uses to know what to render is technically a "render prop"](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce).
+Điều quan trọng cần phải nhớ là, chỉ vì giải pháp này được gọi là "render props", bạn không *nhất thiết phải dùng một prop có tên là `render` mới dùng được giải pháp này*. Thực chất, [*bất kì* prop nào là một hàm mà component sử dụng để biết cái cần để render đều được gọi là một "render prop"](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce).
 
-Although the examples above use `render`, we could just as easily use the `children` prop!
+Mặc dù các ví dụ trên sử dụng `render`, chúng ta có thể gọi prop đó là `children`!
 
 ```js
 <Mouse children={mouse => (
@@ -247,7 +246,7 @@ Although the examples above use `render`, we could just as easily use the `child
 )}/>
 ```
 
-And remember, the `children` prop doesn't actually need to be named in the list of "attributes" in your JSX element. Instead, you can put it directly *inside* the element!
+Và nhớ là, prop `children` này không cần phải được đặt tên trong các "thuộc tính" (attributes) của một phần tử JSX (JSX element). Thay vào đó, bạn có thể đặt nó vào trực tiếp *bên trong* phần tử đó!
 
 ```js
 <Mouse>
@@ -257,9 +256,9 @@ And remember, the `children` prop doesn't actually need to be named in the list 
 </Mouse>
 ```
 
-You'll see this technique used in the [react-motion](https://github.com/chenglou/react-motion) API.
+Bạn sẽ thấy kĩ thuật này được dùng trong API [react-motion](https://github.com/chenglou/react-motion) API.
 
-Since this technique is a little unusual, you'll probably want to explicitly state that `children` should be a function in your `propTypes` when designing an API like this.
+Vì kĩ thuật này khá là lạ, bạn có lẽ sẽ muốn nói rõ `children` là một hàm trong `propTypes` của bạn khi thiết kế một API như vậy.
 
 ```js
 Mouse.propTypes = {
@@ -269,11 +268,11 @@ Mouse.propTypes = {
 
 ## Caveats {#caveats}
 
-### Be careful when using Render Props with React.PureComponent {#be-careful-when-using-render-props-with-reactpurecomponent}
+### Cẩn thận khi sử dụng Render Props với React.PureComponent{#be-careful-when-using-render-props-with-reactpurecomponent}
 
-Using a render prop can negate the advantage that comes from using [`React.PureComponent`](/docs/react-api.html#reactpurecomponent) if you create the function inside a `render` method. This is because the shallow prop comparison will always return `false` for new props, and each `render` in this case will generate a new value for the render prop.
+Sử dụng một render prop có thể phủ nhận lợi thế từ việc sử dụng [`React.PureComponent`](/docs/react-api.html#reactpurecomponent) nếu bạn tạo một hàm bên trong phương thức `render`. Lý do là vì so sánh nông (shallow comparison) prop sẽ luôn trả về `false` cho props mới, và mỗi `render` trong trường hợp này sẽ tạo một giá trị mới cho render prop.
 
-For example, continuing with our `<Mouse>` component from above, if `Mouse` were to extend `React.PureComponent` instead of `React.Component`, our example would look like this:
+Ví dụ, tiếp tục với component `<Mouse>`, nếu `Mouse` mở rộng với `React.PureComponent` thay vì với `React.Component`, chúng ta sẽ có như thế này:
 
 ```js
 class Mouse extends React.PureComponent {
@@ -299,9 +298,9 @@ class MouseTracker extends React.Component {
 }
 ```
 
-In this example, each time `<MouseTracker>` renders, it generates a new function as the value of the `<Mouse render>` prop, thus negating the effect of `<Mouse>` extending `React.PureComponent` in the first place!
+Ở ví dụ trên, mỗi lần `<MouseTracker>` render, nó tạo một hàm mới đồng thời là giá trị của prop `<Mouse render>`, từ đó đã phủ nhận công dụng của việc mở rộng `<Mouse>` với `React.PureComponent`!
 
-To get around this problem, you can sometimes define the prop as an instance method, like so:
+Để xử lý được rắc rối này, bạn có thể gọi prop thành một instance method (phương thức thể hiện) như sau:
 
 ```js
 class MouseTracker extends React.Component {
@@ -322,4 +321,4 @@ class MouseTracker extends React.Component {
 }
 ```
 
-In cases where you cannot define the prop statically (e.g. because you need to close over the component's props and/or state) `<Mouse>` should extend `React.Component` instead.
+Trong những trường hợp bạn không thể gọi prop đó theo cách tĩnh (có thể là vì bạn cần bọc props và/hoặc kho dữ liệu (state) của component đó), bạn nên mở rộng `<Mouse>` với `React.Component`.

@@ -34,7 +34,7 @@ Chúng ta hay có xu hướng sử dụng Refs để xử lý mọi thử xảy 
 >
 > Những ví dụ bên dưới đã được cập nhật để sử dụng `React.createRef()` API được giới thiệu trong React 16.3. Nếu bạn sử dụng những phiên bản trước, React khuyên bạn nên sử dụng [callback refs](#callback-refs) để thay thế.
 
-### Creating Refs {#creating-refs}
+### Tạo Refs {#creating-refs}
 
 Refs được khởi tạo bằng `React.createRef()` và được gắn vào các React element thông qua thuộc tính `ref`. Refs thường được gán cho một element nào đó, tại đó chúng ta có thể tham chiếu đến tất cả các thành phần bên trong nó.
 
@@ -208,6 +208,7 @@ Thay vì chuyển thuộc tính `ref` được tạo từ `createRef()`, bạn c
 
 Ví dụ dưới đây thực hiện việc sử dụng một `ref` callback để lưu trữ tham chiếu tới một DOM node trong một thuộc tính instance.
 
+
 ```javascript{5,7-9,11-14,19,29,34}
 class CustomTextInput extends React.Component {
   constructor(props) {
@@ -276,7 +277,7 @@ class Parent extends React.Component {
 
 Trong ví dụ trên, `Parent` sẽ chuyển ref callback dưới dạng một `inputRef` prop tới `CustomTextInput`, và `CustomTextInput` chuyển một function tương tự như một thuộc tính `ref` tới `<input>`. Lúc đó `this.inputElement` ở `Parent` sẽ set DOM node tương ứng với `<input>` element trong `CustomTextInput`.
 
-### Legacy API: String Refs {#legacy-api-string-refs}
+### API lỗi thời: String Refs {#legacy-api-string-refs}
 
 Nếu bạn đã làm việc với React trước đây, bạn có thể quen thuộc với một API cũ hơn trong đó thuộc tính `ref` là một String, như `"textInput"`, và DOM node được truy cập bằng `this.refs.textInput`. Chúng tôi khuyên bạn nên tránh sử dụng nó vì string refs có [một vài vấn đề](https://github.com/facebook/react/pull/8333#issuecomment-271648615), liên quan đến kế thừa, và **có khả năng bị xóa trong các bản phát hành tiếp theo.**. 
 
