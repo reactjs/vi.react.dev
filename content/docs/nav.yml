@@ -3,13 +3,14 @@
     - id: getting-started
       title: Bắt Đầu
     - id: add-react-to-a-website
-      title: Thêm React vào một Website
+      title: Thêm React Vào Một Website
     - id: create-a-new-react-app
-      title: Tạo một App React mới
+      title: Tạo Một App React Mới
     - id: cdn-links
-      title: Các liên kết CDN 
+      title: Các Đường Dẫn CDN
     - id: release-channels
-      title: Các kênh phát hành
+      title: Các Kênh Phát Hành
+
 - title: Khái niệm chính
   isOrdered: true
   items:
@@ -20,23 +21,23 @@
     - id: rendering-elements
       title: Rendering Elements
     - id: components-and-props
-      title: Components and Props
+      title: Components Và Props
     - id: state-and-lifecycle
-      title: State and Lifecycle
+      title: State Và Vòng Đời
     - id: handling-events
       title: Xử lý Events
     - id: conditional-rendering
       title: Rendering có điều kiện
     - id: lists-and-keys
-      title: Lists and Keys
+      title: Lists Và Keys
     - id: forms
       title: Forms
     - id: lifting-state-up
-      title: Lifting State Up
+      title: Chuyển State Lên
     - id: composition-vs-inheritance
-      title: Composition vs Inheritance
+      title: Kết Hợp Và Kế Thừa
     - id: thinking-in-react
-      title: Tư duy trong React
+      title: Tư Duy Trong React
 - title: Hướng dẫn nâng cao
   items:
     - id: accessibility
@@ -48,17 +49,18 @@
     - id: error-boundaries
       title: Error Boundaries
     - id: forwarding-refs
-      title: Chuyển tiếp Refs
+      title: Chuyển Tiếp Refs
     - id: fragments
-      title: Fragments
+      title: Phân Mảnh
     - id: higher-order-components
       title: Higher-Order Components
     - id: integrating-with-other-libraries
-      title: Tích hợp với các thư viện khác
+
+      title: Tích Hợp Với Các Thư Viện Khác
     - id: jsx-in-depth
-      title: JSX In Depth
+      title: JSX Chuyên Sâu
     - id: optimizing-performance
-      title: Tối ưu hiệu năng
+      title: Tối ưu hoá hiệu năng
     - id: portals
       title: Portals
     - id: profiler
@@ -70,11 +72,11 @@
     - id: reconciliation
       title: Reconciliation
     - id: refs-and-the-dom
-      title: Refs and the DOM
+      title: Refs Và DOM
     - id: render-props
       title: Render Props
     - id: static-type-checking
-      title: Static Type Checking
+      title: Kiểm Tra Static Type
     - id: strict-mode
       title: Strict Mode
     - id: typechecking-with-proptypes
@@ -105,7 +107,8 @@
     - id: javascript-environment-requirements
       title: Môi trường JS yêu cầu
     - id: glossary
-      title: Bảng chú giải
+      title: Bảng Chú Giải
+
 - title: Hooks
   isOrdered: true
   items:
@@ -125,25 +128,25 @@
         title: Tham chiếu Hooks API
       - id: hooks-faq
         title: Hooks và các câu hỏi thường gặp
-- title: Kiểm thử
+- title: Testing
   items:
     - id: testing
-      title: Tổng quan kiểm thử
+      title: Tổng Quan Testing
     - id: testing-recipes
-      title: Phương thức kiểu thử
+      title: Các Phương Thức Testing
     - id: testing-environments
-      title: Môi trường kiểm thử
-- title: Đóng góp
+      title: Các Môi Trường Testing
+- title: Đóng Góp Giúp Đỡ
   items:
     - id: how-to-contribute
-      title: Làm sao để đóng góp
+      title: Làm Thế Nào Để Đóng Góp
     - id: codebase-overview
-      title: Tổng quan về Codebase
+      title: Tổng Quan Codebase
     - id: implementation-notes
-      title: Ghi chú Triển khai
+      title: Chú Thích Triển Khai
     - id: design-principles
-      title: Nguyên tắc thiết kế
-- title: Cầu hỏi thường gặp
+      title: Nguyên Tắc Thiết Kế
+- title: FAQ
   items:
     - id: faq-ajax
       title: AJAX và APIs
@@ -156,7 +159,7 @@
     - id: faq-styling
       title: Styling và CSS
     - id: faq-structure
-      title: Cấu trúc File
+      title: Cấu trúc dự án
     - id: faq-versioning
       title: Quy tắc đặt tên phiên bản
     - id: faq-internals
