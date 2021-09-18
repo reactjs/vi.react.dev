@@ -524,11 +524,7 @@ Chú ý rằng trong hàm `handleClick`, chúng ta sử dụng `.slice()` để 
 
 ### Tại sao tính bất biến là quan trọng {#why-immutability-is-important}
 
-<<<<<<< HEAD
 Trong phần code ví dụ trước, ta đã sử dụng hàm `.slice()` để tạo ra bản sao của mảng `squares` thay vì sửa trực tiếp nó. Giờ ta sẽ thảo luận về tính bất biến và vì sao tính bất biến lại quan trọng.
-=======
-In the previous code example, we suggested that you create a copy of the `squares` array using the `slice()` method instead of modifying the existing array. We'll now discuss immutability and why immutability is important to learn.
->>>>>>> a88b1e1331126287ccf03f2f4ec25ec38513b911
 
 Thông thường, ta có 2 hướng tiếp cận đối với việc thay đổi dữ liệu. Hướng tiếp cận đầu tiên đó là *thay đổi (mutate)* trực tiếp giá trị của dữ liệu. Hướng tiếp cận thứ hai đó là thay dữ liệu hiện có bằng một bản sao của nó và sửa đổi trên bản sao đó.
 
