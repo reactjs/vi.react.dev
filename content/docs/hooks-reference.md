@@ -180,7 +180,6 @@ Mảng phụ thuộc không được truyền dưới dạng argument cho một 
 const value = useContext(MyContext);
 ```
 
-Accepts a context object (the value returned from `React.createContext`) and returns the current context value for that context. The current context value is determined by the `value` prop of the nearest `<MyContext.Provider>` above the calling component in the tree.
 Chấp nhận một context object (giá trị trả về từ `React.createContext`) và trả về giá trị của context hiện tại. Giá trị context hiện tại được xác định bởi `giá trị` prop của `<MyContext.Provider>` gần nhất bên trên ở component trong một cây.
 
 Khi `<MyContext.Provider>` gần nhất bên trên component cập nhật, Hook này sẽ trigger render lại với context `value` mới nhất đã truyền vào `MyContext` provider. Ngay cả khi bạn dùng [`React.memo`](/docs/react-api.html#reactmemo) hoặc [`shouldComponentUpdate`](/docs/react-component.html#shouldcomponentupdate), việc rerender vẫn sẽ xảy ra khi component đó sử dụng `useContext`.
@@ -369,7 +368,6 @@ Bỏ vào một callback và một mảng phụ thuộc. `useCallback` sẽ tr�
 
 > Note
 >
-> The array of dependencies is not passed as arguments to the callback. Conceptually, though, that's what they represent: every value referenced inside the callback should also appear in the dependencies array. In the future, a sufficiently advanced compiler could create this array automatically.
 > Mảng phụ thuộc không được truyền dưới dạng argument cho một callback. Về mặt lý thuyết, mặc dù đây là điều đã được miêu tả: mọi giá trị được tham chiếu bên trong hàm callback nên xuất hiện trong mảng phụ thuộc. Trong tương lai, trình biên dịch đủ nâng cao sẽ có thể tạo mảng này một cách tự động.
 >
 >Chúng tôi khuyên dùng quy tắc [`exhaustive-deps`](https://github.com/facebook/react/issues/14920) là một phần của [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks#installation). Nó sẽ cảnh báo khi dependencies có lỗi cụ thể và có thể gợi ý cách sửa lỗi.
