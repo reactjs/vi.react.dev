@@ -8,9 +8,9 @@ React có thể được sử dụng trong bất kỳ ứng dụng web nào. Nó
 
 ## Tích hợp các Plugin thao tác DOM {#integrating-with-dom-manipulation-plugins}
 
-React không nhận biết được những sự thay đổi của DOM nếu DOM được tác động từ bên ngoài. Việc quyết định update hay không sẽ dựa trên chính những thành phần đại diện bên trong nó, và nếu những DOM node này được thay đổi bởi một thứ viện khác, React sẽ cảm thấy khó hiểu và không có cách nào để xử lý.
+React không nhận biết được những sự thay đổi của DOM nếu DOM được tác động từ bên ngoài. Việc quyết định update hay không sẽ dựa trên chính những thành phần đại diện bên trong nó, và nếu những DOM node này được thay đổi bởi một thứ viện khác, React sẽ cảm thấy khó hiểu và không có cách nào để xử lý chúng.
 
-Điều này không có nghĩa là không thể hoặc rất khó để kết hợp React với những cách thao tác DOM khác, bạn chỉ cần chú ý mỗi phần riêng biệt sẽ làm gì.
+Nhưng điều này không có nghĩa là không thể hoặc quá khó trong việc kết hợp React với những plugin thao tác DOM khác, bạn chỉ cần chú ý đến nhiệm vụ của mỗi phần và mỗi phần đó sẽ làm những việc gì.
 
 Cách dễ nhất để tránh xung đột là ngăn chặn component khỏi việc update. Bạn có thể làm việc này bằng cách render các element mà React không có động cơ để update nó, ví dụ như một thẻ div trống `<div />`.
 
@@ -43,11 +43,11 @@ Chú ý chúng ta sử dụng [lifecycle method](/docs/react-component.html#the-
 
 ### Tích hợp với một plugin jQuery cụ thể {#integrating-with-jquery-chosen-plugin}
 
-Để có một ví dụ rõ ràng hơn cho những ý tưởng này, hãy làm một wrapper nho nhỏ cho plugin [Chosen](https://harvesthq.github.io/chosen/), một plugin hỗ trợ input `<select>`.
+Để có một ví dụ rõ ràng hơn cho những khái niệm này, hãy làm một wrapper nho nhỏ cho plugin [Chosen](https://harvesthq.github.io/chosen/), một plugin hỗ trợ input `<select>`.
 
 >**Lưu ý:**
 >
->Chỉ vì có thể, không có nghĩa rằng đó là cách tiếp cận tốt nhất của các ứng dụng React. Chúng tôi khuyến khích bạn sử dụng các component React khi có thể. Các component React dễ dàng được tái sử dụng hơn trong các ứng dụng React, và thường cung cấp nhiều hơn các khả năng điều khiển hành động và hiển thị của component đó.
+>Vì nó khả thi, không có nghĩa rằng nó là cách tiếp cận tốt nhất cho các ứng dụng React. Chúng tôi khuyến khích bạn sử dụng các component React khi có thể. Các component React dễ dàng được tái sử dụng hơn trong các ứng dụng React, và thường cung cấp nhiều hơn các khả năng điều khiển hành động và hiển thị của component đó.
 
 Đầu tiên, hãy xem plugin Chosen làm gì với DOM.
 
@@ -102,7 +102,7 @@ componentWillUnmount() {
 
 [**Thử trên Codepen**](https://codepen.io/gaearon/pen/qmqeQx?editors=0010)
 
-Lưu ý rằng React không cho bất kỳ một ý nghĩa đặc biệt nào cho field `this.el`. Nó hoạt động chỉ bởi vì chúng ta đã gán cho nó một `ref` trong method `render()`:
+Lưu ý rằng React không gán bất kỳ một ý nghĩa đặc biệt nào cho field `this.el`. Nó hoạt động chỉ bởi vì chúng ta đã gán cho nó một `ref` trong method `render()`:
 
 ```js
 <select className="Chosen-select" ref={el => this.el = el}>
@@ -192,7 +192,7 @@ class Chosen extends React.Component {
 
 React có thể được thêm vào bên trong các ứng dụng khác nhờ vào sự linh hoạt của [`ReactDOM.render()`](/docs/react-dom.html#render).
 
-Mặc dù React thường được sử dụng ban đầu để thêm một component root vào DOM, `ReactDOM.render()` cũng có thể được gọi nhiều lần cho những phần UI độc lập, ví dụ những thành phần nhỏ như một button, hoặc lớn như một ứng dụng.
+Mặc dù React thường được sử dụng ban đầu để thêm một component root vào DOM, `ReactDOM.render()` cũng có thể được gọi nhiều lần với những phần UI độc lập, ví dụ những thành phần nhỏ như một button, hoặc lớn như một ứng dụng.
 
 Thực tế, đây là chính xác cách mà React được sử dụng trong Facebook. Nó để chúng tôi viết từng phần nhỏ của ứng dụng bằng React, và kết hợp chúng với những template được tạo bởi server có sẵn của chúng tôi và những đoạn code khác trên phần client.
 
@@ -399,7 +399,7 @@ function connectToBackboneModel(WrappedComponent) {
 }
 ```
 
-Để chứng mình làm sao sử dụng nó, chúng ta sẽ connect một component `NameInput` đến một Backbone model, và update attribute `firstName` của nó mỗi khi input thay đổi:
+Để chứng minh làm sao sử dụng nó, chúng ta sẽ connect một component `NameInput` đến một Backbone model, và update attribute `firstName` của nó mỗi khi input thay đổi:
 
 ```js{4,6,11,15,19-21}
 function NameInput(props) {
