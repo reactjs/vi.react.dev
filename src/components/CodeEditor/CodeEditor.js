@@ -105,7 +105,7 @@ class CodeEditor extends Component {
                 color: colors.white,
               }}>
               <MetaTitle onDark={true}>
-                Trình code Live JSX
+                Trình Chỉnh Sửa JSX
                 <label
                   css={{
                     fontSize: 14,
