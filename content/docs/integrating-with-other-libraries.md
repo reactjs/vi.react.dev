@@ -1,26 +1,26 @@
 ---
 id: integrating-with-other-libraries
-title: Integrating with Other Libraries
+title: Tích hợp các thư viện bên ngoài
 permalink: docs/integrating-with-other-libraries.html
 ---
 
-React can be used in any web application. It can be embedded in other applications and, with a little care, other applications can be embedded in React. This guide will examine some of the more common use cases, focusing on integration with [jQuery](https://jquery.com/) and [Backbone](https://backbonejs.org/), but the same ideas can be applied to integrating components with any existing code.
+React có thể được sử dụng trong bất kỳ ứng dụng web nào. Nó có thể được thêm vào các ứng dụng khác, và ngược lại, những ứng dụng khác cũng có thể được thêm vào trong React. Bài hướng dẫn này sẽ đi vào một vài trường hợp phổ biến, tập trung vào việc tích hợp [jQuery](https://jquery.com/) và [Backbone](https://backbonejs.org/), với cách làm tương tự có thể được áp dụng để tích hợp component với bất kỳ đoạn code có sẵn nào đó.
 
-## Integrating with DOM Manipulation Plugins {#integrating-with-dom-manipulation-plugins}
+## Tích hợp các Plugin thao tác DOM {#integrating-with-dom-manipulation-plugins}
 
-React is unaware of changes made to the DOM outside of React. It determines updates based on its own internal representation, and if the same DOM nodes are manipulated by another library, React gets confused and has no way to recover.
+React không nhận biết được những sự thay đổi của DOM nếu DOM được tác động từ bên ngoài. Việc quyết định update hay không sẽ dựa trên chính những thành phần đại diện bên trong nó, và nếu những DOM node này được thay đổi bởi một thứ viện khác, React sẽ cảm thấy khó hiểu và không có cách nào để xử lý chúng.
 
-This does not mean it is impossible or even necessarily difficult to combine React with other ways of affecting the DOM, you just have to be mindful of what each is doing.
+Nhưng điều này không có nghĩa là không thể hoặc quá khó trong việc kết hợp React với những plugin thao tác DOM khác, bạn chỉ cần chú ý đến nhiệm vụ của mỗi phần và mỗi phần đó sẽ làm những việc gì.
 
-The easiest way to avoid conflicts is to prevent the React component from updating. You can do this by rendering elements that React has no reason to update, like an empty `<div />`.
+Cách dễ nhất để tránh xung đột là ngăn chặn component khỏi việc update. Bạn có thể làm việc này bằng cách render các element mà React không có động cơ để update nó, ví dụ như một thẻ div trống `<div />`.
 
-### How to Approach the Problem {#how-to-approach-the-problem}
+### Tiếp cận vấn đề {#how-to-approach-the-problem}
 
-To demonstrate this, let's sketch out a wrapper for a generic jQuery plugin.
+Để chứng minh điều trên, hãy bắt đầu với một đoạn wrapper của plugin jQuery
 
-We will attach a [ref](/docs/refs-and-the-dom.html) to the root DOM element. Inside `componentDidMount`, we will get a reference to it so we can pass it to the jQuery plugin.
+Chúng ta sẽ gán [ref](/docs/refs-and-the-dom.html) vào phần tử root DOM. Bên trong `componentDidMount`, chúng ta sẽ tham chiếu đến nó và có thể truyền nó đến plugin jQuery.
 
-To prevent React from touching the DOM after mounting, we will return an empty `<div />` from the `render()` method. The `<div />` element has no properties or children, so React has no reason to update it, leaving the jQuery plugin free to manage that part of the DOM:
+Để ngăn việc React tác động đến DOM sau khi DOM được mount, chúng ta sẽ trả về một `<div />` trống từ method `render()`. Bởi vì phần tử `<div />` không có thuộc tính hay phần tử con, nên React sẽ không có lí do gì để update nó, và để cho jQuery plugin được thoải mái quản lý phần DOM này:
 
 ```js{3,4,8,12}
 class SomePlugin extends React.Component {
@@ -39,21 +39,21 @@ class SomePlugin extends React.Component {
 }
 ```
 
-Note that we defined both `componentDidMount` and `componentWillUnmount` [lifecycle methods](/docs/react-component.html#the-component-lifecycle). Many jQuery plugins attach event listeners to the DOM so it's important to detach them in `componentWillUnmount`. If the plugin does not provide a method for cleanup, you will probably have to provide your own, remembering to remove any event listeners the plugin registered to prevent memory leaks.
+Chú ý chúng ta sử dụng [lifecycle method](/docs/react-component.html#the-component-lifecycle) `componentDidMount` và `componentWillUnmount`. Nhiều plugin jQuery chứa các sự kiện lắng nghe của DOM nên việc cleanup những event listener trong `componentWillUnmount` là điều quan trọng. Nếu những plugin này không cung cấp method cho việc cleanup, có thể bạn phải tự mình làm việc đó, hãy nhớ xóa hết các event listener của plugin để ngăn chặn tình trạng tràn bộ nhớ.
 
-### Integrating with jQuery Chosen Plugin {#integrating-with-jquery-chosen-plugin}
+### Tích hợp với một plugin jQuery cụ thể {#integrating-with-jquery-chosen-plugin}
 
-For a more concrete example of these concepts, let's write a minimal wrapper for the plugin [Chosen](https://harvesthq.github.io/chosen/), which augments `<select>` inputs.
+Để có một ví dụ rõ ràng hơn cho những khái niệm này, hãy làm một wrapper nho nhỏ cho plugin [Chosen](https://harvesthq.github.io/chosen/), một plugin hỗ trợ input `<select>`.
 
->**Note:**
+>**Lưu ý:**
 >
->Just because it's possible, doesn't mean that it's the best approach for React apps. We encourage you to use React components when you can. React components are easier to reuse in React applications, and often provide more control over their behavior and appearance.
+>Vì nó khả thi, không có nghĩa rằng nó là cách tiếp cận tốt nhất cho các ứng dụng React. Chúng tôi khuyến khích bạn sử dụng các component React khi có thể. Các component React dễ dàng được tái sử dụng hơn trong các ứng dụng React, và thường cung cấp nhiều hơn các khả năng điều khiển hành động và hiển thị của component đó.
 
-First, let's look at what Chosen does to the DOM.
+Đầu tiên, hãy xem plugin Chosen làm gì với DOM.
 
-If you call it on a `<select>` DOM node, it reads the attributes off of the original DOM node, hides it with an inline style, and then appends a separate DOM node with its own visual representation right after the `<select>`. Then it fires jQuery events to notify us about the changes.
+Nếu bạn gọi Chosen trên một phần tử DOM `<select>`, nó sẽ đọc các attribute của phần tử DOM ban đầu, ẩn DOM này bằng inline style, và sau đó thêm một phần tử DOM riêng biệt của chính nó ngay sau `<select>`. Sau đó sẽ kích hoạt sự kiện jQuery để thông báo cho chúng ta về sự thay đổi.
 
-Let's say that this is the API we're striving for with our `<Chosen>` wrapper React component:
+Hãy cho rằng đây là API chúng ta đang sử dụng với component wrapper `<Chosen>`
 
 ```js
 function Example() {
@@ -67,9 +67,9 @@ function Example() {
 }
 ```
 
-We will implement it as an [uncontrolled component](/docs/uncontrolled-components.html) for simplicity.
+Chúng ta sẽ đơn giản coi nó như là một [uncontrolled component](/docs/uncontrolled-components.html).
 
-First, we will create an empty component with a `render()` method where we return `<select>` wrapped in a `<div>`:
+Đầu tiên, chúng ta sẽ tạo một component trống với method `render()` trả về `<select>` được bọc trong `<div>`:
 
 ```js{4,5}
 class Chosen extends React.Component {
@@ -85,9 +85,9 @@ class Chosen extends React.Component {
 }
 ```
 
-Notice how we wrapped `<select>` in an extra `<div>`. This is necessary because Chosen will append another DOM element right after the `<select>` node we passed to it. However, as far as React is concerned, `<div>` always only has a single child. This is how we ensure that React updates won't conflict with the extra DOM node appended by Chosen. It is important that if you modify the DOM outside of React flow, you must ensure React doesn't have a reason to touch those DOM nodes.
+Để ý cách chúng ta bọc `<select>` trong thẻ `<div>` này. Điều này là cần thiết bởi vì Chosen sẽ thêm một phần tử DOM khác ngay sau `<select>` chúng ta truyền vào. Tuy nhiên, theo như những gì React được biết, `<div>` chỉ luôn luôn có một phần tử con. Đây là cách chúng ta chắc chắn rằng những update sẽ không gây xung đột với phần tử DOM được thêm bởi Chosen. Nên điều quan trọng là nếu bạn chỉnh sửa DOM từ bên ngoài React, bạn phải chắc chắn rằng React không có lí do gì để động vào những DOM đó.
 
-Next, we will implement the lifecycle methods. We need to initialize Chosen with the ref to the `<select>` node in `componentDidMount`, and tear it down in `componentWillUnmount`:
+Tiếp theo, chúng ta sẽ thực hiện các method lifecycle. Chúng ta cần khởi tạo Chosen và gán ref cho `<select>` bên trong `componentDidMount`, sau đó cleanup trong `componentWillUnmount`:
 
 ```js{2,3,7}
 componentDidMount() {
@@ -100,17 +100,17 @@ componentWillUnmount() {
 }
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/qmqeQx?editors=0010)
+[**Thử trên Codepen**](https://codepen.io/gaearon/pen/qmqeQx?editors=0010)
 
-Note that React assigns no special meaning to the `this.el` field. It only works because we have previously assigned this field from a `ref` in the `render()` method:
+Lưu ý rằng React không gán bất kỳ một ý nghĩa đặc biệt nào cho field `this.el`. Nó hoạt động chỉ bởi vì chúng ta đã gán cho nó một `ref` trong method `render()`:
 
 ```js
 <select className="Chosen-select" ref={el => this.el = el}>
 ```
 
-This is enough to get our component to render, but we also want to be notified about the value changes. To do this, we will subscribe to the jQuery `change` event on the `<select>` managed by Chosen.
+Chừng này là đủ để cho component của chúng ta render, nhưng nếu chúng ta cũng muốn được thông báo về sự thay đổi của giá trị thì sao. Để làm việc này, chúng ta sẽ theo dõi sự kiện `change` của jQuery trên `<select>` - thẻ được quản lý bởi Chosen.
 
-We won't pass `this.props.onChange` directly to Chosen because component's props might change over time, and that includes event handlers. Instead, we will declare a `handleChange()` method that calls `this.props.onChange`, and subscribe it to the jQuery `change` event:
+Chúng ta sẽ không truyền `this.props.onChange` trực tiếp đến Chosen bởi vì những props của component có thể thay đổi liên tục, và nó bao gồm cả những hàm xử lý sự kiện. Thay vào đó, chúng ta sẽ định nghĩa một method `handleChange()` và gọi `this.props.onChange`, sau đó theo dõi nó thông qua sự kiện `change` của jQuery:
 
 ```js{5,6,10,14-16}
 componentDidMount() {
@@ -131,11 +131,11 @@ handleChange(e) {
 }
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/bWgbeE?editors=0010)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/bWgbeE?editors=0010)
 
-Finally, there is one more thing left to do. In React, props can change over time. For example, the `<Chosen>` component can get different children if parent component's state changes. This means that at integration points it is important that we manually update the DOM in response to prop updates, since we no longer let React manage the DOM for us.
+Cuối cùng, còn một việc nữa. Trong React, props có thể thay đổi liên tục. Ví dụ, component `<Chosen>` có thể có những children khác nhau nếu state của component cha thay đổi. Nghĩa là khi tích hợp, điều quan trọng là chúng ta phải update DOM một cách thủ công trong trong việc phản ứng các update của prop, bởi vì chúng ta không còn để React quản lý DOM nữa.
 
-Chosen's documentation suggests that we can use jQuery `trigger()` API to notify it about changes to the original DOM element. We will let React take care of updating `this.props.children` inside `<select>`, but we will also add a `componentDidUpdate()` lifecycle method that notifies Chosen about changes in the children list:
+Tài liệu của Chosen cho rằng chúng ta có thể sử dụng jQuery API `trigger()` để thông báo về những thay đổi trong DOM ban đầu. Chúng ta sẽ để React lo phần update của `this.props.children` bên trong `<select>`, nhưng chúng ta cũng sẽ thêm method vòng đời `componentDidUpdate()` để thông báo cho Chosen về những thay đổi trong list children:
 
 ```js{2,3}
 componentDidUpdate(prevProps) {
@@ -145,9 +145,9 @@ componentDidUpdate(prevProps) {
 }
 ```
 
-This way, Chosen will know to update its DOM element when the `<select>` children managed by React change.
+Bằng cách này, Chosen sẽ biết để update DOM của nó khi children `<select>` được thay đổi bởi React. 
 
-The complete implementation of the `Chosen` component looks like this:
+Cách vận hành đầy đủ của component `Chosen` sẽ trông như thế này:
 
 ```js
 class Chosen extends React.Component {
@@ -186,21 +186,21 @@ class Chosen extends React.Component {
 }
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/xdgKOz?editors=0010)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/xdgKOz?editors=0010)
 
-## Integrating with Other View Libraries {#integrating-with-other-view-libraries}
+## Tích hợp những thư viện View khác {#integrating-with-other-view-libraries}
 
-React can be embedded into other applications thanks to the flexibility of [`ReactDOM.render()`](/docs/react-dom.html#render).
+React có thể được thêm vào bên trong các ứng dụng khác nhờ vào sự linh hoạt của [`ReactDOM.render()`](/docs/react-dom.html#render).
 
-Although React is commonly used at startup to load a single root React component into the DOM, `ReactDOM.render()` can also be called multiple times for independent parts of the UI which can be as small as a button, or as large as an app.
+Mặc dù React thường được sử dụng ban đầu để thêm một component root vào DOM, `ReactDOM.render()` cũng có thể được gọi nhiều lần với những phần UI độc lập, ví dụ những thành phần nhỏ như một button, hoặc lớn như một ứng dụng.
 
-In fact, this is exactly how React is used at Facebook. This lets us write applications in React piece by piece, and combine them with our existing server-generated templates and other client-side code.
+Thực tế, đây là chính xác cách mà React được sử dụng trong Facebook. Nó để chúng tôi viết từng phần nhỏ của ứng dụng bằng React, và kết hợp chúng với những template được tạo bởi server có sẵn của chúng tôi và những đoạn code khác trên phần client.
 
-### Replacing String-Based Rendering with React {#replacing-string-based-rendering-with-react}
+### Thay thế String-Based Rendering với React {#replacing-string-based-rendering-with-react}
 
-A common pattern in older web applications is to describe chunks of the DOM as a string and insert it into the DOM like so: `$el.html(htmlString)`. These points in a codebase are perfect for introducing React. Just rewrite the string based rendering as a React component.
+Một pattern phổ biến trên những ứng dụng cũ là viết các phần của DOM như là một string và thêm nó vào DOM chẳng hạn như: `$el.html(htmlString)`. Những đặc điểm này trong codebase là những trường hợp hoàn hảo cho việc sử dụng React. Chỉ cần viết lại string based rendering như một component React.
 
-So the following jQuery implementation...
+Hãy theo dõi cách sử dụng jQuery sau...
 
 ```js
 $('#container').html('<button id="btn">Say Hello</button>');
@@ -209,7 +209,7 @@ $('#btn').click(function() {
 });
 ```
 
-...could be rewritten using a React component:
+...có thể được viết lại sử dụng một component React:
 
 ```js
 function Button() {
@@ -227,7 +227,7 @@ ReactDOM.render(
 );
 ```
 
-From here you could start moving more logic into the component and begin adopting more common React practices. For example, in components it is best not to rely on IDs because the same component can be rendered multiple times. Instead, we will use the [React event system](/docs/handling-events.html) and register the click handler directly on the React `<button>` element:
+Từ đây bạn có thể bắt đầu sử dụng nhiều logic hơn với component và áp dụng nhiều React practice hơn. Ví dụ, trong những component, việc không phụ thuộc vào ID là tốt nhất bởi vì một component tương tự không thể được render nhiều lần. Thay vào đó, chúng tôi sử dụng [React event system](/docs/handling-events.html) và xử lý sự kiện click trực tiếp trên phần tử `<button>`:
 
 ```js{2,6,9}
 function Button(props) {
@@ -247,15 +247,15 @@ ReactDOM.render(
 );
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/RVKbvW?editors=1010)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/RVKbvW?editors=1010)
 
-You can have as many such isolated components as you like, and use `ReactDOM.render()` to render them to different DOM containers. Gradually, as you convert more of your app to React, you will be able to combine them into larger components, and move some of the `ReactDOM.render()` calls up the hierarchy.
+Bạn có thể có nhiều component riêng biệt nhiều như ý bạn mong muốn, và sử dụng `ReactDOM.render()` để render chúng trên những DOM container khác nhau. Dần dần, khi bạn chuyển các ứng dụng của bạn sang React, bạn sẽ có thể kết hợp nó thành những components lớn hơn, và sử dụng `ReactDOM.render()` theo một hệ thống phân cấp.
 
-### Embedding React in a Backbone View {#embedding-react-in-a-backbone-view}
+### Thêm React vào một Backbone View {#embedding-react-in-a-backbone-view}
 
-[Backbone](https://backbonejs.org/) views typically use HTML strings, or string-producing template functions, to create the content for their DOM elements. This process, too, can be replaced with rendering a React component.
+[Backbone](https://backbonejs.org/) view đặc trưng sử dụng HTML string, hoặc các hàm string-producing template để tạo nội dung cho các phần tử DOM của nó. Quá trình này, cũng có thể được thay thế bằng việc render một component React.
 
-Below, we will create a Backbone view called `ParagraphView`. It will override Backbone's `render()` function to render a React `<Paragraph>` component into the DOM element provided by Backbone (`this.el`). Here, too, we are using [`ReactDOM.render()`](/docs/react-dom.html#render):
+Dưới đây, chúng ta sẽ tạo một Backbone view gọi là `ParagraphView`. Chúng ta sẽ ghi đè lên function `render()` của Backbone để render một component `<Paragraph>` vào phần tử DOM được cung cấp bởi Backbone (`this.el`). Ở đây, chúng ta cũng sử dụng [`ReactDOM.render()`](/docs/react-dom.html#render):
 
 ```js{1,5,8,12}
 function Paragraph(props) {
@@ -275,23 +275,23 @@ const ParagraphView = Backbone.View.extend({
 });
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/gWgOYL?editors=0010)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/gWgOYL?editors=0010)
 
-It is important that we also call `ReactDOM.unmountComponentAtNode()` in the `remove` method so that React unregisters event handlers and other resources associated with the component tree when it is detached.
+Một điều quan trọng là chúng ta cũng gọi `ReactDOM.unmountComponentAtNode()` trong method `remove` để React có thể xóa các hàm xử lý sự kiện và những tài nguyên khác liên quan tới component tree khi bị loại bỏ.
 
-When a component is removed *from within* a React tree, the cleanup is performed automatically, but because we are removing the entire tree by hand, we must call this method.
+Khi một component bị loại bỏ *từ bên trong* một React tree, việc cleanup được thực hiện một cách tự động, nhưng bởi vì chúng ta đang loại bỏ toàn bộ tree một cách thủ công, nên chúng ta phải gọi method này.
 
-## Integrating with Model Layers {#integrating-with-model-layers}
+## Tích hợp với Model Layers {#integrating-with-model-layers}
 
-While it is generally recommended to use unidirectional data flow such as [React state](/docs/lifting-state-up.html), [Flux](https://facebook.github.io/flux/), or [Redux](https://redux.js.org/), React components can use a model layer from other frameworks and libraries.
+Bình thường chúng ta được đề xuất sử dụng data flow một chiều như [React state](/docs/lifting-state-up.html), [Flux](https://facebook.github.io/flux/), hoặc [Redux](https://redux.js.org/), các component React cũng có thể sử dụng model layer từ những framework và thư viện khác.
 
-### Using Backbone Models in React Components {#using-backbone-models-in-react-components}
+### Sử dụng Backbone Models trong Component React {#using-backbone-models-in-react-components}
 
-The simplest way to consume [Backbone](https://backbonejs.org/) models and collections from a React component is to listen to the various change events and manually force an update.
+Cách đơn giản nhất để sử dụng những [Backbone](https://backbonejs.org/) model và collection từ một component React là lắng nghe các sự kiện thay đổi trước đó và ép buộc việc update một cách thủ công.
 
-Components responsible for rendering models would listen to `'change'` events, while components responsible for rendering collections would listen for `'add'` and `'remove'` events. In both cases, call [`this.forceUpdate()`](/docs/react-component.html#forceupdate) to rerender the component with the new data.
+Những component chịu trách nhiệm việc render model sẽ lắng nghe những sự kiện `'change'`, trong khi những component chịu trách nhiệm việc render collection sẽ lắng nghe sự kiện `'add'` và `'remove'`. Trong cả hai trường hợp này, chúng ta gọi [`this.forceUpdate()`](/docs/react-component.html#forceupdate) để rerender component với data mới.
 
-In the example below, the `List` component renders a Backbone collection, using the `Item` component to render individual items.
+Trong ví dụ dưới đây, component `List` render một Backbone collection, và sử dụng component `Item` để render những item bên trong.
 
 ```js{1,7-9,12,16,24,30-32,35,39,46}
 class Item extends React.Component {
@@ -347,19 +347,19 @@ class List extends React.Component {
 }
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/GmrREm?editors=0010)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/GmrREm?editors=0010)
 
-### Extracting Data from Backbone Models {#extracting-data-from-backbone-models}
+### Trích xuất dữ liệu từ Backbone Models {#extracting-data-from-backbone-models}
 
-The approach above requires your React components to be aware of the Backbone models and collections. If you later plan to migrate to another data management solution, you might want to concentrate the knowledge about Backbone in as few parts of the code as possible.
+Cách áp dụng trên yêu cầu những component React của bạn phải theo dõi những model và collection Backbone. Nếu sau này bạn có kế hoạch chuyển sang một giải pháp quản lý data khác, bạn có thể muốn tổng hợp các kiến thức về Backbone một cách ít code nhất có thể.
 
-One solution to this is to extract the model's attributes as plain data whenever it changes, and keep this logic in a single place. The following is [a higher-order component](/docs/higher-order-components.html) that extracts all attributes of a Backbone model into state, passing the data to the wrapped component.
+Một giải pháp cho việc này là trích xuất các attributes của model như những dữ liệu đơn giản, và giữ logic này trong một khu vực riêng biệt. Sử dụng [higher-order component](/docs/higher-order-components.html) để trích xuất tất cả attribute của một Backbone model vào một state, sau đó truyền dữ liệu đến component con.
 
-This way, only the higher-order component needs to know about Backbone model internals, and most components in the app can stay agnostic of Backbone.
+Bằng cách này, chỉ những higher-order component mới biết về bên trong Backbone model, và hầu hết các component trong ứng không liên quan gì đến Backbone.
 
-In the example below, we will make a copy of the model's attributes to form the initial state. We subscribe to the `change` event (and unsubscribe on unmounting), and when it happens, we update the state with the model's current attributes. Finally, we make sure that if the `model` prop itself changes, we don't forget to unsubscribe from the old model, and subscribe to the new one.
+Ở trong ví dụ dưới đây, chúng ta sẽ tạo một bản copy của các attribute của model làm một state khởi tạo. Chúng ta theo dõi sự kiện `change` (sẽ dừng lại khi unmount), và khi sự kiện xảy ra, chúng ta update state với những attribute hiện tại của model. Cuối cùng, chúng ta cần đảm bảo rằng nếu prop `model` tự thay đổi, chúng ta sẽ dừng theo dõi model cũ, và chuyển qua theo dõi model mới.
 
-Note that this example is not meant to be exhaustive with regards to working with Backbone, but it should give you an idea for how to approach this in a generic way:
+Lưu ý rằng ví dụ này không phải là đầy đủ trong việc làm việc với Backbone, nhưng nó sẽ cho bạn một ý tưởng về cách tiếp cận theo một cách chung chung:
 
 ```js{1,5,10,14,16,17,22,26,32}
 function connectToBackboneModel(WrappedComponent) {
@@ -399,7 +399,7 @@ function connectToBackboneModel(WrappedComponent) {
 }
 ```
 
-To demonstrate how to use it, we will connect a `NameInput` React component to a Backbone model, and update its `firstName` attribute every time the input changes:
+Để chứng minh làm sao sử dụng nó, chúng ta sẽ connect một component `NameInput` đến một Backbone model, và update attribute `firstName` của nó mỗi khi input thay đổi:
 
 ```js{4,6,11,15,19-21}
 function NameInput(props) {
@@ -434,6 +434,6 @@ ReactDOM.render(
 );
 ```
 
-[**Try it on CodePen**](https://codepen.io/gaearon/pen/PmWwwa?editors=0010)
+[**Thử trên CodePen**](https://codepen.io/gaearon/pen/PmWwwa?editors=0010)
 
-This technique is not limited to Backbone. You can use React with any model library by subscribing to its changes in the lifecycle methods and, optionally, copying the data into the local React state.
+Kỹ thuật này không chỉ giới hạn cho Backbone. Bạn cũng có thể sử dụng React với bấy kỳ thư viện model nào bằng cách theo dõi các thay đổi của nó trong các method lifecycle và tùy ý copy các dữ liệu vào các state local.
