@@ -227,7 +227,11 @@ class Parent extends React.Component {
 this.inputElement.current.focus();
 ```
 
+<<<<<<< HEAD
 Khi sử dụng HOC để mở rộng components, [chuyển tiếp ref](/docs/forwarding-refs.html) được khuyên dùng để bao bọc component sử dụng `forwardRef` function của React. Nếu một third party HOC không implement ref forwarding, pattern bên trên vẫn có thể sử dụng như một fallback.
+=======
+When using a [HOC](/docs/higher-order-components.html) to extend components, it is recommended to [forward the ref](/docs/forwarding-refs.html) to the wrapped component using the `forwardRef` function of React. If a third party HOC does not implement ref forwarding, the above pattern can still be used as a fallback.
+>>>>>>> f0a9793dff9f8e86ec365bfadb0b4b23c6f618ce
 
 Một ví dụ về cách quản lý focus tốt là [react-aria-modal](https://github.com/davidtheclark/react-aria-modal). Đây là một ví dụ tương đối hiếm hoi nói về một cửa sổ modal có thể truy cập hoàn toàn. Nó không chỉ set focus ban đầu vào nút cancel (ngăn chặn người dùng không vô tình dùng bàn phím kích hoạt success action) và khóa focus từ bàn phím vào bên trong modal, nó cũng reset focus về lại element đã kích hoạt modal đó lúc ban đầu.
 
