@@ -15,13 +15,13 @@ var ReactTestUtils = require('react-dom/test-utils'); // ES5 với npm
 
 ## Tổng quan {#overview}
 
-`ReactTestUtils` giúp cho việc test các component trong React dễ dàng hơn trong một test framework mà bạn tùy thích. Ở Facebook chúng tôi dùng [Jest](https://facebook.github.io/jest/) để test JavaScript một cách dễ dàng. Giờ bạn có thể tìm hiểu cách bắt đầu với Jest thông qua website này [React Tutorial](https://jestjs.io/docs/tutorial-react).
+`ReactTestUtils` giúp cho việc test các component trong React dễ dàng hơn trong một test framework mà bạn muốn. Ở Facebook chúng tôi dùng [Jest](https://facebook.github.io/jest/) để test JavaScript một cách dễ dàng. Giờ bạn có thể tìm hiểu cách bắt đầu với Jest thông qua website này [React Tutorial](https://jestjs.io/docs/tutorial-react).
 
 > Lưu ý:
 >
-> Chúng tôi khuyến nghị dùng [React Testing Library](https://testing-library.com/react) được thiết kế để hỗ trợ viết test mà dùng các component của bạn như là những người dùng cuối cùng(có thể hiểu như là người dùng thực tế).
+> Chúng tôi khuyên dùng [React Testing Library](https://testing-library.com/react) được thiết kế để hỗ trợ viết test mà dùng các component của bạn như là những người dùng cuối cùng(có thể hiểu như là người dùng thực tế).
 > 
-> Đối với phiên bản React <= 16, thư viện [Enzyme](https://airbnb.io/enzyme/) giúp bạn dễ dàng assert(là một xác nhận - assert - là một vị từ được kết nối với một điểm trong chương trình, luôn được đánh giá là true tại thời điểm đó trong quá trình thực thi mã), sử dụng, và kiểm qua output các React Component của bạn.
+> Đối với phiên bản React <= 16, thư viện [Enzyme](https://airbnb.io/enzyme/) giúp bạn dễ dàng assert(là một xác nhận - assert - là một vị từ được kết nối với một điểm trong chương trình, luôn được đánh giá là true tại thời điểm đó trong quá trình thực thi mã), sử dụng và kiểm tra output của các React Component.
 
 
 
@@ -46,7 +46,7 @@ var ReactTestUtils = require('react-dom/test-utils'); // ES5 với npm
 
 ### `act()` {#act}
 
-Để chuẩn bị một component cho các assertion(assertion chính là những method dùng để kiểm tra kết quả của đơn vị cần test có đúng với mong đợi không), để code render component đó và thực hiện cập nhật bên trong hàm `act()`. Điều này giúp cho test của bạn chạy gần giống như với cách React chạy trên browser(trình duyệt) thực tế.
+Để chuẩn bị một component cho các assertion(assertion chính là những method dùng để kiểm tra kết quả của đơn vị cần test có đúng với mong đợi không), render component đó và thực hiện cập nhật bên trong hàm `act()`. Điều này giúp cho test của bạn chạy gần giống như với cách React chạy trên browser thực tế.
 
 >Lưu ý
 >
@@ -348,6 +348,6 @@ ReactTestUtils.Simulate.keyDown(node, {key: "Enter", keyCode: 13, which: 13});
 
 > Lưu ý
 >
-> Bạn sẽ phải cung cấp tất cả event property mà bạn đang dùng trong component của bạn (v.d. keyCode, which, etc...) mà React sẽ không tạo ra bất kỳ những gì trong đó cho bạn.
+> React sẽ không tạo ra mà bạn phải cung cấp tất cả event property đang dùng trong component của bạn (v.d. keyCode, which, etc...).
 
 * * *
