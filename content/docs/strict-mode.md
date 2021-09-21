@@ -16,19 +16,19 @@ Bạn có thể bật chế độ StrictMode cho bất kỳ phần nào trong �
 Trong ví dụ trên, các kiểm tra StrictMode *không* chạy trên component `Header` và `Footer`. Tuy nhiên, `ComponentOne` và `ComponentTwo`, cũng như tất cả các component con sẽ có các kiểm tra.
 
 `StrictMode` hiện tại hỗ trợ:
-* [Xác định các thành phần có vòng đời không an toàn](#identifying-unsafe-lifecycles)
+* [Xác định các thành phần có lifecycle không an toàn](#identifying-unsafe-lifecycles)
 * [Cảnh báo về việc sử dụng API tham chiếu chuỗi kiểu cũ](#warning-about-legacy-string-ref-api-usage)
 * [Cảnh báo về việc sử dụng findDOMNode không còn dùng nữa](#warning-about-deprecated-finddomnode-usage)
-* [Phát hiện các hiệu ứng phụ không mong muốn](#detecting-unexpected-side-effects)
-* [Phát hiện API ngữ cảnh cũ](#detecting-legacy-context-api)
+* [Phát hiện các side-effects không mong muốn](#detecting-unexpected-side-effects)
+* [Phát hiện Context API cũ](#detecting-legacy-context-api)
 
 Chức năng bổ sung sẽ được thêm vào với các bản phát hành React trong tương lai.
 
-### Xác định các vòng đời không an toàn {#identifying-unsafe-lifecycles}
+### Xác định các lifecycle không an toàn {#identifying-unsafe-lifecycles}
 
-Như đã giải thích [trong bài viết này](/blog/2018/03/27/update-on-async-rendering.html), một số phương thức vòng đời cũ không an toàn để sử dụng trong ứng dụng React bất đồng bộ. Tuy nhiên, nếu ứng dụng của bạn sử dụng thư viện của bên thứ ba, có thể khó đảm bảo rằng những vòng đời này không được sử dụng. May mắn, chế độ StrictMode có thể giúp giải quyết vấn đề này!
+Như đã giải thích [trong bài viết này](/blog/2018/03/27/update-on-async-rendering.html), một số phương thức lifecycle cũ không an toàn để sử dụng trong ứng dụng React bất đồng bộ. Tuy nhiên, nếu ứng dụng của bạn sử dụng thư viện của bên thứ ba, có thể khó đảm bảo rằng những lifecycle này không được sử dụng. May mắn, chế độ StrictMode có thể giúp giải quyết vấn đề này!
 
-Khi chế độ StrictMode được bật, React biên dịch danh sách tất cả các component bằng cách sử dụng các vòng đời không an toàn, và ghi lại một thông báo cảnh báo với thông tin về các component này, như sau: 
+Khi chế độ StrictMode được bật, React biên dịch danh sách tất cả các component bằng cách sử dụng các lifecycle không an toàn, và ghi lại một thông báo cảnh báo với thông tin về các component này, như sau: 
 
 ![](../images/blog/strict-mode-unsafe-lifecycles-warning.png)
 
@@ -77,15 +77,15 @@ class MyComponent extends React.Component {
 >
 > Trong CSS, thuộc tính [`display: contents`](https://developer.mozilla.org/en-US/docs/Web/CSS/display#display_contents) có thể được sử dụng nếu bạn không muốn một nút thành một phần của layout.
 
-### Phát hiện hiệu ứng phụ không mong muốn {#detecting-unexpected-side-effects}
+### Phát hiện side-effects không mong muốn {#detecting-unexpected-side-effects}
 
 Về mặt khái niệm, React hoạt động theo hai giai đoạn:
 * Giai đoạn **render** xác định thay đổi nào cần được thực hiện. Ví dụ: DOM. Trong giai đoạn này, React gọi `render` và sau đó so sánh kết quả với lần render trước đó.
 * Giai đoạn **commit** là khi React áp dụng bất kỳ thay đổi nào. (Trong trường hợp của React DOM, đây là khi React chèn, cập nhật và loại bỏ các nút DOM .) React cũng sẽ gọi các lifecycles như `componentDidMount` và `componentDidUpdate` trong giai đoạn này.
 
-Giai đoạn commit thường rất nhanh, nhưng render có thể chậm. Vì lý do này, chế độ concurrent (chưa được bật theo mặc định) chia nhỏ công việc render thành nhiều mảnh, tạm dừng và tiếp tục công việc để tránh chặn trình duyệt. Điều này có nghĩa là React sẽ gọi các vòng đời của giai đoạn render nhiều lần trước khi commit, hoặc nó có thể gọi chúng mà không thực hiện commit (do một lỗi hoặc sự gián đoạn có mức độ ưu tiên cao hơn).
+Giai đoạn commit thường rất nhanh, nhưng render có thể chậm. Vì lý do này, chế độ concurrent (chưa được bật theo mặc định) chia nhỏ công việc render thành nhiều mảnh, tạm dừng và tiếp tục công việc để tránh chặn trình duyệt. Điều này có nghĩa là React sẽ gọi các lifecycle của giai đoạn render nhiều lần trước khi commit, hoặc nó có thể gọi chúng mà không thực hiện commit (do một lỗi hoặc sự gián đoạn có mức độ ưu tiên cao hơn).
 
-Các vòng đời trong giai đoạn render bao gồm những phương thức sau:
+Các lifecycle trong giai đoạn render bao gồm những phương thức sau:
 * `constructor`
 * `componentWillMount` (hoặc `UNSAFE_componentWillMount`)
 * `componentWillReceiveProps` (hoặc `UNSAFE_componentWillReceiveProps`)
@@ -97,7 +97,7 @@ Các vòng đời trong giai đoạn render bao gồm những phương thức sa
 
 Vì các phương thức trên có thể được gọi nhiều lần, điều quan trọng là nó không chứa side-effects. Bỏ qua quy tắc này có thể dẫn đến nhiều vấn đề, bao gồm rò rỉ bộ nhớ và trạng thái ứng dụng không hợp lệ. Thật không may, có thể khó phát hiện những vấn đề này vì chúng thường có thể [không xác định](https://en.wikipedia.org/wiki/Deterministic_algorithm).
 
-StrictMode không thể tự phát hiện các hiệu ứng phụ cho bạn, nhưng nó có thể giúp bạn phát hiện chúng bằng cách làm cho chúng dễ xác định hơn một chút. Điều này được thực hiện bằng cách cố ý gọi kép các hàm sau:
+StrictMode không thể tự phát hiện các side-effect cho bạn, nhưng nó có thể giúp bạn phát hiện chúng bằng cách làm cho chúng dễ xác định hơn một chút. Điều này được thực hiện bằng cách cố ý gọi kép các hàm sau:
 
 * Các phương thức `constructor`, `render`, and `shouldComponentUpdate` trong class component
 * Phương thức tĩnh `getDerivedStateFromProps` trong class component
@@ -118,12 +118,12 @@ Bằng các phương thức gọi kép có chủ ý như hàm tạo của compon
 
 > Ghi chú:
 >
-> Bắt đầu từ React 17, React tự động sửa đổi các phương thức trong console như `console.log()` để tắt logs trong lần gọi thứ hai đến các hàm vòng đời. Tuy nhiên, nó có thể gây ra hành vi không mong muốn trong một số trường hợp nhất định [có thể sử dụng giải pháp thay thế](https://github.com/facebook/react/issues/20090#issuecomment-715927125).
+> Bắt đầu từ React 17, React tự động sửa đổi các phương thức trong console như `console.log()` để tắt logs trong lần gọi thứ hai đến các hàm lifecycle. Tuy nhiên, nó có thể gây ra hành vi không mong muốn trong một số trường hợp nhất định [có thể sử dụng giải pháp thay thế](https://github.com/facebook/react/issues/20090#issuecomment-715927125).
 
-### Phát hiện API ngữ cảnh cũ {#detecting-legacy-context-api}
+### Phát hiện Context API cũ {#detecting-legacy-context-api}
 
-API ngữ cảnh cũ dễ xảy ra lỗi và sẽ bị xóa trong phiên bản chính thức tương lai. Nó vẫn hoạt động cho tất cả các bản phát hành 16.x nhưng sẽ hiển thị thông báo cảnh báo này ở chế độ StrictMode:
+Context API cũ dễ xảy ra lỗi và sẽ bị xóa trong phiên bản chính thức tương lai. Nó vẫn hoạt động cho tất cả các bản phát hành 16.x nhưng sẽ hiển thị thông báo cảnh báo này ở chế độ StrictMode:
 
 ![](../images/blog/warn-legacy-context-in-strict-mode.png)
 
-Đọc [tài liệu API ngữ cảnh mới](/docs/context.html) để giúp chuyển sang phiên bản mới.
+Đọc [tài liệu Context API mới](/docs/context.html) để giúp chuyển sang phiên bản mới.
