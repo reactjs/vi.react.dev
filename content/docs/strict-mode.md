@@ -4,62 +4,62 @@ title: Strict Mode
 permalink: docs/strict-mode.html
 ---
 
-`StrictMode` is a tool for highlighting potential problems in an application. Like `Fragment`, `StrictMode` does not render any visible UI. It activates additional checks and warnings for its descendants.
+`StrictMode` là một công cụ để làm nổi bật các vấn đề tiềm ẩn trong một ứng dụng. Giống như `Fragment`, `StrictMode` không render bất kỳ giao diện nào. Nó kích hoạt các kiểm tra mở rộng và cảnh báo bổ sung cho các component con.
 
-> Note:
+> Ghi chú:
 >
-> Strict mode checks are run in development mode only; _they do not impact the production build_.
+> Các kiểm tra StrictMode chỉ thực hiện trong môi trường phát triển; _chúng không ảnh hưởng đến quá trình build production_.
 
-You can enable strict mode for any part of your application. For example:
+Bạn có thể bật chế độ StrictMode cho bất kỳ phần nào trong ứng dụng của mình. Ví dụ :
 `embed:strict-mode/enabling-strict-mode.js`
 
-In the above example, strict mode checks will *not* be run against the `Header` and `Footer` components. However, `ComponentOne` and `ComponentTwo`, as well as all of their descendants, will have the checks.
+Trong ví dụ trên, các kiểm tra StrictMode *không* chạy trên component `Header` và `Footer`. Tuy nhiên, `ComponentOne` và `ComponentTwo`, cũng như tất cả các component con sẽ có các kiểm tra.
 
-`StrictMode` currently helps with:
-* [Identifying components with unsafe lifecycles](#identifying-unsafe-lifecycles)
-* [Warning about legacy string ref API usage](#warning-about-legacy-string-ref-api-usage)
-* [Warning about deprecated findDOMNode usage](#warning-about-deprecated-finddomnode-usage)
-* [Detecting unexpected side effects](#detecting-unexpected-side-effects)
-* [Detecting legacy context API](#detecting-legacy-context-api)
+`StrictMode` hiện tại hỗ trợ:
+* [Xác định các thành phần có lifecycle không an toàn](#identifying-unsafe-lifecycles)
+* [Cảnh báo về việc sử dụng API tham chiếu chuỗi kiểu cũ](#warning-about-legacy-string-ref-api-usage)
+* [Cảnh báo về việc sử dụng findDOMNode không còn dùng nữa](#warning-about-deprecated-finddomnode-usage)
+* [Phát hiện các side-effects không mong muốn](#detecting-unexpected-side-effects)
+* [Phát hiện Context API cũ](#detecting-legacy-context-api)
 
-Additional functionality will be added with future releases of React.
+Chức năng bổ sung sẽ được thêm vào với các bản phát hành React trong tương lai.
 
-### Identifying unsafe lifecycles {#identifying-unsafe-lifecycles}
+### Xác định các lifecycle không an toàn {#identifying-unsafe-lifecycles}
 
-As explained [in this blog post](/blog/2018/03/27/update-on-async-rendering.html), certain legacy lifecycle methods are unsafe for use in async React applications. However, if your application uses third party libraries, it can be difficult to ensure that these lifecycles aren't being used. Fortunately, strict mode can help with this!
+Như đã giải thích [trong bài viết này](/blog/2018/03/27/update-on-async-rendering.html), một số phương thức lifecycle cũ không an toàn để sử dụng trong ứng dụng React bất đồng bộ. Tuy nhiên, nếu ứng dụng của bạn sử dụng thư viện của bên thứ ba, có thể khó đảm bảo rằng những lifecycle này không được sử dụng. May mắn, chế độ StrictMode có thể giúp giải quyết vấn đề này!
 
-When strict mode is enabled, React compiles a list of all class components using the unsafe lifecycles, and logs a warning message with information about these components, like so:
+Khi chế độ StrictMode được bật, React biên dịch danh sách tất cả các component bằng cách sử dụng các lifecycle không an toàn, và ghi lại một thông báo cảnh báo với thông tin về các component này, như sau: 
 
 ![](../images/blog/strict-mode-unsafe-lifecycles-warning.png)
 
-Addressing the issues identified by strict mode _now_ will make it easier for you to take advantage of concurrent rendering in future releases of React.
+Giải quyết các vấn đề được xác định bởi StrictMode _bây giờ_ sẽ giúp bạn dễ dàng hơn trong việc tận dụng render đồng thời trong các phiên bản tương lai của React.
 
-### Warning about legacy string ref API usage {#warning-about-legacy-string-ref-api-usage}
+### Cảnh báo về việc sử dụng API tham chiếu chuỗi kiểu cũ {#warning-about-legacy-string-ref-api-usage}
 
-Previously, React provided two ways for managing refs: the legacy string ref API and the callback API. Although the string ref API was the more convenient of the two, it had [several downsides](https://github.com/facebook/react/issues/1373) and so our official recommendation was to [use the callback form instead](/docs/refs-and-the-dom.html#legacy-api-string-refs).
+Trước đây, React đã cung cấp hai cách để quản lý các tham chiếu: API tham chiếu chuỗi kiểu cũ và API gọi lại. Mặc dù API tham chiếu chuỗi thuận tiện hơn trong cả hai, nhưng nó có [một số nhược điểm](https://github.com/facebook/react/issues/1373) và vì vậy khuyến nghị chính thức của chúng tôi là [sử dụng biểu mẫu gọi lại để thay thế](/docs/refs-and-the-dom.html#legacy-api-string-refs).
 
-React 16.3 added a third option that offers the convenience of a string ref without any of the downsides:
+React 16.3 đã thêm một tùy chọn thứ ba mang lại sự tiện lợi của một chuỗi tham chiếu mà không có bất kỳ nhược điểm nào:
 `embed:16-3-release-blog-post/create-ref-example.js`
 
-Since object refs were largely added as a replacement for string refs, strict mode now warns about usage of string refs.
+Vì các đối tượng tham chiếu được đưa vào để thay thế cho các tham chiếu chuỗi, StrictMode sẽ hiện cảnh báo về việc sử dụng các tham chiếu chuỗi.
 
-> **Note:**
+> **Ghi chú:**
 >
-> Callback refs will continue to be supported in addition to the new `createRef` API.
+> Các tham chiếu callback sẽ tiếp tục được hỗ trợ ngoài `createRef` API mới.
 >
-> You don't need to replace callback refs in your components. They are slightly more flexible, so they will remain as an advanced feature.
+> Bạn không cần phải thay thế các tham chiếu callback trong các components của bạn. Chúng linh hoạt hơn một chút, vì vậy chúng sẽ vẫn là một tính năng nâng cao.
 
-[Learn more about the new `createRef` API here.](/docs/refs-and-the-dom.html)
+[Tìm hiểu thêm về API `createRef` mới tại đây.](/docs/refs-and-the-dom.html)
 
-### Warning about deprecated findDOMNode usage {#warning-about-deprecated-finddomnode-usage}
+### Cảnh báo về việc sử dụng findDOMNode không còn dùng nữa {#warning-about-deprecated-finddomnode-usage}
 
-React used to support `findDOMNode` to search the tree for a DOM node given a class instance. Normally you don't need this because you can [attach a ref directly to a DOM node](/docs/refs-and-the-dom.html#creating-refs).
+React được sử dụng để hỗ trợ `findDOMNode` tìm kiếm trên cây cho một nút DOM đã xác định phiên bản lớp. Thông thường, bạn không cần điều này bởi vì bạn có thể [đính kèm một tham chiếu trực tiếp vào một nút DOM] (/docs/refs-and-the-dom.html#creating-refs).
 
-`findDOMNode` can also be used on class components but this was breaking abstraction levels by allowing a parent to demand that certain children were rendered. It creates a refactoring hazard where you can't change the implementation details of a component because a parent might be reaching into its DOM node. `findDOMNode` only returns the first child, but with the use of Fragments, it is possible for a component to render multiple DOM nodes. `findDOMNode` is a one time read API. It only gave you an answer when you asked for it. If a child component renders a different node, there is no way to handle this change. Therefore `findDOMNode` only worked if components always return a single DOM node that never changes.
+`findDOMNode` cũng có thể được sử dụng trên class components nhưng điều này đã phá vỡ mức trừu tượng bằng cách cho phép lớp cha yêu cầu một số lớp con nhất định được render. Nó tạo ra một nguy cơ tái cấu trúc nơi bạn không thể thay đổi chi tiết triển khai của một component bởi vì một lớp cha có thể đang truy cập vào nút DOM của nó. `findDOMNode` chỉ trả về thành phần con đầu tiên, nhưng với việc sử dụng Fragments, một component có thể render nhiều nút DOM. `findDOMNode` là API đọc một lần. Nó chỉ cho bạn câu trả lời khi bạn yêu cầu nó. Nếu một component con hiển thị một nút khác, không có cách nào để xử lý thay đổi này. Do đó, `findDOMNode` chỉ hoạt động nếu các component luôn trả về một nút DOM duy nhất không bao giờ thay đổi.
 
-You can instead make this explicit by passing a ref to your custom component and pass that along to the DOM using [ref forwarding](/docs/forwarding-refs.html#forwarding-refs-to-dom-components).
+Thay vào đó, bạn có thể làm cho điều này rõ ràng bằng cách chuyển một tham chiếu đến component tùy chỉnh của bạn và chuyển nó cùng với DOM bằng cách sử dụng [chuyển tiếp tham chiếu](/docs/forwarding-refs.html#forwarding-refs-to-dom-components).
 
-You can also add a wrapper DOM node in your component and attach a ref directly to it.
+Bạn cũng có thể thêm một lớp bọc nút DOM trong component và đính kèm một tham chiếu trực tiếp đến nó.
 
 ```javascript{4,7}
 class MyComponent extends React.Component {
@@ -73,57 +73,57 @@ class MyComponent extends React.Component {
 }
 ```
 
-> Note:
+> Ghi chú:
 >
-> In CSS, the [`display: contents`](https://developer.mozilla.org/en-US/docs/Web/CSS/display#display_contents) attribute can be used if you don't want the node to be part of the layout.
+> Trong CSS, thuộc tính [`display: contents`](https://developer.mozilla.org/en-US/docs/Web/CSS/display#display_contents) có thể được sử dụng nếu bạn không muốn một nút thành một phần của layout.
 
-### Detecting unexpected side effects {#detecting-unexpected-side-effects}
+### Phát hiện side-effects không mong muốn {#detecting-unexpected-side-effects}
 
-Conceptually, React does work in two phases:
-* The **render** phase determines what changes need to be made to e.g. the DOM. During this phase, React calls `render` and then compares the result to the previous render.
-* The **commit** phase is when React applies any changes. (In the case of React DOM, this is when React inserts, updates, and removes DOM nodes.) React also calls lifecycles like `componentDidMount` and `componentDidUpdate` during this phase.
+Về mặt khái niệm, React hoạt động theo hai giai đoạn:
+* Giai đoạn **render** xác định thay đổi nào cần được thực hiện. Ví dụ: DOM. Trong giai đoạn này, React gọi `render` và sau đó so sánh kết quả với lần render trước đó.
+* Giai đoạn **commit** là khi React áp dụng bất kỳ thay đổi nào. (Trong trường hợp của React DOM, đây là khi React chèn, cập nhật và loại bỏ các nút DOM .) React cũng sẽ gọi các lifecycles như `componentDidMount` và `componentDidUpdate` trong giai đoạn này.
 
-The commit phase is usually very fast, but rendering can be slow. For this reason, the upcoming concurrent mode (which is not enabled by default yet) breaks the rendering work into pieces, pausing and resuming the work to avoid blocking the browser. This means that React may invoke render phase lifecycles more than once before committing, or it may invoke them without committing at all (because of an error or a higher priority interruption).
+Giai đoạn commit thường rất nhanh, nhưng render có thể chậm. Vì lý do này, chế độ concurrent (chưa được bật theo mặc định) chia nhỏ công việc render thành nhiều mảnh, tạm dừng và tiếp tục công việc để tránh chặn trình duyệt. Điều này có nghĩa là React sẽ gọi các lifecycle của giai đoạn render nhiều lần trước khi commit, hoặc nó có thể gọi chúng mà không thực hiện commit (do một lỗi hoặc sự gián đoạn có mức độ ưu tiên cao hơn).
 
-Render phase lifecycles include the following class component methods:
+Các lifecycle trong giai đoạn render bao gồm những phương thức sau:
 * `constructor`
-* `componentWillMount` (or `UNSAFE_componentWillMount`)
-* `componentWillReceiveProps` (or `UNSAFE_componentWillReceiveProps`)
-* `componentWillUpdate` (or `UNSAFE_componentWillUpdate`)
+* `componentWillMount` (hoặc `UNSAFE_componentWillMount`)
+* `componentWillReceiveProps` (hoặc `UNSAFE_componentWillReceiveProps`)
+* `componentWillUpdate` (hoặcor `UNSAFE_componentWillUpdate`)
 * `getDerivedStateFromProps`
 * `shouldComponentUpdate`
 * `render`
-* `setState` updater functions (the first argument)
+* `setState` hàm cập nhật (tham số đầu tiên)
 
-Because the above methods might be called more than once, it's important that they do not contain side-effects. Ignoring this rule can lead to a variety of problems, including memory leaks and invalid application state. Unfortunately, it can be difficult to detect these problems as they can often be [non-deterministic](https://en.wikipedia.org/wiki/Deterministic_algorithm).
+Vì các phương thức trên có thể được gọi nhiều lần, điều quan trọng là nó không chứa side-effects. Bỏ qua quy tắc này có thể dẫn đến nhiều vấn đề, bao gồm rò rỉ bộ nhớ và trạng thái ứng dụng không hợp lệ. Thật không may, có thể khó phát hiện những vấn đề này vì chúng thường có thể [không xác định](https://en.wikipedia.org/wiki/Deterministic_algorithm).
 
-Strict mode can't automatically detect side effects for you, but it can help you spot them by making them a little more deterministic. This is done by intentionally double-invoking the following functions:
+StrictMode không thể tự phát hiện các side-effect cho bạn, nhưng nó có thể giúp bạn phát hiện chúng bằng cách làm cho chúng dễ xác định hơn một chút. Điều này được thực hiện bằng cách cố ý gọi kép các hàm sau:
 
-* Class component `constructor`, `render`, and `shouldComponentUpdate` methods
-* Class component static `getDerivedStateFromProps` method
-* Function component bodies
-* State updater functions (the first argument to `setState`)
-* Functions passed to `useState`, `useMemo`, or `useReducer`
+* Các phương thức `constructor`, `render`, and `shouldComponentUpdate` trong class component
+* Phương thức tĩnh `getDerivedStateFromProps` trong class component
+* Phần thân của function component
+* Hàm cập nhật state (tham số đầu tiên của `setState`)
+* Các hàm được chuyển vào `useState`, `useMemo`, hoặc `useReducer`
 
-> Note:
+> Ghi chú:
 >
-> This only applies to development mode. _Lifecycles will not be double-invoked in production mode._
+> Điều này chỉ áp dụng cho chế độ development. _Lifecycles sẽ không được gọi kép trong chế độ production._ 
 
-For example, consider the following code:
+Ví dụ, hãy xem xét đoạn mã sau: 
 `embed:strict-mode/side-effects-in-constructor.js`
 
-At first glance, this code might not seem problematic. But if `SharedApplicationState.recordEvent` is not [idempotent](https://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning), then instantiating this component multiple times could lead to invalid application state. This sort of subtle bug might not manifest during development, or it might do so inconsistently and so be overlooked.
+Thoạt nhìn, đoạn mã này có vẻ không có vấn đề. Nhưng nếu `SharedApplicationState.recordEvent` không phải là [idempotent](https://en.wikipedia.org/wiki/Idempotence#Computer_science_meaning), thì việc khởi tạo thành phần này nhiều lần có thể dẫn đến trạng thái ứng dụng không hợp lệ. Loại lỗi tinh vi này có thể không biểu hiện trong quá trình phát triển hoặc nó có thể hoạt động không nhất quán và do đó bị bỏ qua.
 
-By intentionally double-invoking methods like the component constructor, strict mode makes patterns like this easier to spot.
+Bằng các phương thức gọi kép có chủ ý như hàm tạo của component, chế độ StrictMode làm cho các mẫu như thế này dễ phát hiện hơn.
 
-> Note:
+> Ghi chú:
 >
-> Starting with React 17, React automatically modifies the console methods like `console.log()` to silence the logs in the second call to lifecycle functions. However, it may cause undesired behavior in certain cases where [a workaround can be used](https://github.com/facebook/react/issues/20090#issuecomment-715927125).
+> Bắt đầu từ React 17, React tự động sửa đổi các phương thức trong console như `console.log()` để tắt logs trong lần gọi thứ hai đến các hàm lifecycle. Tuy nhiên, nó có thể gây ra hành vi không mong muốn trong một số trường hợp nhất định [có thể sử dụng giải pháp thay thế](https://github.com/facebook/react/issues/20090#issuecomment-715927125).
 
-### Detecting legacy context API {#detecting-legacy-context-api}
+### Phát hiện Context API cũ {#detecting-legacy-context-api}
 
-The legacy context API is error-prone, and will be removed in a future major version. It still works for all 16.x releases but will show this warning message in strict mode:
+Context API cũ dễ xảy ra lỗi và sẽ bị xóa trong phiên bản chính thức tương lai. Nó vẫn hoạt động cho tất cả các bản phát hành 16.x nhưng sẽ hiển thị thông báo cảnh báo này ở chế độ StrictMode:
 
 ![](../images/blog/warn-legacy-context-in-strict-mode.png)
 
-Read the [new context API documentation](/docs/context.html) to help migrate to the new version.
+Đọc [tài liệu Context API mới](/docs/context.html) để giúp chuyển sang phiên bản mới.
