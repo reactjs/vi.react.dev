@@ -10,18 +10,18 @@ category: Reference
 
 ```javascript
 import ReactTestUtils from 'react-dom/test-utils'; // ES6
-var ReactTestUtils = require('react-dom/test-utils'); // ES5 with npm
+var ReactTestUtils = require('react-dom/test-utils'); // ES5 với npm
 ```
 
-## Overview {#overview}
+## Tổng quan {#overview}
 
-`ReactTestUtils` makes it easy to test React components in the testing framework of your choice. At Facebook we use [Jest](https://facebook.github.io/jest/) for painless JavaScript testing. Learn how to get started with Jest through the Jest website's [React Tutorial](https://jestjs.io/docs/tutorial-react).
+`ReactTestUtils` giúp cho việc test các component trong React dễ dàng hơn trong một test framework mà bạn muốn. Ở Facebook chúng tôi dùng [Jest](https://facebook.github.io/jest/) để test JavaScript một cách dễ dàng. Giờ bạn có thể tìm hiểu cách bắt đầu với Jest thông qua website này [React Tutorial](https://jestjs.io/docs/tutorial-react).
 
-> Note:
+> Lưu ý:
 >
-> We recommend using [React Testing Library](https://testing-library.com/react) which is designed to enable and encourage writing tests that use your components as the end users do.
+> Chúng tôi khuyên dùng [React Testing Library](https://testing-library.com/react) được thiết kế để hỗ trợ viết test mà dùng các component của bạn như là những người dùng cuối cùng(có thể hiểu như là người dùng thực tế).
 > 
-> For React versions <= 16, the [Enzyme](https://airbnb.io/enzyme/) library makes it easy to assert, manipulate, and traverse your React Components' output.
+> Đối với phiên bản React <= 16, thư viện [Enzyme](https://airbnb.io/enzyme/) giúp bạn dễ dàng assert(là một xác nhận - assert - là một vị từ được kết nối với một điểm trong chương trình, luôn được đánh giá là true tại thời điểm đó trong quá trình thực thi mã), sử dụng và kiểm tra output của các React Component.
 
 
 
@@ -42,17 +42,17 @@ var ReactTestUtils = require('react-dom/test-utils'); // ES5 with npm
  - [`renderIntoDocument()`](#renderintodocument)
  - [`Simulate`](#simulate)
 
-## Reference {#reference}
+## Chức vụ {#reference}
 
 ### `act()` {#act}
 
-To prepare a component for assertions, wrap the code rendering it and performing updates inside an `act()` call. This makes your test run closer to how React works in the browser.
+Để chuẩn bị một component cho các assertion(assertion chính là những method dùng để kiểm tra kết quả của đơn vị cần test có đúng với mong đợi không), render component đó và thực hiện cập nhật bên trong hàm `act()`. Điều này giúp cho test của bạn chạy gần giống như với cách React chạy trên browser thực tế.
 
->Note
+>Lưu ý
 >
->If you use `react-test-renderer`, it also provides an `act` export that behaves the same way.
+>Nếu bạn dùng `react-test-renderer`, nó cũng cung cấp một `act` chạy tương tự.
 
-For example, let's say we have this `Counter` component:
+Ví dụ, chúng ta có một `Counter` component:
 
 ```js
 class Counter extends React.Component {
@@ -62,10 +62,10 @@ class Counter extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
   componentDidMount() {
-    document.title = `You clicked ${this.state.count} times`;
+    document.title = `Bạn click ${this.state.count} lần`;
   }
   componentDidUpdate() {
-    document.title = `You clicked ${this.state.count} times`;
+    document.title = `Bạn click ${this.state.count} lần`;
   }
   handleClick() {
     this.setState(state => ({
@@ -75,9 +75,9 @@ class Counter extends React.Component {
   render() {
     return (
       <div>
-        <p>You clicked {this.state.count} times</p>
+        <p>Bạn đã click {this.state.count} lần</p>
         <button onClick={this.handleClick}>
-          Click me
+          Click vào đây
         </button>
       </div>
     );
@@ -85,7 +85,7 @@ class Counter extends React.Component {
 }
 ```
 
-Here is how we can test it:
+Đây là cách mà chúng ta test nó:
 
 ```js{3,20-22,29-31}
 import React from 'react';
@@ -105,28 +105,28 @@ afterEach(() => {
   container = null;
 });
 
-it('can render and update a counter', () => {
+it('có thể render và cập nhật một counter', () => {
   // Test first render and componentDidMount
   act(() => {
     ReactDOM.render(<Counter />, container);
   });
   const button = container.querySelector('button');
   const label = container.querySelector('p');
-  expect(label.textContent).toBe('You clicked 0 times');
-  expect(document.title).toBe('You clicked 0 times');
+  expect(label.textContent).toBe('Bạn click 0 lần');
+  expect(document.title).toBe('Bạn click 0 lần');
 
   // Test second render and componentDidUpdate
   act(() => {
     button.dispatchEvent(new MouseEvent('click', {bubbles: true}));
   });
-  expect(label.textContent).toBe('You clicked 1 times');
-  expect(document.title).toBe('You clicked 1 times');
+  expect(label.textContent).toBe('Bạn click 1 lần');
+  expect(document.title).toBe('Bạn click 1 lần');
 });
 ```
 
-- Don't forget that dispatching DOM events only works when the DOM container is added to the `document`. You can use a library like [React Testing Library](https://testing-library.com/react) to reduce the boilerplate code.
+- Nhớ rằng việc điều phối các sự kiện DOM chỉ hoạt động khi vùng chứa DOM được thêm vào `document`. Bạn có thể dùng thư viện như [React Testing Library](https://testing-library.com/react) để dùng code đã có sẵn (boilerplate code).
 
-- The [`recipes`](/docs/testing-recipes.html) document contains more details on how `act()` behaves, with examples and usage.
+- Document này [`recipes`](/docs/testing-recipes.html) cho biết thông tin chi tiết cách `act()` hoạt động, gồm cả ví dụ lẫn cách sử dụng.
 
 * * *
 
@@ -139,11 +139,11 @@ mockComponent(
 )
 ```
 
-Pass a mocked component module to this method to augment it with useful methods that allow it to be used as a dummy React component. Instead of rendering as usual, the component will become a simple `<div>` (or other tag if `mockTagName` is provided) containing any provided children.
+Sơ qua một mocked module component, có một phương pháp để kết hợp nó với các method hữu ích mà cho phép nó được sử dụng như một component giả lập trong React. Thay vì render nó ra như bình thường, component chỉ ngắn gọn như một thẻ `<div>` (hoặc là một thẻ khác nếu `mockTagName` được đặt) chứa bất kỳ children nào trong nó.
 
-> Note:
+> Lưu ý:
 >
-> `mockComponent()` is a legacy API. We recommend using [`jest.mock()`](https://jestjs.io/docs/tutorial-react-native#mock-native-modules-using-jestmock) instead.
+> `mockComponent()` là một API kế thừa. Chúng tôi khuyên nên dùng [`jest.mock()`](https://facebook.github.io/jest/docs/en/tutorial-react-native.html#mock-native-modules-using-jestmock) thay cho nó.
 
 * * *
 
@@ -153,7 +153,7 @@ Pass a mocked component module to this method to augment it with useful methods 
 isElement(element)
 ```
 
-Returns `true` if `element` is any React element.
+Trả về `true` nếu `element` thuộc bất kỳ element trong React.
 
 * * *
 
@@ -166,7 +166,7 @@ isElementOfType(
 )
 ```
 
-Returns `true` if `element` is a React element whose type is of a React `componentClass`.
+Trả về `true` nếu `element` là một element trong React mà có kiểu thuộc `componentClass` trong React.
 
 * * *
 
@@ -176,7 +176,7 @@ Returns `true` if `element` is a React element whose type is of a React `compone
 isDOMComponent(instance)
 ```
 
-Returns `true` if `instance` is a DOM component (such as a `<div>` or `<span>`).
+Trả về `true` nếu `instance` là một component trong DOM (ví dụ như là `<div>` hoặc `<span>`).
 
 * * *
 
@@ -186,7 +186,7 @@ Returns `true` if `instance` is a DOM component (such as a `<div>` or `<span>`).
 isCompositeComponent(instance)
 ```
 
-Returns `true` if `instance` is a user-defined component, such as a class or a function.
+Trả về `true` nếu `instance` là một component do người dùng tự định nghĩa, như là class component hoặc function component.
 
 * * *
 
@@ -199,7 +199,7 @@ isCompositeComponentWithType(
 )
 ```
 
-Returns `true` if `instance` is a component whose type is of a React `componentClass`.
+Trả về `true` nếu `instance` là một component mà có kiểu thuộc `componentClass` trong React.
 
 * * *
 
@@ -212,7 +212,7 @@ findAllInRenderedTree(
 )
 ```
 
-Traverse all components in `tree` and accumulate all components where `test(component)` is `true`. This is not that useful on its own, but it's used as a primitive for other test utils.
+Duyệt tất cả các component trong `tree` và gom lại tất cả các component mà `test(component)` trả về `true`. Điều này tuy không có ích lắm, nhưng được sử dụng làm nền tảng cho các test-util khác.
 
 * * *
 
@@ -225,7 +225,7 @@ scryRenderedDOMComponentsWithClass(
 )
 ```
 
-Finds all DOM elements of components in the rendered tree that are DOM components with the class name matching `className`.
+Tìm tất cả các element trong DOM thuộc các component trong tree đã render mà component DOM có tên của class giống với `className`.
 
 * * *
 
@@ -238,7 +238,7 @@ findRenderedDOMComponentWithClass(
 )
 ```
 
-Like [`scryRenderedDOMComponentsWithClass()`](#scryrendereddomcomponentswithclass) but expects there to be one result, and returns that one result, or throws exception if there is any other number of matches besides one.
+Giống với [`scryRenderedDOMComponentsWithClass()`](#scryrendereddomcomponentswithclass) nhưng sẽ chỉ có một và trả về một kết quả duy nhất, hoặc throw ra exception nếu có bất kỳ các kết quả trùng nhau.
 
 * * *
 
@@ -251,7 +251,7 @@ scryRenderedDOMComponentsWithTag(
 )
 ```
 
-Finds all DOM elements of components in the rendered tree that are DOM components with the tag name matching `tagName`.
+Tìm tất cả các element trong DOM thuộc các component trong tree đã render mà component DOM có tên của thẻ giống với `tagName`.
 
 * * *
 
@@ -264,7 +264,7 @@ findRenderedDOMComponentWithTag(
 )
 ```
 
-Like [`scryRenderedDOMComponentsWithTag()`](#scryrendereddomcomponentswithtag) but expects there to be one result, and returns that one result, or throws exception if there is any other number of matches besides one.
+Giống [`scryRenderedDOMComponentsWithTag()`](#scryrendereddomcomponentswithtag) nhưng sẽ chỉ có một và trả về một kết quả duy nhất, hoặc throw ra exception nếu có bất kỳ các kết quả trùng nhau.
 
 * * *
 
@@ -277,7 +277,7 @@ scryRenderedComponentsWithType(
 )
 ```
 
-Finds all instances of components with type equal to `componentClass`.
+Tìm tất cả các instance của các component có kiểu giống với `componentClass`.
 
 * * *
 
@@ -290,7 +290,7 @@ findRenderedComponentWithType(
 )
 ```
 
-Same as [`scryRenderedComponentsWithType()`](#scryrenderedcomponentswithtype) but expects there to be one result and returns that one result, or throws exception if there is any other number of matches besides one.
+Giống với [`scryRenderedComponentsWithType()`](#scryrenderedcomponentswithtype) nhưng sẽ chỉ có một và trả về một kết quả duy nhất, hoặc throw ra exception nếu có bất kỳ các kết quả trùng nhau.
 
 ***
 
@@ -300,20 +300,20 @@ Same as [`scryRenderedComponentsWithType()`](#scryrenderedcomponentswithtype) bu
 renderIntoDocument(element)
 ```
 
-Render a React element into a detached DOM node in the document. **This function requires a DOM.** It is effectively equivalent to:
+Render một element của React vào một node riêng của DOM trong một document. **Function này yêu cầu DOM.** Nó tương tự với:
 
 ```js
 const domContainer = document.createElement('div');
 ReactDOM.render(element, domContainer);
 ```
 
-> Note:
+> Lưu ý:
 >
-> You will need to have `window`, `window.document` and `window.document.createElement` globally available **before** you import `React`. Otherwise React will think it can't access the DOM and methods like `setState` won't work.
+> Bạn cần có `window`, `window.document` và `window.document.createElement` có sẵn ở toàn cục **trước khi** bạn import `React`. Nếu không, React sẽ nghĩ rằng nó không thể truy cập DOM và các phương thức như `setState` không hoạt động.
 
 * * *
 
-## Other Utilities {#other-utilities}
+## Các tiện ích khác {#other-utilities}
 
 ### `Simulate` {#simulate}
 
@@ -324,11 +324,11 @@ Simulate.{eventName}(
 )
 ```
 
-Simulate an event dispatch on a DOM node with optional `eventData` event data.
+Giả lập một sự kiện được gửi trên một node DOM với tùy chọn dữ liệu của sự kiện `eventData`.
 
-`Simulate` has a method for [every event that React understands](/docs/events.html#supported-events).
+`Simulate` có một method cho [tất cả sự kiện mà React hỗ trợ](/docs/events.html#supported-events).
 
-**Clicking an element**
+**Click vào một element**
 
 ```javascript
 // <button ref={(node) => this.button = node}>...</button>
@@ -336,7 +336,7 @@ const node = this.button;
 ReactTestUtils.Simulate.click(node);
 ```
 
-**Changing the value of an input field and then pressing ENTER.**
+**Thay đổi giá trị của trường đầu vào rồi ENTER.**
 
 ```javascript
 // <input ref={(node) => this.textInput = node} />
@@ -346,8 +346,8 @@ ReactTestUtils.Simulate.change(node);
 ReactTestUtils.Simulate.keyDown(node, {key: "Enter", keyCode: 13, which: 13});
 ```
 
-> Note
+> Lưu ý
 >
-> You will have to provide any event property that you're using in your component (e.g. keyCode, which, etc...) as React is not creating any of these for you.
+> React sẽ không tạo ra mà bạn phải cung cấp tất cả event property đang dùng trong component của bạn (v.d. keyCode, which, etc...).
 
 * * *
