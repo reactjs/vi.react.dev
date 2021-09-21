@@ -15,13 +15,13 @@ var ReactTestUtils = require('react-dom/test-utils'); // ES5 với npm
 
 ## Tổng quan {#overview}
 
-`ReactTestUtils` giúp cho việc test các React component dễ dàng trong một framework test mà bạn tùy chọn. Ở Facebook chúng tôi dùng [Jest](https://facebook.github.io/jest/) để test JavaScript mà không tốn nhiều công sức. Giờ hãy tìm hiểu cách bắt đầu với Jest thông qua Jest website's [React Tutorial](https://jestjs.io/docs/tutorial-react).
+`ReactTestUtils` giúp cho việc test các component trong React dễ dàng hơn trong một test framework mà bạn tùy thích. Ở Facebook chúng tôi dùng [Jest](https://facebook.github.io/jest/) để test JavaScript một cách dễ dàng. Giờ bạn có thể tìm hiểu cách bắt đầu với Jest thông qua website này [React Tutorial](https://jestjs.io/docs/tutorial-react).
 
 > Lưu ý:
 >
-> Chúng tôi khuyến nghị dùng [React Testing Library](https://testing-library.com/react) được thiết kế để kích hoạt và hỗ trợ viết các test mà dùng các component của bạn như là những người dùng cuối cùng(có thể hiểu như là người dùng thực tế).
+> Chúng tôi khuyến nghị dùng [React Testing Library](https://testing-library.com/react) được thiết kế để hỗ trợ viết test mà dùng các component của bạn như là những người dùng cuối cùng(có thể hiểu như là người dùng thực tế).
 > 
-> Đối với phiên bản React <= 16, thư viện [Enzyme](https://airbnb.io/enzyme/) giúp bạn dễ dàng xác nhận, sử dụng, và kiểm qua output các React Component của bạn.
+> Đối với phiên bản React <= 16, thư viện [Enzyme](https://airbnb.io/enzyme/) giúp bạn dễ dàng assert(là một xác nhận - assert - là một vị từ được kết nối với một điểm trong chương trình, luôn được đánh giá là true tại thời điểm đó trong quá trình thực thi mã), sử dụng, và kiểm qua output các React Component của bạn.
 
 
 
@@ -46,11 +46,11 @@ var ReactTestUtils = require('react-dom/test-utils'); // ES5 với npm
 
 ### `act()` {#act}
 
-Để chuẩn bị một component cho các assertion(assertion chính là những method dùng để kiểm tra kết quả của đơn vị cần test có đúng với mong đợi không), cho code render cái đó và thực hiện cập nhật bên trong hàm gọi `act()`. Điều này làm cho thử nghiệm của bạn chạy gần giống hơn với cách React chạy trên browser(trình duyệt).
+Để chuẩn bị một component cho các assertion(assertion chính là những method dùng để kiểm tra kết quả của đơn vị cần test có đúng với mong đợi không), để code render component đó và thực hiện cập nhật bên trong hàm `act()`. Điều này giúp cho test của bạn chạy gần giống như với cách React chạy trên browser(trình duyệt) thực tế.
 
 >Lưu ý
 >
->Nếu bạn dùng `react-test-renderer`, nó cũng cung cấp một `act` hoạt động tương tự.
+>Nếu bạn dùng `react-test-renderer`, nó cũng cung cấp một `act` chạy tương tự.
 
 Ví dụ, chúng ta có một `Counter` component:
 
@@ -75,9 +75,9 @@ class Counter extends React.Component {
   render() {
     return (
       <div>
-        <p>You clicked {this.state.count} times</p>
+        <p>Bạn đã click {this.state.count} lần</p>
         <button onClick={this.handleClick}>
-          Click me
+          Click vào đây
         </button>
       </div>
     );
@@ -105,12 +105,12 @@ afterEach(() => {
   container = null;
 });
 
-it('có thể render và cập nhật counter', () => {
+it('có thể render và cập nhật một counter', () => {
   // Test first render and componentDidMount
   act(() => {
     ReactDOM.render(<Counter />, container);
   });
-  const button = container.querySelector('nút bấm');
+  const button = container.querySelector('button');
   const label = container.querySelector('p');
   expect(label.textContent).toBe('Bạn click 0 lần');
   expect(document.title).toBe('Bạn click 0 lần');
@@ -124,7 +124,7 @@ it('có thể render và cập nhật counter', () => {
 });
 ```
 
-- Đừng quên rằng việc điều phối các sự kiện DOM chỉ hoạt động khi vùng chứa DOM được thêm vào `document`. Bạn có thể dùng thư viện như [React Testing Library](https://testing-library.com/react) để giảm bớt code có sẵn.
+- Nhớ rằng việc điều phối các sự kiện DOM chỉ hoạt động khi vùng chứa DOM được thêm vào `document`. Bạn có thể dùng thư viện như [React Testing Library](https://testing-library.com/react) để dùng code đã có sẵn (boilerplate code).
 
 - Document này [`recipes`](/docs/testing-recipes.html) cho biết thông tin chi tiết cách `act()` hoạt động, gồm cả ví dụ lẫn cách sử dụng.
 
@@ -139,15 +139,11 @@ mockComponent(
 )
 ```
 
-Sơ qua một module component mocked đến phương pháp để tăng cường nó với các method hữu ích mà cho phép nó được sử dụng như một giả lập component trong React. Thay vì render nó ra như bình thường, component sẽ trở nên đơn giản như `<div>` (hoặc là một thẻ khác nếu `mockTagName` được đặt) chứa bất kỳ children nào được cung cấp.
+Sơ qua một mocked module component, có một phương pháp để kết hợp nó với các method hữu ích mà cho phép nó được sử dụng như một component giả lập trong React. Thay vì render nó ra như bình thường, component chỉ ngắn gọn như một thẻ `<div>` (hoặc là một thẻ khác nếu `mockTagName` được đặt) chứa bất kỳ children nào trong nó.
 
 > Lưu ý:
 >
-<<<<<<< HEAD
 > `mockComponent()` là một API kế thừa. Chúng tôi khuyên nên dùng [`jest.mock()`](https://facebook.github.io/jest/docs/en/tutorial-react-native.html#mock-native-modules-using-jestmock) thay cho nó.
-=======
-> `mockComponent()` is a legacy API. We recommend using [`jest.mock()`](https://jestjs.io/docs/tutorial-react-native#mock-native-modules-using-jestmock) instead.
->>>>>>> c09a44bec17617c90e7911c0c28644bef075b7e5
 
 * * *
 
@@ -157,7 +153,7 @@ Sơ qua một module component mocked đến phương pháp để tăng cường
 isElement(element)
 ```
 
-Trả về `true` nếu `element` thuộc bất kỳ React element.
+Trả về `true` nếu `element` thuộc bất kỳ element trong React.
 
 * * *
 
