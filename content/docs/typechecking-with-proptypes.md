@@ -1,18 +1,18 @@
 ---
 id: typechecking-with-proptypes
-title: Typechecking With PropTypes
+title: Kiểm Tra Type Với PropTypes
 permalink: docs/typechecking-with-proptypes.html
 redirect_from:
   - "docs/react-api.html#typechecking-with-proptypes"
 ---
 
-> Note:
+> Ghi chú:
 >
-> `React.PropTypes` has moved into a different package since React v15.5. Please use [the `prop-types` library instead](https://www.npmjs.com/package/prop-types).
+> `React.PropTypes` đã được chuyển qua một package khác kể từ React v15.5. Hãy sử dụng [thư viện `prop-types` để thay thế](https://www.npmjs.com/package/prop-types).
 >
->We provide [a codemod script](/blog/2017/04/07/react-v15.5.0.html#migrating-from-reactproptypes) to automate the conversion.
+>Chúng tôi cung cấp [tập lệnh codemod](/blog/2017/04/07/react-v15.5.0.html#migrating-from-reactproptypes) để thực hiện việc tự động chuyển đổi.
 
-As your app grows, you can catch a lot of bugs with typechecking. For some applications, you can use JavaScript extensions like [Flow](https://flow.org/) or [TypeScript](https://www.typescriptlang.org/) to typecheck your whole application. But even if you don't use those, React has some built-in typechecking abilities. To run typechecking on the props for a component, you can assign the special `propTypes` property:
+Khi ứng dụng của bạn phát phiển, bạn sẽ có thể bắt gặp rất nhiều bug với việc kiểm tra type (kiểu). Đối với một với ứng dụng, bạn có thể sử dụng các JavaScript extension như [Flow](https://flow.org/) hoặc [TypeScript](https://www.typescriptlang.org/) để kiểm tra type cho toàn bộ ứng dụng của bạn. Nhưng ngay cả khi bạn không sử dụng chúng, React vẫn có xây dựng sẵn một vài kiểu kiểm tra type. Để chạy kiểm tra type trên prop cho một component, bạn có thể assign một property là `propTypes`:
 
 ```javascript
 import PropTypes from 'prop-types';
@@ -30,13 +30,13 @@ Greeting.propTypes = {
 };
 ```
 
-In this example, we are using a class component, but the same functionality could also be applied to function components, or components created by [`React.memo`](/docs/react-api.html#reactmemo) or [`React.forwardRef`](/docs/react-api.html#reactforwardref).
+Trong ví dụ này, chúng ta đang sử dụng một class component, nhưng nó cũng có thể áp tương tự với function component, hoặc component được tạo bởi [`React.memo`](/docs/react-api.html#reactmemo) hay [`React.forwardRef`](/docs/react-api.html#reactforwardref).
 
-`PropTypes` exports a range of validators that can be used to make sure the data you receive is valid. In this example, we're using `PropTypes.string`. When an invalid value is provided for a prop, a warning will be shown in the JavaScript console. For performance reasons, `propTypes` is only checked in development mode.
+`PropTypes` sẽ export một loạt các validator nhằm đảm bảo rằng data (dữ liệu) được nhận vào là valid (hợp lệ). Trong ví dụ này, chúng ta sử dụng `PropTypes.string`. Khi một giá trị invalid (không hợp lệ) được cung cấp cho một prop, thì sẽ có một warning (cảnh báo) sẽ hiện lên bên trong JavaScript console. Vì lý do nhằm đảm bảo performance (hiệu suất), thì `propTypes` sẽ chỉ được kiểm tra trong quá môi trường development mode
 
 ### PropTypes {#proptypes}
 
-Here is an example documenting the different validators provided:
+Đây là một ví dụ về các validator (trình xác thực) khác mà đã được React cung cấp:
 
 ```javascript
 import PropTypes from 'prop-types';
@@ -132,7 +132,7 @@ MyComponent.propTypes = {
 
 ### Requiring Single Child {#requiring-single-child}
 
-With `PropTypes.element` you can specify that only a single child can be passed to a component as children.
+Với `PropTypes.element` bạn có thể chỉ định rằng chỉ có duy nhất một child có thể chuyển đến một component là children.
 
 ```javascript
 import PropTypes from 'prop-types';
@@ -156,7 +156,7 @@ MyComponent.propTypes = {
 
 ### Default Prop Values {#default-prop-values}
 
-You can define default values for your `props` by assigning to the special `defaultProps` property:
+Bạn có thể định nghĩa giá trị mặc định cho `props` của bạn bằng cách gán chúng cho một property là `defaultProps`:
 
 ```javascript
 class Greeting extends React.Component {
@@ -179,7 +179,7 @@ ReactDOM.render(
 );
 ```
 
-If you are using a Babel transform like [plugin-proposal-class-properties](https://babeljs.io/docs/en/babel-plugin-proposal-class-properties/) (previously _plugin-transform-class-properties_), you can also declare `defaultProps` as static property within a React component class. This syntax has not yet been finalized though and will require a compilation step to work within a browser. For more information, see the [class fields proposal](https://github.com/tc39/proposal-class-fields).
+Nếu bạn đang sử dụng Babel transform như là [plugin-proposal-class-properties](https://babeljs.io/docs/en/babel-plugin-proposal-class-properties/) (previously _plugin-transform-class-properties_), bạn cũng có thể khai báo `defaultProps` dưới dạng static property trong một React component class. Mặc dù vậy, cú pháp này vẫn chưa được hoàn thiện và sẽ yêu cầu qua một bước biên dịch để có thể hoạt động trên trình duyệt. Để biết thêm thông tin, hãy xem [class fields proposal](https://github.com/tc39/proposal-class-fields).
 
 ```javascript
 class Greeting extends React.Component {
@@ -195,13 +195,13 @@ class Greeting extends React.Component {
 }
 ```
 
-The `defaultProps` will be used to ensure that `this.props.name` will have a value if it was not specified by the parent component. The `propTypes` typechecking happens after `defaultProps` are resolved, so typechecking will also apply to the `defaultProps`.
+Việc sử dụng `defaultProps` nhằm đảm bảo rằng `this.props.name` sẽ có một giá trị mặc định nếu nó không được chỉ định truyền vào bởi component cha. Việc kiểm tra type `propTypes` sẽ xảy ra sau khi `defaultProps` giải quyết xong, vậy nên việc kiểm tra type cũng sẽ áp dụng cho `defaultProps`.
 
 ### Function Components {#function-components}
 
-If you are using function components in your regular development, you may want to make some small changes to allow PropTypes to be properly applied.
+Nếu bạn đang sử dụng các function component trong quá trình phát triển thông thường của mình, bạn có thể muốn thực hiện một số thay đổi nhỏ để cho phép PropTypes được áp dụng đúng cách.
 
-Let's say you have a component like this:
+Giả sử bạn có một component như sau:
 
 ```javascript
 export default function HelloWorldComponent({ name }) {
@@ -211,7 +211,7 @@ export default function HelloWorldComponent({ name }) {
 }
 ```
 
-To add PropTypes, you may want to declare the component in a separate function before exporting, like this:
+Để thêm PropTypes, bạn có thể khai báo component trong một hàm riêng trước khi export, như sau:
 
 ```javascript
 function HelloWorldComponent({ name }) {
@@ -223,7 +223,7 @@ function HelloWorldComponent({ name }) {
 export default HelloWorldComponent
 ```
 
-Then, you can add PropTypes directly to the `HelloWorldComponent`:
+Sau đó, bạn có thể thêm PropTypes trực tiếp vào `HelloWorldComponent`:
 
 ```javascript
 import PropTypes from 'prop-types'

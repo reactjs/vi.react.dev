@@ -15,15 +15,15 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 * [Buenos Aires](https://www.meetup.com/es/React-en-Buenos-Aires)
 * [Rosario](https://www.meetup.com/es/reactrosario)
 
-## Australia {#australia}
+## Úc {#australia}
 * [Brisbane](https://www.meetup.com/reactbris/)
 * [Melbourne](https://www.meetup.com/React-Melbourne/)
 * [Sydney](https://www.meetup.com/React-Sydney/)
 
-## Austria {#austria}
+## Áo {#austria}
 * [Vienna](https://www.meetup.com/Vienna-ReactJS-Meetup/)
 
-## Belgium {#belgium}
+## Bỉ {#belgium}
 * [Belgium](https://www.meetup.com/ReactJS-Belgium/)
 
 ## Brazil {#brazil}
@@ -53,7 +53,7 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 ## Chile {#chile}
 * [Santiago](https://www.meetup.com/es-ES/react-santiago/)
 
-## China {#china}
+## Trung Quốc {#china}
 * [Beijing](https://www.meetup.com/Beijing-ReactJS-Meetup/)
 
 ## Colombia {#colombia}
@@ -61,20 +61,21 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 * [Medellin](https://www.meetup.com/React-Medellin/)
 * [Cali](https://www.meetup.com/reactcali/)
 
-## Denmark {#denmark}
+## Đan Mạch {#denmark}
 * [Aalborg](https://www.meetup.com/Aalborg-React-React-Native-Meetup/)
 * [Aarhus](https://www.meetup.com/Aarhus-ReactJS-Meetup/)
 
-## England (UK) {#england-uk}
+## Anh (Vương Quốc Anh) {#england-uk}
 * [Manchester](https://www.meetup.com/Manchester-React-User-Group/)
 * [React.JS Girls London](https://www.meetup.com/ReactJS-Girls-London/)
+* [React London : Bring Your Own Project](https://www.meetup.com/React-London-Bring-Your-Own-Project/)
 
-## France {#france}
+## Pháp {#france}
 * [Nantes](https://www.meetup.com/React-Nantes/)
 * [Lille](https://www.meetup.com/ReactBeerLille/)
 * [Paris](https://www.meetup.com/ReactJS-Paris/)
 
-## Germany {#germany}
+## Đức {#germany}
 * [Cologne](https://www.meetup.com/React-Cologne/)
 * [Düsseldorf](https://www.meetup.com/de-DE/ReactJS-Meetup-Dusseldorf/)
 * [Hamburg](https://www.meetup.com/Hamburg-React-js-Meetup/)
@@ -83,14 +84,14 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 * [Munich](https://www.meetup.com/ReactJS-Meetup-Munich/)
 * [React Berlin](https://www.meetup.com/React-Open-Source/)
 
-## Greece {#greece}
+## Hy Lạp {#greece}
 * [Athens](https://www.meetup.com/React-To-React-Athens-MeetUp/)
 * [Thessaloniki](https://www.meetup.com/Thessaloniki-ReactJS-Meetup/)
 
 ## Hungary {#hungary}
 * [Budapest](https://www.meetup.com/React-Budapest/)
 
-## India {#india}
+## Ấn Độ {#india}
 * [Bangalore](https://www.meetup.com/ReactJS-Bangalore/)
 * [Bangalore](https://www.meetup.com/React-Native-Bangalore-Meetup)
 * [Chandigarh](https://www.meetup.com/Chandigarh-React-Developers/)
@@ -108,20 +109,20 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 ## Israel {#israel}
 * [Tel Aviv](https://www.meetup.com/ReactJS-Israel/)
 
-## Italy {#italy}
+## Ý {#italy}
 * [Milan](https://www.meetup.com/React-JS-Milano/)
 
 ## Malaysia {#malaysia}
 * [Kuala Lumpur](https://www.kl-react.com/)
 * [Penang](https://www.facebook.com/groups/reactpenang/)
 
-## Netherlands {#netherlands}
+## Hà Lan {#netherlands}
 * [Amsterdam](https://www.meetup.com/React-Amsterdam/)
 
 ## New Zealand {#new-zealand}
 * [Wellington](https://www.meetup.com/React-Wellington/)
 
-## Norway {#norway}
+## Na Uy {#norway}
 * [Norway](https://reactjs-norway.webflow.io/)
 * [Oslo](https://www.meetup.com/ReactJS-Oslo-Meetup/)
 
@@ -139,35 +140,35 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 * [Manila](https://www.meetup.com/reactjs-developers-manila/)
 * [Manila - ReactJS PH](https://www.meetup.com/ReactJS-Philippines/)
 
-## Poland {#poland}
+## Ba Lan {#poland}
 * [Warsaw](https://www.meetup.com/React-js-Warsaw/)
 
-## Portugal {#portugal}
+## Bồ Đào Nha {#portugal}
 * [Lisbon](https://www.meetup.com/JavaScript-Lisbon/)
 
-## Scotland (UK) {#scotland-uk}
+## Scotland (Vương Quốc Anh) {#scotland-uk}
 * [Edinburgh](https://www.meetup.com/React-Scotland/)
 
 ## Singapore {#singapore}
 * [Singapore - React Knowledgeable](https://reactknowledgeable.org/)
 
-## Spain {#spain}
+## Tây Ban Nha {#spain}
 * [Barcelona](https://www.meetup.com/ReactJS-Barcelona/)
 * [Canarias](https://www.meetup.com/React-Canarias/)
 
-## Sweden {#sweden}
+## Thụy Điển {#sweden}
 * [Goteborg](https://www.meetup.com/ReactJS-Goteborg/)
 
-## Switzerland {#switzerland}
+## Thụy Sỹ {#switzerland}
 * [Zurich](https://www.meetup.com/Zurich-ReactJS-Meetup/)
 
-## Turkey {#turkey}
+## Thổ Nhĩ Kỳ {#turkey}
 * [Istanbul](https://kommunity.com/reactjs-istanbul)
 
-## Ukraine {#ukraine}
+## Ukraina {#ukraine}
 * [Kyiv](https://www.meetup.com/Kyiv-ReactJS-Meetup)
 
-## US {#us}
+## Mỹ {#us}
 * [Ann Arbor, MI - ReactJS](https://www.meetup.com/AnnArbor-jsx/)
 * [Atlanta, GA - ReactJS](https://www.meetup.com/React-ATL/)
 * [Austin, TX - ReactJS](https://www.meetup.com/ReactJS-Austin-Meetup/)
@@ -181,6 +182,7 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 * [Dallas, TX - ReactJS](https://www.meetup.com/ReactDallas/)
 * [Dallas, TX - [Remote] React JS](https://www.meetup.com/React-JS-Group/)
 * [Detroit, MI - Detroit React User Group](https://www.meetup.com/Detroit-React-User-Group/)
+* [Indianapolis, IN - React.Indy](https://www.meetup.com/React-Indy)
 * [Irvine, CA - ReactJS](https://www.meetup.com/ReactJS-OC/)
 * [Kansas City, MO - ReactJS](https://www.meetup.com/Kansas-City-React-Meetup/)
 * [Las Vegas, NV - ReactJS](https://www.meetup.com/ReactVegas/)
@@ -193,6 +195,7 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 * [New York, NY - React Ladies](https://www.meetup.com/React-Ladies/)
 * [New York, NY - React Native](https://www.meetup.com/React-Native-NYC/)
 * [New York, NY - useReactNYC](https://www.meetup.com/useReactNYC/)
+* [Omaha, NE - ReactJS/React Native](https://www.meetup.com/omaha-react-meetup-group/)
 * [Palo Alto, CA - React Native](https://www.meetup.com/React-Native-Silicon-Valley/)
 * [Philadelphia, PA - ReactJS](https://www.meetup.com/Reactadelphia/)
 * [Phoenix, AZ - ReactJS](https://www.meetup.com/ReactJS-Phoenix/)

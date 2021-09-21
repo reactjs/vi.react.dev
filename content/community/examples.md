@@ -1,6 +1,6 @@
 ---
 id: examples
-title: Example Projects
+title: Các dự án mẫu
 layout: community
 sectionid: community
 permalink: community/examples.html
@@ -10,7 +10,7 @@ Có rất nhiều dự án mẫu được tạo bởi cộng đồng React. Chú
 
 Nếu bạn thêm một dự án, hãy cam kết cập nhật nó với các phiên bản React mới nhất.
 
-## Ví dụ nhỏ {#small-examples}
+## Các dự án mẫu cỡ nhỏ {#small-examples}
 
 * **[Calculator](https://github.com/ahfarmer/calculator)** Triển khai máy tính iOS xây dựng bằng React
 * **[Emoji Search](https://github.com/ahfarmer/emoji-search)** Ứng dụng React tìm kiếm biểu tượng cảm xúc

@@ -1,19 +1,19 @@
 - title: Nguồn cộng đồng
   items:
     - id: support
-      title: Support
+      title: Hỗ trợ
     - id: team
       title: Team
     - id: courses
-      title: Courses
+      title: Các khóa học
     - id: examples
-      title: Examples
+      title: Các dự án mẫu
     - id: meetups
-      title: Meetups
+      title: Các cuộc gặp gỡ
     - id: conferences
-      title: Conferences
+      title: Các hội nghị
     - id: articles
-      title: Articles
+      title: Bài viết
     - id: podcasts
       title: Podcasts
     - id: videos

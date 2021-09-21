@@ -27,7 +27,7 @@ class DocSearch extends Component<{}, State> {
         inputSelector: '#algolia-doc-search',
       });
     } else {
-      console.warn('Search has failed to load and now is being disabled');
+      console.warn('Không tải được Trình tìm kiếm lúc này nên tạm thời sẽ tắt nó.');
       this.setState({enabled: false});
     }
   }
