@@ -6,22 +6,22 @@ layout: docs
 category: Add-Ons
 ---
 
-> Note:
+> Lưu ý:
 >
-> `PureRenderMixin` is a legacy add-on. Use [`React.PureComponent`](/docs/react-api.html#reactpurecomponent) instead.
+> `PureRenderMixin` được kế thừa từ add-on. Sử dụng [`React.PureComponent`](/docs/react-api.html#reactpurecomponent) thay thế.
 
 **Importing**
 
 ```javascript
 import PureRenderMixin from 'react-addons-pure-render-mixin'; // ES6
-var PureRenderMixin = require('react-addons-pure-render-mixin'); // ES5 with npm
+var PureRenderMixin = require('react-addons-pure-render-mixin'); // ES5 với npm
 ```
 
-## Overview {#overview}
+## Tổng quát {#overview}
 
-If your React component's render function renders the same result given the same props and state, you can use this mixin for a performance boost in some cases.
+Nếu function render của React component của bạn hiển thị cùng một kết quả với cùng prop và state, bạn có thể sử dụng mixin để tăng hiệu suất trong một số trường hợp.
 
-Example:
+Ví dụ:
 
 ```js
 const createReactClass = require('create-react-class');
@@ -35,10 +35,10 @@ createReactClass({
 });
 ```
 
-Under the hood, the mixin implements [shouldComponentUpdate](/docs/component-specs.html#updating-shouldcomponentupdate), in which it compares the current props and state with the next ones and returns `false` if the equalities pass.
+Xem xét một cách kỹ lưỡng, mixin thực hiện [shouldComponentUpdate](/docs/component-specs.html#updating-shouldcomponentupdate), trong đó nó so sánh prop và state hiện tại với những cái tiếp theo và trả về `false` nếu chúng bằng nhau.
 
-> Note:
+> Lưu ý:
 >
-> This only shallowly compares the objects. If these contain complex data structures, it may produce false-negatives for deeper differences. Only mix into components which have simple props and state, or use `forceUpdate()` when you know deep data structures have changed. Or, consider using [immutable objects](https://facebook.github.io/immutable-js/) to facilitate fast comparisons of nested data.
+> Đây chỉ là so sánh nông với các object. Nếu object chứa cấu trúc dữ liệu phức tạp, nó có thể tạo ra các trường hợp sai đối với sự khác nhau sâu trong nhiều cấp của object. Chỉ được dùng đối với component có prop và state đơn giản, hoặc dùng `forceUpdate()` khi bạn biết cấu trúc dữ liệu sâu bên trong đã thay đổi. Có thể cân nhắc sử dụng [immutable objects](https://facebook.github.io/immutable-js/) để dễ dàng so sánh các dữ liệu lồng nhau.
 >
-> Furthermore, `shouldComponentUpdate` skips updates for the whole component subtree. Make sure all the children components are also "pure".
+> Hơn nữa, `shouldComponentUpdate` bỏ qua cập nhật toàn bộ các component con. Hãy đảm bảo rằng tất cả các component con cũng là "pure".

@@ -143,7 +143,11 @@ Sơ qua một module component mocked đến phương pháp để tăng cường
 
 > Lưu ý:
 >
+<<<<<<< HEAD
 > `mockComponent()` là một API kế thừa. Chúng tôi khuyên nên dùng [`jest.mock()`](https://facebook.github.io/jest/docs/en/tutorial-react-native.html#mock-native-modules-using-jestmock) thay cho nó.
+=======
+> `mockComponent()` is a legacy API. We recommend using [`jest.mock()`](https://jestjs.io/docs/tutorial-react-native#mock-native-modules-using-jestmock) instead.
+>>>>>>> c09a44bec17617c90e7911c0c28644bef075b7e5
 
 * * *
 

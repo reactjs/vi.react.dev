@@ -1,57 +1,57 @@
 ---
 id: optimizing-performance
-title: Optimizing Performance
+title: Tối ưu hóa hiệu suất
 permalink: docs/optimizing-performance.html
 redirect_from:
   - "docs/advanced-performance.html"
 ---
 
-Internally, React uses several clever techniques to minimize the number of costly DOM operations required to update the UI. For many applications, using React will lead to a fast user interface without doing much work to specifically optimize for performance. Nevertheless, there are several ways you can speed up your React application.
+Về bản chất bên trong, React sử dụng một số kỹ thuật thông minh để giảm thiểu tối đa các tác động tới DOM một cách không cần thiết để cập nhật UI (Giao diện người dùng). Đối với nhiều ứng dụng, việc sử dụng React sẽ giúp UI hiển thị nhanh mà không cần phải thực hiện nhiều công việc để tối ưu hóa hiệu suất một cách cụ thể. Tuy nhiên, có một số cách để bạn có thể tăng tốc ứng dụng React của mình.
 
-## Use the Production Build {#use-the-production-build}
+## Sử dụng bản Production Build {#use-the-production-build}
 
-If you're benchmarking or experiencing performance problems in your React apps, make sure you're testing with the minified production build.
+Nếu bạn đang đo điểm chuẩn hoặc gặp sự cố về hiệu suất trong các ứng dụng React của mình, hãy đảm bảo rằng bạn đang thử nghiệm với bản minified production build.
 
-By default, React includes many helpful warnings. These warnings are very useful in development. However, they make React larger and slower so you should make sure to use the production version when you deploy the app.
+Theo mặc định, React sẽ bao gồm nhiều cảnh báo hữu ích. Những cảnh báo này rất hữu ích trong quá trình development. Tuy nhiên, chúng làm cho React lớn hơn và chậm hơn, vì vậy bạn nên chắc chắn rằng mình đã sử dụng phiên bản production khi deploy ứng dụng.
 
-If you aren't sure whether your build process is set up correctly, you can check it by installing [React Developer Tools for Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi). If you visit a site with React in production mode, the icon will have a dark background:
+Nếu bạn không chắc liệu quá trình build của mình có được thiết lập chính xác hay không, bạn có thể kiểm tra bằng cách cài đặt [React Developer Tools for Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi). Nếu bạn truy cập một trang web có sử dụng React ở chế độ production, biểu tượng sẽ có nền tối:
 
 <img src="../images/docs/devtools-prod.png" style="max-width:100%" alt="React DevTools on a website with production version of React">
 
-If you visit a site with React in development mode, the icon will have a red background:
+Nếu bạn truy cập một trang web có React ở chế độ development, biểu tượng này sẽ có nền màu đỏ:
 
 <img src="../images/docs/devtools-dev.png" style="max-width:100%" alt="React DevTools on a website with development version of React">
 
-It is expected that you use the development mode when working on your app, and the production mode when deploying your app to the users.
+Bạn phải sử dụng chế độ development khi làm việc trên ứng dụng của mình và chế độ production khi deploying ứng dụng của bạn cho người dùng sử dụng.
 
-You can find instructions for building your app for production below.
+Bạn có thể tìm thấy hướng dẫn build ứng dụng của mình cho production bên dưới.
 
 ### Create React App {#create-react-app}
 
-If your project is built with [Create React App](https://github.com/facebookincubator/create-react-app), run:
+Nếu dự án của bạn đã được build bằng [Create React App](https://github.com/facebookincubator/create-react-app), hãy chạy:
 
 ```
 npm run build
 ```
 
-This will create a production build of your app in the `build/` folder of your project.
+Điều này sẽ tạo ra một bản production cho ứng dụng của bạn trong thư mục `build/` của dự án của bạn.
 
-Remember that this is only necessary before deploying to production. For normal development, use `npm start`.
+Hãy nhớ rằng điều này chỉ cần thiết trước khi deploy lên production. Để development bình thường, hãy sử dụng `npm start`.
 
 ### Single-File Builds {#single-file-builds}
 
-We offer production-ready versions of React and React DOM as single files:
+Chúng tôi cung cấp các phiên bản production-ready của React và React DOM dưới dạng các single file:
 
 ```html
 <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
 ```
 
-Remember that only React files ending with `.production.min.js` are suitable for production.
+Hãy nhớ rằng chỉ các file React kết thúc bằng `.production.min.js` mới phù hợp cho production.
 
 ### Brunch {#brunch}
 
-For the most efficient Brunch production build, install the [`terser-brunch`](https://github.com/brunch/terser-brunch) plugin:
+Để có bản Brunch production build hiệu quả nhất, hãy cài đặt thêm plugin [`terser-brunch`](https://github.com/brunch/terser-brunch):
 
 ```
 # If you use npm
@@ -61,17 +61,17 @@ npm install --save-dev terser-brunch
 yarn add --dev terser-brunch
 ```
 
-Then, to create a production build, add the `-p` flag to the `build` command:
+Sau đó, để tạo một bản production build, hãy flag (cờ) `-p` vào command (lệnh) `build` như bên dưới:
 
 ```
 brunch build -p
 ```
 
-Remember that you only need to do this for production builds. You shouldn't pass the `-p` flag or apply this plugin in development, because it will hide useful React warnings and make the builds much slower.
+Hãy nhớ rằng bạn chỉ cần làm điều này cho các bản production build. Bạn không nên dùng flag `-p` hoặc áp dụng plugin này trong quá trình development, vì nó sẽ ẩn các cảnh báo React hữu ích và làm cho quá trình xây dựng và phát triển chậm đi nhiều.
 
 ### Browserify {#browserify}
 
-For the most efficient Browserify production build, install a few plugins:
+Để có bản Browserify production build hiệu quả nhất, hãy cài đặt một số plugin sau:
 
 ```
 # If you use npm
@@ -81,13 +81,13 @@ npm install --save-dev envify terser uglifyify
 yarn add --dev envify terser uglifyify
 ```
 
-To create a production build, make sure that you add these transforms **(the order matters)**:
+Để tạo bản production build, hãy đảm bảo rằng bạn thêm các chuyển đổi này **(the order matters)**:
 
-* The [`envify`](https://github.com/hughsk/envify) transform ensures the right build environment is set. Make it global (`-g`).
-* The [`uglifyify`](https://github.com/hughsk/uglifyify) transform removes development imports. Make it global too (`-g`).
-* Finally, the resulting bundle is piped to [`terser`](https://github.com/terser-js/terser) for mangling ([read why](https://github.com/hughsk/uglifyify#motivationusage)).
+* Plugin [`envify`](https://github.com/hughsk/envify) sẽ giúp đảm bảo rằng môi trường build sẽ được thiết lập một cách phù hợp. Làm cho nó trở nên global (`-g`).
+* Plugin [`uglifyify`](https://github.com/hughsk/uglifyify) có tác dụng chuyển đổi và loại bỏ đi các development import không cần thiết. Cũng làm cho nó global (`-g`).
+* Cuối cùng, gói kết quả sẽ được đưa đến [`terser`](https://github.com/terser-js/terser) để xử lý ([đọc lý do](https://github.com/hughsk/uglifyify#motivationusage)).
 
-For example:
+Ví dụ:
 
 ```
 browserify ./index.js \
@@ -96,11 +96,11 @@ browserify ./index.js \
   | terser --compress --mangle > ./bundle.js
 ```
 
-Remember that you only need to do this for production builds. You shouldn't apply these plugins in development because they will hide useful React warnings, and make the builds much slower.
+Hãy nhớ rằng bạn chỉ cần làm điều này cho các bản production build. Bạn không nên áp dụng các plugin này trong quá trình development vì chúng sẽ ẩn các cảnh báo React hữu ích và làm cho quá trình xây dựng và phát triển chậm đi nhiều.
 
 ### Rollup {#rollup}
 
-For the most efficient Rollup production build, install a few plugins:
+Để có bản Rollup production build hiệu quả nhất, hãy cài đặt một số plugin:
 
 ```bash
 # If you use npm
@@ -110,11 +110,11 @@ npm install --save-dev rollup-plugin-commonjs rollup-plugin-replace rollup-plugi
 yarn add --dev rollup-plugin-commonjs rollup-plugin-replace rollup-plugin-terser
 ```
 
-To create a production build, make sure that you add these plugins **(the order matters)**:
+Để tạo bản production build, hãy đảm bảo rằng bạn thêm các plugin này **(the order matters)**:
 
-* The [`replace`](https://github.com/rollup/rollup-plugin-replace) plugin ensures the right build environment is set.
-* The [`commonjs`](https://github.com/rollup/rollup-plugin-commonjs) plugin provides support for CommonJS in Rollup.
-* The [`terser`](https://github.com/TrySound/rollup-plugin-terser) plugin compresses and mangles the final bundle.
+* Plugin [`replace`](https://github.com/rollup/rollup-plugin-replace) sẽ giúp đảm bảo rằng môi trường build sẽ được thiết lập một cách phù hợp.
+* Plugin [`commonjs`](https://github.com/rollup/rollup-plugin-commonjs) cung cấp và hỗ trợ cho CommonJS trong Rollup.
+* Plugin [`terser`](https://github.com/TrySound/rollup-plugin-terser) sẽ nén và xử lý gói cuối cùng.
 
 ```js
 plugins: [
@@ -128,18 +128,18 @@ plugins: [
 ]
 ```
 
-For a complete setup example [see this gist](https://gist.github.com/Rich-Harris/cb14f4bc0670c47d00d191565be36bf0).
+Để biết ví dụ về cách thiết lập hoàn chỉnh, [hãy xem gist này](https://gist.github.com/Rich-Harris/cb14f4bc0670c47d00d191565be36bf0)
 
-Remember that you only need to do this for production builds. You shouldn't apply the `terser` plugin or the `replace` plugin with `'production'` value in development because they will hide useful React warnings, and make the builds much slower.
+Hãy nhớ rằng bạn chỉ cần làm điều này cho các bản production build. Bạn không nên áp dụng plugin `terser` hoặc plugin `replace` với value `'production'` trong quá trình development vì chúng sẽ ẩn các cảnh báo React hữu ích và làm cho quá trình xây dựng và phát triển chậm đi nhiều.
 
 ### webpack {#webpack}
 
->**Note:**
+>**Ghi chú:**
 >
->If you're using Create React App, please follow [the instructions above](#create-react-app).<br>
->This section is only relevant if you configure webpack directly.
+>Nếu bạn đang sử dụng Create React App, vui lòng làm theo [hướng dẫn ở trên](#create-react-app). <br>
+>Phần này chỉ có cần thiết nếu bạn định cấu hình webpack trực tiếp.
 
-Webpack v4+ will minify your code by default in production mode.
+Webpack v4 + sẽ minify code của bạn một cách mặc định ở chế độ production.
 
 ```js
 const TerserPlugin = require('terser-webpack-plugin');
@@ -152,45 +152,45 @@ module.exports = {
 };
 ```
 
-You can learn more about this in [webpack documentation](https://webpack.js.org/guides/production/).
+Bạn có thể tìm hiểu thêm về điều này trong [webpack documentation](https://webpack.js.org/guides/production/).
 
-Remember that you only need to do this for production builds. You shouldn't apply `TerserPlugin` in development because it will hide useful React warnings, and make the builds much slower.
+Hãy nhớ rằng bạn chỉ cần làm điều này cho các bản production build. Bạn không nên áp dụng `TerserPlugin` trong quá trình development vì nó sẽ ẩn các cảnh báo React hữu ích và làm cho quá trình xây dựng và phát triển chậm đi nhiều.
 
 ## Profiling Components with the DevTools Profiler {#profiling-components-with-the-devtools-profiler}
 
-`react-dom` 16.5+ and `react-native` 0.57+ provide enhanced profiling capabilities in DEV mode with the React DevTools Profiler.
-An overview of the Profiler can be found in the blog post ["Introducing the React Profiler"](/blog/2018/09/10/introducing-the-react-profiler.html).
-A video walkthrough of the profiler is also [available on YouTube](https://www.youtube.com/watch?v=nySib7ipZdk).
+`react-dom` 16.5+ và `react-native` 0.57+ cung cấp khả năng tạo profiling capabilities trong chế độ DEV với React DevTools Profiler.
+Để hiểu tổng quan hơn về Profiler, bạn có thể đọc và tìm hiểu trong blog post này ["Introducing the React Profiler"](/blog/2018/09/10/introducing-the-react-profiler.html).
+Và một video hướng dẫn về profiler cũng đã [có sẵn ở trên YouTube](https://www.youtube.com/watch?v=nySib7ipZdk).
 
-If you haven't yet installed the React DevTools, you can find them here:
+Nếu bạn chưa cài đặt React DevTools, bạn có thể tìm thấy chúng tại đây:
 
 - [Chrome Browser Extension](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en)
 - [Firefox Browser Extension](https://addons.mozilla.org/en-GB/firefox/addon/react-devtools/)
 - [Standalone Node Package](https://www.npmjs.com/package/react-devtools)
 
-> Note
+> Ghi chú
 >
-> A production profiling bundle of `react-dom` is also available as `react-dom/profiling`.
-> Read more about how to use this bundle at [fb.me/react-profiling](https://fb.me/react-profiling)
+> Một gói production profiling của `react-dom` cũng có sẵn dưới dạng `react-dom/profiling`.
+> Đọc thêm về cách sử dụng gói này tại [fb.me/react-profiling](https://fb.me/react-profiling)
 
-> Note
+> Ghi chú
 >
-> Before React 17, we use the standard [User Timing API](https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API) to profile components with the chrome performance tab. 
-> For a more detailed walkthrough, check out [this article by Ben Schwarz](https://calibreapp.com/blog/react-performance-profiling-optimization).
+> Trước phiên bản React 17, chúng tôi sử dụng [User Timing API](https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API) để cấu hình các component với chrome performance tab.
+> Để được hướng dẫn chi tiết hơn, hãy xem [bài viết này của Ben Schwarz](https://calibreapp.com/blog/react-performance-profiling-optimization).
 
 ## Virtualize Long Lists {#virtualize-long-lists}
 
-If your application renders long lists of data (hundreds or thousands of rows), we recommend using a technique known as "windowing". This technique only renders a small subset of your rows at any given time, and can dramatically reduce the time it takes to re-render the components as well as the number of DOM nodes created.
+Nếu ứng dụng của bạn render (hiển thị) danh sách các dữ liệu dài và nhiều (hàng trăm hoặc hàng nghìn hàng), chúng tôi khuyên bạn nên sử dụng kỹ thuật được gọi là "windowing". Kỹ thuật này chỉ hiển thị một tập hợp các hàng dữ liệu cần thiết trong từng thời điểm và nó sẽ giúp giảm đáng kể thời gian hiển thị lại các component cũng như số lượng các DOM node được tạo.
 
-[react-window](https://react-window.now.sh/) and [react-virtualized](https://bvaughn.github.io/react-virtualized/) are popular windowing libraries. They provide several reusable components for displaying lists, grids, and tabular data. You can also create your own windowing component, like [Twitter did](https://medium.com/@paularmstrong/twitter-lite-and-high-performance-react-progressive-web-apps-at-scale-d28a00e780a3), if you want something more tailored to your application's specific use case.
+[react-window](https://react-window.now.sh/) và [react-virtualized](https://bvaughn.github.io/react-virtualized/) là các thư viện windowing phổ biến. Chúng cung cấp một số component có thể tái sử dụng để hiển thị dưới dạng danh sách, lưới và dữ liệu dạng bảng. Bạn cũng có thể tạo windowing component của riêng mình, giống như [Twitter đã làm](https://medium.com/@paularmstrong/twitter-lite-and-high-performance-react-progressive-web-apps-at-scale-d28a00e780a3), nếu bạn muốn thứ gì đó phù hợp hơn với từng trường hợp cụ thể trong ứng dụng của bạn.
 
 ## Avoid Reconciliation {#avoid-reconciliation}
 
-React builds and maintains an internal representation of the rendered UI. It includes the React elements you return from your components. This representation lets React avoid creating DOM nodes and accessing existing ones beyond necessity, as that can be slower than operations on JavaScript objects. Sometimes it is referred to as a "virtual DOM", but it works the same way on React Native.
+React xây dựng và duy trì internal representation để rendered UI. Nó bao gồm các React element mà bạn trả về từ các component. Cách biểu diễn này cho phép React tránh việc tạo các DOM node và truy cập các node hiện có vượt quá mức cần thiết, vì điều đó có thể chậm hơn các operation trên các JavaScript object. Đôi khi nó được gọi là "DOM ảo", cách nó hoạt động tương tự như cách hoạt động trên React Native.
 
-When a component's props or state change, React decides whether an actual DOM update is necessary by comparing the newly returned element with the previously rendered one. When they are not equal, React will update the DOM.
+Khi các prop hoặc state của một component thay đổi, React sẽ xem xét quyết định liệu bản cập nhật DOM có thực sự cần thiết hay không hoặc không bằng cách so sánh các phần tử mới được trả về với các phần tử đã được hiển thị trước đó. Khi chúng không giống nhau, React sẽ cập nhật lại DOM.
 
-Even though React only updates the changed DOM nodes, re-rendering still takes some time. In many cases it's not a problem, but if the slowdown is noticeable, you can speed all of this up by overriding the lifecycle function `shouldComponentUpdate`, which is triggered before the re-rendering process starts. The default implementation of this function returns `true`, leaving React to perform the update:
+Mặc dù React chỉ cập nhật các DOM node đã thay đổi, thì việc re-rendering (hiển thị lại) vẫn sẽ mất một khoảng thời gian. Tuy nhiên trong nhiều trường hợp, đó không phải là vấn đề, nhưng nếu việc bị chậm đi này thực sự đáng chú ý, bạn có thể xem xét tăng tốc độ chúng bằng cách ghi đè với lifecycle function `shouldComponentUpdate`, nó được kích hoạt trước khi quá trình re-rendering bắt đầu. Việc triển khai của hàm này mặc định sẽ trả về `true`, nhằm để báo cho React thực hiện việc cập nhật:
 
 ```javascript
 shouldComponentUpdate(nextProps, nextState) {
@@ -198,27 +198,27 @@ shouldComponentUpdate(nextProps, nextState) {
 }
 ```
 
-If you know that in some situations your component doesn't need to update, you can return `false` from `shouldComponentUpdate` instead, to skip the whole rendering process, including calling `render()` on this component and below.
+Nếu bạn biết chắc rằng trong một số trường hợp, component của bạn không cần cập nhật, bạn có thể trả về `false` từ `shouldComponentUpdate` để bỏ qua toàn bộ quá trình render, bao gồm cả việc gọi `render()` trên component hiện tại và cả bên dưới.
 
-In most cases, instead of writing `shouldComponentUpdate()` by hand, you can inherit from [`React.PureComponent`](/docs/react-api.html#reactpurecomponent). It is equivalent to implementing `shouldComponentUpdate()` with a shallow comparison of current and previous props and state.
+Trong hầu hết các trường hợp, thay vì viết `shouldComponentUpdate()` bằng tay, bạn có thể kế thừa từ [`React.PureComponent`](/docs/react-api.html#reactpurecomponent). Nó tương đương với việc triển khai `shouldComponentUpdate()` sẽ shallow comparison giữa các prop và state hiện tại và trước đó.
 
 ## shouldComponentUpdate In Action {#shouldcomponentupdate-in-action}
 
-Here's a subtree of components. For each one, `SCU` indicates what `shouldComponentUpdate` returned, and `vDOMEq` indicates whether the rendered React elements were equivalent. Finally, the circle's color indicates whether the component had to be reconciled or not.
+Đây là một subtree của các component. Đối với mỗi `SCU` sẽ báo cho `shouldComponentUpdate` biết là trả về cái gì và `vDOMEq` cho biết liệu các phần tử React được render có tương đương hay không. Cuối cùng, màu của vòng tròn sẽ cho biết liệu component có được reconciled hay không.
 
 <figure><img src="../images/docs/should-component-update.png" style="max-width:100%" /></figure>
 
-Since `shouldComponentUpdate` returned `false` for the subtree rooted at C2, React did not attempt to render C2, and thus didn't even have to invoke `shouldComponentUpdate` on C4 and C5.
+Vì `shouldComponentUpdate` trả về `false` cho subtree bắt nguồn từ C2, React đã không cố render C2 và do đó thậm chí không phải gọi đến `shouldComponentUpdate` trên C4 và C5.
 
-For C1 and C3, `shouldComponentUpdate` returned `true`, so React had to go down to the leaves and check them. For C6 `shouldComponentUpdate` returned `true`, and since the rendered elements weren't equivalent React had to update the DOM.
+Đối với C1 và C3, `shouldComponentUpdate` trả về `true`, vì vậy React phải đi xuống các nhánh và kiểm tra chúng. Đối với C6 `shouldComponentUpdate` trả về `true` và vì các element được render không giống nhau nên React phải cập nhật lại DOM.
 
-The last interesting case is C8. React had to render this component, but since the React elements it returned were equal to the previously rendered ones, it didn't have to update the DOM.
+Trường hợp thú vị cuối cùng là C8. React phải render component này, nhưng vì các phần tử React trả về bằng với các phần tử đã được render đó, nên nó không phải cập nhật lại DOM.
 
-Note that React only had to do DOM mutations for C6, which was inevitable. For C8, it bailed out by comparing the rendered React elements, and for C2's subtree and C7, it didn't even have to compare the elements as we bailed out on `shouldComponentUpdate`, and `render` was not called.
+Lưu ý rằng React chỉ phải thực hiện các DOM mutation cho C6, điều này là không thể tránh khỏi. Đối với C8, nó đã so sánh các phần tử React đã được render và đối với subtree của C2 và C7, nó thậm chí không phải so sánh các phần tử trên `shouldComponentUpdate` và `render` đã không được gọi.
 
 ## Examples {#examples}
 
-If the only way your component ever changes is when the `props.color` or the `state.count` variable changes, you could have `shouldComponentUpdate` check that:
+Nếu cách duy nhất để component của bạn thay đổi là khi biến `props.color` hoặc `state.count` thay đổi, bạn nên thực hiện kiểm tra `shouldComponentUpdate` như bên dưới:
 
 ```javascript
 class CounterButton extends React.Component {
@@ -249,7 +249,7 @@ class CounterButton extends React.Component {
 }
 ```
 
-In this code, `shouldComponentUpdate` is just checking if there is any change in `props.color` or `state.count`. If those values don't change, the component doesn't update. If your component got more complex, you could use a similar pattern of doing a "shallow comparison" between all the fields of `props` and `state` to determine if the component should update. This pattern is common enough that React provides a helper to use this logic - just inherit from `React.PureComponent`. So this code is a simpler way to achieve the same thing:
+Trong đoạn mã này, `shouldComponentUpdate` chỉ kiểm tra xem có bất kỳ thay đổi nào trong `props.color` hoặc `state.count` hay không. Nếu những giá trị đó không thay đổi, component sẽ không cập nhật. Nếu component của bạn phức tạp hơn nữa, bạn có thể sử dụng một mô hình tương tự để thực hiện "shallow comparison" (so sánh) giữa tất cả các `props` và `state` để xác định xem component có nên được cập nhật lại hay không. Với mô hình phổ biến này đủ để React cung cấp một trình trợ giúp cho việc sử dụng logic này - bằng cách chỉ cần kế thừa từ `React.PureComponent`. Vì vậy, đoạn code này là một cách đơn giản hơn để đạt được điều tương tự:
 
 ```js
 class CounterButton extends React.PureComponent {
@@ -270,9 +270,9 @@ class CounterButton extends React.PureComponent {
 }
 ```
 
-Most of the time, you can use `React.PureComponent` instead of writing your own `shouldComponentUpdate`. It only does a shallow comparison, so you can't use it if the props or state may have been mutated in a way that a shallow comparison would miss.
+Hầu hết các trường hợp, bạn có thể sử dụng `React.PureComponent` thay vì phải viết `shouldComponentUpdate` của riêng bạn. Nó chỉ thực hiện một shallow comparison, vì vậy bạn không thể sử dụng nó nếu các prop hoặc state có thể đã bị thay đổi theo cách mà một phép shallow comparison sẽ có thể bỏ qua.
 
-This can be a problem with more complex data structures. For example, let's say you want a `ListOfWords` component to render a comma-separated list of words, with a parent `WordAdder` component that lets you click a button to add a word to the list. This code does *not* work correctly:
+Đây có thể là một vấn đề với các cấu trúc dữ liệu phức tạp hơn. Ví dụ: giả sử bạn muốn component `ListOfWords` render danh sách các từ và được phân tách bằng dấu phẩy, với component `WordAdder` parent cho phép bạn click vào button để thêm một từ vào danh sách. Đoạn code này sẽ *không* hoạt động chính xác:
 
 ```javascript
 class ListOfWords extends React.PureComponent {
@@ -308,11 +308,11 @@ class WordAdder extends React.Component {
 }
 ```
 
-The problem is that `PureComponent` will do a simple comparison between the old and new values of `this.props.words`. Since this code mutates the `words` array in the `handleClick` method of `WordAdder`, the old and new values of `this.props.words` will compare as equal, even though the actual words in the array have changed. The `ListOfWords` will thus not update even though it has new words that should be rendered.
+Vấn đề là `PureComponent` sẽ thực hiện một phép so sánh đơn giản giữa các giá trị cũ và mới của `this.props.words`. Vì code này thay đổi array `words` trong method `handleClick` của `WordAdder`, các giá trị cũ và mới của `this.props.words` sẽ so sánh bằng nhau, mặc dù các word (từ) thực tế trong array đã được thay đổi. Do đó, `ListOfWords` sẽ không cập nhật mặc dù nó có các từ mới cần được render.
 
 ## The Power Of Not Mutating Data {#the-power-of-not-mutating-data}
 
-The simplest way to avoid this problem is to avoid mutating values that you are using as props or state. For example, the `handleClick` method above could be rewritten using `concat` as:
+Cách đơn giản nhất để tránh gặp vấn đề này là tránh thay đổi các giá trị mà bạn đang sử dụng như prop hoặc state. Ví dụ: method `handleClick` ở trên có thể được viết lại bằng cách sử dụng `concat` như sau:
 
 ```javascript
 handleClick() {
@@ -322,7 +322,7 @@ handleClick() {
 }
 ```
 
-ES6 supports a [spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator) for arrays which can make this easier. If you're using Create React App, this syntax is available by default.
+ES6 hỗ trợ một [spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_operator) cho phép các array có thể làm việc này một cách dễ dàng hơn. Nếu bạn đang sử dụng Create React App, thì cú pháp này đã có sẵn theo mặc định rồi.
 
 ```js
 handleClick() {
@@ -332,7 +332,7 @@ handleClick() {
 };
 ```
 
-You can also rewrite code that mutates objects to avoid mutation, in a similar way. For example, let's say we have an object named `colormap` and we want to write a function that changes `colormap.right` to be `'blue'`. We could write:
+Bạn cũng có thể viết lại những đoạn code mutate object để tránh mutation, theo một cách tương tự. Ví dụ: giả sử chúng ta có một object tên là `colormap` và chúng ta muốn viết một function cho phép thay đổi `colormap.right` thành `'blue'`. Chúng ta có thể viết:
 
 ```js
 function updateColorMap(colormap) {
@@ -340,7 +340,7 @@ function updateColorMap(colormap) {
 }
 ```
 
-To write this without mutating the original object, we can use [Object.assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign) method:
+Để viết điều này mà không làm thay đổi object ban đầu, chúng ta có thể sử dụng method [Object.assign](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign):
 
 ```js
 function updateColorMap(colormap) {
@@ -348,9 +348,9 @@ function updateColorMap(colormap) {
 }
 ```
 
-`updateColorMap` now returns a new object, rather than mutating the old one. `Object.assign` is in ES6 and requires a polyfill.
+`updateColorMap` bây giờ đã trả về một object mới, thay vì thay đổi object cũ. `Object.assign` nằm trong ES6 và yêu cầu một polyfill.
 
-[Object spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) makes it easier to update objects without mutation as well:
+[Object spread syntax](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax) giúp cập nhật các object dễ dàng hơn mà không phải thay đổi chúng:
 
 ```js
 function updateColorMap(colormap) {
@@ -358,8 +358,8 @@ function updateColorMap(colormap) {
 }
 ```
 
-This feature was added to JavaScript in ES2018.
+Tính năng này đã được thêm vào JavaScript trong phiên bản ES2018
 
-If you're using Create React App, both `Object.assign` and the object spread syntax are available by default.
+Nếu bạn đang sử dụng Create React App, thì cả `Object.assign` và object spread syntax đều đã có sẵn đi theo mặc định rồi.
 
-When you deal with deeply nested objects, updating them in an immutable way can feel convoluted. If you run into this problem, check out [Immer](https://github.com/mweststrate/immer) or [immutability-helper](https://github.com/kolodny/immutability-helper). These libraries let you write highly readable code without losing the benefits of immutability.
+Khi bạn xử lý các đối tượng lồng nhau rất sâu, thì việc cập nhật chúng theo cách immutable có thể khiến bạn cảm thấy phức tạp. Nếu bạn gặp sự cố này, hãy xem [Immer](https://github.com/mweststrate/immer) hoặc [immutability-helper](https://github.com/kolodny/immutability-helper). Các thư viện này cho phép bạn viết code dễ đọc mà không làm mất đi lợi ích của immutability.
