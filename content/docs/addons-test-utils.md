@@ -166,7 +166,7 @@ isElementOfType(
 )
 ```
 
-Trả về `true` if `element` là một React element mà có kiểu thuộc React `componentClass`.
+Trả về `true` nếu `element` là một element trong React mà có kiểu thuộc `componentClass` trong React.
 
 * * *
 
@@ -176,7 +176,7 @@ Trả về `true` if `element` là một React element mà có kiểu thuộc Re
 isDOMComponent(instance)
 ```
 
-Trả về `true` nếu `instance` là một DOM component (như là `<div>` hoặc `<span>`).
+Trả về `true` nếu `instance` là một component trong DOM (ví dụ như là `<div>` hoặc `<span>`).
 
 * * *
 
@@ -186,7 +186,7 @@ Trả về `true` nếu `instance` là một DOM component (như là `<div>` ho�
 isCompositeComponent(instance)
 ```
 
-Trả về `true` nếu `instance` là một component do người dùng xác định, như là class component hoặc function component.
+Trả về `true` nếu `instance` là một component do người dùng tự định nghĩa, như là class component hoặc function component.
 
 * * *
 
@@ -199,7 +199,7 @@ isCompositeComponentWithType(
 )
 ```
 
-Trả về `true` nếu `instance` là một component mà có kiểu thuộc React `componentClass`.
+Trả về `true` nếu `instance` là một component mà có kiểu thuộc `componentClass` trong React.
 
 * * *
 
@@ -212,7 +212,7 @@ findAllInRenderedTree(
 )
 ```
 
-Duyệt qua tất cả các component trong `tree` và dồn tất cả các component nơi mà `test(component)` là `true`. Điều này tuy không hữu ích cho mình, nhưng nó được sử dụng làm nền tảng cho các hộp test khác.
+Duyệt tất cả các component trong `tree` và gom lại tất cả các component mà `test(component)` trả về `true`. Điều này tuy không có ích lắm, nhưng được sử dụng làm nền tảng cho các test-util khác.
 
 * * *
 
@@ -225,7 +225,7 @@ scryRenderedDOMComponentsWithClass(
 )
 ```
 
-Tìm tất cả các DOM element thuộc các component trong tree rendered mà DOM component có tên class phù hợp `className`.
+Tìm tất cả các element trong DOM thuộc các component trong tree đã render mà component DOM có tên của class giống với `className`.
 
 * * *
 
@@ -238,7 +238,7 @@ findRenderedDOMComponentWithClass(
 )
 ```
 
-Như là [`scryRenderedDOMComponentsWithClass()`](#scryrendereddomcomponentswithclass) nhưng sẽ chỉ có một kết quả, và trả về một kết quả duy nhất, hoặc throw ra exception nếu có bất kỳ kết quả nào khác trùng nhau cạnh một kết quả duy nhất.
+Giống với [`scryRenderedDOMComponentsWithClass()`](#scryrendereddomcomponentswithclass) nhưng sẽ chỉ có một và trả về một kết quả duy nhất, hoặc throw ra exception nếu có bất kỳ các kết quả trùng nhau.
 
 * * *
 
@@ -251,7 +251,7 @@ scryRenderedDOMComponentsWithTag(
 )
 ```
 
-Tìm tất cả các DOM element trong các component trong rendered tree mà có DOM component có tên của thẻ trùng với `tagName`.
+Tìm tất cả các element trong DOM thuộc các component trong tree đã render mà component DOM có tên của thẻ giống với `tagName`.
 
 * * *
 
@@ -264,7 +264,7 @@ findRenderedDOMComponentWithTag(
 )
 ```
 
-Như [`scryRenderedDOMComponentsWithTag()`](#scryrendereddomcomponentswithtag) nhưng sẽ chỉ có một kết quả, và trả về một kết quả duy nhất, hoặc throw ra exception nếu có bất kỳ kết quả nào khác trùng nhau cạnh một kết quả duy nhất.
+Giống [`scryRenderedDOMComponentsWithTag()`](#scryrendereddomcomponentswithtag) nhưng sẽ chỉ có một và trả về một kết quả duy nhất, hoặc throw ra exception nếu có bất kỳ các kết quả trùng nhau.
 
 * * *
 
@@ -277,7 +277,7 @@ scryRenderedComponentsWithType(
 )
 ```
 
-Tìm tất cả các trường hợp của các thành phần có kiểu như `componentClass`.
+Tìm tất cả các instance của các component có kiểu giống với `componentClass`.
 
 * * *
 
@@ -290,7 +290,7 @@ findRenderedComponentWithType(
 )
 ```
 
-Tương tự như [`scryRenderedComponentsWithType()`](#scryrenderedcomponentswithtype) nhưng sẽ chỉ có một kết quả, và trả về một kết quả duy nhất, hoặc throw ra exception nếu có bất kỳ kết quả nào khác trùng nhau cạnh một kết quả duy nhất.
+Giống với [`scryRenderedComponentsWithType()`](#scryrenderedcomponentswithtype) nhưng sẽ chỉ có một và trả về một kết quả duy nhất, hoặc throw ra exception nếu có bất kỳ các kết quả trùng nhau.
 
 ***
 
@@ -300,7 +300,7 @@ Tương tự như [`scryRenderedComponentsWithType()`](#scryrenderedcomponentswi
 renderIntoDocument(element)
 ```
 
-Render một React element vào trong một node DOM riêng trong một document. **Function này yêu cầu một DOM.** Nó tương tự với:
+Render một element của React vào một node riêng của DOM trong một document. **Function này yêu cầu DOM.** Nó tương tự với:
 
 ```js
 const domContainer = document.createElement('div');
@@ -324,9 +324,9 @@ Simulate.{eventName}(
 )
 ```
 
-Mô phỏng một sự kiện gửi đi trên một node DOM với tùy chọn `eventData` sự kiện của dữ liệu.
+Giả lập một sự kiện được gửi trên một node DOM với tùy chọn dữ liệu của sự kiện `eventData`.
 
-`Simulate` có một method cho [tất cả sự kiện mà React hiểu](/docs/events.html#supported-events).
+`Simulate` có một method cho [tất cả sự kiện mà React hỗ trợ](/docs/events.html#supported-events).
 
 **Click vào một element**
 
@@ -336,7 +336,7 @@ const node = this.button;
 ReactTestUtils.Simulate.click(node);
 ```
 
-**Thay đổi giá trị của trường đầu vào rồi nhấn ENTER.**
+**Thay đổi giá trị của trường đầu vào rồi ENTER.**
 
 ```javascript
 // <input ref={(node) => this.textInput = node} />
@@ -348,6 +348,6 @@ ReactTestUtils.Simulate.keyDown(node, {key: "Enter", keyCode: 13, which: 13});
 
 > Lưu ý
 >
-> Bạn sẽ phải cung cấp bất kỳ event property mà bạn đang dùng trong component của bạn (v.d. keyCode, which, etc...) mà React không tạo ra bất kỳ gì trong số đó cho bạn.
+> Bạn sẽ phải cung cấp tất cả event property mà bạn đang dùng trong component của bạn (v.d. keyCode, which, etc...) mà React sẽ không tạo ra bất kỳ những gì trong đó cho bạn.
 
 * * *
