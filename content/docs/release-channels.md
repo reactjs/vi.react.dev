@@ -8,90 +8,90 @@ prev: cdn-links.html
 next: hello-world.html
 ---
 
-React relies on a thriving open source community to file bug reports, open pull requests, and [submit RFCs](https://github.com/reactjs/rfcs). To encourage feedback we sometimes share special builds of React that include unreleased features.
+React dựa vào cộng đồng mã nguồn mở phát triển mạnh để gửi báo cáo lỗi, tạo pull requests và [submit RFCs](https://github.com/reactjs/rfcs). Để khuyến khích phản hồi, đôi khi chúng tôi chia sẻ các bản dựng đặc biệt của React bao gồm các tính năng chưa được phát hành.
 
-> This document will be most relevant to developers who work on frameworks, libraries, or developer tooling. Developers who use React primarily to build user-facing applications should not need to worry about our prerelease channels.
+> Tài liệu này sẽ phù hợp nhất với các nhà phát triển làm việc trên framework, thư viện hoặc công cụ dành cho nhà phát triển. Các nhà phát triển sử dụng React chủ yếu để xây dựng các ứng dụng hướng đến người dùng không cần phải lo lắng về các kênh phát hành trước của chúng tôi.
 
-Each of React's release channels is designed for a distinct use case:
+Mỗi kênh phát hành của React được thiết kế cho một trường hợp sử dụng riêng biệt:
 
-- [**Latest**](#latest-channel) is for stable, semver React releases. It's what you get when you install React from npm. This is the channel you're already using today. **Use this for all user-facing React applications.**
-- [**Next**](#next-channel) tracks the main branch of the React source code repository. Think of these as release candidates for the next minor semver release. Use this for integration testing between React and third party projects.
-- [**Experimental**](#experimental-channel) includes experimental APIs and features that aren't available in the stable releases. These also track the main branch, but with additional feature flags turned on. Use this to try out upcoming features before they are released.
+- [**Latest**](#latest-channel) dành cho các bản phát hành React ổn định. Đó là những gì bạn nhận được khi cài đặt React từ npm. Đây là kênh bạn đã sử dụng hôm nay. **Sử dụng các bản phát hành ổn định cho tất cả các ứng dụng React giao diện người dùng.**
+- [**Next**](#next-channel) theo dõi nhánh chính của kho mã nguồn React. Hãy coi đây là những ứng cử viên phát hành cho bản phát hành minor semver tiếp theo. Sử dụng điều này để kiểm tra tích hợp giữa React và các dự án của bên thứ ba.
+- [**Experimental**](#experimental-channel) bao gồm các API thử nghiệm và các tính năng không có trong các bản phát hành ổn định. Chúng cũng theo dõi nhánh chính, nhưng với các cờ tính năng bổ sung được bật. Sử dụng điều này để thử các tính năng sắp tới trước khi chúng được phát hành.
 
-All releases are published to npm, but only Latest uses [semantic versioning](/docs/faq-versioning.html). Prereleases (those in the Next and Experimental channels) have versions generated from a hash of their contents and the commit date, e.g. `0.0.0-68053d940-20210623` for Next and `0.0.0-experimental-68053d940-20210623` for Experimental.
+Tất cả các bản phát hành đều được xuất bản lên npm, nhưng chỉ Latest sử dụng [semantic versioning](/docs/faq-versioning.html). Bản phát hành trước (những bản trong kênh Next và kênh Experimental) có các phiên bản được tạo từ hàm băm của nội dung và ngày commit, ví dụ: `0.0.0-68053d940-20210623` cho Next và `0.0.0-experimental-68053d940-20210623` cho Experimental.
 
-**The only officially supported release channel for user-facing applications is Latest**. Next and Experimental releases are provided for testing purposes only, and we provide no guarantees that behavior won't change between releases. They do not follow the semver protocol that we use for releases from Latest.
+**Kênh phát hành chính thức duy nhất được hỗ trợ cho các ứng dụng hướng đến người dùng là Latest**. Các bản phát hành Next và Experimental chỉ được cung cấp cho mục đích thử nghiệm và chúng tôi không đảm bảo rằng hành vi sẽ không thay đổi giữa các bản phát hành. Chúng không tuân theo giao thức semver mà chúng tôi sử dụng cho các bản phát hành từ Latest.
 
-By publishing prereleases to the same registry that we use for stable releases, we are able to take advantage of the many tools that support the npm workflow, like [unpkg](https://unpkg.com) and [CodeSandbox](https://codesandbox.io).
+Bằng cách phát hành các bản cơ sở trước lên cùng một registry mà chúng tôi sử dụng cho các bản phát hành ổn định, chúng tôi có thể tận dụng nhiều công cụ hỗ trợ quy trình làm việc npm, như [unpkg](https://unpkg.com) và [CodeSandbox](https://codesandbox.io).
 
 ### Latest Channel {#latest-channel}
 
-Latest is the channel used for stable React releases. It corresponds to the `latest` tag on npm. It is the recommended channel for all React apps that are shipped to real users.
+Latest là kênh được sử dụng cho các bản phát hành React ổn định. Nó tương ứng với thẻ `latest` trên npm. Đây là kênh được đề xuất cho tất cả các ứng dụng React được chuyển đến người dùng thực.
 
-**If you're not sure which channel you should use, it's Latest.** If you're a React developer, this is what you're already using.
+**Nếu bạn không chắc mình nên sử dụng kênh nào thì đó là kênh Latest.** Nếu bạn là nhà phát triển React, đây là kênh bạn đang sử dụng.
 
-You can expect updates to Latest to be extremely stable. Versions follow the semantic versioning scheme. Learn more about our commitment to stability and incremental migration in our [versioning policy](/docs/faq-versioning.html).
+Bạn có thể mong đợi các bản cập nhật lên Latest sẽ cực kỳ ổn định. Các phiên bản tuân theo sơ đồ semantic versioning. Tìm hiểu thêm về cam kết của chúng tôi đối với sự ổn định và gia tăng di chuyển trong [versioning policy](/docs/faq-versioning.html) của chúng tôi.
 
 ### Next Channel {#next-channel}
 
-The Next channel is a prerelease channel that tracks the main branch of the React repository. We use prereleases in the Next channel as release candidates for the Latest channel. You can think of Next as a superset of Latest that is updated more frequently.
+Kênh Next là kênh phát hành trước theo dõi nhánh chính của kho lưu trữ React. Chúng tôi sử dụng các điều kiện tiên quyết trong kênh Next làm ứng cử viên phát hành cho kênh Latest. Bạn có thể coi Next như một tập hợp của Latest được cập nhật thường xuyên hơn.
 
-The degree of change between the most recent Next release and the most recent Latest release is approximately the same as you would find between two minor semver releases. However, **the Next channel does not conform to semantic versioning.** You should expect occasional breaking changes between successive releases in the Next channel.
+Mức độ thay đổi giữa bản phát hành Next gần đây nhất và bản phát hành Latest gần đây nhất gần giống như bạn sẽ thấy giữa hai bản phát hành minor semver. Tuy nhiên, **kênh Next không tuân theo semantic versioning.** Bạn nên mong đợi những thay đổi đột ngột giữa các bản phát hành kế tiếp trong kênh Next.
 
-**Do not use prereleases in user-facing applications.**
+**Không sử dụng các bản phát hành trước trong các ứng dụng giao diện người dùng.**
 
-Releases in Next are published with the `next` tag on npm. Versions are generated from a hash of the build's contents and the commit date, e.g. `0.0.0-68053d940-20210623`.
+Các bản phát hành trong Next được xuất bản với thẻ `next` trên npm. Các phiên bản được tạo từ một hàm băm của nội dung của bản dựng và ngày commit, ví dụ: `0.0.0-68053d940-20210623`.
 
-#### Using the Next Channel for Integration Testing {#using-the-next-channel-for-integration-testing}
+#### Sử dụng Next Channel cho Integration Testing {#using-the-next-channel-for-integration-testing}
 
-The Next channel is designed to support integration testing between React and other projects.
+Kênh Next được thiết kế để hỗ trợ kiểm tra tích hợp giữa React và các dự án khác.
 
-All changes to React go through extensive internal testing before they are released to the public. However, there are a myriad of environments and configurations used throughout the React ecosystem, and it's not possible for us to test against every single one.
+Tất cả các thay đổi đối với React đều trải qua quá trình thử nghiệm nội bộ rộng rãi trước khi chúng được phát hành ra công khai. Tuy nhiên, có vô số môi trường và cấu hình được sử dụng trong toàn bộ hệ sinh thái React và chúng tôi không thể kiểm tra từng môi trường và cấu hình.
 
-If you're the author of a third party React framework, library, developer tool, or similar infrastructure-type project, you can help us keep React stable for your users and the entire React community by periodically running your test suite against the most recent changes. If you're interested, follow these steps:
+Nếu bạn là tác giả của React framework, library, công cụ dành cho nhà phát triển của bên thứ ba hoặc dự án kiểu cơ sở hạ tầng tương tự, bạn có thể giúp chúng tôi giữ React ổn định cho người dùng của bạn và toàn bộ cộng đồng React bằng cách chạy định kỳ bộ thử nghiệm của bạn so với những thay đổi. Nếu bạn quan tâm, hãy làm theo các bước sau:
 
-- Set up a cron job using your preferred continuous integration platform. Cron jobs are supported by both [CircleCI](https://circleci.com/docs/2.0/triggers/#scheduled-builds) and [Travis CI](https://docs.travis-ci.com/user/cron-jobs/).
-- In the cron job, update your React packages to the most recent React release in the Next channel, using `next` tag on npm. Using the npm cli:
+- Thiết lập một cron job bằng cách sử dụng nền tảng continuous integration ưa thích của bạn. Cron job được hỗ trợ bởi cả [CircleCI](https://circleci.com/docs/2.0/triggers/#scheduled-builds) và [Travis CI](https://docs.travis-ci.com/user/cron-jobs/).
+- Trong cron job, hãy cập nhật React packages của bạn lên bản phát hành React gần đây nhất trong kênh Next, sử dụng thẻ `next` trên npm. Sử dụng cli npm:
 
   ```
   npm update react@next react-dom@next
   ```
 
-  Or yarn:
+  Hoặc yarn:
 
   ```
   yarn upgrade react@next react-dom@next
   ```
-- Run your test suite against the updated packages.
-- If everything passes, great! You can expect that your project will work with the next minor React release.
-- If something breaks unexpectedly, please let us know by [filing an issue](https://github.com/facebook/react/issues).
+- Chạy bộ thử nghiệm của bạn với các package đã cập nhật.
+- Nếu mọi thứ đều pass, thật tuyệt! Bạn có thể mong đợi rằng dự án của mình sẽ hoạt động với bản phát hành minor React tiếp theo.
+- Nếu có sự cố bất ngờ, vui lòng cho chúng tôi biết bằng cách [tạo một issue](https://github.com/facebook/react/issues).
 
-A project that uses this workflow is Next.js. (No pun intended! Seriously!) You can refer to their [CircleCI configuration](https://github.com/zeit/next.js/blob/c0a1c0f93966fe33edd93fb53e5fafb0dcd80a9e/.circleci/config.yml) as an example.
+Một dự án sử dụng quy trình làm việc này là Next.js. (Không có ý định chơi chữ! Nghiêm túc đấy!) Bạn có thể tham khảo [CircleCI configuration](https://github.com/zeit/next.js/blob/c0a1c0f93966fe33edd93fb53e5fafb0dcd80a9e/.circleci/config.yml) của họ làm ví dụ.
 
 ### Experimental Channel {#experimental-channel}
 
-Like Next, the Experimental channel is a prerelease channel that tracks the main branch of the React repository. Unlike Next, Experimental releases include additional features and APIs that are not ready for wider release.
+Giống như Next, kênh Experimental là kênh phát hành trước để theo dõi nhánh chính của kho lưu trữ React. Không giống như Next, các bản phát hành Experimental bao gồm các tính năng và API bổ sung chưa sẵn sàng để phát hành rộng rãi hơn.
 
-Usually, an update to Next is accompanied by a corresponding update to Experimental. They are based on the same source revision, but are built using a different set of feature flags.
+Thông thường, bản cập nhật cho Next đi kèm với bản cập nhật tương ứng cho Experimental. Chúng dựa trên cùng một bản sửa đổi nguồn, nhưng được xây dựng bằng cách sử dụng một bộ cờ tính năng khác nhau.
 
-Experimental releases may be significantly different than releases to Next and Latest. **Do not use Experimental releases in user-facing applications.** You should expect frequent breaking changes between releases in the Experimental channel.
+Các bản phát hành Experimental có thể khác đáng kể so với các bản phát hành Next và Latest. **Không sử dụng các bản phát hành Experimental trong các ứng dụng dành cho người dùng.** Bạn sẽ có những thay đổi thường xuyên giữa các bản phát hành trong kênh Experimental.
 
-Releases in Experimental are published with the `experimental` tag on npm. Versions are generated from a hash of the build's contents and the commit date, e.g. `0.0.0-experimental-68053d940-20210623`.
+Các bản phát hành trong Experimental được xuất bản với thẻ `experimental` vào npm. Các phiên bản được tạo từ một hàm băm của nội dung của bản dựng và ngày commit, ví dụ: `0.0.0-experimental-68053d940-20210623`.
 
-#### What Goes Into an Experimental Release? {#what-goes-into-an-experimental-release}
+#### Điều gì sẽ dẫn đến một bản phát hành thử nghiệm? {#what-goes-into-an-experimental-release}
 
-Experimental features are ones that are not ready to be released to the wider public, and may change drastically before they are finalized. Some experiments may never be finalized -- the reason we have experiments is to test the viability of proposed changes.
+Các tính năng thử nghiệm là những tính năng chưa sẵn sàng ra mắt công chúng và có thể thay đổi đáng kể trước khi chúng được hoàn thiện. Một số thử nghiệm có thể không bao giờ được hoàn thiện - lý do chúng tôi có các thử nghiệm là để kiểm tra khả năng tồn tại của những thay đổi được đề xuất.
 
-For example, if the Experimental channel had existed when we announced Hooks, we would have released Hooks to the Experimental channel weeks before they were available in Latest.
+Ví dụ, nếu kênh Experimental đã tồn tại khi chúng tôi công bố Hooks, chúng tôi sẽ phát hành Hooks đến kênh Experimental vài tuần trước khi chúng có sẵn trong Latest.
 
-You may find it valuable to run integration tests against Experimental. This is up to you. However, be advised that Experimental is even less stable than Next. **We do not guarantee any stability between Experimental releases.**
+Bạn có thể thấy việc chạy integration tests dựa trên Experimental có giá trị. Đây là tùy thuộc vào bạn. Tuy nhiên, hãy lưu ý rằng Experimental thậm chí còn kém ổn định hơn Next. **Chúng tôi không đảm bảo bất kỳ sự ổn định nào giữa các bản phát hành Experimental.**
 
-#### How Can I Learn More About Experimental Features? {#how-can-i-learn-more-about-experimental-features}
+#### Làm cách nào để tôi có thể tìm hiểu thêm về các tính năng thử nghiệm? {#how-can-i-learn-more-about-experimental-features}
 
-Experimental features may or may not be documented. Usually, experiments aren't documented until they are close to shipping in Next or Latest.
+Các tính năng thử nghiệm có thể được viết tài liệu hoặc không. Thông thường, các thử nghiệm không được viết tài liệu cho đến khi chúng gần được đưa đến Next hay Lasest.
 
-If a feature is not documented, they may be accompanied by an [RFC](https://github.com/reactjs/rfcs).
+Nếu một tính năng không được viết tài liệu, chúng có thể bởi một [RFC](https://github.com/reactjs/rfcs).
 
-We will post to the [React blog](/blog) when we're ready to announce new experiments, but that doesn't mean we will publicize every experiment.
+Chúng tôi sẽ đăng lên [React blog](/blog) khi chúng tôi đã sẵn sàng thông báo các thử nghiệm mới, nhưng không có nghĩa chúng tôi sẽ công khai mọi thử nghiệm.
 
-You can always refer to our public GitHub repository's [history](https://github.com/facebook/react/commits/main) for a comprehensive list of changes.
+Bạn luôn có thể tham khảo [lịch sử](https://github.com/facebook/react/commits/main) của kho lưu trữ GitHub công khai của chúng tôi để biết danh sách toàn diện về các thay đổi.
