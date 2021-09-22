@@ -65,9 +65,9 @@ class CodeEditor extends Component {
           Không thể tải được Babel.
           <br />
           <br />
-          Lỗi này có thể do phần mềm chặn quảng cáo. Nếu bạn sử dụng chúng, 
-          cân nhắc thêm reactjs.org vào danh sách cho phép để trình live code 
-          này có thể chạy được.
+          Lỗi này có thể do phần mềm chặn quảng cáo. Nếu bạn sử dụng chúng, cân
+          nhắc thêm reactjs.org vào danh sách cho phép để trình live code này có
+          thể chạy được.
         </span>
       );
     } else if (error != null) {

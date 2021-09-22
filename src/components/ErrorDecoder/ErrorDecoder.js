@@ -69,8 +69,8 @@ function ErrorResult(props: {|code: ?string, msg: string|}) {
   if (!code) {
     return (
       <p>
-        Khi bạn gặp lỗi, bạn sẽ nhận được một link đến trang này để hiện thị 
-        cho bạn toàn bộ nội dung lỗi.
+        Khi bạn gặp lỗi, bạn sẽ nhận được một link đến trang này để hiện thị cho
+        bạn toàn bộ nội dung lỗi.
       </p>
     );
   }

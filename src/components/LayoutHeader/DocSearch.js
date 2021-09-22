@@ -27,7 +27,9 @@ class DocSearch extends Component<{}, State> {
         inputSelector: '#algolia-doc-search',
       });
     } else {
-      console.warn('Không tải được Trình tìm kiếm lúc này nên tạm thời sẽ tắt nó.');
+      console.warn(
+        'Không tải được Trình tìm kiếm lúc này nên tạm thời sẽ tắt nó.',
+      );
       this.setState({enabled: false});
     }
   }
