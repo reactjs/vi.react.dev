@@ -271,7 +271,7 @@ Ngoài ra, kể từ khi `setState()` tự động [gộp các phần của stat
 
 ## Controlled Input với giá trị null {#controlled-input-null-value}
 
-Cũng có ngoại lệ, giá trị của prop trong một [controlled component](/docs/forms.html#controlled-components) sẽ ngăn người dùng thay đổi nó trừ khi bạn cũng muốn vậy. Nếu bạn đã cung cấp một `value` nhưng thẻ input vẫn có khả năm bị sửa đổi, bạn đã vô tình gán `value` bằng với `undefined` hay `null`.
+Cũng có ngoại lệ, giá trị của prop trong một [controlled component](/docs/forms.html#controlled-components) sẽ ngăn người dùng thay đổi nó trừ khi bạn cũng muốn vậy. Nếu bạn đã cung cấp một `value` nhưng thẻ input vẫn có khả năng bị sửa đổi, bạn đã vô tình gán `value` bằng với `undefined` hay `null`.
 
 Đoạn code bên dưới sẽ làm rõ điều ta vừa đề cập. (Thẻ input đã được gán giá trị lúc bạn đầu nhưng trở nên có thể bị sửa đổi sau một khoảng thời gian chờ.)
 
