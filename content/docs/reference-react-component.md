@@ -15,11 +15,11 @@ redirect_from:
   - "tips/use-react-with-other-libraries.html"
 ---
 
-This page contains a detailed API reference for the React component class definition. It assumes you're familiar with fundamental React concepts, such as [Components and Props](/docs/components-and-props.html), as well as [State and Lifecycle](/docs/state-and-lifecycle.html). If you're not, read them first.
+Trang này chứa API reference chi tiết cho React component class. Nó giả định rằng bạn đã quen thuộc với các khái niệm cơ bản của React, như [Components và Props](/docs/components-and-props.html), cũng như [State và Lifecycle](/docs/state-and-lifecycle.html). Nếu không, hãy tìm hiểu những khái niệm phía trên trước.
 
-## Overview {#overview}
+## Tổng Quan {#overview}
 
-React lets you define components as classes or functions. Components defined as classes currently provide more features which are described in detail on this page. To define a React component class, you need to extend `React.Component`:
+React cho phép bạn định nghĩa các component dưới dạng các class hoặc function. Component được định nghĩa dưới dạng class hiện tại cung cấp nhiều tính năng hơn, mô tả chi tiết ở trang này. Để định nghĩa một React component class, bạn cần phải extend `React.Component`:
 
 ```js
 class Welcome extends React.Component {
@@ -29,36 +29,36 @@ class Welcome extends React.Component {
 }
 ```
 
-The only method you *must* define in a `React.Component` subclass is called [`render()`](#render). All the other methods described on this page are optional.
+Phương thức duy nhất bạn *phải* định nghĩa trong một lớp con của `React.Component` được là [`render()`](#render). Tất cả những phương thức còn lại được mô tả trên trang này là tùy chọn.
 
-**We strongly recommend against creating your own base component classes.** In React components, [code reuse is primarily achieved through composition rather than inheritance](/docs/composition-vs-inheritance.html).
+**Chúng tôi đặc biệt khuyến nghị không nên tạo các base component class của riêng bạn.** Trong các React component, [tái sử dụng mã chủ yếu đạt được thông qua composition hơn là inheritance](/docs/composition-vs-inheritance.html).
 
->Note:
+>Lưu ý:
 >
->React doesn't force you to use the ES6 class syntax. If you prefer to avoid it, you may use the `create-react-class` module or a similar custom abstraction instead. Take a look at [Using React without ES6](/docs/react-without-es6.html) to learn more.
+>React không bắt buộc bạn phải sử dụng cú pháp ES6 class. Nếu bạn muốn tránh cú pháp này, bạn có thể sử dụng `create-react-class` module hoặc một custom abstraction tương tự để thay thế. Xem [Sử dụng React mà không cần ES6](/docs/react-without-es6.html) để tìm hiểu thêm.
 
-### The Component Lifecycle {#the-component-lifecycle}
+### Vòng Đời Của Component {#the-component-lifecycle}
 
-Each component has several "lifecycle methods" that you can override to run code at particular times in the process. **You can use [this lifecycle diagram](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/) as a cheat sheet.** In the list below, commonly used lifecycle methods are marked as **bold**. The rest of them exist for relatively rare use cases.
+Mỗi component có vài "phương thức lifecycle" mà bạn có thể override để chạy mã tại những thời điểm cụ thể trong quá trình. **Bạn có thể sử dụng [lược đồ vòng đời](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/) như một cheat sheet.** Trong danh sách bên dưới, các phương thức lifecycle thường được sử dụng thì được **in đậm**. Phần còn lại tồn tại để sử dụng trong các trường hợp đặc biệt.
 
 #### Mounting {#mounting}
 
-These methods are called in the following order when an instance of a component is being created and inserted into the DOM:
+Những phương thức bên dưới được gọi theo thứ tự khi một instance của component đang được tạo và chèn vào DOM:
 
 - [**`constructor()`**](#constructor)
 - [`static getDerivedStateFromProps()`](#static-getderivedstatefromprops)
 - [**`render()`**](#render)
 - [**`componentDidMount()`**](#componentdidmount)
 
->Note:
+>Lưu ý:
 >
->These methods are considered legacy and you should [avoid them](/blog/2018/03/27/update-on-async-rendering.html) in new code:
+>Những phương thức này được coi là lỗi thời và bạn nên [tránh sử dụng chúng](/blog/2018/03/27/update-on-async-rendering.html) trong mã mới:
 >
 >- [`UNSAFE_componentWillMount()`](#unsafe_componentwillmount)
 
 #### Updating {#updating}
 
-An update can be caused by changes to props or state. These methods are called in the following order when a component is being re-rendered:
+Một cập nhật có thể được tạo ra bởi những thay đổi tới prop hoặc state. Những phương thức bên dưới được gọi theo thứ tự khi một component đang được render lại:
 
 - [`static getDerivedStateFromProps()`](#static-getderivedstatefromprops)
 - [`shouldComponentUpdate()`](#shouldcomponentupdate)
@@ -66,29 +66,29 @@ An update can be caused by changes to props or state. These methods are called i
 - [`getSnapshotBeforeUpdate()`](#getsnapshotbeforeupdate)
 - [**`componentDidUpdate()`**](#componentdidupdate)
 
->Note:
+>Lưu ý:
 >
->These methods are considered legacy and you should [avoid them](/blog/2018/03/27/update-on-async-rendering.html) in new code:
+>Những phương thức này được coi là lỗi thời và bạn nên [tránh sử dụng chúng](/blog/2018/03/27/update-on-async-rendering.html) trong mã mới:
 >
 >- [`UNSAFE_componentWillUpdate()`](#unsafe_componentwillupdate)
 >- [`UNSAFE_componentWillReceiveProps()`](#unsafe_componentwillreceiveprops)
 
 #### Unmounting {#unmounting}
 
-This method is called when a component is being removed from the DOM:
+Phương thức này được gọi khi một component đang được xóa khỏi DOM:
 
 - [**`componentWillUnmount()`**](#componentwillunmount)
 
-#### Error Handling {#error-handling}
+#### Xử Lý Lỗi {#error-handling}
 
-These methods are called when there is an error during rendering, in a lifecycle method, or in the constructor of any child component.
+Những phương thức này được gọi khi có lỗi trong quá trình render, trong một phương thức lifecycle, hoặc trong constructor của child component bất kỳ.
 
 - [`static getDerivedStateFromError()`](#static-getderivedstatefromerror)
 - [`componentDidCatch()`](#componentdidcatch)
 
-### Other APIs {#other-apis}
+### Những API Khác {#other-apis}
 
-Each component also provides some other APIs:
+Mỗi component cũng được cung cấp một số APIs khác:
 
   - [`setState()`](#setstate)
   - [`forceUpdate()`](#forceupdate)
@@ -105,11 +105,11 @@ Each component also provides some other APIs:
 
 * * *
 
-## Reference {#reference}
+## Tham Khảo {#reference}
 
-### Commonly Used Lifecycle Methods {#commonly-used-lifecycle-methods}
+### Những Phương Thức Lifecycle Thường Được Sử Dụng {#commonly-used-lifecycle-methods}
 
-The methods in this section cover the vast majority of use cases you'll encounter creating React components. **For a visual reference, check out [this lifecycle diagram](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/).**
+Những phương thức trong phần này bao gồm phần lớn các trường hợp sử dụng bạn sẽ gặp phải khi tạo các React component. **Để tham khảo một cách trực quan, hãy xem [lược đồ vòng đời](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/).**
 
 ### `render()` {#render}
 
@@ -117,23 +117,23 @@ The methods in this section cover the vast majority of use cases you'll encounte
 render()
 ```
 
-The `render()` method is the only required method in a class component.
+Phương thức `render()` là phương thức bắt buộc duy nhất trong một class component.
 
-When called, it should examine `this.props` and `this.state` and return one of the following types:
+Khi được gọi, nó sẽ kiểm tra `this.props` và `this.state` sau đó return một trong các kiểu sau:
 
-- **React elements.** Typically created via [JSX](/docs/introducing-jsx.html). For example, `<div />` and `<MyComponent />` are React elements that instruct React to render a DOM node, or another user-defined component, respectively.
-- **Arrays and fragments.** Let you return multiple elements from render. See the documentation on [fragments](/docs/fragments.html) for more details.
-- **Portals**. Let you render children into a different DOM subtree. See the documentation on [portals](/docs/portals.html) for more details.
-- **String and numbers.** These are rendered as text nodes in the DOM.
-- **Booleans or `null`**. Render nothing. (Mostly exists to support `return test && <Child />` pattern, where `test` is boolean.)
+- **React elements.** Thường được tạo ra bởi [JSX](/docs/introducing-jsx.html). Ví dụ, `<div />` và `<MyComponent />` là những React element mà chỉ dẫn cho React render một DOM node, hoặc một user-defined (người dùng tự định nghĩa) component.
+- **Arrays và fragments.** Cho phép bạn return nhiều element từ render. Xem tài liệu về [fragments](/docs/fragments.html) để biết thêm chi tiết.
+- **Portals**. Cho phép bạn render children vào một DOM subtree khác. Xem tài liệu về [portals](/docs/portals.html) để biết thêm chi tiết.
+- **String và numbers.** Chúng được render dưới dạng text nodes trong DOM.
+- **Booleans hoặc `null`**. Không render. (Hầu hết tồn tại để hỗ trợ `return test && <Child />` pattern, trong đó `test` là boolean.)
 
-The `render()` function should be pure, meaning that it does not modify component state, it returns the same result each time it's invoked, and it does not directly interact with the browser.
+Hàm `render()` nên là pure, có nghĩa là nó không làm thay đổi component state, return cùng một kết quả với mỗi lần được gọi, và không tương tác trực tiếp với browser.
 
-If you need to interact with the browser, perform your work in `componentDidMount()` or the other lifecycle methods instead. Keeping `render()` pure makes components easier to think about.
+Nếu bạn cần tương tác với browser, hãy thực hiện công việc của bạn trong `componentDidMount()` hoặc những phương thức lifecycle khác. Giữ `render()` pure làm cho các component dễ dàng để suy nghĩ hơn.
 
-> Note
+> Lưu ý
 >
-> `render()` will not be invoked if [`shouldComponentUpdate()`](#shouldcomponentupdate) returns false.
+> `render()` sẽ không được gọi nếu [`shouldComponentUpdate()`](#shouldcomponentupdate) returns false.
 
 * * *
 
@@ -143,47 +143,47 @@ If you need to interact with the browser, perform your work in `componentDidMoun
 constructor(props)
 ```
 
-**If you don't initialize state and you don't bind methods, you don't need to implement a constructor for your React component.**
+**Nếu bạn không khởi tạo state và không bind các method, bạn không cần thiết phải implement một constructor cho React component của bạn.**
 
-The constructor for a React component is called before it is mounted. When implementing the constructor for a `React.Component` subclass, you should call `super(props)` before any other statement. Otherwise, `this.props` will be undefined in the constructor, which can lead to bugs.
+Constructor của một React component được gọi trước khi component đó được mount. Khi implement constructor cho một `React.Component` subclass, bạn nên gọi `super(props)` trước bất kỳ câu lệnh nào khác. Nếu không, `this.props` sẽ bị undefined trong constructor, điều đó có thể dẫn tới bugs.
 
-Typically, in React constructors are only used for two purposes:
+Thông thường, trong React các constructor chỉ được sử dụng cho hai mục đích:
 
-* Initializing [local state](/docs/state-and-lifecycle.html) by assigning an object to `this.state`.
-* Binding [event handler](/docs/handling-events.html) methods to an instance.
+* Khởi tạo [local state](/docs/state-and-lifecycle.html) bằng cách gán một object cho `this.state`.
+* Binding các phương thức [event handler](/docs/handling-events.html) cho một instance.
 
-You **should not call `setState()`** in the `constructor()`. Instead, if your component needs to use local state, **assign the initial state to `this.state`** directly in the constructor:
+Bạn **không nên gọi `setState()`** trong `constructor()`. Thay vào đó, nếu component của bạn cần sử dụng local state, **gán state khởi tạo cho `this.state`** trực tiếp trong constructor:
 
 ```js
 constructor(props) {
   super(props);
-  // Don't call this.setState() here!
+  // Không gọi this.setState() ở đây!
   this.state = { counter: 0 };
   this.handleClick = this.handleClick.bind(this);
 }
 ```
 
-Constructor is the only place where you should assign `this.state` directly. In all other methods, you need to use `this.setState()` instead.
+Constructor là nơi duy nhất bạn nên gán `this.state` trực tiếp. Trong tất cả những phương thức khác, bạn cần sử dụng `this.setState()` thay thế.
 
-Avoid introducing any side-effects or subscriptions in the constructor. For those use cases, use `componentDidMount()` instead.
+Tránh đặt bất kỳ side-effect hoặc subscription nào trong constructor. Với những trường hợp sử dụng như vậy, dùng `componentDidMount()` thay thế.
 
->Note
+>Lưu ý
 >
->**Avoid copying props into state! This is a common mistake:**
+>**Tránh copy props vào state! Đây là một lỗi sai phổ biến:**
 >
 >```js
 >constructor(props) {
 >  super(props);
->  // Don't do this!
+>  // Đừng làm thế!
 >  this.state = { color: props.color };
 >}
 >```
 >
->The problem is that it's both unnecessary (you can use `this.props.color` directly instead), and creates bugs (updates to the `color` prop won't be reflected in the state).
+>Vấn đề ở đây là việc copy props vào state là không cần thiết (bạn có thể sử dụng `this.props.color` trực tiếp), và sẽ tạo ra bugs (cập nhật `color` prop sẽ không được phản ánh đến state).
 >
->**Only use this pattern if you intentionally want to ignore prop updates.** In that case, it makes sense to rename the prop to be called `initialColor` or `defaultColor`. You can then force a component to "reset" its internal state by [changing its `key`](/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) when necessary.
+>**Chỉ sử dụng pattern này nếu bạn muốn cố tình bỏ qua các cập nhật prop.** Trong trường hợp đó, sẽ hợp lý hơn khi bạn đổi tên prop thành `initialColor` hoặc `defaultColor`. Bạn có thể buộc một component "reset" state nội bộ của nó bằng cách [thay đổi `key` của nó](/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) khi cần thiết.
 >
->Read our [blog post on avoiding derived state](/blog/2018/06/07/you-probably-dont-need-derived-state.html) to learn about what to do if you think you need some state to depend on the props.
+>Đọc [bài đăng trên blog của chúng tôi về việc tránh derived state](/blog/2018/06/07/you-probably-dont-need-derived-state.html) để tìm hiểu về những gì phải làm nếu bạn nghĩ bạn cần một số state phụ thuộc vào props.
 
 
 * * *
@@ -194,11 +194,11 @@ Avoid introducing any side-effects or subscriptions in the constructor. For thos
 componentDidMount()
 ```
 
-`componentDidMount()` is invoked immediately after a component is mounted (inserted into the tree). Initialization that requires DOM nodes should go here. If you need to load data from a remote endpoint, this is a good place to instantiate the network request.
+`componentDidMount()` được gọi ngay lập tức sau khi một component được mount (được chèn vào tree). Quá trình khởi tạo mà yêu cầu các DOM node sẽ được thực hiện tại đây. Nếu bạn cần tải dữ liệu từ một remote endpoint, đây là một nơi phù hợp để thực hiện network request.
 
-This method is a good place to set up any subscriptions. If you do that, don't forget to unsubscribe in `componentWillUnmount()`.
+Phương thức này là một nơi phù hợp để thiết lập subscriptions bất kỳ. Nếu bạn thực hiện điều đó, đừng quên unsubscribe trong `componentWillUnmount()`.
 
-You **may call `setState()` immediately** in `componentDidMount()`. It will trigger an extra rendering, but it will happen before the browser updates the screen. This guarantees that even though the `render()` will be called twice in this case, the user won't see the intermediate state. Use this pattern with caution because it often causes performance issues. In most cases, you should be able to assign the initial state in the `constructor()` instead. It can, however, be necessary for cases like modals and tooltips when you need to measure a DOM node before rendering something that depends on its size or position.
+Bạn **có thể gọi `setState()` ngay lập tức** trong `componentDidMount()`. Nó sẽ kích hoạt một lần render bổ sung, nhưng lần render bổ sung sẽ xảy ra trước khi browser cập nhật màn hình. Điều này đảm bảo rằng mặc dù `render()` bị gọi hai lần, nhưng người dùng cũng sẽ không thấy trạng thái trung gian. Sử dụng pattern này một cách cẩn thận bởi vì nó thường gây ra những vấn đề về hiệu suất. Thay vào đó trong hầu hết các trường hợp, bạn nên gán state khởi tạo trong `constructor()`. Tuy nhiên, nó có thể cần thiết cho những trường hợp như modals và tooltips khi bạn cần tính toán một DOM node trước khi render thứ gì mà phụ thuộc vào kích thước hoặc vị trí của node đó.
 
 * * *
 
@@ -208,26 +208,26 @@ You **may call `setState()` immediately** in `componentDidMount()`. It will trig
 componentDidUpdate(prevProps, prevState, snapshot)
 ```
 
-`componentDidUpdate()` is invoked immediately after updating occurs. This method is not called for the initial render.
+`componentDidUpdate()` được gọi ngay lập tức sau khi quá trình cập nhật diễn ra. Phương thức này không được gọi cho lần render đầu tiên.
 
-Use this as an opportunity to operate on the DOM when the component has been updated. This is also a good place to do network requests as long as you compare the current props to previous props (e.g. a network request may not be necessary if the props have not changed).
+Sử dụng phương thức này như một cơ hội để thao tác với DOM khi component cập nhật xong. Đây cũng là một nơi phù hợp để thực hiện các network request miễn là bạn so sánh props hiện tại với props trước đó (e.g. một network request có thể là không cần thiết nếu props không thay đổi).
 
 ```js
 componentDidUpdate(prevProps) {
-  // Typical usage (don't forget to compare props):
+  // Cách sử dụng điển hình (đừng quên so sánh props):
   if (this.props.userID !== prevProps.userID) {
     this.fetchData(this.props.userID);
   }
 }
 ```
 
-You **may call `setState()` immediately** in `componentDidUpdate()` but note that **it must be wrapped in a condition** like in the example above, or you'll cause an infinite loop. It would also cause an extra re-rendering which, while not visible to the user, can affect the component performance. If you're trying to "mirror" some state to a prop coming from above, consider using the prop directly instead. Read more about [why copying props into state causes bugs](/blog/2018/06/07/you-probably-dont-need-derived-state.html).
+Bạn **có thể gọi `setState()` ngay lập tức** trong `componentDidUpdate()` nhưng lưu ý rằng **nó phải được đặt trong một điều kiện** như ví dụ phía trên, hoặc bạn sẽ tạo ra một vòng lặp vô hạn. Nó cũng sẽ gây ra một lần render bổ sung, mặc dù người dùng không thấy điều đó, nhưng nó vẫn có thể ảnh hưởng tới hiệu suất của component. Nếu bạn đang cố gắng để "phản chiếu" state nào đó với một prop đến từ phía trên, cân nhắc việc sử dụng trực tiếp prop để thay thế. Đọc thêm về [tại sao việc sao chép props vào state gây ra bugs](/blog/2018/06/07/you-probably-dont-need-derived-state.html).
 
-If your component implements the `getSnapshotBeforeUpdate()` lifecycle (which is rare), the value it returns will be passed as a third "snapshot" parameter to `componentDidUpdate()`. Otherwise this parameter will be undefined.
+Nếu component của bạn implement `getSnapshotBeforeUpdate()` lifecycle (khá là hiếm), giá trị mà nó return sẽ được truyền dưới dạng tham số "snapshot" thứ ba tới `componentDidUpdate()`. Nếu không thì tham số này sẽ là undefined.
 
-> Note
+> Lưu ý
 >
-> `componentDidUpdate()` will not be invoked if [`shouldComponentUpdate()`](#shouldcomponentupdate) returns false.
+> `componentDidUpdate()` sẽ không được gọi nếu [`shouldComponentUpdate()`](#shouldcomponentupdate) return false.
 
 * * *
 
@@ -237,15 +237,15 @@ If your component implements the `getSnapshotBeforeUpdate()` lifecycle (which is
 componentWillUnmount()
 ```
 
-`componentWillUnmount()` is invoked immediately before a component is unmounted and destroyed. Perform any necessary cleanup in this method, such as invalidating timers, canceling network requests, or cleaning up any subscriptions that were created in `componentDidMount()`.
+`componentWillUnmount()` được gọi ngay trước khi một component bị unmount và destroy. Thực hiện mọi thao tác cleanup cần thiết trong phương thức này, chẳng hạn như invalidating timers, hủy các network request, hoặc cleanup bất kỳ subscription nào mà đã được tạo ra trong `componentDidMount()`.
 
-You **should not call `setState()`** in `componentWillUnmount()` because the component will never be re-rendered. Once a component instance is unmounted, it will never be mounted again.
+Bạn **không nên gọi `setState()`** trong `componentWillUnmount()` bởi vì component sẽ không bao giờ được render lại. Một khi mà component instance bị unmount, nó sẽ không bao giờ được mount trở lại.
 
 * * *
 
-### Rarely Used Lifecycle Methods {#rarely-used-lifecycle-methods}
+### Các Phương Thức Lifecycle Ít Sử Dụng {#rarely-used-lifecycle-methods}
 
-The methods in this section correspond to uncommon use cases. They're handy once in a while, but most of your components probably don't need any of them. **You can see most of the methods below on [this lifecycle diagram](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/) if you click the "Show less common lifecycles" checkbox at the top of it.**
+Những phương thức trong phần này tương ứng với các trường hợp sử dụng không phổ biến. Thỉnh thoảng chúng rất hữu ích, nhưng phần lớn các component của bạn có thể sẽ không cần đến bất kỳ phương thức nào trong số chúng. **Bạn có thể thấy hầu hết các phương thức bên dưới trên [lược đồ vòng đời](https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/) nếu bạn click vào "Show less common lifecycles" checkbox ở phần đầu của lược đồ.**
 
 
 ### `shouldComponentUpdate()` {#shouldcomponentupdate}
@@ -254,17 +254,17 @@ The methods in this section correspond to uncommon use cases. They're handy once
 shouldComponentUpdate(nextProps, nextState)
 ```
 
-Use `shouldComponentUpdate()` to let React know if a component's output is not affected by the current change in state or props. The default behavior is to re-render on every state change, and in the vast majority of cases you should rely on the default behavior.
+Sử dụng `shouldComponentUpdate()` để cho phép React biết nếu output của một component không bị ảnh hưởng bởi sự thay đổi của state hoặc props hiện tại. Hành vi mặc định là render lại với mỗi lần state thay đổi, và trong phần lớn các trường hợp bạn nên dựa vào hành vi mặc định đó.
 
-`shouldComponentUpdate()` is invoked before rendering when new props or state are being received. Defaults to `true`. This method is not called for the initial render or when `forceUpdate()` is used.
+`shouldComponentUpdate()` được gọi trước render khi nhận được props hoặc state mới. Mặc định là `true`. Phương thức này không được gọi ở lần render đầu tiên hoặc khi `forceUpdate()` được sử dụng.
 
-This method only exists as a **[performance optimization](/docs/optimizing-performance.html).** Do not rely on it to "prevent" a rendering, as this can lead to bugs. **Consider using the built-in [`PureComponent`](/docs/react-api.html#reactpurecomponent)** instead of writing `shouldComponentUpdate()` by hand. `PureComponent` performs a shallow comparison of props and state, and reduces the chance that you'll skip a necessary update.
+Phương thức này chỉ tồn tại để đóng vai trò trong việc **[tối ưu hóa hiệu suất](/docs/optimizing-performance.html).** Đừng dựa vào nó để "ngăn chặn" việc render, vì điều này có thể dẫn tới bugs. **Cân nhắc sử dụng built-in [`PureComponent`](/docs/react-api.html#reactpurecomponent)** thay vì tự viết `shouldComponentUpdate()`. `PureComponent` thực hiện shallow comparison giữa các prop và state, đồng thời làm giảm thiểu khả năng bạn sẽ bỏ qua một cập nhật cần thiết.
 
-If you are confident you want to write it by hand, you may compare `this.props` with `nextProps` and `this.state` with `nextState` and return `false` to tell React the update can be skipped. Note that returning `false` does not prevent child components from re-rendering when *their* state changes.
+Nếu bạn tự tin rằng bạn muốn tự viết phương thức này, bạn có thể so sánh `this.props` với `nextProps` và `this.state` với `nextState` sau đó return `false` để cho React biết rằng việc cập nhật có thể được bỏ qua. Lưu ý rằng return `false` không ngăn chặn các child component render lại khi state *của chúng* thay đổi.
 
-We do not recommend doing deep equality checks or using `JSON.stringify()` in `shouldComponentUpdate()`. It is very inefficient and will harm performance.
+Chúng tôi không khuyến khích thực hiện kiểm tra deep equality hoặc sử dụng `JSON.stringify()` trong `shouldComponentUpdate()`. Điều này rất kém hiệu quả và và sẽ làm ảnh hưởng xấu tới hiệu suất.
 
-Currently, if `shouldComponentUpdate()` returns `false`, then [`UNSAFE_componentWillUpdate()`](#unsafe_componentwillupdate), [`render()`](#render), and [`componentDidUpdate()`](#componentdidupdate) will not be invoked. In the future React may treat `shouldComponentUpdate()` as a hint rather than a strict directive, and returning `false` may still result in a re-rendering of the component.
+Hiện tại, nếu `shouldComponentUpdate()` return `false`, thì [`UNSAFE_componentWillUpdate()`](#unsafe_componentwillupdate), [`render()`](#render), và [`componentDidUpdate()`](#componentdidupdate) sẽ không được gọi. Trong tương lai, React có thể coi `shouldComponentUpdate()` như là một gợi ý thay vì một strict directive, và return `false` có thể vẫn dẫn đến việc render lại của component.
 
 * * *
 
@@ -274,22 +274,22 @@ Currently, if `shouldComponentUpdate()` returns `false`, then [`UNSAFE_component
 static getDerivedStateFromProps(props, state)
 ```
 
-`getDerivedStateFromProps` is invoked right before calling the render method, both on the initial mount and on subsequent updates. It should return an object to update the state, or `null` to update nothing.
+`getDerivedStateFromProps` được gọi ngay trước khi gọi phương thức render, cả ở lần mount ban đầu và các lần cập nhật tiếp theo. Nó nên return một object để cập nhật state, hoặc `null` để không cập nhật.
 
-This method exists for [rare use cases](/blog/2018/06/07/you-probably-dont-need-derived-state.html#when-to-use-derived-state) where the state depends on changes in props over time. For example, it might be handy for implementing a `<Transition>` component that compares its previous and next children to decide which of them to animate in and out.
+Phương thức này tồn tại cho [các trường hợp sử dụng hiếm gặp](/blog/2018/06/07/you-probably-dont-need-derived-state.html#when-to-use-derived-state) khi state phụ thuộc vào sự thay đổi của props theo thời gian. Ví dụ, nó có thể hữu ích cho việc implement một `<Transition>` component mà so sánh children trước và sau của component đó để quyết định children nào sẽ chuyển động vào và ra.
 
-Deriving state leads to verbose code and makes your components difficult to think about.
-[Make sure you're familiar with simpler alternatives:](/blog/2018/06/07/you-probably-dont-need-derived-state.html)
+Deriving state làm cho mã dài dòng và làm các component của bạn khó khăn để suy nghĩ.
+[Đảm bảo rằng bạn đã quen với các lựa chọn thay thế đơn giản hơn:](/blog/2018/06/07/you-probably-dont-need-derived-state.html)
 
-* If you need to **perform a side effect** (for example, data fetching or an animation) in response to a change in props, use [`componentDidUpdate`](#componentdidupdate) lifecycle instead.
+* Nếu bạn cần **thực hiện một side effect** (ví dụ, data fetching hoặc một animation) để đáp ứng sự thay đổi về props, sử dụng [`componentDidUpdate`](#componentdidupdate) lifecycle để thay thế.
 
-* If you want to **re-compute some data only when a prop changes**, [use a memoization helper instead](/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization).
+* Nếu bạn muốn **tính toán lại một số dữ liệu chỉ khi một prop thay đổi**, [sử dụng một memoization helper để thay thế](/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization).
 
-* If you want to **"reset" some state when a prop changes**, consider either making a component [fully controlled](/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-controlled-component) or [fully uncontrolled with a `key`](/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) instead.
+* Nếu bạn muốn **"reset" một số state khi một prop thay đổi**, cân nhắc tạo một component [fully controlled](/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-controlled-component) hoặc [fully uncontrolled với một `key`](/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) để thay thế.
 
-This method doesn't have access to the component instance. If you'd like, you can reuse some code between `getDerivedStateFromProps()` and the other class methods by extracting pure functions of the component props and state outside the class definition.
+Phương thức này không có quyền truy cập vào component instance. Nếu muốn, bạn có thể sử dụng lại mã giữa `getDerivedStateFromProps()` và các phương thức class khác bằng cách trích xuất các hàm pure của component props và state bên ngoài định nghĩa class.
 
-Note that this method is fired on *every* render, regardless of the cause. This is in contrast to `UNSAFE_componentWillReceiveProps`, which only fires when the parent causes a re-render and not as a result of a local `setState`.
+Lưu ý rằng phương thức này được kích hoạt ở *mọi* lần render, bất kể nguyên nhân là gì. Điều này trái ngược với `UNSAFE_componentWillReceiveProps`, chỉ kích hoạt khi parent render lại và không phải do việc `setState` cục bộ.
 
 * * *
 
@@ -299,41 +299,41 @@ Note that this method is fired on *every* render, regardless of the cause. This 
 getSnapshotBeforeUpdate(prevProps, prevState)
 ```
 
-`getSnapshotBeforeUpdate()` is invoked right before the most recently rendered output is committed to e.g. the DOM. It enables your component to capture some information from the DOM (e.g. scroll position) before it is potentially changed. Any value returned by this lifecycle method will be passed as a parameter to `componentDidUpdate()`.
+`getSnapshotBeforeUpdate()` được gọi ngay trước khi output của lần render gần nhất được commit tới DOM. Nó cho phép component của bạn lấy một số thông tin từ DOM (ví dụ. vị trí thanh cuộn) trước khi những thông tin đó có khả năng bị thay đổi. Bất kỳ giá trị nào được return bởi phương thức lifecycle này sẽ được truyền dưới dạng tham số cho `componentDidUpdate()`.
 
-This use case is not common, but it may occur in UIs like a chat thread that need to handle scroll position in a special way.
+Trường hợp sử dụng này không phổ biến, nhưng nó có thể xảy ra trong các UI như một chat thread cần xử lý vị trí thanh cuộn theo cách đặc biệt.
 
-A snapshot value (or `null`) should be returned.
+Một giá trị snapshot (hoặc `null`) nên được return.
 
-For example:
+Ví dụ:
 
 `embed:react-component-reference/get-snapshot-before-update.js`
 
-In the above examples, it is important to read the `scrollHeight` property in `getSnapshotBeforeUpdate` because there may be delays between "render" phase lifecycles (like `render`) and "commit" phase lifecycles (like `getSnapshotBeforeUpdate` and `componentDidUpdate`).
+Ở ví dụ phía trên, điều quan trọng là phải đọc `scrollHeight` property trong `getSnapshotBeforeUpdate` bởi vì có thể có độ trễ giữa các "render" phase lifecycle (như là `render`) và "commit" phase lifecycles (như là `getSnapshotBeforeUpdate` và `componentDidUpdate`).
 
 * * *
 
 ### Error boundaries {#error-boundaries}
 
-[Error boundaries](/docs/error-boundaries.html) are React components that catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of the component tree that crashed. Error boundaries catch errors during rendering, in lifecycle methods, and in constructors of the whole tree below them.
+[Error boundaries](/docs/error-boundaries.html) là những React component mà catch các JavaScript error ở bất kỳ đâu trong child component tree của chúng, log các lỗi đó, và hiển thị một fallback UI để thay thế component tree gặp sự cố. Error boundaries catch các lỗi trong quá trình render, trong các phương thức lifecycle, và trong các constructor của toàn bộ tree bên dưới chúng.
 
-A class component becomes an error boundary if it defines either (or both) of the lifecycle methods `static getDerivedStateFromError()` or `componentDidCatch()`. Updating state from these lifecycles lets you capture an unhandled JavaScript error in the below tree and display a fallback UI.
+Một class component trở thành một error boundary nếu nó định nghĩa một trong hai (hay cả hai) phương thức lifecycle `static getDerivedStateFromError()` hoặc `componentDidCatch()`. Cập nhật state từ các lifecycle này cho phép bạn bắt một unhandled JavaScript error trong tree bên dưới và hiển thị một fallback UI (User Interface).
 
-Only use error boundaries for recovering from unexpected exceptions; **don't try to use them for control flow.**
+Chỉ sử dụng các error boundary cho việc khôi phục từ các ngoại lệ không mong muốn; **đừng cố gắng sử dụng chúng để kiểm soát flow.**
 
-For more details, see [*Error Handling in React 16*](/blog/2017/07/26/error-handling-in-react-16.html).
+Để biết thêm chi tiết, xem [*Error Handling in React 16*](/blog/2017/07/26/error-handling-in-react-16.html).
 
-> Note
+> Lưu ý
 >
-> Error boundaries only catch errors in the components **below** them in the tree. An error boundary can’t catch an error within itself.
+> Error boundaries chỉ catch các lỗi của những component **bên dưới** chúng trong tree. Một error boundary không thể catch một lỗi của chính nó.
 
 ### `static getDerivedStateFromError()` {#static-getderivedstatefromerror}
 ```javascript
 static getDerivedStateFromError(error)
 ```
 
-This lifecycle is invoked after an error has been thrown by a descendant component.
-It receives the error that was thrown as a parameter and should return a value to update state.
+Lifecycle này được gọi sau khi một component con ném ra một error.
+Nó nhận error được ném ra dưới dạng một tham số và sẽ return một giá trị để cập nhật state.
 
 ```js{7-10,13-16}
 class ErrorBoundary extends React.Component {
@@ -343,13 +343,13 @@ class ErrorBoundary extends React.Component {
   }
 
   static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI.
+    // Cập nhật state để lần render tiếp theo sẽ hiển thị fallback UI.
     return { hasError: true };
   }
 
   render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
+      // Bạn có thể render bất kỳ custom fallback UI
       return <h1>Something went wrong.</h1>;
     }
 
@@ -358,10 +358,10 @@ class ErrorBoundary extends React.Component {
 }
 ```
 
-> Note
+> Lưu ý
 >
-> `getDerivedStateFromError()` is called during the "render" phase, so side-effects are not permitted.
-For those use cases, use `componentDidCatch()` instead.
+> `getDerivedStateFromError()` được gọi trong "render" phase, do đó side-effects không được phép thực hiện.
+Để thực hiện side-effects, sử dụng `componentDidCatch()` thay thế.
 
 * * *
 
@@ -371,15 +371,15 @@ For those use cases, use `componentDidCatch()` instead.
 componentDidCatch(error, info)
 ```
 
-This lifecycle is invoked after an error has been thrown by a descendant component.
-It receives two parameters:
+Lifecycle này được gọi sau khi một component con ném ra một error.
+Nó nhận hai tham số:
 
-1. `error` - The error that was thrown.
-2. `info` - An object with a `componentStack` key containing [information about which component threw the error](/docs/error-boundaries.html#component-stack-traces).
+1. `error` - Error được ném ra.
+2. `info` - Một object với một `componentStack` key chứa [thông tin về component nào đã ném ra error](/docs/error-boundaries.html#component-stack-traces).
 
 
-`componentDidCatch()` is called during the "commit" phase, so side-effects are permitted.
-It should be used for things like logging errors:
+`componentDidCatch()` được gọi trong "commit" phase, do đó các side-effect được phép thực hiện.
+Nó nên được sử dụng cho những việc như log các error:
 
 ```js{12-19}
 class ErrorBoundary extends React.Component {
@@ -389,7 +389,7 @@ class ErrorBoundary extends React.Component {
   }
 
   static getDerivedStateFromError(error) {
-    // Update state so the next render will show the fallback UI.
+    // Cập nhật state để lần render tiếp theo sẽ hiển thị fallback UI.
     return { hasError: true };
   }
 
@@ -404,7 +404,7 @@ class ErrorBoundary extends React.Component {
 
   render() {
     if (this.state.hasError) {
-      // You can render any custom fallback UI
+      // Bạn có thể render bất kỳ custom fallback UI
       return <h1>Something went wrong.</h1>;
     }
 
@@ -413,22 +413,22 @@ class ErrorBoundary extends React.Component {
 }
 ```
 
-Production and development builds of React slightly differ in the way `componentDidCatch()` handles errors.
+Production và development builds của React tương đối khác biệt về cách thức `componentDidCatch()` xử lý lỗi.
 
-On development, the errors will bubble up to `window`, this means that any `window.onerror` or `window.addEventListener('error', callback)` will intercept the errors that have been caught by `componentDidCatch()`.
+Ở development, các lỗi sẽ nổi lên `window`, có nghĩa là bất kỳ `window.onerror` hoặc `window.addEventListener('error', callback)` sẽ chặn các lỗi mà đã được catch bởi `componentDidCatch()`.
 
-On production, instead, the errors will not bubble up, which means any ancestor error handler will only receive errors not explicitly caught by `componentDidCatch()`.
+Ở production, thay vào đó, các lỗi sẽ không nổi lên, nghĩa là bất kỳ ancestor error handler sẽ chỉ nhận được các lỗi không được catch bởi `componentDidCatch()`.
 
-> Note
+> Lưu ý
 >
-> In the event of an error, you can render a fallback UI with `componentDidCatch()` by calling `setState`, but this will be deprecated in a future release.
-> Use `static getDerivedStateFromError()` to handle fallback rendering instead.
+> Trong trường hợp xảy ra lỗi, bạn có thể render một fallback UI với `componentDidCatch()` bằng cách gọi `setState`, nhưng cách này sẽ không được sử dụng nữa trong một phiên bản tương lai.
+> Thay vào đó, sử dụng `static getDerivedStateFromError()` để xử lý fallback render.
 
 * * *
 
-### Legacy Lifecycle Methods {#legacy-lifecycle-methods}
+### Các Phương Thức Legacy Lifecycle {#legacy-lifecycle-methods}
 
-The lifecycle methods below are marked as "legacy". They still work, but we don't recommend using them in the new code. You can learn more about migrating away from legacy lifecycle methods in [this blog post](/blog/2018/03/27/update-on-async-rendering.html).
+Các phương thức lifecycle bên dưới được đánh dấu là "legacy". Những phương thức này vẫn hoạt động, nhưng chúng tôi không khuyến khích sử dụng chúng trong mã mới. Bạn có thể tìm hiểu thêm về di dời từ các phương thức legacy lifecycle trong [bài đăng trên blog này](/blog/2018/03/27/update-on-async-rendering.html).
 
 ### `UNSAFE_componentWillMount()` {#unsafe_componentwillmount}
 
@@ -436,15 +436,15 @@ The lifecycle methods below are marked as "legacy". They still work, but we don'
 UNSAFE_componentWillMount()
 ```
 
-> Note
+> Lưu ý
 >
-> This lifecycle was previously named `componentWillMount`. That name will continue to work until version 17. Use the [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles) to automatically update your components.
+> Tên trước đây của lifecycle này là `componentWillMount`. Tên đó sẽ tiếp tục hoạt động cho tới phiên bản 17. Sử dụng [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles) để tự động cập nhật các component của bạn.
 
-`UNSAFE_componentWillMount()` is invoked just before mounting occurs. It is called before `render()`, therefore calling `setState()` synchronously in this method will not trigger an extra rendering. Generally, we recommend using the `constructor()` instead for initializing state.
+`UNSAFE_componentWillMount()` được gọi trước khi quá trình mount diễn ra. Nó được gọi trước `render()`, do đó gọi `setState()` một cách đồng bộ trong phương thức này sẽ không gây ra một lần render bổ sung. Nhìn chung, chúng tôi khuyến khích sử dụng `constructor()` để khởi tạo state.
 
-Avoid introducing any side-effects or subscriptions in this method. For those use cases, use `componentDidMount()` instead.
+Tránh đặt bất kỳ side-effects hay subscriptions trong phương thức này. Cho những trường hợp như vậy, sử dụng `componentDidMount()` để thay thế.
 
-This is the only lifecycle method called on server rendering.
+Đây là phương thức lifecycle duy nhất được gọi trên server rendering.
 
 * * *
 
@@ -454,25 +454,25 @@ This is the only lifecycle method called on server rendering.
 UNSAFE_componentWillReceiveProps(nextProps)
 ```
 
-> Note
+> Lưu ý
 >
-> This lifecycle was previously named `componentWillReceiveProps`. That name will continue to work until version 17. Use the [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles) to automatically update your components.
+> Tên trước đây của lifecycle này là `componentWillReceiveProps`. Tên đó sẽ tiếp tục hoạt động cho tới phiên bản 17. Sử dụng [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles) để tự động cập nhật các component của bạn.
 
-> Note:
+> Lưu ý:
 >
-> Using this lifecycle method often leads to bugs and inconsistencies
+> Sử dụng phương thức lifecycle này thường dẫn tới bugs và sự thiếu nhất quán
 >
-> * If you need to **perform a side effect** (for example, data fetching or an animation) in response to a change in props, use [`componentDidUpdate`](#componentdidupdate) lifecycle instead.
-> * If you used `componentWillReceiveProps` for **re-computing some data only when a prop changes**, [use a memoization helper instead](/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization).
-> * If you used `componentWillReceiveProps` to **"reset" some state when a prop changes**, consider either making a component [fully controlled](/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-controlled-component) or [fully uncontrolled with a `key`](/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) instead.
+> * Nếu bạn cần **thực hiện một side effect** (ví dụ, data fetching hoặc một animation) để đáp ứng sự thay đổi về props, sử dụng [`componentDidUpdate`](#componentdidupdate) lifecycle để thay thế.
+> * Nếu bạn sử dụng `componentWillReceiveProps` cho việc **tính toán lại một số dữ liệu chỉ khi một prop thay đổi**, [sử dụng một memoization helper để thay thế](/blog/2018/06/07/you-probably-dont-need-derived-state.html#what-about-memoization).
+> * Nếu bạn sử dụng `componentWillReceiveProps` để **"reset" một số state khi một prop thay đổi**, cân nhắc tạo một component [fully controlled](/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-controlled-component) hoặc [fully uncontrolled với một `key`](/blog/2018/06/07/you-probably-dont-need-derived-state.html#recommendation-fully-uncontrolled-component-with-a-key) để thay thế.
 >
-> For other use cases, [follow the recommendations in this blog post about derived state](/blog/2018/06/07/you-probably-dont-need-derived-state.html).
+> Đối với những trường hợp khác, [hãy làm theo các khuyến nghị trong bài đăng ở blog này về derived state](/blog/2018/06/07/you-probably-dont-need-derived-state.html).
 
-`UNSAFE_componentWillReceiveProps()` is invoked before a mounted component receives new props. If you need to update the state in response to prop changes (for example, to reset it), you may compare `this.props` and `nextProps` and perform state transitions using `this.setState()` in this method.
+`UNSAFE_componentWillReceiveProps()` được gọi trước khi một component đã được mount nhận props mới. Nếu bạn cần cập nhật state để đáp lại những thay đổi của prop (ví dụ, đặt lại state), bạn có thể so sánh `this.props` và `nextProps` sau đó thực hiện chuyển đổi state sử dụng `this.setState()` trong phương thức này.
 
-Note that if a parent component causes your component to re-render, this method will be called even if props have not changed. Make sure to compare the current and next values if you only want to handle changes.
+Lưu ý rằng nếu một parent component khiến cho component của bạn render lại, phương thức này sẽ được gọi ngay cả khi props không thay đổi. Đảm bảo rằng hãy so sánh giá trị hiện tại và kế tiếp nếu bạn chỉ muốn xử lý các thay đổi.
 
-React doesn't call `UNSAFE_componentWillReceiveProps()` with initial props during [mounting](#mounting). It only calls this method if some of component's props may update. Calling `this.setState()` generally doesn't trigger `UNSAFE_componentWillReceiveProps()`.
+React không gọi `UNSAFE_componentWillReceiveProps()` với props khởi tạo trong quá trình [mounting](#mounting). React chỉ gọi phương thức này nếu một số prop của component có thể cập nhật. Gọi `this.setState()` thường không kích hoạt `UNSAFE_componentWillReceiveProps()`.
 
 * * *
 
@@ -482,27 +482,27 @@ React doesn't call `UNSAFE_componentWillReceiveProps()` with initial props durin
 UNSAFE_componentWillUpdate(nextProps, nextState)
 ```
 
-> Note
+> Lưu ý
 >
-> This lifecycle was previously named `componentWillUpdate`. That name will continue to work until version 17. Use the [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles) to automatically update your components.
+> Tên trước đây của lifecycle này là `componentWillUpdate`. Tên đó sẽ tiếp tục hoạt động cho tới phiên bản 17. Sử dụng [`rename-unsafe-lifecycles` codemod](https://github.com/reactjs/react-codemod#rename-unsafe-lifecycles) để tự động cập nhật các component của bạn.
 
-`UNSAFE_componentWillUpdate()` is invoked just before rendering when new props or state are being received. Use this as an opportunity to perform preparation before an update occurs. This method is not called for the initial render.
+`UNSAFE_componentWillUpdate()` được gọi ngay trước render khi component nhận được props hoặc state mới. Sử dụng phương thức này để tiến hành chuẩn bị trước khi quá trình cập nhật xảy ra. Phương thức này không được gọi cho lần render đầu tiên.
 
-Note that you cannot call `this.setState()` here; nor should you do anything else (e.g. dispatch a Redux action) that would trigger an update to a React component before `UNSAFE_componentWillUpdate()` returns.
+Lưu ý rằng bạn không thể gọi `this.setState()` ở trong phương thức này; cũng như không nên làm bất cứ thứ gì khác (ví dụ. dispatch một Redux action) điều đó sẽ gây ra một lần cập nhật cho một React component trước khi `UNSAFE_componentWillUpdate()` return.
 
-Typically, this method can be replaced by `componentDidUpdate()`. If you were reading from the DOM in this method (e.g. to save a scroll position), you can move that logic to `getSnapshotBeforeUpdate()`.
+Thông thường, phương thức này có thể được thay thế bởi `componentDidUpdate()`. Nếu bạn đã đọc từ DOM trong phương thức này (ví dụ. để lưu vị trí thanh cuộn), bạn có thể di chuyển phần logic đó sang `getSnapshotBeforeUpdate()`.
 
-> Note
+> Lưu ý
 >
-> `UNSAFE_componentWillUpdate()` will not be invoked if [`shouldComponentUpdate()`](#shouldcomponentupdate) returns false.
+> `UNSAFE_componentWillUpdate()` sẽ không được gọi nếu [`shouldComponentUpdate()`](#shouldcomponentupdate) returns false.
 
 * * *
 
-## Other APIs {#other-apis-1}
+## Các API Khác {#other-apis-1}
 
-Unlike the lifecycle methods above (which React calls for you), the methods below are the methods *you* can call from your components.
+Không giống các phương thức lifecycle phía trên (React sẽ gọi các phương thức đó cho bạn), các phương thức bên dưới thì *bạn* có thể tự gọi từ các component của bạn.
 
-There are just two of them: `setState()` and `forceUpdate()`.
+Chỉ có hai phương thức là: `setState()` và `forceUpdate()`.
 
 ### `setState()` {#setstate}
 
@@ -510,21 +510,21 @@ There are just two of them: `setState()` and `forceUpdate()`.
 setState(updater, [callback])
 ```
 
-`setState()` enqueues changes to the component state and tells React that this component and its children need to be re-rendered with the updated state. This is the primary method you use to update the user interface in response to event handlers and server responses.
+`setState()` tạo ra một hàng đợi những sự thay đổi tới component state và thông báo cho React rằng component này cùng với children của nó cần phải được render lại với state đã được cập nhật. Đây là phương thức chính mà bạn sẽ sử dụng để cập nhật user interface đáp lại các event handler và server response.
 
-Think of `setState()` as a *request* rather than an immediate command to update the component. For better perceived performance, React may delay it, and then update several components in a single pass. React does not guarantee that the state changes are applied immediately.
+Hãy coi `setState()` như một *request* hơn là một mệnh lệnh ngay lập tức để cập nhật component. Để có hiệu suất tốt, React có thể trì hoãn việc cập nhật, và sau đó cập nhật nhiều component trong một lần xử lý. React không đảm bảo rằng các thay đổi đối với state được áp dụng ngay lập tức.
 
-`setState()` does not always immediately update the component. It may batch or defer the update until later. This makes reading `this.state` right after calling `setState()` a potential pitfall. Instead, use `componentDidUpdate` or a `setState` callback (`setState(updater, callback)`), either of which are guaranteed to fire after the update has been applied. If you need to set the state based on the previous state, read about the `updater` argument below.
+`setState()` không phải lúc nào cũng cập nhật component ngay lập tức. Nó có thể gộp nhóm hoặc trì hoãn việc cập nhật. Điều đó khiến cho việc đọc `this.state` ngay sau khi gọi `setState()` là một cạm bẫy tiềm ẩn. Thay vào đó, sử dụng `componentDidUpdate` hoặc một `setState` callback (`setState(updater, callback)`), một trong hai cách này sẽ đảm bảo việc đọc `this.state` diễn ra sau khi cập nhật được áp dụng. Nếu bạn cần đặt state dựa vào state trước đó, đọc thêm về đối số `updater` bên dưới.
 
-`setState()` will always lead to a re-render unless `shouldComponentUpdate()` returns `false`. If mutable objects are being used and conditional rendering logic cannot be implemented in `shouldComponentUpdate()`, calling `setState()` only when the new state differs from the previous state will avoid unnecessary re-renders.
+`setState()` sẽ luôn dẫn đến render lại trừ khi `shouldComponentUpdate()` returns `false`. Nếu các mutable object được sử dụng và logic render có điều kiện không thể được thực hiện trong `shouldComponentUpdate()`, gọi `setState()` chỉ khi state mới khác so với state trước đó sẽ tránh được việc render lại mà không cần thiết.
 
-The first argument is an `updater` function with the signature:
+Đối số đầu tiên là một hàm `updater` với signature:
 
 ```javascript
 (state, props) => stateChange
 ```
 
-`state` is a reference to the component state at the time the change is being applied. It should not be directly mutated. Instead, changes should be represented by building a new object based on the input from `state` and `props`. For instance, suppose we wanted to increment a value in state by `props.step`:
+`state` là một tham chiếu tới component state tại thời điểm thay đổi đang được áp dụng. Nó không nên bị thay đổi trực tiếp. Thay vào đó, những sự thay đổi nên được thực hiện bằng cách tạo ra một object mới dựa trên input từ `state` và `props`. Ví dụ, giả sử chúng tôi muốn tăng một giá trị trong state lên `props.step` đơn vị:
 
 ```javascript
 this.setState((state, props) => {
@@ -532,23 +532,23 @@ this.setState((state, props) => {
 });
 ```
 
-Both `state` and `props` received by the updater function are guaranteed to be up-to-date. The output of the updater is shallowly merged with `state`.
+Cả `state` và `props` mà hàm updater nhận sẽ được đảm bảo cập nhật tới trạng thái mới nhất. Output của updater được shallowly merge với `state`.
 
-The second parameter to `setState()` is an optional callback function that will be executed once `setState` is completed and the component is re-rendered. Generally we recommend using `componentDidUpdate()` for such logic instead.
+Tham số thứ hai truyền cho `setState()` là một optional callback sẽ được thực thi sau khi `setState` hoàn thành và component được render lại. Nhìn chung, chúng tôi khuyến khích sử dụng `componentDidUpdate()` cho những kiểu logic như phía trên.
 
-You may optionally pass an object as the first argument to `setState()` instead of a function:
+Bạn có thể truyền một object làm đối số đầu tiên cho `setState()` thay vì một hàm:
 
 ```javascript
 setState(stateChange[, callback])
 ```
 
-This performs a shallow merge of `stateChange` into the new state, e.g., to adjust a shopping cart item quantity:
+Ở đoạn mã phía trên, `setState` sẽ thực hiện shallow merge `stateChange` và state mới, ví dụ., để điều chỉnh số lượng mặt hàng trong giỏ hàng:
 
 ```javascript
 this.setState({quantity: 2})
 ```
 
-This form of `setState()` is also asynchronous, and multiple calls during the same cycle may be batched together. For example, if you attempt to increment an item quantity more than once in the same cycle, that will result in the equivalent of:
+Dạng `setState()` phía trên cũng là bất đồng bộ, và nhiều lời gọi trong cũng một chu kỳ có thể được gộp nhóm lại với nhau. Ví dụ, nếu bạn cố gắng tăng số lượng một mặt hàng lên nhiều hơn một lần trong một chu kỳ, kết quả sẽ tương đương với đoạn mã bên dưới:
 
 ```javaScript
 Object.assign(
@@ -559,7 +559,7 @@ Object.assign(
 )
 ```
 
-Subsequent calls will override values from previous calls in the same cycle, so the quantity will only be incremented once. If the next state depends on the current state, we recommend using the updater function form, instead:
+Các lời gọi tiếp theo sẽ override giá trị của lời gọi trước đó trong cùng một chu kỳ, do đó số lượng chỉ được tăng một lần. Nếu state tiếp theo phụ thuộc vào state hiện tại, chúng tôi khuyến khích sử dụng dạng hàm updater của `setState`:
 
 ```js
 this.setState((state) => {
@@ -567,11 +567,11 @@ this.setState((state) => {
 });
 ```
 
-For more detail, see:
+Để biết thêm chi tiết, hãy xem:
 
-* [State and Lifecycle guide](/docs/state-and-lifecycle.html)
-* [In depth: When and why are `setState()` calls batched?](https://stackoverflow.com/a/48610973/458193)
-* [In depth: Why isn't `this.state` updated immediately?](https://github.com/facebook/react/issues/11527#issuecomment-360199710)
+* [Hướng dẫn về State và Lifecycle](/docs/state-and-lifecycle.html)
+* [Chuyên sâu: Khi nào và tại sao các lời gọi `setState()` được gộp nhóm?](https://stackoverflow.com/a/48610973/458193)
+* [Chuyên sâu: Tại sao không cập nhật `this.state` ngay lập tức?](https://github.com/facebook/react/issues/11527#issuecomment-360199710)
 
 * * *
 
@@ -581,11 +581,11 @@ For more detail, see:
 component.forceUpdate(callback)
 ```
 
-By default, when your component's state or props change, your component will re-render. If your `render()` method depends on some other data, you can tell React that the component needs re-rendering by calling `forceUpdate()`.
+Mặc định, khi state hoặc props của component thay đổi, component của bạn sẽ render lại. Nếu phương thức `render()` của bạn phụ thuộc vào các dữ liệu khác, bạn có thể thông báo với React rằng component cần được render lại bằng cách gọi `forceUpdate()`.
 
-Calling `forceUpdate()` will cause `render()` to be called on the component, skipping `shouldComponentUpdate()`. This will trigger the normal lifecycle methods for child components, including the `shouldComponentUpdate()` method of each child. React will still only update the DOM if the markup changes.
+Gọi `forceUpdate()` sẽ dẫn đến phương thức `render()` của component được gọi, bỏ qua `shouldComponentUpdate()`. Điều này sẽ kích hoạt các phương thức lifecycle thông thường cho các child component, bao gồm phương thức `shouldComponentUpdate()` của mỗi child. React sẽ chỉ cập nhật DOM nếu đánh dấu thay đổi.
 
-Normally you should try to avoid all uses of `forceUpdate()` and only read from `this.props` and `this.state` in `render()`.
+Thông thường bạn nên cố gắng tránh sử dụng `forceUpdate()`, chỉ đọc từ `this.props` và `this.state` trong `render()`.
 
 * * *
 
@@ -593,7 +593,7 @@ Normally you should try to avoid all uses of `forceUpdate()` and only read from 
 
 ### `defaultProps` {#defaultprops}
 
-`defaultProps` can be defined as a property on the component class itself, to set the default props for the class. This is used for `undefined` props, but not for `null` props. For example:
+`defaultProps` có thể được định nghĩa như là một thuộc tính của component class, dùng để đặt props mặc định cho class. Nó được sử dụng cho các `undefined` prop, nhưng không dùng cho các `null` prop. Ví dụ:
 
 ```js
 class CustomButton extends React.Component {
@@ -605,19 +605,19 @@ CustomButton.defaultProps = {
 };
 ```
 
-If `props.color` is not provided, it will be set by default to `'blue'`:
+Nếu `props.color` không được cung cấp, nó sẽ được đặt mặc định là `'blue'`:
 
 ```js
   render() {
-    return <CustomButton /> ; // props.color will be set to blue
+    return <CustomButton /> ; // props.color sẽ được đặt là blue
   }
 ```
 
-If `props.color` is set to `null`, it will remain `null`:
+Nếu `props.color` được đặt là `null`, nó sẽ vẫn được giữ là `null`:
 
 ```js
   render() {
-    return <CustomButton color={null} /> ; // props.color will remain null
+    return <CustomButton color={null} /> ; // props.color sẽ vẫn được giữ là null
   }
 ```
 
@@ -625,7 +625,7 @@ If `props.color` is set to `null`, it will remain `null`:
 
 ### `displayName` {#displayname}
 
-The `displayName` string is used in debugging messages. Usually, you don't need to set it explicitly because it's inferred from the name of the function or class that defines the component. You might want to set it explicitly if you want to display a different name for debugging purposes or when you create a higher-order component, see [Wrap the Display Name for Easy Debugging](/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging) for details.
+Chuỗi `displayName` được sử dụng trong các thông điệp debug. Thông thường, bạn không cần phải đặt nó một cách tường minh bởi vì nó được suy ra từ tên hàm hoặc class mà xác định component. Bạn có thể đặt nó một cách tường minh nếu bạn muốn hiển thị một tên khác cho mục đích debug hoặc khi bạn tạo một higher-order component, xem [Wrap the Display Name for Easy Debugging](/docs/higher-order-components.html#convention-wrap-the-display-name-for-easy-debugging) để biết thêm chi tiết.
 
 * * *
 
@@ -633,16 +633,16 @@ The `displayName` string is used in debugging messages. Usually, you don't need 
 
 ### `props` {#props}
 
-`this.props` contains the props that were defined by the caller of this component. See [Components and Props](/docs/components-and-props.html) for an introduction to props.
+`this.props` chứa các prop được định nghĩa bởi component mà gọi component này. Xem [Components và Props](/docs/components-and-props.html) cho phần giới thiệu về props.
 
-In particular, `this.props.children` is a special prop, typically defined by the child tags in the JSX expression rather than in the tag itself.
+`this.props.children` là một prop đặc biệt, thường được định nghĩa bởi các child tag trong JSX expression chứ không phải trong chính tag đó.
 
 ### `state` {#state}
 
-The state contains data specific to this component that may change over time. The state is user-defined, and it should be a plain JavaScript object.
+state chứa dữ liệu đặc trưng của một component và có thể thay đổi theo thời gian. state được người dùng tự định nghĩa, và nó nên là một plain JavaScript object.
 
-If some value isn't used for rendering or data flow (for example, a timer ID), you don't have to put it in the state. Such values can be defined as fields on the component instance.
+Các giá trị không được sử dụng cho việc render hay data flow (ví dụ, một timer ID), bạn không cần thiết phải đặt nó trong state. Những giá trị như thế có thể được định nghĩa như là các field của component instance.
 
-See [State and Lifecycle](/docs/state-and-lifecycle.html) for more information about the state.
+Xem [State và Lifecycle](/docs/state-and-lifecycle.html) để có thêm thông tin về state.
 
-Never mutate `this.state` directly, as calling `setState()` afterwards may replace the mutation you made. Treat `this.state` as if it were immutable.
+Đừng bao giờ thay đổi `this.state` trực tiếp, vì việc gọi `setState()` sau đó có thể thay thế những sự thay đổi mà bạn đã thực hiện. Coi `this.state` như thể nó là bất biến.
