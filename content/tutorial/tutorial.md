@@ -451,11 +451,19 @@ class Square extends React.Component {
 
 Khi một Square được bấm, hàm `onClick` cung cấp bởi Board sẽ được gọi. Dưới đây là tổng kết lại những gì ta đã đạt được đến thời điểm này:
 
+<<<<<<< HEAD
 1. Prop `onClick` trong DOM có sẵn `button` component cho phép React lắng nghe sự kiện nhấp chuột.
 2. Khi button được bấm, React sẽ gọi hàm `onClick` được định nghĩa trong phương thức `render` của Square component.
 3. Hàm xử lý sự kiện này sẽ gọi hàm `this.props.onClick()`. Prop `onClick` của Square component được chỉ định bởi Board component.
 4. Khi Board componet truyền prop `onClick={() => this.handleClick(i)}` xuống Square component, Square sẽ gọi hàm `this.handleClick(i)` khi nó được bấm.
 5. Chúng ta chưa hề định nghĩa phương thức `handleClick()` vì vậy code của chúng ta sẽ không chạy được ở thời điểm hiện tại. Khi bấm vào một Square, bạn sẽ thấy lỗi được trả ra trên màn hình dạng như "this.handleClick is not a function".
+=======
+1. The `onClick` prop on the built-in DOM `<button>` component tells React to set up a click event listener.
+2. When the button is clicked, React will call the `onClick` event handler that is defined in Square's `render()` method.
+3. This event handler calls `this.props.onClick()`. The Square's `onClick` prop was specified by the Board.
+4. Since the Board passed `onClick={() => this.handleClick(i)}` to Square, the Square calls the Board's `handleClick(i)` when clicked.
+5. We have not defined the `handleClick()` method yet, so our code crashes. If you click a square now, you should see a red error screen saying something like "this.handleClick is not a function".
+>>>>>>> 23d03a854ba21aeea0a03a0bd5185e0def9237d6
 
 >Chú ý
 >
