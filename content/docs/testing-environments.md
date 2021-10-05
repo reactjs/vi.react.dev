@@ -55,8 +55,4 @@ Components có thể sẽ phải dùng những hàm liên quan đến đếm th�
 
 Những bài test đầu ra hữu ích để kiểm tra quy trình làm việc dài/lâu hơn, đặc biệt là khi chúng rất quan trọng đối với công việc của bạn (như là các thanh toán hoặc đăng nhập). Đối với những test này, bạn có thể muốn kiểm tra cách một trình duyệt thực tế hiển thị toàn bộ ứng dụng, fetche data từ các API endpoint thật, dùng các session và cookie, điều hướng giữa các link khác nhau. Bạn cũng có thể muốn đưa ra khẳng định không chỉ là trên DOM state, mà còn trên cả dữ liệu hỗ trợ cũng vậy (v.d. để xác minh xem các bản cập nhật có được lưu vào cơ sở dữ liệu hay không).
 
-<<<<<<< HEAD
 Trong cấu hình này, bạn sẽ muốn dùng một framework như là [Cypress](https://www.cypress.io/) hoặc thư viện như [puppeteer](https://github.com/GoogleChrome/puppeteer) thì bạn có thể đa điều hướng giữa nhiều "route" và khẳng định về các tác dụng phụ không chỉ trong trình duyệt, mà cũng còn có thể xảy ra phía "backend".
-=======
-In this scenario, you would use a framework like [Cypress](https://www.cypress.io/), [Playwright](https://playwright.dev) or a library like [Puppeteer](https://pptr.dev/) so you can navigate between multiple routes and assert on side effects not just in the browser, but potentially on the backend as well.
->>>>>>> 23d03a854ba21aeea0a03a0bd5185e0def9237d6
