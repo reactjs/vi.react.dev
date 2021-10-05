@@ -452,11 +452,7 @@ Hệ thống Deque cho phép [aXe-core](https://github.com/dequelabs/axe-core) t
 
 [The Accessibility Engine](https://www.deque.com/products/axe/) hoặc aXe, là một extension accessibility inspector tích hợp sẵn trong `aXe-core`.
 
-<<<<<<< HEAD
 Bạn cũng có thể sử dụng [react-axe](https://github.com/dylanb/react-axe) module để report những phát hiện về accessibility trực tiếp khi đang develope và debug.
-=======
-You can also use the [@axe-core/react](https://github.com/dequelabs/axe-core-npm/tree/develop/packages/react) module to report these accessibility findings directly to the console while developing and debugging.
->>>>>>> 23d03a854ba21aeea0a03a0bd5185e0def9237d6
 
 #### WebAIM WAVE {#webaim-wave}
 
