@@ -1,6 +1,6 @@
 ---
 id: design-principles
-title: Design Principles
+title: Nguyên tắc thiết kế
 layout: contributing
 permalink: docs/design-principles.html
 prev: implementation-notes.html
@@ -8,156 +8,156 @@ redirect_from:
   - "contributing/design-principles.html"
 ---
 
-We wrote this document so that you have a better idea of how we decide what React does and what React doesn't do, and what our development philosophy is like. While we are excited to see community contributions, we are not likely to choose a path that violates one or more of these principles.
+Chúng tôi viết tài liệu này để bạn có ý tưởng tốt hơn về cách chúng tôi quyết định những gì React làm được và những gì React không làm được cũng như triết lý phát triển của chúng tôi như thế nào. Mặc dù chúng tôi rất vui khi nhận được nhiều sự đóng góp của cộng đồng, nhưng chúng tôi không thể chọn định hướng vi phạm một hoặc nhiều nguyên tắc này.
 
->**Note:**
+>**Lưu ý:**
 >
->This document assumes a strong understanding of React. It describes the design principles of *React itself*, not React components or applications.
+>Tài liệu này giả định rằng bạn đã hiểu rõ về React. Nó mô tả các nguyên tắc thiết kế của * bản thân React*, không phải các thành phần của React hay các ứng dụng của nó.
 >
->For an introduction to React, check out [Thinking in React](/docs/thinking-in-react.html) instead.
+>Để xem giới thiệu về React, hãy xem [Tư duy trong React](/docs/thinking-in-react.html) instead.
 
-### Composition {#composition}
+### Kết hợp - Composition {#composition}
 
-The key feature of React is composition of components. Components written by different people should work well together. It is important to us that you can add functionality to a component without causing rippling changes throughout the codebase.
+Đặc điểm chính của React là sự kết hợp của các component. Các component được viết bởi những người khác nhau nên hoạt động ăn khớp với nhau. Điều quan trọng đối với chúng tôi là bạn có thể thêm chức năng vào một component mà không gây ra những thay đổi ảnh hưởng cho cả codebase.
 
-For example, it should be possible to introduce some local state into a component without changing any of the components using it. Similarly, it should be possible to add some initialization and teardown code to any component when necessary.
+Ví dụ, có thể đưa thêm một vài state vào một component mà không cần phải thay đổi bất kỳ component nào đang sử dụng nó. Tương tự như vậy, có thể thêm một một số code khởi tạo hoặc hủy bỏ vào bất kỳ component nào khi cần thiết.
 
-There is nothing "bad" about using state or lifecycle methods in components. Like any powerful feature, they should be used in moderation, but we have no intention to remove them. On the contrary, we think they are integral parts of what makes React useful. We might enable [more functional patterns](https://github.com/reactjs/react-future/tree/main/07%20-%20Returning%20State) in the future, but both local state and lifecycle methods will be a part of that model.
+Không có gì "xấu" khi sử dụng các state và lifecycle method trong các component. Giống như bất kỳ tính năng mạnh mẽ nào, chúng nên được sử dụng ở mức độ vừa phải, nhưng chúng tôi không có ý định loại bỏ chúng. Ngược lại, chúng tôi nghĩ rằng chúng là một phần không thể thiếu làm cho React trở nên hữu ích. Chúng tôi có thể kích hoạt [nhiều mẫu chức năng hơn](https://github.com/reactjs/react-future/tree/main/07%20-%20Returning%20State) trong tương lai, nhưng cả local state và lifecycle method sẽ là một phần của mô hình đó.
 
-Components are often described as "just functions" but in our view they need to be more than that to be useful. In React, components describe any composable behavior, and this includes rendering, lifecycle, and state. Some external libraries like [Relay](https://facebook.github.io/relay/) augment components with other responsibilities such as describing data dependencies. It is possible that those ideas might make it back into React too in some form.
+Các component thường được mô tả như "chỉ là những function", nhưng theo quan điểm của chúng tôi chúng cần phải có nhiều hơn thế để trở nên hữu ích. Trong React, các component mô tả bất kỳ behavior có thể kết hợp nào và điều này bao gồm rendering, lifecycle và state. Một số thư viện bên ngoài như các component tăng cường [Relay](https://facebook.github.io/relay/) với các trách nhiệm khác như mô tả các phụ thuộc dữ liệu. Có thể các ý tưởng đó sẽ quay trở lại React ở một số hình thức.
 
 ### Common Abstraction {#common-abstraction}
 
-In general we [resist adding features](https://www.youtube.com/watch?v=4anAwXYqLG8) that can be implemented in userland. We don't want to bloat your apps with useless library code. However, there are exceptions to this.
+Nói chung, chúng tôi [chống lại việc thêm các tính năng](https://www.youtube.com/watch?v=4anAwXYqLG8) có thể được triển khai trong môi trường của người dùng. Chúng tôi không muốn lấp đầy ứng dụng của bạn bằng những mã thư viện vô dụng. Tuy nhiên, có những ngoại lệ cho điều này.
 
-For example, if React didn't provide support for local state or lifecycle methods, people would create custom abstractions for them. When there are multiple abstractions competing, React can't enforce or take advantage of the properties of either of them. It has to work with the lowest common denominator.
+Ví dụ, nếu React không cung cấp hỗ trợ cho các phương thức vòng đời hoặc các state cục bộ, mọi người sẽ tự tùy chỉnh các abstraction cho chúng. Khi có nhiều abstraction cạnh tranh, React không thể thực thi hoặc tận dụng các thuộc tính của một trong số chúng. Nó phải làm việc với "mẫu chung thấp nhất".
 
-This is why sometimes we add features to React itself. If we notice that many components implement a certain feature in incompatible or inefficient ways, we might prefer to bake it into React. We don't do it lightly. When we do it, it's because we are confident that raising the abstraction level benefits the whole ecosystem. State, lifecycle methods, cross-browser event normalization are good examples of this.
+Đây là lý do tại so đôi khi chúng tôi thêm các tính năng vào chính React. Nếu chúng tôi nhận thấy rằng nhiều component triển khai một tính năng nhất định theo những cách không tương tích hoặc không hiệu quả với nhau, chúng tôi có thể thích đưa nó vào React. Chúng tôi không làm điều đó một cách nhẹ nhàng. Khi chúng tôi làm điều đó, đó là vì chúng tôi tự tin rằng việc nâng cao mức độ abstraction sẽ mang lại lợi ích cho toàn bộ hệ sinh thái. State, các phương thức vòng đời, chuẩn hóa sự kiện trên nhiều trình duyệt là những ví dụ điển hình về điều này. 
 
-We always discuss such improvement proposals with the community. You can find some of those discussions by the ["big picture"](https://github.com/facebook/react/issues?q=is:open+is:issue+label:"Type:+Big+Picture") label on the React issue tracker.
+Chúng tôi luôn thảo luận về các đề xuất cải tiến như vậy với cộng đồng. Bạn có thể tìm thấy một số cuộc thảo luận đó theo nhãn ["big picture"](https://github.com/facebook/react/issues?q=is:open+is:issue+label:"Type:+Big+Picture") trên trình theo dõi issue của React.
 
 ### Escape Hatches {#escape-hatches}
 
-React is pragmatic. It is driven by the needs of the products written at Facebook. While it is influenced by some paradigms that are not yet fully mainstream such as functional programming, staying accessible to a wide range of developers with different skills and experience levels is an explicit goal of the project.
+React là thực dụng. Nó được thúc đẩy bởi nhu cầu của các sản phẩm được viết tại Facebook. Mặc dù nó bị ảnh hưởng bởi một số mô hình chưa hoàn toàn chính thống như lập trình chức năng, việc duy trì khả năng tiếp cận của nhiều nhà phát triển với các kỹ năng và cấp độ kinh nghiệm khác nhau là mục tiêu rõ ràng của dự án.
 
-If we want to deprecate a pattern that we don't like, it is our responsibility to consider all existing use cases for it and [educate the community about the alternatives](/blog/2016/07/13/mixins-considered-harmful.html) before we deprecate it. If some pattern that is useful for building apps is hard to express in a declarative way, we will [provide an imperative API](/docs/more-about-refs.html) for it. If we can't figure out a perfect API for something that we found necessary in many apps, we will [provide a temporary subpar working API](/docs/legacy-context.html) as long as it is possible to get rid of it later and it leaves the door open for future improvements.
+Nếu chúng tôi muốn ngừng sử dụng một mẫu mà chúng tôi không thích, chúng tôi có trách nhiệm xem xét tất cả các trường hợp sử dụng hiện có cho nó và [hướng dẫn cộng đồng về các lựa chọn thay thế](/blog/2016/07/13/mixins-considered-harmful.html) trước khi chúng tôi không dùng nữa. Nếu một số mẫu hữu ích cho việc xây dựng ứng dụng khó diễn đạt theo cách khai báo, chúng tôi sẽ [cung cấp một API bắt buộc](/docs/more-about-refs.html) cho nó. Nếu chúng tôi không thể tìm ra một API hoàn hảo cho thứ gì đó mà chúng tôi thấy cần thiết trong nhiều ứng dụng, chúng tôi sẽ [cung cấp một API làm việc phụ tạm thời](/docs/legacy-context.html) miễn là có thể loại bỏ nó sau này và nó mở ra cánh cửa cho những cải tiến trong tương lai.
 
-### Stability {#stability}
+### Sự ổn định - Stability {#stability}
 
-We value API stability. At Facebook, we have more than 50 thousand components using React. Many other companies, including [Twitter](https://twitter.com/) and [Airbnb](https://www.airbnb.com/), are also heavy users of React. This is why we are usually reluctant to change public APIs or behavior.
+Chúng tôi coi trọng sự ổn định của API. Tại Facebook, chúng tôi có hơn 50 nghìn component sử dụng React. Nhiều công ty khác, bao gồm [Twitter](https://twitter.com/) và [Airbnb](https://www.airbnb.com/), cũng là những người dùng sử dụng nhiều React. Đây là lý do tại sao chúng tôi thường miễn cưỡng thay đổi các API hoặc hành vi công khai.
 
-However we think stability in the sense of "nothing changes" is overrated. It quickly turns into stagnation. Instead, we prefer the stability in the sense of "It is heavily used in production, and when something changes, there is a clear (and preferably automated) migration path."
+Tuy nhiên, chúng tôi nghĩ rằng sự ổn định theo nghĩa “không có gì thay đổi” được đánh giá quá cao. Nó nhanh chóng biến thành sự trì trệ. Thay vào đó, chúng tôi thích sự ổn định theo nghĩa "Nó được sử dụng nhiều trong sản xuất và khi có điều gì đó thay đổi, sẽ có một lộ trình di chuyển rõ ràng (và tốt nhất là tự động)."
 
-When we deprecate a pattern, we study its internal usage at Facebook and add deprecation warnings. They let us assess the impact of the change. Sometimes we back out if we see that it is too early, and we need to think more strategically about getting the codebases to the point where they are ready for this change.
+Khi ngừng sử dụng một mẫu, chúng tôi sẽ nghiên cứu việc sử dụng nó nội bộ tại Facebook và thêm các cảnh báo không dùng nữa. Họ cho chúng tôi đánh giá tác động của sự thay đổi. Đôi khi chúng tôi rút lui nếu thấy rằng còn quá sớm và chúng tôi cần suy nghĩ chiến lược hơn về việc đưa các codebase đến thời điểm chúng sẵn sàng cho sự thay đổi này.
 
-If we are confident that the change is not too disruptive and the migration strategy is viable for all use cases, we release the deprecation warning to the open source community. We are closely in touch with many users of React outside of Facebook, and we monitor popular open source projects and guide them in fixing those deprecations.
+Nếu chúng tôi tin rằng thay đổi không quá gián đoạn và chiến lược di chuyển khả thi cho tất cả các trường hợp sử dụng, chúng tôi đưa ra cảnh báo không dùng nữa cho cộng đồng mã nguồn mở. Chúng tôi liên hệ chặt chẽ với nhiều người dùng React bên ngoài Facebook và chúng tôi giám sát các dự án mã nguồn mở phổ biến và hướng dẫn họ khắc phục những lỗi "không còn được dùng nữa".
 
-Given the sheer size of the Facebook React codebase, successful internal migration is often a good indicator that other companies won't have problems either. Nevertheless sometimes people point out additional use cases we haven't thought of, and we add escape hatches for them or rethink our approach.
+Với quy mô tuyệt đối của cơ sở mã Facebook React, việc di chuyển nội bộ thành công thường là một dấu hiệu tốt cho thấy các công ty khác cũng sẽ không gặp vấn đề. Tuy nhiên, đôi khi mọi người chỉ ra các trường hợp sử dụng bổ sung mà chúng tôi chưa nghĩ đến và chúng tôi thêm các lối thoát hiểm cho họ hoặc suy nghĩ lại cách tiếp cận của mình.
 
-We don't deprecate anything without a good reason. We recognize that sometimes deprecations warnings cause frustration but we add them because deprecations clean up the road for the improvements and new features that we and many people in the community consider valuable.
+Chúng tôi không loại bỏ bất cứ điều gì mà không có lý do chính đáng. Chúng tôi nhận thấy rằng đôi khi các cảnh báo về việc không dùng nữa gây ra sự thất vọng nhưng chúng tôi thêm chúng vào vì việc không dùng nữa sẽ dọn đường cho các cải tiến và tính năng mới mà chúng tôi và nhiều người trong cộng đồng cho là có giá trị.
 
-For example, we added a [warning about unknown DOM props](/warnings/unknown-prop.html) in React 15.2.0. Many projects were affected by this. However fixing this warning is important so that we can introduce the support for [custom attributes](https://github.com/facebook/react/issues/140) to React. There is a reason like this behind every deprecation that we add.
+Ví dụ: chúng tôi đã thêm [cảnh báo về unknown DOM props](/warnings/unknown-prop.html) trong React 15.2.0. Nhiều dự án đã bị ảnh hưởng bởi điều này. Tuy nhiên, việc khắc phục cảnh báo này là rất quan trọng để chúng tôi có thể giới thiệu hỗ trợ các thuộc tính tùy chỉnh cho React. Có một lý do như thế này đằng sau mọi sự không sử dụng mà chúng tôi thêm vào.
 
-When we add a deprecation warning, we keep it for the rest of the current major version, and [change the behavior in the next major version](/blog/2016/02/19/new-versioning-scheme.html). If there is a lot of repetitive manual work involved, we release a [codemod](https://www.youtube.com/watch?v=d0pOgY8__JM) script that automates most of the change. Codemods enable us to move forward without stagnation in a massive codebase, and we encourage you to use them as well.
+Khi chúng tôi thêm cảnh báo không dùng nữa, chúng tôi sẽ giữ nó trong phần còn lại của phiên bản chính hiện tại và [thay đổi hành vi trong phiên bản chính tiếp theo](/blog/2016/02/19/new-versioning-scheme.html). Nếu có nhiều công việc thủ công lặp đi lặp lại liên quan, chúng tôi phát hành một tập lệnh [codemod](https://www.youtube.com/watch?v=d0pOgY8__JM) để tự động hóa hầu hết các thay đổi. Codemods cho phép chúng tôi tiến về phía trước mà không bị trì trệ trong một cơ sở mã khổng lồ và chúng tôi cũng khuyến khích bạn sử dụng chúng.
 
-You can find the codemods that we released in the [react-codemod](https://github.com/reactjs/react-codemod) repository.
+Bạn có thể tìm thấy các codemod mà chúng tôi đã phát hành trong kho lưu trữ [react-codemod](https://github.com/reactjs/react-codemod).
 
-### Interoperability {#interoperability}
+### Khả năng tương tác - Interoperability {#interoperability}
 
-We place high value in interoperability with existing systems and gradual adoption. Facebook has a massive non-React codebase. Its website uses a mix of a server-side component system called XHP, internal UI libraries that came before React, and React itself. It is important to us that any product team can [start using React for a small feature](https://www.youtube.com/watch?v=BF58ZJ1ZQxY) rather than rewrite their code to bet on it.
+Chúng tôi đặt giá trị cao về khả năng tương tác với các hệ thống hiện có và áp dụng dần dần. Facebook có một kho mã không phải React khổng lồ. Trang web của nó sử dụng sự kết hợp của một hệ thống thành phần phía máy chủ được gọi là XHP, các thư viện giao diện người dùng nội bộ có trước React và chính React. Điều quan trọng đối với chúng tôi là bất kỳ nhóm sản phẩm nào cũng có thể [bắt đầu sử dụng React cho một tính năng nhỏ](https://www.youtube.com/watch?v=BF58ZJ1ZQxY) thay vì viết lại mã của họ để đặt cược vào nó.
 
-This is why React provides escape hatches to work with mutable models, and tries to work well together with other UI libraries. You can wrap an existing imperative UI into a declarative component, and vice versa. This is crucial for gradual adoption.
+Đây là lý do tại sao React cung cấp các cửa sổ thoát - escape hatches để hoạt động với các mô hình có thể thay đổi và cố gắng hoạt động tốt cùng với các thư viện giao diện người dùng khác. Bạn có thể bao bọc giao diện người dùng bắt buộc hiện có thành một declarative component và ngược lại. Điều này là rất quan trọng để áp dụng dần dần.
 
-### Scheduling {#scheduling}
+### Lập lịch trình - Scheduling {#scheduling}
 
-Even when your components are described as functions, when you use React you don't call them directly. Every component returns a [description of what needs to be rendered](/blog/2015/12/18/react-components-elements-and-instances.html#elements-describe-the-tree), and that description may include both user-written components like `<LikeButton>` and platform-specific components like `<div>`. It is up to React to "unroll" `<LikeButton>` at some point in the future and actually apply changes to the UI tree according to the render results of the components recursively.
+Ngay cả khi các component của bạn được mô tả dưới dạng các function, khi sử dụng React, bạn không gọi chúng trực tiếp. Mọi component trả về một [mô tả về những gì cần được hiển thị](/blog/2015/12/18/react-components-elements-and-instances.html#elements-describe-the-tree) và mô tả đó có thể bao gồm cả các component do người dùng viết như `<LikeButton>` và các component dành riêng cho nền tảng như `<div>`. Tùy thuộc vào việc React “giải nén” `<LikeButton>` vào một thời điểm nào đó trong tương lai và thực sự áp dụng các thay đổi cho UI tree theo kết quả hiển thị của các component một cách đệ quy.
 
-This is a subtle distinction but a powerful one. Since you don't call that component function but let React call it, it means React has the power to delay calling it if necessary. In its current implementation React walks the tree recursively and calls render functions of the whole updated tree during a single tick. However in the future it might start [delaying some updates to avoid dropping frames](https://github.com/facebook/react/issues/6170).
+Đây là một sự khác biệt nhỏ nhưng là một sự khác biệt mạnh mẽ. Vì bạn không gọi component function đó mà để React gọi nó, điều đó có nghĩa là React có quyền trì hoãn việc gọi nó nếu cần. Trong phần triển khai hiện tại của nó, React sẽ duyệt cây một cách đệ quy và gọi các hàm render của toàn bộ cây được cập nhật trong một lần đánh dấu. Tuy nhiên trong tương lai, nó có thể bắt đầu [trì hoãn một số bản cập nhật để tránh giảm khung hình](https://github.com/facebook/react/issues/6170).
 
-This is a common theme in React design. Some popular libraries implement the "push" approach where computations are performed when the new data is available. React, however, sticks to the "pull" approach where computations can be delayed until necessary.
+Đây là một chủ đề phổ biến trong thiết kế React. Một số thư viện phổ biến thực hiện phương pháp tiếp cận “push” trong đó các phép tính được thực hiện khi có dữ liệu mới. Tuy nhiên, React tuân theo phương pháp “pull”, nơi các phép tính có thể bị trì hoãn cho đến khi cần thiết.
 
-React is not a generic data processing library. It is a library for building user interfaces. We think that it is uniquely positioned in an app to know which computations are relevant right now and which are not.
+React không phải là một thư viện xử lý dữ liệu chung. Nó là một thư viện để xây dựng giao diện người dùng. Chúng tôi nghĩ rằng nó chỉ được định vị trong một ứng dụng để biết những tính toán nào phù hợp ngay bây giờ và những tính toán nào không.
 
-If something is offscreen, we can delay any logic related to it. If data is arriving faster than the frame rate, we can coalesce and batch updates. We can prioritize work coming from user interactions (such as an animation caused by a button click) over less important background work (such as rendering new content just loaded from the network) to avoid dropping frames.
+Nếu một cái gì đó nằm ngoài màn hình, chúng tôi có thể trì hoãn bất kỳ logic nào liên quan đến nó. Nếu dữ liệu đến nhanh hơn tốc độ khung hình, chúng tôi có thể liên kết và cập nhật hàng loạt. Chúng tôi có thể ưu tiên công việc đến từ các tương tác của người dùng (chẳng hạn như hoạt ảnh do nhấp vào nút) hơn công việc nền ít quan trọng hơn (chẳng hạn như hiển thị nội dung mới vừa tải từ mạng) để tránh giảm khung hình.
 
-To be clear, we are not taking advantage of this right now. However the freedom to do something like this is why we prefer to have control over scheduling, and why `setState()` is asynchronous. Conceptually, we think of it as "scheduling an update".
+Để rõ ràng, chúng tôi không tận dụng điều này ngay bây giờ. Tuy nhiên, quyền tự do để làm những điều như thế này là lý do tại sao chúng tôi muốn có quyền kiểm soát việc lập lịch, và tại sao `setState()` là không đồng bộ. Về mặt khái niệm, chúng tôi coi nó như là “scheduling an update”.
 
-The control over scheduling would be harder for us to gain if we let the user directly compose views with a "push" based paradigm common in some variations of [Functional Reactive Programming](https://en.wikipedia.org/wiki/Functional_reactive_programming). We want to own the "glue" code.
+Chúng tôi sẽ khó kiểm soát việc lập lịch hơn nếu chúng tôi để người dùng trực tiếp soạn các chế độ xem với mô hình dựa trên “push” phổ biến trong một số biến thể của Lập trình phản ứng chức năng - [Functional Reactive Programming](https://en.wikipedia.org/wiki/Functional_reactive_programming). Chúng tôi muốn sở hữu mã "glue".
 
-It is a key goal for React that the amount of the user code that executes before yielding back into React is minimal. This ensures that React retains the capability to schedule and split work in chunks according to what it knows about the UI.
+Mục tiêu chính của React là số lượng mã người dùng thực thi trước khi quay trở lại React là tối thiểu. Điều này đảm bảo rằng React vẫn giữ được khả năng lên lịch và chia nhỏ công việc theo những gì nó biết về giao diện người dùng.
 
-There is an internal joke in the team that React should have been called "Schedule" because React does not want to be fully "reactive".
+Có một trò đùa nội bộ trong nhóm rằng React lẽ ra phải được gọi là "Schedule" bởi vì React không muốn hoàn toàn là "reactive".
 
-### Developer Experience {#developer-experience}
+### Kinh nghiệm của nhà phát triển - Developer Experience {#developer-experience}
 
-Providing a good developer experience is important to us.
+Cung cấp trải nghiệm tốt cho nhà phát triển là điều quan trọng đối với chúng tôi.
 
-For example, we maintain [React DevTools](https://github.com/facebook/react/tree/main/packages/react-devtools) which let you inspect the React component tree in Chrome and Firefox. We have heard that it brings a big productivity boost both to the Facebook engineers and to the community.
+Ví dụ: chúng tôi duy trì [React DevTools](https://github.com/facebook/react/tree/main/packages/react-devtools) cho phép bạn kiểm tra React component tree trong Chrome và Firefox. Chúng tôi đã thấy rằng nó mang lại sự thúc đẩy năng suất lớn cho cả các kỹ sư Facebook và cộng đồng.
 
-We also try to go an extra mile to provide helpful developer warnings. For example, React warns you in development if you nest tags in a way that the browser doesn't understand, or if you make a common typo in the API. Developer warnings and the related checks are the main reason why the development version of React is slower than the production version.
+Chúng tôi cũng cố gắng đi thêm một quãng đường nữa để đưa ra các cảnh báo hữu ích dành cho nhà phát triển. Ví dụ: React cảnh báo bạn trong quá trình phát triển nếu bạn lồng các thẻ theo cách mà trình duyệt không hiểu hoặc nếu bạn mắc lỗi đánh máy phổ biến trong API. Cảnh báo của nhà phát triển và các kiểm tra liên quan là lý do chính khiến phiên bản development của React chậm hơn phiên bản production.
 
-The usage patterns that we see internally at Facebook help us understand what the common mistakes are, and how to prevent them early. When we add new features, we try to anticipate the common mistakes and warn about them.
+Các mô hình sử dụng mà chúng tôi thấy trong nội bộ Facebook giúp chúng tôi hiểu những lỗi thường gặp là gì và cách phòng tránh sớm. Khi chúng tôi thêm các tính năng mới, chúng tôi cố gắng lường trước những lỗi thường gặp và cảnh báo về chúng.
 
-We are always looking out for ways to improve the developer experience. We love to hear your suggestions and accept your contributions to make it even better.
+Chúng tôi luôn tìm cách cải thiện trải nghiệm của nhà phát triển. Chúng tôi luôn muốn nghe các đề xuất của bạn và chấp nhận đóng góp của bạn để làm cho nó tốt hơn nữa.
 
-### Debugging {#debugging}
+### Gỡ lỗi - Debugging {#debugging}
 
-When something goes wrong, it is important that you have breadcrumbs to trace the mistake to its source in the codebase. In React, props and state are those breadcrumbs.
+Khi có sự cố xảy ra, điều quan trọng là bạn phải có breadcrumbs để theo dõi lỗi với nguồn của nó trong codebase. Trong React, props và state là những đường dẫn - breadcrumbs đó.
 
-If you see something wrong on the screen, you can open React DevTools, find the component responsible for rendering, and then see if the props and state are correct. If they are, you know that the problem is in the component’s `render()` function, or some function that is called by `render()`. The problem is isolated.
+Nếu bạn thấy điều gì đó không ổn trên màn hình, bạn có thể mở React DevTools, tìm component chịu trách nhiệm hiển thị, sau đó xem liệu các prop và state có chính xác hay không. Nếu đúng như vậy, bạn biết rằng vấn đề nằm ở hàm `render()` của component hoặc một số hàm được gọi bởi `render()`. Vấn đề được cô lập.
 
-If the state is wrong, you know that the problem is caused by one of the `setState()` calls in this file. This, too, is relatively simple to locate and fix because usually there are only a few `setState()` calls in a single file.
+Nếu state sai, bạn biết rằng sự cố là do một trong các lệnh gọi `setState()` trong file này gây ra. Điều này cũng tương đối đơn giản để xác định vị trí và sửa chữa vì thường chỉ có một vài lệnh gọi `setState()` trong một file duy nhất.
 
-If the props are wrong, you can traverse the tree up in the inspector, looking for the component that first "poisoned the well" by passing bad props down.
+Nếu prop sai, bạn có thể duyệt qua tree trong inspector, tìm kiếm component đầu tiên “poisoned the well” bằng cách chuyển prop xấu xuống.
 
-This ability to trace any UI to the data that produced it in the form of current props and state is very important to React. It is an explicit design goal that state is not "trapped" in closures and combinators, and is available to React directly.
+Khả năng theo dõi bất kỳ giao diện người dùng nào đến dữ liệu đã tạo ra nó dưới dạng các prop và state hiện tại là rất quan trọng đối với React. Mục tiêu thiết kế rõ ràng là state không bị “mắc kẹt” trong các closures và combinators, và có sẵn cho React trực tiếp.
 
-While the UI is dynamic, we believe that synchronous `render()` functions of props and state turn debugging from guesswork into a boring but finite procedure. We would like to preserve this constraint in React even though it makes some use cases, like complex animations, harder.
+Mặc dù giao diện người dùng là động, chúng tôi tin rằng các hàm `render()` đồng bộ của các prop và state biến việc gỡ lỗi từ phỏng đoán thành một thủ tục nhàm chán nhưng hữu hạn. Chúng tôi muốn giữ lại ràng buộc này trong React mặc dù nó làm cho một số trường hợp sử dụng, như hoạt ảnh phức tạp, khó hơn.
 
-### Configuration {#configuration}
+### Cấu hình - Configuration {#configuration}
 
-We find global runtime configuration options to be problematic.
+Chúng tôi nhận thấy các tùy chọn cấu hình thời gian chạy toàn cầu có vấn đề.
 
-For example, it is occasionally requested that we implement a function like `React.configure(options)` or `React.register(component)`. However this poses multiple problems, and we are not aware of good solutions to them.
+Ví dụ: thỉnh thoảng chúng tôi được yêu cầu triển khai một hàm như `React.configure(options)` hoặc `React.register(component)`. Tuy nhiên, điều này đặt ra nhiều vấn đề và chúng tôi không biết giải pháp tốt cho chúng.
 
-What if somebody calls such a function from a third-party component library? What if one React app embeds another React app, and their desired configurations are incompatible? How can a third-party component specify that it requires a particular configuration? We think that global configuration doesn't work well with composition. Since composition is central to React, we don't provide global configuration in code.
+Điều gì sẽ xảy ra nếu ai đó gọi một hàm như vậy từ thư viện component của bên thứ ba? Điều gì sẽ xảy ra nếu một ứng dụng React nhúng một ứng dụng React khác và cấu hình mong muốn của chúng không tương thích? Làm cách nào để một component của bên thứ ba có thể chỉ định rằng nó yêu cầu một cấu hình cụ thể? Chúng tôi cho rằng cấu hình toàn cầu không hoạt động tốt với bố cục. Vì component là trung tâm của React, chúng tôi không cung cấp cấu hình toàn cầu trong mã.
 
-We do, however, provide some global configuration on the build level. For example, we provide separate development and production builds. We may also [add a profiling build](https://github.com/facebook/react/issues/6627) in the future, and we are open to considering other build flags.
+Tuy nhiên, chúng tôi cung cấp một số cấu hình toàn cầu ở cấp độ xây dựng. Ví dụ: chúng tôi cung cấp các bản dựng development và production riêng biệt. Chúng tôi cũng có thể [thêm một bản dựng profiling](https://github.com/facebook/react/issues/6627) trong tương lai và chúng tôi sẵn sàng xem xét các cờ bản dựng khác.
 
 ### Beyond the DOM {#beyond-the-dom}
 
-We see the value of React in the way it allows us to write components that have fewer bugs and compose together well. DOM is the original rendering target for React but [React Native](https://reactnative.dev/) is just as important both to Facebook and the community.
+Chúng tôi thấy giá trị của React trong cách nó cho phép chúng tôi viết các component có ít lỗi hơn và soạn thảo cùng nhau tốt. DOM là mục tiêu hiển thị ban đầu cho React nhưng [React Native](https://reactnative.dev/) cũng quan trọng đối với cả Facebook và cộng đồng.
 
-Being renderer-agnostic is an important design constraint of React. It adds some overhead in the internal representations. On the other hand, any improvements to the core translate across platforms.
+Khả năng renderer-agnostic là một hạn chế thiết kế quan trọng của React. Nó thêm một số chi phí trong các đại diện nội bộ. Mặt khác, bất kỳ cải tiến nào đối với cốt lõi đều dịch qua các nền tảng.
 
-Having a single programming model lets us form engineering teams around products instead of platforms. So far the tradeoff has been worth it for us.
+Việc có một mô hình lập trình duy nhất cho phép chúng tôi hình thành các nhóm kỹ thuật xoay quanh các sản phẩm thay vì các nền tảng. Cho đến nay sự đánh đổi là xứng đáng đối với chúng tôi.
 
-### Implementation {#implementation}
+### Triển khai - Implementation {#implementation}
 
-We try to provide elegant APIs where possible. We are much less concerned with the implementation being elegant. The real world is far from perfect, and to a reasonable extent we prefer to put the ugly code into the library if it means the user does not have to write it. When we evaluate new code, we are looking for an implementation that is correct, performant and affords a good developer experience. Elegance is secondary.
+Chúng tôi cố gắng cung cấp các API "thanh lịch" nếu có thể. Chúng tôi ít quan tâm hơn đến việc triển khai có thanh lịch hay không. Thế giới thực còn lâu mới hoàn hảo, và ở một mức độ hợp lý, chúng tôi muốn đưa đoạn mã xấu xí vào thư viện nếu điều đó có nghĩa là người dùng không phải viết nó. Khi chúng tôi đánh giá mã mới, chúng tôi đang tìm kiếm một triển khai chính xác, hiệu quả và mang lại trải nghiệm tốt cho nhà phát triển. Sự "thanh lịch" là thứ yếu.
 
-We prefer boring code to clever code. Code is disposable and often changes. So it is important that it [doesn't introduce new internal abstractions unless absolutely necessary](https://youtu.be/4anAwXYqLG8?t=13m9s). Verbose code that is easy to move around, change and remove is preferred to elegant code that is prematurely abstracted and hard to change.
+Chúng tôi thích mã nhàm chán hơn mã thông minh. Mã dùng một lần và thường xuyên thay đổi. Vì vậy, điều quan trọng là nó [không giới thiệu những nội dung trừu tượng mới trừ khi thực sự cần thiết](https://youtu.be/4anAwXYqLG8?t=13m9s). Mã dài dòng dễ di chuyển, thay đổi và loại bỏ được ưu tiên hơn mã thanh lịch được tóm tắt quá sớm và khó thay đổi.
 
-### Optimized for Tooling {#optimized-for-tooling}
+### Tối ưu hóa Công cụ - Optimized for Tooling {#optimized-for-tooling}
 
-Some commonly used APIs have verbose names. For example, we use `componentDidMount()` instead of `didMount()` or `onMount()`. This is [intentional](https://github.com/reactjs/react-future/issues/40#issuecomment-142442124). The goal is to make the points of interaction with the library highly visible.
+Một số API thường được sử dụng có tên dài dòng. Ví dụ: chúng tôi sử dụng `componentDidMount()` thay vì `didMount()` hoặc `onMount()`. Đây là [cố ý](https://github.com/reactjs/react-future/issues/40#issuecomment-142442124). Mục đích là làm cho các điểm tương tác với thư viện có thể nhìn thấy được.
 
-In a massive codebase like Facebook, being able to search for uses of specific APIs is very important. We value distinct verbose names, and especially for the features that should be used sparingly. For example, `dangerouslySetInnerHTML` is hard to miss in a code review.
+Trong một cơ sở mã khổng lồ như Facebook, việc có thể tìm kiếm cách sử dụng các API cụ thể là rất quan trọng. Chúng tôi đánh giá cao các tên dài dòng riêng biệt và đặc biệt là các tính năng nên được sử dụng một cách tiết kiệm. Ví dụ, `dangerouslySetInnerHTML` rất khó để bỏ lỡ trong một lần review code.
 
-Optimizing for search is also important because of our reliance on [codemods](https://www.youtube.com/watch?v=d0pOgY8__JM) to make breaking changes. We want it to be easy and safe to apply vast automated changes across the codebase, and unique verbose names help us achieve this. Similarly, distinctive names make it easy to write custom [lint rules](https://github.com/yannickcr/eslint-plugin-react) about using React without worrying about potential false positives.
+Tối ưu hóa cho tìm kiếm cũng rất quan trọng vì chúng tôi phụ thuộc vào [codemods](https://www.youtube.com/watch?v=d0pOgY8__JM) để thực hiện các thay đổi đột phá. Chúng tôi muốn việc áp dụng các thay đổi tự động rộng lớn trên cơ sở mã trở nên dễ dàng và an toàn và các tên dài dòng duy nhất giúp chúng tôi đạt được điều này. Tương tự như vậy, các tên riêng biệt giúp bạn dễ dàng viết các quy tắc [lint rules](https://github.com/yannickcr/eslint-plugin-react) tùy chỉnh về cách sử dụng React mà không phải lo lắng về khả năng sai sót.
 
-[JSX](/docs/introducing-jsx.html) plays a similar role. While it is not required with React, we use it extensively at Facebook both for aesthetic and pragmatic reasons.
+[JSX](/docs/introducing-jsx.html) đóng một vai trò tương tự. Mặc dù nó không bắt buộc với React, nhưng chúng tôi sử dụng nó rộng rãi trên Facebook cả vì lý do thẩm mỹ và thực dụng.
 
-In our codebase, JSX provides an unambiguous hint to the tools that they are dealing with a React element tree. This makes it possible to add build-time optimizations such as [hoisting constant elements](https://babeljs.io/docs/en/babel-plugin-transform-react-constant-elements/), safely lint and codemod internal component usage, and [include JSX source location](https://github.com/facebook/react/pull/6771) into the warnings.
+Trong codebase của chúng tôi, JSX cung cấp một gợi ý rõ ràng cho các công cụ mà chúng đang xử lý với React element tree. Điều này giúp bạn có thể thêm các tính năng tối ưu hóa thời gian xây dựng như [hoisting constant elements](https://babeljs.io/docs/en/babel-plugin-transform-react-constant-elements/), sử dụng thành phần nội bộ codemod và lint an toàn, đồng thời đưa [vị trí source JSX](https://github.com/facebook/react/pull/6771) vào các cảnh báo.
 
 ### Dogfooding {#dogfooding}
 
-We try our best to address the problems raised by the community. However we are likely to prioritize the issues that people are *also* experiencing internally at Facebook. Perhaps counter-intuitively, we think this is the main reason why the community can bet on React.
+Chúng tôi cố gắng hết sức để giải quyết các vấn đề do cộng đồng nêu ra. Tuy nhiên, chúng tôi có khả năng ưu tiên các vấn đề mà mọi người *cũng* đang gặp phải trong nội bộ Facebook. Có lẽ theo trực giác, chúng tôi nghĩ rằng đây là lý do chính tại sao cộng đồng có thể đặt cược vào React.
 
-Heavy internal usage gives us the confidence that React won't disappear tomorrow. React was created at Facebook to solve its problems. It brings tangible business value to the company and is used in many of its products. [Dogfooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) it means that our vision stays sharp and we have a focused direction going forward.
+Việc sử dụng nội bộ nhiều mang lại cho chúng tôi niềm tin rằng React sẽ không biến mất vào ngày mai. React được tạo ra tại Facebook để giải quyết các vấn đề của nó. Nó mang lại giá trị kinh doanh hữu hình cho công ty và được sử dụng trong nhiều sản phẩm của công ty. [Dogfooding](https://en.wikipedia.org/wiki/Eating_your_own_dog_food) nó có nghĩa là tầm nhìn của chúng tôi luôn nhạy bén và chúng tôi có hướng tập trung trong tương lai.
 
-This doesn't mean that we ignore the issues raised by the community. For example, we added support for [web components](/docs/webcomponents.html) and [SVG](https://github.com/facebook/react/pull/6243) to React even though we don't rely on either of them internally. We are actively [listening to your pain points](https://github.com/facebook/react/issues/2686) and [address them](/blog/2016/07/11/introducing-reacts-error-code-system.html) to the best of our ability. The community is what makes React special to us, and we are honored to contribute back.
+Điều này không có nghĩa là chúng tôi phớt lờ các vấn đề mà cộng đồng đưa ra. Ví dụ: chúng tôi đã thêm hỗ trợ cho các [web components](/docs/webcomponents.html) và [SVG](https://github.com/facebook/react/pull/6243) cho React mặc dù chúng tôi không dựa vào một trong hai thành phần nội bộ. Chúng tôi đang tích cực [lắng nghe những điểm khó khăn của bạn](https://github.com/facebook/react/issues/2686) and [address them](/blog/2016/07/11/introducing-reacts-error-code-system.html) và giải quyết chúng trong khả năng tốt nhất của chúng tôi. Cộng đồng là điều làm cho React trở nên đặc biệt đối với chúng tôi và chúng tôi rất vinh dự được đóng góp lại.
 
-After releasing many open source projects at Facebook, we have learned that trying to make everyone happy at the same time produced projects with poor focus that didn't grow well. Instead, we found that picking a small audience and focusing on making them happy brings a positive net effect. That's exactly what we did with React, and so far solving the problems encountered by Facebook product teams has translated well to the open source community.
+Sau khi phát hành nhiều dự án mã nguồn mở tại Facebook, chúng tôi đã học được rằng cố gắng làm cho mọi người hài lòng đồng thời đã tạo ra các dự án có trọng tâm kém và không phát triển tốt. Thay vào đó, chúng tôi nhận thấy rằng việc chọn một lượng nhỏ khán giả và tập trung vào việc làm cho họ hài lòng sẽ mang lại hiệu ứng tích cực. Đó chính xác là những gì chúng tôi đã làm với React và cho đến nay việc giải quyết các vấn đề mà các nhóm sản phẩm của Facebook gặp phải đã được chuyển sang cộng đồng nguồn mở.
 
-The downside of this approach is that sometimes we fail to give enough focus to the things that Facebook teams don't have to deal with, such as the "getting started" experience. We are acutely aware of this, and we are thinking of how to improve in a way that would benefit everyone in the community without making the same mistakes we did with open source projects before.
+Nhược điểm của phương pháp này là đôi khi chúng tôi không tập trung đủ vào những thứ mà nhóm Facebook không phải giải quyết, chẳng hạn như trải nghiệm "getting started". Chúng tôi nhận thức sâu sắc về điều này và chúng tôi đang nghĩ cách cải tiến theo cách có lợi cho mọi người trong cộng đồng mà không mắc phải những sai lầm như chúng tôi đã làm với các dự án mã nguồn mở trước đây.
