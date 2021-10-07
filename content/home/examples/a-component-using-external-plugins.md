@@ -1,5 +1,5 @@
 ---
-title: Component sử dụng plugins bên ngoài
+title: Component sử dụng các plugin bên ngoài
 order: 3
 domid: markdown-example
 ---
