@@ -1,5 +1,5 @@
 ---
-title: Học một lần, Viết mọi nơi
+title: Learn Once, Write Anywhere
 order: 2
 ---
 
