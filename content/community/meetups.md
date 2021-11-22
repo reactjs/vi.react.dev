@@ -112,6 +112,9 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 ## Ý {#italy}
 * [Milan](https://www.meetup.com/React-JS-Milano/)
 
+## Kenya {#kenya}
+* [Nairobi - Reactdevske](https://kommunity.com/reactjs-developer-community-kenya-reactdevske)
+
 ## Malaysia {#malaysia}
 * [Kuala Lumpur](https://www.kl-react.com/)
 * [Penang](https://www.facebook.com/groups/reactpenang/)

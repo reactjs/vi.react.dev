@@ -912,9 +912,13 @@ Lưu ý bạn có thể chọn giữa truyền *state* của ứng dụng xuốn
 
 >Lưu ý
 >
+<<<<<<< HEAD
 >Chúng tôi đề xuất [truyền `dispatch` xuống các context](#how-to-avoid-passing-callbacks-down) thay vì các callback độc lập qua prop. Cách tiếp cận bên dưới chỉ đề cập ở đây để đầy đủ và như là một cách hatch.
 >
 >Cũng lưu ý rằng pattern này có thể gây ra vấn đề trong [chế độ concurrent ](/blog/2018/03/27/update-on-async-rendering.html). Chúng tôi có kế hoạch cung cấp một cách làm khác hữu hiệu trong tương lai, nhưng giải pháp an toàn nhất hiện nay là luôn luôn vô hiệu hóa callback nếu một vài giá trị phụ thuộc vào thay đổi.
+=======
+>We recommend to [pass `dispatch` down in context](#how-to-avoid-passing-callbacks-down) rather than individual callbacks in props. The approach below is only mentioned here for completeness and as an escape hatch.
+>>>>>>> 17ad2cbc71f4c1fcc3f3f9ae528bfd292a9fced7
 
 Trong vài trường hợp các biệt, bạn cần nhớ 1 callback với   [`useCallback`](/docs/hooks-reference.html#usecallback) nhưng việc nhớ này không làm việc tốt bởi vì hàm bên trong bị re-create quá nhiều lần. Nếu hàm bạn nhớ là một hàm xử lý sự kiện và không được sử dụng trong quá trình render, bạn có thể sử dụng [ref như một biến instance](#is-there-something-like-instance-variables), và lưu giá trị lần commit sau cùng một cách thủ công:
 
