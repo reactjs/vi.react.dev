@@ -48,4 +48,8 @@ _Lưu ý đây không phải là thư viện của React, nhưng được cung c
 
 ### Tôi có thể dùng animations trong React? {#can-i-do-animations-in-react}
 
+<<<<<<< HEAD
 React có thể sử dụng animations rất tốt. Xem ví dụ [React Transition Group](https://reactcommunity.org/react-transition-group/) và [React Motion](https://github.com/chenglou/react-motion) hoặc [React Spring](https://github.com/react-spring/react-spring).
+=======
+React can be used to power animations. See [React Transition Group](https://reactcommunity.org/react-transition-group/), [React Motion](https://github.com/chenglou/react-motion), [React Spring](https://github.com/react-spring/react-spring), or [Framer Motion](https://framer.com/motion), for example.
+>>>>>>> b41b1dc35679c01c3252e7d512ce28c5e100d0a4
