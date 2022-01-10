@@ -71,7 +71,11 @@ Bạn có thể tạo ra theo chiều từ trên xuống dưới hoặc ngược
 
 Sau khi kết thúc, bạn sẽ có những thư viện có thể tái sử dụng để hiển thị mô hình dữ liệu. Những component sẽ chỉ có hàm `render()` vì đây là phiên bản tĩnh. Component ở phía trên của hệ thống phân chia cấp bậc (`FilterableProductTable`) sẽ nhận kiểu dữ liệu bằng prop. Nếu dữ liệu được thay đổi và hàm `ReactDOM.render()` được gọi lại, thì giao diện người dùng sẽ được cập nhật. Điều này sẽ giúp cho ta hiểu làm thế nào giao diện người dùng được cập nhật dễ dàng hơn và dữ liệu bị thay đổi ở đâu bởi vì nó không bị phức tạp hoá. React **luồng dữ liệu một chiều** (hay còn gọi *ràng buộc một chiều*) giữ cho mọi thứ được phân chia theo module và nhanh gọn.
 
+<<<<<<< HEAD
 Tham khảo [tài liệu React](/docs/) nếu như bạn cần trợ giúp để thực hiện bước này.
+=======
+Refer to the [React docs](/docs/getting-started.html) if you need help executing this step.
+>>>>>>> 569949e266f5724a04821d6c4f211286238616dc
 
 ### Bản tóm tắt ngắn gọn: Props và State {#a-brief-interlude-props-vs-state}
 
@@ -136,7 +140,11 @@ Cho đến giờ, chúng ta đã xây dựng một ứng dụng để hiển th�
 
 React làm cho luồng dữ liệu trở nên rõ ràng và dễ hiểu hơn chương trình của bạn hoạt động ra sao, nhưng nó cũng yêu cầu gõ nhiều hơn so với kiểu binding dữ liệu hai chiều truyền thống.
 
+<<<<<<< HEAD
 Nếu bạn thử gõ hoặc lựa chọn giá trị trong ví dụ hiện thời, bạn sẽ thấy rằng React bỏ qua những giá trị đầu vào này. Điều này sảy ra có chủ ý, vì chúng ta gán `value` prop của `input` luôn luôn bằng với `state` truyền từ `FilterableProductTable`.
+=======
+If you try to type or check the box in the previous version of the example (step 4), you'll see that React ignores your input. This is intentional, as we've set the `value` prop of the `input` to always be equal to the `state` passed in from `FilterableProductTable`.
+>>>>>>> 569949e266f5724a04821d6c4f211286238616dc
 
 Hãy nghĩ xem chúng ta muốn thực hiện điều gì. Chúng ta muốn chắc chắn rằng khi nào người dùng thay đổi form, chúng ta cập nhật state dựa trên dữ liệu đầu vào. Vì những component chỉ nên cập nhật state cuả chúng, `FilterableProductTable` sẽ truyền vào callbacks tới `SearchBar` để kích hoạt mỗi khi dữ liệu cần cập nhật. Chúng ta có thể sử dụng sự kiện `onChange` trong input để nhận được thông báo. Callbacks truyền xuống bởi `FilterableProductTable` sẽ gọi hàm `setState()`, và ứng dụng sẽ được cập nhật.
 
