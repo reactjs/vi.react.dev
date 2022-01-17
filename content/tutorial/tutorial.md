@@ -1045,7 +1045,13 @@ Hãy `map` mảng `history` trong phương thức `render` của Game component:
 
 **[Xem code chi tiết tại bước này](https://codepen.io/gaearon/pen/EmmGEa?editors=0010)**
 
+<<<<<<< HEAD
 Với mỗi lịch sử bước đi trong game tic-tac-toe, ta tạo ra một danh sách các `<li>` chứa một `<button>`. Button sẽ có một hàm xử lý `onClick`, hàm này sẽ gọi phương thức `this.jumpTo()`. Hiện tại ta chưa có hàm `jumpTo()`. Đến bước này, bạn sẽ thấy một danh sách các bước đi được hiển thị trên màn hình và cảnh báo trong console của công cụ cho nhà phát triển với thông điệp như sau:
+=======
+As we iterate through `history` array, `step` variable refers to the current `history` element value, and `move` refers to the current `history` element index. We are only interested in `move` here, hence `step` is not getting assigned to anything.
+
+For each move in the tic-tac-toe game's history, we create a list item `<li>` which contains a button `<button>`. The button has a `onClick` handler which calls a method called `this.jumpTo()`. We haven't implemented the `jumpTo()` method yet. For now, we should see a list of the moves that have occurred in the game and a warning in the developer tools console that says:
+>>>>>>> b9c33a05520ddc728f15c4eb19a343213309f59f
 
 >  Warning:
 >  Each child in an array or iterator should have a unique "key" prop. Check the render method of "Game".
@@ -1146,7 +1152,13 @@ Tiếp theo, chúng ta sẽ định nghĩa hàm `jumpTo` trong Game component đ
   }
 ```
 
+<<<<<<< HEAD
 Bây giờ ta sẽ cần thay đổi hàm `handleClick` của Game component một chút.
+=======
+Notice in `jumpTo` method, we haven't updated `history` property of the state. That is because state updates are merged or in more simple words React will update only the properties mentioned in `setState` method leaving the remaining state as that is. For more info **[see the documentation](/docs/state-and-lifecycle.html#state-updates-are-merged)**.
+
+We will now make a few changes to the Game's `handleClick` method which fires when you click on a square.
+>>>>>>> b9c33a05520ddc728f15c4eb19a343213309f59f
 
 State `stepNumber` mà chúng ta vừa thêm phản ánh bước đi hiện tại của người chơi. Sau khi một bước đi diễn ra, ta cần cập nhật lại `stepNumber` như sau `stepNumber: history.length`. Việc này đảm bảo chúng ta sẽ không bị hiển thị cùng một bước đi sau khi một bước đi mới được tạo ra.
 
