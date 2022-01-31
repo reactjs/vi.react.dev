@@ -149,7 +149,11 @@ return (
 
 Hai đoạn code trên là tương đương nhau. Trong khi **JSX [hoàn toàn là tuỳ chọn](/docs/react-without-jsx.html)**, nhiều người thấy rằng nó khá hữu ích cho việc viết UI code -- cả với React và với các thư viện khác.
 
+<<<<<<< HEAD
 Bạn có thể trải nghiệm với JSX bằng cách sử dụng [bộ chuyển đổi online](https://babeljs.io/en/repl#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=DwIwrgLhD2B2AEcDCAbAlgYwNYF4DeAFAJTw4B88EAFmgM4B0tAphAMoQCGETBe86WJgBMAXJQBOYJvAC-RGWQBQ8FfAAyaQYuAB6cFDhkgA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Creact%2Cstage-2&prettier=false&targets=&version=7.4.3).
+=======
+You can play with JSX using [this online converter](https://babeljs.io/en/repl#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=DwIwrgLhD2B2AEcDCAbAlgYwNYF4DeAFAJTw4B88EAFmgM4B0tAphAMoQCGETBe86WJgBMAXJQBOYJvAC-RGWQBQ8FfAAyaQYuAB6cFDhkgA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Creact%2Cstage-2&prettier=false&targets=&version=7.15.7).
+>>>>>>> 5f0549c86e7a9c0774e66687d1bc0118a681eb9d
 
 ### Thử nhanh JSX {#quickly-try-jsx}
 

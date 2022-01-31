@@ -145,7 +145,11 @@ const Footer = ({layoutHasSidebar = false}: {layoutHasSidebar: boolean}) => (
               color: colors.subtleOnDark,
               paddingTop: 15,
             }}>
+<<<<<<< HEAD
             {`Bản quyền © ${new Date().getFullYear()} Facebook Inc.`}
+=======
+            {`Copyright © ${new Date().getFullYear()} Meta Platforms, Inc.`}
+>>>>>>> 5f0549c86e7a9c0774e66687d1bc0118a681eb9d
           </p>
         </section>
       </div>
