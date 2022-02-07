@@ -68,7 +68,7 @@ ReactDOM.render(
 );
 ```
 
-[](codepen://introducing-jsx)
+**[Try it on CodePen](https://codepen.io/gaearon/pen/PGEjdG?editors=1010)**
 
 Chúng ta có thể tách JSX vào những tệp khác nhau cho dễ đọc. Việc này không bắt buộc, nhưng khi làm như vậy, chúng tôi cũng khuyến khích nhúng trong cặp dấu ngoặc để tránh rơi vào trường hợp JS Engines [tự thêm chấm phẩy](https://stackoverflow.com/q/2846283).
 
@@ -92,7 +92,7 @@ function getGreeting(user) {
 Bạn có thể dùng dấu nháy để khai báo một chuỗi như là thuộc tính của thẻ:
 
 ```js
-const element = <div tabIndex="0"></div>;
+const element = <a href="https://www.reactjs.org"> link </a>;
 ```
 
 Bạn có thể dùng dấu ngoặc nhọn để nhúng một biểu thức Javascript vào trong thuộc tính:
