@@ -97,9 +97,13 @@ Bạn không thể sử dụng Hook *bên trong* một class component, nhưng t
 
 Mục tiêu của chúng tôi cho Hook là bao gồm tất cả trường hợp sử dụng của class sớm nhất có thế. Sẽ không có những Hook tương ứng với các phương thức lifecycle không phổ biến  `getSnapshotBeforeUpdate`, `getDerivedStateFromError` và `componentDidCatch`, nhưng chúng tôi sẽ sớm thêm chúng.
 
+<<<<<<< HEAD
 Trong giai đoạn đầu của Hook, có một vài thư viện third-party có thể sẽ không tương thích với Hook
 
 ### Hook có thay thế prop và higher-order component? {#do-hooks-replace-render-props-and-higher-order-components}
+=======
+### Do Hooks replace render props and higher-order components? {#do-hooks-replace-render-props-and-higher-order-components}
+>>>>>>> 2310e15532aba273d713996a4c6ef04247dff764
 
 Thông thường, render prop và higher-order component chỉ render 1 component con. Chúng tôi nghĩ theo hướng đơn giản hơn cho mục đích này. Vẫn có những chỗ để sử dụng cho 2 pattern này (ví dụ, 1 virtual scroller component có thể có một prop `renderItem`, hoặc 1 visual container component có thể chứa cấu trúc DOM riêng). Tuy nhiên đa số các trường hợp, Hook sẽ là cách hiệu quả có thể giúp giảm số lần lồng ghép component.
 
@@ -912,9 +916,13 @@ Lưu ý bạn có thể chọn giữa truyền *state* của ứng dụng xuốn
 
 >Lưu ý
 >
+<<<<<<< HEAD
 >Chúng tôi đề xuất [truyền `dispatch` xuống các context](#how-to-avoid-passing-callbacks-down) thay vì các callback độc lập qua prop. Cách tiếp cận bên dưới chỉ đề cập ở đây để đầy đủ và như là một cách hatch.
 >
 >Cũng lưu ý rằng pattern này có thể gây ra vấn đề trong [chế độ concurrent ](/blog/2018/03/27/update-on-async-rendering.html). Chúng tôi có kế hoạch cung cấp một cách làm khác hữu hiệu trong tương lai, nhưng giải pháp an toàn nhất hiện nay là luôn luôn vô hiệu hóa callback nếu một vài giá trị phụ thuộc vào thay đổi.
+=======
+>We recommend to [pass `dispatch` down in context](#how-to-avoid-passing-callbacks-down) rather than individual callbacks in props. The approach below is only mentioned here for completeness and as an escape hatch.
+>>>>>>> 2310e15532aba273d713996a4c6ef04247dff764
 
 Trong vài trường hợp các biệt, bạn cần nhớ 1 callback với   [`useCallback`](/docs/hooks-reference.html#usecallback) nhưng việc nhớ này không làm việc tốt bởi vì hàm bên trong bị re-create quá nhiều lần. Nếu hàm bạn nhớ là một hàm xử lý sự kiện và không được sử dụng trong quá trình render, bạn có thể sử dụng [ref như một biến instance](#is-there-something-like-instance-variables), và lưu giá trị lần commit sau cùng một cách thủ công:
 
