@@ -38,7 +38,7 @@ Các ứng dụng đã xây dựng với React thường có duy nhất một n�
 
 `embed:rendering-elements/render-an-element.js`
 
-[](codepen://rendering-elements/render-an-element)
+**[Try it on CodePen](https://codepen.io/gaearon/pen/ZpvBNJ?editors=1010)**
 
 Ví dụ trên hiển thị dòng chữ "Hello, world" trên trang web.
 
@@ -52,7 +52,7 @@ Hãy xem xét ví dụ đồng hồ "đánh dấu" (tick) này:
 
 `embed:rendering-elements/update-rendered-element.js`
 
-[](codepen://rendering-elements/update-rendered-element)
+**[Try it on CodePen](https://codepen.io/gaearon/pen/gwoJZk?editors=1010)**
 
 Nó gọi [`ReactDOM.render()`](/docs/react-dom.html#render) mỗi giây từ một "lời gọi lại" (callback) [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval).
 
@@ -66,7 +66,11 @@ Nó gọi [`ReactDOM.render()`](/docs/react-dom.html#render) mỗi giây từ m�
 
 React DOM so sánh element và các thành phần con của nó với cái trước đó, và chỉ áp dụng những cập nhật DOM cần thiết để đưa DOM đến trạng thái được mong muốn.
 
+<<<<<<< HEAD
 Bạn có thể xác minh điều trên bằng cách kiểm tra [ví dụ cuối](codepen://rendering-elements/update-rendered-element) với các công cụ của trình duyệt:
+=======
+You can verify by inspecting the [last example](https://codepen.io/gaearon/pen/gwoJZk?editors=1010) with the browser tools:
+>>>>>>> a08e1fd4b574a4d2d55e292af9eb01d55a526303
 
 ![DOM inspector showing granular updates](../images/docs/granular-dom-updates.gif)
 !["thanh kiểm tra" (inspector) DOM chỉ ra những cập nhật cần thiết](../images/docs/granular-dom-updates.gif)
