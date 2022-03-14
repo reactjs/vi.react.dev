@@ -177,11 +177,15 @@ Việc quyết định nơi nào cần phân chia code trong ứng dụng của 
 
 Một nơi tốt để bắt đầu là với routes. Hầu hết mọi người trên web đã quen với việc chuyển trang sẽ mất một khoảng thời gian nhất định. Bạn cũng có xu hướng render lại cả trang cùng một lần để ngăn người dùng không tương tác với những elements khác trong trang cùng một lúc.
 
+<<<<<<< HEAD
 Đây là một ví dụ hướng dẫn cách cài đặt ứng dụng của bạn phân chia code dựa trên route bằng cách sử dụng những thư viện như [React Router](https://reacttraining.com/react-router/) with `React.lazy`.
+=======
+Here's an example of how to setup route-based code splitting into your app using libraries like [React Router](https://reactrouter.com/) with `React.lazy`.
+>>>>>>> 7994045415a9066f8663ee5403e874edbb4c5f83
 
 ```js
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const Home = lazy(() => import('./routes/Home'));
 const About = lazy(() => import('./routes/About'));
@@ -189,10 +193,10 @@ const About = lazy(() => import('./routes/About'));
 const App = () => (
   <Router>
     <Suspense fallback={<div>Loading...</div>}>
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route path="/about" component={About}/>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </Suspense>
   </Router>
 );
