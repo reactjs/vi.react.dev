@@ -54,8 +54,8 @@ Tiếp theo, thêm ba thẻ `<script>` vào trang HTML ngay trước thẻ đón
 
   <!-- Load React. -->
   <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 
   <!-- Load our React component. -->
   <script src="like_button.js"></script>
@@ -77,14 +77,24 @@ Mở **[đoạn code khởi tạo sau](https://gist.github.com/gaearon/0b180827c
 
 Sau **[đoạn code khởi tạo](https://gist.github.com/gaearon/0b180827c190fe4fd98b4c7f570ea4a8/raw/b9157ce933c79a4559d2aa9ff3372668cce48de7/LikeButton.js)**, thêm 2 dòng vào cuối file `like_button.js`:
 
+<<<<<<< HEAD
 ```js{3,4}
 // ... Đoạn code khởi tạo bạn vừa dán ...
+=======
+```js{3,4,5}
+// ... the starter code you pasted ...
+>>>>>>> 84ad3308338e2bb819f4f24fa8e9dfeeffaa970b
 
 const domContainer = document.querySelector('#like_button_container');
-ReactDOM.render(e(LikeButton), domContainer);
+const root = ReactDOM.createRoot(domContainer);
+root.render(e(LikeButton));
 ```
 
+<<<<<<< HEAD
 Hai dòng code này tìm thẻ `<div>` mà chúng ta đã thêm vào trang HTML ở bước đầu tiên, và sau đó hiển thị nút "Like" - một React component bên trong div ở trên.
+=======
+These three lines of code find the `<div>` we added to our HTML in the first step, create a React app with it, and then display our "Like" button React component inside of it.
+>>>>>>> 84ad3308338e2bb819f4f24fa8e9dfeeffaa970b
 
 ### Và đó là tất cả những gì cần làm! {#thats-it}
 
@@ -115,8 +125,8 @@ Trước khi deploy website của bạn lên môi trường production, hãy ch�
 Nếu bạn đã nén các scripts của ứng dụng, **trang của bạn sẽ sẵn sàng để được deploy lên môi trường production** nếu bạn đảm bảo rằng HTML đã deploy sẽ tải phiên bản của React được chứa trong file `production.min.js`:
 
 ```js
-<script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 ```
 
 Nếu bạn không có bước nén - thu nhỏ cho scripts, thì [đây là một cách thiết lập](https://gist.github.com/gaearon/42a2ffa41b8319948f9be4076286e1f3).
@@ -149,7 +159,11 @@ return (
 
 Hai đoạn code trên là tương đương nhau. Trong khi **JSX [hoàn toàn là tuỳ chọn](/docs/react-without-jsx.html)**, nhiều người thấy rằng nó khá hữu ích cho việc viết UI code -- cả với React và với các thư viện khác.
 
+<<<<<<< HEAD
 Bạn có thể trải nghiệm với JSX bằng cách sử dụng [bộ chuyển đổi online](https://babeljs.io/en/repl#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=DwIwrgLhD2B2AEcDCAbAlgYwNYF4DeAFAJTw4B88EAFmgM4B0tAphAMoQCGETBe86WJgBMAXJQBOYJvAC-RGWQBQ8FfAAyaQYuAB6cFDhkgA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Creact%2Cstage-2&prettier=false&targets=&version=7.4.3).
+=======
+You can play with JSX using [this online converter](https://babeljs.io/en/repl#?babili=false&browsers=&build=&builtIns=false&spec=false&loose=false&code_lz=DwIwrgLhD2B2AEcDCAbAlgYwNYF4DeAFAJTw4B88EAFmgM4B0tAphAMoQCGETBe86WJgBMAXJQBOYJvAC-RGWQBQ8FfAAyaQYuAB6cFDhkgA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=es2015%2Creact%2Cstage-2&prettier=false&targets=&version=7.15.7).
+>>>>>>> 84ad3308338e2bb819f4f24fa8e9dfeeffaa970b
 
 ### Thử nhanh JSX {#quickly-try-jsx}
 
