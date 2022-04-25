@@ -161,7 +161,7 @@ render() {
   const count = 0;
   return (
     <div>
-      { count && <h1>Messages: {count}</h1>}
+      {count && <h1>Messages: {count}</h1>}
     </div>
   );
 }
