@@ -24,11 +24,18 @@ Có rất nhiều diễn đàn online là nơi tuyệt vời để thảo luận
 
 Mỗi cộng đồng bao gồm hàng nghìn người dùng React.
 
+<<<<<<< HEAD
 * [Cộng đồng React của DEV](https://dev.to/t/react)
 * [Cộng đồng React của Hashnode](https://hashnode.com/n/reactjs)
 * [Trò chuyện online với Reactiflux](https://discord.gg/reactiflux)
 * [Cộng đồng React của Reddit](https://www.reddit.com/r/reactjs/)
 * [Cộng đồng React của Spectrum](https://spectrum.chat/react)
+=======
+* [DEV's React community](https://dev.to/t/react)
+* [Hashnode's React community](https://hashnode.com/n/reactjs)
+* [Reactiflux online chat](https://discord.gg/reactiflux)
+* [Reddit's React community](https://www.reddit.com/r/reactjs/)
+>>>>>>> 951fae39f0e12dc061f1564d02b2f4707c0541c4
 
 ## Tin tức {#news}
 
