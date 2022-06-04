@@ -8,7 +8,10 @@ category: Add-Ons
 
 > Note:
 >
-> As of React 16, `react-addons-perf` is not supported. Please use [your browser's profiling tools](/docs/optimizing-performance.html#profiling-components-with-the-chrome-performance-tab) to get insight into which components re-render.
+> Kể từ React 16, `react-addons-perf` không được hỗ trợ nữa. Hãy sử
+>
+dụng [your browser's profiling tools](/docs/optimizing-performance.html#profiling-components-with-the-chrome-performance-tab)
+> để có thông tin chi tiết từ các `components re-render`.
 
 **Importing**
 
@@ -17,50 +20,58 @@ import Perf from 'react-addons-perf'; // ES6
 var Perf = require('react-addons-perf'); // ES5 with npm
 ```
 
+## Tổng quan {#overview}
 
-## Overview {#overview}
+React thường diễn ra khá nhanh. Tuy nhiên, trong những tình huống bạn cần tận dụng từng chút hiệu suất của ứng dụng, nó
+sẽ cung cấp phương pháp [shouldComponentUpdate()](docsreact-component.htmlshouldcomponentupdate) nơi bạn có thể thêm
+các gợi ý tối ưu hóa cho thuật toán khác biệt của React.
 
-React is usually quite fast out of the box. However, in situations where you need to squeeze every ounce of performance out of your app, it provides a [shouldComponentUpdate()](/docs/react-component.html#shouldcomponentupdate) method where you can add optimization hints to React's diff algorithm.
+Ngoài việc cung cấp cho bạn cái nhìn tổng quan về hiệu suất tổng thể của ứng dụng, `Perf` là một công cụ lập hồ sơ cho
+bạn biết chính xác nơi bạn cần đặt các phương pháp này.
 
-In addition to giving you an overview of your app's overall performance, `Perf` is a profiling tool that tells you exactly where you need to put these methods.
+Xem các bài viết này để được giới thiệu về công cụ hiệu suất React:
 
-See these articles for an introduction to React performance tooling:
+- ["How to Benchmark React Components"](https://medium.com/code-life/how-to-benchmark-react-components-the-quick-and-dirty-guide-f595baf1014c)
+- ["Performance Engineering with React"](https://benchling.engineering/performance-engineering-with-react-e03013e53285)
+- ["A Deep Dive into React Perf Debugging"](https://benchling.engineering/a-deep-dive-into-react-perf-debugging-fd2063f5a667)
 
- - ["How to Benchmark React Components"](https://medium.com/code-life/how-to-benchmark-react-components-the-quick-and-dirty-guide-f595baf1014c)
- - ["Performance Engineering with React"](https://benchling.engineering/performance-engineering-with-react-e03013e53285)
- - ["A Deep Dive into React Perf Debugging"](https://benchling.engineering/a-deep-dive-into-react-perf-debugging-fd2063f5a667) 
+### Môi trường Development và môi trường Production Builds {#development-vs-production-builds}
 
-### Development vs. Production Builds {#development-vs-production-builds}
+Nếu bạn đang đo điểm chuẩn hoặc thấy các vấn đề về hiệu suất trong các ứng dụng React của mình, hãy đảm bảo rằng bạn
+đang thử nghiệm với [bản dựng sản xuất thu nhỏ](download.html). Bản dựng phát triển bao gồm các cảnh báo bổ sung hữu
+ích khi xây dựng ứng dụng của bạn, nhưng nó chậm hơn do có thêm sổ sách kế toán.
 
-If you're benchmarking or seeing performance problems in your React apps, make sure you're testing with the [minified production build](/downloads.html). The development build includes extra warnings that are helpful when building your apps, but it is slower due to the extra bookkeeping it does.
+Tuy nhiên, các công cụ hoàn hảo được mô tả trên trang này chỉ hoạt động khi sử dụng bản dựng phát triển của React. Do
+đó, trình mô tả chỉ dùng để chỉ ra các phần _relatively_ đắt tiền trong ứng dụng của bạn.
 
-However, the perf tools described on this page only work when using the development build of React. Therefore, the profiler only serves to indicate the _relatively_ expensive parts of your app.
+### Sử dụng Perf {#using-perf}
 
-### Using Perf {#using-perf}
-
-The `Perf` object can be used with React in development mode only. You should not include this bundle when building your app for production.
+Đối tượng `Perf` chỉ có thể được sử dụng với React trong chế độ phát triển. Bạn không nên bao gồm gói này khi xây dựng
+ứng dụng của mình để sản xuất.
 
 #### Getting Measurements {#getting-measurements}
 
- - [`start()`](#start)
- - [`stop()`](#stop)
- - [`getLastMeasurements()`](#getlastmeasurements)
+- [`start()`](#start)
+- [`stop()`](#stop)
+- [`getLastMeasurements()`](#getlastmeasurements)
 
 #### Printing Results {#printing-results}
 
-The following methods use the measurements returned by [`Perf.getLastMeasurements()`](#getlastmeasurements) to pretty-print the result.
+Các phương pháp sau sử dụng các phép đo được trả về bởi [`Perf.getLastMeasurements ()`](getlastmeasurements) để in kết
+quả.
 
- - [`printInclusive()`](#printinclusive)
- - [`printExclusive()`](#printexclusive)
- - [`printWasted()`](#printwasted)
- - [`printOperations()`](#printoperations)
- - [`printDOM()`](#printdom)
+- [`printInclusive()`](#printinclusive)
+- [`printExclusive()`](#printexclusive)
+- [`printWasted()`](#printwasted)
+- [`printOperations()`](#printoperations)
+- [`printDOM()`](#printdom)
 
 * * *
 
 ## Reference {#reference}
 
 ### `start()` {#start}
+
 ### `stop()` {#stop}
 
 ```javascript
@@ -69,9 +80,10 @@ Perf.start()
 Perf.stop()
 ```
 
-Start/stop the measurement. The React operations in-between are recorded for analyses below. Operations that took an insignificant amount of time are ignored.
+Start/stop đo lường. Các hoạt động React ở giữa được ghi lại cho các phân tích bên dưới. Các thao tác chiếm một lượng
+thời gian không đáng kể sẽ bị bỏ qua.
 
-After stopping, you will need [`Perf.getLastMeasurements()`](#getlastmeasurements) to get the measurements.
+Sau khi dừng, bạn sẽ cần [`Perf.getLastMeasurements()`](#getlastmeasurements) để lấy các phép đo.
 
 * * *
 
@@ -81,11 +93,14 @@ After stopping, you will need [`Perf.getLastMeasurements()`](#getlastmeasurement
 Perf.getLastMeasurements()
 ```
 
-Get the opaque data structure describing measurements from the last start-stop session. You can save it and pass it to the other print methods in [`Perf`](#printing-results) to analyze past measurements.
+Nhận cấu trúc dữ liệu không rõ ràng mô tả các phép đo từ phiên khởi động cuối cùng. Bạn có thể lưu nó và chuyển nó cho
+các phương pháp in khác trong [`Perf`](#printing-results) để phân tích các phép đo trong quá khứ.
 
-> Note
+> Ghi chú
 >
-> Don't rely on the exact format of the return value because it may change in minor releases. We will update the documentation if the return value format becomes a supported part of the public API.
+> Đừng dựa vào định dạng chính xác của giá trị trả về vì nó có thể thay đổi trong các bản phát hành nhỏ. Chúng tôi sẽ
+> cập nhật tài liệu
+> nếu định dạng giá trị trả về trở thành một phần được hỗ trợ của API công khai.
 
 * * *
 
@@ -95,7 +110,8 @@ Get the opaque data structure describing measurements from the last start-stop s
 Perf.printInclusive(measurements)
 ```
 
-Prints the overall time taken. When no arguments are passed, `printInclusive` defaults to all the measurements from the last recording. This prints a nicely formatted table in the console, like so:
+In tổng thời gian đã thực hiện. Khi không có đối số nào được chuyển, `printInclusive` mặc định cho tất cả các phép đo từ
+bản ghi cuối cùng. Thao tác này sẽ in ra một bảng được định dạng độc đáo trong bảng điều khiển, như sau:
 
 ![](../images/docs/perf-inclusive.png)
 
@@ -107,7 +123,9 @@ Prints the overall time taken. When no arguments are passed, `printInclusive` de
 Perf.printExclusive(measurements)
 ```
 
-"Exclusive" times don't include the times taken to mount the components: processing props, calling `componentWillMount` and `componentDidMount`, etc.
+Thời gian "Exclusive" không bao gồm thời gian thực hiện để gắn kết các thành phần: xử lý đạo cụ,
+gọi `componentWillMount`
+và `componentDidMount`, v.v.
 
 ![](../images/docs/perf-exclusive.png)
 
@@ -121,7 +139,8 @@ Perf.printWasted(measurements)
 
 **The most useful part of the profiler**.
 
-"Wasted" time is spent on components that didn't actually render anything, e.g. the render stayed the same, so the DOM wasn't touched.
+"Wasted" time is spent on components that didn't actually render anything, e.g. the render stayed the same, so the DOM
+wasn't touched.
 
 ![](../images/docs/perf-wasted.png)
 
@@ -133,7 +152,7 @@ Perf.printWasted(measurements)
 Perf.printOperations(measurements)
 ```
 
-Prints the underlying DOM manipulations, e.g. "set innerHTML" and "remove".
+In các thao tác DOM cơ bản, ví dụ: "set innerHTML" và "remove".
 
 ![](../images/docs/perf-dom.png)
 
@@ -145,4 +164,6 @@ Prints the underlying DOM manipulations, e.g. "set innerHTML" and "remove".
 Perf.printDOM(measurements)
 ```
 
-This method has been renamed to [`printOperations()`](#printoperations). Currently `printDOM()` still exists as an alias but it prints a deprecation warning and will eventually be removed.
+Phương thức này đã được đổi tên thành [`printOperations()`](#printoperations). Hiện tại `printDOM()` vẫn tồn tại
+dưới dạng bí danh
+nhưng nó sẽ in một cảnh báo không dùng nữa và cuối cùng sẽ bị xóa.
