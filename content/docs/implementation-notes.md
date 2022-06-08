@@ -9,93 +9,93 @@ redirect_from:
   - "contributing/implementation-notes.html"
 ---
 
-This section is a collection of implementation notes for the [stack reconciler](/docs/codebase-overview.html#stack-reconciler).
+Bài viết này bao gồm các ghi chú về việc thực thi [stack reconciler](/docs/codebase-overview.html#stack-reconciler).
 
-It is very technical and assumes a strong understanding of React public API as well as how it's divided into core, renderers, and the reconciler. If you're not very familiar with the React codebase, read [the codebase overview](/docs/codebase-overview.html) first.
+Bài viết đòi hỏi kiến thức chuyên môn cao và sự thông hiểu tốt về các public API của React cũng như cách nó được phân ra các phần cốt lõi (core), các phần render (renderer) và phần điều phối, cập nhật component (reconciler). Nếu bạn chưa nắm rõ về codebase của React, trước tiên hãy đọc [tổng quan codebase](/docs/codebase-overview.html).
 
-It also assumes an understanding of the [differences between React components, their instances, and elements](/blog/2015/12/18/react-components-elements-and-instances.html).
+Bạn cũng cần hiểu về [sự khác biệt giữa React components, các instance và phần tử (element) của chúng](/blog/2015/12/18/react-components-elements-and-instances.html) trước khi bước vào bài viết này.
 
-The stack reconciler was used in React 15 and earlier. It is located at [src/renderers/shared/stack/reconciler](https://github.com/facebook/react/tree/15-stable/src/renderers/shared/stack/reconciler).
+Stack reconciler đã được sử dụng trong React 15 và các phiên bản trước đó. Hiện thực của nó nằm ở [src/renderers/shared/stack/reconciler](https://github.com/facebook/react/tree/15-stable/src/renderers/shared/stack/reconciler).
 
-### Video: Building React from Scratch {#video-building-react-from-scratch}
+### Video: Xây dựng React từ con số không {#video-building-react-from-scratch}
 
-[Paul O'Shannessy](https://twitter.com/zpao) gave a talk about [building React from scratch](https://www.youtube.com/watch?v=_MAD4Oly9yg) that largely inspired this document.
+[Paul O'Shannessy](https://twitter.com/zpao) đã có một bài nói về việc [xây dựng React từ con số không](https://www.youtube.com/watch?v=_MAD4Oly9yg). Bài nói đó đã giúp ích rất nhiều cho bài viết này.
 
-Both this document and his talk are simplifications of the real codebase so you might get a better understanding by getting familiar with both of them.
+Cả bài nói và bài viết là cách trình bày đơn giản hóa cho codebase thật sự của React, nên bạn có thể hiểu rõ hơn về codebase nếu đi qua cả hai.
 
-### Overview {#overview}
+### Tổng quan {#overview}
 
-The reconciler itself doesn't have a public API. [Renderers](/docs/codebase-overview.html#renderers) like React DOM and React Native use it to efficiently update the user interface according to the React components written by the user.
+Bản thân reconciler không có API mở (public API). [Các phần render](/docs/codebase-overview.html#renderers) như React DOM và React Native sử dụng nó để cập nhật giao diện người dùng một cách hiệu quả theo những component mà người dùng viết.
 
-### Mounting as a Recursive Process {#mounting-as-a-recursive-process}
+### Quá trình mounting đệ quy {#mounting-as-a-recursive-process}
 
-Let's consider the first time you mount a component:
+Hãy nhìn lại lần đầu tiên chúng ta mount một component:
 
 ```js
 ReactDOM.render(<App />, rootEl);
 ```
 
-React DOM will pass `<App />` along to the reconciler. Remember that `<App />` is a React element, that is, a description of *what* to render. You can think about it as a plain object:
+React DOM sẽ đưa `<App />` đến reconciler. Hãy nhớ rằng `<App />` là một phần tử của React, nghĩa là, nó miêu tả *cái gì* được render. Bạn có thể xem nó như là một object thuần:
 
 ```js
 console.log(<App />);
 // { type: App, props: {} }
 ```
 
-The reconciler will check if `App` is a class or a function.
+Reconciler sẽ kiểm tra xem `App` là một lớp hay một hàm.
 
-If `App` is a function, the reconciler will call `App(props)` to get the rendered element.
+Nếu `App` là một hàm, reconciler sẽ gọi đến `App(props)` để lấy ra những phần tử được render.
 
-If `App` is a class, the reconciler will instantiate an `App` with `new App(props)`, call the `componentWillMount()` lifecycle method, and then will call the `render()` method to get the rendered element.
+Nếu `App` là một lớp, reconciler sẽ tạo ra một thực thể mới từ `App` với `new App(props)`, gọi đến hàm lifecycle `componentWillMount()`, và rồi gọi đến hàm `render()` để lấy ra những phần tử được render.
 
-Either way, the reconciler will learn the element `App` "rendered to".
+Theo hướng nào đi nữa, reconciler đều sẽ xem `App` sẽ render ra những phần tử gì.
 
-This process is recursive. `App` may render to a `<Greeting />`, `Greeting` may render to a `<Button />`, and so on. The reconciler will "drill down" through user-defined components recursively as it learns what each component renders to.
+Quá trình này là đệ quy - được lặp đi lặp lại. `App` có thể render ra `<Greeting />`, `Greeting` render ra `<Button />`, và cứ thế tiếp tục. Theo cách này, reconciler sẽ "đào sâu" vào những component được viết bởi người dùng để xem những component đó render ra những gì.
 
-You can imagine this process as a pseudocode:
+Bạn có thể tưởng tượng rõ hơn về quá trình này thông qua đoạn mã giả bên dưới:
 
 ```js
 function isClass(type) {
-  // React.Component subclasses have this flag
+  // Các lớp con của React.Component thì có thuộc tính this.
   return (
     Boolean(type.prototype) &&
     Boolean(type.prototype.isReactComponent)
   );
 }
 
-// This function takes a React element (e.g. <App />)
-// and returns a DOM or Native node representing the mounted tree.
+// Hàm này nhận vào một phần tử của React (ví dụ như <App />)
+// và trả về một node DOM hoặc Native biểu diễn cây đã được mount.
 function mount(element) {
   var type = element.type;
   var props = element.props;
 
-  // We will determine the rendered element
-  // by either running the type as function
-  // or creating an instance and calling render().
+  // Chúng ta sẽ xác định các phần tử được render ra
+  // bằng cách dùng type làm hàm
+  // hoặc tạo ra một thực thể từ lóp và gọi hàm render().
   var renderedElement;
   if (isClass(type)) {
-    // Component class
+    // Componenet kiểu lớp
     var publicInstance = new type(props);
-    // Set the props
+    // Đặt giá trị cho props
     publicInstance.props = props;
-    // Call the lifecycle if necessary
+    // Gọi hàm lifecycle nếu cần thiết
     if (publicInstance.componentWillMount) {
       publicInstance.componentWillMount();
     }
-    // Get the rendered element by calling render()
+    // Lấy ra những phần tử được render bằng cách gọi hàm render()
     renderedElement = publicInstance.render();
   } else {
-    // Component function
+    // Component kiểu hàm
     renderedElement = type(props);
   }
 
-  // This process is recursive because a component may
-  // return an element with a type of another component.
+  // Quá trình này là đệ quy vì một component có thể trả về
+  // một phần tử của một component khác.
   return mount(renderedElement);
 
-  // Note: this implementation is incomplete and recurses infinitely!
-  // It only handles elements like <App /> or <Button />.
-  // It doesn't handle elements like <div /> or <p /> yet.
+  // Ghi chú: việc thực thi này là chưa hoàn chỉnh, và còn đệ quy đến vô cùng!
+  // Nó chỉ kiểm soát các phần tử như <App /> hay <Button />.
+  // Nó chưa handle các phần tử như <div /> hay <p />.
 }
 
 var rootEl = document.getElementById('root');
@@ -103,81 +103,81 @@ var node = mount(<App />);
 rootEl.appendChild(node);
 ```
 
->**Note:**
+>**Ghi chú:**
 >
->This really *is* a pseudo-code. It isn't similar to the real implementation. It will also cause a stack overflow because we haven't discussed when to stop the recursion.
+>Đây *thực sự* chỉ là một đoạn mã giả. Nó không giống với cách viết thực tế. Nó còn gây ra tràn bộ nhớ (stack overflow) vì chúng ta chưa chỉ ra khi nào sẽ kết thúc việc lặp đệ quy.
 
-Let's recap a few key ideas in the example above:
+Hãy chốt lại một vài ý quan trọng trong ví dụ ở trên:
 
-* React elements are plain objects representing the component type (e.g. `App`) and the props.
-* User-defined components (e.g. `App`) can be classes or functions but they all "render to" elements.
-* "Mounting" is a recursive process that creates a DOM or Native tree given the top-level React element (e.g. `<App />`).
+* Các phần tử của React là các object thuần biểu diễn kiểu component (ví dụ như `App`) và các props.
+* Những component do người dùng viết (như `App`) có thể là lớp hoặc hàm, nhưng điểm chung là chúng đều chỉ ra những gì sẽ được render.
+* "Mounting" là một quá trình đệ quy, tạo ra một cây DOM hoặc Native khi được cho trước một phần tử cấp cao (như là `<App />`).
 
-### Mounting Host Elements {#mounting-host-elements}
+### Mounting phần tử của hệ thống {#mounting-host-elements}
 
-This process would be useless if we didn't render something to the screen as a result.
+Quá trình mounting sẽ trở nên vô nghĩa nếu chúng ta không render được kết quả lên màn hình.
 
-In addition to user-defined ("composite") components, React elements may also represent platform-specific ("host") components. For example, `Button` might return a `<div />` from its render method.
+Bên cạnh các component được viết bởi người dùng (còn được gọi là "composite"), React còn có các component của hệ thống (được gọi là "host"). Ví dụ, `Button` có thể trả về `<div />` từ hàm render của nó.
 
-If element's `type` property is a string, we are dealing with a host element:
+Nếu thuộc tính `type` của phần tử là một chuỗi, chúng ta đang có một phần tử của hệ thống:
 
 ```js
 console.log(<div />);
 // { type: 'div', props: {} }
 ```
 
-There is no user-defined code associated with host elements.
+Người dùng không được viết lại hay định nghĩa lại các phần tử hệ thống.
 
-When the reconciler encounters a host element, it lets the renderer take care of mounting it. For example, React DOM would create a DOM node.
+Khi reconciler gặp một phần tử hệ thống, nó để cho renderer xử lí việc mounting cho phần tử đó. Ví dụ, React DOM sẽ tạo ra một node DOM.
 
-If the host element has children, the reconciler recursively mounts them following the same algorithm as above. It doesn't matter whether children are host (like `<div><hr /></div>`), composite (like `<div><Button /></div>`), or both.
+Nếu phần tử hệ thống có các phần tử con, reconciler sẽ mount chúng một cách đệ quy theo giải thuật ở trên, không quan trọng các phần tử con là phần tử hệ thống (như `<div><hr /></div>`) hay do người dùng viết (như `<div><Button /></div>`), hay là cả hai.
 
-The DOM nodes produced by the child components will be appended to the parent DOM node, and recursively, the complete DOM structure will be assembled.
+Các node DOM được tạo ra bởi các component con sẽ được thêm vào node DOM cha, và cứ lặp lại như vậy, cấu trúc DOM hoàn chỉnh sẽ được tạo ra.
 
->**Note:**
+>**Ghi chú:**
 >
->The reconciler itself is not tied to the DOM. The exact result of mounting (sometimes called "mount image" in the source code) depends on the renderer, and can be a DOM node (React DOM), a string (React DOM Server), or a number representing a native view (React Native).
+>Bản thân reconciler không gắn liền với DOM. Kết quả chính xác của việc mounting (đôi lúc được gọi là "mount image" trong mã nguồn) phụ thuộc vào renderer, và có thể là một node DOM (React DOM), một chuỗi (React DOM Server), hoặc là một số để biểu diễn cách nhìn (như React Native).
 
-If we were to extend the code to handle host elements, it would look like this:
+Nếu chúng ta phải mở rộng code để xử lý các phần tử hệ thống, kết quả sẽ như thế này:
 
 ```js
 function isClass(type) {
-  // React.Component subclasses have this flag
+  // Các lớp con của React.Component thì có thuộc tính this.
   return (
     Boolean(type.prototype) &&
     Boolean(type.prototype.isReactComponent)
   );
 }
 
-// This function only handles elements with a composite type.
-// For example, it handles <App /> and <Button />, but not a <div />.
+// Hàm này chỉ xử lý các phần tử với kiểu composite (từ component do người dùng viết)
+// Ví dụ, nó xử lý <App /> và <Button />, nhưng không xử lý <div />.
 function mountComposite(element) {
   var type = element.type;
   var props = element.props;
 
   var renderedElement;
   if (isClass(type)) {
-    // Component class
+    // Component kiểu lớp
     var publicInstance = new type(props);
-    // Set the props
+    // Đặt giá trị cho props
     publicInstance.props = props;
-    // Call the lifecycle if necessary
+    // Gọi hàm lifecycle nếu cần thiết
     if (publicInstance.componentWillMount) {
       publicInstance.componentWillMount();
     }
     renderedElement = publicInstance.render();
   } else if (typeof type === 'function') {
-    // Component function
+    // Component kiểu hàm
     renderedElement = type(props);
   }
 
-  // This is recursive but we'll eventually reach the bottom of recursion when
-  // the element is host (e.g. <div />) rather than composite (e.g. <App />):
+  // Đây là quá trình đệ quy nhưng quá trình lặp sẽ dừng lại
+  // khi gặp một phần tử kiểu host (ví dụ <div />) chứ không phải kiểu composite (e.g. <App />):
   return mount(renderedElement);
 }
 
-// This function only handles elements with a host type.
-// For example, it handles <div /> and <p /> but not an <App />.
+// Hàm này chỉ xử lý các phần tử kiểu host
+// Ví dụ, nó xử lý <div /> và <p /> nhưng không xử lý <App />.
 function mountHost(element) {
   var type = element.type;
   var props = element.props;
@@ -187,9 +187,9 @@ function mountHost(element) {
   }
   children = children.filter(Boolean);
 
-  // This block of code shouldn't be in the reconciler.
-  // Different renderers might initialize nodes differently.
-  // For example, React Native would create iOS or Android views.
+  // Phần code này không nên nằm trong reconciler.
+  // Các renderer khác nhau có thể khởi tạo các node khác nhau.
+  // Ví dụ, React Native sẽ tạo theo góc nhìn iOS và Android.
   var node = document.createElement(type);
   Object.keys(props).forEach(propName => {
     if (propName !== 'children') {
@@ -197,29 +197,29 @@ function mountHost(element) {
     }
   });
 
-  // Mount the children
+  // Mount phần tử con
   children.forEach(childElement => {
-    // Children may be host (e.g. <div />) or composite (e.g. <Button />).
-    // We will also mount them recursively:
+    // Kiểu của phần tử con có thể là host (như <div />) hoặc composite (như <Button />).
+    // Chúng ta cũng sẽ mount các phần tử con này một cách đệ quy:
     var childNode = mount(childElement);
 
-    // This line of code is also renderer-specific.
-    // It would be different depending on the renderer:
+    // Kết quả của dòng code này cũng phụ thuộc vào renderer.
+    // Kết quả khác nhau có thể được sinh ra từ các renderer khác nhau:
     node.appendChild(childNode);
   });
 
-  // Return the DOM node as mount result.
-  // This is where the recursion ends.
+  // Trả về node DOM là kết quả của quá trình mounting.
+  // Đây là điểm kết thúc của việc lặp đệ quy.
   return node;
 }
 
 function mount(element) {
   var type = element.type;
   if (typeof type === 'function') {
-    // User-defined components
+    // Component được viết bởi người dùng
     return mountComposite(element);
   } else if (typeof type === 'string') {
-    // Platform-specific components
+    // Componenet của hệ thống
     return mountHost(element);
   }
 }
@@ -229,40 +229,40 @@ var node = mount(<App />);
 rootEl.appendChild(node);
 ```
 
-This is working but still far from how the reconciler is really implemented. The key missing ingredient is support for updates.
+Cách làm này vẫn dùng được nhưng còn xa so với cách reconciler thực sự được thực thi. Thiếu sót quan trọng ở đây là việc hỗ trợ cho các cập nhật và thay đổi.
 
-### Introducing Internal Instances {#introducing-internal-instances}
+### Giới thiệu các thực thể nội {#introducing-internal-instances}
 
-The key feature of React is that you can re-render everything, and it won't recreate the DOM or reset the state:
+Tính năng then chốt của React là bạn có thể render lại mọi thứ, và nó sẽ không tạo lại DOM hay đặt lại trạng thái (state):
 
 ```js
 ReactDOM.render(<App />, rootEl);
-// Should reuse the existing DOM:
+// DOM có sẵn nên được sử dụng lại:
 ReactDOM.render(<App />, rootEl);
 ```
 
-However, our implementation above only knows how to mount the initial tree. It can't perform updates on it because it doesn't store all the necessary information, such as all the `publicInstance`s, or which DOM `node`s correspond to which components.
+Tuy nhiên, cách thực thi ở trên chỉ mount cây được tạo đầu tiên. Nó không thể thực hiện việc cập nhật trên cây đó vì nó không có những thông tin cần thiết, ví dụ như các `publicInstance`, hay `node` DOM nào tương ứng với component nào.
 
-The stack reconciler codebase solves this by making the `mount()` function a method and putting it on a class. There are drawbacks to this approach, and we are going in the opposite direction in the [ongoing rewrite of the reconciler](/docs/codebase-overview.html#fiber-reconciler). Nevertheless this is how it works now.
+Codebase của stack reconciler giải quyết vấn đề này bằng cách biến hàm `mount` thành một phương thức và đưa nó vào trong lớp. Cách tiếp cận này có nhược điểm, và đi ngược lại so với hướng đi trong việc [viết lại reconciler](/docs/codebase-overview.html#fiber-reconciler). Tuy vậy hiện tại thì đây là cách thực thi.
 
-Instead of separate `mountHost` and `mountComposite` functions, we will create two classes: `DOMComponent` and `CompositeComponent`.
+Thay vì chia ra hai hàm `mountHost` và `mountComposite`, chúng ta sẽ tạo ra hai lớp: `DOMComponent` và `CompositeComponent`.
 
-Both classes have a constructor accepting the `element`, as well as a `mount()` method returning the mounted node. We will replace a top-level `mount()` function with a factory that instantiates the correct class:
+Cả hai lớp này có một hàm dựng (constructor) nhận phần tử (`element`) là tham số đầu vào, và một hàm `mount()` trả về node đã được mount. Chúng ta sẽ thay thế hàm cấp cao `mount()` bằng một hàm khác để khởi tạo một lớp phù hợp:
 
 ```js
 function instantiateComponent(element) {
   var type = element.type;
   if (typeof type === 'function') {
-    // User-defined components
+    // Component được viết bởi người dùng
     return new CompositeComponent(element);
   } else if (typeof type === 'string') {
-    // Platform-specific components
+    // Component hệ thống
     return new DOMComponent(element);
   }  
 }
 ```
 
-First, let's consider the implementation of `CompositeComponent`:
+Đầu tiên, hãy xem cách hiện thực của `CompositeComponent`:
 
 ```js
 class CompositeComponent {
@@ -273,7 +273,7 @@ class CompositeComponent {
   }
 
   getPublicInstance() {
-    // For composite components, expose the class instance.
+    // Đối với component được viết bởi người dùng, ta trả về thực thể (instance) của lớp.
     return this.publicInstance;
   }
 
@@ -285,45 +285,45 @@ class CompositeComponent {
     var publicInstance;
     var renderedElement;
     if (isClass(type)) {
-      // Component class
+      // Component kiểu lớp
       publicInstance = new type(props);
-      // Set the props
+      // Đặt giá trị cho props
       publicInstance.props = props;
-      // Call the lifecycle if necessary
+      // Gọi hàm lifecycle nếu cần
       if (publicInstance.componentWillMount) {
         publicInstance.componentWillMount();
       }
       renderedElement = publicInstance.render();
     } else if (typeof type === 'function') {
-      // Component function
+      // Component kiểu hàm
       publicInstance = null;
       renderedElement = type(props);
     }
 
-    // Save the public instance
+    // Lưu lại publicInstance
     this.publicInstance = publicInstance;
 
-    // Instantiate the child internal instance according to the element.
-    // It would be a DOMComponent for <div /> or <p />,
-    // and a CompositeComponent for <App /> or <Button />:
+    // Khởi tạo thực thể con bên trong tương ứng với element.
+    // Đó có thể là một component hệ thống như <div /> hay <p />,
+    // hoặc một component được viết bởi người dùng như <App /> hay <Button />:
     var renderedComponent = instantiateComponent(renderedElement);
     this.renderedComponent = renderedComponent;
 
-    // Mount the rendered output
+    // Mount kết quả được render
     return renderedComponent.mount();
   }
 }
 ```
 
-This is not much different from our previous `mountComposite()` implementation, but now we can save some information, such as `this.currentElement`, `this.renderedComponent`, and `this.publicInstance`, for use during updates.
+Không khác nhiều so với cách hiện thực trước đó của hàm `mountComposite()`, nhưng cách này cho chúng ta có thể lưu trữ thông tin, ví dụ như `this.currentElement`, `this.renderedComponent`, và `this.publicInstance`, để sử dụng trong quá trình cập nhật.
 
-Note that an instance of `CompositeComponent` is not the same thing as an instance of the user-supplied `element.type`. `CompositeComponent` is an implementation detail of our reconciler, and is never exposed to the user. The user-defined class is the one we read from `element.type`, and `CompositeComponent` creates an instance of it.
+Hãy nhớ rằng một thực thể tạo ra từ `CompositeComponent` không giống với một thực thể người dùng tạo ra có kiểu `element.type`. `CompositeComponent` là chi tiết về cách hiện thực của reconciler, và sẽ không bao giờ được đưa ra cho phía người dùng. Các lớp do người dùng định nghĩa có kiểu `element.type`, và `CompositeComponent` sẽ tạo ra một thực thể của nó
 
-To avoid the confusion, we will call instances of `CompositeComponent` and `DOMComponent` "internal instances". They exist so we can associate some long-lived data with them. Only the renderer and the reconciler are aware that they exist.
+Để tránh sự rắc rối này, chúng ta gọi các thực thể từ `CompositeComponent` và `DOMComponent` là các "thực thể nội" (internal instances). Việc này cho phép chúng ta sử dụng những dữ liệu mang tính lâu dài ở trong các thành phần này. Chỉ có renderer và reconciler mới cần quan tâm đến sự hiện diện của các thực thể này.
 
-In contrast, we call an instance of the user-defined class a "public instance". The public instance is what you see as `this` in the `render()` and other methods of your custom components.
+Ngược lại, với các lớp do người dùng định nghĩa, các thực thể tạo ra từ đó sẽ được gọi là các "thực thể chung" (public instance). Thực thể chung là những gì chúng ta thấy ở thuộc tính `this` của `render()` và những phương thức khác của component của bạn viết.
 
-The `mountHost()` function, refactored to be a `mount()` method on `DOMComponent` class, also looks familiar:
+Hàm `mountHost()`, được cấu trúc lại thành phương thức `mount()` trong `DOMComponent`, cũng được hiện thực tương tự:
 
 ```js
 class DOMComponent {
@@ -334,7 +334,7 @@ class DOMComponent {
   }
 
   getPublicInstance() {
-    // For DOM components, only expose the DOM node.
+    // Đối với các component của DOM, ta chỉ trả về các node DOM.
     return this.node;
   }
 
@@ -347,36 +347,36 @@ class DOMComponent {
       children = [children];
     }
 
-    // Create and save the node
+    // Khởi tạo node mới và lưu lại
     var node = document.createElement(type);
     this.node = node;
 
-    // Set the attributes
+    // Gán giá trị cho các thuộc tính
     Object.keys(props).forEach(propName => {
       if (propName !== 'children') {
         node.setAttribute(propName, props[propName]);
       }
     });
 
-    // Create and save the contained children.
-    // Each of them can be a DOMComponent or a CompositeComponent,
-    // depending on whether the element type is a string or a function.
+    // Khởi tạo và lưu lại những thành phần con được chứa bên trong.
+    // Mỗi thành phần có thể là DOMComponent hoặc CompositeComponent,
+    // phụ thuộc vào kiểu của element là chuỗi hay hàm.
     var renderedChildren = children.map(instantiateComponent);
     this.renderedChildren = renderedChildren;
 
-    // Collect DOM nodes they return on mount
+    // Lưu lại những node DOM được trả về từ quá trình mounting
     var childNodes = renderedChildren.map(child => child.mount());
     childNodes.forEach(childNode => node.appendChild(childNode));
 
-    // Return the DOM node as mount result
+    // Trả về node DOM là kết quả của quá trình mounting
     return node;
   }
 }
 ```
 
-The main difference after refactoring from `mountHost()` is that we now keep `this.node` and `this.renderedChildren` associated with the internal DOM component instance. We will also use them for applying non-destructive updates in the future.
+Khác biệt chính sau khi cấu trúc lại `mountHost()` là bây giờ chúng ta lưu các thuộc tính `this.node` và `this.renderedChildren` cùng với các thực thể nội của DOM component. Sau này, chúng ta sẽ sử dụng chúng để hiện thực việc cập nhật mà không cần phải xây dựng lại cây DOM từ đầu.
 
-As a result, each internal instance, composite or host, now points to its child internal instances. To help visualize this, if a function `<App>` component renders a `<Button>` class component, and `Button` class renders a `<div>`, the internal instance tree would look like this:
+Kết quả là, mỗi thực thể nội, xuất phát từ người dùng hay hệ thống, bây giờ đều chỉ đến những thực thể con bên trong. Ví dụ để làm rõ hơn điều này, nếu một component kiểu hàm `<App>` render ra một component kiểu lớp `<Button>`, và lớp `Button` render ra một thẻ `<div>`, cây cấu trúc của thực thể nội sẽ trông như thế này:
 
 ```js
 [object CompositeComponent] {
@@ -394,36 +394,36 @@ As a result, each internal instance, composite or host, now points to its child 
 }
 ```
 
-In the DOM you would only see the `<div>`. However the internal instance tree contains both composite and host internal instances.
+Trong cấu trúc DOM bạn sẽ chỉ thấy `<div>`. Tuy nhiên cây cấu trúc của thực thể nội chứa các thực thể nội của người dùng lẫn hệ thống.
 
-The composite internal instances need to store:
+Những thực thể nội của người dùng cần lưu trữ:
 
-* The current element.
-* The public instance if element type is a class.
-* The single rendered internal instance. It can be either a `DOMComponent` or a `CompositeComponent`.
+* Phần tử hiện tại.
+* Thực thể chung nếu thực thể có kiểu lớp.
+* Một thực thể nội được render ra. Đó có thể là `DOMComponent` hoặc `CompositeComponent`.
 
-The host internal instances need to store:
+Những thực thể nội của hệ thống cần lưu trữ:
 
-* The current element.
-* The DOM node.
-* All the child internal instances. Each of them can be either a `DOMComponent` or a `CompositeComponent`.
+* Phần tử hiện tại
+* Node DOM
+* Tất cả các thực thể con bên trong. Mỗi thực thể con có thể là `DOMComponent` hoặc `CompositeComponent`.
 
-If you're struggling to imagine how an internal instance tree is structured in more complex applications, [React DevTools](https://github.com/facebook/react-devtools) can give you a close approximation, as it highlights host instances with grey, and composite instances with purple:
+Nếu bạn gặp khó khăn trong việc hình dung một cây cấu trúc thực thể nội được tổ chức như thế nào ở các ứng dụng phức tạp hơn, [React DevTools](https://github.com/facebook/react-devtools) có thể cho bạn một cái nhìn rõ hơn, khi nó biểu diễn các thực thể hệ thống bằng màu xám, và các thực thể của người dùng bằng màu tím:
 
  <img src="../images/docs/implementation-notes-tree.png" width="500" style="max-width: 100%" alt="React DevTools tree" />
 
-To complete this refactoring, we will introduce a function that mounts a complete tree into a container node, just like `ReactDOM.render()`. It returns a public instance, also like `ReactDOM.render()`:
+Để hoàn thành việc cấu trúc lại `mountHost()`, chúng tôi sẽ giới thiệu một hàm thực hiện việc mount một cây hoàn chỉnh và một node cha chứa nó, như hàm `ReactDOM.render()`. Cũng như `ReactDOM.render()`, nó trả về một thực thể chung:
 
 ```js
 function mountTree(element, containerNode) {
-  // Create the top-level internal instance
+  // Tạo ra thực thể nội cấp cao
   var rootComponent = instantiateComponent(element);
 
-  // Mount the top-level component into the container
+  // Mount thực thể nội cấp cao đó vào node cha (containerNode)
   var node = rootComponent.mount();
   containerNode.appendChild(node);
 
-  // Return the public instance it provides
+  // Trả về thực thể chung nhận được từ thực thể nội đó
   var publicInstance = rootComponent.getPublicInstance();
   return publicInstance;
 }
@@ -434,7 +434,7 @@ mountTree(<App />, rootEl);
 
 ### Unmounting {#unmounting}
 
-Now that we have internal instances that hold onto their children and the DOM nodes, we can implement unmounting. For a composite component, unmounting calls a lifecycle method and recurses.
+Bây giờ chúng ta đã có các thực thể nội cùng với các con của chúng và các node DOM, chúng ta có thể hiện thực việc unmount. Đối với một component do người dùng định nghĩa, quá trình unmounting gọi hàm lifecycle và lặp lại như vậy xuống các component con.
 
 ```js
 class CompositeComponent {
@@ -442,7 +442,7 @@ class CompositeComponent {
   // ...
 
   unmount() {
-    // Call the lifecycle method if necessary
+    // Gọi hàm lifecycle nếu cần thiết
     var publicInstance = this.publicInstance;
     if (publicInstance) {
       if (publicInstance.componentWillUnmount) {
@@ -450,14 +450,14 @@ class CompositeComponent {
       }
     }
 
-    // Unmount the single rendered component
+    // Unmount một component đã được render
     var renderedComponent = this.renderedComponent;
     renderedComponent.unmount();
   }
 }
 ```
 
-For `DOMComponent`, unmounting tells each child to unmount:
+`DOMComponent` hiện thực việc unmount trên các component con:
 
 ```js
 class DOMComponent {
@@ -465,70 +465,70 @@ class DOMComponent {
   // ...
 
   unmount() {
-    // Unmount all the children
+    // Unmount tất cả các component con
     var renderedChildren = this.renderedChildren;
     renderedChildren.forEach(child => child.unmount());
   }
 }
 ```
 
-In practice, unmounting DOM components also removes the event listeners and clears some caches, but we will skip those details.
+Thực tế, unmount các DOM component cũng sẽ loại bỏ các sự kiện kèm theo (event listeners) và xóa bộ nhớ đệm, nhưng chúng ta sẽ không đi vào chi tiết của việc này.
 
-We can now add a new top-level function called `unmountTree(containerNode)` that is similar to `ReactDOM.unmountComponentAtNode()`:
+Bây giờ chúng ta có thể thêm một hàm cấp cao `unmountTree(containerNode)` tương tự như `ReactDOM.unmountComponentAtNode()`:
 
 ```js
 function unmountTree(containerNode) {
-  // Read the internal instance from a DOM node:
-  // (This doesn't work yet, we will need to change mountTree() to store it.)
+  // Lấy thực thể nội từ node DOM:
+  // (Vẫn chưa chạy được, chúng ta sẽ cần thay đổi hàm mountTree() để lưu trữ những thông tin lấy được.)
   var node = containerNode.firstChild;
   var rootComponent = node._internalInstance;
 
-  // Unmount the tree and clear the container
+  // Unmount cây và xóa nội dung bên trong container
   rootComponent.unmount();
   containerNode.innerHTML = '';
 }
 ```
 
-In order for this to work, we need to read an internal root instance from a DOM node. We will modify `mountTree()` to add the `_internalInstance` property to the root DOM node. We will also teach `mountTree()` to destroy any existing tree so it can be called multiple times:
+Để thực thi theo cách này, chúng ta cần thực thể nội ở gốc từ một node DOM. Chúng ta sẽ thay đổi `mountTree()` để thêm thuộc tính `_internalInstance` vào node gốc của DOM. Chúng ta cũng sẽ cho `mountTree()` xóa một cây đang tồn tại để công việc này có thể thuận tiện thực hiện nhiều lần:
 
 ```js
 function mountTree(element, containerNode) {
-  // Destroy any existing tree
+  // Xóa một cây đang tồn tại
   if (containerNode.firstChild) {
     unmountTree(containerNode);
   }
 
-  // Create the top-level internal instance
+  // Tạo ra một thực thể nội cấp cao
   var rootComponent = instantiateComponent(element);
 
-  // Mount the top-level component into the container
+  // Mount component cấp cao vào container
   var node = rootComponent.mount();
   containerNode.appendChild(node);
 
-  // Save a reference to the internal instance
+  // Lưu lại một tham chiếu đến thực thể nội đó
   node._internalInstance = rootComponent;
 
-  // Return the public instance it provides
+  // Trả về thực thể chung nhận được từ thực thể nội
   var publicInstance = rootComponent.getPublicInstance();
   return publicInstance;
 }
 ```
 
-Now, running `unmountTree()`, or running `mountTree()` repeatedly, removes the old tree and runs the `componentWillUnmount()` lifecycle method on components.
+Bây giờ, thực thi `unmountTree()`, hay chạy `mountTree()` lặp lại nhiều lần, sẽ loại bỏ cây cũ và gọi đến hàm lifecycle `componentWillUnmount()` của các component.
 
-### Updating {#updating}
+### Cập nhật {#updating}
 
-In the previous section, we implemented unmounting. However React wouldn't be very useful if each prop change unmounted and mounted the whole tree. The goal of the reconciler is to reuse existing instances where possible to preserve the DOM and the state:
+Trong phần trước, chúng ta hiện thực quá trình unmount. Tuy vậy, React sẽ không hiệu quả như bây giờ nếu mỗi sự thay đổi của prop sẽ unmount và mount lại toàn bộ cây. Mục tiêu của reconciler là tái sử dụng những thực thể khi có thể giữ lại được DOM và trạng thái:
 
 ```js
 var rootEl = document.getElementById('root');
 
 mountTree(<App />, rootEl);
-// Should reuse the existing DOM:
+// Nên sử dụng lại DOM đang tồn tại:
 mountTree(<App />, rootEl);
 ```
 
-We will extend our internal instance contract with one more method. In addition to `mount()` and `unmount()`, both `DOMComponent` and `CompositeComponent` will implement a new method called `receive(nextElement)`:
+Chúng ta sẽ mở rộng thực thể nội của chúng ta thêm một phương thức. Bên cạnh `mount()` và `unmount()`, cả `DOMComponent` và `CompositeComponent` đều sẽ hiện thực một phương thức mới là `receive(nextElement)`:
 
 ```js
 class CompositeComponent {
@@ -548,15 +548,15 @@ class DOMComponent {
 }
 ```
 
-Its job is to do whatever is necessary to bring the component (and any of its children) up to date with the description provided by the `nextElement`.
+Công việc của phương thức này là giữ cho component và các con của nó luôn được cập nhật mới nhất theo như trình bày trong `nextElement`.
 
-This is the part that is often described as "virtual DOM diffing" although what really happens is that we walk the internal tree recursively and let each internal instance receive an update.
+Phần này thường được gọi là "tìm điểm khác biệt trên cây DOM ảo" (virtual DOM diffing), mặc dù việc thực sự diễn ra là chúng ta duyệt đệ quy cây cấu trúc và cập nhật từng thực thể nội.
 
-### Updating Composite Components {#updating-composite-components}
+### Cập nhật các component kiểu composite {#updating-composite-components}
 
-When a composite component receives a new element, we run the `componentWillUpdate()` lifecycle method.
+Khi một component kiểu composite (component do người dùng định nghĩa) nhận được một phần tử mới, nó sẽ gọi đến phương thức lifecycle `componentWillUpdate()`.
 
-Then we re-render the component with the new props, and get the next rendered element:
+Sau đó component được render lại với props mới, và chúng ta nhận được phần tử tiếp theo được render:
 
 ```js
 class CompositeComponent {
@@ -569,40 +569,40 @@ class CompositeComponent {
     var prevRenderedComponent = this.renderedComponent;
     var prevRenderedElement = prevRenderedComponent.currentElement;
 
-    // Update *own* element
+    // Cập nhật phần tử của chính component
     this.currentElement = nextElement;
     var type = nextElement.type;
     var nextProps = nextElement.props;
 
-    // Figure out what the next render() output is
+    // Xác định đầu ra tiếp theo của render()
     var nextRenderedElement;
     if (isClass(type)) {
-      // Component class
-      // Call the lifecycle if necessary
+      // Component kiểu lớp
+      // Gọi hàm lifecycle nếu cần thiết
       if (publicInstance.componentWillUpdate) {
         publicInstance.componentWillUpdate(nextProps);
       }
-      // Update the props
+      // Cập nhật props
       publicInstance.props = nextProps;
-      // Re-render
+      // Render lại
       nextRenderedElement = publicInstance.render();
     } else if (typeof type === 'function') {
-      // Component function
+      // Component kiểu hàm
       nextRenderedElement = type(nextProps);
     }
 
     // ...
 ```
 
-Next, we can look at the rendered element's `type`. If the `type` has not changed since the last render, the component below can also be updated in place.
+Tiếp theo, chúng ta có thể xét `type` của phần tử đã được render. Nếu `type` không đổi trong lần render mới nhất, component dưới đây có thể được cập nhật ngay tại chỗ.
 
-For example, if it returned `<Button color="red" />` the first time, and `<Button color="blue" />` the second time, we can just tell the corresponding internal instance to `receive()` the next element:
+Ví dụ, nếu kết quả trả về là `<Button color="red" />` trong lần đầu tiên, và `<Button color="blue" />` trong lần thứ hai, thực thể nội tương ứng chỉ cần gọi `receive()` với tham số đầu vào là phần tử tiếp theo:
 
 ```js
     // ...
 
-    // If the rendered element type has not changed,
-    // reuse the existing component instance and exit.
+    // Nếu kiểu của phần tử được render ra là không đổi,
+    // sử dụng lại thực thể hiện tại và hoàn thành.
     if (prevRenderedElement.type === nextRenderedElement.type) {
       prevRenderedComponent.receive(nextRenderedElement);
       return;
@@ -611,48 +611,48 @@ For example, if it returned `<Button color="red" />` the first time, and `<Butto
     // ...
 ```
 
-However, if the next rendered element has a different `type` than the previously rendered element, we can't update the internal instance. A `<button>` can't "become" an `<input>`.
+Tuy nhiên, nếu phần tử được render tiếp theo có `type` khác so với phần tử trước đó, chúng ta không thể cập nhật thực thể nội. Một `<button>` không thể biến thành một `<input>`.
 
-Instead, we have to unmount the existing internal instance and mount the new one corresponding to the rendered element type. For example, this is what happens when a component that previously rendered a `<button />` renders an `<input />`:
+Thay vào đó, chúng ta phải unmount thực thể nội hiện tại và mount thực thể mới tương ứng với kiểu phần tử đã được render. Ví dụ, đây là những gì diễn ra khi một componenet trước đó render ra một `<button>`, bây giờ render ra một `<input>`:
 
 ```js
     // ...
 
-    // If we reached this point, we need to unmount the previously
-    // mounted component, mount the new one, and swap their nodes.
+    // Nếu rơi vào trường hợp này, chúng ta cần unmount component đã được mount trước đó,
+    // mount component mới, và hoán đổi các node của hai component này.
 
-    // Find the old node because it will need to be replaced
+    // Tìm ra node cũ cần được thay thế
     var prevNode = prevRenderedComponent.getHostNode();
 
-    // Unmount the old child and mount a new child
+    // Unmount node con cũ và mount node con mới
     prevRenderedComponent.unmount();
     var nextRenderedComponent = instantiateComponent(nextRenderedElement);
     var nextNode = nextRenderedComponent.mount();
 
-    // Replace the reference to the child
+    // Thay thế tham chiếu đến node con
     this.renderedComponent = nextRenderedComponent;
 
-    // Replace the old node with the new one
-    // Note: this is renderer-specific code and
-    // ideally should live outside of CompositeComponent:
+    // Thay thế node cũ bằng node mới
+    // Ghi chú: đoạn code này phụ thuộc vào các renderer khác nhau và
+    // lý tưởng thì nên được đặt bên ngoài CompositeComponent:
     prevNode.parentNode.replaceChild(nextNode, prevNode);
   }
 }
 ```
 
-To sum this up, when a composite component receives a new element, it may either delegate the update to its rendered internal instance, or unmount it and mount a new one in its place.
+Tóm lại, khi một component kiểu composite nhận một phần tử mới, nó có thể giao phó việc cập nhật cho thực thể nội đã được render, hoặc unmount thực thể đó và mount một thực thể mới vào vị trí đó.
 
-There is another condition under which a component will re-mount rather than receive an element, and that is when the element's `key` has changed. We don't discuss `key` handling in this document because it adds more complexity to an already complex tutorial.
+Còn một điều kiện nữa xác định khi nào một component sẽ phải mount lại hoặc là nhận một phần tử mới, đó là khi `key` của phần tử thay đổi. Chúng ta không bàn luận về việc xử lý `key` ở đây, vì nó khiến bài viết vốn đã phức tạp này trở nên phức tạp hơn.
 
-Note that we needed to add a method called `getHostNode()` to the internal instance contract so that it's possible to locate the platform-specific node and replace it during the update. Its implementation is straightforward for both classes:
+Nhớ rằng chúng ta cần thêm vào thực thể nội một phương thức là `getHostNode()` để có thể xác định vị trí node của hệ thống và thay thế nó trong quá trình cập nhật. Cách hiện thực cho phương thức này là trực diện cho cả hai lớp:
 
 ```js
 class CompositeComponent {
   // ...
 
   getHostNode() {
-    // Ask the rendered component to provide it.
-    // This will recursively drill down any composites.
+    // Tìm vị trí host node từ component render ra nó.
+    // Việc này sẽ đi sâu vào bất kì các component kiểu composite nào.
     return this.renderedComponent.getHostNode();
   }
 }
@@ -666,9 +666,9 @@ class DOMComponent {
 }
 ```
 
-### Updating Host Components {#updating-host-components}
+### Cập nhật các component kiểu host {#updating-host-components}
 
-Host component implementations, such as `DOMComponent`, update differently. When they receive an element, they need to update the underlying platform-specific view. In case of React DOM, this means updating the DOM attributes:
+Với các component kiểu host (component của hệ thống), như `DOMComponent`, quá trình cập nhật được hiện thực theo cách khác. Khi chúng nhận một phần tử, chúng cần cập nhật những thành phần nằm bên trong hệ thống. Đối với React DOM, đó sẽ là công việc cập nhật cái thuộc tính của DOM.
 
 ```js
 class DOMComponent {
@@ -681,13 +681,13 @@ class DOMComponent {
     var nextProps = nextElement.props;    
     this.currentElement = nextElement;
 
-    // Remove old attributes.
+    // Loại bỏ những thuộc tính cũ.
     Object.keys(prevProps).forEach(propName => {
       if (propName !== 'children' && !nextProps.hasOwnProperty(propName)) {
         node.removeAttribute(propName);
       }
     });
-    // Set next attributes.
+    // Gán giá trị mới cho các thuộc tính.
     Object.keys(nextProps).forEach(propName => {
       if (propName !== 'children') {
         node.setAttribute(propName, nextProps[propName]);
@@ -697,16 +697,16 @@ class DOMComponent {
     // ...
 ```
 
-Then, host components need to update their children. Unlike composite components, they might contain more than a single child.
+Sau đó, các component kiểu host cần cập nhật các con của chúng. Không giống như component kiểu composite, các host component có thể có nhiều hơn một con.
 
-In this simplified example, we use an array of internal instances and iterate over it, either updating or replacing the internal instances depending on whether the received `type` matches their previous `type`. The real reconciler also takes element's `key` in the account and track moves in addition to insertions and deletions, but we will omit this logic.
+Trong ví dụ đơn giản dưới đây, chúng ta sử dụng một mảng để chứa các thực thể nội và duyệt lần lượt qua các phần tử bên trong mảng, thực hiện việc cập nhật hoặc thay thế tùy theo thuộc tính `type` nhận được có giống với thuộc tính `type` trước đó hay không. Thực tế thì bên cạnh việc thêm và xóa các phần tử, reconciler còn xét đến thuộc tính `key` để theo dõi sự di chuyển của các phần tử đó, tuy nhiên chúng ta sẽ bỏ qua việc này.
 
-We collect DOM operations on children in a list so we can execute them in batch:
+Chúng ta lưu những thao tác DOM trên các phần tử con vào một danh sách (list) để có thể hiện thực chúng cùng lúc:
 
 ```js
     // ...
 
-    // These are arrays of React elements:
+    // Đây là các mảng chứa các phần tử trong React:
     var prevChildren = prevProps.children || [];
     if (!Array.isArray(prevChildren)) {
       prevChildren = [prevChildren];
@@ -715,41 +715,41 @@ We collect DOM operations on children in a list so we can execute them in batch:
     if (!Array.isArray(nextChildren)) {
       nextChildren = [nextChildren];
     }
-    // These are arrays of internal instances:
+    // Đây là các mảng chứa các thực thể nội:
     var prevRenderedChildren = this.renderedChildren;
     var nextRenderedChildren = [];
 
-    // As we iterate over children, we will add operations to the array.
+    // Chúng ta duyệt qua các phần tử con và thêm các phép thay đổi vào mảng này.
     var operationQueue = [];
 
-    // Note: the section below is extremely simplified!
-    // It doesn't handle reorders, children with holes, or keys.
-    // It only exists to illustrate the overall flow, not the specifics.
+    // Ghi chú: đoạn code dưới đây đã được đơn giản hóa đi đáng kể!
+    // Nó không thực hiện sắp xếp lại, hay xử lý các phần tử con với các chỗ trống (hole) hoặc key.
+    // Nó chỉ làm rõ luồng thực thi tổng quát mà không đi sâu vào cụ thể.
 
     for (var i = 0; i < nextChildren.length; i++) {
-      // Try to get an existing internal instance for this child
+      // Lấy một thực thể nội có tồn tại của phần tử con
       var prevChild = prevRenderedChildren[i];
 
-      // If there is no internal instance under this index,
-      // a child has been appended to the end. Create a new
-      // internal instance, mount it, and use its node.
+      // Nếu không lấy được thực thể nội nào ở chỉ số i hiện tại,
+      // một phần tử con được thêm vào cuối. Tạo ra một thực thể nội mới,
+      // mount nó, và sử dụng node từ thực thể vừa được mount.
       if (!prevChild) {
         var nextChild = instantiateComponent(nextChildren[i]);
         var node = nextChild.mount();
 
-        // Record that we need to append a node
+        // Ghi lại hành động thêm (append) một node
         operationQueue.push({type: 'ADD', node});
         nextRenderedChildren.push(nextChild);
         continue;
       }
 
-      // We can only update the instance if its element's type matches.
-      // For example, <Button size="small" /> can be updated to
-      // <Button size="large" /> but not to an <App />.
+      // Chúng ta chỉ có thể cập nhật lại một thực thể nếu thuộc tính type của nó không đổi.
+      // Ví dụ, <Button size="small" /> có thể được cập nhật thành
+      // <Button size="large" /> nhưng không thể cập nhật thành <App />.
       var canUpdate = prevChildren[i].type === nextChildren[i].type;
 
-      // If we can't update an existing instance, we have to unmount it
-      // and mount a new one instead of it.
+      // Nếu chúng ta không thể cập nhật một thực thể đang tồn tại, chúng ta phải unmount nó
+      // và mount một thực thể mới vào thay thế.
       if (!canUpdate) {
         var prevNode = prevChild.getHostNode();
         prevChild.unmount();
@@ -757,40 +757,40 @@ We collect DOM operations on children in a list so we can execute them in batch:
         var nextChild = instantiateComponent(nextChildren[i]);
         var nextNode = nextChild.mount();
 
-        // Record that we need to swap the nodes
+        // Ghi lại hành động hoán đổi (swap) các node
         operationQueue.push({type: 'REPLACE', prevNode, nextNode});
         nextRenderedChildren.push(nextChild);
         continue;
       }
 
-      // If we can update an existing internal instance,
-      // just let it receive the next element and handle its own update.
+      // Nếu chúng ta có thể cập nhật một thực thể nội đang tồn tại,
+      // cứ để nó nhận phần tử mới và cho nó tự xử lý việc cập nhật.
       prevChild.receive(nextChildren[i]);
       nextRenderedChildren.push(prevChild);
     }
 
-    // Finally, unmount any children that don't exist:
+    // Cuối cùng, unmount các phần tử con không tồn tại nữa:
     for (var j = nextChildren.length; j < prevChildren.length; j++) {
       var prevChild = prevRenderedChildren[j];
       var node = prevChild.getHostNode();
       prevChild.unmount();
 
-      // Record that we need to remove the node
+      // Ghi lại hành động xóa một node
       operationQueue.push({type: 'REMOVE', node});
     }
 
-    // Point the list of rendered children to the updated version.
+    // Cập nhật lại danh sách các phần tử con được render.
     this.renderedChildren = nextRenderedChildren;
 
     // ...
 ```
 
-As the last step, we execute the DOM operations. Again, the real reconciler code is more complex because it also handles moves:
+Ở bước cuối cùng, chúng ta thực hiện các thao tác DOM. Nhắc lại một lần nữa là, việc hiện thực reconciler thực tế phức tạp hơn vì nó còn kiểm soát việc di chuyển của các phần tử:
 
 ```js
     // ...
 
-    // Process the operation queue.
+    // Thực thi các thao tác đang có trong hàng chờ.
     while (operationQueue.length > 0) {
       var operation = operationQueue.shift();
       switch (operation.type) {
@@ -809,27 +809,27 @@ As the last step, we execute the DOM operations. Again, the real reconciler code
 }
 ```
 
-And that is it for updating host components.
+Và đó là cách cập nhật các component kiểu host.
 
-### Top-Level Updates {#top-level-updates}
+### Cập nhật các phần tử cấp cao {#top-level-updates}
 
-Now that both `CompositeComponent` and `DOMComponent` implement the `receive(nextElement)` method, we can change the top-level `mountTree()` function to use it when the element `type` is the same as it was the last time:
+Bây giờ `CompositeComponent` và `DOMComponent` đều đã hiện thực phương thức `receive(nextElement)`, chúng ta có thể thay đổi hàm cấp cao `mountTree()` để sử dụng khi thuộc tính `type` của phần tử không thay đổi:
 
 ```js
 function mountTree(element, containerNode) {
-  // Check for an existing tree
+  // Kiểm tra cây hiện tại
   if (containerNode.firstChild) {
     var prevNode = containerNode.firstChild;
     var prevRootComponent = prevNode._internalInstance;
     var prevElement = prevRootComponent.currentElement;
 
-    // If we can, reuse the existing root component
+    // Tái sử dụng lại component gốc hiện tại nếu có thể
     if (prevElement.type === element.type) {
       prevRootComponent.receive(element);
       return;
     }
 
-    // Otherwise, unmount the existing tree
+    // Nếu không, unmount cây hiện tại
     unmountTree(containerNode);
   }
 
@@ -838,61 +838,61 @@ function mountTree(element, containerNode) {
 }
 ```
 
-Now calling `mountTree()` two times with the same type isn't destructive:
+Bây giờ gọi hàm `mountTree()` hai lần với cùng một `type` sẽ không cần thực hiện việc xóa trên cây:
 
 ```js
 var rootEl = document.getElementById('root');
 
 mountTree(<App />, rootEl);
-// Reuses the existing DOM:
+// Sử dụng lại DOM hiện tại:
 mountTree(<App />, rootEl);
 ```
 
-These are the basics of how React works internally.
+Đây là những điều cơ bản mà cách React vận hành ở bên trong.
 
-### What We Left Out {#what-we-left-out}
+### Những vấn đề chưa đề cập {#what-we-left-out}
 
-This document is simplified compared to the real codebase. There are a few important aspects we didn't address:
+Bài viết này đã được đơn giản đi so với codebase thật sự. Có một vài điều quan trọng mà chúng ta chưa đề cập:
 
-* Components can render `null`, and the reconciler can handle "empty slots" in arrays and rendered output.
+* Các component có thể render ra `null`, và reconciler có thể xử lý các "phần tử trống" trong các mảng và các phần tử được render ra.
 
-* The reconciler also reads `key` from the elements, and uses it to establish which internal instance corresponds to which element in an array. A bulk of complexity in the actual React implementation is related to that.
+* Reconciler dùng `key` của các phần tử để xác định thực thể nội nào tương ứng với phần tử nào trong mảng. Điều này tạo thêm một chút độ phức tạp trong việc hiện thực React trong thực tế.
 
-* In addition to composite and host internal instance classes, there are also classes for "text" and "empty" components. They represent text nodes and the "empty slots" you get by rendering `null`.
+* Bên cạnh các thực thể nội từ các lớp kiểu composite và host, còn xuất hiện các component từ các lớp kiểu "text" và "empty". Chúng biểu diễn các node text và "phần tử trống" mà chúng ta nhận được khi render `null`.
 
-* Renderers use [injection](/docs/codebase-overview.html#dynamic-injection) to pass the host internal class to the reconciler. For example, React DOM tells the reconciler to use `ReactDOMComponent` as the host internal instance implementation.
+* Các renderer dùng cách [injection](/docs/codebase-overview.html#dynamic-injection) để đưa lớp nội kiểu host đến reconciler. Ví dụ, React DOM nhắc reconciler hiện thực `ReactDOMComponent` như là thực thể nội kiểu host.
 
-* The logic for updating the list of children is extracted into a mixin called `ReactMultiChild` which is used by the host internal instance class implementations both in React DOM and React Native.
+* Ý tưởng của việc cập nhật các phần tử con có thể được gói gọn thành thuật ngữ `ReactMultiChild`, được áp dụng vào trong việc hiện thực thực thể nội kiểu host ở cả ReactDOM và React Native.
 
-* The reconciler also implements support for `setState()` in composite components. Multiple updates inside event handlers get batched into a single update.
+* Reconciler cũng hỗ trợ việc thực thi `setState()` trong các component kiểu composite. Nhiều cập nhật bên trong trình xử lý sự kiện (event handlers) được gộp lại thành một cập nhật duy nhất.
 
-* The reconciler also takes care of attaching and detaching refs to composite components and host nodes.
+* Reconciler cũng đảm bảo việc thêm hay gỡ các tham chiếu đến các component kiểu composite và node kiểu host.
 
-* Lifecycle methods that are called after the DOM is ready, such as `componentDidMount()` and `componentDidUpdate()`, get collected into "callback queues" and are executed in a single batch.
+* Các phương thức lifecycle được gọi sau khi DOM được tải xong, ví dụ như `componentDidMount()` và `componentDidUpdate()`, được gom vào "callback queue" và được thực thi cùng nhau.
 
-* React puts information about the current update into an internal object called "transaction". Transactions are useful for keeping track of the queue of pending lifecycle methods, the current DOM nesting for the warnings, and anything else that is "global" to a specific update. Transactions also ensure React "cleans everything up" after updates. For example, the transaction class provided by React DOM restores the input selection after any update.
+* React lưu trữ thông tin về các cập nhật hiện tại vào trong một object nội là "transaction". Transaction giúp ích trong việc kiểm soát hàng chờ của các phương thức lifecycle đang chờ thực thi, kiểm soát DOM để xác định và thông báo lỗi, và những cái toàn cục (global) của một cập nhật nhất định. Transaction còn thực hiện việc sắp xếp lại sau khi cập nhật. Ví dụ, lớp transaction của React DOM đặt lại các lựa chọn của các trường input sau mỗi cập nhật.
 
-### Jumping into the Code {#jumping-into-the-code}
+### Đi sâu vào Code {#jumping-into-the-code}
 
-* [`ReactMount`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/dom/client/ReactMount.js) is where the code like `mountTree()` and `unmountTree()` from this tutorial lives. It takes care of mounting and unmounting top-level components. [`ReactNativeMount`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/native/ReactNativeMount.js) is its React Native analog.
-* [`ReactDOMComponent`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/dom/shared/ReactDOMComponent.js) is the equivalent of `DOMComponent` in this tutorial. It implements the host component class for React DOM renderer. [`ReactNativeBaseComponent`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/native/ReactNativeBaseComponent.js) is its React Native analog.
-* [`ReactCompositeComponent`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js) is the equivalent of `CompositeComponent` in this tutorial. It handles calling user-defined components and maintaining their state.
-* [`instantiateReactComponent`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/instantiateReactComponent.js) contains the switch that picks the right internal instance class to construct for an element. It is equivalent to `instantiateComponent()` in this tutorial.
+* [`ReactMount`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/dom/client/ReactMount.js) là nơi lưu các đoạn code được sử dụng trong bài viết này như `mountTree()` và `unmountTree()`. Nó kiểm soát việc mount và unmount các component cấp cao. [`ReactNativeMount`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/native/ReactNativeMount.js) là phiên bản tương tự của React Native.
+* [`ReactDOMComponent`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/dom/shared/ReactDOMComponent.js) tương đương với `DOMComponent` trong bài viết này. Nó hiện thực các component từ lớp kiểu host cho React DOM renderer. [`ReactNativeBaseComponent`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/native/ReactNativeBaseComponent.js) là phiên bản tương tự của React Native.
+* [`ReactCompositeComponent`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/ReactCompositeComponent.js) tương đương với `CompositeComponent` trong bài viết này. Nó kiểm soát việc gọi đến các component do người dùng định nghĩa và quản lý trạng thái (state) của các component đó.
+* [`instantiateReactComponent`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/instantiateReactComponent.js) giúp chọn ra lớp thực thể nội phù hợp để tạo nên một phần tử. Nó tương đương với `instantiateComponent()` trong bài viết này.
 
-* [`ReactReconciler`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/ReactReconciler.js) is a wrapper with `mountComponent()`, `receiveComponent()`, and `unmountComponent()` methods. It calls the underlying implementations on the internal instances, but also includes some code around them that is shared by all internal instance implementations.
+* [`ReactReconciler`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/ReactReconciler.js) là bản wrapper của các phương thức `mountComponent()`, `receiveComponent()`, và `unmountComponent()`. Nó gọi đến chi tiết bên trong việc hiện thực các thực thể nội, nhưng cũng thêm các đoạn code bên ngoài được dùng chung bởi tất cả các phần hiện thực thực thể nội.
 
-* [`ReactChildReconciler`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/ReactChildReconciler.js) implements the logic for mounting, updating, and unmounting children according to the `key` of their elements.
+* [`ReactChildReconciler`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/ReactChildReconciler.js) hiện thực các logic cho việc mount, cập nhật, và unmount các phần tử con dựa trên `key` của chúng.
 
-* [`ReactMultiChild`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/ReactMultiChild.js) implements processing the operation queue for child insertions, deletions, and moves independently of the renderer.
+* [`ReactMultiChild`](https://github.com/facebook/react/blob/83381c1673d14cd16cf747e34c945291e5518a86/src/renderers/shared/stack/reconciler/ReactMultiChild.js) hiện thực hàng chờ các thao tác của renderer cho việc thêm, xóa và di chuyển độc lập các phần tử con.
 
-* `mount()`, `receive()`, and `unmount()` are really called `mountComponent()`, `receiveComponent()`, and `unmountComponent()` in React codebase for legacy reasons, but they receive elements.
+* `mount()`, `receive()`, và `unmount()` thực sự được gọi là `mountComponent()`, `receiveComponent()`, và `unmountComponent()` trong React codebase vì những lí do lịch sử và quá khứ, tuy nhiên thì chúng vẫn nhận đầu vào là các phần tử.
 
-* Properties on the internal instances start with an underscore, e.g. `_currentElement`. They are considered to be read-only public fields throughout the codebase.
+* Các thuộc tính của các thực thể nội bắt đầu bằng dấu gạch dưới, ví dụ như `_currentElement`. Chúng được xem như những phần chỉ cho phép đọc (read-only) và được dùng chung (public) trong cả codebase.
 
-### Future Directions {#future-directions}
+### Hướng đi trong tương lai {#future-directions}
 
-Stack reconciler has inherent limitations such as being synchronous and unable to interrupt the work or split it in chunks. There is a work in progress on the [new Fiber reconciler](/docs/codebase-overview.html#fiber-reconciler) with a [completely different architecture](https://github.com/acdlite/react-fiber-architecture). In the future, we intend to replace stack reconciler with it, but at the moment it is far from feature parity.
+Stack reconciler kế thừa những hạn chế như việc thực thi đồng bộ và không thể dừng một công việc đang thực thi hay chia nó thành các phần việc nhỏ hơn. Chúng tôi đang tạo ra reconciler mới là [Fiber reconciler](/docs/codebase-overview.html#fiber-reconciler) với một [kiến trúc hoàn toàn khác](https://github.com/acdlite/react-fiber-architecture). Trong tương lai, chúng tôi muốn dùng nó thay thế cho stack reconciler, nhưng ở hiện tại nó vẫn còn xa vời.
 
-### Next Steps {#next-steps}
+### Các bước tiếp theo {#next-steps}
 
-Read the [next section](/docs/design-principles.html) to learn about the guiding principles we use for React development.
+Đọc [phần tiếp theo](/docs/design-principles.html) để biết về những nguyên tắc thiết kế mà chúng tôi sử dụng trong việc phát triển React.
