@@ -216,10 +216,8 @@ var TickTock = createReactClass({
   }
 });
 
-ReactDOM.render(
-  <TickTock />,
-  document.getElementById('example')
-);
+const root = ReactDOM.createRoot(document.getElementById('example'));
+root.render(<TickTock />);
 ```
 
 Nếu một component đang sử dụng nhiều mixin và một số mixin xác định cùng một lifecycle method (tức là một số mixin muốn thực hiện một số dọn dẹp khi component bị phá hủy), tất cả các lifecycle method được đảm bảo sẽ được gọi. Các method được xác định trên các mixin chạy theo thứ tự các mixin được liệt kê, theo sau là một lệnh gọi method trên component.

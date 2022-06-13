@@ -97,9 +97,13 @@ Bạn không thể sử dụng Hook *bên trong* một class component, nhưng t
 
 Mục tiêu của chúng tôi cho Hook là bao gồm tất cả trường hợp sử dụng của class sớm nhất có thế. Sẽ không có những Hook tương ứng với các phương thức lifecycle không phổ biến  `getSnapshotBeforeUpdate`, `getDerivedStateFromError` và `componentDidCatch`, nhưng chúng tôi sẽ sớm thêm chúng.
 
+<<<<<<< HEAD
 Trong giai đoạn đầu của Hook, có một vài thư viện third-party có thể sẽ không tương thích với Hook
 
 ### Hook có thay thế prop và higher-order component? {#do-hooks-replace-render-props-and-higher-order-components}
+=======
+### Do Hooks replace render props and higher-order components? {#do-hooks-replace-render-props-and-higher-order-components}
+>>>>>>> 6d965422a4056bac5f93f92735364cb08bcffc6b
 
 Thông thường, render prop và higher-order component chỉ render 1 component con. Chúng tôi nghĩ theo hướng đơn giản hơn cho mục đích này. Vẫn có những chỗ để sử dụng cho 2 pattern này (ví dụ, 1 virtual scroller component có thể có một prop `renderItem`, hoặc 1 visual container component có thể chứa cấu trúc DOM riêng). Tuy nhiên đa số các trường hợp, Hook sẽ là cách hiệu quả có thể giúp giảm số lần lồng ghép component.
 
@@ -150,7 +154,7 @@ Chúng ta sẽ test nó sử dụng DOM. Để đảm bảo hoạt động đún
 
 ```js{3,20-22,29-31}
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { act } from 'react-dom/test-utils';
 import Counter from './Counter';
 
@@ -169,7 +173,7 @@ afterEach(() => {
 it('can render and update a counter', () => {
   // Test first render and effect
   act(() => {
-    ReactDOM.render(<Counter />, container);
+    ReactDOM.createRoot(container).render(<Counter />);
   });
   const button = container.querySelector('button');
   const label = container.querySelector('p');
