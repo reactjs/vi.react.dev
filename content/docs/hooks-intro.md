@@ -29,9 +29,16 @@ function Example() {
 
 **Bạn có thể bắt đầu học Hook [ở trang tiếp theo](/docs/hooks-overview.html).** Còn ở đây, chúng tôi sẽ giải thích tại sao chúng tôi thêm Hook vào React và những Hook sẽ giúp bạn giải quyết những vấn đề gì.
 
+<<<<<<< HEAD
 >Chú ý
 >React 16.8.0 là phiên bản đầu tiên hỗ trợ Hook. Khi nâng cấp, đừng quên cập nhật tất cả các package bao gồm React DOM.
 >React Native hỗ trợ Hooks từ [phiên bản 0.59 của React Native](https://facebook.github.io/react-native/blog/2019/03/12/releasing-react-native-059).
+=======
+>Note
+>
+>React 16.8.0 is the first release to support Hooks. When upgrading, don't forget to update all packages, including React DOM.
+>React Native has supported Hooks since [the 0.59 release of React Native](https://reactnative.dev/blog/2019/03/12/releasing-react-native-059).
+>>>>>>> df2673d1b6ec0cc6657fd58690bbf30fa1e6e0e6
 
 ## Video Giới Thiệu {#video-introduction}
 
@@ -95,8 +102,12 @@ Hơn nữa, React đã ra mắt được khoảng 5 năm, và chúng tôi muốn
 
 Chúng tôi biết lập trình viên React tập trung vào phát triển sản phẩm và không có thời gian để xem tất cả các API mới đang được ra mắt. Hook rất mới và tốt hơn nên chờ khi có nhiều ví dụ và hướng dẫn trước khi cân nhắc học hoặc áp dụng chúng.
 
+<<<<<<< HEAD
 Chúng tôi cũng hiểu rằng việc thêm một điều mới hoàn toàn vào React là rất khó khăn. Cho những người đọc tò mò, chúng tôi đã chuẩn bị một [RFC chi tiết](https://github.com/reactjs/rfcs/pull/68) giải thích động lực chi tiết hơn, và cung cấp thêm quan điểm về quyết định thiết kế.
 **Chủ yếu, Hook hoạt động bên cạnh code hiện tại nên bạn có thể áp dụng dần dần.** Không quá mất thời gian để chuyển sang dùng Hook. Chúng tôi thiết nghĩ hạn chế việc "viết lại toàn bộ" bằng Hook, đặc biệt cho những class component phức tạp. Nó cần một chút thay đổi tư duy để bắt đầu "suy nghĩ về Hook". Theo kinh nghiệm của chúng tôi thì cách tốt nhất để sử dụng Hook là ở trong các component mới và không quan trọng, và đảm bảo mọi người trong nhóm của bạn cảm thấy thoải mái với chúng. Sau khi bạn thử Hook, hãy thoải mái [gửi phản hồi](https://github.com/facebook/react/issues/new), kể cả tích cực hay tiêu cực.
+=======
+We also understand that the bar for adding a new primitive to React is extremely high. For curious readers, we have prepared a [detailed RFC](https://github.com/reactjs/rfcs/pull/68) that dives into the motivation with more details, and provides extra perspective on the specific design decisions and related prior art.
+>>>>>>> df2673d1b6ec0cc6657fd58690bbf30fa1e6e0e6
 
 Chúng tôi dự định cho Hook bao gồm tất cả các trường hợp dùng class, nhưng **chúng tôi sẽ tiếp tục hỗ trợ class component cho tương lai.** Tại Facebook, chúng tôi có hàng nghìn component viết dưới dạng class, và chúng tôi tuyệt đối không có kế hoạch viết lại chúng. Thay vì thế, chúng tôi bắt đầu sử dụng Hook cho code mới bên cạnh với class.
 
