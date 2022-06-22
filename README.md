@@ -1,6 +1,6 @@
 # vi.reactjs.org
 
-This repo contains the source code and documentation powering [vi.reactjs.org](https://reactjs.org/).
+This repo contains the source code and documentation powering [vi.reactjs.org](https://vi.reactjs.org/).
 
 ## Getting started
 
