@@ -9,7 +9,10 @@ next: release-channels.html
 Cả React và ReactDOM đều có sẵn thông qua CDN.
 
 ```html
+<<<<<<< HEAD
 
+=======
+>>>>>>> ee7705675d2304c53c174b9fb316e2fbde1e9fb3
 <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
 ```
@@ -18,12 +21,19 @@ Các phiên bản trên chỉ dành cho việc phát triển, và không thích 
 và tối ưu hóa của React có sẵn tại:
 
 ```html
+<<<<<<< HEAD
 
+=======
+>>>>>>> ee7705675d2304c53c174b9fb316e2fbde1e9fb3
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 ```
 
+<<<<<<< HEAD
 Để tải một phiên bản cụ thể của `react` và `react-dom`, thay `17` bằng số phiên bản.
+=======
+To load a specific version of `react` and `react-dom`, replace `18` with the version number.
+>>>>>>> ee7705675d2304c53c174b9fb316e2fbde1e9fb3
 
 ### Tại sao là thuộc tính `crossorigin`? {#why-the-crossorigin-attribute}
 

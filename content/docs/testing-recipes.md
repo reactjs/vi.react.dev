@@ -607,7 +607,11 @@ Thường sẽ tốt hơn nếu chỉ rõ kết quả muốn nhận được tha
 
 ### Multiple Renderer {#multiple-renderers}
 
+<<<<<<< HEAD
 Trong những tình huống hiếm, bạn có thể chạy một test trên một component sử dụng multiple renderer. Lấy ví dụ, bạn có thể chạy snapshot test trên một component với `react-test-renderer`, bên trong đó nó dùng `ReactDOM.render`trong một child component để render một vài nội dung. Tình huống đó, bạn có thể wrap phần cập nhập với `act()` ứng với từng renderer
+=======
+In rare cases, you may be running a test on a component that uses multiple renderers. For example, you may be running snapshot tests on a component with `react-test-renderer`, that internally uses `render` from `react-dom` inside a child component to render some content. In this scenario, you can wrap updates with `act()`s corresponding to their renderers.
+>>>>>>> ee7705675d2304c53c174b9fb316e2fbde1e9fb3
 
 ```jsx
 import { act as domAct } from "react-dom/test-utils";
