@@ -106,7 +106,7 @@ cd ..
 
 ```js
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 ```
 
@@ -542,7 +542,7 @@ var player = {score: 1, name: 'Jeff'};
 var newPlayer = Object.assign({}, player, {score: 2});
 // Now player is unchanged, but newPlayer is {score: 2, name: 'Jeff'}
 
-// Or if you are using object spread syntax proposal, you can write:
+// Or if you are using object spread syntax, you can write:
 // var newPlayer = {...player, score: 2};
 ```
 
@@ -1046,9 +1046,13 @@ Hãy `map` mảng `history` trong phương thức `render` của Game component:
 **[Xem code chi tiết tại bước này](https://codepen.io/gaearon/pen/EmmGEa?editors=0010)**
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 Với mỗi lịch sử bước đi trong game tic-tac-toe, ta tạo ra một danh sách các `<li>` chứa một `<button>`. Button sẽ có một hàm xử lý `onClick`, hàm này sẽ gọi phương thức `this.jumpTo()`. Hiện tại ta chưa có hàm `jumpTo()`. Đến bước này, bạn sẽ thấy một danh sách các bước đi được hiển thị trên màn hình và cảnh báo trong console của công cụ cho nhà phát triển với thông điệp như sau:
 =======
 As we iterate through `history` array, `step` variable refers to the current `history` element value, and `move` refers to the current `history` element index. We only interested in `move` here, hence `step` is not getting assigned to anything.
+=======
+As we iterate through `history` array, `step` variable refers to the current `history` element value, and `move` refers to the current `history` element index. We are only interested in `move` here, hence `step` is not getting assigned to anything.
+>>>>>>> f67fa22cc1faee261f9e22449d90323e26174e8e
 
 For each move in the tic-tac-toe game's history, we create a list item `<li>` which contains a button `<button>`. The button has a `onClick` handler which calls a method called `this.jumpTo()`. We haven't implemented the `jumpTo()` method yet. For now, we should see a list of the moves that have occurred in the game and a warning in the developer tools console that says:
 >>>>>>> 9b3c3f4e613440baf2e2f1775be65dac8c08ab5f
@@ -1152,11 +1156,21 @@ Tiếp theo, chúng ta sẽ định nghĩa hàm `jumpTo` trong Game component đ
   }
 ```
 
+<<<<<<< HEAD
 Bây giờ ta sẽ cần thay đổi hàm `handleClick` của Game component một chút.
+=======
+Notice in `jumpTo` method, we haven't updated `history` property of the state. That is because state updates are merged or in more simple words React will update only the properties mentioned in `setState` method leaving the remaining state as is. For more info **[see the documentation](/docs/state-and-lifecycle.html#state-updates-are-merged)**.
+
+We will now make a few changes to the Game's `handleClick` method which fires when you click on a square.
+>>>>>>> f67fa22cc1faee261f9e22449d90323e26174e8e
 
 State `stepNumber` mà chúng ta vừa thêm phản ánh bước đi hiện tại của người chơi. Sau khi một bước đi diễn ra, ta cần cập nhật lại `stepNumber` như sau `stepNumber: history.length`. Việc này đảm bảo chúng ta sẽ không bị hiển thị cùng một bước đi sau khi một bước đi mới được tạo ra.
 
+<<<<<<< HEAD
 Ta cũng sẽ thay thế `this.state.history` bằng `this.state.history.slice(0, this.state.stepNumber + 1)`. Việc này đảm bảo nếu ta "quay về một bước đi trước đó" và sau khi ta đi một bước mới từ điểm đó, mảng history "tương lai" sẽ không bị sai.
+=======
+We will also replace reading `this.state.history` with `this.state.history.slice(0, this.state.stepNumber + 1)`. This ensures that if we "go back in time" and then make a new move from that point, we throw away all the "future" history that would now be incorrect.
+>>>>>>> f67fa22cc1faee261f9e22449d90323e26174e8e
 
 ```javascript{2,13}
   handleClick(i) {
