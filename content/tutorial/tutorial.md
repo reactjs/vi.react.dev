@@ -1046,6 +1046,7 @@ Hãy `map` mảng `history` trong phương thức `render` của Game component:
 **[Xem code chi tiết tại bước này](https://codepen.io/gaearon/pen/EmmGEa?editors=0010)**
 
 Với mỗi lịch sử bước đi trong game tic-tac-toe, ta tạo ra một danh sách các `<li>` chứa một `<button>`. Button sẽ có một hàm xử lý `onClick`, hàm này sẽ gọi phương thức `this.jumpTo()`. Hiện tại ta chưa có hàm `jumpTo()`. Đến bước này, bạn sẽ thấy một danh sách các bước đi được hiển thị trên màn hình và cảnh báo trong console của công cụ cho nhà phát triển với thông điệp như sau:
+
 Khi chúng ta loop qua mảng `history`, `step` biến này ánh xạ tới value của element `history`. Và `move` ánh xạ tới `history` element index. Chúng ta chỉ quan tâm tới `move` ở đây, vì thế `step` sẽ không được gán.
 
 >  Warning:
@@ -1146,6 +1147,7 @@ Tiếp theo, chúng ta sẽ định nghĩa hàm `jumpTo` trong Game component đ
     // this method has not changed
   }
 ```
+Notice in `jumpTo` method, we haven't updated history property of the state. That is because state updates are merged or in more simple words react will update only the properties mentioned in `setState` method leaving the remaining state as that is. For more info **[see the documentation](https://reactjs.org/docs/state-and-lifecycle.html#state-updates-are-merged)**
 
 Bây giờ ta sẽ cần thay đổi hàm `handleClick` của Game component một chút.
 
