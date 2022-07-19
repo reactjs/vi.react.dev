@@ -4,25 +4,34 @@ title: Error Boundaries
 permalink: docs/error-boundaries.html
 ---
 
-In the past, JavaScript errors inside components used to corrupt React’s internal state and cause it to [emit](https://github.com/facebook/react/issues/4026) [cryptic](https://github.com/facebook/react/issues/6895) [errors](https://github.com/facebook/react/issues/8579) on next renders. These errors were always caused by an earlier error in the application code, but React did not provide a way to handle them gracefully in components, and could not recover from them.
-
+Trước đây, các lỗi JavaScript bên trong các thành phần được sử dụng để làm hỏng trạng thái bên trong của React và khiến
+nó [emit](https://github.com/facebook/react/issues/4026) [cryptic](https://github.com/facebook/react/issues/6895) [errors](https://github.com/facebook/react/issues/8579)
+vào lần hiển thị tiếp theo. Những lỗi này luôn do lỗi trước đó trong mã ứng dụng gây ra, nhưng React không cung cấp cách
+xử lý chúng một cách linh hoạt trong các thành phần và không thể khôi phục chúng.
 
 ## Introducing Error Boundaries {#introducing-error-boundaries}
 
-A JavaScript error in a part of the UI shouldn’t break the whole app. To solve this problem for React users, React 16 introduces a new concept of an “error boundary”.
+Lỗi JavaScript trong một phần của giao diện người dùng sẽ không làm hỏng toàn bộ ứng dụng. Để giải quyết vấn đề này cho
+người dùng React, React 16 giới thiệu một khái niệm mới về “error boundary”.
 
-Error boundaries are React components that **catch JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI** instead of the component tree that crashed. Error boundaries catch errors during rendering, in lifecycle methods, and in constructors of the whole tree below them.
+Ranh giới lỗi là các thành phần React **bắt lỗi JavaScript ở bất kỳ đâu trong cây thành phần con của chúng, ghi lại
+các lỗi đó và hiển thị giao diện người dùng dự phòng** thay vì cây thành phần bị rơi. Các ranh giới lỗi bắt lỗi trong
+quá trình kết xuất, trong các phương thức vòng đời và trong các hàm tạo của toàn bộ cây bên dưới chúng.
 
 > Note
 >
-> Error boundaries do **not** catch errors for:
+> Ranh giới lỗi *không* bắt lỗi đối với:
 >
-> * Event handlers ([learn more](#how-about-event-handlers))
-> * Asynchronous code (e.g. `setTimeout` or `requestAnimationFrame` callbacks)
+> * Trình xử lý sự kiện ([learn more](#how-about-event-handlers))
+> * Code bất đồng bộ (e.g. `setTimeout` or `requestAnimationFrame` callbacks)
 > * Server side rendering
-> * Errors thrown in the error boundary itself (rather than its children)
+> * Lỗi được tạo ra trong chính ranh giới lỗi (chứ không phải con của nó)
 
-A class component becomes an error boundary if it defines either (or both) of the lifecycle methods [`static getDerivedStateFromError()`](/docs/react-component.html#static-getderivedstatefromerror) or [`componentDidCatch()`](/docs/react-component.html#componentdidcatch). Use `static getDerivedStateFromError()` to render a fallback UI after an error has been thrown. Use `componentDidCatch()` to log error information.
+Một thành phần lớp trở thành một ranh giới lỗi nếu nó xác định một trong hai (hoặc cả hai) phương thức vòng
+đời [`static getDerivedStateFromError()`](/docs/react-component.html#static-getderivedstatefromerror)
+hoặc [`componentDidCatch()`](/docs/react-component.html#componentdidcatch). Sử dụng `static getDerivedStateFromError()`
+để hiển thị một giao diện người dùng dự phòng sau khi một lỗi đã được tạo ra. Để `componentDidCatch()` ghi lỗi
+information.
 
 ```js{7-10,12-15,18-21}
 class ErrorBoundary extends React.Component {
@@ -52,61 +61,83 @@ class ErrorBoundary extends React.Component {
 }
 ```
 
-Then you can use it as a regular component:
+Sau đó, bạn có thể sử dụng nó như một thành phần thông thường:
 
 ```js
 <ErrorBoundary>
-  <MyWidget />
+  <MyWidget/>
 </ErrorBoundary>
 ```
 
-Error boundaries work like a JavaScript `catch {}` block, but for components. Only class components can be error boundaries. In practice, most of the time you’ll want to declare an error boundary component once and use it throughout your application.
+Các ranh giới lỗi hoạt động giống như một khối JavaScript `catch {}`, nhưng đối với các thành phần. Chỉ các thành phần
+lớp mới có thể là ranh giới lỗi. Trong thực tế, hầu hết thời gian bạn sẽ muốn khai báo một thành phần ranh giới lỗi một
+lần và sử dụng nó trong toàn bộ ứng dụng của mình.
 
-Note that **error boundaries only catch errors in the components below them in the tree**. An error boundary can’t catch an error within itself. If an error boundary fails trying to render the error message, the error will propagate to the closest error boundary above it. This, too, is similar to how the `catch {}` block works in JavaScript.
+Lưu ý rằng **ranh giới lỗi chỉ bắt lỗi trong các thành phần bên dưới chúng trong cây**. Ranh giới lỗi không thể tự bắt
+lỗi.
+Nếu một ranh giới lỗi không cố gắng hiển thị thông báo lỗi, lỗi sẽ lan truyền đến ranh giới lỗi gần nhất phía trên nó.
+Điều này cũng tương tự như cách khối catch {} hoạt động trong JavaScript.
 
 ## Live Demo {#live-demo}
 
-Check out [this example of declaring and using an error boundary](https://codepen.io/gaearon/pen/wqvxGa?editors=0010) with [React 16](/blog/2017/09/26/react-v16.0.html).
-
+Check out [this example of declaring and using an error boundary](https://codepen.io/gaearon/pen/wqvxGa?editors=0010)
+with [React 16](/blog/2017/09/26/react-v16.0.html).
 
 ## Where to Place Error Boundaries {#where-to-place-error-boundaries}
 
-The granularity of error boundaries is up to you. You may wrap top-level route components to display a “Something went wrong” message to the user, just like how server-side frameworks often handle crashes. You may also wrap individual widgets in an error boundary to protect them from crashing the rest of the application.
-
+Mức độ chi tiết của ranh giới lỗi là tùy thuộc vào bạn. Bạn có thể bao bọc các thành phần tuyến cấp cao nhất để hiển thị
+thông báo “Đã xảy ra sự cố” cho người dùng, giống như cách các khuôn khổ phía máy chủ thường xử lý các sự cố. Bạn cũng
+có thể bao bọc các widget riêng lẻ trong một ranh giới lỗi để bảo vệ chúng khỏi làm hỏng phần còn lại của ứng dụng.
 
 ## New Behavior for Uncaught Errors {#new-behavior-for-uncaught-errors}
 
-This change has an important implication. **As of React 16, errors that were not caught by any error boundary will result in unmounting of the whole React component tree.**
+Sự thay đổi này có một hàm ý quan trọng. **Kể từ React 16, các lỗi không nằm trong bất kỳ ranh giới lỗi nào sẽ dẫn đến
+việc ngắt kết nối toàn bộ cây thành phần React.**
 
-We debated this decision, but in our experience it is worse to leave corrupted UI in place than to completely remove it. For example, in a product like Messenger leaving the broken UI visible could lead to somebody sending a message to the wrong person. Similarly, it is worse for a payments app to display a wrong amount than to render nothing.
+Chúng tôi đã tranh luận về quyết định này, nhưng theo kinh nghiệm của chúng tôi, việc để lại giao diện người dùng bị
+hỏng tại chỗ còn tệ hơn là xóa hoàn toàn. Ví dụ: trong một sản phẩm như Messenger, việc hiển thị giao diện người dùng bị
+hỏng có thể dẫn đến việc ai đó gửi tin nhắn đến nhầm người. Tương tự, ứng dụng thanh toán hiển thị sai số tiền còn tệ
+hơn là không hiển thị gì.
 
-This change means that as you migrate to React 16, you will likely uncover existing crashes in your application that have been unnoticed before. Adding error boundaries lets you provide better user experience when something goes wrong.
+Thay đổi này có nghĩa là khi bạn chuyển sang React 16, bạn có thể sẽ phát hiện ra các lỗi hiện có trong ứng dụng của
+mình mà trước đây chưa được chú ý. Thêm ranh giới lỗi cho phép bạn cung cấp trải nghiệm người dùng tốt hơn khi có sự cố.
 
-For example, Facebook Messenger wraps content of the sidebar, the info panel, the conversation log, and the message input into separate error boundaries. If some component in one of these UI areas crashes, the rest of them remain interactive.
+Ví dụ: Facebook Messenger kết hợp nội dung của thanh bên, bảng thông tin, nhật ký cuộc trò chuyện và đầu vào tin nhắn
+thành các ranh giới lỗi riêng biệt. Nếu một số thành phần trong một trong các khu vực giao diện người dùng này gặp sự
+cố, phần còn lại của chúng vẫn tương tác.
 
-We also encourage you to use JS error reporting services (or build your own) so that you can learn about unhandled exceptions as they happen in production, and fix them.
-
+Chúng tôi cũng khuyến khích bạn sử dụng các dịch vụ báo cáo lỗi JS (hoặc xây dựng của riêng bạn) để bạn có thể tìm hiểu
+về các trường hợp ngoại lệ không được khắc phục khi chúng xảy ra trong quá trình sản xuất và khắc phục chúng.
 
 ## Component Stack Traces {#component-stack-traces}
 
-React 16 prints all errors that occurred during rendering to the console in development, even if the application accidentally swallows them. In addition to the error message and the JavaScript stack, it also provides component stack traces. Now you can see where exactly in the component tree the failure has happened:
+React 16 in tất cả các lỗi xảy ra trong quá trình hiển thị cho bảng điều khiển đang phát triển, ngay cả khi ứng dụng vô
+tình nuốt chúng. Ngoài thông báo lỗi và ngăn xếp JavaScript, nó cũng cung cấp dấu vết ngăn xếp thành phần. Bây giờ bạn
+có thể thấy vị trí chính xác trong cây thành phần mà lỗi đã xảy ra:
 
 <img src="../images/docs/error-boundaries-stack-trace.png" style="max-width:100%" alt="Error caught by Error Boundary component">
 
-You can also see the filenames and line numbers in the component stack trace. This works by default in [Create React App](https://github.com/facebookincubator/create-react-app) projects:
+Bạn cũng có thể xem tên tệp và số dòng trong dấu vết ngăn xếp thành phần. Điều này hoạt động theo mặc định
+trong [Create React App](https://github.com/facebookincubator/create-react-app) projects:
 
 <img src="../images/docs/error-boundaries-stack-trace-line-numbers.png" style="max-width:100%" alt="Error caught by Error Boundary component with line numbers">
 
-If you don’t use Create React App, you can add [this plugin](https://www.npmjs.com/package/@babel/plugin-transform-react-jsx-source) manually to your Babel configuration. Note that it’s intended only for development and **must be disabled in production**.
+Nếu không sử dụng Tạo ứng dụng React, bạn có thể
+thêm [this plugin](https://www.npmjs.com/package/@babel/plugin-transform-react-jsx-source) theo cách thủ công với cấu
+hình Babel của bạn. Lưu ý rằng nó chỉ nhằm mục đích phát triển và **phải bị vô hiệu hóa trong quá trình sản xuất**.
 
-> Note
+> Ghi chú
 >
-> Component names displayed in the stack traces depend on the [`Function.name`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name) property. If you support older browsers and devices which may not yet provide this natively (e.g. IE 11), consider including a `Function.name` polyfill in your bundled application, such as [`function.name-polyfill`](https://github.com/JamesMGreene/Function.name). Alternatively, you may explicitly set the [`displayName`](/docs/react-component.html#displayname) property on all your components.
-
+> Tên thành phần được hiển thị trong dấu vết ngăn xếp phụ thuộc vào các
+> [`Function.name`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function/name)
+> tài sản. Nếu bạn hỗ trợ các trình duyệt và thiết bị cũ hơn có thể chưa cung cấp tính năng này (ví dụ: IE 11), hãy xem
+> xét đưa polyfill `Function.name` vào ứng dụng đi kèm của bạn, chẳng hạn
+> như [`function.name-polyfill`](https://github.com/JamesMGreene/Function.name). Ngoài ra, bạn có thể đặt rõ
+> ràng [`displayName`](/docs/react-component.html#displayname) tài sản trên tất cả các thành phần của bạn.
 
 ## How About try/catch? {#how-about-trycatch}
 
-`try` / `catch` is great but it only works for imperative code:
+`try` / `catch` thật tuyệt nhưng nó chỉ hoạt động đối với mã mệnh lệnh:
 
 ```js
 try {
@@ -116,21 +147,25 @@ try {
 }
 ```
 
-However, React components are declarative and specify *what* should be rendered:
+Tuy nhiên, các thành phần React là khai báo và chỉ định *những gì* sẽ được hiển thị
 
 ```js
-<Button />
+<Button/>
 ```
 
-Error boundaries preserve the declarative nature of React, and behave as you would expect. For example, even if an error occurs in a `componentDidUpdate` method caused by a `setState` somewhere deep in the tree, it will still correctly propagate to the closest error boundary.
+Các ranh giới lỗi bảo toàn bản chất khai báo của React và hoạt động như bạn mong đợi. Ví dụ: ngay cả khi lỗi xảy ra
+trong phương thức `componentDidUpdate` do` setState` ở đâu đó sâu trong cây, nó vẫn sẽ truyền chính xác đến ranh giới
+lỗi gần nhất.
 
 ## How About Event Handlers? {#how-about-event-handlers}
 
-Error boundaries **do not** catch errors inside event handlers.
+Ranh giới lỗi **không bắt lỗi** bên trong trình xử lý sự kiện.
 
-React doesn't need error boundaries to recover from errors in event handlers. Unlike the render method and lifecycle methods, the event handlers don't happen during rendering. So if they throw, React still knows what to display on the screen.
+React không cần ranh giới lỗi để khôi phục lỗi trong trình xử lý sự kiện. Không giống như phương thức kết xuất và phương
+thức vòng đời, trình xử lý sự kiện không xảy ra trong quá trình kết xuất. Vì vậy, nếu họ ném, React vẫn biết những gì sẽ
+hiển thị trên màn hình.
 
-If you need to catch an error inside an event handler, use the regular JavaScript `try` / `catch` statement:
+Nếu bạn cần bắt lỗi bên trong trình xử lý sự kiện, hãy sử dụng câu lệnh JavaScript thông thường `try` `catch`:
 
 ```js{9-13,17-20}
 class MyComponent extends React.Component {
@@ -157,10 +192,13 @@ class MyComponent extends React.Component {
 }
 ```
 
-Note that the above example is demonstrating regular JavaScript behavior and doesn't use error boundaries.
+Lưu ý rằng ví dụ trên thể hiện hành vi JavaScript thông thường và không sử dụng ranh giới lỗi.
 
 ## Naming Changes from React 15 {#naming-changes-from-react-15}
 
-React 15 included a very limited support for error boundaries under a different method name: `unstable_handleError`. This method no longer works, and you will need to change it to `componentDidCatch` in your code starting from the first 16 beta release.
+React 15 bao gồm một hỗ trợ rất hạn chế cho các ranh giới lỗi dưới một tên phương thức khác: `stable_handleError`.
+Phương pháp này không còn hoạt động nữa và bạn sẽ cần phải thay đổi nó thành `componentDidCatch` trong mã của mình bắt
+đầu từ bản phát hành 16 beta đầu tiên.
 
-For this change, we’ve provided a [codemod](https://github.com/reactjs/react-codemod#error-boundaries) to automatically migrate your code.
+Đối với thay đổi này, chúng tôi đã cung cấp [codemod](https://github.com/reactjs/react-codemod#error-boundaries) để tự
+động di chuyển mã của bạn.

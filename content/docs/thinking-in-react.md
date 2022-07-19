@@ -73,11 +73,7 @@ Sau khi kết thúc, bạn sẽ có những thư viện có thể tái sử dụ
 
 Tham khảo [tài liệu React](/docs/) nếu như bạn cần trợ giúp để thực hiện bước này.
 
-<<<<<<< HEAD
-### Bản tóm tắt ngắn gọn: Props và State {#a-brief-interlude-props-vs-state}
-=======
-Refer to the [React docs](/docs/getting-started.html) if you need help executing this step.
->>>>>>> 4133943e718a77f11627888db2f59f6cb7a73403
+Xem [React docs](/docs/getting-started.html) nếu bạn cần trợ giúp ở bước này.
 
 Có 2 kiểu "mô hình" dữ liệu trong React: props và state. Hiểu ra sự khác biệt giữa prop và state là điều rất quan trọng; Tham khảo [Những tài liệu từ React](/docs/state-and-lifecycle.html) nếu bạn thực sự không hiểu ra sự khác biệt đó. Xem thêm phần [FAQ: Sự khác nhau giữa prop và state là gì?](/docs/faq-state.html#what-is-the-difference-between-state-and-props)
 
@@ -142,11 +138,7 @@ React làm cho luồng dữ liệu trở nên rõ ràng và dễ hiểu hơn ch�
 
 Nếu bạn thử gõ hoặc lựa chọn giá trị trong ví dụ hiện thời, bạn sẽ thấy rằng React bỏ qua những giá trị đầu vào này. Điều này sảy ra có chủ ý, vì chúng ta gán `value` prop của `input` luôn luôn bằng với `state` truyền từ `FilterableProductTable`.
 
-<<<<<<< HEAD
 Hãy nghĩ xem chúng ta muốn thực hiện điều gì. Chúng ta muốn chắc chắn rằng khi nào người dùng thay đổi form, chúng ta cập nhật state dựa trên dữ liệu đầu vào. Vì những component chỉ nên cập nhật state cuả chúng, `FilterableProductTable` sẽ truyền vào callbacks tới `SearchBar` để kích hoạt mỗi khi dữ liệu cần cập nhật. Chúng ta có thể sử dụng sự kiện `onChange` trong input để nhận được thông báo. Callbacks truyền xuống bởi `FilterableProductTable` sẽ gọi hàm `setState()`, và ứng dụng sẽ được cập nhật.
-=======
-If you try to type or check the box in the previous version of the example (step 4), you'll see that React ignores your input. This is intentional, as we've set the `value` prop of the `input` to always be equal to the `state` passed in from `FilterableProductTable`.
->>>>>>> 4133943e718a77f11627888db2f59f6cb7a73403
 
 Mặc dù nó nghe phức tạp, nhưng thật ra chỉ cần vài dòng lệnh. Và nó chỉ ra rất rõ ràng luồng dữ liệu được truyền đi trong ứng dụng như thế nào.
 

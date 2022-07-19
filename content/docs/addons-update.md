@@ -19,13 +19,21 @@ var update = require('react-addons-update'); // ES5 with npm
 
 ## Overview {#overview}
 
-React lets you use whatever style of data management you want, including mutation. However, if you can use immutable data in performance-critical parts of your application it's easy to implement a fast [`shouldComponentUpdate()`](/docs/react-component.html#shouldcomponentupdate) method to significantly speed up your app.
+React cho phép bạn sử dụng bất kỳ kiểu quản lý dữ liệu nào bạn muốn, bao gồm cả đột biến. Tuy nhiên, nếu bạn có thể sử
+dụng dữ liệu không thay đổi trong các phần quan trọng về hiệu suất của ứng dụng, bạn có thể dễ dàng triển khai phương
+thức [`shouldComponentUpdate()'](/docs/react-component.html#shouldcomponentupdate) nhanh chóng để tăng tốc đáng kể ứng
+dụng của bạn.
 
-Dealing with immutable data in JavaScript is more difficult than in languages designed for it, like [Clojure](https://clojure.org/). However, we've provided a simple immutability helper, `update()`, that makes dealing with this type of data much easier, *without* fundamentally changing how your data is represented. You can also take a look at Facebook's [Immutable-js](https://facebook.github.io/immutable-js/docs/) and the [Advanced Performance](/docs/advanced-performance.html) section for more detail on Immutable-js.
+Xử lý dữ liệu bất biến trong JavaScript khó hơn so với các ngôn ngữ được thiết kế cho nó,
+như [Clojure](https://clojure.org/). Tuy nhiên, chúng tôi đã cung cấp một trình trợ giúp bất biến đơn giản, `update () '
+, giúp xử lý loại dữ
+liệu này dễ dàng hơn nhiều mà không làm thay đổi cơ bản cách dữ liệu của bạn được thể hiện. Bạn cũng có thể xem
+qua [Immutable-js](https://facebook.github.io/immutable-js/docs/) và
+phần [Advanced Performance](/docs/advanced-performance.html) để biết thêm chi tiết về Immutable-js.
 
 ### The Main Idea {#the-main-idea}
 
-If you mutate data like this:
+Nếu bạn thay đổi dữ liệu như thế này:
 
 ```js
 myData.x.y.z = 7;
@@ -33,7 +41,9 @@ myData.x.y.z = 7;
 myData.a.b.push(9);
 ```
 
-You have no way of determining which data has changed since the previous copy has been overwritten. Instead, you need to create a new copy of `myData` and change only the parts of it that need to be changed. Then you can compare the old copy of `myData` with the new one in `shouldComponentUpdate()` using triple-equals:
+Bạn không có cách nào xác định dữ liệu nào đã thay đổi kể từ khi bản sao trước đó đã bị ghi đè. Thay vào đó, bạn cần tạo
+một bản sao mới của `myData` và chỉ thay đổi những phần cần thay đổi của nó. Sau đó, bạn có thể so sánh bản sao cũ
+của `myData` với bản sao mới trong` shouldComponentUpdate()`bằng cách sử dụng triple-equals:
 
 ```js
 const newData = deepCopy(myData);
@@ -41,7 +51,9 @@ newData.x.y.z = 7;
 newData.a.b.push(9);
 ```
 
-Unfortunately, deep copies are expensive, and sometimes impossible. You can alleviate this by only copying objects that need to be changed and by reusing the objects that haven't changed. Unfortunately, in today's JavaScript this can be cumbersome:
+Thật không may, các bản sao sâu rất đắt, và đôi khi là không thể. Bạn có thể giảm bớt điều này bằng cách chỉ sao chép
+các đối tượng cần thay đổi và sử dụng lại các đối tượng chưa thay đổi. Thật không may, trong JavaScript ngày nay, điều
+này có thể phức tạp:
 
 ```js
 const newData = extend(myData, {
@@ -52,33 +64,38 @@ const newData = extend(myData, {
 });
 ```
 
-While this is fairly performant (since it only makes a shallow copy of `log n` objects and reuses the rest), it's a big pain to write. Look at all the repetition! This is not only annoying, but also provides a large surface area for bugs.
+Mặc dù điều này khá hiệu quả (vì nó chỉ tạo một bản sao nông của các đối tượng `log n` và sử dụng lại phần còn lại),
+nhưng đó là một vấn đề lớn khi viết. Nhìn vào tất cả các sự lặp lại! Điều này không chỉ gây khó chịu mà còn cung cấp một
+diện tích bề mặt lớn cho các lỗi.
 
 ## `update()` {#update}
 
-`update()` provides simple syntactic sugar around this pattern to make writing this code easier. This code becomes:
+`update()` cung cấp đường cú pháp đơn giản xung quanh mẫu này để giúp việc viết mã này dễ dàng hơn. Mã này trở thành:
 
 ```js
 import update from 'react-addons-update';
 
 const newData = update(myData, {
+  s
   x: {y: {z: {$set: 7}}},
   a: {b: {$push: [9]}}
 });
 ```
 
-While the syntax takes a little getting used to (though it's inspired by [MongoDB's query language](https://docs.mongodb.com/manual/crud/#query)) there's no redundancy, it's statically analyzable and it's not much more typing than the mutative version.
+Mặc dù cú pháp phải mất một chút thời gian để làm quen (mặc dù nó được lấy cảm hứng
+từ [MongoDB's query language](https://docs.mongodb.com/manual/crud/#query) không có sự dư thừa, nó có thể phân tích tĩnh
+và không phải gõ nhiều hơn phiên bản đột biến.
 
-The `$`-prefixed keys are called *commands*. The data structure they are "mutating" is called the *target*.
+Các khóa `$` -prefixed được gọi là *commands*. Cấu trúc dữ liệu mà chúng đang "mutating" được gọi là *target*.
 
 ## Available Commands {#available-commands}
 
-  * `{$push: array}` `push()` all the items in `array` on the target.
-  * `{$unshift: array}` `unshift()` all the items in `array` on the target.
-  * `{$splice: array of arrays}` for each item in `arrays` call `splice()` on the target with the parameters provided by the item.
-  * `{$set: any}` replace the target entirely.
-  * `{$merge: object}` merge the keys of `object` with the target.
-  * `{$apply: function}` passes in the current value to the function and updates it with the new returned value.
+* `{push: array}` `push ()` tất cả các mục trong `mảng` trên đích.
+* `{unshift: array}` `unshift ()` tất cả các mục trong `mảng` trên đích.
+* `{splice: mảng của mảng}` cho mỗi mục trong `mảng` gọi` splice () `trên đích với các tham số được cung cấp bởi mục.
+* `{set: any}` thay thế hoàn toàn mục tiêu.
+* `{merge: object}` hợp nhất các khóa của `object` với đích.
+* `{apply: function}` chuyển giá trị hiện tại vào hàm và cập nhật nó với giá trị trả về mới.
 
 ## Examples {#examples}
 
@@ -88,7 +105,8 @@ The `$`-prefixed keys are called *commands*. The data structure they are "mutati
 const initialArray = [1, 2, 3];
 const newArray = update(initialArray, {$push: [4]}); // => [1, 2, 3, 4]
 ```
-`initialArray` is still `[1, 2, 3]`.
+
+`initialArray` vẫn còn `[1, 2, 3]`.
 
 ### Nested collections {#nested-collections}
 
@@ -97,13 +115,21 @@ const collection = [1, 2, {a: [12, 17, 15]}];
 const newCollection = update(collection, {2: {a: {$splice: [[1, 1, 13, 14]]}}});
 // => [1, 2, {a: [12, 13, 14, 15]}]
 ```
-This accesses `collection`'s index `2`, key `a`, and does a splice of one item starting from index `1` (to remove `17`) while inserting `13` and `14`.
+
+Thao tác này truy cập chỉ mục `2`, khóa` a` của `bộ sưu tập` và thực hiện ghép nối một mục bắt đầu từ chỉ mục` 1` (để
+loại bỏ `17`) trong khi chèn` 13` và `14`.
 
 ### Updating a value based on its current one {#updating-a-value-based-on-its-current-one}
 
 ```js
 const obj = {a: 5, b: 3};
-const newObj = update(obj, {b: {$apply: function(x) {return x * 2;}}});
+const newObj = update(obj, {
+  b: {
+    $apply: function(x) {
+      return x * 2;
+    }
+  }
+});
 // => {a: 5, b: 6}
 // This is equivalent, but gets verbose for deeply nested collections:
 const newObj2 = update(obj, {b: {$set: obj.b * 2}});
