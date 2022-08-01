@@ -75,7 +75,11 @@ Các công cụ sau cung cấp nhiều sự lựa chọn và linh hoạt hơn. C
 
 - **[Nx](https://nx.dev/react)** là một bộ công cụ để phát triển full-stack monorepo, với hỗ trợ tích hợp cho React, Next.js, [Express](https://expressjs.com/), và nhiều hơn nữa.
 
+<<<<<<< HEAD
 - **[Parcel](https://parceljs.org/)** là một gói ứng dụng web nhanh, không cấu hình [hoạt động với React](https://parceljs.org/recipes.html#react).
+=======
+- **[Parcel](https://parceljs.org/)** is a fast, zero configuration web application bundler that [works with React](https://parceljs.org/recipes/react/).
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 - **[Razzle](https://github.com/jaredpalmer/razzle)** là một framework kết xuất máy chủ không yêu cầu bất kỳ cấu hình nào, nhưng cung cấp tính linh hoạt hơn Next.js.
 

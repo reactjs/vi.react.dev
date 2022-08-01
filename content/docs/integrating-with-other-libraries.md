@@ -190,9 +190,15 @@ class Chosen extends React.Component {
 
 ## Tích hợp những thư viện View khác {#integrating-with-other-view-libraries}
 
+<<<<<<< HEAD
 React có thể được thêm vào bên trong các ứng dụng khác nhờ vào sự linh hoạt của [`ReactDOM.render()`](/docs/react-dom.html#render).
 
 Mặc dù React thường được sử dụng ban đầu để thêm một component root vào DOM, `ReactDOM.render()` cũng có thể được gọi nhiều lần với những phần UI độc lập, ví dụ những thành phần nhỏ như một button, hoặc lớn như một ứng dụng.
+=======
+React can be embedded into other applications thanks to the flexibility of [`createRoot()`](/docs/react-dom-client.html#createRoot).
+
+Although React is commonly used at startup to load a single root React component into the DOM, `createRoot()` can also be called multiple times for independent parts of the UI which can be as small as a button, or as large as an app.
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 Thực tế, đây là chính xác cách mà React được sử dụng trong Facebook. Nó để chúng tôi viết từng phần nhỏ của ứng dụng bằng React, và kết hợp chúng với những template được tạo bởi server có sẵn của chúng tôi và những đoạn code khác trên phần client.
 
@@ -216,15 +222,9 @@ function Button() {
   return <button id="btn">Say Hello</button>;
 }
 
-ReactDOM.render(
-  <Button />,
-  document.getElementById('container'),
-  function() {
-    $('#btn').click(function() {
-      alert('Hello!');
-    });
-  }
-);
+$('#btn').click(function() {
+  alert('Hello!');
+});
 ```
 
 Từ đây bạn có thể bắt đầu sử dụng nhiều logic hơn với component và áp dụng nhiều React practice hơn. Ví dụ, trong những component, việc không phụ thuộc vào ID là tốt nhất bởi vì một component tương tự không thể được render nhiều lần. Thay vào đó, chúng tôi sử dụng [React event system](/docs/handling-events.html) và xử lý sự kiện click trực tiếp trên phần tử `<button>`:
@@ -240,36 +240,42 @@ function HelloButton() {
   }
   return <Button onClick={handleClick} />;
 }
-
-ReactDOM.render(
-  <HelloButton />,
-  document.getElementById('container')
-);
 ```
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/RVKbvW?editors=1010)
 
+<<<<<<< HEAD
 Bạn có thể có nhiều component riêng biệt nhiều như ý bạn mong muốn, và sử dụng `ReactDOM.render()` để render chúng trên những DOM container khác nhau. Dần dần, khi bạn chuyển các ứng dụng của bạn sang React, bạn sẽ có thể kết hợp nó thành những components lớn hơn, và sử dụng `ReactDOM.render()` theo một hệ thống phân cấp.
+=======
+You can have as many such isolated components as you like, and use `ReactDOM.createRoot()` to render them to different DOM containers. Gradually, as you convert more of your app to React, you will be able to combine them into larger components, and move some of the `ReactDOM.createRoot()` calls up the hierarchy.
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 ### Thêm React vào một Backbone View {#embedding-react-in-a-backbone-view}
 
 [Backbone](https://backbonejs.org/) view đặc trưng sử dụng HTML string, hoặc các hàm string-producing template để tạo nội dung cho các phần tử DOM của nó. Quá trình này, cũng có thể được thay thế bằng việc render một component React.
 
+<<<<<<< HEAD
 Dưới đây, chúng ta sẽ tạo một Backbone view gọi là `ParagraphView`. Chúng ta sẽ ghi đè lên function `render()` của Backbone để render một component `<Paragraph>` vào phần tử DOM được cung cấp bởi Backbone (`this.el`). Ở đây, chúng ta cũng sử dụng [`ReactDOM.render()`](/docs/react-dom.html#render):
+=======
+Below, we will create a Backbone view called `ParagraphView`. It will override Backbone's `render()` function to render a React `<Paragraph>` component into the DOM element provided by Backbone (`this.el`). Here, too, we are using [`ReactDOM.createRoot()`](/docs/react-dom-client.html#createroot):
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
-```js{1,5,8,12}
+```js{7,11,15}
 function Paragraph(props) {
   return <p>{props.text}</p>;
 }
 
 const ParagraphView = Backbone.View.extend({
+  initialize(options) {
+    this.reactRoot = ReactDOM.createRoot(this.el);
+  },
   render() {
     const text = this.model.get('text');
-    ReactDOM.render(<Paragraph text={text} />, this.el);
+    this.reactRoot.render(<Paragraph text={text} />);
     return this;
   },
   remove() {
-    ReactDOM.unmountComponentAtNode(this.el);
+    this.reactRoot.unmount();
     Backbone.View.prototype.remove.call(this);
   }
 });
@@ -277,7 +283,11 @@ const ParagraphView = Backbone.View.extend({
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/gWgOYL?editors=0010)
 
+<<<<<<< HEAD
 Một điều quan trọng là chúng ta cũng gọi `ReactDOM.unmountComponentAtNode()` trong method `remove` để React có thể xóa các hàm xử lý sự kiện và những tài nguyên khác liên quan tới component tree khi bị loại bỏ.
+=======
+It is important that we also call `root.unmount()` in the `remove` method so that React unregisters event handlers and other resources associated with the component tree when it is detached.
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 Khi một component bị loại bỏ *từ bên trong* một React tree, việc cleanup được thực hiện một cách tự động, nhưng bởi vì chúng ta đang loại bỏ toàn bộ tree một cách thủ công, nên chúng ta phải gọi method này.
 
@@ -428,10 +438,8 @@ function Example(props) {
 }
 
 const model = new Backbone.Model({ firstName: 'Frodo' });
-ReactDOM.render(
-  <Example model={model} />,
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Example model={model} />);
 ```
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/PmWwwa?editors=0010)

@@ -15,12 +15,22 @@ Bạn có thể bật chế độ StrictMode cho bất kỳ phần nào trong �
 
 Trong ví dụ trên, các kiểm tra StrictMode *không* chạy trên component `Header` và `Footer`. Tuy nhiên, `ComponentOne` và `ComponentTwo`, cũng như tất cả các component con sẽ có các kiểm tra.
 
+<<<<<<< HEAD
 `StrictMode` hiện tại hỗ trợ:
 * [Xác định các thành phần có lifecycle không an toàn](#identifying-unsafe-lifecycles)
 * [Cảnh báo về việc sử dụng API tham chiếu chuỗi kiểu cũ](#warning-about-legacy-string-ref-api-usage)
 * [Cảnh báo về việc sử dụng findDOMNode không còn dùng nữa](#warning-about-deprecated-finddomnode-usage)
 * [Phát hiện các side-effects không mong muốn](#detecting-unexpected-side-effects)
 * [Phát hiện Context API cũ](#detecting-legacy-context-api)
+=======
+`StrictMode` currently helps with:
+* [Identifying components with unsafe lifecycles](#identifying-unsafe-lifecycles)
+* [Warning about legacy string ref API usage](#warning-about-legacy-string-ref-api-usage)
+* [Warning about deprecated findDOMNode usage](#warning-about-deprecated-finddomnode-usage)
+* [Detecting unexpected side effects](#detecting-unexpected-side-effects)
+* [Detecting legacy context API](#detecting-legacy-context-api)
+* [Ensuring reusable state](#ensuring-reusable-state)
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 Chức năng bổ sung sẽ được thêm vào với các bản phát hành React trong tương lai.
 
@@ -118,7 +128,13 @@ Bằng các phương thức gọi kép có chủ ý như hàm tạo của compon
 
 > Ghi chú:
 >
+<<<<<<< HEAD
 > Bắt đầu từ React 17, React tự động sửa đổi các phương thức trong console như `console.log()` để tắt logs trong lần gọi thứ hai đến các hàm lifecycle. Tuy nhiên, nó có thể gây ra hành vi không mong muốn trong một số trường hợp nhất định [có thể sử dụng giải pháp thay thế](https://github.com/facebook/react/issues/20090#issuecomment-715927125).
+=======
+> In React 17, React automatically modifies the console methods like `console.log()` to silence the logs in the second call to lifecycle functions. However, it may cause undesired behavior in certain cases where [a workaround can be used](https://github.com/facebook/react/issues/20090#issuecomment-715927125).
+>
+> Starting from React 18, React does not suppress any logs. However, if you have React DevTools installed, the logs from the second call will appear slightly dimmed. React DevTools also offers a setting (off by default) to suppress them completely.
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 ### Phát hiện Context API cũ {#detecting-legacy-context-api}
 
@@ -126,4 +142,64 @@ Context API cũ dễ xảy ra lỗi và sẽ bị xóa trong phiên bản chính
 
 ![](../images/blog/warn-legacy-context-in-strict-mode.png)
 
+<<<<<<< HEAD
 Đọc [tài liệu Context API mới](/docs/context.html) để giúp chuyển sang phiên bản mới.
+=======
+Read the [new context API documentation](/docs/context.html) to help migrate to the new version.
+
+
+### Ensuring reusable state {#ensuring-reusable-state}
+
+In the future, we’d like to add a feature that allows React to add and remove sections of the UI while preserving state. For example, when a user tabs away from a screen and back, React should be able to immediately show the previous screen. To do this, React support remounting trees using the same component state used before unmounting.
+
+This feature will give React better performance out-of-the-box, but requires components to be resilient to effects being mounted and destroyed multiple times. Most effects will work without any changes, but some effects do not properly clean up subscriptions in the destroy callback, or implicitly assume they are only mounted or destroyed once.
+
+To help surface these issues, React 18 introduces a new development-only check to Strict Mode. This new check will automatically unmount and remount every component, whenever a component mounts for the first time, restoring the previous state on the second mount.
+
+To demonstrate the development behavior you'll see in Strict Mode with this feature, consider what happens when React mounts a new component. Without this change, when a component mounts, React creates the effects:
+
+```
+* React mounts the component.
+  * Layout effects are created.
+  * Effects are created.
+```
+
+With Strict Mode starting in React 18, whenever a component mounts in development, React will simulate immediately unmounting and remounting the component:
+
+```
+* React mounts the component.
+    * Layout effects are created.
+    * Effect effects are created.
+* React simulates effects being destroyed on a mounted component.
+    * Layout effects are destroyed.
+    * Effects are destroyed.
+* React simulates effects being re-created on a mounted component.
+    * Layout effects are created
+    * Effect setup code runs
+```
+
+On the second mount, React will restore the state from the first mount. This feature simulates user behavior such as a user tabbing away from a screen and back, ensuring that code will properly handle state restoration.
+
+When the component unmounts, effects are destroyed as normal:
+
+```
+* React unmounts the component.
+  * Layout effects are destroyed.
+  * Effect effects are destroyed.
+```
+
+Unmounting and remounting includes:
+
+- `componentDidMount`
+- `componentWillUnmount`
+- `useEffect`
+- `useLayoutEffect`
+- `useInsertionEffect`
+
+> Note:
+>
+> This only applies to development mode, _production behavior is unchanged_.
+
+For help supporting common issues, see:
+  - [How to support Reusable State in Effects](https://github.com/reactwg/react-18/discussions/18)
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb

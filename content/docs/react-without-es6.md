@@ -134,7 +134,11 @@ var SayHello = createReactClass({
 
 Điều này có nghĩa là viết các ES6 class đi kèm với một chút code soạn sẵn cho các trình xử lý event, nhưng mặt trái của nó là performance tốt hơn một chút trong các ứng dụng lớn.
 
+<<<<<<< HEAD
 Nếu code soạn sẵn quá không hấp dẫn đối với bạn, bạn có thể bật **experimental** [Class Properties](https://babeljs.io/docs/plugins/transform-class-properties/) syntax proposal với Babel:
+=======
+If the boilerplate code is too unattractive to you, you may use [ES2022 Class Properties](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Classes/Public_class_fields#public_instance_fields) syntax:
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 
 ```javascript
@@ -143,11 +147,11 @@ class SayHello extends React.Component {
     super(props);
     this.state = {message: 'Hello!'};
   }
-  // WARNING: this syntax is experimental!
+  
   // Using an arrow here binds the method:
   handleClick = () => {
     alert(this.state.message);
-  }
+  };
 
   render() {
     return (
@@ -159,9 +163,13 @@ class SayHello extends React.Component {
 }
 ```
 
+<<<<<<< HEAD
 Xin lưu ý rằng cú pháp ở trên là **experimental** và cú pháp có thể thay đổi, hoặc đề xuất có thể không biến nó thành ngôn ngữ.
 
 Nếu bạn muốn an toàn hơn, bạn có thể có một số lựa chọn bên dưới:
+=======
+You also have a few other options:
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 * Bind methods bên trong constructor.
 * Sử dụng arrow functions, e.g. `onClick={(e) => this.handleClick(e)}`.
@@ -216,10 +224,8 @@ var TickTock = createReactClass({
   }
 });
 
-ReactDOM.render(
-  <TickTock />,
-  document.getElementById('example')
-);
+const root = ReactDOM.createRoot(document.getElementById('example'));
+root.render(<TickTock />);
 ```
 
 Nếu một component đang sử dụng nhiều mixin và một số mixin xác định cùng một lifecycle method (tức là một số mixin muốn thực hiện một số dọn dẹp khi component bị phá hủy), tất cả các lifecycle method được đảm bảo sẽ được gọi. Các method được xác định trên các mixin chạy theo thứ tự các mixin được liệt kê, theo sau là một lệnh gọi method trên component.

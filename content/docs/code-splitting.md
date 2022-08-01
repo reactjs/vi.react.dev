@@ -84,11 +84,15 @@ Khi sử dụng [Babel](https://babeljs.io/), bạn sẽ cần phải chắc ch�
 
 ## `React.lazy` {#reactlazy}
 
+<<<<<<< HEAD
 > Chú ý:
 >
 > `React.lazy` và Suspense chưa có sẵn cho server-side rendering. Nếu bạn muốn phân chia code ở những ứng dụng render tại server, chúng tôi xin giới thiệu [Loadable Components](https://github.com/gregberge/loadable-components). Nó có [hướng dẫn phân chia code với server-side rendering](https://loadable-components.com/docs/server-side-rendering/).
 
 Chức năng `React.lazy` cho phép bạn render một import động như một component bình thường.
+=======
+The `React.lazy` function lets you render a dynamic import as a regular component.
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 **Trước:**
 
@@ -146,6 +150,52 @@ function MyComponent() {
 }
 ```
 
+### Avoiding fallbacks {#avoiding-fallbacks}
+Any component may suspend as a result of rendering, even components that were already shown to the user. In order for screen content to always be consistent, if an already shown component suspends, React has to hide its tree up to the closest `<Suspense>` boundary. However, from the user's perspective, this can be disorienting.
+
+Consider this tab switcher:
+
+```js
+import React, { Suspense } from 'react';
+import Tabs from './Tabs';
+import Glimmer from './Glimmer';
+
+const Comments = React.lazy(() => import('./Comments'));
+const Photos = React.lazy(() => import('./Photos'));
+
+function MyComponent() {
+  const [tab, setTab] = React.useState('photos');
+  
+  function handleTabSelect(tab) {
+    setTab(tab);
+  };
+
+  return (
+    <div>
+      <Tabs onTabSelect={handleTabSelect} />
+      <Suspense fallback={<Glimmer />}>
+        {tab === 'photos' ? <Photos /> : <Comments />}
+      </Suspense>
+    </div>
+  );
+}
+
+```
+
+In this example, if tab gets changed from `'photos'` to `'comments'`, but `Comments` suspends, the user will see a glimmer. This makes sense because the user no longer wants to see `Photos`, the `Comments` component is not ready to render anything, and React needs to keep the user experience consistent, so it has no choice but to show the `Glimmer` above.
+
+However, sometimes this user experience is not desirable. In particular, it is sometimes better to show the "old" UI while the new UI is being prepared. You can use the new [`startTransition`](/docs/react-api.html#starttransition) API to make React do this:
+
+```js
+function handleTabSelect(tab) {
+  startTransition(() => {
+    setTab(tab);
+  });
+}
+```
+
+Here, you tell React that setting tab to `'comments'` is not an urgent update, but is a [transition](/docs/react-api.html#transitions) that may take some time. React will then keep the old UI in place and interactive, and will switch to showing `<Comments />` when it is ready. See [Transitions](/docs/react-api.html#transitions) for more info.
+
 ### Error boundaries {#error-boundaries}
 
 Nếu `OtherComponent` không thể tải lên (Ví dụ, lỗi mạng), nó sẽ kích hoạt lỗi. Bạn có thể điều khiển những lỗi đó để hiển thị một trải nghiệm người dùng tốt hơn và quản lý phục hồi với [Error Boundaries](/docs/error-boundaries.html). Một khi bạn đã tạo Error Boundary, bạn có thể sử dụng nó bất kỳ nơi nào bên trên lazy components của bạn để hiển thị thông báo lỗi khi có sự cố về mạng.
@@ -177,11 +227,15 @@ Việc quyết định nơi nào cần phân chia code trong ứng dụng của 
 
 Một nơi tốt để bắt đầu là với routes. Hầu hết mọi người trên web đã quen với việc chuyển trang sẽ mất một khoảng thời gian nhất định. Bạn cũng có xu hướng render lại cả trang cùng một lần để ngăn người dùng không tương tác với những elements khác trong trang cùng một lúc.
 
+<<<<<<< HEAD
 Đây là một ví dụ hướng dẫn cách cài đặt ứng dụng của bạn phân chia code dựa trên route bằng cách sử dụng những thư viện như [React Router](https://reacttraining.com/react-router/) with `React.lazy`.
+=======
+Here's an example of how to setup route-based code splitting into your app using libraries like [React Router](https://reactrouter.com/) with `React.lazy`.
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 ```js
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 const Home = lazy(() => import('./routes/Home'));
 const About = lazy(() => import('./routes/About'));
@@ -189,10 +243,10 @@ const About = lazy(() => import('./routes/About'));
 const App = () => (
   <Router>
     <Suspense fallback={<div>Loading...</div>}>
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route path="/about" component={About}/>
-      </Switch>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </Suspense>
   </Router>
 );

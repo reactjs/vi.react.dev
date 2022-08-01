@@ -32,10 +32,15 @@ Bản thân reconciler không có API mở (public API). [Các phần render](/d
 Hãy nhìn lại lần đầu tiên chúng ta mount một component:
 
 ```js
-ReactDOM.render(<App />, rootEl);
+const root = ReactDOM.createRoot(rootEl);
+root.render(<App />);
 ```
 
+<<<<<<< HEAD
 React DOM sẽ đưa `<App />` đến reconciler. Hãy nhớ rằng `<App />` là một phần tử của React, nghĩa là, nó miêu tả *cái gì* được render. Bạn có thể xem nó như là một object thuần:
+=======
+`root.render` will pass `<App />` along to the reconciler. Remember that `<App />` is a React element, that is, a description of *what* to render. You can think about it as a plain object:
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 ```js
 console.log(<App />);
@@ -236,9 +241,15 @@ Cách làm này vẫn dùng được nhưng còn xa so với cách reconciler th
 Tính năng then chốt của React là bạn có thể render lại mọi thứ, và nó sẽ không tạo lại DOM hay đặt lại trạng thái (state):
 
 ```js
+<<<<<<< HEAD
 ReactDOM.render(<App />, rootEl);
 // DOM có sẵn nên được sử dụng lại:
 ReactDOM.render(<App />, rootEl);
+=======
+root.render(<App />);
+// Should reuse the existing DOM:
+root.render(<App />);
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 ```
 
 Tuy nhiên, cách thực thi ở trên chỉ mount cây được tạo đầu tiên. Nó không thể thực hiện việc cập nhật trên cây đó vì nó không có những thông tin cần thiết, ví dụ như các `publicInstance`, hay `node` DOM nào tương ứng với component nào.
@@ -412,7 +423,11 @@ Nếu bạn gặp khó khăn trong việc hình dung một cây cấu trúc th�
 
  <img src="../images/docs/implementation-notes-tree.png" width="500" style="max-width: 100%" alt="React DevTools tree" />
 
+<<<<<<< HEAD
 Để hoàn thành việc cấu trúc lại `mountHost()`, chúng tôi sẽ giới thiệu một hàm thực hiện việc mount một cây hoàn chỉnh và một node cha chứa nó, như hàm `ReactDOM.render()`. Cũng như `ReactDOM.render()`, nó trả về một thực thể chung:
+=======
+To complete this refactoring, we will introduce a function that mounts a complete tree into a container node and a public instance:
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 ```js
 function mountTree(element, containerNode) {

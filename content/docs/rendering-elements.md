@@ -34,11 +34,15 @@ Chúng tôi gọi cái này là một nốt (node) DOM gốc "root" bởi về m
 
 Các ứng dụng đã xây dựng với React thường có duy nhất một nốt (node) DOM "gốc" (root). Nếu bạn kết hợp React vào trong một ứng dụng đã tồn tại, bạn có thể có nhiều "nốt" (node) DOM gốc "bị cô lập" (isolated) như bạn muốn.
 
+<<<<<<< HEAD
 Để render một React element vào bên trong một "nốt" (node) DOM gốc, truyền tất cả vào [`ReactDOM.render()`](/docs/react-dom.html#render):
+=======
+To render a React element, first pass the DOM element to [`ReactDOM.createRoot()`](/docs/react-dom-client.html#createroot), then pass the React element to `root.render()`:
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 `embed:rendering-elements/render-an-element.js`
 
-[](codepen://rendering-elements/render-an-element)
+**[Try it on CodePen](https://codepen.io/gaearon/pen/ZpvBNJ?editors=1010)**
 
 Ví dụ trên hiển thị dòng chữ "Hello, world" trên trang web.
 
@@ -46,19 +50,31 @@ Ví dụ trên hiển thị dòng chữ "Hello, world" trên trang web.
 
 Các React element là [bất biến](https://vi.wikipedia.org/wiki/%C4%90%E1%BB%91i_t%C6%B0%E1%BB%A3ng_b%E1%BA%A5t_bi%E1%BA%BFn). Một khi bạn tạo ra một element, bạn không thể thay đổi các "con" (children) hoặc các "thuộc tính" (attribute) của nó. Một element giống như một khung hình duy nhất trong một bộ phim: nó đại diện cho "giao diện" (UI) tại một thời điểm nhất định.
 
+<<<<<<< HEAD
 Với sự hiểu biết của chúng tôi cho đến thời điểm này, thì chỉ có một cách duy nhất để cập nhật "giao diện" (UI) đó là tạo ra một element mới và truyền nó vào [`ReactDOM.render()`](/docs/react-dom.html#render).
+=======
+With our knowledge so far, the only way to update the UI is to create a new element, and pass it to `root.render()`.
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 Hãy xem xét ví dụ đồng hồ "đánh dấu" (tick) này:
 
 `embed:rendering-elements/update-rendered-element.js`
 
-[](codepen://rendering-elements/update-rendered-element)
+**[Try it on CodePen](https://codepen.io/gaearon/pen/gwoJZk?editors=1010)**
 
+<<<<<<< HEAD
 Nó gọi [`ReactDOM.render()`](/docs/react-dom.html#render) mỗi giây từ một "lời gọi lại" (callback) [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval).
+=======
+It calls [`root.render()`](/docs/react-dom.html#render) every second from a [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval) callback.
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 >**Ghi chú:**
 >
+<<<<<<< HEAD
 >Trong thực tế, hầu hết các ứng dụng React chỉ gọi [`ReactDOM.render()`](/docs/react-dom.html#render) một lần duy nhất. Trong những phần tiếp theo, chúng ta sẽ tìm hiểu làm thế nào để "mã" (code) được đóng gói vào ["những component có trạng thái" (stateful components)](/docs/state-and-lifecycle.html).
+=======
+>In practice, most React apps only call `root.render()` once. In the next sections we will learn how such code gets encapsulated into [stateful components](/docs/state-and-lifecycle.html).
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 >
 >Chúng tôi khuyên bạn đừng bỏ qua các "chủ đề" (topic) vì chúng có tính xây dựng lẫn nhau.
 
@@ -66,7 +82,11 @@ Nó gọi [`ReactDOM.render()`](/docs/react-dom.html#render) mỗi giây từ m�
 
 React DOM so sánh element và các thành phần con của nó với cái trước đó, và chỉ áp dụng những cập nhật DOM cần thiết để đưa DOM đến trạng thái được mong muốn.
 
+<<<<<<< HEAD
 Bạn có thể xác minh điều trên bằng cách kiểm tra [ví dụ cuối](codepen://rendering-elements/update-rendered-element) với các công cụ của trình duyệt:
+=======
+You can verify by inspecting the [last example](https://codepen.io/gaearon/pen/gwoJZk?editors=1010) with the browser tools:
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 ![DOM inspector showing granular updates](../images/docs/granular-dom-updates.gif)
 !["thanh kiểm tra" (inspector) DOM chỉ ra những cập nhật cần thiết](../images/docs/granular-dom-updates.gif)

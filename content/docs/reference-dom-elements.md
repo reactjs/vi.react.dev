@@ -117,7 +117,11 @@ Một component có component con được đánh dấu là `contentEditable` s�
 
 Nếu bạn sử dụng server-side rendering, thông thường sẽ có một cảnh báo khi nội dung được render trên server khác với client. Tuy nhiên, trong một vài trường hợp, rất khó để đảm báo server và client trùng khớp với nhau ví dụ như render timestamp.
 
+<<<<<<< HEAD
 Nếu bạn để `suppressHydrationWarning` là `true`, React sẽ không cảnh báo về những sự không trùng khớp trong những thuộc tính và nội dung của element đó. Nó chỉ hoạt động một cấp, và được dự định sử dụng như một lối thoát. Đừng lạm dụng nó. Bạn có thể xem thêm về hydration tại [`ReactDOM.hydrate()`](/docs/react-dom.html#hydrate).
+=======
+If you set `suppressHydrationWarning` to `true`, React will not warn you about mismatches in the attributes and the content of that element. It only works one level deep, and is intended to be used as an escape hatch. Don't overuse it. You can read more about hydration in the [`ReactDOM.hydrateRoot()` documentation](/docs/react-dom-client.html#hydrateroot).
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 ### value {#value}
 

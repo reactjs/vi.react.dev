@@ -231,7 +231,11 @@ Nhìn chung, chúng tôi không khuyến khích việc *không* truyền giá tr
 
 ### Spread Attributes {#spread-attributes}
 
+<<<<<<< HEAD
 Nếu bạn đã có một `props` là một object, và bạn muốn truyền nó trong JSX, bạn có thể sử dụng `...` như một toán tử "spread" để truyền toàn bộ props object. Hai component bên dưới là tương đương:
+=======
+If you already have `props` as an object, and you want to pass it in JSX, you can use `...` as a "spread" syntax to pass the whole props object. These two components are equivalent:
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 ```js{7}
 function App1() {
@@ -244,7 +248,11 @@ function App2() {
 }
 ```
 
+<<<<<<< HEAD
 Bạn cũng có thể chọn một vài props mà component của bạn sẽ sử dụng trong khi truyền toàn bộ những props còn lại sử dụng toán tử spread.
+=======
+You can also pick specific props that your component will consume while passing all other props using the spread syntax.
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 ```js{2}
 const Button = props => {

@@ -403,7 +403,11 @@ Hãy chắc chắn rằng tất cả đoạn text trong website của bạn có 
 - [Tất cả mọi thứ về độ tương phản màu sắc và tại sao chúng ta phải suy nghĩ lại về nó](https://www.smashingmagazine.com/2014/10/color-contrast-tips-and-tools-for-accessibility/)
 - [A11yProject - Độ tương phản màu sắc là gì](http://a11yproject.com/posts/what-is-color-contrast/)
 
+<<<<<<< HEAD
 Thật tẻ nhạt khi phải tính toán màu sắc thủ công cho tất cả trường hợp trong website của bạn, thay vào đó, bạn có thể [tính toán tất cả màu sắc bằng Colorable](https://jxnblk.com/colorable/).
+=======
+It can be tedious to manually calculate the proper color combinations for all cases in your website so instead, you can [calculate an entire accessible color palette with Colorable](https://colorable.jxnblk.com/).
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 Cả 2 công cụ aXe và WAVE được đề cập bên dưới đều bao gồm bộ tests kiểm tra độ tương phản màu sắc, chúng sẽ báo cáo những lỗi liên quan.
 

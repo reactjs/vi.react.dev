@@ -43,8 +43,8 @@ Hãy nhớ rằng điều này chỉ cần thiết trước khi deploy lên prod
 Chúng tôi cung cấp các phiên bản production-ready của React và React DOM dưới dạng các single file:
 
 ```html
-<script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 ```
 
 Hãy nhớ rằng chỉ các file React kết thúc bằng `.production.min.js` mới phù hợp cho production.
@@ -175,8 +175,13 @@ Nếu bạn chưa cài đặt React DevTools, bạn có thể tìm thấy chúng
 
 > Ghi chú
 >
+<<<<<<< HEAD
 > Trước phiên bản React 17, chúng tôi sử dụng [User Timing API](https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API) để cấu hình các component với chrome performance tab.
 > Để được hướng dẫn chi tiết hơn, hãy xem [bài viết này của Ben Schwarz](https://calibreapp.com/blog/react-performance-profiling-optimization).
+=======
+> Before React 17, we use the standard [User Timing API](https://developer.mozilla.org/en-US/docs/Web/API/User_Timing_API) to profile components with the chrome performance tab.
+> For a more detailed walkthrough, check out [this article by Ben Schwarz](https://calibreapp.com/blog/react-performance-profiling-optimization).
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 ## Virtualize Long Lists {#virtualize-long-lists}
 

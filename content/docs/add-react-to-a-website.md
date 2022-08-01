@@ -25,7 +25,11 @@ Trong phần này, chúng tôi sẽ trình bày về cách làm thế nào để
 
 Sẽ không cần đến các công cụ phức tạp hoặc các cài đặt khác -- **để hoàn thiện phần này, bạn chỉ cần kết nối mạng internet, và một khoảng thời gian tầm một phút.**
 
+<<<<<<< HEAD
 Tuỳ chọn: [Tải xuống ví dụ đầy đủ (2KB zipped)](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605/archive/f6c882b6ae18bde42dcf6fdb751aae93495a2275.zip)
+=======
+Optional: [Download the full example (2KB zipped)](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605/archive/87f0b6f34238595b44308acfb86df6ea43669c08.zip)
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 ### Bước 1: Thêm DOM Container vào HTML {#step-1-add-a-dom-container-to-the-html}
 
@@ -54,8 +58,8 @@ Tiếp theo, thêm ba thẻ `<script>` vào trang HTML ngay trước thẻ đón
 
   <!-- Load React. -->
   <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 
   <!-- Load our React component. -->
   <script src="like_button.js"></script>
@@ -75,16 +79,28 @@ Mở **[đoạn code khởi tạo sau](https://gist.github.com/gaearon/0b180827c
 >
 >Đoạn code này định nghĩa một React component gọi là `LikeButton`. Đừng lo lắng nếu bạn không hiểu nó ngay lập tức -- chúng tôi sẽ giải thích về building blocks của React trong phần [hands-on tutorial](/tutorial/tutorial.html) của chúng tôi và [hướng dẫn các khái niệm chính](/docs/hello-world.html). Còn bây giờ, hãy cùng hiển thị chúng trên màn hình!
 
+<<<<<<< HEAD
 Sau **[đoạn code khởi tạo](https://gist.github.com/gaearon/0b180827c190fe4fd98b4c7f570ea4a8/raw/b9157ce933c79a4559d2aa9ff3372668cce48de7/LikeButton.js)**, thêm 2 dòng vào cuối file `like_button.js`:
 
 ```js{3,4}
 // ... Đoạn code khởi tạo bạn vừa dán ...
+=======
+After **[the starter code](https://gist.github.com/gaearon/0b180827c190fe4fd98b4c7f570ea4a8/raw/b9157ce933c79a4559d2aa9ff3372668cce48de7/LikeButton.js)**, add three lines to the bottom of `like_button.js`:
+
+```js{3,4,5}
+// ... the starter code you pasted ...
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 const domContainer = document.querySelector('#like_button_container');
-ReactDOM.render(e(LikeButton), domContainer);
+const root = ReactDOM.createRoot(domContainer);
+root.render(e(LikeButton));
 ```
 
+<<<<<<< HEAD
 Hai dòng code này tìm thẻ `<div>` mà chúng ta đã thêm vào trang HTML ở bước đầu tiên, và sau đó hiển thị nút "Like" - một React component bên trong div ở trên.
+=======
+These three lines of code find the `<div>` we added to our HTML in the first step, create a React app with it, and then display our "Like" button React component inside of it.
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 ### Và đó là tất cả những gì cần làm! {#thats-it}
 
@@ -94,7 +110,11 @@ Chuyển qua phần tiếp theo với nhiều tips hơn trong việc tích hợp
 
 **[Xem toàn bộ source code của ví dụ](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605)**
 
+<<<<<<< HEAD
 **[Tải xuống đầy đủ ví dụ (2KB zipped)](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605/archive/f6c882b6ae18bde42dcf6fdb751aae93495a2275.zip)**
+=======
+**[Download the full example (2KB zipped)](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605/archive/87f0b6f34238595b44308acfb86df6ea43669c08.zip)**
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 ### Tip: Tái sử dụng một component {#tip-reuse-a-component}
 
@@ -102,7 +122,11 @@ Thông thường, có thể bạn muốn hiển thị các React components tron
 
 [Xem toàn bộ source code của ví dụ](https://gist.github.com/gaearon/faa67b76a6c47adbab04f739cba7ceda)
 
+<<<<<<< HEAD
 [Tải xuống đầy đủ ví dụ (2KB zipped)](https://gist.github.com/gaearon/faa67b76a6c47adbab04f739cba7ceda/archive/9d0dd0ee941fea05fd1357502e5aa348abb84c12.zip)
+=======
+[Download the full example (2KB zipped)](https://gist.github.com/gaearon/faa67b76a6c47adbab04f739cba7ceda/archive/279839cb9891bd41802ebebc5365e9dec08eeb9f.zip)
+>>>>>>> 8223159395aae806f8602de35e6527d35260acfb
 
 >Ghi chú
 >
@@ -115,8 +139,8 @@ Trước khi deploy website của bạn lên môi trường production, hãy ch�
 Nếu bạn đã nén các scripts của ứng dụng, **trang của bạn sẽ sẵn sàng để được deploy lên môi trường production** nếu bạn đảm bảo rằng HTML đã deploy sẽ tải phiên bản của React được chứa trong file `production.min.js`:
 
 ```js
-<script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 ```
 
 Nếu bạn không có bước nén - thu nhỏ cho scripts, thì [đây là một cách thiết lập](https://gist.github.com/gaearon/42a2ffa41b8319948f9be4076286e1f3).
@@ -183,7 +207,7 @@ Chúc mừng! Bạn vừa thêm **production-ready JSX setup** cho project của
 
 Tạo một thư mục có tên là `src` và chạy câu lệnh terminal sau đây:
 
-```
+```console
 npx babel --watch src --out-dir . --presets react-app/prod
 ```
 
