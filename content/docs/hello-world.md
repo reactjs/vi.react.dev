@@ -8,16 +8,14 @@ next: introducing-jsx.html
 
 Một ví dụ đơn giản nhất của React trông như thế này:
 
-```js
-ReactDOM.render(
-  <h1>Hello, world!</h1>,
-  document.getElementById('root')
-);
+```jsx
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<h1>Hello, world!</h1>);
 ```
 
 Ví dụ trên hiển thị một tiêu đề với dòng chữ "Hello, world!" trên trang web.
 
-[](codepen://hello-world)
+**[Try it on CodePen](https://codepen.io/gaearon/pen/rrpgNB?editors=1010)**
 
 Nhấn vào link bên trên để mở một trình soạn thảo trực tuyến. Hãy tự nhiên để làm vài sự thay đổi và thấy nó ảnh hưởng đến kết quả như thế nào. Hầu hết các trang trong hướng dẫn này sẽ có những ví dụ mà bạn có thể thay đổi được giống như ví dụ này.
 
