@@ -65,6 +65,13 @@ Suspense giúp cho components "chờ" để xử lý một việc gì đó trư�
 - [`React.lazy`](#reactlazy)
 - [`React.Suspense`](#reactsuspense)
 
+### Transitions {#transitions}
+
+*Transitions* are a new concurrent feature introduced in React 18. They allow you to mark updates as transitions, which tells React that they can be interrupted and avoid going back to Suspense fallbacks for already visible content.
+
+- [`React.startTransition`](#starttransition)
+- [`React.useTransition`](/docs/hooks-reference.html#usetransition)
+
 ### Hooks {#hooks}
 
 *Hooks* là một sự bổ sung từ phiên bản React 16.8. Chúng giúp cho bạn có thể sử dụng state và những features khác của React mà không cần phải viết một class. Hooks có hẳn một [chương tài liệu chuyên biệt](/docs/hooks-intro.html) và một bộ API riêng biệt:
@@ -81,6 +88,12 @@ Suspense giúp cho components "chờ" để xử lý một việc gì đó trư�
   - [`useImperativeHandle`](/docs/hooks-reference.html#useimperativehandle)
   - [`useLayoutEffect`](/docs/hooks-reference.html#uselayouteffect)
   - [`useDebugValue`](/docs/hooks-reference.html#usedebugvalue)
+  - [`useDeferredValue`](/docs/hooks-reference.html#usedeferredvalue)
+  - [`useTransition`](/docs/hooks-reference.html#usetransition)
+  - [`useId`](/docs/hooks-reference.html#useid)
+- [Library Hooks](/docs/hooks-reference.html#library-hooks)
+  - [`useSyncExternalStore`](/docs/hooks-reference.html#usesyncexternalstore)
+  - [`useInsertionEffect`](/docs/hooks-reference.html#useinsertioneffect)
 
 * * *
 
@@ -110,7 +123,11 @@ Nếu như những React components của bạn gọi đến `render()` function
 
 > Lưu ý
 >
+<<<<<<< HEAD
 > Phương thức `shouldComponentUpdate()` của `React.PureComponent` chỉ so sánh nông (shallow) các đối tượng. Nếu chúng có cấu trúc dữ liệu phức tạp, có thể xảy ra trường hợp bỏ sót nếu sự khác biệt nằm sâu bên trong. Chỉ kế thừa `PureComponent` khi bạn có props và state đơn giản, hoặc sử dụng [`forceUpdate()`](/docs/react-component.html#forceupdate) nếu bạn chắc chắc rằng cấu trúc dữ liệu đã bị thay đổi. Hoặc, bạn có thể sử dụng  [immutable objects](https://facebook.github.io/immutable-js/) để dễ dàng so sánh nhanh các dữ liệu lồng nhau.
+=======
+> `React.PureComponent`'s `shouldComponentUpdate()` only shallowly compares the objects. If these contain complex data structures, it may produce false-negatives for deeper differences. Only extend `PureComponent` when you expect to have simple props and state, or use [`forceUpdate()`](/docs/react-component.html#forceupdate) when you know deep data structures have changed. Or, consider using [immutable objects](https://immutable-js.com/) to facilitate fast comparisons of nested data.
+>>>>>>> 5fed75dac5f4e208369b102a1337d76944111b33
 >
 > Hơn nữa, "phương thức" (method) `shouldComponentUpdate()` của `React.PureComponent` bỏ qua việc cập nhật prop cho toàn bộ các component con. Nên hãy chắc chắn rằng các component con cũng là "pure".
 
@@ -329,6 +346,7 @@ const SomeComponent = React.lazy(() => import('./SomeComponent'));
 
 Lưu ý việc "biểu diễn" (rendering) các "thành phần" (components) `lazy` đòi hỏi phải có một "thành phần" (component) `<React.Suspense>` cao hơn trong "cây biểu diễn" (rendering tree). Đây là cách bạn chỉ định một "chỉ thị tải" (loading indicator).
 
+<<<<<<< HEAD
 > **Lưu ý**
 >
 > Sử dụng `React.lazy` với "nạp động" (dynamic import) đòi hỏi phải có Promises trong môi trường JS. Điều này đỏi hỏi một polyfill trên IE11 hoặc thấp hơn.
@@ -336,6 +354,13 @@ Lưu ý việc "biểu diễn" (rendering) các "thành phần" (components) `la
 ### `React.Suspense` {#reactsuspense}
 
 `React.Suspense` cho phép bạn chỉ định "chỉ thị tải" trong trường hợp một số "thành phần" (component) trong cây bên dưới chưa sẵn sàng để "biểu diễn" (render). Hiện tại, các "thành phần" (component) lazy loading là trường hợp sử dụng **duy nhất** được hỗ trợ bởi `<React.Suspense>`:
+=======
+### `React.Suspense` {#reactsuspense}
+
+`React.Suspense` lets you specify the loading indicator in case some components in the tree below it are not yet ready to render. In the future we plan to let `Suspense` handle more scenarios such as data fetching. You can read about this in [our roadmap](/blog/2018/11/27/react-16-roadmap.html).
+
+Today, lazy loading components is the **only** use case supported by `<React.Suspense>`:
+>>>>>>> 5fed75dac5f4e208369b102a1337d76944111b33
 
 ```js
 // This component is loaded dynamically
@@ -355,8 +380,37 @@ function MyComponent() {
 
 Nó được ghi lại trong [hướng dẫn tách mã](/docs/code-splitting.html#reactlazy) của chúng tôi. Lưu ý các "thành phần" (component)`lazy` có thể nằm sâu bên trong cây `Suspense` -- nó không cần phải bọc từng cái một. Thói quen tốt nhất là đặt  `<Suspense>` nơi bạn muốn xem một sự kiện báo "tải" (loading), nhưng không dùng `lazy()` ở bất cứ nơi nào bạn muốn chia nhỏ mã.
 
+<<<<<<< HEAD
 Mặc dù điều này chưa được hỗ trợ hiện nay, nhưng trong tương lai chúng tôi có kế hoạch để cho `Suspense` xử lý nhiều kịch bản hơn như "nạp dữ liệu" (data fetching). Bạn có thể đọc về điều này trong [lộ trình của chúng tôi](/blog/2018/11/27/react-16-roadmap.html).
 
 >Lưu ý:
 >
 >`React.lazy()` và `<React.Suspense>` chưa được `ReactDOMServer` hỗ trợ. Đây là một điểm hạn chế sẽ được giải quyết trong tương lai.
+=======
+> Note
+>
+> For content that is already shown to the user, switching back to a loading indicator can be disorienting. It is sometimes better to show the "old" UI while the new UI is being prepared. To do this, you can use the new transition APIs [`startTransition`](#starttransition) and [`useTransition`](/docs/hooks-reference.html#usetransition) to mark updates as transitions and avoid unexpected fallbacks.
+
+#### `React.Suspense` in Server Side Rendering {#reactsuspense-in-server-side-rendering}
+During server side rendering Suspense Boundaries allow you to flush your application in smaller chunks by suspending.
+When a component suspends we schedule a low priority task to render the closest Suspense boundary's fallback. If the component unsuspends before we flush the fallback then we send down the actual content and throw away the fallback.
+
+#### `React.Suspense` during hydration {#reactsuspense-during-hydration}
+Suspense boundaries depend on their parent boundaries being hydrated before they can hydrate, but they can hydrate independently from sibling boundaries. Events on a boundary before its hydrated will cause the boundary to hydrate at
+a higher priority than neighboring boundaries. [Read more](https://github.com/reactwg/react-18/discussions/130)
+
+### `React.startTransition` {#starttransition}
+
+```js
+React.startTransition(callback)
+```
+`React.startTransition` lets you mark updates inside the provided callback as transitions. This method is designed to be used when [`React.useTransition`](/docs/hooks-reference.html#usetransition) is not available.
+
+> Note:
+>
+> Updates in a transition yield to more urgent updates such as clicks.
+>
+> Updates in a transition will not show a fallback for re-suspended content, allowing the user to continue interacting while rendering the update.
+>
+> `React.startTransition` does not provide an `isPending` flag. To track the pending status of a transition see [`React.useTransition`](/docs/hooks-reference.html#usetransition).
+>>>>>>> 5fed75dac5f4e208369b102a1337d76944111b33
