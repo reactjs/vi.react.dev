@@ -276,10 +276,10 @@ Cũng có ngoại lệ, giá trị của prop trong một [controlled component]
 Đoạn code bên dưới sẽ làm rõ điều ta vừa đề cập. (Thẻ input đã được gán giá trị lúc bạn đầu nhưng trở nên có thể bị sửa đổi sau một khoảng thời gian chờ.)
 
 ```javascript
-ReactDOM.render(<input value="hi" />, mountNode);
+ReactDOM.createRoot(mountNode).render(<input value="hi" />);
 
 setTimeout(function() {
-  ReactDOM.render(<input value={null} />, mountNode);
+  ReactDOM.createRoot(mountNode).render(<input value={null} />);
 }, 1000);
 
 ```
