@@ -52,7 +52,11 @@ Những phương thức bên dưới được gọi theo thứ tự khi một in
 
 >Lưu ý:
 >
+<<<<<<< HEAD
 >Những phương thức này được coi là lỗi thời và bạn nên [tránh sử dụng chúng](/blog/2018/03/27/update-on-async-rendering.html) trong mã mới:
+=======
+>This method is considered legacy and you should [avoid it](/blog/2018/03/27/update-on-async-rendering.html) in new code:
+>>>>>>> ea9e9ab2817c8b7eff5ff60e8fe9b649fd747606
 >
 >- [`UNSAFE_componentWillMount()`](#unsafe_componentwillmount)
 
@@ -507,12 +511,16 @@ Chỉ có hai phương thức là: `setState()` và `forceUpdate()`.
 ### `setState()` {#setstate}
 
 ```javascript
-setState(updater, [callback])
+setState(updater[, callback])
 ```
 
 `setState()` tạo ra một hàng đợi những sự thay đổi tới component state và thông báo cho React rằng component này cùng với children của nó cần phải được render lại với state đã được cập nhật. Đây là phương thức chính mà bạn sẽ sử dụng để cập nhật user interface đáp lại các event handler và server response.
 
+<<<<<<< HEAD
 Hãy coi `setState()` như một *request* hơn là một mệnh lệnh ngay lập tức để cập nhật component. Để có hiệu suất tốt, React có thể trì hoãn việc cập nhật, và sau đó cập nhật nhiều component trong một lần xử lý. React không đảm bảo rằng các thay đổi đối với state được áp dụng ngay lập tức.
+=======
+Think of `setState()` as a *request* rather than an immediate command to update the component. For better perceived performance, React may delay it, and then update several components in a single pass. In the rare case that you need to force the DOM update to be applied synchronously, you may wrap it in [`flushSync`](/docs/react-dom.html#flushsync), but this may hurt performance.
+>>>>>>> ea9e9ab2817c8b7eff5ff60e8fe9b649fd747606
 
 `setState()` không phải lúc nào cũng cập nhật component ngay lập tức. Nó có thể gộp nhóm hoặc trì hoãn việc cập nhật. Điều đó khiến cho việc đọc `this.state` ngay sau khi gọi `setState()` là một cạm bẫy tiềm ẩn. Thay vào đó, sử dụng `componentDidUpdate` hoặc một `setState` callback (`setState(updater, callback)`), một trong hai cách này sẽ đảm bảo việc đọc `this.state` diễn ra sau khi cập nhật được áp dụng. Nếu bạn cần đặt state dựa vào state trước đó, đọc thêm về đối số `updater` bên dưới.
 

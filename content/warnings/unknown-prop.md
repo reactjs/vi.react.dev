@@ -40,7 +40,11 @@ function MyDiv(props) {
 }
 ```
 
+<<<<<<< HEAD
 **Tốt:** Toán tử spread có thể được sử dụng để lấy ra các biến trong props ra và đặt lại các props còn lại vào một biến.
+=======
+**Good:** The spread syntax can be used to pull variables off props, and put the remaining props into a variable.
+>>>>>>> ea9e9ab2817c8b7eff5ff60e8fe9b649fd747606
 
 ```js
 function MyDiv(props) {

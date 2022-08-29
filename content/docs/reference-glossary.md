@@ -38,13 +38,9 @@ JSX là một phần mở rộng cú pháp cho JavaScript. Nó tương tự mộ
 
 React DOM sử dụng quy ước đặt tên thuộc tính camelCase thay vì tên thuộc tính HTML. Ví dụ, `tabindex` trở thành `tabIndex` trong JSX. Thuộc tính `class` cũng được viết dưới dạng `className` kể từ khi `class` là một từ dành riêng trong JavaScript:
 
-```js
-const name = 'Clementine';
-ReactDOM.render(
-  <h1 className="hello">My name is {name}!</h1>,
-  document.getElementById('root')
-);
-```  
+```jsx
+<h1 className="hello">My name is Clementine!</h1>
+```
 
 ## [Elements](/docs/rendering-elements.html) {#elements}
 
