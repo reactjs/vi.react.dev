@@ -69,7 +69,11 @@ Bây giờ bạn đã có hệ thống cấp bậc cho component của bạn, đ
 
 Bạn có thể tạo ra theo chiều từ trên xuống dưới hoặc ngược lại. Điều đó có nghĩa, bạn có thể bắt đầu với những component ở phía trên của hệ thống phân chia cấp bậc (ví dụ bắt đầu với `FilterableProductTable`) hoặc với những component con của nó (`ProductRow`). Trong những ví dụ đơn giản, thường thì nó sẽ đi theo chiều từ trên xuống dưới, và trong những dự án lớn thường sẽ dễ dàng hơn nếu làm theo hướng ngược lại và song song là viết test cho nó.
 
+<<<<<<< HEAD
 Sau khi kết thúc, bạn sẽ có những thư viện có thể tái sử dụng để hiển thị mô hình dữ liệu. Những component sẽ chỉ có hàm `render()` vì đây là phiên bản tĩnh. Component ở phía trên của hệ thống phân chia cấp bậc (`FilterableProductTable`) sẽ nhận kiểu dữ liệu bằng prop. Nếu dữ liệu được thay đổi và hàm `ReactDOM.render()` được gọi lại, thì giao diện người dùng sẽ được cập nhật. Điều này sẽ giúp cho ta hiểu làm thế nào giao diện người dùng được cập nhật dễ dàng hơn và dữ liệu bị thay đổi ở đâu bởi vì nó không bị phức tạp hoá. React **luồng dữ liệu một chiều** (hay còn gọi *ràng buộc một chiều*) giữ cho mọi thứ được phân chia theo module và nhanh gọn.
+=======
+At the end of this step, you'll have a library of reusable components that render your data model. The components will only have `render()` methods since this is a static version of your app. The component at the top of the hierarchy (`FilterableProductTable`) will take your data model as a prop. If you make a change to your underlying data model and call `root.render()` again, the UI will be updated. You can see how your UI is updated and where to make changes. React's **one-way data flow** (also called *one-way binding*) keeps everything modular and fast.
+>>>>>>> e9faee62db6981e26a1cdabad6ae39620a1d2e3e
 
 Tham khảo [tài liệu React](/docs/) nếu như bạn cần trợ giúp để thực hiện bước này.
 
@@ -142,6 +146,10 @@ Hãy nghĩ xem chúng ta muốn thực hiện điều gì. Chúng ta muốn ch�
 
 Mặc dù nó nghe phức tạp, nhưng thật ra chỉ cần vài dòng lệnh. Và nó chỉ ra rất rõ ràng luồng dữ liệu được truyền đi trong ứng dụng như thế nào.
 
+<<<<<<< HEAD
 ## Và kết thúc {#and-thats-it}
 
 Hy vọng rằng nó sẽ cho bạn một ý tưởng về cách tư duy khi tạo ra những component và ứng dụng với React. Trong khi nó yêu cầu phải gõ nhiều hơn bạn từng làm, nhưng code này rất rõ ràng và dễ đọc. Khi bạn bắt đầu xây dựng những thư viện component lớn, bạn sẽ thấy sự hữu dụng khi đọc những code module hoá và rõ ràng, thêm nữa số lượng code sẽ giảm xuống khi code được tái sử dụng .
+=======
+Hopefully, this gives you an idea of how to think about building components and applications with React. While it may be a little more typing than you're used to, remember that code is read far more often than it's written, and it's less difficult to read this modular, explicit code. As you start to build large libraries of components, you'll appreciate this explicitness and modularity, and with code reuse, your lines of code will start to shrink. :)
+>>>>>>> e9faee62db6981e26a1cdabad6ae39620a1d2e3e
