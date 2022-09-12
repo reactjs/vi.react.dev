@@ -53,13 +53,13 @@ Nếu bạn là tác giả của React framework, thư viện, công cụ dành 
 - Thiết lập một cron job bằng cách sử dụng nền tảng continuous integration ưa thích của bạn. Cron job được hỗ trợ bởi cả [CircleCI](https://circleci.com/docs/2.0/triggers/#scheduled-builds) và [Travis CI](https://docs.travis-ci.com/user/cron-jobs/).
 - Trong cron job, hãy cập nhật React packages của bạn lên bản phát hành React gần đây nhất trong kênh Next, sử dụng thẻ `next` trên npm. Sử dụng cli npm:
 
-  ```
+  ```console
   npm update react@next react-dom@next
   ```
 
   Hoặc yarn:
 
-  ```
+  ```console
   yarn upgrade react@next react-dom@next
   ```
 - Chạy bộ thử nghiệm của bạn với các package đã cập nhật.
