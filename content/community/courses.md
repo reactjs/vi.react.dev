@@ -47,7 +47,11 @@ permalink: community/courses.html
 
 - [React Training: Advanced React.js](https://courses.reacttraining.com/p/advanced-react) - Nâng cao kỹ năng React của bạn lên cấp độ tiếp theo.
 
+<<<<<<< HEAD
 - [Tyler McGinnis](https://tylermcginnis.com/courses) - Tyler McGinnis cung cấp quyền truy cập vào các khóa học của mình với một khoản phí hàng tháng. Các khóa học bao gồm "React Fundamentals" và "Universal React".
+=======
+- [Tyler McGinnis](https://ui.dev/) - Tyler McGinnis provides access to his courses for a monthly fee. Courses include "React Fundamentals" and "Universal React".
+>>>>>>> d07016aea812d26c60252a952bff7ae3e70bde27
 
 - [Mastering React](https://codewithmosh.com/p/mastering-react/) - Xây dựng các ứng dụng tương tác chuyên nghiệp với React.
 

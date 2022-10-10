@@ -47,7 +47,11 @@ Trên Node.js, những "runner" như là Jest [hỗ trợ các module mocking](h
 
 ### Bộ đếm Mocking {#mocking-timers}
 
+<<<<<<< HEAD
 Components có thể sẽ phải dùng những hàm liên quan đến đếm thời gian như `setTimeout`, `setInterval`, hoặc `Date.now`. Trong các môi trường test, nó hữu ích cho việc mock những hàm này ra với các thay thế cho phép bạn một cách thủ công "cải thiện" thời gian chạy. Điều này rất tốt để đảm bảo các test của bạn chạy nhanh! Các test phụ thuộc vào bộ đếm thời gian sẽ vẫn giải quyết theo thứ tự, và nhanh hơn ư [<small>(example)</small>](/docs/testing-recipes.html#timers). Phần lớn frameworks, bao gồm [Jest](https://jestjs.io/docs/en/timer-mocks), [sinon](https://sinonjs.org/releases/v7.3.2/fake-timers/) và [lolex](https://github.com/sinonjs/lolex), cho phép bạn mock thời gian trong các test.
+=======
+Components might be using time-based functions like `setTimeout`, `setInterval`, or `Date.now`. In testing environments, it can be helpful to mock these functions out with replacements that let you manually "advance" time. This is great for making sure your tests run fast! Tests that are dependent on timers would still resolve in order, but quicker [<small>(example)</small>](/docs/testing-recipes.html#timers). Most frameworks, including [Jest](https://jestjs.io/docs/en/timer-mocks), [sinon](https://sinonjs.org/releases/latest/fake-timers) and [lolex](https://github.com/sinonjs/lolex), let you mock timers in your tests.
+>>>>>>> d07016aea812d26c60252a952bff7ae3e70bde27
 
 Đôi khi, bạn có thể không muốn mock bộ đếm thời gian. Ví dụ như, có thể bạn đang test một animation, hoặc tương tác với một endpoint nhạy cảm với thời gian (như giới hạn rate của API). Các thư viện mà làm việc với mocks thời gian cho phép bạn có thể bật hay tắt nó trên từng nền tảng bài test/suite một, vì vậy bạn có thể chọn tùy ý cách các test này sẽ chạy.
 
