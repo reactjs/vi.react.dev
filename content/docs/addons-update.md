@@ -24,12 +24,16 @@ dụng dữ liệu không thay đổi trong các phần quan trọng về hiệu
 thức [`shouldComponentUpdate()'](/docs/react-component.html#shouldcomponentupdate) nhanh chóng để tăng tốc đáng kể ứng
 dụng của bạn.
 
+<<<<<<< HEAD
 Xử lý dữ liệu bất biến trong JavaScript khó hơn so với các ngôn ngữ được thiết kế cho nó,
 như [Clojure](https://clojure.org/). Tuy nhiên, chúng tôi đã cung cấp một trình trợ giúp bất biến đơn giản, `update () '
 , giúp xử lý loại dữ
 liệu này dễ dàng hơn nhiều mà không làm thay đổi cơ bản cách dữ liệu của bạn được thể hiện. Bạn cũng có thể xem
 qua [Immutable-js](https://facebook.github.io/immutable-js/docs/) và
 phần [Advanced Performance](/docs/advanced-performance.html) để biết thêm chi tiết về Immutable-js.
+=======
+Dealing with immutable data in JavaScript is more difficult than in languages designed for it, like [Clojure](https://clojure.org/). However, we've provided a simple immutability helper, `update()`, that makes dealing with this type of data much easier, *without* fundamentally changing how your data is represented. You can also take a look at Facebook's [Immutable-js](https://immutable-js.com/docs/latest@main/) and the [Advanced Performance](/docs/advanced-performance.html) section for more detail on Immutable-js.
+>>>>>>> 8fe817e61e5fe50020ed9379ce9e1c5a2cf476a9
 
 ### The Main Idea {#the-main-idea}
 
