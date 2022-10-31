@@ -3,5 +3,5 @@
 .idea
 .history
 node_modules
-public
+/public
 yarn-error.log

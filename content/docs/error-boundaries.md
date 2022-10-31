@@ -80,8 +80,13 @@ Nếu một ranh giới lỗi không cố gắng hiển thị thông báo lỗi,
 
 ## Live Demo {#live-demo}
 
+<<<<<<< HEAD
 Check out [this example of declaring and using an error boundary](https://codepen.io/gaearon/pen/wqvxGa?editors=0010)
 with [React 16](/blog/2017/09/26/react-v16.0.html).
+=======
+Check out [this example of declaring and using an error boundary](https://codepen.io/gaearon/pen/wqvxGa?editors=0010).
+
+>>>>>>> e21b37c8cc8b4e308015ea87659f13aa26bd6356
 
 ## Where to Place Error Boundaries {#where-to-place-error-boundaries}
 
