@@ -45,7 +45,11 @@ Thao tác này sẽ destroy `Counter` cũ và remount (gắn lại) một `Count
 
 >Ghi chú:
 >
+<<<<<<< HEAD
 >Các method này được coi là legacy (đã lỗi thời) và bạn nên [tránh chúng](/blog/2018/03/27/update-on-async-rendering.html) trong code mới:
+=======
+>This method is considered legacy and you should [avoid it](/blog/2018/03/27/update-on-async-rendering.html) in new code:
+>>>>>>> 3bba430b5959c2263c73f0d05d46e2c99c972b1c
 >
 >- `UNSAFE_componentWillMount()`
 
