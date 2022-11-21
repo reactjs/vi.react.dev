@@ -52,7 +52,11 @@ Những phương thức bên dưới được gọi theo thứ tự khi một in
 
 >Lưu ý:
 >
+<<<<<<< HEAD
 >Những phương thức này được coi là lỗi thời và bạn nên [tránh sử dụng chúng](/blog/2018/03/27/update-on-async-rendering.html) trong mã mới:
+=======
+>This method is considered legacy and you should [avoid it](/blog/2018/03/27/update-on-async-rendering.html) in new code:
+>>>>>>> e50e5634cca3c7cdb92c28666220fe3b61e9aa30
 >
 >- [`UNSAFE_componentWillMount()`](#unsafe_componentwillmount)
 
@@ -121,11 +125,19 @@ Phương thức `render()` là phương thức bắt buộc duy nhất trong m�
 
 Khi được gọi, nó sẽ kiểm tra `this.props` và `this.state` sau đó return một trong các kiểu sau:
 
+<<<<<<< HEAD
 - **React elements.** Thường được tạo ra bởi [JSX](/docs/introducing-jsx.html). Ví dụ, `<div />` và `<MyComponent />` là những React element mà chỉ dẫn cho React render một DOM node, hoặc một user-defined (người dùng tự định nghĩa) component.
 - **Arrays và fragments.** Cho phép bạn return nhiều element từ render. Xem tài liệu về [fragments](/docs/fragments.html) để biết thêm chi tiết.
 - **Portals**. Cho phép bạn render children vào một DOM subtree khác. Xem tài liệu về [portals](/docs/portals.html) để biết thêm chi tiết.
 - **String và numbers.** Chúng được render dưới dạng text nodes trong DOM.
 - **Booleans hoặc `null`**. Không render. (Hầu hết tồn tại để hỗ trợ `return test && <Child />` pattern, trong đó `test` là boolean.)
+=======
+- **React elements.** Typically created via [JSX](/docs/introducing-jsx.html). For example, `<div />` and `<MyComponent />` are React elements that instruct React to render a DOM node, or another user-defined component, respectively.
+- **Arrays and fragments.** Let you return multiple elements from render. See the documentation on [fragments](/docs/fragments.html) for more details.
+- **Portals**. Let you render children into a different DOM subtree. See the documentation on [portals](/docs/portals.html) for more details.
+- **String and numbers.** These are rendered as text nodes in the DOM.
+- **Booleans or `null` or `undefined`**. Render nothing. (Mostly exists to support `return test && <Child />` pattern, where `test` is boolean).
+>>>>>>> e50e5634cca3c7cdb92c28666220fe3b61e9aa30
 
 Hàm `render()` nên là pure, có nghĩa là nó không làm thay đổi component state, return cùng một kết quả với mỗi lần được gọi, và không tương tác trực tiếp với browser.
 
@@ -507,12 +519,16 @@ Chỉ có hai phương thức là: `setState()` và `forceUpdate()`.
 ### `setState()` {#setstate}
 
 ```javascript
-setState(updater, [callback])
+setState(updater[, callback])
 ```
 
 `setState()` tạo ra một hàng đợi những sự thay đổi tới component state và thông báo cho React rằng component này cùng với children của nó cần phải được render lại với state đã được cập nhật. Đây là phương thức chính mà bạn sẽ sử dụng để cập nhật user interface đáp lại các event handler và server response.
 
+<<<<<<< HEAD
 Hãy coi `setState()` như một *request* hơn là một mệnh lệnh ngay lập tức để cập nhật component. Để có hiệu suất tốt, React có thể trì hoãn việc cập nhật, và sau đó cập nhật nhiều component trong một lần xử lý. React không đảm bảo rằng các thay đổi đối với state được áp dụng ngay lập tức.
+=======
+Think of `setState()` as a *request* rather than an immediate command to update the component. For better perceived performance, React may delay it, and then update several components in a single pass. In the rare case that you need to force the DOM update to be applied synchronously, you may wrap it in [`flushSync`](/docs/react-dom.html#flushsync), but this may hurt performance.
+>>>>>>> e50e5634cca3c7cdb92c28666220fe3b61e9aa30
 
 `setState()` không phải lúc nào cũng cập nhật component ngay lập tức. Nó có thể gộp nhóm hoặc trì hoãn việc cập nhật. Điều đó khiến cho việc đọc `this.state` ngay sau khi gọi `setState()` là một cạm bẫy tiềm ẩn. Thay vào đó, sử dụng `componentDidUpdate` hoặc một `setState` callback (`setState(updater, callback)`), một trong hai cách này sẽ đảm bảo việc đọc `this.state` diễn ra sau khi cập nhật được áp dụng. Nếu bạn cần đặt state dựa vào state trước đó, đọc thêm về đối số `updater` bên dưới.
 
