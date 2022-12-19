@@ -46,7 +46,11 @@ Một trường hợp thuờng dùng Portals là khi một thành phần mẹ c�
 >
 > Khi làm việc với Portals, hãy nhớ [quản lý các sự kiện focus từ bàn phím](/docs/accessibility.html#programmatically-managing-focus) là rất quan trọng.
 >
+<<<<<<< HEAD
 > Đối với hộp thoại, hãy đảm bảo rằng mọi người có thể tương tác với chúng bằng cách làm theo [WAI-ARIA Modal Authoring Practices](https://www.w3.org/TR/wai-aria-practices-1.1/#dialog_modal).
+=======
+> For modal dialogs, ensure that everyone can interact with them by following the [WAI-ARIA Modal Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/dialogmodal/).
+>>>>>>> 868d525a74b717a10e0f61bb576213e133aa8d07
 
 [**Try it on CodePen**](https://codepen.io/gaearon/pen/yzMaBd)
 
@@ -146,7 +150,8 @@ function Child() {
   );
 }
 
-ReactDOM.render(<Parent />, appRoot);
+const root = ReactDOM.createRoot(appRoot);
+root.render(<Parent />);
 ```
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/jGBWpE)
