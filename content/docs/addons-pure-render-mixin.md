@@ -39,6 +39,10 @@ Xem xét một cách kỹ lưỡng, mixin thực hiện [shouldComponentUpdate](
 
 > Lưu ý:
 >
+<<<<<<< HEAD
 > Đây chỉ là so sánh nông với các object. Nếu object chứa cấu trúc dữ liệu phức tạp, nó có thể tạo ra các trường hợp sai đối với sự khác nhau sâu trong nhiều cấp của object. Chỉ được dùng đối với component có prop và state đơn giản, hoặc dùng `forceUpdate()` khi bạn biết cấu trúc dữ liệu sâu bên trong đã thay đổi. Có thể cân nhắc sử dụng [immutable objects](https://facebook.github.io/immutable-js/) để dễ dàng so sánh các dữ liệu lồng nhau.
+=======
+> This only shallowly compares the objects. If these contain complex data structures, it may produce false-negatives for deeper differences. Only mix into components which have simple props and state, or use `forceUpdate()` when you know deep data structures have changed. Or, consider using [immutable objects](https://immutable-js.com/) to facilitate fast comparisons of nested data.
+>>>>>>> 4b68508440a985598571f78f60637b6dccdd5a1a
 >
 > Hơn nữa, `shouldComponentUpdate` bỏ qua cập nhật toàn bộ các component con. Hãy đảm bảo rằng tất cả các component con cũng là "pure".
