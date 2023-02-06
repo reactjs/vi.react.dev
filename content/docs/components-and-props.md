@@ -16,7 +16,20 @@ prev: rendering-elements.html
 next: state-and-lifecycle.html
 ---
 
+<<<<<<< HEAD
 Components cho phép bạn chia UI thành các phần độc lập, có thể tái sử dụng, và hoàn toàn tách biệt nhau. Tài liệu này đem đến những giới thiệu sơ lược về components. Bạn có thể tìm [tài liệu chi tiết về API ở đây](/docs/react-component.html).
+=======
+> Try the new React documentation.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [Your First Component](https://beta.reactjs.org/learn/your-first-component)
+> - [Passing Props to a Component](https://beta.reactjs.org/learn/passing-props-to-a-component)
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. This page provides an introduction to the idea of components. You can find a [detailed component API reference here](/docs/react-component.html).
+>>>>>>> d4e42ab21f0cc7d8b79d1a619654e27c79e10af6
 
 Về mặt khái niệm, components cũng giống như các hàm Javascript. Chúng nhận vào bất kì đầu vào nào (còn được gọi là "props") và trả về các React elements mô tả những gì sẽ xuất hiện trên màn hình.
 
@@ -64,26 +77,31 @@ Khi React thấy một element biểu diễn component do người dùng định
 
 Ví dụ, đoạn code này render ra "Hello, Sara" trên page:
 
-```js{1,5}
+```js{1,6}
 function Welcome(props) {
   return <h1>Hello, {props.name}</h1>;
 }
 
+const root = ReactDOM.createRoot(document.getElementById('root'));
 const element = <Welcome name="Sara" />;
-ReactDOM.render(
-  element,
-  document.getElementById('root')
-);
+root.render(element);
 ```
 
-[](codepen://components-and-props/rendering-a-component)
+**[Try it on CodePen](https://codepen.io/gaearon/pen/YGYmEG?editors=1010)**
 
 Chúng ta hãy cùng xem những gì diễn ra ở ví dụ này:
 
+<<<<<<< HEAD
 1. Chúng ta gọi `ReactDOM.render()` với `<Welcome name="Sara" />` element.
 2. React gọi đến `Welcome` component với `{name: 'Sara'}` là props.
 3. `Welcome` component của chúng ta trả về kết quả là `<h1>Hello, Sara</h1>` element.
 4. React DOM sẽ cập nhật DOM để hiển thị `<h1>Hello, Sara</h1>`.
+=======
+1. We call `root.render()` with the `<Welcome name="Sara" />` element.
+2. React calls the `Welcome` component with `{name: 'Sara'}` as the props.
+3. Our `Welcome` component returns a `<h1>Hello, Sara</h1>` element as the result.
+4. React DOM efficiently updates the DOM to match `<h1>Hello, Sara</h1>`.
+>>>>>>> d4e42ab21f0cc7d8b79d1a619654e27c79e10af6
 
 >**Chú ý:** Luôn luôn bắt đầu tên của component bằng chữ in hoa.
 >
@@ -111,14 +129,9 @@ function App() {
     </div>
   );
 }
-
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
 ```
 
-[](codepen://components-and-props/composing-components)
+**[Try it on CodePen](https://codepen.io/gaearon/pen/KgQKPr?editors=1010)**
 
 Thông thường, các React apps mới tạo sẽ có một `App` component ở tầng cao nhất. Thế nhưng, nếu bạn tích hợp React vào ứng dụng hiện có, bạn có thể bắt đầu bằng cách tiếp cận bottom-up với một component nhỏ như là `Button` và dần dần đi lên các tầng trên cùng của cây kế thừa giao diện.
 
@@ -152,7 +165,7 @@ function Comment(props) {
 }
 ```
 
-[](codepen://components-and-props/extracting-components)
+**[Try it on CodePen](https://codepen.io/gaearon/pen/VKQwEo?editors=1010)**
 
 Nó nhận `author` (một object), `text` (một sâu kí tự), và `date` (ngày tháng) làm props, và mô phỏng lại một bình luận trên mạng xã hội.
 
@@ -231,7 +244,7 @@ function Comment(props) {
 }
 ```
 
-[](codepen://components-and-props/extracting-components-continued)
+**[Try it on CodePen](https://codepen.io/gaearon/pen/rrJNJY?editors=1010)**
 
 Chia các components ngay từ đầu là một công việc không đơn giản, nhưng bù lại chúng ta sẽ có được một tập hợp các components có thể tái sử dụng trong các ứng dụng lớn hơn khác. Một nguyên tắc quan trọng đó là nếu một phần UI của bạn được sử dụng lại nhiều lần (`Button`, `Panel`, `Avatar`), hoặc đủ phức tạp (`App`, `FeedStory`, `Comment`), thì đó là thời điểm thích hợp để chia chúng thành các component riêng.
 

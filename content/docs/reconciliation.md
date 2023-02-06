@@ -4,7 +4,19 @@ title: Reconciliation
 permalink: docs/reconciliation.html
 ---
 
+<<<<<<< HEAD
 React cung cấp một API tự động xác định những nơi bị thay đổi sau những lần cập nhật. Điều này làm cho việc viết ứng dụng trở nên dễ dàng hơn rất nhiều, nhưng có thể bạn muốn tìm hiểu thêm về cách React xác định những thay đổi trong DOM như thế nào. Bài viết này sẽ giải thích cách mà React đã thực hiện trong thuật toán "diffing" để đưa ra quyết định cập nhật components của bạn một cách có kiểm soát và đảm bảo performance (hiệu năng) của ứng dụng.
+=======
+> Try the new React documentation.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [Preserving and Resetting State](https://beta.reactjs.org/learn/preserving-and-resetting-state)
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+React provides a declarative API so that you don't have to worry about exactly what changes on every update. This makes writing applications a lot easier, but it might not be obvious how this is implemented within React. This article explains the choices we made in React's "diffing" algorithm so that component updates are predictable while being fast enough for high-performance apps.
+>>>>>>> d4e42ab21f0cc7d8b79d1a619654e27c79e10af6
 
 ## Motivation {#motivation}
 
@@ -45,7 +57,11 @@ Thao tác này sẽ destroy `Counter` cũ và remount (gắn lại) một `Count
 
 >Ghi chú:
 >
+<<<<<<< HEAD
 >Các method này được coi là legacy (đã lỗi thời) và bạn nên [tránh chúng](/blog/2018/03/27/update-on-async-rendering.html) trong code mới:
+=======
+>This method is considered legacy and you should [avoid it](/blog/2018/03/27/update-on-async-rendering.html) in new code:
+>>>>>>> d4e42ab21f0cc7d8b79d1a619654e27c79e10af6
 >
 >- `UNSAFE_componentWillMount()`
 
