@@ -9,7 +9,19 @@ redirect_from:
   - "docs/flux-todo-list.html"
 ---
 
+<<<<<<< HEAD
 Thông thường, khi một dữ liệu thay đổi nó sẽ ảnh hưởng tới nhiều component cùng lúc. State được khuyến khích chia sẻ ở component cha của chúng. Hãy cùng xem nó được ứng dụng trong thực tế như thế nào.
+=======
+> Try the new React documentation.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [Sharing State Between Components](https://beta.reactjs.org/learn/sharing-state-between-components)
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+Often, several components need to reflect the same changing data. We recommend lifting the shared state up to their closest common ancestor. Let's see how this works in action.
+>>>>>>> 47adefd30c46f486428d8231a68e639d62f02c9e
 
 Chúng ta sẽ xây dựng một ứng dụng tính nhiệt độ. Nó sẽ cho người dùng biết nước có sôi ở nhiệt độ cho trước hay không.
 

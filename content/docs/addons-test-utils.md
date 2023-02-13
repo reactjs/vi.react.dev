@@ -89,7 +89,7 @@ class Counter extends React.Component {
 
 ```js{3,20-22,29-31}
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import { act } from 'react-dom/test-utils';
 import Counter from './Counter';
 
@@ -108,7 +108,7 @@ afterEach(() => {
 it('có thể render và cập nhật một counter', () => {
   // Test first render and componentDidMount
   act(() => {
-    ReactDOM.render(<Counter />, container);
+    ReactDOM.createRoot(container).render(<Counter />);
   });
   const button = container.querySelector('button');
   const label = container.querySelector('p');
@@ -304,7 +304,7 @@ Render một element của React vào một node riêng của DOM trong một do
 
 ```js
 const domContainer = document.createElement('div');
-ReactDOM.render(element, domContainer);
+ReactDOM.createRoot(domContainer).render(element);
 ```
 
 > Lưu ý:

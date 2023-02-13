@@ -169,4 +169,8 @@ Tại Facebook, chúng tôi sử dụng React trong hàng ngàn các components,
 
 Props và tính kết hợp mang lại sự linh hoạt mà bạn cần để tuỳ chỉnh giao hiện và hành vi một cách rõ ràng và an toàn. Nhớ rằng các component có thể chấp nhận các props không giới hạn, kể cả các giá trị sơ khai, các phần tử React hoặc các hàm.
 
+<<<<<<< HEAD
 Nếu bạn muốn tái sử dụng các chức nằng không liên quan tới giao diện người dùng, chúng tôi khuyến khích nên tách biệt nó ra những module Javascript riêng. Các component có thể nhập nó và sử dụng các hàm, đối tượng hoặc class, mà không phải mở rộng nó.
+=======
+If you want to reuse non-UI functionality between components, we suggest extracting it into a separate JavaScript module. The components may import it and use that function, object, or class, without extending it.
+>>>>>>> 47adefd30c46f486428d8231a68e639d62f02c9e
