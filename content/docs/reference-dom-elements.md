@@ -14,7 +14,24 @@ redirect_from:
   - "tips/dangerously-set-inner-html.html"
 ---
 
+<<<<<<< HEAD
 React áp dụng hệ thống DOM không phụ thuộc vào trình duyệt để tăng hiệu suất và độ tương thích với nhiều trình duyệt khác nhau. Nhân dịp này, chúng tôi đã loại bỏ một số khía cạnh chưa hoàn chỉnh trong cách triển khai DOM trên trình duyệt.
+=======
+> Try the new React documentation.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [Common components (e.g. `<div>`)](https://beta.reactjs.org/reference/react-dom/components/common)
+> - [`<input>`](https://beta.reactjs.org/reference/react-dom/components/input)
+> - [`<option>`](https://beta.reactjs.org/reference/react-dom/components/option)
+> - [`<progress>`](https://beta.reactjs.org/reference/react-dom/components/progress)
+> - [`<select>`](https://beta.reactjs.org/reference/react-dom/components/select)
+> - [`<textarea>`](https://beta.reactjs.org/reference/react-dom/components/textarea)
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+React implements a browser-independent DOM system for performance and cross-browser compatibility. We took the opportunity to clean up a few rough edges in browser DOM implementations.
+>>>>>>> 63c77695a95902595b6c2cc084a5c3650b15210a
 
 Trong React, tất cả các thuộc tính của DOM (bao gồm xử lí sự kiện) phải được viết theo camelCase. Ví dụ như attribute `tabindex`, thì trong React là `tabIndex`. Có những ngoại lệ là thuộc tính `aria-*` và `data-*` phải được viết chữ thường. Ví dụ `aria-label` vẫn là `aria-label`.
 
@@ -117,7 +134,11 @@ Một component có component con được đánh dấu là `contentEditable` s�
 
 Nếu bạn sử dụng server-side rendering, thông thường sẽ có một cảnh báo khi nội dung được render trên server khác với client. Tuy nhiên, trong một vài trường hợp, rất khó để đảm báo server và client trùng khớp với nhau ví dụ như render timestamp.
 
+<<<<<<< HEAD
 Nếu bạn để `suppressHydrationWarning` là `true`, React sẽ không cảnh báo về những sự không trùng khớp trong những thuộc tính và nội dung của element đó. Nó chỉ hoạt động một cấp, và được dự định sử dụng như một lối thoát. Đừng lạm dụng nó. Bạn có thể xem thêm về hydration tại [`ReactDOM.hydrate()`](/docs/react-dom.html#hydrate).
+=======
+If you set `suppressHydrationWarning` to `true`, React will not warn you about mismatches in the attributes and the content of that element. It only works one level deep, and is intended to be used as an escape hatch. Don't overuse it. You can read more about hydration in the [`ReactDOM.hydrateRoot()` documentation](/docs/react-dom-client.html#hydrateroot).
+>>>>>>> 63c77695a95902595b6c2cc084a5c3650b15210a
 
 ### value {#value}
 
