@@ -4,7 +4,20 @@ title: Context
 permalink: docs/context.html
 ---
 
+<<<<<<< HEAD
 Context cung cấp phương pháp truyền data xuyên suốt component tree mà không cần phải truyền props một cách thủ công qua từng level.
+=======
+> Try the new React documentation.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [Passing Data Deeply with Context](https://beta.reactjs.org/learn/passing-data-deeply-with-context)
+> - [`useContext`](https://beta.reactjs.org/reference/react/useContext)
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+Context provides a way to pass data through the component tree without having to pass props down manually at every level.
+>>>>>>> b0ccb47f33e52315b0ec65edb9a49dc4910dd99c
 
 Thông thường với một ứng dụng React, data được truyền từ trên xuống (cha tới con) thông qua props, điều này có vẻ khá cồng kềnh đối với một số loại props (Ví dụ như locale preference, UI theme) chúng thường được sử dụng bởi rất nhiều component trong ứng dụng. Context cung cấp một cách làm cho phép chúng ta chia sẽ values giống như vậy giữa các components mà không cần truyền giá trị tới tất cả level trong component tree.
 

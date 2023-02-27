@@ -29,7 +29,13 @@ permalink: community/courses.html
 
 ## Paid Courses {#paid-courses}
 
+<<<<<<< HEAD
 - [Egghead.io](https://egghead.io/browse/frameworks/react) - Các video hướng dẫn ngắn về React và rất nhiều chủ đề khác.
+=======
+- [Meta Front-End Developer Professional Certificate](https://www.coursera.org/professional-certificates/meta-front-end-developer) - Launch your career as a front-end developer. Build job-ready skills for an in-demand career and earn a credential from Meta. No degree or prior experience required to get started.
+
+- [Egghead.io](https://egghead.io/browse/frameworks/react) - Short instructional videos on React and many other topics.
+>>>>>>> b0ccb47f33e52315b0ec65edb9a49dc4910dd99c
 
 - [Frontend Masters](https://frontendmasters.com/learn/react/) - Các khóa học về React.
 
@@ -47,7 +53,11 @@ permalink: community/courses.html
 
 - [React Training: Advanced React.js](https://courses.reacttraining.com/p/advanced-react) - Nâng cao kỹ năng React của bạn lên cấp độ tiếp theo.
 
+<<<<<<< HEAD
 - [Tyler McGinnis](https://tylermcginnis.com/courses) - Tyler McGinnis cung cấp quyền truy cập vào các khóa học của mình với một khoản phí hàng tháng. Các khóa học bao gồm "React Fundamentals" và "Universal React".
+=======
+- [Tyler McGinnis](https://ui.dev/) - Tyler McGinnis provides access to his courses for a monthly fee. Courses include "React Fundamentals" and "Universal React".
+>>>>>>> b0ccb47f33e52315b0ec65edb9a49dc4910dd99c
 
 - [Mastering React](https://codewithmosh.com/p/mastering-react/) - Xây dựng các ứng dụng tương tác chuyên nghiệp với React.
 
