@@ -18,7 +18,17 @@ redirect_from:
   - "docs/environments.html"
 ---
 
+<<<<<<< HEAD
 Trang này chứa các thông tin tổng quan về React và các tài liệu liên quan.
+=======
+> Try the new React documentation.
+> 
+> The new [Quick Start](https://beta.reactjs.org/learn) teaches modern React and includes live examples.
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+This page is an overview of the React documentation and related resources.
+>>>>>>> ba290ad4e432f47a2a2f88d067dacaaa161b5200
 
 **React** là một thư viện JavaScript được dùng để xây dựng giao diện người dùng (UI - User interfaces). Bạn có thể tìm hiểu tất cả về React trên [trang chủ của chúng tôi](/) hoặc [trong hướng dẫn](/tutorial/tutorial.html).
 

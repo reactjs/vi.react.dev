@@ -4,7 +4,20 @@ title: Chuyển Tiếp Refs
 permalink: docs/forwarding-refs.html
 ---
 
+<<<<<<< HEAD
 Chuyển tiếp Refs là một kỹ thuật để tự động chuyển một [ref](/docs/refs-and-the-dom.html) qua một component đến một trong các component con của nó. Điều này thường không cần thiết đối với hầu hết các components trong ứng dụng. Tuy nhiên, nó có thể hữu ích cho một số loại component, đặc biệt là trong các thư viện component có thể tái sử dụng. Các tình huống phổ biến nhất được mô tả dưới đây.
+=======
+> Try the new React documentation.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [Manipulating the DOM with Refs](https://beta.reactjs.org/learn/manipulating-the-dom-with-refs)
+> - [`forwardRef`](https://beta.reactjs.org/reference/react/forwardRef)
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+Ref forwarding is a technique for automatically passing a [ref](/docs/refs-and-the-dom.html) through a component to one of its children. This is typically not necessary for most components in the application. However, it can be useful for some kinds of components, especially in reusable component libraries. The most common scenarios are described below.
+>>>>>>> ba290ad4e432f47a2a2f88d067dacaaa161b5200
 
 ## Chuyển tiếp refs tới các DOM components {#forwarding-refs-to-dom-components}
 

@@ -65,6 +65,13 @@ Suspense giúp cho components "chờ" để xử lý một việc gì đó trư�
 - [`React.lazy`](#reactlazy)
 - [`React.Suspense`](#reactsuspense)
 
+### Transitions {#transitions}
+
+*Transitions* are a new concurrent feature introduced in React 18. They allow you to mark updates as transitions, which tells React that they can be interrupted and avoid going back to Suspense fallbacks for already visible content.
+
+- [`React.startTransition`](#starttransition)
+- [`React.useTransition`](/docs/hooks-reference.html#usetransition)
+
 ### Hooks {#hooks}
 
 *Hooks* là một sự bổ sung từ phiên bản React 16.8. Chúng giúp cho bạn có thể sử dụng state và những features khác của React mà không cần phải viết một class. Hooks có hẳn một [chương tài liệu chuyên biệt](/docs/hooks-intro.html) và một bộ API riêng biệt:
@@ -81,6 +88,12 @@ Suspense giúp cho components "chờ" để xử lý một việc gì đó trư�
   - [`useImperativeHandle`](/docs/hooks-reference.html#useimperativehandle)
   - [`useLayoutEffect`](/docs/hooks-reference.html#uselayouteffect)
   - [`useDebugValue`](/docs/hooks-reference.html#usedebugvalue)
+  - [`useDeferredValue`](/docs/hooks-reference.html#usedeferredvalue)
+  - [`useTransition`](/docs/hooks-reference.html#usetransition)
+  - [`useId`](/docs/hooks-reference.html#useid)
+- [Library Hooks](/docs/hooks-reference.html#library-hooks)
+  - [`useSyncExternalStore`](/docs/hooks-reference.html#usesyncexternalstore)
+  - [`useInsertionEffect`](/docs/hooks-reference.html#useinsertioneffect)
 
 * * *
 
@@ -88,7 +101,15 @@ Suspense giúp cho components "chờ" để xử lý một việc gì đó trư�
 
 ### `React.Component` {#reactcomponent}
 
+<<<<<<< HEAD
 `React.Component` là lớp cơ sở cho các React components khi ta định nghĩa một component với [ES6 classes](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Classes):
+=======
+> Try the new React documentation for [`Component`](https://beta.reactjs.org/reference/react/Component).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+`React.Component` is the base class for React components when they are defined using [ES6 classes](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes):
+>>>>>>> ba290ad4e432f47a2a2f88d067dacaaa161b5200
 
 ```javascript
 class Greeting extends React.Component {
@@ -104,19 +125,35 @@ Xem thêm [React.Component API Reference](/docs/react-component.html) để tìm
 
 ### `React.PureComponent` {#reactpurecomponent}
 
+<<<<<<< HEAD
 `React.PureComponent` cũng giống như [`React.Component`](#reactcomponent). Điểm khác biệt giữa chúng là [`React.Component`](#reactcomponent) không thực hiện hàm [`shouldComponentUpdate()`](/docs/react-component.html#shouldcomponentupdate), trong khi đó `React.PureComponent` thì có, nó sẽ so sánh nông (shallow) tất cả các thuộc tính của props và state để quyết định xem component này có cần update hay không.
+=======
+> Try the new React documentation for [`PureComponent`](https://beta.reactjs.org/reference/react/PureComponent).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+`React.PureComponent` is similar to [`React.Component`](#reactcomponent). The difference between them is that [`React.Component`](#reactcomponent) doesn't implement [`shouldComponentUpdate()`](/docs/react-component.html#shouldcomponentupdate), but `React.PureComponent` implements it with a shallow prop and state comparison.
+>>>>>>> ba290ad4e432f47a2a2f88d067dacaaa161b5200
 
 Nếu như những React components của bạn gọi đến `render()` function để biểu diễn cùng kết quả với cùng props và state, bạn có thể sử dụng `React.PureComponent` để tăng hiệu suất cho ứng dụng trong một số trường hợp.
 
 > Lưu ý
 >
+<<<<<<< HEAD
 > Phương thức `shouldComponentUpdate()` của `React.PureComponent` chỉ so sánh nông (shallow) các đối tượng. Nếu chúng có cấu trúc dữ liệu phức tạp, có thể xảy ra trường hợp bỏ sót nếu sự khác biệt nằm sâu bên trong. Chỉ kế thừa `PureComponent` khi bạn có props và state đơn giản, hoặc sử dụng [`forceUpdate()`](/docs/react-component.html#forceupdate) nếu bạn chắc chắc rằng cấu trúc dữ liệu đã bị thay đổi. Hoặc, bạn có thể sử dụng  [immutable objects](https://facebook.github.io/immutable-js/) để dễ dàng so sánh nhanh các dữ liệu lồng nhau.
+=======
+> `React.PureComponent`'s `shouldComponentUpdate()` only shallowly compares the objects. If these contain complex data structures, it may produce false-negatives for deeper differences. Only extend `PureComponent` when you expect to have simple props and state, or use [`forceUpdate()`](/docs/react-component.html#forceupdate) when you know deep data structures have changed. Or, consider using [immutable objects](https://immutable-js.com/) to facilitate fast comparisons of nested data.
+>>>>>>> ba290ad4e432f47a2a2f88d067dacaaa161b5200
 >
 > Hơn nữa, "phương thức" (method) `shouldComponentUpdate()` của `React.PureComponent` bỏ qua việc cập nhật prop cho toàn bộ các component con. Nên hãy chắc chắn rằng các component con cũng là "pure".
 
 * * *
 
 ### `React.memo` {#reactmemo}
+
+> Try the new React documentation for [`memo`](https://beta.reactjs.org/reference/react/memo).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
 
 ```javascript
 const MyComponent = React.memo(function MyComponent(props) {
@@ -156,6 +193,10 @@ Phương thức này tồn tại như một cách **[tối ưu hiệu suất](/d
 
 ### `createElement()` {#createelement}
 
+> Try the new React documentation for [`createElement`](https://beta.reactjs.org/reference/react/createElement).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
 ```javascript
 React.createElement(
   type,
@@ -171,6 +212,10 @@ Mã được viết bằng [JSX](/docs/introducing-jsx.html) sẽ được chuy�
 * * *
 
 ### `cloneElement()` {#cloneelement}
+
+> Try the new React documentation for [`cloneElement`](https://beta.reactjs.org/reference/react/cloneElement).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
 
 ```
 React.cloneElement(
@@ -196,6 +241,10 @@ API này được giới thiệu như là một giải pháp thay thế cho `Rea
 
 ### `createFactory()` {#createfactory}
 
+> Try the new React documentation for [`createFactory`](https://beta.reactjs.org/reference/react/createFactory).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
 ```javascript
 React.createFactory(type)
 ```
@@ -210,6 +259,10 @@ Thông thường, bạn sẽ không gọi trực tiếp `React.createFactory()` 
 
 ### `isValidElement()` {#isvalidelement}
 
+> Try the new React documentation for [`isValidElement`](https://beta.reactjs.org/reference/react/isValidElement).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
 ```javascript
 React.isValidElement(object)
 ```
@@ -220,7 +273,15 @@ React.isValidElement(object)
 
 ### `React.Children` {#reactchildren}
 
+<<<<<<< HEAD
 `React.Children` cung cấp các tiện ích để tương tác với "cấu trúc dữ liệu ẩn" (opaque data structure) `this.props.children`.
+=======
+> Try the new React documentation for [`Children`](https://beta.reactjs.org/reference/react/Children).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+`React.Children` provides utilities for dealing with the `this.props.children` opaque data structure.
+>>>>>>> ba290ad4e432f47a2a2f88d067dacaaa161b5200
 
 #### `React.Children.map` {#reactchildrenmap}
 
@@ -278,7 +339,15 @@ Trả về "cấu trúc dữ liệu ẩn" (opaque data structure) của `childre
 
 ### `React.Fragment` {#reactfragment}
 
+<<<<<<< HEAD
 `React.Fragment` component cho phép bạn trả về nhiều "phần tử" (elements) trong một phương thức `render()` mà không cần tạo "phần tử" (element) DOM:
+=======
+> Try the new React documentation for [`Fragment`](https://beta.reactjs.org/reference/react/Fragment).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+The `React.Fragment` component lets you return multiple elements in a `render()` method without creating an additional DOM element:
+>>>>>>> ba290ad4e432f47a2a2f88d067dacaaa161b5200
 
 ```javascript
 render() {
@@ -296,12 +365,28 @@ Bạn cũng có thể sử dụng nó với cú pháp ngắn gọn sau đây `<>
 
 ### `React.createRef` {#reactcreateref}
 
+<<<<<<< HEAD
 `React.createRef` tạo ra một [ref](/docs/refs-and-the-dom.html) có thể được gắn vào các phần tử (elements) của React thông qua "thuộc tính" (attribute) ref.
+=======
+> Try the new React documentation for [`createRef`](https://beta.reactjs.org/reference/react/createRef).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+`React.createRef` creates a [ref](/docs/refs-and-the-dom.html) that can be attached to React elements via the ref attribute.
+>>>>>>> ba290ad4e432f47a2a2f88d067dacaaa161b5200
 `embed:16-3-release-blog-post/create-ref-example.js`
 
 ### `React.forwardRef` {#reactforwardref}
 
+<<<<<<< HEAD
 `React.forwardRef` tạo ra một "thành phần" (component) React, giúp "chuyển tiếp" (forwards) "thuộc tính" (attribute) [ref](/docs/refs-and-the-dom.html) mà nó nhận được cho các thành phần khác bên dưới "cây" (tree). Kỹ thuật này không thật sự phổ biến nhưng lại đặc biệt hữu ích trong hai tình huống sau:
+=======
+> Try the new React documentation for [`forwardRef`](https://beta.reactjs.org/reference/react/forwardRef).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+`React.forwardRef` creates a React component that forwards the [ref](/docs/refs-and-the-dom.html) attribute it receives to another component below in the tree. This technique is not very common but is particularly useful in two scenarios:
+>>>>>>> ba290ad4e432f47a2a2f88d067dacaaa161b5200
 
 * [Chuyển tiếp refs tới các "thành phần" DOM](/docs/forwarding-refs.html#forwarding-refs-to-dom-components) (Forwarding refs to DOM components)
 * [Chuyển tiếp refs trong các "thành phần" bậc cao](/docs/forwarding-refs.html#forwarding-refs-in-higher-order-components) (Forwarding refs in higher-order-components)
@@ -318,7 +403,15 @@ Kết quả là, sau khi React đính kèm ref, `ref.current` sẽ trỏ trực 
 
 ### `React.lazy` {#reactlazy}
 
+<<<<<<< HEAD
 `React.lazy()` cho phép bạn định nghĩa một "thành phần" (component) được "tải" (load) một cách "linh động" (dynamically). Nó giúp giảm kích thước `bundle` để trì hoãn việc tải các "thành phần" (components) mà nó không sử dụng trong thời điểm "biểu diễn" (render) ban đầu.
+=======
+> Try the new React documentation for [`lazy`](https://beta.reactjs.org/reference/react/lazy).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+`React.lazy()` lets you define a component that is loaded dynamically. This helps reduce the bundle size to delay loading components that aren't used during the initial render.
+>>>>>>> ba290ad4e432f47a2a2f88d067dacaaa161b5200
 
 Bạn có thể tìm hiểu cách sử dụng nó từ [tài liệu chia nhỏ mã](/docs/code-splitting.html#reactlazy) (code splitting documentation) của chúng tôi. Bạn có thể cũng muốn xem [bài viết này](https://medium.com/@pomber/lazy-loading-and-preloading-components-in-react-16-6-804de091c82d) giải thích làm thế nào để sử dụng nó chi tiết hơn.
 
@@ -329,6 +422,7 @@ const SomeComponent = React.lazy(() => import('./SomeComponent'));
 
 Lưu ý việc "biểu diễn" (rendering) các "thành phần" (components) `lazy` đòi hỏi phải có một "thành phần" (component) `<React.Suspense>` cao hơn trong "cây biểu diễn" (rendering tree). Đây là cách bạn chỉ định một "chỉ thị tải" (loading indicator).
 
+<<<<<<< HEAD
 > **Lưu ý**
 >
 > Sử dụng `React.lazy` với "nạp động" (dynamic import) đòi hỏi phải có Promises trong môi trường JS. Điều này đỏi hỏi một polyfill trên IE11 hoặc thấp hơn.
@@ -336,6 +430,17 @@ Lưu ý việc "biểu diễn" (rendering) các "thành phần" (components) `la
 ### `React.Suspense` {#reactsuspense}
 
 `React.Suspense` cho phép bạn chỉ định "chỉ thị tải" trong trường hợp một số "thành phần" (component) trong cây bên dưới chưa sẵn sàng để "biểu diễn" (render). Hiện tại, các "thành phần" (component) lazy loading là trường hợp sử dụng **duy nhất** được hỗ trợ bởi `<React.Suspense>`:
+=======
+### `React.Suspense` {#reactsuspense}
+
+> Try the new React documentation for [`Suspense`](https://beta.reactjs.org/reference/react/Suspense).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+`React.Suspense` lets you specify the loading indicator in case some components in the tree below it are not yet ready to render. In the future we plan to let `Suspense` handle more scenarios such as data fetching. You can read about this in [our roadmap](/blog/2018/11/27/react-16-roadmap.html).
+
+Today, lazy loading components is the **only** use case supported by `<React.Suspense>`:
+>>>>>>> ba290ad4e432f47a2a2f88d067dacaaa161b5200
 
 ```js
 // This component is loaded dynamically
@@ -355,8 +460,40 @@ function MyComponent() {
 
 Nó được ghi lại trong [hướng dẫn tách mã](/docs/code-splitting.html#reactlazy) của chúng tôi. Lưu ý các "thành phần" (component)`lazy` có thể nằm sâu bên trong cây `Suspense` -- nó không cần phải bọc từng cái một. Thói quen tốt nhất là đặt  `<Suspense>` nơi bạn muốn xem một sự kiện báo "tải" (loading), nhưng không dùng `lazy()` ở bất cứ nơi nào bạn muốn chia nhỏ mã.
 
+<<<<<<< HEAD
 Mặc dù điều này chưa được hỗ trợ hiện nay, nhưng trong tương lai chúng tôi có kế hoạch để cho `Suspense` xử lý nhiều kịch bản hơn như "nạp dữ liệu" (data fetching). Bạn có thể đọc về điều này trong [lộ trình của chúng tôi](/blog/2018/11/27/react-16-roadmap.html).
 
 >Lưu ý:
 >
 >`React.lazy()` và `<React.Suspense>` chưa được `ReactDOMServer` hỗ trợ. Đây là một điểm hạn chế sẽ được giải quyết trong tương lai.
+=======
+> Note
+>
+> For content that is already shown to the user, switching back to a loading indicator can be disorienting. It is sometimes better to show the "old" UI while the new UI is being prepared. To do this, you can use the new transition APIs [`startTransition`](#starttransition) and [`useTransition`](/docs/hooks-reference.html#usetransition) to mark updates as transitions and avoid unexpected fallbacks.
+
+#### `React.Suspense` in Server Side Rendering {#reactsuspense-in-server-side-rendering}
+During server side rendering Suspense Boundaries allow you to flush your application in smaller chunks by suspending.
+When a component suspends we schedule a low priority task to render the closest Suspense boundary's fallback. If the component unsuspends before we flush the fallback then we send down the actual content and throw away the fallback.
+
+#### `React.Suspense` during hydration {#reactsuspense-during-hydration}
+Suspense boundaries depend on their parent boundaries being hydrated before they can hydrate, but they can hydrate independently from sibling boundaries. Events on a boundary before it is hydrated will cause the boundary to hydrate at a higher priority than neighboring boundaries. [Read more](https://github.com/reactwg/react-18/discussions/130)
+
+### `React.startTransition` {#starttransition}
+
+> Try the new React documentation for [`startTransition`](https://beta.reactjs.org/reference/react/startTransition).
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+```js
+React.startTransition(callback)
+```
+`React.startTransition` lets you mark updates inside the provided callback as transitions. This method is designed to be used when [`React.useTransition`](/docs/hooks-reference.html#usetransition) is not available.
+
+> Note:
+>
+> Updates in a transition yield to more urgent updates such as clicks.
+>
+> Updates in a transition will not show a fallback for re-suspended content, allowing the user to continue interacting while rendering the update.
+>
+> `React.startTransition` does not provide an `isPending` flag. To track the pending status of a transition see [`React.useTransition`](/docs/hooks-reference.html#usetransition).
+>>>>>>> ba290ad4e432f47a2a2f88d067dacaaa161b5200
