@@ -12,7 +12,17 @@ redirect_from:
   - "docs/tutorial-zh-CN.html"
 ---
 
+<<<<<<< HEAD
 Bài viết này không có bất kỳ giả định gì về kiến thức React hiện tại.
+=======
+> Try the new React documentation.
+> 
+> The updated [Tutorial](https://beta.reactjs.org/learn/tutorial-tic-tac-toe) teaches modern React and includes live examples.
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+This tutorial doesn't assume any existing React knowledge.
+>>>>>>> 19aa5b4852c3905757edb16dd62f7e7506231210
 
 ## Trước khi bắt đầu {#before-we-start-the-tutorial}
 
@@ -106,7 +116,7 @@ cd ..
 
 ```js
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 ```
 
@@ -542,7 +552,7 @@ var player = {score: 1, name: 'Jeff'};
 var newPlayer = Object.assign({}, player, {score: 2});
 // Now player is unchanged, but newPlayer is {score: 2, name: 'Jeff'}
 
-// Or if you are using object spread syntax proposal, you can write:
+// Or if you are using object spread syntax, you can write:
 // var newPlayer = {...player, score: 2};
 ```
 
@@ -1045,7 +1055,11 @@ Hãy `map` mảng `history` trong phương thức `render` của Game component:
 
 **[Xem code chi tiết tại bước này](https://codepen.io/gaearon/pen/EmmGEa?editors=0010)**
 
+<<<<<<< HEAD
 Với mỗi lịch sử bước đi trong game tic-tac-toe, ta tạo ra một danh sách các `<li>` chứa một `<button>`. Button sẽ có một hàm xử lý `onClick`, hàm này sẽ gọi phương thức `this.jumpTo()`. Hiện tại ta chưa có hàm `jumpTo()`. Đến bước này, bạn sẽ thấy một danh sách các bước đi được hiển thị trên màn hình và cảnh báo trong console của công cụ cho nhà phát triển với thông điệp như sau:
+=======
+As we iterate through `history` array, `step` variable refers to the current `history` element value, and `move` refers to the current `history` element index. We are only interested in `move` here, hence `step` is not getting assigned to anything.
+>>>>>>> 19aa5b4852c3905757edb16dd62f7e7506231210
 
 Khi chúng ta loop qua mảng `history`, `step` biến này ánh xạ tới value của element `history`. Và `move` ánh xạ tới `history` element index. Chúng ta chỉ quan tâm tới `move` ở đây, vì thế `step` sẽ không được gán.
 
@@ -1147,13 +1161,18 @@ Tiếp theo, chúng ta sẽ định nghĩa hàm `jumpTo` trong Game component đ
     // this method has not changed
   }
 ```
-Notice in `jumpTo` method, we haven't updated history property of the state. That is because state updates are merged or in more simple words react will update only the properties mentioned in `setState` method leaving the remaining state as that is. For more info **[see the documentation](https://reactjs.org/docs/state-and-lifecycle.html#state-updates-are-merged)**
+
+Notice in `jumpTo` method, we haven't updated `history` property of the state. That is because state updates are merged or in more simple words React will update only the properties mentioned in `setState` method leaving the remaining state as is. For more info **[see the documentation](/docs/state-and-lifecycle.html#state-updates-are-merged)**.
 
 Bây giờ ta sẽ cần thay đổi hàm `handleClick` của Game component một chút.
 
 State `stepNumber` mà chúng ta vừa thêm phản ánh bước đi hiện tại của người chơi. Sau khi một bước đi diễn ra, ta cần cập nhật lại `stepNumber` như sau `stepNumber: history.length`. Việc này đảm bảo chúng ta sẽ không bị hiển thị cùng một bước đi sau khi một bước đi mới được tạo ra.
 
+<<<<<<< HEAD
 Ta cũng sẽ thay thế `this.state.history` bằng `this.state.history.slice(0, this.state.stepNumber + 1)`. Việc này đảm bảo nếu ta "quay về một bước đi trước đó" và sau khi ta đi một bước mới từ điểm đó, mảng history "tương lai" sẽ không bị sai.
+=======
+We will also replace reading `this.state.history` with `this.state.history.slice(0, this.state.stepNumber + 1)`. This ensures that if we "go back in time" and then make a new move from that point, we throw away all the "future" history that would now be incorrect.
+>>>>>>> 19aa5b4852c3905757edb16dd62f7e7506231210
 
 ```javascript{2,13}
   handleClick(i) {

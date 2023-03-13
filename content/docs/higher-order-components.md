@@ -14,7 +14,11 @@ const EnhancedComponent = higherOrderComponent(WrappedComponent);
 
 Nếu như một component chuyển đổi props thành UI, thì một higher-order component chuyển đổi một component thành một component khác.
 
+<<<<<<< HEAD
 HOCs rất phổ biến với các thư viện React, chẳng hạn như Redux [`connect`](https://github.com/reduxjs/react-redux/blob/main/docs/api/connect.md#connect) và Relay [`createFragmentContainer`](https://relay.dev/docs/v10.1.3/fragment-container/#createfragmentcontainer).
+=======
+HOCs are common in third-party React libraries, such as Redux's [`connect`](https://react-redux.js.org/api/connect) and Relay's [`createFragmentContainer`](https://relay.dev/docs/v10.1.3/fragment-container/#createfragmentcontainer).
+>>>>>>> 19aa5b4852c3905757edb16dd62f7e7506231210
 
 Trong tài liệu này, chúng ta sẽ thảo luận tại sao higher-order components lại có ích và cách tạo ra một HOC.
 

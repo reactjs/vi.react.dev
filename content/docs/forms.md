@@ -9,7 +9,21 @@ redirect_from:
   - "docs/forms-zh-CN.html"
 ---
 
+<<<<<<< HEAD
 Trong React, HTML form element sẽ hoạt động hơi khác một chút so với các DOM element còn lại, form element sẽ giữ và tự xử lí một số state nội bộ (internal state) của riêng nó. Ví dụ như form dưới đây trong HTML sẽ nhận vào giá trị của input name.
+=======
+> Try the new React documentation.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [`<input>`](https://beta.reactjs.org/reference/react-dom/components/input)
+> - [`<select>`](https://beta.reactjs.org/reference/react-dom/components/select)
+> - [`<textarea>`](https://beta.reactjs.org/reference/react-dom/components/textarea)
+>
+> The new docs will soon replace this site, which will be archived. [Provide feedback.](https://github.com/reactjs/reactjs.org/issues/3308)
+
+HTML form elements work a bit differently from other DOM elements in React, because form elements naturally keep some internal state. For example, this form in plain HTML accepts a single name:
+>>>>>>> 19aa5b4852c3905757edb16dd62f7e7506231210
 
 ```html
 <form>
@@ -276,10 +290,10 @@ Cũng có ngoại lệ, giá trị của prop trong một [controlled component]
 Đoạn code bên dưới sẽ làm rõ điều ta vừa đề cập. (Thẻ input đã được gán giá trị lúc bạn đầu nhưng trở nên có thể bị sửa đổi sau một khoảng thời gian chờ.)
 
 ```javascript
-ReactDOM.render(<input value="hi" />, mountNode);
+ReactDOM.createRoot(mountNode).render(<input value="hi" />);
 
 setTimeout(function() {
-  ReactDOM.render(<input value={null} />, mountNode);
+  ReactDOM.createRoot(mountNode).render(<input value={null} />);
 }, 1000);
 
 ```
