@@ -3,6 +3,12 @@ title: Tích hợp JSFiddle
 author: [vjeux]
 ---
 
+<div class="scary">
+
+> This blog site has been archived. Go to [react.dev/blog](https://react.dev/blog) to see the recent posts.
+
+</div>
+
 [JSFiddle](https://jsfiddle.net) vừa mới thông báo hỗ trợ cho React. Đây là một tin thú vị vì nó giúp cho việc cộng tác với các đoạn code trở nên dễ dàng hơn rất nhiều. Bạn có thể làm việc với **[nền tảng React JSFiddle](http://jsfiddle.net/vjeux/kb3gN/)**, sửa đổi và chia sẻ nó! Một [fiddle không cần JSX](http://jsfiddle.net/vjeux/VkebS/) cũng đã có.
 
 

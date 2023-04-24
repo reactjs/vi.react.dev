@@ -6,6 +6,16 @@ category: Reference
 permalink: docs/profiler.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> These new documentation pages teach modern React:
+>
+> - [`<Profiler>`](https://react.dev/reference/react/Profiler)
+
+</div>
+
 Công cụ `Profiler` (tạm gọi là `Công cụ Phân tích`) đánh giá xem ứng dụng React thực hiện việc render và "chi phí" để thực hiện nó. 
 Mục đích của nó là để xác định xem phần nào của ứng dụng chạy chậm và có thể được hưởng lợi từ việc [tối ưu hóa như là ghi nhớ (memoization)](/docs/hooks-faq.html#how-to-memoize-calculations).
 

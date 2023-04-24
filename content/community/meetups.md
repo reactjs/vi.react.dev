@@ -6,6 +6,14 @@ sectionid: community
 permalink: community/meetups.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+>
+> See the [Meetups](https://react.dev/community/meetups) page on the new site.
+>
+</div>
+
 Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó vào đây! (Vui lòng giữ danh sách theo thứ tự bảng chữ cái)
 
 ## Albania {#albania}
@@ -145,6 +153,7 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 
 ## Ba Lan {#poland}
 * [Warsaw](https://www.meetup.com/React-js-Warsaw/)
+* [Wrocław](https://www.meetup.com/ReactJS-Wroclaw/)
 
 ## Bồ Đào Nha {#portugal}
 * [Lisbon](https://www.meetup.com/JavaScript-Lisbon/)
@@ -161,6 +170,7 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 
 ## Thụy Điển {#sweden}
 * [Goteborg](https://www.meetup.com/ReactJS-Goteborg/)
+* [Stockholm](https://www.meetup.com/Stockholm-ReactJS-Meetup/)
 
 ## Thụy Sỹ {#switzerland}
 * [Zurich](https://www.meetup.com/Zurich-ReactJS-Meetup/)

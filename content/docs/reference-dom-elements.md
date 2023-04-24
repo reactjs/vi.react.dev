@@ -14,6 +14,21 @@ redirect_from:
   - "tips/dangerously-set-inner-html.html"
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [Common components (e.g. `<div>`)](https://react.dev/reference/react-dom/components/common)
+> - [`<input>`](https://react.dev/reference/react-dom/components/input)
+> - [`<option>`](https://react.dev/reference/react-dom/components/option)
+> - [`<progress>`](https://react.dev/reference/react-dom/components/progress)
+> - [`<select>`](https://react.dev/reference/react-dom/components/select)
+> - [`<textarea>`](https://react.dev/reference/react-dom/components/textarea)
+
+</div>
+
 React áp dụng hệ thống DOM không phụ thuộc vào trình duyệt để tăng hiệu suất và độ tương thích với nhiều trình duyệt khác nhau. Nhân dịp này, chúng tôi đã loại bỏ một số khía cạnh chưa hoàn chỉnh trong cách triển khai DOM trên trình duyệt.
 
 Trong React, tất cả các thuộc tính của DOM (bao gồm xử lí sự kiện) phải được viết theo camelCase. Ví dụ như attribute `tabindex`, thì trong React là `tabIndex`. Có những ngoại lệ là thuộc tính `aria-*` và `data-*` phải được viết chữ thường. Ví dụ `aria-label` vẫn là `aria-label`.
@@ -117,7 +132,7 @@ Một component có component con được đánh dấu là `contentEditable` s�
 
 Nếu bạn sử dụng server-side rendering, thông thường sẽ có một cảnh báo khi nội dung được render trên server khác với client. Tuy nhiên, trong một vài trường hợp, rất khó để đảm báo server và client trùng khớp với nhau ví dụ như render timestamp.
 
-Nếu bạn để `suppressHydrationWarning` là `true`, React sẽ không cảnh báo về những sự không trùng khớp trong những thuộc tính và nội dung của element đó. Nó chỉ hoạt động một cấp, và được dự định sử dụng như một lối thoát. Đừng lạm dụng nó. Bạn có thể xem thêm về hydration tại [`ReactDOM.hydrate()`](/docs/react-dom.html#hydrate).
+Nếu bạn để `suppressHydrationWarning` là `true`, React sẽ không cảnh báo về những sự không trùng khớp trong những thuộc tính và nội dung của element đó. Nó chỉ hoạt động một cấp, và được dự định sử dụng như một lối thoát. Đừng lạm dụng nó. Bạn có thể xem thêm về hydration tại [`ReactDOM.hydrateRoot()`](/docs/react-dom-client.html#hydrateroot).
 
 ### value {#value}
 

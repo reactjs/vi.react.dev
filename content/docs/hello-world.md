@@ -2,22 +2,29 @@
 id: hello-world
 title: Hello World
 permalink: docs/hello-world.html
-prev: cdn-links.html
+prev: release-channels.html
 next: introducing-jsx.html
 ---
 
+<div class="scary">
+
+>
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> See [Quick Start](https://react.dev/learn) for an introduction to React.
+
+</div>
+
 Một ví dụ đơn giản nhất của React trông như thế này:
 
-```js
-ReactDOM.render(
-  <h1>Hello, world!</h1>,
-  document.getElementById('root')
-);
+```jsx
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<h1>Hello, world!</h1>);
 ```
 
 Ví dụ trên hiển thị một tiêu đề với dòng chữ "Hello, world!" trên trang web.
 
-[](codepen://hello-world)
+**[Try it on CodePen](https://codepen.io/gaearon/pen/rrpgNB?editors=1010)**
 
 Nhấn vào link bên trên để mở một trình soạn thảo trực tuyến. Hãy tự nhiên để làm vài sự thay đổi và thấy nó ảnh hưởng đến kết quả như thế nào. Hầu hết các trang trong hướng dẫn này sẽ có những ví dụ mà bạn có thể thay đổi được giống như ví dụ này.
 

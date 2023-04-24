@@ -8,6 +8,15 @@ prev: add-react-to-a-website.html
 next: cdn-links.html
 ---
 
+<div class="scary">
+
+>
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> See [Start a New React Project](https://react.dev/learn/start-a-new-react-project) for the recommended ways to create an app.
+
+</div>
+
 Sử dụng chuỗi công cụ tích hợp để có trải nghiệm tốt nhất cho người dùng và nhà phát triển.
 
 Trang này mô tả một số công cụ React phổ biến giúp thực hiện các tác vụ như:
@@ -75,7 +84,7 @@ Các công cụ sau cung cấp nhiều sự lựa chọn và linh hoạt hơn. C
 
 - **[Nx](https://nx.dev/react)** là một bộ công cụ để phát triển full-stack monorepo, với hỗ trợ tích hợp cho React, Next.js, [Express](https://expressjs.com/), và nhiều hơn nữa.
 
-- **[Parcel](https://parceljs.org/)** là một gói ứng dụng web nhanh, không cấu hình [hoạt động với React](https://parceljs.org/recipes.html#react).
+- **[Parcel](https://parceljs.org/)** là một gói ứng dụng web nhanh, không cấu hình [hoạt động với React](https://parceljs.org/recipes/react/).
 
 - **[Razzle](https://github.com/jaredpalmer/razzle)** là một framework kết xuất máy chủ không yêu cầu bất kỳ cấu hình nào, nhưng cung cấp tính linh hoạt hơn Next.js.
 

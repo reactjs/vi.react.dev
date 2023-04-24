@@ -6,6 +6,18 @@ next: hooks-rules.html
 prev: hooks-state.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [Synchronizing with Effects](https://react.dev/learn/synchronizing-with-effects)
+> - [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
+> - [`useEffect`](https://react.dev/reference/react/useEffect)
+
+</div>
+
 *Hook* là một tính năng mới từ React 16.8. Nó cho phép sử dụng state và các tính năng khác của React mà không cần viết dạng class
 
 *Effect Hook* cho phép thực hiện side effect bên trong các function component:

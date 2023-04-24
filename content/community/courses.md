@@ -6,6 +6,13 @@ sectionid: community
 permalink: community/courses.html
 ---
 
+<div class="scary">
+
+>
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+
+</div>
+
 ## Free Courses {#free-courses}
 
 - [Glitch: React Starter Kit](https://glitch.com/glimmer/post/react-starter-kit) - Một khóa học miễn phí về React với 5 phần và các ví dụ đầy đủ ở đây sẽ giúp bạn học React dễ dàng hơn.
@@ -29,6 +36,8 @@ permalink: community/courses.html
 
 ## Paid Courses {#paid-courses}
 
+- [Meta Front-End Developer Professional Certificate](https://www.coursera.org/professional-certificates/meta-front-end-developer) - Launch your career as a front-end developer. Build job-ready skills for an in-demand career and earn a credential from Meta. No degree or prior experience required to get started.
+
 - [Egghead.io](https://egghead.io/browse/frameworks/react) - Các video hướng dẫn ngắn về React và rất nhiều chủ đề khác.
 
 - [Frontend Masters](https://frontendmasters.com/learn/react/) - Các khóa học về React.
@@ -47,7 +56,7 @@ permalink: community/courses.html
 
 - [React Training: Advanced React.js](https://courses.reacttraining.com/p/advanced-react) - Nâng cao kỹ năng React của bạn lên cấp độ tiếp theo.
 
-- [Tyler McGinnis](https://tylermcginnis.com/courses) - Tyler McGinnis cung cấp quyền truy cập vào các khóa học của mình với một khoản phí hàng tháng. Các khóa học bao gồm "React Fundamentals" và "Universal React".
+- [Tyler McGinnis](https://ui.dev/) - Tyler McGinnis cung cấp quyền truy cập vào các khóa học của mình với một khoản phí hàng tháng. Các khóa học bao gồm "React Fundamentals" và "Universal React".
 
 - [Mastering React](https://codewithmosh.com/p/mastering-react/) - Xây dựng các ứng dụng tương tác chuyên nghiệp với React.
 

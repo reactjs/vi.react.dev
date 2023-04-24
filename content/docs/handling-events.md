@@ -8,6 +8,16 @@ redirect_from:
   - "docs/events-ko-KR.html"
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+>
+> These new documentation pages teach modern React and include live examples:
+>
+> - [Responding to Events](https://react.dev/learn/responding-to-events)
+
+</div>
+
 Việc bắt sự kiện của những element React rất giống với những element DOM. Có một số khác biệt về cú pháp như:
 
 * Những sự kiện của React được đặt tên theo dạng camelCase, thay vì lowercase.
@@ -84,11 +94,6 @@ class Toggle extends React.Component {
     );
   }
 }
-
-ReactDOM.render(
-  <Toggle />,
-  document.getElementById('root')
-);
 ```
 
 [**Try it on CodePen**](https://codepen.io/gaearon/pen/xEmzGg?editors=0010)
@@ -102,10 +107,9 @@ Nếu bạn thấy việc gọi `bind` phiền phức thì có hai giải pháp.
 ```js{2-6}
 class LoggingButton extends React.Component {
   // Cú pháp này đảm bảo `this` được ràng buộc trong handleClick.
-  // Lưu ý: đây là cú pháp *thử nghiệm*.
   handleClick = () => {
     console.log('this is:', this);
-  }
+  };
 
   render() {
     return (

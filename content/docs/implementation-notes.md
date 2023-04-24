@@ -32,7 +32,8 @@ Bản thân reconciler không có API mở (public API). [Các phần render](/d
 Hãy nhìn lại lần đầu tiên chúng ta mount một component:
 
 ```js
-ReactDOM.render(<App />, rootEl);
+const root = ReactDOM.createRoot(rootEl);
+root.render(<App />);
 ```
 
 React DOM sẽ đưa `<App />` đến reconciler. Hãy nhớ rằng `<App />` là một phần tử của React, nghĩa là, nó miêu tả *cái gì* được render. Bạn có thể xem nó như là một object thuần:
@@ -236,9 +237,9 @@ Cách làm này vẫn dùng được nhưng còn xa so với cách reconciler th
 Tính năng then chốt của React là bạn có thể render lại mọi thứ, và nó sẽ không tạo lại DOM hay đặt lại trạng thái (state):
 
 ```js
-ReactDOM.render(<App />, rootEl);
+root.render(<App />);
 // DOM có sẵn nên được sử dụng lại:
-ReactDOM.render(<App />, rootEl);
+root.render(<App />);
 ```
 
 Tuy nhiên, cách thực thi ở trên chỉ mount cây được tạo đầu tiên. Nó không thể thực hiện việc cập nhật trên cây đó vì nó không có những thông tin cần thiết, ví dụ như các `publicInstance`, hay `node` DOM nào tương ứng với component nào.

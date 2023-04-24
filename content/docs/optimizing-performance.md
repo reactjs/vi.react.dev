@@ -6,6 +6,17 @@ redirect_from:
   - "docs/advanced-performance.html"
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> These new documentation pages teach modern React:
+>
+> - [`memo`: Skipping re-rendering when props are unchanged
+](https://react.dev/reference/react/memo#skipping-re-rendering-when-props-are-unchanged)
+
+</div>
+
 Về bản chất bên trong, React sử dụng một số kỹ thuật thông minh để giảm thiểu tối đa các tác động tới DOM một cách không cần thiết để cập nhật UI (Giao diện người dùng). Đối với nhiều ứng dụng, việc sử dụng React sẽ giúp UI hiển thị nhanh mà không cần phải thực hiện nhiều công việc để tối ưu hóa hiệu suất một cách cụ thể. Tuy nhiên, có một số cách để bạn có thể tăng tốc ứng dụng React của mình.
 
 ## Sử dụng bản Production Build {#use-the-production-build}
@@ -43,8 +54,8 @@ Hãy nhớ rằng điều này chỉ cần thiết trước khi deploy lên prod
 Chúng tôi cung cấp các phiên bản production-ready của React và React DOM dưới dạng các single file:
 
 ```html
-<script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 ```
 
 Hãy nhớ rằng chỉ các file React kết thúc bằng `.production.min.js` mới phù hợp cho production.

@@ -12,6 +12,14 @@ redirect_from:
   - "docs/tutorial-zh-CN.html"
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> The updated [Tutorial](https://react.dev/learn/tutorial-tic-tac-toe) teaches modern React and includes live examples.
+
+</div>
+
 Bài viết này không có bất kỳ giả định gì về kiến thức React hiện tại.
 
 ## Trước khi bắt đầu {#before-we-start-the-tutorial}
@@ -106,7 +114,7 @@ cd ..
 
 ```js
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.css';
 ```
 
@@ -542,7 +550,7 @@ var player = {score: 1, name: 'Jeff'};
 var newPlayer = Object.assign({}, player, {score: 2});
 // Now player is unchanged, but newPlayer is {score: 2, name: 'Jeff'}
 
-// Or if you are using object spread syntax proposal, you can write:
+// Or if you are using object spread syntax, you can write:
 // var newPlayer = {...player, score: 2};
 ```
 
@@ -1147,7 +1155,8 @@ Tiếp theo, chúng ta sẽ định nghĩa hàm `jumpTo` trong Game component đ
     // this method has not changed
   }
 ```
-Notice in `jumpTo` method, we haven't updated history property of the state. That is because state updates are merged or in more simple words react will update only the properties mentioned in `setState` method leaving the remaining state as that is. For more info **[see the documentation](https://reactjs.org/docs/state-and-lifecycle.html#state-updates-are-merged)**
+
+Notice in `jumpTo` method, we haven't updated `history` property of the state. That is because state updates are merged or in more simple words React will update only the properties mentioned in `setState` method leaving the remaining state as is. For more info **[see the documentation](/docs/state-and-lifecycle.html#state-updates-are-merged)**.
 
 Bây giờ ta sẽ cần thay đổi hàm `handleClick` của Game component một chút.
 

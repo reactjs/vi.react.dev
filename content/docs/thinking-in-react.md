@@ -8,6 +8,14 @@ redirect_from:
 prev: composition-vs-inheritance.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> The updated [Thinking in React](https://react.dev/learn/thinking-in-react) guide teaches modern React and includes live examples.
+
+</div>
+
 Theo ý kiến cá nhân, React là cách tốt nhất để xây dựng những ứng dụng Web lớn một cách nhanh chóng. Nó được sử dụng rộng rãi cho Facebook và Instagram.
 
 Một trong những điểm tuyệt vời của React là nó giúp bạn phát triển lối tư duy về cách xây dựng các ứng dụng. Trong tài liệu này, chúng tôi sẽ hướng dẫn bạn quy trình xây dựng một bảng dữ liệu tìm kiếm sản phẩm bằng React.
@@ -69,7 +77,7 @@ Bây giờ bạn đã có hệ thống cấp bậc cho component của bạn, đ
 
 Bạn có thể tạo ra theo chiều từ trên xuống dưới hoặc ngược lại. Điều đó có nghĩa, bạn có thể bắt đầu với những component ở phía trên của hệ thống phân chia cấp bậc (ví dụ bắt đầu với `FilterableProductTable`) hoặc với những component con của nó (`ProductRow`). Trong những ví dụ đơn giản, thường thì nó sẽ đi theo chiều từ trên xuống dưới, và trong những dự án lớn thường sẽ dễ dàng hơn nếu làm theo hướng ngược lại và song song là viết test cho nó.
 
-Sau khi kết thúc, bạn sẽ có những thư viện có thể tái sử dụng để hiển thị mô hình dữ liệu. Những component sẽ chỉ có hàm `render()` vì đây là phiên bản tĩnh. Component ở phía trên của hệ thống phân chia cấp bậc (`FilterableProductTable`) sẽ nhận kiểu dữ liệu bằng prop. Nếu dữ liệu được thay đổi và hàm `ReactDOM.render()` được gọi lại, thì giao diện người dùng sẽ được cập nhật. Điều này sẽ giúp cho ta hiểu làm thế nào giao diện người dùng được cập nhật dễ dàng hơn và dữ liệu bị thay đổi ở đâu bởi vì nó không bị phức tạp hoá. React **luồng dữ liệu một chiều** (hay còn gọi *ràng buộc một chiều*) giữ cho mọi thứ được phân chia theo module và nhanh gọn.
+Sau khi kết thúc, bạn sẽ có những thư viện có thể tái sử dụng để hiển thị mô hình dữ liệu. Những component sẽ chỉ có hàm `render()` vì đây là phiên bản tĩnh. Component ở phía trên của hệ thống phân chia cấp bậc (`FilterableProductTable`) sẽ nhận kiểu dữ liệu bằng prop. Nếu dữ liệu được thay đổi và hàm `root.render()` được gọi lại, thì giao diện người dùng sẽ được cập nhật. Điều này sẽ giúp cho ta hiểu làm thế nào giao diện người dùng được cập nhật dễ dàng hơn và dữ liệu bị thay đổi ở đâu bởi vì nó không bị phức tạp hoá. React **luồng dữ liệu một chiều** (hay còn gọi *ràng buộc một chiều*) giữ cho mọi thứ được phân chia theo module và nhanh gọn.
 
 Tham khảo [tài liệu React](/docs/) nếu như bạn cần trợ giúp để thực hiện bước này.
 

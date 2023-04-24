@@ -6,6 +6,17 @@ next: hooks-effect.html
 prev: hooks-overview.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [State: A Component's Memory](https://react.dev/learn/state-a-components-memory)
+> - [`useState`](https://react.dev/reference/react/useState)
+
+</div>
+
 *Hooks* mới được thêm vào trong React 16.8. Chúng cho phép sử dụng state và những tính năng khác của React mà không cần phải dùng tới class.
 
 Trang [Giới thiệu về Hook](/docs/hooks-intro.html) sử dụng ví dụ này để làm quen với Hooks:

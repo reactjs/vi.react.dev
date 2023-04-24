@@ -6,6 +6,12 @@ sectionid: community
 permalink: community/examples.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+
+</div>
+
 Có rất nhiều dự án mẫu được tạo bởi cộng đồng React. Chúng tôi đang duy trì trang này chỉ tập trung vào những dự án sử dụng React mà không có thư viện quản lý state của bên thứ ba.
 
 Nếu bạn thêm một dự án, hãy cam kết cập nhật nó với các phiên bản React mới nhất.

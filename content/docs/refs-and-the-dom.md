@@ -12,6 +12,19 @@ redirect_from:
 ---
 Refs là một cách giúp chúng ta truy cập đến những nút DOM hoặc những phần tử React được tạo ra trong phương thức render.
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [Referencing Values with Refs](https://react.dev/learn/referencing-values-with-refs)
+> - [Manipulating the DOM with Refs](https://react.dev/learn/manipulating-the-dom-with-refs)
+> - [`useRef`](https://react.dev/reference/react/useRef)
+> - [`forwardRef`](https://react.dev/reference/react/forwardRef)
+
+</div>
+
 Trong luồng dữ liệu của React, [props](/docs/components-and-props.html) là cách duy nhất để các component cha tương tác với component con. Để cập nhật component con, ta phải re-render nó với các props mới. Tuy nhiên, một số trường hợp buộc ta phải thay đổi thành phần con bên ngoài luồng dữ liệu điển hình của React. Component con được sửa đổi có thể là một instance của một React component, hoặc nó có thể là một DOM element. Với những trường hợp trên, ta có thể xử lý bằng Refs.
 
 ### Khi nào sử dụng Refs {#when-to-use-refs}

@@ -3,6 +3,12 @@ title: "Giới thiệu Zero-Bundle-Size React Server Components"
 author: [gaearon,laurentan,josephsavona,sebmarkbage]
 ---
 
+<div class="scary">
+
+> This blog site has been archived. Go to [react.dev/blog](https://react.dev/blog) to see the recent posts.
+
+</div>
+
 2020 là một năm dài. Năm cũ sắp hết, chúng tôi muốn mang đến một cập nhật đặc biệt cho mùa lễ hội này, đó là nghiên cứu của chúng tôi về zero-bundle-size **React Server Components**.
 
 Để giới thiệu về React Server Components, chúng tôi đã chuẩn bị một buổi talk và một đoạn demo. Bạn có thể xem ngay trong mùa lễ hội này, hoặc năm sau khi lịch làm việc quay trở lại.

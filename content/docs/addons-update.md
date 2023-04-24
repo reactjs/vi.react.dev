@@ -28,7 +28,7 @@ Xử lý dữ liệu bất biến trong JavaScript khó hơn so với các ngôn
 như [Clojure](https://clojure.org/). Tuy nhiên, chúng tôi đã cung cấp một trình trợ giúp bất biến đơn giản, `update () '
 , giúp xử lý loại dữ
 liệu này dễ dàng hơn nhiều mà không làm thay đổi cơ bản cách dữ liệu của bạn được thể hiện. Bạn cũng có thể xem
-qua [Immutable-js](https://facebook.github.io/immutable-js/docs/) và
+qua [Immutable-js](https://immutable-js.com/docs/latest@main/) và
 phần [Advanced Performance](/docs/advanced-performance.html) để biết thêm chi tiết về Immutable-js.
 
 ### The Main Idea {#the-main-idea}

@@ -6,6 +6,17 @@ prev: conditional-rendering.html
 next: forms.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [Rendering Lists](https://react.dev/learn/rendering-lists)
+
+</div>
+
+
 Đầu tiên, hãy xem lại cách bạn chuyển đổi "danh sách" (lists) trong Javascript.
 
 Trong đoạn code bên dưới, chúng ta sử dụng hàm [`map()`](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Global_Objects/Array/map) để nhân đôi giá trị của từng phần tử trong mảng `numbers`. Chúng ta gán mảng mới là kết quả trả về từ hàm `map()` vào biến `doubled` và xuất kết quả đó ra:
@@ -36,10 +47,7 @@ const listItems = numbers.map((number) =>
 Chúng ta nhúng toàn bộ `listItems` vào trong thẻ `<ul>` , và [render mảng này ra DOM](/docs/rendering-elements.html#rendering-an-element-into-the-dom):
 
 ```javascript{2}
-ReactDOM.render(
-  <ul>{listItems}</ul>,
-  document.getElementById('root')
-);
+<ul>{listItems}</ul>
 ```
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/GjPyQr?editors=0011)
@@ -66,10 +74,8 @@ function NumberList(props) {
 }
 
 const numbers = [1, 2, 3, 4, 5];
-ReactDOM.render(
-  <NumberList numbers={numbers} />,
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<NumberList numbers={numbers} />);
 ```
 
 Khi bạn chạy đoạn code này, bạn sẽ nhận một thông báo lưu ý rằng một thuộc tính key nên được truyền vào cho mỗi phần tử (thẻ `<li>` bên trong hàm `map()`). Một "key" là một thuộc tính chuỗi đặc biệt bạn cần phải đưa vào khi tạo danh sách các element. Chúng ta sẽ thảo luận tại sao điều này lại quan trọng trong mục kế tiếp.
@@ -88,12 +94,6 @@ function NumberList(props) {
     <ul>{listItems}</ul>
   );
 }
-
-const numbers = [1, 2, 3, 4, 5];
-ReactDOM.render(
-  <NumberList numbers={numbers} />,
-  document.getElementById('root')
-);
 ```
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/jrXYRR?editors=0011)
@@ -132,7 +132,7 @@ const todoItems = todos.map((todo, index) =>
 );
 ```
 
-Chúng tôi không khuyến khích sử dụng thứ tự của các phần tử cho các key nếu thứ tự của các phần tử có thể thay đổi. Điều này có thể ảnh hưởng đến hiệu suất và có thể gây ra một vài vấn đề với state của component. Xem qua bài viết của Robin Pokorny về việc [giải thích ảnh hưởng tiêu cực của việc sử dụng thứ tự phần tử cho key](https://medium.com/@robinpokorny/index-as-a-key-is-an-anti-pattern-e0349aece318). Nếu bạn lựa chọn việc không gán cho key một định danh rõ ràng thì mặc định React sẽ sử dựng thứ tự của phần tử cho key.
+Chúng tôi không khuyến khích sử dụng thứ tự của các phần tử cho các key nếu thứ tự của các phần tử có thể thay đổi. Điều này có thể ảnh hưởng đến hiệu suất và có thể gây ra một vài vấn đề với state của component. Xem qua bài viết của Robin Pokorny về việc [giải thích ảnh hưởng tiêu cực của việc sử dụng thứ tự phần tử cho key](https://robinpokorny.com/blog/index-as-a-key-is-an-anti-pattern/). Nếu bạn lựa chọn việc không gán cho key một định danh rõ ràng thì mặc định React sẽ sử dựng thứ tự của phần tử cho key.
 
 Xem thêm [giải thích về việc tại sao các key là cần thiết](/docs/reconciliation.html#recursing-on-children) nếu bạn quan tâm nhiều về vấn đề này.
 
@@ -167,12 +167,6 @@ function NumberList(props) {
     </ul>
   );
 }
-
-const numbers = [1, 2, 3, 4, 5];
-ReactDOM.render(
-  <NumberList numbers={numbers} />,
-  document.getElementById('root')
-);
 ```
 
 **Ví dụ: Trường hợp sử dụng key chính xác**
@@ -195,12 +189,6 @@ function NumberList(props) {
     </ul>
   );
 }
-
-const numbers = [1, 2, 3, 4, 5];
-ReactDOM.render(
-  <NumberList numbers={numbers} />,
-  document.getElementById('root')
-);
 ```
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/ZXeOGM?editors=0010)
@@ -241,10 +229,9 @@ const posts = [
   {id: 1, title: 'Hello World', content: 'Welcome to learning React!'},
   {id: 2, title: 'Installation', content: 'You can install React from npm.'}
 ];
-ReactDOM.render(
-  <Blog posts={posts} />,
-  document.getElementById('root')
-);
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Blog posts={posts} />);
 ```
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/NRZYGN?editors=0010)

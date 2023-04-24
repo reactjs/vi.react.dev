@@ -8,6 +8,18 @@ prev: introducing-jsx.html
 next: components-and-props.html
 ---
 
+<div class="scary">
+
+>
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+>
+> These new documentation pages teach how to write JSX and show it on an HTML page:
+>
+> - [Writing Markup with JSX](https://react.dev/learn/writing-markup-with-jsx)
+> - [Add React to an Existing Project](https://react.dev/learn/add-react-to-an-existing-project#step-2-render-react-components-anywhere-on-the-page)
+
+</div>
+
 Element là những mảnh ghép nhỏ nhất của các ứng dụng React.
 
 Một element mô tả những gì bạn muốn nhìn thấy trên màn hình:
@@ -38,7 +50,7 @@ Các ứng dụng đã xây dựng với React thường có duy nhất một n�
 
 `embed:rendering-elements/render-an-element.js`
 
-[](codepen://rendering-elements/render-an-element)
+**[Try it on CodePen](https://codepen.io/gaearon/pen/ZpvBNJ?editors=1010)**
 
 Ví dụ trên hiển thị dòng chữ "Hello, world" trên trang web.
 
@@ -52,9 +64,9 @@ Hãy xem xét ví dụ đồng hồ "đánh dấu" (tick) này:
 
 `embed:rendering-elements/update-rendered-element.js`
 
-[](codepen://rendering-elements/update-rendered-element)
+**[Try it on CodePen](https://codepen.io/gaearon/pen/gwoJZk?editors=1010)**
 
-Nó gọi [`ReactDOM.render()`](/docs/react-dom.html#render) mỗi giây từ một "lời gọi lại" (callback) [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval).
+Nó gọi [`root.render()`](/docs/react-dom.html#render) mỗi giây từ một "lời gọi lại" (callback) [`setInterval()`](https://developer.mozilla.org/en-US/docs/Web/API/WindowTimers/setInterval).
 
 >**Ghi chú:**
 >
@@ -66,7 +78,7 @@ Nó gọi [`ReactDOM.render()`](/docs/react-dom.html#render) mỗi giây từ m�
 
 React DOM so sánh element và các thành phần con của nó với cái trước đó, và chỉ áp dụng những cập nhật DOM cần thiết để đưa DOM đến trạng thái được mong muốn.
 
-Bạn có thể xác minh điều trên bằng cách kiểm tra [ví dụ cuối](codepen://rendering-elements/update-rendered-element) với các công cụ của trình duyệt:
+Bạn có thể xác minh điều trên bằng cách kiểm tra [ví dụ cuối](https://codepen.io/gaearon/pen/gwoJZk?editors=1010) với các công cụ của trình duyệt:
 
 ![DOM inspector showing granular updates](../images/docs/granular-dom-updates.gif)
 !["thanh kiểm tra" (inspector) DOM chỉ ra những cập nhật cần thiết](../images/docs/granular-dom-updates.gif)

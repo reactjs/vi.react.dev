@@ -4,6 +4,18 @@ title: Uncontrolled Components
 permalink: docs/uncontrolled-components.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [`<input>`](https://react.dev/reference/react-dom/components/input)
+> - [`<select>`](https://react.dev/reference/react-dom/components/select)
+> - [`<textarea>`](https://react.dev/reference/react-dom/components/textarea)
+
+</div>
+
 Trong hầu hết các trường hợp, chúng tôi khuyên bạn nên sử dụng [controlled components](/docs/forms.html#controlled-components) để triển khai forms. Trong controlled component, dữ liệu trong form sẽ được quản lí hoàn toàn bởi React component. Trái ngược với điều đó, uncontrolled component, dữ liệu sẽ được quản lí trực tiếp bởi chính DOM.
 
 Để tạo uncontrolled component, thay vì việc xử lí sự kiện mỗi khi state được update, bạn có thể [sử dụng ref](/docs/refs-and-the-dom.html) để lấy dữ liệu từ DOM.

@@ -59,7 +59,7 @@ Kiểm tra cạn hiện tại vẫn có một vài hạn chế, có thể kể t
 
 Bạn có thể tưởng tượng shallowRenderer như là một "nơi" để render component bạn muốn kiểm tra, và từ đó bạn có thể tách đầu ra của component đó.
 
-`shallowRenderer.render()` gần giống với [`ReactDOM.render()`](/docs/react-dom.html#render), nhưng nó không cần dùng DOM và chỉ render sâu một lớp. Việc này nghĩa là bạn có thể kiểm tra những component mà không phụ thuộc vào cách những component con được triển khai.
+`shallowRenderer.render()` gần giống với [`root.render()`](/docs/react-dom-client.html#createroot), nhưng nó không cần dùng DOM và chỉ render sâu một lớp. Việc này nghĩa là bạn có thể kiểm tra những component mà không phụ thuộc vào cách những component con được triển khai.
 
 ### `shallowRenderer.getRenderOutput()` {#shallowrenderergetrenderoutput}
 

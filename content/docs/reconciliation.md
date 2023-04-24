@@ -4,6 +4,16 @@ title: Reconciliation
 permalink: docs/reconciliation.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [Preserving and Resetting State](https://react.dev/learn/preserving-and-resetting-state)
+
+</div>
+
 React cung cấp một API tự động xác định những nơi bị thay đổi sau những lần cập nhật. Điều này làm cho việc viết ứng dụng trở nên dễ dàng hơn rất nhiều, nhưng có thể bạn muốn tìm hiểu thêm về cách React xác định những thay đổi trong DOM như thế nào. Bài viết này sẽ giải thích cách mà React đã thực hiện trong thuật toán "diffing" để đưa ra quyết định cập nhật components của bạn một cách có kiểm soát và đảm bảo performance (hiệu năng) của ứng dụng.
 
 ## Motivation {#motivation}

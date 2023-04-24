@@ -4,6 +4,15 @@ title: Render Props
 permalink: docs/render-props.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+>
+> Render props are used in modern React, but aren't very common.  
+> For many cases, they have been replaced by [custom Hooks](https://react.dev/learn/reusing-logic-with-custom-hooks).
+
+</div>
+
 Thuật ngữ ["render prop"](https://cdb.reacttraining.com/use-a-render-prop-50de598f11ce) nói về một kĩ thuật chia sẻ code giữa các React components bằng cách dùng một đối tượng (prop) có giá trị là một hàm (function).
 
 Một component có một render prop sẽ lấy một hàm trả về một phần tử React (React element) và gọi hàm đó thay vì phải thực hiện render với logic riêng biệt.
