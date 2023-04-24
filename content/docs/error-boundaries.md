@@ -4,6 +4,16 @@ title: Error Boundaries
 permalink: docs/error-boundaries.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> These new documentation pages teach modern React:
+>
+> - [`React.Component`: Catching rendering errors with an error boundary](https://react.dev/reference/react/Component#catching-rendering-errors-with-an-error-boundary)
+
+</div>
+
 Trước đây, các lỗi JavaScript bên trong các thành phần được sử dụng để làm hỏng trạng thái bên trong của React và khiến
 nó [emit](https://github.com/facebook/react/issues/4026) [cryptic](https://github.com/facebook/react/issues/6895) [errors](https://github.com/facebook/react/issues/8579)
 vào lần hiển thị tiếp theo. Những lỗi này luôn do lỗi trước đó trong mã ứng dụng gây ra, nhưng React không cung cấp cách
@@ -81,7 +91,7 @@ Nếu một ranh giới lỗi không cố gắng hiển thị thông báo lỗi,
 ## Live Demo {#live-demo}
 
 Check out [this example of declaring and using an error boundary](https://codepen.io/gaearon/pen/wqvxGa?editors=0010)
-with [React 16](/blog/2017/09/26/react-v16.0.html).
+.
 
 ## Where to Place Error Boundaries {#where-to-place-error-boundaries}
 

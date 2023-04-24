@@ -6,6 +6,14 @@ redirect_from:
   - "docs/webcomponents.html"
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+>
+> See [Custom HTML elements](https://react.dev/reference/react-dom/components#custom-html-elements) in the new docs.
+>
+</div>
+
 React và [Web Components](https://developer.mozilla.org/en-US/docs/Web/Web_Components) được xây dựng để giải quyết những vấn đề khác nhau. Web Components cung cấp sự đóng gói mạnh mẽ cho việc tái sử dụng components, trong khi đó React cung cấp một thư viện khai báo giữ DOM đồng bộ với dữ liệu của bạn. Hai mục tiêu này bổ trợ cho nhau. Là một developer, bạn có quyền sử dụng React trong Web Components của bạn, hoặc sử dụng Web Components trong React, hoặc cả hai.
 
 Hầu hết những người sử dụng React thì không sử dụng Web Components, nhưng bạn có thể muốn sử dụng, đặc biệt là khi bạn đang sử dụng UI components của bên thứ ba được viết bằng Web Components.
@@ -50,7 +58,8 @@ class XSearch extends HTMLElement {
 
     const name = this.getAttribute('name');
     const url = 'https://www.google.com/search?q=' + encodeURIComponent(name);
-    ReactDOM.render(<a href={url}>{name}</a>, mountPoint);
+    const root = ReactDOM.createRoot(mountPoint);
+    root.render(<a href={url}>{name}</a>);
   }
 }
 customElements.define('x-search', XSearch);

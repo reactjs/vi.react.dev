@@ -8,6 +8,15 @@ prev: getting-started.html
 next: create-a-new-react-app.html
 ---
 
+<div class="scary">
+
+>
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> See [Add React to an Existing Project](https://react.dev/learn/add-react-to-an-existing-project) for the recommended ways to add React.
+
+</div>
+
 Sử dụng ít hay nhiều React tuỳ theo nhu cầu của bạn.
 
 React được thiết kế nhằm mục đích thích ứng khả chuyển, và **bạn có thể sử dụng ít hay nhiều React tuỳ theo nhu cầu của bạn**. Có thể bạn chỉ muốn thêm một vài tính năng tương tác vào trong trang hiện có. React components là một cách tuyệt vời để thực hiện điều đó.
@@ -25,7 +34,7 @@ Trong phần này, chúng tôi sẽ trình bày về cách làm thế nào để
 
 Sẽ không cần đến các công cụ phức tạp hoặc các cài đặt khác -- **để hoàn thiện phần này, bạn chỉ cần kết nối mạng internet, và một khoảng thời gian tầm một phút.**
 
-Tuỳ chọn: [Tải xuống ví dụ đầy đủ (2KB zipped)](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605/archive/f6c882b6ae18bde42dcf6fdb751aae93495a2275.zip)
+Tuỳ chọn: [Tải xuống ví dụ đầy đủ (2KB zipped)](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605/archive/87f0b6f34238595b44308acfb86df6ea43669c08.zip)
 
 ### Bước 1: Thêm DOM Container vào HTML {#step-1-add-a-dom-container-to-the-html}
 
@@ -54,8 +63,8 @@ Tiếp theo, thêm ba thẻ `<script>` vào trang HTML ngay trước thẻ đón
 
   <!-- Load React. -->
   <!-- Note: when deploying, replace "development.js" with "production.min.js". -->
-  <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
 
   <!-- Load our React component. -->
   <script src="like_button.js"></script>
@@ -77,11 +86,12 @@ Mở **[đoạn code khởi tạo sau](https://gist.github.com/gaearon/0b180827c
 
 Sau **[đoạn code khởi tạo](https://gist.github.com/gaearon/0b180827c190fe4fd98b4c7f570ea4a8/raw/b9157ce933c79a4559d2aa9ff3372668cce48de7/LikeButton.js)**, thêm 2 dòng vào cuối file `like_button.js`:
 
-```js{3,4}
+```js{3,4,5}
 // ... Đoạn code khởi tạo bạn vừa dán ...
 
 const domContainer = document.querySelector('#like_button_container');
-ReactDOM.render(e(LikeButton), domContainer);
+const root = ReactDOM.createRoot(domContainer);
+root.render(e(LikeButton));
 ```
 
 Hai dòng code này tìm thẻ `<div>` mà chúng ta đã thêm vào trang HTML ở bước đầu tiên, và sau đó hiển thị nút "Like" - một React component bên trong div ở trên.
@@ -94,7 +104,7 @@ Chuyển qua phần tiếp theo với nhiều tips hơn trong việc tích hợp
 
 **[Xem toàn bộ source code của ví dụ](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605)**
 
-**[Tải xuống đầy đủ ví dụ (2KB zipped)](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605/archive/f6c882b6ae18bde42dcf6fdb751aae93495a2275.zip)**
+**[Tải xuống đầy đủ ví dụ (2KB zipped)](https://gist.github.com/gaearon/6668a1f6986742109c00a581ce704605/archive/87f0b6f34238595b44308acfb86df6ea43669c08.zip)**
 
 ### Tip: Tái sử dụng một component {#tip-reuse-a-component}
 
@@ -102,7 +112,7 @@ Thông thường, có thể bạn muốn hiển thị các React components tron
 
 [Xem toàn bộ source code của ví dụ](https://gist.github.com/gaearon/faa67b76a6c47adbab04f739cba7ceda)
 
-[Tải xuống đầy đủ ví dụ (2KB zipped)](https://gist.github.com/gaearon/faa67b76a6c47adbab04f739cba7ceda/archive/9d0dd0ee941fea05fd1357502e5aa348abb84c12.zip)
+[Tải xuống đầy đủ ví dụ (2KB zipped)](https://gist.github.com/gaearon/faa67b76a6c47adbab04f739cba7ceda/archive/279839cb9891bd41802ebebc5365e9dec08eeb9f.zip)
 
 >Ghi chú
 >
@@ -115,8 +125,8 @@ Trước khi deploy website của bạn lên môi trường production, hãy ch�
 Nếu bạn đã nén các scripts của ứng dụng, **trang của bạn sẽ sẵn sàng để được deploy lên môi trường production** nếu bạn đảm bảo rằng HTML đã deploy sẽ tải phiên bản của React được chứa trong file `production.min.js`:
 
 ```js
-<script src="https://unpkg.com/react@17/umd/react.production.min.js" crossorigin></script>
-<script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
 ```
 
 Nếu bạn không có bước nén - thu nhỏ cho scripts, thì [đây là một cách thiết lập](https://gist.github.com/gaearon/42a2ffa41b8319948f9be4076286e1f3).
@@ -183,7 +193,7 @@ Chúc mừng! Bạn vừa thêm **production-ready JSX setup** cho project của
 
 Tạo một thư mục có tên là `src` và chạy câu lệnh terminal sau đây:
 
-```
+```console
 npx babel --watch src --out-dir . --presets react-app/prod
 ```
 

@@ -9,6 +9,18 @@ redirect_from:
   - "docs/forms-zh-CN.html"
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> These new documentation pages teach modern React and include live examples:
+>
+> - [`<input>`](https://react.dev/reference/react-dom/components/input)
+> - [`<select>`](https://react.dev/reference/react-dom/components/select)
+> - [`<textarea>`](https://react.dev/reference/react-dom/components/textarea)
+
+</div>
+
 Trong React, HTML form element sẽ hoạt động hơi khác một chút so với các DOM element còn lại, form element sẽ giữ và tự xử lí một số state nội bộ (internal state) của riêng nó. Ví dụ như form dưới đây trong HTML sẽ nhận vào giá trị của input name.
 
 ```html
@@ -276,10 +288,10 @@ Cũng có ngoại lệ, giá trị của prop trong một [controlled component]
 Đoạn code bên dưới sẽ làm rõ điều ta vừa đề cập. (Thẻ input đã được gán giá trị lúc bạn đầu nhưng trở nên có thể bị sửa đổi sau một khoảng thời gian chờ.)
 
 ```javascript
-ReactDOM.render(<input value="hi" />, mountNode);
+ReactDOM.createRoot(mountNode).render(<input value="hi" />);
 
 setTimeout(function() {
-  ReactDOM.render(<input value={null} />, mountNode);
+  ReactDOM.createRoot(mountNode).render(<input value={null} />);
 }, 1000);
 
 ```

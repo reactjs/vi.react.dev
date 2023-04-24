@@ -13,6 +13,12 @@ redirect_from:
   - "docs/jsx-in-depth-ko-KR.html"
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+
+</div>
+
 Về cơ bản, JSX chỉ cung cấp cú pháp đặc biệt cho hàm `React.createElement(component, props, ...children)`. Đoạn mã JSX:
 
 ```js

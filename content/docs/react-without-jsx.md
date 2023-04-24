@@ -4,6 +4,12 @@ title: React Không Dùng JSX
 permalink: docs/react-without-jsx.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+
+</div>
+
 JSX không phải là một yêu cầu bắt buộc để sử dụng React. Sử dụng React mà không dùng JSX đặc biệt thuận tiện khi bạn không muốn thiết lập compilation trong môi trường build của bạn.
 
 Mỗi phần tử JSX chỉ là một syntactic sugar để gọi `React.createElement(component, props, ...children)`. Vì vậy, bất cứ điều gì bạn có thể làm với JSX thì cũng có thể thực hiện được chỉ với JavaScript đơn giản.
@@ -17,10 +23,8 @@ class Hello extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <Hello toWhat="World" />,
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Hello toWhat="World" />);
 ```
 
 có thể được biên dịch thành đoạn code bên dưới, không sử dụng JSX:
@@ -32,10 +36,8 @@ class Hello extends React.Component {
   }
 }
 
-ReactDOM.render(
-  React.createElement(Hello, {toWhat: 'World'}, null),
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(React.createElement(Hello, {toWhat: 'World'}, null));
 ```
 
 Nếu bạn tò mò muốn xem thêm các ví dụ về cách JSX được chuyển đổi sang JavaScript, bạn có thể thử [trình biên dịch Babel online](babel://jsx-simple-example).
@@ -47,10 +49,8 @@ Nếu bạn cảm thấy mệt mỏi với việc gõ `React.createElement` quá
 ```js
 const e = React.createElement;
 
-ReactDOM.render(
-  e('div', null, 'Hello World'),
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(e('div', null, 'Hello World'));
 ```
 
 Nếu bạn sử dụng dạng viết tắt này cho `React.createElement`, thì việc sử dụng React mà không có JSX có thể rất thuận tiện.

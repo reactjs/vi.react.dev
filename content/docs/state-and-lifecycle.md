@@ -8,11 +8,25 @@ prev: components-and-props.html
 next: handling-events.html
 ---
 
+<div class="scary">
+
+>
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+>
+> These new documentation pages teach modern React and include live examples:
+>
+> - [State: A Component's Memory](https://react.dev/learn/state-a-components-memory)
+> - [Synchronizing with Effects](https://react.dev/learn/synchronizing-with-effects)
+
+</div>
+
 Trang này giới thiệu khái niệm về state và lifecycle trong React component. Bạn có thể tìm [tham chiếu component API chi tiết tại đây](/docs/react-component.html).
 
-Xem xem lại ví dụ đồng hồ tíc tắc [một phần của chương trước](/docs/rendering-elements.html#updating-the-rendered-element). Trong [Rendering Elements](/docs/rendering-elements.html#rendering-an-element-into-the-dom), chúng ta chỉ học cách để update UI. chúng ta gọi `ReactDOM.render()` để thay đổi đầu ra được kết xuất (rendered output):
+Xem xem lại ví dụ đồng hồ tíc tắc [một phần của chương trước](/docs/rendering-elements.html#updating-the-rendered-element). Trong [Rendering Elements](/docs/rendering-elements.html#rendering-an-element-into-the-dom), chúng ta chỉ học cách để update UI. chúng ta gọi `root.render()` để thay đổi đầu ra được kết xuất (rendered output):
 
-```js{8-11}
+```js{10}
+const root = ReactDOM.createRoot(document.getElementById('root'));
+  
 function tick() {
   const element = (
     <div>
@@ -20,10 +34,7 @@ function tick() {
       <h2>It is {new Date().toLocaleTimeString()}.</h2>
     </div>
   );
-  ReactDOM.render(
-    element,
-    document.getElementById('root')
-  );
+  root.render(element);
 }
 
 setInterval(tick, 1000);
@@ -35,7 +46,9 @@ Trong chương này, chúng ta sẽ học làm thế thế nào để tạo thà
 
 Chúng ta có thể bắt đầu đóng gói clock và trông nó sẽ như thế này:
 
-```js{3-6,12}
+```js{5-8,13}
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
 function Clock(props) {
   return (
     <div>
@@ -46,10 +59,7 @@ function Clock(props) {
 }
 
 function tick() {
-  ReactDOM.render(
-    <Clock date={new Date()} />,
-    document.getElementById('root')
-  );
+  root.render(<Clock date={new Date()} />);
 }
 
 setInterval(tick, 1000);
@@ -62,10 +72,7 @@ Tuy nhiên, nó thiếu một yếu tố quan trọng: trong tực tế `Clock` 
 Lý tưởng nhất là ta làm điều này một lần duy nhất và `Clock` tự cập nhập chính nó:
 
 ```js{2}
-ReactDOM.render(
-  <Clock />,
-  document.getElementById('root')
-);
+root.render(<Clock />);
 ```
 
 Để thực hiện điều này, ta cần thêm "state" vào component `Clock`
@@ -158,10 +165,7 @@ Thành phần Class nên luôn luôn gọi đến base contructor bằng `props`
 3) Xóa prop `date` từ phần tử `<Clock />`:
 
 ```js{2}
-ReactDOM.render(
-  <Clock />,
-  document.getElementById('root')
-);
+root.render(<Clock />);
 ```
 
 Sau đó chúng ta sẽ truyền code của bộ hẹn giờ trở về component đó.
@@ -185,10 +189,8 @@ class Clock extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <Clock />,
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Clock />);
 ```
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/KgQpJd?editors=0010)
@@ -294,10 +296,8 @@ class Clock extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <Clock />,
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<Clock />);
 ```
 
 [**Thử trên Codepen**](https://codepen.io/gaearon/pen/amqdNA?editors=0010)
@@ -306,7 +306,7 @@ Giờ đồng hồ sẽ được đếm mỗi giây
 
 Hãy tóm tắt nhanh những gì đã diễn ra và thứ tự các method được gọi:
 
-1) Khi `<Clock/>` được truyền vào `ReactDOM.render()`, React gọi đến contructor của component `Clock`. Kể từ khi `Clock` cần hiển thị thời gian hiện tại, nó khởi tạo `this.state` với một object bao gồm cả thời gian hiện tại. Chúng ta sẽ cập nhập state này sau đó
+1) Khi `<Clock/>` được truyền vào `root.render()`, React gọi đến contructor của component `Clock`. Kể từ khi `Clock` cần hiển thị thời gian hiện tại, nó khởi tạo `this.state` với một object bao gồm cả thời gian hiện tại. Chúng ta sẽ cập nhập state này sau đó
 
 2) React sau đó gọi phương thức render() của component `Clock`. Đây là cách React học(đọc) những gì sẽ được hiển thị ra màn hình. React sau đó cập nhập DOM để trùng khớp với đầu ra kết xuất(render) của `Clock`
 
@@ -447,11 +447,6 @@ function App() {
     </div>
   );
 }
-
-ReactDOM.render(
-  <App />,
-  document.getElementById('root')
-);
 ```
 
 [**Thử nó trên Codepen**](https://codepen.io/gaearon/pen/vXdGmd?editors=0010)

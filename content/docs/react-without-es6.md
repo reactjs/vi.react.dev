@@ -4,6 +4,12 @@ title: React Không Dùng ES6
 permalink: docs/react-without-es6.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+
+</div>
+
 Thông thường, bạn sẽ định nghĩa một React component như là một JavaScript class:
 
 ```javascript
@@ -143,11 +149,11 @@ class SayHello extends React.Component {
     super(props);
     this.state = {message: 'Hello!'};
   }
-  // WARNING: this syntax is experimental!
+  
   // Using an arrow here binds the method:
   handleClick = () => {
     alert(this.state.message);
-  }
+  };
 
   render() {
     return (
@@ -216,10 +222,8 @@ var TickTock = createReactClass({
   }
 });
 
-ReactDOM.render(
-  <TickTock />,
-  document.getElementById('example')
-);
+const root = ReactDOM.createRoot(document.getElementById('example'));
+root.render(<TickTock />);
 ```
 
 Nếu một component đang sử dụng nhiều mixin và một số mixin xác định cùng một lifecycle method (tức là một số mixin muốn thực hiện một số dọn dẹp khi component bị phá hủy), tất cả các lifecycle method được đảm bảo sẽ được gọi. Các method được xác định trên các mixin chạy theo thứ tự các mixin được liệt kê, theo sau là một lệnh gọi method trên component.

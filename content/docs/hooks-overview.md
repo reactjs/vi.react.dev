@@ -6,6 +6,18 @@ next: hooks-state.html
 prev: hooks-intro.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+>
+> These new documentation pages teach React with Hooks:
+>
+> - [Quick Start](https://react.dev/learn)
+> - [Tutorial](https://react.dev/learn/tutorial-tic-tac-toe)
+> - [`react`: Hooks](https://react.dev/reference/react)
+
+</div>
+
 *Hooks* mới được thêm ở phiên bản React 16.8. Cho phép bạn sử dụng state và các chức năng khác của React mà không cần tạo class.
 
 Hooks [tương thích với các phiên bản trước](/docs/hooks-intro.html#no-breaking-changes). Trang này cung cấp thông tin tổng quan về Hooks cho người dùng React có kinh nghiệm. Trang này giới thiệu nhanh. Nếu bạn thấy bối rối, hãy tìm phần đóng khung vàng như này:

@@ -4,6 +4,14 @@ title: Static Type Checking
 permalink: docs/static-type-checking.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+>
+> Check out [React TypeScript cheatsheet](https://react-typescript-cheatsheet.netlify.app/) for how to use React with TypeScript.
+
+</div>
+
 Trình kiểm tra kiểu tĩnh(static) như [Flow](https://flow.org/) và [TypeScript](https://www.typescriptlang.org/) xác định một số loại vấn đề nhất định trước khi bạn chạy code của mình. Chúng cũng có thể cải thiện quy trình làm việc của nhà phát triển bằng cách thêm các tính năng như tự động hoàn thành(auto-completion). Do vậy, chúng tôi khuyên bạn nên sử dụng Flow hoặc TypeScript thay vì `PropTypes` khi bạn code một dự án lớn.
 
 ## Flow {#flow}

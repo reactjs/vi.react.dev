@@ -6,6 +6,15 @@ prev: create-a-new-react-app.html
 next: release-channels.html
 ---
 
+<div class="scary">
+
+>
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> See [Add React to an Existing Project](https://react.dev/learn/add-react-to-an-existing-project) for the recommended ways to add React.
+
+</div>
+
 Cả React và ReactDOM đều có sẵn thông qua CDN.
 
 ```html
@@ -23,7 +32,7 @@ và tối ưu hóa của React có sẵn tại:
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 ```
 
-Để tải một phiên bản cụ thể của `react` và `react-dom`, thay `17` bằng số phiên bản.
+Để tải một phiên bản cụ thể của `react` và `react-dom`, thay `18` bằng số phiên bản.
 
 ### Tại sao là thuộc tính `crossorigin`? {#why-the-crossorigin-attribute}
 

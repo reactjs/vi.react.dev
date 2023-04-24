@@ -15,6 +15,16 @@ redirect_from:
   - "tips/use-react-with-other-libraries.html"
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+>
+> These new documentation pages teach modern React:
+>
+> - [`React.Component`](https://react.dev/reference/react/Component)
+
+</div>
+
 Trang này chứa API reference chi tiết cho React component class. Nó giả định rằng bạn đã quen thuộc với các khái niệm cơ bản của React, như [Components và Props](/docs/components-and-props.html), cũng như [State và Lifecycle](/docs/state-and-lifecycle.html). Nếu không, hãy tìm hiểu những khái niệm phía trên trước.
 
 ## Tổng Quan {#overview}
@@ -125,7 +135,7 @@ Khi được gọi, nó sẽ kiểm tra `this.props` và `this.state` sau đó r
 - **Arrays và fragments.** Cho phép bạn return nhiều element từ render. Xem tài liệu về [fragments](/docs/fragments.html) để biết thêm chi tiết.
 - **Portals**. Cho phép bạn render children vào một DOM subtree khác. Xem tài liệu về [portals](/docs/portals.html) để biết thêm chi tiết.
 - **String và numbers.** Chúng được render dưới dạng text nodes trong DOM.
-- **Booleans hoặc `null`**. Không render. (Hầu hết tồn tại để hỗ trợ `return test && <Child />` pattern, trong đó `test` là boolean.)
+- **Booleans hoặc `null` or `undefined`**. Không render. (Hầu hết tồn tại để hỗ trợ `return test && <Child />` pattern, trong đó `test` là boolean).
 
 Hàm `render()` nên là pure, có nghĩa là nó không làm thay đổi component state, return cùng một kết quả với mỗi lần được gọi, và không tương tác trực tiếp với browser.
 
@@ -507,7 +517,7 @@ Chỉ có hai phương thức là: `setState()` và `forceUpdate()`.
 ### `setState()` {#setstate}
 
 ```javascript
-setState(updater, [callback])
+setState(updater[, callback])
 ```
 
 `setState()` tạo ra một hàng đợi những sự thay đổi tới component state và thông báo cho React rằng component này cùng với children của nó cần phải được render lại với state đã được cập nhật. Đây là phương thức chính mà bạn sẽ sử dụng để cập nhật user interface đáp lại các event handler và server response.

@@ -8,6 +8,17 @@ redirect_from:
   - "tips/false-in-jsx.html"
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+>
+> These new documentation pages teach modern React and include live examples:
+>
+> - [Conditional Rendering](https://react.dev/learn/conditional-rendering)
+
+</div>
+
+
 Trong React, bạn có thể tạo ra các component riêng biệt chứa đựng hành vi mà bạn cần. Tiếp đến, dựa trên trạng thái (state) hiện tại của ứng dụng (application), bạn sẽ chỉ định việc các component đó có nên xuất hiện hay không.
 
 Render có điều kiện trong React hoạt động tương tự như cách mà chúng ta vẫn thường thấy trong Javascript. Đó là dùng câu lệnh [`if`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else) hay [conditional operator](https://developer.mozilla.org/vi/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) trong Javascript để tạo ra các element ứng với state hiện tại, React sau đó sẽ cập nhật giao diện người dùng (UI) phù hợp với state đó.
@@ -35,11 +46,9 @@ function Greeting(props) {
   return <GuestGreeting />;
 }
 
-ReactDOM.render(
-  // Thử thay đổi prop isLoggedIn={true}:
-  <Greeting isLoggedIn={false} />,
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root')); 
+// Thử thay đổi prop isLoggedIn={true}:
+root.render(<Greeting isLoggedIn={false} />);
 ```
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/ZpVxNq?editors=0011)
@@ -111,10 +120,8 @@ class LoginControl extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <LoginControl />,
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root')); 
+root.render(<LoginControl />);
 ```
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/QKzAgB?editors=0010)
@@ -142,10 +149,9 @@ function Mailbox(props) {
 }
 
 const messages = ['React', 'Re: React', 'Re:Re: React'];
-ReactDOM.render(
-  <Mailbox unreadMessages={messages} />,
-  document.getElementById('root')
-);
+
+const root = ReactDOM.createRoot(document.getElementById('root')); 
+root.render(<Mailbox unreadMessages={messages} />);
 ```
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/ozJddz?editors=0010)
@@ -161,7 +167,7 @@ render() {
   const count = 0;
   return (
     <div>
-      { count && <h1>Messages: {count}</h1>}
+      {count && <h1>Messages: {count}</h1>}
     </div>
   );
 }
@@ -246,10 +252,8 @@ class Page extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <Page />,
-  document.getElementById('root')
-);
+const root = ReactDOM.createRoot(document.getElementById('root')); 
+root.render(<Page />);
 ```
 
 [**Thử trên CodePen**](https://codepen.io/gaearon/pen/Xjoqwm?editors=0010)

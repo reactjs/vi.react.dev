@@ -8,6 +8,12 @@ prev: lifting-state-up.html
 next: thinking-in-react.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+
+</div>
+
 React có một mô hình kết hợp mạnh mẽ, khuyến khích sử dụng tính kết hợp hơn là kế thừa để tái sử dụng code giữa các component.
 
 Trong phần này, chúng ta sẽ xem xét một vài vấn đề với những người mới bắt đầu với React, họ thường sử dụng kế thừa, và đưa ra cách giải quyết vấn đề đó với tính kế thừa.

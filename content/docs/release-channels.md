@@ -8,6 +8,15 @@ prev: cdn-links.html
 next: hello-world.html
 ---
 
+<div class="scary">
+
+>
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> See [Versioning Policy](https://react.dev/community/versioning-policy) to learn about the React release channels.
+
+</div>
+
 React dựa vào cộng đồng mã nguồn mở phát triển mạnh để gửi báo cáo lỗi, tạo pull requests và [submit RFCs](https://github.com/reactjs/rfcs). Để khuyến khích phản hồi, đôi khi chúng tôi chia sẻ các bản dựng đặc biệt của React bao gồm các tính năng chưa được phát hành.
 
 > Tài liệu này sẽ phù hợp nhất với các nhà phát triển làm việc trên framework, thư viện hoặc công cụ dành cho nhà phát triển. Các nhà phát triển sử dụng React chủ yếu để xây dựng các ứng dụng hướng đến người dùng không cần phải lo lắng về các kênh phát hành trước của chúng tôi.
@@ -53,13 +62,13 @@ Nếu bạn là tác giả của React framework, thư viện, công cụ dành 
 - Thiết lập một cron job bằng cách sử dụng nền tảng continuous integration ưa thích của bạn. Cron job được hỗ trợ bởi cả [CircleCI](https://circleci.com/docs/2.0/triggers/#scheduled-builds) và [Travis CI](https://docs.travis-ci.com/user/cron-jobs/).
 - Trong cron job, hãy cập nhật React packages của bạn lên bản phát hành React gần đây nhất trong kênh Next, sử dụng thẻ `next` trên npm. Sử dụng cli npm:
 
-  ```
+  ```console
   npm update react@next react-dom@next
   ```
 
   Hoặc yarn:
 
-  ```
+  ```console
   yarn upgrade react@next react-dom@next
   ```
 - Chạy bộ thử nghiệm của bạn với các package đã cập nhật.

@@ -4,6 +4,16 @@ title: Fragments
 permalink: docs/fragments.html
 ---
 
+<div class="scary">
+
+> These docs are old and won't be updated. Go to [react.dev](https://react.dev/) for the new React docs.
+> 
+> These new documentation pages teach modern React:
+>
+> - [`<Fragment>`](https://react.dev/reference/react/Fragment)
+
+</div>
+
 Một trong những pattern phổ biến của React là trả về nhiều element trong một component. Fragment cho phép bạn nhóm một danh sách các childrent mà không cần thêm bất kì node dư thừa vào DOM tree.
 
 ```js
