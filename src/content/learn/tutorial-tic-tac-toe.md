@@ -194,15 +194,15 @@ body {
 
 </Sandpack>
 
-If the code doesn't make sense to you yet, or if you are unfamiliar with the code's syntax, don't worry! The goal of this tutorial is to help you understand React and its syntax.
+Nếu bạn chưa hiểu được đoạn code trên, hoặc nếu bạn chưa quen với cú pháp của code, đừng lo lắng. Mục tiêu của hướng dẫn này là để giúp bạn hiểu React và cú pháp của nó.
 
-We recommend that you check out the tic-tac-toe game above before continuing with the tutorial. One of the features that you'll notice is that there is a numbered list to the right of the game's board. This list gives you a history of all of the moves that have occurred in the game, and it is updated as the game progresses.
+Chúng tôi khuyến khích bạn thử chơi tic-tac-toe ở trên trước khi tiếp tục với bài hướng dẫn. Một trong các chức năng bạn có thể để ý là một danh sách được đánh số ở phía bên phải của bảng trò chơi. Danh sách này cho bạn biết lịch sử của tất cả các nước đi trước đó, và được cập nhật khi trò chơi diễn ra.
 
-Once you've played around with the finished tic-tac-toe game, keep scrolling. You'll start with a simpler template in this tutorial. Our next step is to set you up so that you can start building the game.
+Sau khi chơi thử, hãy tiếp tục cuộn xuống. Bạn sẽ bắt đầu từ một template đơn giản hơn. Bước tiếp theo của chúng ta là thiết lập để bạn có thể bắt đầu xây dựng trò chơi.
 
-## Setup for the tutorial {/*setup-for-the-tutorial*/}
+## Thiết lập cho bài hướng dẫn {/*setup-for-the-tutorial*/}
 
-In the live code editor below, click **Fork** in the top-right corner to open the editor in a new tab using the website CodeSandbox. CodeSandbox lets you write code in your browser and preview how your users will see the app you've created. The new tab should display an empty square and the starter code for this tutorial.
+Trong trình soạn thảo code bên dưới, ấn vào **Fork** ở góc trên bên phải để mở trình soạn thảo ở cửa sổ trình duyệt mới thông qua trang web CodeSandbox. Codesandbox cho phép bạn viết code trong trình duyệt và xem trước giao diện mà người dùng của bạn sẽ thấy. Ở cửa sổ mới sẽ xuất hiện một hình vuông rỗng và đoạn code khởi đầu cho hướng dẫn này.
 
 <Sandpack>
 
@@ -261,23 +261,23 @@ body {
 
 <Note>
 
-You can also follow this tutorial using your local development environment. To do this, you need to:
+Bạn cũng có thể làm theo hướng dẫn này sử dụng máy tính của bạn (gọi là môi trường local). Bạn cần phải:
 
-1. Install [Node.js](https://nodejs.org/en/)
-1. In the CodeSandbox tab you opened earlier, press the top-left corner button to open the menu, and then choose **File > Export to ZIP** in that menu to download an archive of the files locally
-1. Unzip the archive, then open a terminal and `cd` to the directory you unzipped
-1. Install the dependencies with `npm install`
-1. Run `npm start` to start a local server and follow the prompts to view the code running in a browser
+1. Cài đặt [Node.js](https://nodejs.org/en/)
+1. Trong cửa sổ CodeSandbox bạn vừa mở, ấn nút ở góc trên bên trái để mở menu, rồi chọn **File > Export to ZIP** để tải một tập tin nén chứa các file dùng cho hướng dẫn
+1. Giải nén file vừa tải, sau đó mở một terminal (Powershell trên Windows, hoặc Termial trên Ubuntu/Mac) và `cd` tới thư mục bạn vừa giải nén
+1. Cài đặt các dependency (các thư viện phụ thuộc) với `npm install`
+1. Chạy `npm start` để chạy một local server (server chạy trên máy tính của bạn, dùng trong quá trình phát triển ứng dụng) và làm theo các chỉ dẫn để xem code của bạn trên trình duyệt
 
-If you get stuck, don't let this stop you! Follow along online instead and try a local setup again later.
+Nếu bạn gặp trục trặc, đừng bỏ buộc. Làm theo hướng dẫn trong trình soạn thảo online rồi quay lại thiết lập trên local sau.
 
 </Note>
 
-## Overview {/*overview*/}
+## Tổng quan {/*overview*/}
 
-Now that you're set up, let's get an overview of React!
+Bây giờ khi bạn đã thiết lập xong, hãy bắt đầu với tổng quan về React!
 
-### Inspecting the starter code {/*inspecting-the-starter-code*/}
+### Kiểm tra code khởi đầu {/*inspecting-the-starter-code*/}
 
 In CodeSandbox you'll see three main sections:
 
