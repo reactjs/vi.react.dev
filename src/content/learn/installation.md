@@ -1,25 +1,25 @@
 ---
-title: Installation
+title: Cài đặt
 ---
 
 <Intro>
 
-React has been designed from the start for gradual adoption. You can use as little or as much React as you need. Whether you want to get a taste of React, add some interactivity to an HTML page, or start a complex React-powered app, this section will help you get started.
+React được thiết kế từ đầu với khả năng áp dụng vào dự án một cách từ từ. Bạn có thể sử dụng càng ít hoặc càng nhiều React theo nhu cầu. Dù là bạn muốn trải nghiệm React, thêm một số tính năng tương tác vào một trang HTML, hay bắt đầu một ứng dụng phức tạp được xây dựng bằng React, phần này sẽ giúp bạn bắt đầu.
 
 </Intro>
 
 <YouWillLearn isChapter={true}>
 
-* [How to start a new React project](/learn/start-a-new-react-project)
-* [How to add React to an existing project](/learn/add-react-to-an-existing-project)
-* [How to set up your editor](/learn/editor-setup)
-* [How to install React Developer Tools](/learn/react-developer-tools)
+* [Cách để bắt đầu một dự án sử dụng React](/learn/start-a-new-react-project)
+* [Cách để thêm React vào dự án đang có sẵn](/learn/add-react-to-an-existing-project)
+* [Cách để thiết lập trình soạn thảo](/learn/editor-setup)
+* [Cách để cài đặt React Developer Tools](/learn/react-developer-tools)
 
 </YouWillLearn>
 
-## Try React {/*try-react*/}
+## Thử dùng React {/*try-react*/}
 
-You don't need to install anything to play with React. Try editing this sandbox!
+Bạn không phải cài đặt bất cứ thứ gì để trải nghiệm React. Hãy thử chỉnh sửa sandbox này!
 
 <Sandpack>
 
@@ -35,23 +35,23 @@ export default function App() {
 
 </Sandpack>
 
-You can edit it directly or open it in a new tab by pressing the "Fork" button in the upper right corner.
+Bạn có thể chỉnh sửa trực tiếp hoặc mở nó trong một tab mới bằng cách ấn vào nút "Fork" ở góc trên bên phải.
 
-Most pages in the React documentation contain sandboxes like this. Outside of the React documentation, there are many online sandboxes that support React: for example, [CodeSandbox](https://codesandbox.io/s/new), [StackBlitz](https://stackblitz.com/fork/react), or [CodePen.](https://codepen.io/pen?&editors=0010&layout=left&prefill_data_id=3f4569d1-1b11-4bce-bd46-89090eed5ddb)
+Hầu hết các trang trong tài liệu React chứa các sandbox như thế này. Ngoài trang tài liệu React, có rất nhiều các online sandbox hỗ trợ React: ví dụ, [CodeSandbox](https://codesandbox.io/s/new), [StackBlitz](https://stackblitz.com/fork/react), or [CodePen.](https://codepen.io/pen?&editors=0010&layout=left&prefill_data_id=3f4569d1-1b11-4bce-bd46-89090eed5ddb)
 
-### Try React locally {/*try-react-locally*/}
+### Thử dùng React trên máy tính của bạn {/*try-react-locally*/}
 
-To try React locally on your computer, [download this HTML page.](https://gist.githubusercontent.com/gaearon/0275b1e1518599bbeafcde4722e79ed1/raw/db72dcbf3384ee1708c4a07d3be79860db04bff0/example.html) Open it in your editor and in your browser!
+Để thử sử dụng React trên máy tính của bạn, [tải về trang HTML này.](https://gist.githubusercontent.com/gaearon/0275b1e1518599bbeafcde4722e79ed1/raw/db72dcbf3384ee1708c4a07d3be79860db04bff0/example.html) Mở nó trong trình soạn thảo và trình duyệt của bạn!
 
-## Start a new React project {/*start-a-new-react-project*/}
+## Bắt đầu một dự án React mới {/*start-a-new-react-project*/}
 
-If you want to build an app or a website fully with React, [start a new React project.](/learn/start-a-new-react-project)
+Nếu bạn muốn xây dựng một ứng dụng hoặc một website một cách đầy đủ với React, [bắt đầu một dự án React mới.](/learn/start-a-new-react-project)
 
-## Add React to an existing project {/*add-react-to-an-existing-project*/}
+## Thêm React vào một dự án có sẵn {/*add-react-to-an-existing-project*/}
 
-If want to try using React in your existing app or a website, [add React to an existing project.](/learn/add-react-to-an-existing-project)
+Nếu bạn muốn thử sử dụng React cho ứng dụng đang có sẵn của bạn hoặc một website, [thêm React vào một dự án có sẵn.](/learn/add-react-to-an-existing-project)
 
-## Next steps {/*next-steps*/}
+## Các bước tiếp theo {/*next-steps*/}
 
-Head to the [Quick Start](/learn) guide for a tour of the most important React concepts you will encounter every day.
+Ghé thăm phần [Bắt đầu](/learn) để thăm quan các khái niệm quan trọng nhất của React mà bạn sẽ gặp phải hàng ngày.
 
