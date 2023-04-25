@@ -1,31 +1,31 @@
 ---
-title: 'Tutorial: Tic-Tac-Toe'
+title: 'Hướng dẫn: Tic-Tac-Toe'
 ---
 
 <Intro>
 
-You will build a small tic-tac-toe game during this tutorial. This tutorial does not assume any existing React knowledge. The techniques you'll learn in the tutorial are fundamental to building any React app, and fully understanding it will give you a deep understanding of React.
+Trong hướng dẫn này, bạn sẽ xây dựng trò chơi tic-tac-toe. Hướng dẫn này không yêu cầu bạn có bất kì hiểu biết nào về React. Các kỹ thuật bạn học trong bài này sẽ là nền móng để xây dựng bất kỳ một ứng dụng React nào, và việc hiểu nó sẽ giúp bạn hiểu sâu hơn về React.
 
 </Intro>
 
 <Note>
 
-This tutorial is designed for people who prefer to **learn by doing** and want to quickly try making something tangible. If you prefer learning each concept step by step, start with [Describing the UI.](/learn/describing-the-ui)
+Hướng dẫn này được thiết kế cho những người thích cách **học thông qua thực hành** và muốn nhanh chóng thử làm cái gì đó hữu hình. Nếu bạn thích học lần lượt từng khái niệm, hãy bắt đầu với [Mô tả giao diện.](/learn/describing-the-ui)
 
 </Note>
 
-The tutorial is divided into several sections:
+Bài hướng dẫn được chia thành nhiều phần:
 
-- [Setup for the tutorial](#setup-for-the-tutorial) will give you **a starting point** to follow the tutorial.
-- [Overview](#overview) will teach you **the fundamentals** of React: components, props, and state.
-- [Completing the game](#completing-the-game) will teach you **the most common techniques** in React development.
-- [Adding time travel](#adding-time-travel) will give you **a deeper insight** into the unique strengths of React.
+- [Cài đặt cho bài hướng dẫn](#setup-for-the-tutorial) sẽ cho bạn **một điểm khởi đầu** để làm theo hướng dẫn.
+- [Tổng quan](#overview) sẽ dạy bạn **các kiến thức căn bản** của React: các component, prop, và state.
+- [Hoàn thiện trò chơi](#completing-the-game) sẽ dạy bạn **các kĩ thuật phổ biến nhất** khi phát triển ứng dụng React.
+- [(TODO: translate) Adding time travel](#adding-time-travel) sẽ cho bạn **một cái nhìn sâu sắc hơn** về những điểm mạnh độc nhất của React.
 
-### What are you building? {/*what-are-you-building*/}
+### Bạn sẽ làm ứng dụng gì? {/*what-are-you-building*/}
 
-In this tutorial, you'll build an interactive tic-tac-toe game with React.
+Trong hướng dẫn này, bạn sẽ xây dựng trò chơi tương tác tic-tac-toe bằng React.
 
-You can see what it will look like when you're finished here:
+Sau khi hoàn thành, nó sẽ trông như sau:
 
 <Sandpack>
 
