@@ -20,8 +20,8 @@ Giả sử bạn có một ứng dụng web tại `example.com` được phát t
 
 Đây là cách chúng tôi đề xuất để cài đặt:
 
-1. **Xây dựng phần React của ứng dụng của bạn** sử dụng một trong những [React-based nền tảng ứng dụng (framework)](/learn/start-a-new-react-project).
-2. **Chỉ định `/some-app` là *đường dẫn gốc*** trong cấu hình ứng dụng của bạn. (hướng dẫn với: [Next.js](https://nextjs.org/docs/api-reference/next.config.js/basepath), [Gatsby](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/)).
+1. **Xây dựng phần React của ứng dụng của bạn** sử dụng một trong những [nền tảng ứng dụng (framework) sử dụng React](/learn/start-a-new-react-project).
+2. **Chỉ định `/some-app` là *đường dẫn gốc*** trong cấu hình ứng dụng của bạn. (xem hướng dẫn với: [Next.js](https://nextjs.org/docs/api-reference/next.config.js/basepath), [Gatsby](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/)).
 3. **Cấu hình máy chủ của bạn hoặc một proxy** để tất cả các requests ở `/some-app/` được xử lý bởi ứng dụng React của bạn.
 
 Điều này đảm bảo phần React của ứng dụng của bạn có thể được [hưởng lợi từ các tiêu chuẩn tốt nhất](/learn/start-a-new-react-project#can-i-use-react-without-a-framework) đã được tích hợp sẵn trong các Frameworks đó.
@@ -30,11 +30,11 @@ Nhiều frameworks dựa trên React là full-stack và cho phép ứng dụng R
 
 ## Sử dụng React cho một phần của trang web của bạn {/*sử-dụng-react-cho-một-phần-của-trang-web-của-bạn*/}
 
-Giả sử bạn đã có một trang web được xây dựng bằng một công nghệ khác (có thể là công nghệ server như Rails, hoặc công nghệ client như Backbone), và bạn muốn hiển thị các thành phần React tương tác ở một số nơi trên trang đó. Đó là một cách thông thường để tích hợp React - thực tế, đó là cách mà hầu hết các ứng dụng React được sử dụng tại Meta trong nhiều năm qua!
+Giả sử bạn đã có một trang web được xây dựng bằng một công nghệ khác (có thể là công nghệ phía server như Rails, hoặc công nghệ phía client như Backbone), và bạn muốn hiển thị các thành phần React tương tác ở một số nơi trên trang đó. Đó là một cách thông thường để tích hợp React - thực tế, đó là cách mà hầu hết các ứng dụng React được sử dụng tại Meta trong nhiều năm qua!
 
 Bạn có thể làm điều này trong hai bước:
 
-1. **Thiết lập môi trường JavaScript** cho phép bạn sử dụng [cú pháp JSX](/learn/writing-markup-with-jsx), chia code của bạn thành các module với cú pháp [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) / [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export) syntax, và sử dụng các package (ví dụ, React) từ [npm](https://www.npmjs.com/) package registry.
+1. **Thiết lập môi trường JavaScript** cho phép bạn sử dụng [cú pháp JSX](/learn/writing-markup-with-jsx), chia code của bạn thành các module với cú pháp [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) / [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export), và sử dụng các package (ví dụ như React) từ [npm](https://www.npmjs.com/) package registry.
 2. **Render các thành phần React của bạn** tại nơi bạn muốn xem chúng trên trang web.
 
 Cách tiếp cận cụ thể phụ thuộc vào thiết lập trang web hiện tại của bạn, vì vậy hãy cùng đi vào chi tiết.
@@ -84,7 +84,7 @@ Nếu toàn bộ nội dung của trang web của bạn đã bị thay thế b�
 
 <Note>
 
-Việc tích hợp môi trường JavaScript theo module vào một dự án có sẵn có thể làm bạn cảm thấy hơi đáng sợ trong lần đầu tiên, nhưng sẽ rất bõ công! Nếu bạn gặp khó khăn, hãy xem [tài liệu của cộng đồng](/community) hoặc qua [Vite Chat](https://chat.vitejs.dev/).
+Việc tích hợp môi trường JavaScript theo module vào một dự án có sẵn có thể làm bạn cảm thấy hơi đáng sợ trong lần đầu tiên, nhưng sẽ rất đáng công sức bỏ ra! Nếu bạn gặp khó khăn, hãy xem [tài liệu của cộng đồng](/community) hoặc qua [Vite Chat](https://chat.vitejs.dev/).
 
 </Note>
 
@@ -115,7 +115,7 @@ Thay vào đó, bạn sẽ muốn render các thành phần React ở những n�
 <!-- ... thêm html ... -->
 ```
 
-Điều này sẽ giúp bạn tìm kiếm phần tử HTML với [`document.getElementById`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) và truyền cho vào [`createRoot`](/reference/react-dom/client/createRoot) để bạn có thể render thành phần React bên trong:
+Điều này sẽ giúp bạn tìm kiếm phần tử HTML với [`document.getElementById`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) và truyền vào [`createRoot`](/reference/react-dom/client/createRoot) để bạn có thể render thành phần React bên trong:
 
 <Sandpack>
 
@@ -148,7 +148,7 @@ root.render(<NavigationBar />);
 
 Chú ý là nội dung HTML ban đầu từ `index.html` được giữ nguyên, nhưng thành phần  `NavigationBar` React của bạn giờ đây hiển thị bên trong `<nav id="navigation">` từ trong HTML của bạn. Hãy đọc [`tài liệu sử dụng createRoot`](/reference/react-dom/client/createRoot#rendering-a-page-partially-built-with-react) để tìm hiểu thêm về cách hiển thị các thành phần React trong một trang HTML hiện có.
 
-Khi bạn sử dụng React với một dự án tồn tại trước đó, thường thì bạn sẽ bắt đầu với những thành phần tương tác nhỏ (như button), và sau đó dần dần "tiến lên trước" cho tới khi toàn bộ trang web của bạn được xây dựng bằng React. Khi bạn đạt đến đó, chúng tôi khuyến nghị hãy chuyển đổi sang một [React framework](/learn/start-a-new-react-project) ngay sau đó để có thể sử dụng tối ưu React.
+Khi bạn sử dụng React với một dự án tồn tại trước đó, thường thì bạn sẽ bắt đầu với những thành phần tương tác nhỏ (như nút bấm), và sau đó dần dần "tiến lên trước" cho tới khi toàn bộ trang web của bạn được xây dựng bằng React. Khi bạn đạt đến đó, chúng tôi khuyến nghị hãy chuyển đổi sang một [React framework](/learn/start-a-new-react-project) ngay sau đó để có thể sử dụng tối ưu React.
 
 ## Sử dụng React Native trong một ứng dụng di động native hiện có {/*sử-dụng-react-native-trong-một-ứng-dụng-di-động-native-hiện-có*/}
 
