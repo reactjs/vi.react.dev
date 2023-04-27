@@ -416,11 +416,11 @@ export default function Square() {
 }
 ```
 
-The CSS defined in `styles.css` styles the divs with the `className` of `board-row`. Now that you've grouped your components into rows with the styled `div`s you have your tic-tac-toe board:
+CSS định nghĩa trong `styles.css` tạo kiểu cho các thẻ div với `className` là `board-row`. Bây giờ bạn đã nhóm các component thành các dòng với các thẻ `div` đã được tạo kiểu, bạn có bảng trò chơi tic-tac-toe:
 
 ![tic-tac-toe board filled with numbers 1 through 9](../images/tutorial/number-filled-board.png)
 
-But you now have a problem. Your component named `Square`, really isn't a square anymore. Let's fix that by changing the name to `Board`:
+Nhưng giờ bạn lại có một vấn đề. Component của bạn tên là `Square`, thật ra nó đâu có là hình vuông nữa. Hãy sửa lại bằng cách đổi tên nó thành `Board`:
 
 ```js {1}
 export default function Board() {
@@ -428,7 +428,7 @@ export default function Board() {
 }
 ```
 
-At this point your code should look something like this:
+Lúc này, code của bạn sẽ thế này:
 
 <Sandpack>
 
@@ -505,15 +505,15 @@ body {
 
 <Note>
 
-Psssst... That's a lot to type! It's okay to copy and paste code from this page. However, if you're up for a little challenge, we recommend only copying code that you've manually typed at least once yourself.
+Psssst... Nhiều thứ phải gõ quá. Bạn hoàn toàn có thể copy và paste từ trang này. Tuy nhiên, nếu bạn muốn một chút thử thách, chúng tôi khuyến khích bạn chỉ copy những đoạn mà bạn đã gõ tay ít nhất một lần.
 
 </Note>
 
-### Passing data through props {/*passing-data-through-props*/}
+### Truyền data thông qua các thuộc tính (prop) {/*passing-data-through-props*/}
 
-Next, you'll want to change the value of a square from empty to "X" when the user clicks on the square. With how you've built the board so far you would need to copy-paste the code that updates the square nine times (once for each square you have)! Instead of copy-pasting, React's component architecture allows you to create a reusable component to avoid messy, duplicated code.
+Tiếp theo, bạn sẽ muốn thay đổi giá trị của một ô vuông từ rỗng thành "X" khi người dùng ấn vào ô vuông. Với cách mà bạn xây dựng bảng trò chơi hiện tại bạn sẽ cần copy-paste đoạn code dùng để cập nhật ô vuông chín lần (mỗi lần cho một ô vuông)! Thay vì phải copy-paste, cấu trúc component React cho phép bạn tạo một component có thể tái sử dụng để tránh code bị lộn xộn và lặp lại.
 
-First, you are going to copy the line defining your first square (`<button className="square">1</button>`) from your `Board` component into a new `Square` component:
+Đầu tiên, bạn sẽ copy dòng định nghĩa hình vuông đầu tiên (`<button className="square">1</button>`) từ component `Board` ra một component `Square` mới:
 
 ```js {1-3}
 function Square() {
@@ -525,7 +525,7 @@ export default function Board() {
 }
 ```
 
-Then you'll update the Board component to render that `Square` component using JSX syntax:
+Sau đó, bạn sẽ cập nhật component Board để render component `Square` này sử dụng cú pháp JSX:
 
 ```js {5-19}
 // ...
@@ -552,15 +552,15 @@ export default function Board() {
 }
 ```
 
-Note how unlike the browser `div`s, your own components `Board` and `Square` must start with a capital letter. 
+Để ý rằng khác với các thẻ `div`, component `Board` và `Square` của bạn phải bắt đầu bằng chữ cái viết hoa. 
 
-Let's take a look:
+Cùng nhìn qua kết quả:
 
 ![one-filled board](../images/tutorial/board-filled-with-ones.png)
 
-Oh no! You lost the numbered squares you had before. Now each square says "1". To fix this, you will use *props* to pass the value each square should have from the parent component (`Board`) to its child (`Square`).
+Ôi không! Các hình vuông được đánh số đã bị mất, bây giờ tất cả đều chứa số "1". Để sửa lại, bạn sẽ dùng các *prop (thuộc tính)* để truyền giá trị mà mỗi hình vuông nên có từ component cha mẹ (`Board`) xuống con của nó (`Square`).
 
-Update the `Square` component to read the `value` prop that you'll pass from the `Board`:
+Sửa lại component `Square` để đọc thuộc tính `value` mà bạn định truyền từ `Board`:
 
 ```js {1}
 function Square({ value }) {
@@ -568,9 +568,9 @@ function Square({ value }) {
 }
 ```
 
-`function Square({ value })` indicates the Square component can be passed a prop called `value`.
+`function Square({ value })` thể hiện rằng component Square có thể được truyền một thuộc tính (prop) có tên là `value`.
 
-Now you want to display that `value` instead of `1` inside every square. Try doing it like this:
+Bây giờ bạn muốn hiển thị thuộc tính `value` này thay vì `1` ở bên trong mỗi hình vuông. Hãy thử làm như sau:
 
 ```js {2}
 function Square({ value }) {
@@ -578,11 +578,11 @@ function Square({ value }) {
 }
 ```
 
-Oops, this is not what you wanted:
+Oops, đây không phải cái bạn muốn:
 
 ![value-filled board](../images/tutorial/board-filled-with-value.png)
 
-You wanted to render the JavaScript variable called `value` from your component, not the word "value". To "escape into JavaScript" from JSX, you need curly braces. Add curly braces around `value` in JSX like so:
+Bạn muốn render một biến JavaScript gọi là `value` từ component của bạn, chứ không phải chữ "value". Để "trở về với JavaScript" từ JSX, bạn cần các ngoặc nhọn. Thêm cặp ngoặc nhọn xung quanh `value` ở trong JSX như sau:
 
 ```js {2}
 function Square({ value }) {
@@ -590,11 +590,11 @@ function Square({ value }) {
 }
 ```
 
-For now, you should see an empty board:
+Bây giờ, bạn sẽ thấy một bảng trống:
 
 ![empty board](../images/tutorial/empty-board.png)
 
-This is because the `Board` component hasn't passed the `value` prop to each `Square` component it renders yet. To fix it you'll add the `value` prop to each `Square` component rendered by the `Board` component:
+Nguyên nhân là vì component `Board` chưa truyền prop `value` cho mỗi component `Square` mà nó render. Để sửa lại, bạn cần thêm thuộc tính (prop) `value` cho mỗi component `Square` mà component `Board` đang render:
 
 ```js {5-7,10-12,15-17}
 export default function Board() {
@@ -620,11 +620,11 @@ export default function Board() {
 }
 ```
 
-Now you should see a grid of numbers again:
+Bây giờ bạn sẽ thấy một lưới các số như trước:
 
 ![tic-tac-toe board filled with numbers 1 through 9](../images/tutorial/number-filled-board.png)
 
-Your updated code should look like this:
+Code đã được cập nhật sẽ trông như này:
 
 <Sandpack>
 
@@ -703,7 +703,7 @@ body {
 
 </Sandpack>
 
-### Making an interactive component {/*making-an-interactive-component*/}
+### Tạo một component có thể tương tác {/*making-an-interactive-component*/}
 
 Let's fill the `Square` component with an `X` when you click it. Declare a function called `handleClick` inside of the `Square`. Then, add `onClick` to the props of the button JSX element returned from the `Square`:
 
