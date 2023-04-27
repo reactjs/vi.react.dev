@@ -8,12 +8,12 @@ Một trình soạn thảo văn bản được cấu hình đúng cách có th�
 
 </Intro>
 
-<BạnSẽBiết>
+<YouWillLearn>
 
 * Các trình soạn thảo phổ biến nhất
 * Làm sao để định dạng code một cách tự động
 
-</BạnSẽBiết>
+</YouWillLearn>
 
 ## Trình soạn thảo văn bản của bạn {/*trình-soạn-thảo-văn-bản-của-bạn*/}
 
