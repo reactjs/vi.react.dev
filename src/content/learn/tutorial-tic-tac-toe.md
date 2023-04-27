@@ -279,15 +279,15 @@ Bây giờ khi bạn đã thiết lập xong, hãy bắt đầu với tổng qua
 
 ### Kiểm tra code khởi đầu {/*inspecting-the-starter-code*/}
 
-In CodeSandbox you'll see three main sections:
+Ở cửa sổ CodeSandbox bạn sẽ thấy ba phần chính:
 
 ![CodeSandbox with starter code](../images/tutorial/react-starter-code-codesandbox.png)
 
-1. The _Files_ section with a list of files like `App.js`, `index.js`, `styles.css` and a folder called `public`
-1. The _code editor_ where you'll see the source code of your selected file
-1. The _browser_ section where you'll see how the code you've written will be displayed
+1. Phần _Files_ với danh sách các file như `App.js`, `index.js`, `styles.css` và một thư mục tên là `public`
+1. Phần _code editor_ là nơi bạn sẽ thấy code của file bạn đã chọn
+1. Phần _browser_ là nơi bạn xem đoạn code bạn viết sẽ hiển thị phía người dùng như thế nào
 
-The `App.js` file should be selected in the _Files_ section. The contents of that file in the _code editor_ should be:
+Chọn `App.js` ở phần _Files_. Nội dung file này ở trong _code editor_ sẽ là:
 
 ```jsx
 export default function Square() {
@@ -295,15 +295,16 @@ export default function Square() {
 }
 ```
 
-The _browser_ section should be displaying a square with a X in it like this:
+Phần _browser_ sẽ hiển thị một hình vuông với một dấu X như này:
 
 ![x-filled square](../images/tutorial/x-filled-square.png)
 
-Now let's have a look at the files in the starter code.
+
+Bây giờ, cùng xem qua các file của code mở đầu.
 
 #### `App.js` {/*appjs*/}
 
-The code in `App.js` creates a _component_. In React, a component is a piece of reusable code that represents a part of a user interface. Components are used to render, manage, and update the UI elements in your application. Let's look at the component line by line to see what's going on:
+Code ở trong `App.js` tạo một _component_. Trong React, một component là một đoạn mã có thể tái sử dụng đại diện cho một phần trong giao diện người dùng. Các component được dùng để render, quản lý và cập nhật các phần tử UI trong ứng dụng của bạn. Cùng nhìn qua từng dòng để xem điều gì đang xảy ra:
 
 ```js {1}
 export default function Square() {
@@ -311,7 +312,7 @@ export default function Square() {
 }
 ```
 
-The first line defines a function called `Square`. The `export` JavaScript keyword makes this function accessible outside of this file. The `default` keyword tells other files using your code that it's the main function in your file.
+Dòng đầu tiên định nghĩa một hàm tên là `Square`. Từ khóa `export` trong JavaScript giúp cho hàm này có thể được gọi từ bên ngoài file này. Từ khóa `default` nói với các file khác sử dụng code của bạn rằng hàm này là hàm chính trong file.
 
 ```js {2}
 export default function Square() {
@@ -319,15 +320,15 @@ export default function Square() {
 }
 ```
 
-The second line returns a button. The `return` JavaScript keyword means whatever comes after is returned as a value to the caller of the function. `<button>` is a *JSX element*. A JSX element is a combination of JavaScript code and HTML tags that describes what you'd like to display. `className="square"` is a button property or *prop* that tells CSS how to style the button. `X` is the text displayed inside of the button and `</button>` closes the JSX element to indicate that any following content shouldn't be placed inside the button.
+Dòng thứ hai trả về một button. Từ khóa `return` trong JavaScript có nghĩa: bất kỳ cái gì ở đằng sau nó sẽ được trả về ở dạng một giá trị cho những chỗ gọi tới hàm đó. `<button>` là một *phần tử JSX*. Một phần tử JSX là sự kết hợp giữa code Javascript và thẻ HTML, mô tả những thứ mà bạn muốn hiển thị. `className="square"` là một thuộc tính (property) hay *prop* của button, cho CSS sử dụng để tạo kiểu (style) cho button. `X` là chữ hiển thị bên trong button và `</button>` kết thúc phần tử JSX để chỉ rằng bất kì nội dung nào phía sau sẽ không được đặt bên trong button.
 
 #### `styles.css` {/*stylescss*/}
 
-Click on the file labeled `styles.css` in the _Files_ section of CodeSandbox. This file defines the styles for your React app. The first two _CSS selectors_ (`*` and `body`) define the style of large parts of your app while the `.square` selector defines the style of any component where the `className` property is set to `square`. In your code, that would match the button from your Square component in the `App.js` file.
+Ấn vào file có tên `styles.css` trong phần _Files_ của CodeSandbox. File này định nghĩa các kiểu cách (styles) cho ứng dụng React của bạn. Hai _CSS selector_ (`*` và `body`) (CSS selector là thứ giúp CSS có thể chọn xem nên chọn phần tử HTML nào để tạo kiểu - style) định nghĩa style của phần lớn ứng dụng của bạn, trong khi `.square` selector định nghĩa style của bất kì component nào có thuộc tính `className` là `square`. Trong code của bạn, nó sẽ là component Square trong file `App.js`.
 
 #### `index.js` {/*indexjs*/}
 
-Click on the file labeled `index.js` in the _Files_ section of CodeSandbox. You won't be editing this file during the tutorial but it is the bridge between the component you created in the `App.js` file and the web browser.
+Ấn vào file `index.js` trong phần _Files_ của CodeSandbox. Bạn sẽ không chỉnh sửa file này trong bài hướng dẫn, nhưng nó là cầu nối giữa component bạn tạo trong file `App.js` với trình duyệt web.
 
 ```jsx
 import { StrictMode } from 'react';
@@ -337,20 +338,20 @@ import './styles.css';
 import App from './App';
 ```
 
-Lines 1-5 brings all the necessary pieces together: 
+Các dòng 1-5 đem tất cả các phần cần thiết lại với nhau: 
 
 * React
-* React's library to talk to web browsers (React DOM)
-* the styles for your components
-* the component you created in `App.js`.
+* Thư viện của React để giao tiếp với trình duyệt web (React DOM)
+* các style cho các component của bạn
+* component bạn tạo trong `App.js`.
 
-The remainder of the file brings all the pieces together and injects the final product into `index.html` in the `public` folder.
+Phần còn lại của file đem tất cả các phần lại với nhau và bơm sản phẩm cuối cùng vào `index.html` trong thư mục `public`.
 
-### Building the board {/*building-the-board*/}
+### Tạo bảng trò chơi {/*building-the-board*/}
 
-Let's get back to `App.js`. This is where you'll spend the rest of the tutorial.
+Hãy quay lại với `App.js`. Từ giờ bạn sẽ chỉ làm bài hướng dẫn ở file này.
 
-Currently the board is only a single square, but you need nine! If you just try and copy paste your square to make two squares like this:
+Hiện tại, bảng trò chơi chỉ là một hình vuông, nhưng chúng ta cần 9 hình vuông như vậy. Nếu bạn chỉ copy và paste hình vuông của bạn để tạo hai hình vuông như này:
 
 ```js {2}
 export default function Square() {
@@ -358,7 +359,7 @@ export default function Square() {
 }
 ```
 
-You'll get this error:
+Bạn sẽ gặp lỗi:
 
 <ConsoleBlock level="error">
 
@@ -366,7 +367,7 @@ You'll get this error:
 
 </ConsoleBlock>
 
-React components need to return a single JSX element and not multiple adjacent JSX elements like two buttons. To fix this you can use *fragments* (`<>` and `</>`) to wrap multiple adjacent JSX elements like this:
+Các component React chỉ được trả về một phần tử JSX chứ không phải nhiều phần tử JSX liền kề như hai button trên. Để sửa, bạn có thể dùng `<>` và `</>`, gọi là *fragments* để bao lấy các phần tử JSX liền kề:
 
 ```js {3-6}
 export default function Square() {
@@ -379,17 +380,17 @@ export default function Square() {
 }
 ```
 
-Now you should see:
+Bây giờ bạn sẽ thấy:
 
 ![two x-filled squares](../images/tutorial/two-x-filled-squares.png)
 
-Great! Now you just need to copy-paste a few times to add nine squares and...
+Tuyệt! Bây giờ bạn chỉ cần copy-paste một vài lần để thêm chín hình vuông và...
 
 ![nine x-filled squares in a line](../images/tutorial/nine-x-filled-squares.png)
 
-Oh no! The squares are all in a single line, not in a grid like you need for our board. To fix this you'll need to group your squares into rows with `div`s and add some CSS classes. While you're at it, you'll give each square a number to make sure you know where each square is displayed.
+Ôi không! Các hình vuông ở trên cùng một dòng, chứ không tạo thành hình lưới như bạn muốn. Để sửa, bạn sẽ cần nhóm các hình vuông thành các dòng với các thẻ `div` và thêm một số CSS class. Sau khi xong, bạn sẽ cho mỗi hình vuông một con số để đảm bảo bạn biết chắc mỗi hình vuông được hiển thị ở đâu.
 
-In the `App.js` file, update the `Square` component to look like this:
+Ở file `App.js`, sửa component `Square` thành như sau:
 
 ```js {3-19}
 export default function Square() {
