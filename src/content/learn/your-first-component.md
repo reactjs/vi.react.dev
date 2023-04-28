@@ -228,8 +228,9 @@ Bạn vừa có được một cái nhìn đầu tiên về React! Hãy tóm t�
 * React cho bạn tạo ra các component, **các thành phần UI có thể tái sử dụng cho ứng dụng của bạn.**
 * Ở trong ứng dụng React, mỗi phần của UI là một component.
 * React component là các hàm JavaScript ngoại trừ việc:
-1. Tên của chúng luôn bắt đầu bằng chữ cái viết hoa.
-2. Chúng trả về JSX markup.
+
+  1. Tên của chúng luôn bắt đầu bằng chữ cái viết hoa.
+  2. Chúng trả về JSX markup.
 
 </Recap>
 
