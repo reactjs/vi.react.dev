@@ -705,7 +705,7 @@ body {
 
 ### Tạo một component có thể tương tác {/*making-an-interactive-component*/}
 
-Let's fill the `Square` component with an `X` when you click it. Declare a function called `handleClick` inside of the `Square`. Then, add `onClick` to the props of the button JSX element returned from the `Square`:
+Hãy điền vào component `Square` một dấu `X` khi ta nhấn vào nó. Khai báo một hàm tên là `handleClick` bên trong `Square`. Sau đó, thêm prop `onClick` cho phần tử JSX button trả về từ `Square`:
 
 ```js {2-4,9}
 function Square({ value }) {
@@ -724,19 +724,19 @@ function Square({ value }) {
 }
 ```
 
-If you click on a square now, you should see a log saying `"clicked!"` in the _Console_ tab at the bottom of the _Browser_ section in CodeSandbox. Clicking the square more than once will log `"clicked!"` again. Repeated console logs with the same message will not create more lines in the console. Instead, you will see an incrementing counter next to your first `"clicked!"` log.
+Nếu bạn ấn vào hình buông, bạn sẽ thấy một đoạn log `"clicked!"` trong thẻ _Console_ ở phía dưới của phần _Browser_ trong CodeSandbox. Ấn vào hình vuông lần nữa sẽ tiếp tục ghi ra `"clicked!"` lần nữa. Ghi cùng một đoạn tin nhắn nhiều hơn một lần ra console sẽ không tạo thêm nhiều dòng trong console. Thay vào đó, bạn sẽ thấy số đếm tăng thêm bên cạnh dòng log `"clicked!"` đầu tiên.
 
 <Note>
 
-If you are following this tutorial using your local development environment, you need to open your browser's Console. For example, if you use the Chrome browser, you can view the Console with the keyboard shortcut **Shift + Ctrl + J** (on Windows/Linux) or **Option + ⌘ + J** (on macOS).
+Nếu bạn đang làm theo hướng dẫn này sử dụng môi trường local, bạn cần mở Console của trình duyệt. Ví dụ, nếu bạn dùng trình duyệt Chrome, bạn có thể xem Console bằng cách dùng phím tắt **Shift + Ctrl + J** (ở trên Windows/Linux) hoặc **Option + ⌘ + J** (ở trên macOS).
 
 </Note>
 
-As a next step, you want the Square component to "remember" that it got clicked, and fill it with an "X" mark. To "remember" things, components use *state*.
+Tiếp theo, bạn muốn component Square "ghi nhớ" rằng nó được ấn, và điền vào một dấu "X". Để "ghi nhớ" điều gì đó, các component sử dụng *state* (dịch là trạng thái, nhưng từ bây giờ tài liệu này sẽ giữ nguyên là state).
 
-React provides a special function called `useState` that you can call from your component to let it "remember" things. Let's store the current value of the `Square` in state, and change it when the `Square` is clicked.
+React cung cấp một hàm đặc biệt gọi là `useState` mà bạn có thể gọi trong component của bạn để nó "ghi nhớ" điều gì đó. Hãy lưu giá trị hiện tại của `Square` trong state, và thay đổi nó khi `Square` được ấn.
 
-Import `useState` at the top of the file. Remove the `value` prop from the `Square` component. Instead, add a new line at the start of the `Square` that calls `useState`. Have it return a state variable called `value`:
+Import `useState` ở trên cùng của file. Bỏ prop `value` của component `Square`. Thay vào đó, thêm một dòng ở đầu đoạn code của `Square` sử dụng `useState`. Để nó trả về một biến state gọi là `value`:
 
 ```js {1,3,4}
 import { useState } from 'react';
@@ -748,9 +748,9 @@ function Square() {
     //...
 ```
 
-`value` stores the value and `setValue` is a function that can be used to change the value. The `null` passed to `useState` is used as the initial value for this state variable, so `value` here starts off equal to `null`.
+`value` lưu giá trị và `setValue` là hàm có thể được dùng để thay đổi giá trị đó. Giá trị `null` truyền vào `useState` được dùng như giá trị khởi đầu cho biến state này, vì vậy `value` ở đây sẽ bắt đầu với `null`.
 
-Since the `Square` component no longer accepts props anymore, you'll remove the `value` prop from all nine of the Square components created by the Board component:
+Vì component `Square` không nhận bất kỳ prop nào nữa, hãy bỏ prop `value` từ tất cả chín component Square bên trong component Board:
 
 ```js {6-8,11-13,16-18}
 // ...
@@ -777,7 +777,7 @@ export default function Board() {
 }
 ```
 
-Now you'll change `Square` to display an "X" when clicked. Replace the `console.log("clicked!");` event handler with `setValue('X');`. Now your `Square` component looks like this:
+Bây giờ ta sẽ thay đổi `Square` để hiển thị một chữ "X" khi ấn vào. Thay `console.log("clicked!");` với `setValue('X');`. Component `Square` của bạn sẽ trông như này:
 
 ```js {5}
 function Square() {
@@ -798,13 +798,13 @@ function Square() {
 }
 ```
 
-By calling this `set` function from an `onClick` handler, you're telling React to re-render that `Square` whenever its `<button>` is clicked. After the update, the `Square`'s `value` will be `'X'`, so you'll see the "X" on the game board. Click on any Square, and "X" should show up:
+Bằng cách gọi hàm `set` này trong hàm xử lý của `onClick`, bạn đang nói với React render lại component `Square` này mỗi khi `<button>` của nó được ấn. Sau khi cập nhật, `value` của `Square` sẽ là `'X'`, bạn sẽ thấy chữ "X" ở trên bảng trò chơi. Click vào bất kì Square nào, chữ "X" sẽ hiện lên:
 
 ![adding xes to board](../images/tutorial/tictac-adding-x-s.gif)
 
-Each Square has its own state: the `value` stored in each Square is completely independent of the others. When you call a `set` function in a component, React automatically updates the child components inside too.
+Mỗi Square có state riêng của nó: `value` lưu trong mỗi Square hoàn toàn độc lập với những state của Square khác. Nếu bạn gọi một hàm `set` bên trong một component, React cũng sẽ tự động cập nhật các component con bên trong nó.
 
-After you've made the above changes, your code will look like this:
+Sau khi bạn thực hiện các thay đổi bên trên, code của bạn sẽ nhìn như sau:
 
 <Sandpack>
 
@@ -898,25 +898,25 @@ body {
 
 </Sandpack>
 
-### React Developer Tools {/*react-developer-tools*/}
+### Các công cụ phát triển React (React Developer Tools) {/*react-developer-tools*/}
 
-React DevTools let you check the props and the state of your React components. You can find the React DevTools tab at the bottom of the _browser_ section in CodeSandbox:
+React DevTools cho phép bạn kiểm tra các prop và state của các component React của bạn. Bạn có thể tìm thẻ React DevTools ở cuối của phần _browser_ trong CodeSandbox:
 
 ![React DevTools in CodeSandbox](../images/tutorial/codesandbox-devtools.png)
 
-To inspect a particular component on the screen, use the button in the top left corner of React DevTools:
+Để quan sát một component cụ thể trên màn hình, sử dụng nút ở phía trên bên trái của React DevTools:
 
 ![Selecting components on the page with React DevTools](../images/tutorial/devtools-select.gif)
 
 <Note>
 
-For local development, React DevTools is available as a [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/), and [Edge](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil) browser extension. Install it, and the *Components* tab will appear in your browser Developer Tools for sites using React.
+Nếu bạn code trên local, React DevTools có sẵn dưới dạng các tiện ích mở rộng của trình duyệt [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/), và [Edge](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil). Sau khi cài đặt, thẻ *Components* sẽ xuất hiện trong Developer Tools của trình duyệt khi bạn vào các trang web sử dụng React.
 
 </Note>
 
-## Completing the game {/*completing-the-game*/}
+## Hoàn thiện trò chơi {/*completing-the-game*/}
 
-By this point, you have all the basic building blocks for your tic-tac-toe game. To have a complete game, you now need to alternate placing "X"s and "O"s on the board, and you need a way to determine a winner.
+Hiện giờ, bạn đã có tất cả các phần cơ bản để làm trò chơi tic-tac-toe. Để hoàn thiện trò chơi, bạn cần phải luân phiên đặt các chữ "X" và "O" trên bảng trò chơi, và bạn cần một cách nào đó để xác định người chiến thắng.
 
 ### Lifting state up {/*lifting-state-up*/}
 
