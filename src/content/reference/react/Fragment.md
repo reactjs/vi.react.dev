@@ -19,7 +19,7 @@ title: <Fragment> (<>...</>)
 
 ---
 
-## Tham khảo {/*tham-khảo*/}
+## Tham khảo {/*reference*/}
 
 ### `<Fragment>` {/*fragment*/}
 
@@ -29,7 +29,7 @@ title: <Fragment> (<>...</>)
 
 - `key` **tuỳ chọn** : Các Fragment được khai báo bằng cú pháp rõ ràng `<Fragment>` có thể có [keys.](/learn/rendering-lists#keeping-list-items-in-order-with-key)
 
-#### Những lưu ý {/*những-lưu-ý*/}
+#### Những lưu ý {/*caveats*/}
 
 - Nếu bạn muốn truyền `key` vào một Fragment, bạn không thể sử dụng cú pháp `<>...</>`.  Bạn phải import rõ ràng `Fragment` từ `'react'` và render `<Fragment key={yourKey}>...</Fragment>`.
 
@@ -37,9 +37,9 @@ title: <Fragment> (<>...</>)
 
 ---
 
-## Cách sử dụng {/*cách-sử-dụng*/}
+## Cách sử dụng {/*usage*/}
 
-### Trả về nhiều phần tử {/*trả-về-nhiều-phần-tử*/}
+### Trả về nhiều phần tử {/*returning-multiple-elements*/}
 
 Sử dụng `Fragment`, hoặc cú pháp tương đương `<>...</>`, để nhóm các phần tử lại với nhau. Bạn có thể sử dụng Fragment để đặt nhiều phần tử vào bất kỳ nơi nào mà một phần tử đơn lẻ có thể được sử dụng. Ví dụ, một thành phần chỉ có thể trả về một phần tử, nhưng bằng cách sử dụng Fragment, bạn có thể nhóm nhiều phần tử lại với nhau và sau đó trả về chúng như một nhóm.:
 
@@ -94,7 +94,7 @@ function PostBody({ body }) {
 
 <DeepDive>
 
-#### Làm thế nào để viết Fragment mà không cần cú pháp đặc biệt? {/*làm-thế-nào-để-viết-fragment-mà-không-cần-cú-pháp-đặc-biệt*/}
+#### Làm thế nào để viết Fragment mà không cần cú pháp đặc biệt? {/*how-to-write-a-fragment-without-the-special-syntax*/}
 
 Câu ví dụ trên tương đương với việc import `Fragment` từ React:
 
@@ -117,7 +117,7 @@ Thông thường bạn sẽ không cần phải làm thế này trừ khi bạn 
 
 ---
 
-### Gán nhiều phần tử vào một biến {/*gán-nhiều-phần-tử-vào-một-biến*/}
+### Gán nhiều phần tử vào một biến {/*assigning-multiple-elements-to-a-variable*/}
 
 Như mọi phần tử khác, bạn có thể gán các phần tử Fragment vào các biến, truyền chúng như props, và hơn thế nữa:
 
@@ -139,7 +139,7 @@ function CloseDialog() {
 
 ---
 
-### Nhóm các phần tử với văn bản {/*nhóm-các-phần-tử-với-văn-bản*/}
+### Nhóm các phần tử với văn bản {/*grouping-elements-with-text*/}
 
 Bạn có thể dùng `Fragment` để nhóm các văn bản với các thành phần:
 
