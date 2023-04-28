@@ -14,7 +14,7 @@ Nếu bạn muốn thêm một số tính năng vào dự án hiện tại của
 
 </Note>
 
-## Sử dụng React cho một đường dẫn của trang web của bạn {/*sử-dụng-react-cho-một-đường-dẫn-của-trang-web-của-bạn*/}
+## Sử dụng React cho một đường dẫn của trang web của bạn {/*using-react-for-an-entire-subroute-of-your-existing-website*/}
 
 Giả sử bạn có một ứng dụng web tại `example.com` được phát triển với một công nghệ khác (như Rails), và bạn muốn triển khai tất cả các đường dẫn bắt đầu bằng. `example.com/some-app/` hoàn toàn với React.
 
@@ -28,7 +28,7 @@ Giả sử bạn có một ứng dụng web tại `example.com` được phát t
 
 Nhiều frameworks dựa trên React là full-stack và cho phép ứng dụng React của bạn tận dụng các tính năng của máy chủ. Tuy nhiên, bạn có thể sử dụng cùng một phương pháp ngay cả khi bạn không thể hoặc không muốn chạy JavaScript trên máy chủ. Trong trường hợp đó, hãy chuẩn bị HTML/CSS/JS export ([`next export` output](https://nextjs.org/docs/advanced-features/static-html-export) cho Next.js, mặc định cho Gatsby) tại `/some-app/`.
 
-## Sử dụng React cho một phần của trang web của bạn {/*sử-dụng-react-cho-một-phần-của-trang-web-của-bạn*/}
+## Sử dụng React cho một phần của trang web của bạn {/*using-react-for-a-part-of-your-existing-page*/}
 
 Giả sử bạn đã có một trang web được xây dựng bằng một công nghệ khác (có thể là công nghệ phía server như Rails, hoặc công nghệ phía client như Backbone), và bạn muốn hiển thị các thành phần React tương tác ở một số nơi trên trang đó. Đó là một cách thông thường để tích hợp React - thực tế, đó là cách mà hầu hết các ứng dụng React được sử dụng tại Meta trong nhiều năm qua!
 
@@ -39,7 +39,7 @@ Bạn có thể làm điều này trong hai bước:
 
 Cách tiếp cận cụ thể phụ thuộc vào thiết lập trang web hiện tại của bạn, vì vậy hãy cùng đi vào chi tiết.
 
-### Bước 1: Thiết lập môi trường JavaScript module hóa {/*bước-1-thiết-lập-môi-trường-javascript-module-hóa*/}
+### Bước 1: Thiết lập môi trường JavaScript module hóa {/*step-1-set-up-a-modular-javascript-environment*/}
 
 Môi trường JavaScript module hóa cho phép bạn viết các thành phần React của mình trong các tệp riêng lẻ, thay vì viết toàn bộ mã của bạn trong một tệp duy nhất. Nó cũng cho phép bạn sử dụng tất cả các package tuyệt vời bởi các nhà phát triển khác trên [npm](https://www.npmjs.com/) registry--bao gồm cả chính React! Cách thực hiện điều này phụ thuộc vào cài đặt hiện có của bạn:
 
@@ -88,7 +88,7 @@ Việc tích hợp môi trường JavaScript theo module vào một dự án có
 
 </Note>
 
-### Bước 2: Render các thành phần React bất kỳ nơi nào trên trang {/*bước-2-render-các-thành-phần-react-bất-kỳ-nơi-nào-trên-trang*/}
+### Bước 2: Render các thành phần React bất kỳ nơi nào trên trang {/*step-2-render-react-components-anywhere-on-the-page*/}
 
 Trong bước trước đó, bạn đã đưa code này lên đầu tệp chính của mình:
 
@@ -150,6 +150,6 @@ Chú ý là nội dung HTML ban đầu từ `index.html` được giữ nguyên,
 
 Khi bạn sử dụng React với một dự án tồn tại trước đó, thường thì bạn sẽ bắt đầu với những thành phần tương tác nhỏ (như nút bấm), và sau đó dần dần "tiến lên trước" cho tới khi toàn bộ trang web của bạn được xây dựng bằng React. Khi bạn đạt đến đó, chúng tôi khuyến nghị hãy chuyển đổi sang một [React framework](/learn/start-a-new-react-project) ngay sau đó để có thể sử dụng tối ưu React.
 
-## Sử dụng React Native trong một ứng dụng di động native hiện có {/*sử-dụng-react-native-trong-một-ứng-dụng-di-động-native-hiện-có*/}
+## Sử dụng React Native trong một ứng dụng di động native hiện có {/*using-react-native-in-an-existing-native-mobile-app*/}} {/*sử-dụng-react-native-trong-một-ứng-dụng-di-động-native-hiện-có-using-react-native-in-an-existing-native-mobile-app*/}
 
 [React Native](https://reactnative.dev/) cũng có thể được tích hợp vào các ứng dụng native hiện có một cách từ từ và tăng dần. Nếu bạn có một ứng dụng native hiện có cho Android (Java hoặc Kotlin) hoặc iOS (Objective-C hoặc Swift), [hãy làm theo hướng dẫn này](https://reactnative.dev/docs/integration-with-existing-apps) để thêm một màn hình React Native vào ứng dụng của bạn.
