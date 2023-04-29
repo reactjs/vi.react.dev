@@ -4,7 +4,7 @@ title: Thêm React vào dự án có sẵn
 
 <Intro>
 
-Nếu bạn muốn thêm một số tính năng vào dự án hiện tại của mình, bạn không cần phải viết lại dự án đó bằng React. Thêm React vào stack công nghệ của bạn, và hiển thị các thành phần của React ở bất kì đâu.
+Nếu bạn muốn thêm một số tính năng vào dự án hiện tại của mình, bạn không cần phải viết lại dự án đó bằng React. Thêm React vào stack công nghệ của bạn, và hiển thị các component của React ở bất kì đâu.
 
 </Intro>
 
@@ -30,18 +30,18 @@ Nhiều frameworks dựa trên React là full-stack và cho phép ứng dụng R
 
 ## Sử dụng React cho một phần của trang web của bạn {/*using-react-for-a-part-of-your-existing-page*/}
 
-Giả sử bạn đã có một trang web được xây dựng bằng một công nghệ khác (có thể là công nghệ phía server như Rails, hoặc công nghệ phía client như Backbone), và bạn muốn hiển thị các thành phần React tương tác ở một số nơi trên trang đó. Đó là một cách thông thường để tích hợp React - thực tế, đó là cách mà hầu hết các ứng dụng React được sử dụng tại Meta trong nhiều năm qua!
+Giả sử bạn đã có một trang web được xây dựng bằng một công nghệ khác (có thể là công nghệ phía server như Rails, hoặc công nghệ phía client như Backbone), và bạn muốn hiển thị các component React tương tác ở một số nơi trên trang đó. Đó là một cách thông thường để tích hợp React - thực tế, đó là cách mà hầu hết các ứng dụng React được sử dụng tại Meta trong nhiều năm qua!
 
 Bạn có thể làm điều này trong hai bước:
 
 1. **Thiết lập môi trường JavaScript** cho phép bạn sử dụng [cú pháp JSX](/learn/writing-markup-with-jsx), chia code của bạn thành các module với cú pháp [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) / [`export`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/export), và sử dụng các package (ví dụ như React) từ [npm](https://www.npmjs.com/) package registry.
-2. **Render các thành phần React của bạn** tại nơi bạn muốn xem chúng trên trang web.
+2. **Render các component React của bạn** tại nơi bạn muốn xem chúng trên trang web.
 
 Cách tiếp cận cụ thể phụ thuộc vào thiết lập trang web hiện tại của bạn, vì vậy hãy cùng đi vào chi tiết.
 
 ### Bước 1: Thiết lập môi trường JavaScript module hóa {/*step-1-set-up-a-modular-javascript-environment*/}
 
-Môi trường JavaScript module hóa cho phép bạn viết các thành phần React của mình trong các tệp riêng lẻ, thay vì viết toàn bộ mã của bạn trong một tệp duy nhất. Nó cũng cho phép bạn sử dụng tất cả các package tuyệt vời bởi các nhà phát triển khác trên [npm](https://www.npmjs.com/) registry--bao gồm cả chính React! Cách thực hiện điều này phụ thuộc vào cài đặt hiện có của bạn:
+Môi trường JavaScript module hóa cho phép bạn viết các component React của mình trong các tệp riêng lẻ, thay vì viết toàn bộ mã của bạn trong một tệp duy nhất. Nó cũng cho phép bạn sử dụng tất cả các package tuyệt vời bởi các nhà phát triển khác trên [npm](https://www.npmjs.com/) registry--bao gồm cả chính React! Cách thực hiện điều này phụ thuộc vào cài đặt hiện có của bạn:
 
 * **Nếu ứng dụng của bạn đã được chia thành các tệp sử dụng các câu lệnh `import`,** hãy cố gắng sử dụng thiết lập hiện có của bạn. Kiểm tra xem viết `<div />` trong mã JS có gây lỗi cú pháp không. Nếu nó gây ra lỗi cú pháp, bạn có thể cần [chuyển đổi mã JavaScript của mình bằng Babel](https://babeljs.io/setup), và kích hoạt [Babel React preset](https://babeljs.io/docs/babel-preset-react) để sử dụng JSX.
 
@@ -73,7 +73,7 @@ import { createRoot } from 'react-dom/client';
 // Xoá đi những nội dung HTML tồn tại trước đó
 document.body.innerHTML = '<div id="app"></div>';
 
-// Render thành phần React của bạn
+// Render component React của bạn
 const root = createRoot(document.getElementById('app'));
 root.render(<h1>Hello, world</h1>);
 ```
@@ -88,7 +88,7 @@ Việc tích hợp môi trường JavaScript theo module vào một dự án có
 
 </Note>
 
-### Bước 2: Render các thành phần React bất kỳ nơi nào trên trang {/*step-2-render-react-components-anywhere-on-the-page*/}
+### Bước 2: Render các component React bất kỳ nơi nào trên trang {/*step-2-render-react-components-anywhere-on-the-page*/}
 
 Trong bước trước đó, bạn đã đưa code này lên đầu tệp chính của mình:
 
@@ -107,7 +107,7 @@ Tất nhiên, bạn không muốn xóa toàn bộ nội dung HTML hiện có c�
 
 Hãy xoá đoạn code này.
 
-Thay vào đó, bạn sẽ muốn render các thành phần React ở những nơi cụ thể trong HTML của mình. Hãy mở trang HTML của bạn (hoặc template server nào đó đã sinh ra chúng) và thêm vào thuộc tính [`id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id) độc nhất cho bất kì thẻ HTML nào, ví dụ như:
+Thay vào đó, bạn sẽ muốn render các component React ở những nơi cụ thể trong HTML của mình. Hãy mở trang HTML của bạn (hoặc template server nào đó đã sinh ra chúng) và thêm vào thuộc tính [`id`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/id) độc nhất cho bất kì thẻ HTML nào, ví dụ như:
 
 ```html
 <!-- ... đâu đó trong html của bạn ... -->
@@ -115,7 +115,7 @@ Thay vào đó, bạn sẽ muốn render các thành phần React ở những n�
 <!-- ... thêm html ... -->
 ```
 
-Điều này sẽ giúp bạn tìm kiếm phần tử HTML với [`document.getElementById`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) và truyền vào [`createRoot`](/reference/react-dom/client/createRoot) để bạn có thể render thành phần React bên trong:
+Điều này sẽ giúp bạn tìm kiếm phần tử HTML với [`document.getElementById`](https://developer.mozilla.org/en-US/docs/Web/API/Document/getElementById) và truyền vào [`createRoot`](/reference/react-dom/client/createRoot) để bạn có thể render component React bên trong:
 
 <Sandpack>
 
@@ -146,10 +146,10 @@ root.render(<NavigationBar />);
 
 </Sandpack>
 
-Chú ý là nội dung HTML ban đầu từ `index.html` được giữ nguyên, nhưng thành phần  `NavigationBar` React của bạn giờ đây hiển thị bên trong `<nav id="navigation">` từ trong HTML của bạn. Hãy đọc [`tài liệu sử dụng createRoot`](/reference/react-dom/client/createRoot#rendering-a-page-partially-built-with-react) để tìm hiểu thêm về cách hiển thị các thành phần React trong một trang HTML hiện có.
+Chú ý là nội dung HTML ban đầu từ `index.html` được giữ nguyên, nhưng component  `NavigationBar` React của bạn giờ đây hiển thị bên trong `<nav id="navigation">` từ trong HTML của bạn. Hãy đọc [`tài liệu sử dụng createRoot`](/reference/react-dom/client/createRoot#rendering-a-page-partially-built-with-react) để tìm hiểu thêm về cách hiển thị các component React trong một trang HTML hiện có.
 
-Khi bạn sử dụng React với một dự án tồn tại trước đó, thường thì bạn sẽ bắt đầu với những thành phần tương tác nhỏ (như nút bấm), và sau đó dần dần "tiến lên trước" cho tới khi toàn bộ trang web của bạn được xây dựng bằng React. Khi bạn đạt đến đó, chúng tôi khuyến nghị hãy chuyển đổi sang một [React framework](/learn/start-a-new-react-project) ngay sau đó để có thể sử dụng tối ưu React.
+Khi bạn sử dụng React với một dự án tồn tại trước đó, thường thì bạn sẽ bắt đầu với những component tương tác nhỏ (như nút bấm), và sau đó dần dần "tiến lên trước" cho tới khi toàn bộ trang web của bạn được xây dựng bằng React. Khi bạn đạt đến đó, chúng tôi khuyến nghị hãy chuyển đổi sang một [React framework](/learn/start-a-new-react-project) ngay sau đó để có thể sử dụng tối ưu React.
 
-## Sử dụng React Native trong một ứng dụng di động native hiện có {/*using-react-native-in-an-existing-native-mobile-app*/}} {/*sử-dụng-react-native-trong-một-ứng-dụng-di-động-native-hiện-có-using-react-native-in-an-existing-native-mobile-app*/}
+## Sử dụng React Native trong một ứng dụng di động native hiện có {/*using-react-native-in-an-existing-native-mobile-app*/}
 
 [React Native](https://reactnative.dev/) cũng có thể được tích hợp vào các ứng dụng native hiện có một cách từ từ và tăng dần. Nếu bạn có một ứng dụng native hiện có cho Android (Java hoặc Kotlin) hoặc iOS (Objective-C hoặc Swift), [hãy làm theo hướng dẫn này](https://reactnative.dev/docs/integration-with-existing-apps) để thêm một màn hình React Native vào ứng dụng của bạn.
