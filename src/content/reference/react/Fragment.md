@@ -54,7 +54,7 @@ function Post() {
 }
 ```
 
-Fragments rất hữu ích vì nhóm các phần tử với một Fragment không ảnh hưởng đến bố cục hay cách các phần tử hiển thị, khác với khi bạn bọc các phần tử trong một container khác như một DOM element. Nếu bạn kiểm tra ví dụ này với các công cụ trình duyệt, bạn sẽ thấy tất cả các nút DOM `<h1>` và `<p>` xuất hiện như là các sibling mà không có các wrapper xung quanh chúng:
+Fragments rất hữu ích vì nhóm các phần tử với một Fragment không ảnh hưởng đến bố cục hay cách các phần tử hiển thị, khác với khi bạn bọc các phần tử trong một container khác như một DOM element. Nếu bạn kiểm tra ví dụ này với các công cụ trình duyệt, bạn sẽ thấy tất cả các nút DOM `<h1>` và `<article>` xuất hiện như là các sibling mà không có các wrapper xung quanh chúng:
 
 <Sandpack>
 
