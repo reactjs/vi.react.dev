@@ -22,7 +22,7 @@ title: <Profiler>
 
 ### `<Profiler>` {/*profiler*/}
 
-Bọc một component tree trong `<Profiler>` để đo lường hiệu suất.
+Hãy bọc các component bên trong `<Profiler>` để đo lường hiệu suất.
 
 ```js
 <Profiler id="App" onRender={onRender}>
@@ -32,8 +32,8 @@ Bọc một component tree trong `<Profiler>` để đo lường hiệu suất.
 
 #### Props {/*props*/}
 
-* `id`: Một chuỗi ký tự để xác định phần giao diện bạn muốn đo lường.
-* `onRender`: Một [callback `onRender`](#onrender-callback) mà React gọi mỗi khi các thành phần bên trong tree cập nhật. Nó nhận thông tin về những gì được render và mất bao nhiêu thời gian để render.
+* `id`: Một chuỗi ký tự để xác định phần giao diện mà bạn muốn đo lường hiệu suất.
+* `onRender`: Một [callback `onRender`](#onrender-callback) mà React sẽ gọi mỗi khi các component bên trong tree cập nhật. Nó sẽ nhận lại thông tin về những gì đã được render và mất bao nhiêu thời gian để render chúng.
 
 #### Những điều cần chú ý {/*caveats*/}
 
@@ -43,7 +43,7 @@ Bọc một component tree trong `<Profiler>` để đo lường hiệu suất.
 
 ### `onRender` callback {/*onrender-callback*/}
 
-React sẽ gọi call `onRender` callback với thông tin về những gì được render.
+React sẽ gọi callback `onRender` với thông tin về những gì được render.
 
 ```js
 function onRender(id, phase, actualDuration, baseDuration, startTime, commitTime) {
@@ -53,10 +53,10 @@ function onRender(id, phase, actualDuration, baseDuration, startTime, commitTime
 
 #### Các tham số {/*onrender-parameters*/}
 
-* `id`: Chuỗi `id` là prop của `<Profiler>` tree được thực thi. Điều này cho phép bạn xác định phần nào của tree đã được thực thi nếu bạn đang sử dụng nhiều trình đo hiệu năng.
-* `phase`: `"mount"`, `"update"` hoặc `"nested-update"`. Chúng giúp bạn biết liệu tree đã được render lần đầu tiên hay đã được vẽ lại do thay đổi trong props, state hoặc hooks.
-* `actualDuration`: Số mili giây dành cho việc render `<Profiler>` và các phần tử con phục vụ cho cập nhật hiện tại. Nó giúp cho thấy subtree tận dụng tốt việc ghi nhớ (memorization) (ví dụ như [`memo`](/reference/react/memo) và [`useMemo`](/reference/react/useMemo)). Lý tưởng nhất là giá trị này sẽ giảm đáng kể sau lần render ban đầu vì nhiều thành phần con chỉ cần được render lại nếu props cụ thể của chúng thay đổi.
-* `baseDuration`: Số mili giây ước tính cho thời gian cần để render lại toàn bộ subtree của `<Profiler>` mà không cần sự tối ưu hoá nào. Giá trị này được tính bằng cách tính tổng thời gian render gần đây nhất của các thành phần trong tree. Giá trị này sẽ giúp ước tính được thời gian chậm nhất (ví dụ lần render ban đầu hay một tree mà không có sự ghi nhớ nào). Hãy so sánh `actualDuration` với nó để xem việc ghi nhớ có hoạt động chính xác hay không.
+* `id`: Chuỗi `id` là prop của `<Profiler>` tree được thực thi (commit). Điều này cho phép bạn xác định phần nào của tree đã được thực thi nếu bạn đang sử dụng nhiều trình đo hiệu năng.
+* `phase`: `"mount"`, `"update"` hoặc `"nested-update"`. Chúng giúp bạn biết liệu tree đã được render lần đầu tiên hay đã được render lại do thay đổi trong props, state hoặc hooks.
+* `actualDuration`: Số mili giây dành cho việc render `<Profiler>` và các phần tử con phục vụ cho cập nhật hiện tại. Nó giúp cho thấy subtree tận dụng tốt việc ghi nhớ (memorization) (ví dụ như [`memo`](/reference/react/memo) và [`useMemo`](/reference/react/useMemo)). Lý tưởng nhất là giá trị này sẽ giảm đáng kể sau lần render ban đầu vì nhiều component con chỉ cần được render lại nếu props cụ thể của chúng thay đổi.
+* `baseDuration`: Số mili giây ước tính thời gian cần để render lại toàn bộ subtree của `<Profiler>` mà không cần tối ưu. Giá trị này được tính bằng cách tính tổng thời gian render gần đây nhất của các component trong tree. Nó sẽ giúp ước tính được thời gian chậm nhất (ví dụ lần render ban đầu hay một tree mà không có sự ghi nhớ nào). Hãy so sánh `actualDuration` với nó để xem việc ghi nhớ có hoạt động chính xác hay không.
 * `startTime`: Mốc thời gian mà React bắt đầu thực hiện việc render cho cập nhật hiện tại.
 * `endTime`: Mốc thời gian React thực hiện xong cập nhật hiện tại. Giá trị này được chia sẻ giữa tất cả các profiler trong một lần thực thi, cho phép nhóm chúng lại nếu cần thiết.
 
@@ -77,7 +77,7 @@ Bọc `<Profiler>` vào một React tree để đo lường hiệu suất render
 </App>
 ```
 
-Nó yêu cầu 2 props: một chuỗi `id` và một `onRender` mà React gọi bất cứ khi nào một component trong tree cập nhật.
+Nó yêu cầu 2 props: một chuỗi `id` và một callback `onRender` mà React gọi bất cứ khi nào một component trong tree cập nhật.
 
 <Pitfall>
 
@@ -93,7 +93,7 @@ Việc đo lường sẽ làm giảm hiệu suất, vì vậy **mặc định n�
 
 ---
 
-### Đo lường các phần khác nhau của ứng dụng {/*measuring-different-parts-of-the-application*/}
+### Đo hiệu suất các phần khác nhau của ứng dụng {/*measuring-different-parts-of-the-application*/}
 
 Bạn có thể sử dụng nhiều `<Profiler>` để đo lường nhiều phần khác nhau của ứng dụng:
 
@@ -126,6 +126,6 @@ Bạn cũng có thể lồng nhiều `<Profiler>` vào với nhau:
 </App>
 ```
 
-Mặc dù `<Profiler>` là một component rất nhẹ, nó chỉ nên được dùng khi cần thiết. Mỗi lần sử dụng sẽ đều tiêu hao CPU và bộ nhớ thêm cho ứng dụng.
+Mặc dù `<Profiler>` là một component rất nhẹ, nó chỉ nên được dùng khi cần thiết. Mỗi lần sử dụng sẽ đều tiêu hao CPU và tốn thêm bộ nhớ cho ứng dụng.
 
 ---
