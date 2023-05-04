@@ -4,7 +4,7 @@ title: lazy
 
 <Intro>
 
-`lazy` lets you defer loading component's code until it is rendered for the first time.
+`lazy` cho phép bạn trì hoãn việc tải code của component cho tới khi được render lần đầu tiên.
 
 ```js
 const SomeComponent = lazy(load)
@@ -16,11 +16,11 @@ const SomeComponent = lazy(load)
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `lazy(load)` {/*lazy*/}
 
-Call `lazy` outside your components to declare a lazy-loaded React component:
+Gọi `lazy` bên ngoài các component của bạn để khai báo một React component được lazy-load:
 
 ```js
 import { lazy } from 'react';
@@ -28,15 +28,15 @@ import { lazy } from 'react';
 const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'));
 ```
 
-[See more examples below.](#usage)
+[Xem thêm ví dụ ở dưới.](#usage)
 
-#### Parameters {/*parameters*/}
+#### Tham số {/*parameters*/}
 
-* `load`: A function that returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or another *thenable* (a Promise-like object with a `then` method). React will not call `load` until the first time you attempt to render the returned component. After React first calls `load`, it will wait for it to resolve, and then render the resolved value as a React component. Both the returned Promise and the Promise's resolved value will be cached, so React will not call `load` more than once. If the Promise rejects, React will `throw` the rejection reason for the nearest Error Boundary to handle.
+* `load`: Một function trả về một [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) hoặc một *thenable* (một đối tượng giống Promist với một phương thức `then`). React sẽ không gọi hàm `load` cho tới khi bạn render component được trả về. Sau khi React gọi `load` lần đầu tiên, React sẽ đợi cho tới khi hàm này được giải quyết xong (resolve), sau đó sẽ render giá trị được giải quyết như một React component. Cả Promise được trả về và giá trị đã được giải quyết của Promise đó đều được lưu lại, nên React sẽ không gọi `load` thêm nữa. Nếu Promise từ chối, React sẽ `throw` lý do từ chối cho Error Boundary gần nhất để xử lý.
 
-#### Returns {/*returns*/}
+#### Giá trị trả về {/*returns*/}
 
-`lazy` returns a React component you can render in your tree. While the code for the lazy component is still loading, attempting to render it will *suspend.* Use [`<Suspense>`](/reference/react/Suspense) to display a loading indicator while it's loading.
+`lazy` trả về một React component mà bạn có thể render. Khi đoạn code cho lazy component đó đang được tải, việc thực hiện render nó sẽ *được hoãn lại.* Sử dụng [`<Suspense>`](/reference/react/Suspense) để hiển thị một chỉ báo đang tải (loading).
 
 ---
 
@@ -52,17 +52,17 @@ You need to return a [Promise](https://developer.mozilla.org/en-US/docs/Web/Java
 
 ---
 
-## Usage {/*usage*/}
+## Các sử dụng {/*usage*/}
 
-### Lazy-loading components with Suspense {/*suspense-for-code-splitting*/}
+### Lazy-loading components với Suspense {/*suspense-for-code-splitting*/}
 
-Usually, you import components with the static [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import) declaration:
+Thông thường, bạn import các component bằng khai báo tĩnh [`import`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import):
 
 ```js
 import MarkdownPreview from './MarkdownPreview.js';
 ```
 
-To defer loading this component's code until it's rendered for the first time, replace this import with:
+Để trì hoãn việc tải code của component cho tới khi nó được render lần đầu tiên, thay thế import với:
 
 ```js
 import { lazy } from 'react';
@@ -70,9 +70,9 @@ import { lazy } from 'react';
 const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'));
 ```
 
-This code relies on [dynamic `import()`,](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) which might require support from your bundler or framework.
+Đoạn code này phụ thuộc vào [dynamic `import()`,](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) có thể sẽ cần được hỗ trợ bởi bundler hoặc framework của bạn.
 
-Now that your component's code loads on demand, you also need to specify what should be displayed while it is loading. You can do this by wrapping the lazy component or any of its parents into a [`<Suspense>`](/reference/react/Suspense) boundary:
+Bây giờ code của component sẽ tải khi được yêu cầu, bạn sẽ cần phải xác định cái gì sẽ được hiển thị khi component đang được tải. Bạn có thể làm điều này bằng việc bọc lazy component hoặc bất kì phần tử cha của nó vào trong [`<Suspense>`](/reference/react/Suspense):
 
 ```js {1,4}
 <Suspense fallback={<Loading />}>
@@ -81,7 +81,7 @@ Now that your component's code loads on demand, you also need to specify what sh
  </Suspense>
 ```
 
-In this example, the code for `MarkdownPreview` won't be loaded until you attempt to render it. If `MarkdownPreview` hasn't loaded yet, `Loading` will be shown in its place. Try ticking the checkbox:
+Trong ví dụ này, đoạn code cho `MarkdownPreview` sẽ không được tải cho tới khi bạn thực thi việc render nó. Nếu `MarkdownPreview` vẫn chưa được tải xong, `Loading` sẽ được hiển thị vào vị trí của nó. Hãy thử tích vào checkbox dưới đây:
 
 <Sandpack>
 
@@ -112,7 +112,7 @@ export default function MarkdownEditor() {
   );
 }
 
-// Add a fixed delay so you can see the loading state
+// Thêm một khoảng thời gian trì hoãn để bạn có thể thấy được loading state
 function delayForDemo(promise) {
   return new Promise(resolve => {
     setTimeout(resolve, 2000);
@@ -175,34 +175,34 @@ body {
 
 </Sandpack>
 
-This demo loads with an artificial delay. The next time you untick and tick the checkbox, `Preview` will be cached, so there will be no loading state. To see the loading state again, click "Reset" on the sandbox.
+Đoạn demo này được tải với một khoảng thời gian trì hoãn cố ý. Lần sau khi bạn bỏ chọn và chọn lại, `Preview` sẽ được lưu lại, lên sẽ không còn loading state nữa. Để nhìn lại loading state, hãy bấm "Reset" trên sandbox.
 
-[Learn more about managing loading states with Suspense.](/reference/react/Suspense)
+[Tìm hiểu thêm về quản lý các loading state với Suspense.](/reference/react/Suspense)
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## Khắc phục sự cố {/*troubleshooting*/}
 
-### My `lazy` component's state gets reset unexpectedly {/*my-lazy-components-state-gets-reset-unexpectedly*/}
+### State của `lazy` component của tôi bị đặt lại ngoài ý muốn {/*my-lazy-components-state-gets-reset-unexpectedly*/}
 
-Do not declare `lazy` components *inside* other components:
+Không khai báo các `lazy` component *bên trong* các component khác:
 
 ```js {4-5}
 import { lazy } from 'react';
 
 function Editor() {
-  // 🔴 Bad: This will cause all state to be reset on re-renders
+  // 🔴 Bad: Điều này sẽ khiến các state bị đặt lại khi render lại
   const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'));
   // ...
 }
 ```
 
-Instead, always declare them at the top level of your module:
+Thay vào đó, luôn luôn khai báo chúng ở trên cùng module của bạn:
 
 ```js {3-4}
 import { lazy } from 'react';
 
-// ✅ Good: Declare lazy components outside of your components
+// ✅ Good: Khai báo các lazy component bên ngoài các component
 const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'));
 
 function Editor() {
