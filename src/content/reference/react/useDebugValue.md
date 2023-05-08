@@ -47,7 +47,7 @@ function useOnlineStatus() {
 
 ### Thêm label cho custom Hook {/*adding-a-label-to-a-custom-hook*/}
 
-Gọi `useDebugValue` ở cấp cao nhất cho [custom Hook](/learn/reusing-logic-with-custom-hooks) của bạn để hiển thị một <CodeStep step={1}>debug value</CodeStep> dễ đọc trên [React DevTools.](/learn/react-developer-tools)
+Gọi `useDebugValue` ở cấp cao nhất trong [custom Hook](/learn/reusing-logic-with-custom-hooks) của bạn để hiển thị một <CodeStep step={1}>debug value</CodeStep> dễ đọc trên [React DevTools.](/learn/react-developer-tools)
 
 ```js [[1, 5, "isOnline ? 'Online' : 'Offline'"]]
 import { useDebugValue } from 'react';
