@@ -4,7 +4,7 @@ title: useDebugValue
 
 <Intro>
 
-`useDebugValue` là một React Hook để giúp thêm nhãn (label) vào một custom Hook trên [Công cụ phát triển React (React DevTools).](/learn/react-developer-tools)
+`useDebugValue` là một React Hook để giúp thêm nhãn (label) vào một custom Hook khi hiển thị trên [Công cụ phát triển React (React DevTools).](/learn/react-developer-tools)
 
 ```js
 useDebugValue(value, format?)
