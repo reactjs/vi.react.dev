@@ -37,7 +37,7 @@ function useOnlineStatus() {
 #### Các tham số (Parameters) {/*parameters*/}
 
 * `value`: Giá trị bạn muốn hiển thị trên React DevTools. Giá trị này có thể thuộc bất cứ kiểu nào.
-* **không bắt buộc** `format`: Là một hàm dùng để định dạng. Khi bạn kiểm tra các thành phần (component), React DevTools sẽ gọi hàm này với đối số là giá trị của `value`, sau đó sẽ hiển thị giá trị sau khi định dạng (giá trị sau khi định dạng cũng có thể thuộc bất cứ kiểu nào). Nếu bạn không thiết lập hàm định dạng, giá trị ban đầu của `value` sẽ được hiển thị.
+* `format` (**không bắt buộc**): Là một hàm dùng để định dạng. Khi bạn kiểm tra các thành phần (component), React DevTools sẽ gọi hàm này với đối số là giá trị của `value`, sau đó sẽ hiển thị giá trị sau khi định dạng (giá trị sau khi định dạng cũng có thể thuộc bất cứ kiểu nào). Nếu bạn không thiết lập hàm định dạng, giá trị ban đầu của `value` sẽ được hiển thị.
 
 #### Giá trị trả về (Returns) {/*returns*/}
 
