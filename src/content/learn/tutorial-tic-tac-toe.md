@@ -1419,7 +1419,7 @@ function handleClick(i) {
 }
 ```
 
-Now you can only add `X`'s or `O`'s to empty squares! Here is what your code should look like at this point:
+Bây giờ bạn chỉ có thể thêm `X` hoặc `O` vào ô vuông trống. Code của bạn lúc này sẽ như sau:
 
 <Sandpack>
 
@@ -1523,7 +1523,7 @@ body {
 
 ### Declaring a winner {/*declaring-a-winner*/}
 
-Now that the players can take turns, you'll want to show when the game is won and there are no more turns to make. To do this you'll add a helper function called `calculateWinner` that takes an array of 9 squares, checks for a winner and returns `'X'`, `'O'`, or `null` as appropriate. Don't worry too much about the `calculateWinner` function; it's not specific to React:
+Bây giờ người chơi đã có thể chơi luân phiên, bạn sẽ muốn chỉ ra khi nào thì có một người chiến thắng, và không có thêm nước cờ nào nữa. Để làm điều này, bạn sẽ thêm một hàm phụ trợ gọi là `calculateWinner` nhận một mảng của 9 hình vuông, kiểm tra người chiến thắng và trả về `'X'`, `'O'`, hoặc `null` tương ứng. Đừng lo lắng quá về hàm `calculateWinner`; nó không liên quan đến React:
 
 ```js App.js
 export default function Board() {
@@ -1553,11 +1553,11 @@ function calculateWinner(squares) {
 
 <Note>
 
-It does not matter whether you define `calculateWinner` before or after the `Board`. Let's put it at the end so that you don't have to scroll past it every time you edit your components.
+Không quan trọng bạn định nghĩa `calculateWinner` trước hay sau `Board`. Hãy để nó ở cuối để bạn không phải scroll qua nó mỗi khi bạn muốn sửa các component của bạn.
 
 </Note>
 
-You will call `calculateWinner(squares)` in the `Board` component's `handleClick` function to check if a player has won. You can perform this check at the same time you check if a user has clicked a square that already has a `X` or and `O`. We'd like to return early in both cases:
+Bạn sẽ gọi `calculateWinner(squares)` trong hàm `handleClick` của component `Board` để kiểm tra xem đã có ai thắng chưa. Bạn có thể thực hiện kiểm tra người thắng cùng lúc với kiểm tra người chơi có ấn vào một hình vuông đã có `X` hoặc `O`. Chúng ta muốn `return` sớm trong cả hai trường hợp:
 
 ```js {2}
 function handleClick(i) {
@@ -1569,7 +1569,7 @@ function handleClick(i) {
 }
 ```
 
-To let the players know when the game is over, you can display text such as "Winner: X" or "Winner: O". To do that you'll add a `status` section to the `Board` component. The status will display the winner if the game is over and if the game is ongoing you'll display which player's turn is next:
+Để các người chơi biết khi nào thì trò chơi kết thúc, bạn có thể hiển thị ví dụ "Người thắng: X" hoặc "Người thắng: O". Thêm một phần `status` vào component `Board`. Phần này sẽ hiển thị người thắng nếu trò chơi kết thúc và nếu trò chơi vẫn tiếp tục thì hiển thị người có lượt chơi tiếp theo:
 
 ```js {3-9,13}
 export default function Board() {
@@ -1577,9 +1577,9 @@ export default function Board() {
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
-    status = "Winner: " + winner;
+    status = "Người thắng: " + winner;
   } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
+    status = "Người tiếp theo: " + (xIsNext ? "X" : "O");
   }
 
   return (
@@ -1591,7 +1591,7 @@ export default function Board() {
 }
 ```
 
-Congratulations! You now have a working tic-tac-toe game. And you've just learned the basics of React too. So _you_ are the real winner here. Here is what the code should look like:
+Chúc mừng! Bây giờ trò chơi tic-tac-toe đã hoạt động. Bạn cũng đã học các kiến thức cơ bản của React, nên _bạn_ mới chính là người thắng ở đây. Code của bạn sẽ trông như sau:
 
 <Sandpack>
 
@@ -1627,9 +1627,9 @@ export default function Board() {
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
-    status = 'Winner: ' + winner;
+    status = 'Người thắng: ' + winner;
   } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+    status = 'Người tiếp theo: ' + (xIsNext ? 'X' : 'O');
   }
 
   return (
@@ -1722,37 +1722,37 @@ body {
 
 </Sandpack>
 
-## Adding time travel {/*adding-time-travel*/}
+## Thêm du hành thời gian {/*adding-time-travel*/}
 
-As a final exercise, let's make it possible to "go back in time" to the previous moves in the game.
+Bài tập cuối cùng, hãy làm cho nó có thể "quay ngược thời gian" về các nước đi trước đó trong trò chơi.
 
 ### Storing a history of moves {/*storing-a-history-of-moves*/}
 
-If you mutated the `squares` array, implementing time travel would be very difficult.
+Nếu bạn đã sửa mảng `squares`, thực hiện du hành thời gian sẽ rất khó khăn.
 
-However, you used `slice()` to create a new copy of the `squares` array after every move, and treated it as immutable. This will allow you to store every past version of the `squares` array, and navigate between the turns that have already happened.
+Tuy nhiên, bạn đã sử dụng `slice()` để tạo mới một bản sao của mảng `squares` sau mỗi nước đi, và làm nó trở thành không thay đổi được. Việc này giúp bạn lưu mỗi phiên bản quá khứ của mảng `squares`, và điều hướng tới các lượt đã chơi.
 
-You'll store the past `squares` arrays in another array called `history`, which you'll store as a new state variable. The `history` array represents all board states, from the first to the last move, and has a shape like this:
+Bạn sẽ lưu các mảng `squares` quá khứ vào trong mảng khác gọi là `history`, một biến state mới. Mảng `history` đại diện cho state của cả bảng chơi, từ nước đi đầu tới nước đi cuối, và có dạng như sau:
 
 ```jsx
 [
-  // Before first move
+  // Trước nước đi đầu tiên
   [null, null, null, null, null, null, null, null, null],
-  // After first move
+  // Sau nước đi đầu tiên
   [null, null, null, null, 'X', null, null, null, null],
-  // After second move
+  // Sau nước đi thứ hai
   [null, null, null, null, 'X', null, null, null, 'O'],
   // ...
 ]
 ```
 
-### Lifting state up, again {/*lifting-state-up-again*/}
+### Đẩy state lên, lần nữa {/*lifting-state-up-again*/}
 
-You will now write a new top-level component called `Game` to display a list of past moves. That's where you will place the `history` state that contains the entire game history.
+Bạn sẽ viết một component cấp cao nhất mới gọi là `Game` để hiển thị danh sách các nước cờ trong quá khứ. Đây là nơi bạn để state `history` chứa lịch sử của toàn bộ game.
 
-Placing the `history` state into the `Game` component will let you remove the `squares` state from its child `Board` component. Just like you "lifted state up" from the `Square` component into the `Board` component, you will now lift it up from the `Board` into the top-level `Game` component. This gives the `Game` component full control over the `Board`'s data and lets it instruct the `Board` to render previous turns from the `history`.
+Đặt state `history` vào trong component `Game` cho phép bạn xoá state `squares` từ component con `Board`. Giống như bạn "đẩy state lên" từ component `Square` vào component `Board`, bây giờ bạn sẽ đẩy từ `Board` vào `Game`. Nó sẽ giúp `Game` toàn quyền kiểm soát dữ liệu của `Board` và  giúp nó chỉ dẫn `Board` render các nước đi trước dó từ `history`.
 
-First, add a `Game` component with `export default`. Have it render the `Board` component and some markup:
+Đầu tiên, thêm component `Game` với `export default`. Render component `Board` và một vài đoạn nữa bên trong nó:
 
 ```js {1,5-16}
 function Board() {
