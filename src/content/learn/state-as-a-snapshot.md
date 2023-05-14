@@ -4,7 +4,7 @@ title: State như một snapshot
 
 <Intro>
 
-Những biến state có thể trông như biến JavaScript bình thường mà bạn có thể đọc và ghi vào. Tuy nhiên, state hoạt động giống như một snapshot hay "bản chụp" - một thuật ngữ được mượn từ nhiếp ảnh - chỉ trạng thái của phần mềm trong một thời điểm xác định. Việc thiết lập nó không thay đổi biến state bạn đã có, mà thay vào đó kích hoạt một lần re-render.
+Những biến state thoạt nhìn có thể trông như biến JavaScript bình thường mà bạn có thể đọc và ghi vào. Tuy nhiên, state hoạt động giống như một snapshot hay "bản chụp" - một thuật ngữ được mượn từ nhiếp ảnh - chỉ trạng thái của phần mềm trong một thời điểm xác định. Việc thiết lập nó không thay đổi biến state bạn đã có, mà thay vào đó kích hoạt một lần re-render.
 
 </Intro>
 
@@ -327,7 +327,7 @@ Nhưng nếu như bạn muốn đọc giá trị mới nhất của state trư�
 
 #### Xây dựng một cột đèn giao thông {/*implement-a-traffic-light*/}
 
-Sau đây là một component đèn giao thông. Nó có một nút để chuyển đổi giữa hai trạng thái: "Đi" và "Dừng".
+Sau đây là một component đèn giao thông. Nó có một nút để chuyển đổi qua lại giữa hai trạng thái: "Đi" và "Dừng".
 
 <Sandpack>
 
