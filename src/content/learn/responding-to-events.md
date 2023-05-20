@@ -97,7 +97,7 @@ Các hàm phải được truyền cho hàm xử lý sự kiện chứ không đ
 
 Một sự khác biệt nhỏ. Trong ví dụ đầu tiên, hàm `handleClick` được truyền như một hàm xử lý sự kiện `onClick`. Điều này bảo React hãy nhớ hàm của bạn và chỉ được gọi nó khi người dùng nhấn nút.
 
-Trong ví dụ thứ hai, cặp ngoặc `()` ở cuối `handleClick()` kích hoạt hàm *ngay lập tức* trong quá trình [rendering](/learn/render-and-commit) mà không cần nhấn nút. Đó là bởi vì Javascript trong [JSX `{` and `}`](/learn/javascript-in-jsx-with-curly-braces) được triển khai luôn.
+Trong ví dụ thứ hai, cặp ngoặc `()` ở cuối `handleClick()` kích hoạt hàm *ngay lập tức* trong quá trình [rendering](/learn/render-and-commit) mà không cần nhấn nút. Đó là bởi vì Javascript trong [`{` và `} của JSX`](/learn/javascript-in-jsx-with-curly-braces) được triển khai luôn.
 
 Khi bạn viết code theo kiểu inline, những lưu ý tương tự được thể hiện theo một cách khác:
 
@@ -130,9 +130,9 @@ Trong cả hai trường hợp, thứ bạn muốn truyền là một hàm:
 
 </Pitfall>
 
-### Đọc props trong các hàm xử lý sự kiện {/*reading-props-in-event-handlers*/}
+### Đọc các prop trong hàm xử lý sự kiện {/*reading-props-in-event-handlers*/}
 
-Vì các hàm xử lý sự kiện được khai báo trong một component, chúng có quyền truy cập vào các props của component. Đây là một nút mà khi nhấn, hiện ra một alert với prop `message` của nó:
+Vì các hàm xử lý sự kiện được khai báo trong một component, chúng có quyền truy cập vào các prop của component. Đây là một nút mà khi nhấn, hiện ra một alert với prop `message` của nó:
 
 <Sandpack>
 
@@ -167,9 +167,9 @@ button { margin-right: 10px; }
 
 Điều này sẽ cho hai nút hiển thị hai lời nhắn khác nhau. Hãy thử thay đổi lời nhắn (`message`) được truyền cho các nút.
 
-### Truyền hàm xử lý sự kiện như props {/*passing-event-handlers-as-props*/}
+### Truyền các hàm xử lý sự kiện như prop {/*passing-event-handlers-as-props*/}
 
-Thông thường, bạn sẽ muốn component cha chỉ định hàm xử lý sự kiện của component con. Xem xét các nút: tuỳ thuộc vào nơi bạn đang sử dụng component `Button`, bạn có thể muốn thực thi một hàm khác-có thể là một nút phát phim còn một nút khác tải ảnh lên.
+Thông thường, bạn sẽ muốn component cha chỉ định hàm xử lý sự kiện của component con. Xem xét các nút: tuỳ thuộc vào nơi bạn đang sử dụng component `Button`, bạn có thể muốn thực thi một hàm khác--có thể là một nút phát phim còn một nút khác tải ảnh lên.
 
 Để làm được điều này, truyền một prop mà component nhận từ cha của nó như một hàm xử lý sự kiện:
 
@@ -227,13 +227,13 @@ Tại đây, component `Toolbar` render một `PlayButton` và một `UploadButt
 
 Cuối cùng, component `Button` của bạn nhận một prop được gọi là `onClick`. Nó truyền prop đó trực tiếp tới thẻ `<button>` có sẵn của trình duyệt với `onClick={onClick}`. Điều này bảo React gọi hàm được truyền khi nhấn nút.
 
-Nếu bạn sử dụng một [hệ thiết kế](https://uxdesign.cc/everything-you-need-to-know-about-design-systems-54b109851969), thông thường các component như các nút (`Button`) chứa styling chứ không chỉ định hành vi. Thay vào đó, các component như `PlayButton` và `UploadButton` sẽ truyền hàm xử lý sự kiện xuống `Button`.
+Nếu bạn sử dụng một [hệ thống thiết kế](https://uxdesign.cc/everything-you-need-to-know-about-design-systems-54b109851969), thông thường các component như các nút (`Button`) chứa styling chứ không chỉ định hành vi. Thay vào đó, các component như `PlayButton` và `UploadButton` sẽ truyền hàm xử lý sự kiện xuống `Button`.
 
-### Đặt tên cho các props hàm xử lý sự kiện {/*naming-event-handler-props*/}
+### Đặt tên cho các prop hàm xử lý sự kiện {/*naming-event-handler-props*/}
 
-Các component có sẵn như `<button>` và `<div>` chỉ hỗ trợ các [tên sự kiện của trình duyệt](/reference/react-dom/components/common#common-props) như `onClick`. Tuy nhiên, khi xây dựng những component của riêng mình, bạn có thể đặt tên cho các props hàm xử lý sự kiện của các component đó tuỳ ý.
+Các component có sẵn như `<button>` và `<div>` chỉ hỗ trợ các [tên sự kiện của trình duyệt](/reference/react-dom/components/common#common-props) như `onClick`. Tuy nhiên, khi xây dựng những component của riêng mình, bạn có thể đặt tên cho các prop hàm xử lý sự kiện của các component đó tuỳ ý.
 
-Theo quy chuẩn, các props hàm xử lý sự kiện nên bắt đầu bằng `on`, theo sau đó là chữ cái viết hoa.
+Theo quy chuẩn, các prop hàm xử lý sự kiện nên bắt đầu bằng `on`, theo sau đó là chữ cái viết hoa.
 
 Ví dụ, prop `onClick` của component `Button` có thể được gọi là `onSmash`:
 
@@ -270,7 +270,7 @@ button { margin-right: 10px; }
 
 Ở ví dụ này, `<button onClick={onSmash}>` cho ta thấy `<button>` (viết thường) của trình duyệt vẫn cần một prop gọi là `onClick`, nhưng tên prop nhận bởi component tuỳ chỉnh `Button` là do bạn quyết định!
 
-Khi component của bạn hỗ trợ nhiều tương tác, bạn có thể đặt props hàm xử lý sự kiện cho các khái niệm riêng của ứng dụng. Ví dụ, component `Toolbar` này nhận hàm xử lý sự kiện `onPlayMovie` và `onUploadImage`:
+Khi component của bạn hỗ trợ nhiều tương tác, bạn có thể đặt các prop hàm xử lý sự kiện cho các khái niệm riêng của ứng dụng. Ví dụ, component `Toolbar` này nhận hàm xử lý sự kiện `onPlayMovie` và `onUploadImage`:
 
 <Sandpack>
 
@@ -312,7 +312,7 @@ button { margin-right: 10px; }
 
 </Sandpack>
 
-Hãy để ý cách component `App` không cần biết `Toolbar` sẽ làm gì với `onPlayMovie` hoặc `onUploadImage`. Đó là chi tiết thực thi của riêng `Toolbar`. Ở đây, `Toolbar` truyền chúng bằng các props hàm xử lý `onClick` xuống các `Button` của `Toolbar`, nhưng `Toolbar` cũng có thể kích hoạt chúng sau trên phím tắt của bàn phím. Đặt tên props theo các tương tác riêng của ứng dụng như `onPlayMovie` cho bạn sự linh hoạt trong việc thay đổi cách sử dụng chúng sau này.
+Hãy để ý cách component `App` không cần biết `Toolbar` sẽ làm gì với `onPlayMovie` hoặc `onUploadImage`. Đó là chi tiết thực thi của riêng `Toolbar`. Ở đây, `Toolbar` truyền chúng bằng các prop hàm xử lý `onClick` xuống các `Button` của `Toolbar`, nhưng `Toolbar` cũng có thể kích hoạt chúng sau trên phím tắt của bàn phím. Đặt tên prop theo các tương tác riêng của ứng dụng như `onPlayMovie` cho bạn sự linh hoạt trong việc thay đổi cách sử dụng chúng sau này.
 
 ## Event propagation {/*event-propagation*/}
 
