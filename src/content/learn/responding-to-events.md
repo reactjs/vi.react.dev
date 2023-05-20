@@ -359,7 +359,7 @@ Tất cả sự kiện đều lan truyền trong React ngoại trừ `onScroll`,
 
 ### Dừng sự lan truyền {/*stopping-propagation*/}
 
-Các hàm xử lý sự kiện nhận một đối tượng sự kiện làm tham số duy nhất. Theo quy chuẩn, tham số này thường được gọi là `e`, viết tắt cho `event` (sự kiện). Bạn có thể sử dụng dối tượng này để đọc thông tin về sự kiện.
+Các hàm xử lý sự kiện nhận một đối tượng sự kiện làm đối số duy nhất. Theo quy chuẩn, đối số này thường được gọi là `e`, viết tắt cho `event` (sự kiện). Bạn có thể sử dụng dối tượng này để đọc thông tin về sự kiện.
 
 Đối tượng sự kiện đó cũng cho bạn dừng sự lan truyền. Nếu bạn muốn ngăn một sự kiện truyền tới các component cha, bạn cần gọi `e.stopPropagation()` như component `Button` dưới đây:
 
@@ -518,23 +518,23 @@ Không như các hàm rendering, các hàm xử lý sự kiện không cần ph�
 
 <Recap>
 
-* You can handle events by passing a function as a prop to an element like `<button>`.
-* Event handlers must be passed, **not called!** `onClick={handleClick}`, not `onClick={handleClick()}`.
-* You can define an event handler function separately or inline.
-* Event handlers are defined inside a component, so they can access props.
-* You can declare an event handler in a parent and pass it as a prop to a child.
-* You can define your own event handler props with application-specific names.
-* Events propagate upwards. Call `e.stopPropagation()` on the first argument to prevent that.
-* Events may have unwanted default browser behavior. Call `e.preventDefault()` to prevent that.
-* Explicitly calling an event handler prop from a child handler is a good alternative to propagation.
+* Bạn có thể xử lý sự kiện bằng cách truyền hàm như một prop tới một element như `<button>`.
+* Các hàm xử lý sự kiện phải được truyền, **không được gọi** `onClick={handleClick}`, not `onClick={handleClick()}`.
+* Bạn có thể định nghĩa một hàm xử lý sự kiện riêng biệt hoặc theo kiểu inline.
+* Các hàm xử lý sự kiện được định nghĩa bên trong một component, để chúng có thể truy cập các prop.
+* Bạn có thể khai báo một hàm xử lý sự kiện trong một component cha và truyền nó như một prop xuống component con.
+* Bạn có thể định nghĩa các prop hàm xử lý sự kiện của bạn với các tên của riêng ứng dụng.
+* Các sự kiện lan truyền từ dưới lên. Gọi `e.stopPropagation()` trên đối số đầu tiên để ngăn điều đó.
+* Các sự kiện có thể có hành vi mặc định không mong muốn từ trình duyệt. Gọi `e.preventDefault()` để ngăn điều đó.
+* Gọi cụ thể prop hàm xử lý sự kiện từ hàm xử lý của component con là một phương pháp tốt thay thế cho sự lan truyền.
 
 </Recap>
 
 <Challenges>
 
-#### Fix an event handler {/*fix-an-event-handler*/}
+#### Sửa một hàm xử lý sự kiện {/*fix-an-event-handler*/}
 
-Clicking this button is supposed to switch the page background between white and black. However, nothing happens when you click it. Fix the problem. (Don't worry about the logic inside `handleClick`—that part is fine.)
+Nhấn nút này đúng ra sẽ đổi màu nền giữa hai màu đen và trắng. Tuy nhiên, không có gì xảy ra khi bạn nhấn nút. Hãy sửa lỗi. (Đừng lo về logic bên trong `handleClick`-phần đó không có vấn đề gì.)
 
 <Sandpack>
 
@@ -561,7 +561,7 @@ export default function LightSwitch() {
 
 <Solution>
 
-The problem is that `<button onClick={handleClick()}>` _calls_ the `handleClick` function while rendering instead of _passing_ it. Removing the `()` call so that it's `<button onClick={handleClick}>` fixes the issue:
+Vấn đề là `<button onClick={handleClick()}>` _gọi_ hàm `handleClick` trong khi đang render thay vì _truyền_ nó. Bỏ ngoặc `()` để sửa thành `<button onClick={handleClick}>` sẽ giải quyết được vấn đề:
 
 <Sandpack>
 
@@ -586,7 +586,7 @@ export default function LightSwitch() {
 
 </Sandpack>
 
-Alternatively, you could wrap the call into another function, like `<button onClick={() => handleClick()}>`:
+Thay vì thế, bạn có thể bọc cú pháp gọi trong một hàm khác, như `<button onClick={() => handleClick()}>`:
 
 <Sandpack>
 
@@ -613,11 +613,11 @@ export default function LightSwitch() {
 
 </Solution>
 
-#### Wire up the events {/*wire-up-the-events*/}
+#### Kết nối các sự kiện {/*wire-up-the-events*/}
 
-This `ColorSwitch` component renders a button. It's supposed to change the page color. Wire it up to the `onChangeColor` event handler prop it receives from the parent so that clicking the button changes the color.
+Component `ColorSwitch` này render một nút. Nó được dùng để thay đổi màu trang. Kết nối nó với prop hàm xử lý sự kiện `onChangeColor` mà nó nhận từ component cha sao cho khi nhấn nút màu sẽ đổi.
 
-After you do this, notice that clicking the button also increments the page click counter. Your colleague who wrote the parent component insists that `onChangeColor` does not increment any counters. What else might be happening? Fix it so that clicking the button *only* changes the color, and does _not_ increment the counter.
+Sau khi bạn thực hiện xong, để ý khi nhấn nút cũng làm tăng bộ đếm lượt nhấn trang. Đồng nghiệp của bạn là người đã viết component cha khẳng định rằng `onChangeColor` không tăng bất cứ bộ đếm nào. Điều gì khác có thể đang diễn ra? Sửa nó để khi nhấn nút *chỉ* thay đổi màu, và _không_ tăng bộ đếm.
 
 <Sandpack>
 
@@ -671,9 +671,9 @@ export default function App() {
 
 <Solution>
 
-First, you need to add the event handler, like `<button onClick={onChangeColor}>`.
+Đầu tiên, bạn cần thêm hàm xử lý sự kiện, như `<button onClick={onChangeColor}>`.
 
-However, this introduces the problem of the incrementing counter. If `onChangeColor` does not do this, as your colleague insists, then the problem is that this event propagates up, and some handler above does it. To solve this problem, you need to stop the propagation. But don't forget that you should still call `onChangeColor`.
+Tuy nhiên, điều này làm nảy sinh vấn đề tăng bộ đếm. Nếu không phải do `onChangeColor`, như đồng nghiệp của bạn khẳng định, thì vấn đề là do sự kiện này lan truyền lên, và hàm xử lý nào đó bên trên gây ra. Để giải quyết vấn đề này, bạn cần dừng sự lan truyền. Nhưng đừng quên là bạn vẫn nên gọi `onChangeColor`.
 
 <Sandpack>
 
