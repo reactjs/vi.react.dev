@@ -454,7 +454,7 @@ function Button({ onClick, children }) {
 }
 ```
 
-Bạn cũng có thể thêm code vào hàm xử lý trước khi gọi hàm xử lý sự kiện `onClick` cha. Pattern này cung cấp một *phương án thay thế* cho sự lan truyền. Nó cho component con xử lý sự kiện, đồng thời cũng cho component cha chỉ định thêm một số hành vi. Không giống như sự lan truyền, nó không hề tự động. Nhưng lợi ích của pattern này là bạn có thể theo dõi rõ ràng toàn bộ chuỗi code được thực thi do một số sự kiện gây ra.
+Bạn cũng có thể thêm code vào hàm xử lý trước khi gọi hàm xử lý sự kiện `onClick` cha. Pattern này cung cấp một *phương án thay thế* cho sự lan truyền. Nó cho component con xử lý sự kiện, đồng thời cũng cho component cha chỉ định thêm một số hành vi. Không như sự lan truyền, nó không hề tự động. Nhưng lợi ích của pattern này là bạn có thể theo dõi rõ ràng toàn bộ chuỗi code được thực thi do một số sự kiện gây ra.
 
 Nếu bạn dựa vào sự lan truyền và thấy khó theo dõi hàm xử lý nào thực thi và tại sao, hãy thử phương pháp này xem.
 
@@ -510,11 +510,11 @@ button { margin-left: 5px; }
 * [`e.stopPropagation()`](https://developer.mozilla.org/docs/Web/API/Event/stopPropagation) không cho các hàm xử lý sự kiện được gắn vào các thẻ trên kích hoạt.
 * [`e.preventDefault()` ](https://developer.mozilla.org/docs/Web/API/Event/preventDefault) ngăn các hành vi mặc định từ trình duyệt của một số ít các sự kiện.
 
-## Can event handlers have side effects? {/*can-event-handlers-have-side-effects*/}
+## Hàm xử lý sự kiện có thể có các side effects không? {/*can-event-handlers-have-side-effects*/}
 
-Absolutely! Event handlers are the best place for side effects.
+Chắc chắn rồi! Các hàm xử lý sự kiện là nơi dễ có side effects nhất.
 
-Unlike rendering functions, event handlers don't need to be [pure](/learn/keeping-components-pure), so it's a great place to *change* something—for example, change an input's value in response to typing, or change a list in response to a button press. However, in order to change some information, you first need some way to store it. In React, this is done by using [state, a component's memory.](/learn/state-a-components-memory) You will learn all about it on the next page.
+Không như các hàm rendering, các hàm xử lý sự kiện không cần phải [pure](/learn/keeping-components-pure), nên nó rất dễ *thay đổi* một thứ gì đó-ví dụ, thay đổi giá trị của input khi gõ phím, hay thay dổi một danh sách khi nhấn nút. Tuy nhiên, để thay đổi một số thông tin, trước tiên bạn cần một vài cách để chứa nó. Trong React, có thể làm điều này bằng cách sử dụng [state, bộ nhớ của component.](/learn/state-a-components-memory) Bạn sẽ học tất cả về nó trong trang tiếp theo.
 
 <Recap>
 
@@ -529,8 +529,6 @@ Unlike rendering functions, event handlers don't need to be [pure](/learn/keepin
 * Explicitly calling an event handler prop from a child handler is a good alternative to propagation.
 
 </Recap>
-
-
 
 <Challenges>
 
