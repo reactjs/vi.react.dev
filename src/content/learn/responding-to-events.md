@@ -314,11 +314,11 @@ button { margin-right: 10px; }
 
 Hãy để ý cách component `App` không cần biết `Toolbar` sẽ làm gì với `onPlayMovie` hoặc `onUploadImage`. Đó là chi tiết thực thi của riêng `Toolbar`. Ở đây, `Toolbar` truyền chúng bằng các prop hàm xử lý `onClick` xuống các `Button` của `Toolbar`, nhưng `Toolbar` cũng có thể kích hoạt chúng sau trên phím tắt của bàn phím. Đặt tên prop theo các tương tác riêng của ứng dụng như `onPlayMovie` cho bạn sự linh hoạt trong việc thay đổi cách sử dụng chúng sau này.
 
-## Event propagation {/*event-propagation*/}
+## Sự lan truyền sự kiện {/*event-propagation*/}
 
-Event handlers will also catch events from any children your component might have. We say that an event "bubbles" or "propagates" up the tree: it starts with where the event happened, and then goes up the tree.
+Các hàm xử lý sự kiện cũng sẽ bắt các sự kiện từ bất cứ component con nào mà component của bạn có thể có. Ta nói sự kiện "nổi bọt" hay "lan truyền" lên cây component: bắt đầu từ nơi sự kiện xảy ra, và sau đó lan lên trên cây.
 
-This `<div>` contains two buttons. Both the `<div>` *and* each button have their own `onClick` handlers. Which handlers do you think will fire when you click a button?
+`<div>` này chứa hai nút. Cả `<div>` *và* mỗi nút đều có hàm xử lý `onClick` riêng. Bạn nghĩ hàm xử lý nào sẽ được kích hoạt khi bạn nhấn vào một nút?
 
 <Sandpack>
 
@@ -326,13 +326,13 @@ This `<div>` contains two buttons. Both the `<div>` *and* each button have their
 export default function Toolbar() {
   return (
     <div className="Toolbar" onClick={() => {
-      alert('You clicked on the toolbar!');
+      alert('Bạn đã nhấn vào thanh công cụ!');
     }}>
-      <button onClick={() => alert('Playing!')}>
-        Play Movie
+      <button onClick={() => alert('Đang phát!')}>
+        Phát phim
       </button>
-      <button onClick={() => alert('Uploading!')}>
-        Upload Image
+      <button onClick={() => alert('Đang tải lên!')}>
+        Tải ảnh lên
       </button>
     </div>
   );
@@ -349,19 +349,19 @@ button { margin: 5px; }
 
 </Sandpack>
 
-If you click on either button, its `onClick` will run first, followed by the parent `<div>`'s `onClick`. So two messages will appear. If you click the toolbar itself, only the parent `<div>`'s `onClick` will run.
+Nếu bạn nhấn vào một trong hai nút, `onClick` của nút đó sẽ chạy trước, tiếp đến là `onClick` của `<div>` cha. Nên hai lời nhắn sẽ xuất hiện. Nếu bạn nhấn vào thanh công cụ, sẽ chỉ có `onClick` của `<div>` cha chạy.
 
 <Pitfall>
 
-All events propagate in React except `onScroll`, which only works on the JSX tag you attach it to.
+Tất cả sự kiện đều lan truyền trong React ngoại trừ `onScroll`, nó chỉ hoạt động trên thẻ JSX mà bạn gắn nó.
 
 </Pitfall>
 
-### Stopping propagation {/*stopping-propagation*/}
+### Dừng sự lan truyền {/*stopping-propagation*/}
 
-Event handlers receive an **event object** as their only argument. By convention, it's usually called `e`, which stands for "event". You can use this object to read information about the event.
+Các hàm xử lý sự kiện nhận một đối tượng sự kiện làm tham số duy nhất. Theo quy chuẩn, tham số này thường được gọi là `e`, viết tắt cho `event` (sự kiện). Bạn có thể sử dụng dối tượng này để đọc thông tin về sự kiện.
 
-That event object also lets you stop the propagation. If you want to prevent an event from reaching parent components, you need to call `e.stopPropagation()` like this `Button` component does:
+Đối tượng sự kiện đó cũng cho bạn dừng sự lan truyền. Nếu bạn muốn ngăn một sự kiện truyền tới các component cha, bạn cần gọi `e.stopPropagation()` như component `Button` dưới đây:
 
 <Sandpack>
 
@@ -380,13 +380,13 @@ function Button({ onClick, children }) {
 export default function Toolbar() {
   return (
     <div className="Toolbar" onClick={() => {
-      alert('You clicked on the toolbar!');
+      alert('Bạn đã nhấn vào thanh công cụ!');
     }}>
-      <Button onClick={() => alert('Playing!')}>
-        Play Movie
+      <Button onClick={() => alert('Đang phát!')}>
+        Phát phim
       </Button>
-      <Button onClick={() => alert('Uploading!')}>
-        Upload Image
+      <Button onClick={() => alert('Đang tải lên!')}>
+        Tải ảnh lên
       </Button>
     </div>
   );
@@ -403,43 +403,43 @@ button { margin: 5px; }
 
 </Sandpack>
 
-When you click on a button:
+Khi bạn nhấn vào một nút:
 
-1. React calls the `onClick` handler passed to `<button>`. 
-2. That handler, defined in `Button`, does the following:
-   * Calls `e.stopPropagation()`, preventing the event from bubbling further.
-   * Calls the `onClick` function, which is a prop passed from the `Toolbar` component.
-3. That function, defined in the `Toolbar` component, displays the button's own alert.
-4. Since the propagation was stopped, the parent `<div>`'s `onClick` handler does *not* run.
+1. React gọi hàm xử lý `onClick` được truyền tới `<button>`.
+2. Hàm xử lý đó, được định nghĩa trong `Button`:
+   * Gọi `e.stopPropagation()`, ngăn sự kiện nổi bọt xa hơn.
+   * Gọi hàm `onClick`, một prop được truyền từ component `Toolbar`.
+3. Hàm đó, được định nghĩa trong component `Toolbar`, hiển thị alert riêng của button.
+4. Vì sự lan truyền đã bị dừng, hàm xử lý `onClick` của `<div>` cha *không* chạy.
 
-As a result of `e.stopPropagation()`, clicking on the buttons now only shows a single alert (from the `<button>`) rather than the two of them (from the `<button>` and the parent toolbar `<div>`). Clicking a button is not the same thing as clicking the surrounding toolbar, so stopping the propagation makes sense for this UI.
+Như một hệ quả của `e.stopPropagation()`, nhấn vào các nút giờ chỉ hiện một alert duy nhất (từ `<button>`) chứ không phải hai alert (từ `<button>` và từ `<div>` cha). Nhấn một nút không giống như việc nhấn vào xung quanh thanh công cụ, nên việc dừng sự lan truyền hợp lý cho giao diện này.
 
 <DeepDive>
 
-#### Capture phase events {/*capture-phase-events*/}
+#### Các sự kiện trong giai đoạn bắt {/*capture-phase-events*/}
 
-In rare cases, you might need to catch all events on child elements, *even if they stopped propagation*. For example, maybe you want to log every click to analytics, regardless of the propagation logic. You can do this by adding `Capture` at the end of the event name:
+Trong một số trường hợp hiếm hoi, bạn có thể cần bắt tất cả sự kiện trên các element con, *kể cả khi chúng đã bị dừng lan truyền*. Ví dụ, có thể bạn muốn log mỗi lượt nhấn để phân tích, bất kể logic lan truyền là gì. Bạn có thể làm thế bằng cách thêm `Capture` vào cuối tên sự kiện:
 
 ```js
-<div onClickCapture={() => { /* this runs first */ }}>
+<div onClickCapture={() => { /* hàm này chạy trước */ }}>
   <button onClick={e => e.stopPropagation()} />
   <button onClick={e => e.stopPropagation()} />
 </div>
 ```
 
-Each event propagates in three phases: 
+Mỗi sự kiện lan truyền theo ba giai đoạn:
 
-1. It travels down, calling all `onClickCapture` handlers.
-2. It runs the clicked element's `onClick` handler. 
-3. It travels upwards, calling all `onClick` handlers.
+1. Đi xuống, gọi tất cả hàm xử lý `onClickCapture`.
+2. Chạy hàm xử lý `onClick` của element được nhấn.
+3. Đi lên, gọi tất cả hàm xử lý `onClick`.
 
-Capture events are useful for code like routers or analytics, but you probably won't use them in app code.
+Việc bắt các sự kiện có lợi cho code như router hay phân tích, nhưng bạn có thể sẽ không cần sử dụng chúng trong code của ứng dụng.
 
 </DeepDive>
 
-### Passing handlers as alternative to propagation {/*passing-handlers-as-alternative-to-propagation*/}
+### Truyền các hàm xử lý thay thế cho sự lan truyền {/*passing-handlers-as-alternative-to-propagation*/}
 
-Notice how this click handler runs a line of code _and then_ calls the `onClick` prop passed by the parent:
+Hãy để ý cách hàm xử lý `onClick` chạy một dòng code _và sau đó_ gọi prop `onClick` được truyền từ component cha:
 
 ```js {4,5}
 function Button({ onClick, children }) {
@@ -454,13 +454,13 @@ function Button({ onClick, children }) {
 }
 ```
 
-You could add more code to this handler before calling the parent `onClick` event handler, too. This pattern provides an *alternative* to propagation. It lets the child component handle the event, while also letting the parent component specify some additional behavior. Unlike propagation, it's not automatic. But the benefit of this pattern is that you can clearly follow the whole chain of code that executes as a result of some event.
+Bạn cũng có thể thêm code vào hàm xử lý trước khi gọi hàm xử lý sự kiện `onClick` cha. Pattern này cung cấp một *phương án thay thế* cho sự lan truyền. Nó cho component con xử lý sự kiện, đồng thời cũng cho component cha chỉ định thêm một số hành vi. Không giống như sự lan truyền, nó không hề tự động. Nhưng lợi ích của pattern này là bạn có thể theo dõi rõ ràng toàn bộ chuỗi code được thực thi do một số sự kiện gây ra.
 
-If you rely on propagation and it's difficult to trace which handlers execute and why, try this approach instead.
+Nếu bạn dựa vào sự lan truyền và thấy khó theo dõi hàm xử lý nào thực thi và tại sao, hãy thử phương pháp này xem.
 
-### Preventing default behavior {/*preventing-default-behavior*/}
+### Ngăn hành vi mặc định {/*preventing-default-behavior*/}
 
-Some browser events have default behavior associated with them. For example, a `<form>` submit event, which happens when a button inside of it is clicked, will reload the whole page by default:
+Một số sự kiện trình duyệt có hành vi mặc định gắn liền với chúng. Ví dụ, sự kiện submit của `<form>` xảy ra khi một nút bên trong nó bị nhấn, sẽ mặc định tải lại toàn bộ trang:
 
 <Sandpack>
 
@@ -481,7 +481,7 @@ button { margin-left: 5px; }
 
 </Sandpack>
 
-You can call `e.preventDefault()` on the event object to stop this from happening:
+Bạn có thể gọi `e.preventDefault()` trên đối tượng sự kiện để ngăn hành vi này xảy ra:
 
 <Sandpack>
 
@@ -505,10 +505,10 @@ button { margin-left: 5px; }
 
 </Sandpack>
 
-Don't confuse `e.stopPropagation()` and `e.preventDefault()`. They are both useful, but are unrelated:
+Đừng nhầm lẫn `e.stopPropagation()` và `e.preventDefault()`. Cả hai đều có ích, nhưng không liên quan:
 
-* [`e.stopPropagation()`](https://developer.mozilla.org/docs/Web/API/Event/stopPropagation) stops the event handlers attached to the tags above from firing.
-* [`e.preventDefault()` ](https://developer.mozilla.org/docs/Web/API/Event/preventDefault) prevents the default browser behavior for the few events that have it.
+* [`e.stopPropagation()`](https://developer.mozilla.org/docs/Web/API/Event/stopPropagation) không cho các hàm xử lý sự kiện được gắn vào các thẻ trên kích hoạt.
+* [`e.preventDefault()` ](https://developer.mozilla.org/docs/Web/API/Event/preventDefault) ngăn các hành vi mặc định từ trình duyệt của một số ít các sự kiện.
 
 ## Can event handlers have side effects? {/*can-event-handlers-have-side-effects*/}
 
