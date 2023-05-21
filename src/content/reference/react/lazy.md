@@ -32,7 +32,7 @@ const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'));
 
 #### Tham số {/*parameters*/}
 
-* `load`: Một function trả về một [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) hoặc một *thenable* (một đối tượng giống Promist với một phương thức `then`). React sẽ không gọi hàm `load` cho tới khi bạn render component được trả về. Sau khi React gọi `load` lần đầu tiên, React sẽ đợi cho tới khi hàm này được giải quyết xong (resolve), sau đó sẽ render giá trị được giải quyết như một React component. Cả Promise được trả về và giá trị đã được giải quyết của Promise đó đều được lưu lại, nên React sẽ không gọi `load` thêm nữa. Nếu Promise từ chối, React sẽ `throw` lý do từ chối cho Error Boundary gần nhất để xử lý.
+* `load`: Một function trả về một [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) hoặc một *thenable* (một đối tượng giống Promise với một phương thức `then`). React sẽ không gọi hàm `load` cho tới khi bạn render component được trả về. Sau khi React gọi `load` lần đầu tiên, React sẽ đợi cho tới khi hàm này được giải quyết xong (resolve), sau đó sẽ render giá trị được giải quyết như một React component. Cả Promise được trả về và giá trị đã được giải quyết của Promise đó đều được lưu lại, nên React sẽ không gọi `load` thêm nữa. Nếu Promise từ chối, React sẽ `throw` lý do từ chối cho Error Boundary gần nhất để xử lý.
 
 #### Giá trị trả về {/*returns*/}
 
