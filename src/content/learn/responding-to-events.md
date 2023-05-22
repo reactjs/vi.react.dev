@@ -1,24 +1,24 @@
 ---
-title: Responding to Events
+title: Phản hồi các sự kiện
 ---
 
 <Intro>
 
-React lets you add *event handlers* to your JSX. Event handlers are your own functions that will be triggered in response to interactions like clicking, hovering, focusing form inputs, and so on.
+React cho bạn thêm các *hàm xử lý sự kiện* vào JSX. Hàm xử lý sự kiện là các hàm bạn tự định nghĩa mà sẽ được kích hoạt để phản hồi lại các tương tác như nhấn chuột, hover chuột hay focus các trường input của form, và các tương tác tương tự.
 
 </Intro>
 
 <YouWillLearn>
 
-* Different ways to write an event handler
-* How to pass event handling logic from a parent component
-* How events propagate and how to stop them
+* Những cách khác nhau để viết một hàm xử lý sự kiện
+* Cách truyền logic xử lý sự kiện từ một component cha
+* Cách các sự kiện lan truyền và cách dừng sự lan truyền sự kiện
 
 </YouWillLearn>
 
-## Adding event handlers {/*adding-event-handlers*/}
+## Thêm các hàm xử lý sự kiện {/*adding-event-handlers*/}
 
-To add an event handler, you will first define a function and then [pass it as a prop](/learn/passing-props-to-a-component) to the appropriate JSX tag. For example, here is a button that doesn't do anything yet:
+Để thêm các hàm xử lý sự kiện, bạn sẽ cần khai báo hàm rồi [truyền nó như một prop](/learn/passing-props-to-a-component) tới thẻ JSX thích hợp. Ví dụ, đây là một nút hiện tại chưa có chức năng gì:
 
 <Sandpack>
 
@@ -34,11 +34,11 @@ export default function Button() {
 
 </Sandpack>
 
-You can make it show a message when a user clicks by following these three steps:
+Bạn có thể làm nó hiển thị một lời nhắn khi người dùng nhấn vào qua các bước sau:
 
-1. Declare a function called `handleClick` *inside* your `Button` component.
-2. Implement the logic inside that function (use `alert` to show the message).
-3. Add `onClick={handleClick}` to the `<button>` JSX.
+1. Khai báo một hàm `handleClick` *bên trong* component `Button` của bạn
+2. Thực thi logic bên trong hàm đó (sử dụng `alert` để hiện lời nhắn)
+3. Thêm `onClick={handleClick}` vào thẻ JSX `<button>`
 
 <Sandpack>
 
@@ -62,14 +62,14 @@ button { margin-right: 10px; }
 
 </Sandpack>
 
-You defined the `handleClick` function and then [passed it as a prop](/learn/passing-props-to-a-component) to `<button>`.  `handleClick` is an **event handler.** Event handler functions:
+Bạn đã định nghĩa hàm `handleClick` rồi [truyền nó như một prop](/learn/passing-props-to-a-component) tới `<button>`. `handleClick` là một **hàm xử lý sự kiện**. Hàm xử lý sự kiện:
 
-* Are usually defined *inside* your components.
-* Have names that start with `handle`, followed by the name of the event.
+* Thường được định nghĩa *bên trong* các component của bạn.
+* Có tên bắt đầu với `handle`, theo sau đó là tên sự kiện.
 
-By convention, it is common to name event handlers as `handle` followed by the event name. You'll often see `onClick={handleClick}`, `onMouseEnter={handleMouseEnter}`, and so on.
+Theo quy chuẩn, ta thường đặt tên các hàm xử lý sự kiện là `handle` rồi đến tên sự kiện. Bạn sẽ hay thấy `onClick={handleClick}`, `onMouseEnter={handleMouseEnter}`, ...
 
-Alternatively, you can define an event handler inline in the JSX:
+Cách khác, bạn có thể định nghĩa một hàm xử lý sự kiện theo kiểu inline trong JSX như sau:
 
 ```jsx
 <button onClick={function handleClick() {
@@ -77,7 +77,7 @@ Alternatively, you can define an event handler inline in the JSX:
 }}>
 ```
 
-Or, more concisely, using an arrow function:
+Hoặc, ngắn gọn hơn, sử dụng hàm mũi tên:
 
 ```jsx
 <button onClick={() => {
@@ -85,54 +85,54 @@ Or, more concisely, using an arrow function:
 }}>
 ```
 
-All of these styles are equivalent. Inline event handlers are convenient for short functions.
+Tất cả cách viết trên đều như nhau. Các hàm xử lý sự kiện inline sẽ tiện hơn cho các hàm ngắn.
 
 <Pitfall>
 
-Functions passed to event handlers must be passed, not called. For example:
+Các hàm phải được truyền cho hàm xử lý sự kiện chứ không được gọi. Ví dụ:
 
-| passing a function (correct)     | calling a function (incorrect)     |
+| truyền hàm (đúng)     | gọi hàm (sai)     |
 | -------------------------------- | ---------------------------------- |
 | `<button onClick={handleClick}>` | `<button onClick={handleClick()}>` |
 
-The difference is subtle. In the first example, the `handleClick` function is passed as an `onClick` event handler. This tells React to remember it and only call your function when the user clicks the button.
+Một sự khác biệt nhỏ. Trong ví dụ đầu tiên, hàm `handleClick` được truyền như một hàm xử lý sự kiện `onClick`. Điều này bảo React hãy nhớ hàm của bạn và chỉ được gọi nó khi người dùng nhấn nút.
 
-In the second example, the `()` at the end of `handleClick()` fires the function *immediately* during [rendering](/learn/render-and-commit), without any clicks. This is because JavaScript inside the [JSX `{` and `}`](/learn/javascript-in-jsx-with-curly-braces) executes right away.
+Trong ví dụ thứ hai, cặp ngoặc `()` ở cuối `handleClick()` kích hoạt hàm *ngay lập tức* trong quá trình [rendering](/learn/render-and-commit) mà không cần nhấn nút. Đó là bởi vì Javascript trong [`{` và `} của JSX`](/learn/javascript-in-jsx-with-curly-braces) được triển khai luôn.
 
-When you write code inline, the same pitfall presents itself in a different way:
+Khi bạn viết code theo kiểu inline, những lưu ý tương tự được thể hiện theo một cách khác:
 
-| passing a function (correct)            | calling a function (incorrect)    |
+| truyền hàm (đúng)            | gọi hàm (sai)    |
 | --------------------------------------- | --------------------------------- |
 | `<button onClick={() => alert('...')}>` | `<button onClick={alert('...')}>` |
 
 
-Passing inline code like this won't fire on click—it fires every time the component renders:
+Truyền code inline thế này sẽ không kích hoạt khi nhấn-nó kích hoạt mỗi lần component render:
 
 ```jsx
-// This alert fires when the component renders, not when clicked!
+// alert này sẽ chạy khi component render, không phải khi nút được nhấn!
 <button onClick={alert('You clicked me!')}>
 ```
 
-If you want to define your event handler inline, wrap it in an anonymous function like so:
+Nếu bạn muốn định nghĩa hàm xử lý sự kiện của mình kiểu inline, hãy bọc nó trong một hàm ẩn danh như thế này:
 
 ```jsx
 <button onClick={() => alert('You clicked me!')}>
 ```
 
-Rather than executing the code inside with every render, this creates a function to be called later.
+Thay vì triển khai code bên trong mỗi lần render, điều này tạo ra một hàm để được gọi sau này.
 
-In both cases, what you want to pass is a function:
+Trong cả hai trường hợp, thứ bạn muốn truyền là một hàm:
 
-* `<button onClick={handleClick}>` passes the `handleClick` function.
-* `<button onClick={() => alert('...')}>` passes the `() => alert('...')` function.
+* `<button onClick={handleClick}>` truyền hàm `handleClick`.
+* `<button onClick={() => alert('...')}>` truyền hàm `() => alert('...')`.
 
-[Read more about arrow functions.](https://javascript.info/arrow-functions-basics)
+[Đọc thêm về hàm mũi tên.](https://javascript.info/arrow-functions-basics)
 
 </Pitfall>
 
-### Reading props in event handlers {/*reading-props-in-event-handlers*/}
+### Đọc các prop trong hàm xử lý sự kiện {/*reading-props-in-event-handlers*/}
 
-Because event handlers are declared inside of a component, they have access to the component's props. Here is a button that, when clicked, shows an alert with its `message` prop:
+Vì các hàm xử lý sự kiện được khai báo trong một component, chúng có quyền truy cập vào các prop của component. Đây là một nút mà khi nhấn, hiện ra một alert với prop `message` của nó:
 
 <Sandpack>
 
@@ -148,11 +148,11 @@ function AlertButton({ message, children }) {
 export default function Toolbar() {
   return (
     <div>
-      <AlertButton message="Playing!">
-        Play Movie
+      <AlertButton message="Đang phát!">
+        Phát phim
       </AlertButton>
-      <AlertButton message="Uploading!">
-        Upload Image
+      <AlertButton message="Đang tải!">
+        Tải ảnh lên
       </AlertButton>
     </div>
   );
@@ -165,13 +165,13 @@ button { margin-right: 10px; }
 
 </Sandpack>
 
-This lets these two buttons show different messages. Try changing the messages passed to them.
+Điều này sẽ cho hai nút hiển thị hai lời nhắn khác nhau. Hãy thử thay đổi lời nhắn (`message`) được truyền cho các nút.
 
-### Passing event handlers as props {/*passing-event-handlers-as-props*/}
+### Truyền các hàm xử lý sự kiện như prop {/*passing-event-handlers-as-props*/}
 
-Often you'll want the parent component to specify a child's event handler. Consider buttons: depending on where you're using a `Button` component, you might want to execute a different function—perhaps one plays a movie and another uploads an image. 
+Thông thường, bạn sẽ muốn component cha chỉ định hàm xử lý sự kiện của component con. Xem xét các nút: tuỳ thuộc vào nơi bạn đang sử dụng component `Button`, bạn có thể muốn thực thi một hàm khác--có thể là một nút phát phim còn một nút khác tải ảnh lên.
 
-To do this, pass a prop the component receives from its parent as the event handler like so:
+Để làm được điều này, truyền một prop mà component nhận từ cha của nó như một hàm xử lý sự kiện:
 
 <Sandpack>
 
@@ -186,20 +186,20 @@ function Button({ onClick, children }) {
 
 function PlayButton({ movieName }) {
   function handlePlayClick() {
-    alert(`Playing ${movieName}!`);
+    alert(`Đang phát ${movieName}!`);
   }
 
   return (
     <Button onClick={handlePlayClick}>
-      Play "{movieName}"
+      Phát "{movieName}"
     </Button>
   );
 }
 
 function UploadButton() {
   return (
-    <Button onClick={() => alert('Uploading!')}>
-      Upload Image
+    <Button onClick={() => alert('Đang tải!')}>
+      Tải ảnh lên
     </Button>
   );
 }
@@ -220,22 +220,22 @@ button { margin-right: 10px; }
 
 </Sandpack>
 
-Here, the `Toolbar` component renders a `PlayButton` and an `UploadButton`:
+Tại đây, component `Toolbar` render một `PlayButton` và một `UploadButton`:
 
-- `PlayButton` passes `handlePlayClick` as the `onClick` prop to the `Button` inside.
-- `UploadButton` passes `() => alert('Uploading!')` as the `onClick` prop to the `Button` inside.
+- `PlayButton` truyền `handlePlayClick` như một prop `onClick` tới `Button` bên trong.
+- `UploadButton` truyền `() => alert('Uploading!')` như một prop `onClick` tới `Button` bên trong.
 
-Finally, your `Button` component accepts a prop called `onClick`. It passes that prop directly to the built-in browser `<button>` with `onClick={onClick}`. This tells React to call the passed function on click.
+Cuối cùng, component `Button` của bạn nhận một prop được gọi là `onClick`. Nó truyền prop đó trực tiếp tới thẻ `<button>` có sẵn của trình duyệt với `onClick={onClick}`. Điều này bảo React gọi hàm được truyền khi nhấn nút.
 
-If you use a [design system](https://uxdesign.cc/everything-you-need-to-know-about-design-systems-54b109851969), it's common for components like buttons to contain styling but not specify behavior. Instead, components like `PlayButton` and `UploadButton` will pass event handlers down.
+Nếu bạn sử dụng một [hệ thống thiết kế](https://uxdesign.cc/everything-you-need-to-know-about-design-systems-54b109851969), thông thường các component như các nút (`Button`) chứa styling chứ không chỉ định hành vi. Thay vào đó, các component như `PlayButton` và `UploadButton` sẽ truyền hàm xử lý sự kiện xuống `Button`.
 
-### Naming event handler props {/*naming-event-handler-props*/}
+### Đặt tên cho các prop hàm xử lý sự kiện {/*naming-event-handler-props*/}
 
-Built-in components like `<button>` and `<div>` only support [browser event names](/reference/react-dom/components/common#common-props) like `onClick`. However, when you're building your own components, you can name their event handler props any way that you like.
+Các component có sẵn như `<button>` và `<div>` chỉ hỗ trợ các [tên sự kiện của trình duyệt](/reference/react-dom/components/common#common-props) như `onClick`. Tuy nhiên, khi xây dựng những component của riêng mình, bạn có thể đặt tên cho các prop hàm xử lý sự kiện của các component đó tuỳ ý.
 
-By convention, event handler props should start with `on`, followed by a capital letter.
+Theo quy chuẩn, các prop hàm xử lý sự kiện nên bắt đầu bằng `on`, theo sau đó là chữ cái viết hoa.
 
-For example, the `Button` component's `onClick` prop could have been called `onSmash`:
+Ví dụ, prop `onClick` của component `Button` có thể được gọi là `onSmash`:
 
 <Sandpack>
 
@@ -251,11 +251,11 @@ function Button({ onSmash, children }) {
 export default function App() {
   return (
     <div>
-      <Button onSmash={() => alert('Playing!')}>
-        Play Movie
+      <Button onSmash={() => alert('Đang phát!')}>
+        Phát phim
       </Button>
-      <Button onSmash={() => alert('Uploading!')}>
-        Upload Image
+      <Button onSmash={() => alert('Đang tải!')}>
+        Tải ảnh lên
       </Button>
     </div>
   );
@@ -268,9 +268,9 @@ button { margin-right: 10px; }
 
 </Sandpack>
 
-In this example, `<button onClick={onSmash}>` shows that the browser `<button>` (lowercase) still needs a prop called `onClick`, but the prop name received by your custom `Button` component is up to you!
+Ở ví dụ này, `<button onClick={onSmash}>` cho ta thấy `<button>` (viết thường) của trình duyệt vẫn cần một prop gọi là `onClick`, nhưng tên prop nhận bởi component tuỳ chỉnh `Button` là do bạn quyết định!
 
-When your component supports multiple interactions, you might name event handler props for app-specific concepts. For example, this `Toolbar` component receives `onPlayMovie` and `onUploadImage` event handlers:
+Khi component của bạn hỗ trợ nhiều tương tác, bạn có thể đặt các prop hàm xử lý sự kiện cho các khái niệm riêng của ứng dụng. Ví dụ, component `Toolbar` này nhận hàm xử lý sự kiện `onPlayMovie` và `onUploadImage`:
 
 <Sandpack>
 
@@ -278,8 +278,8 @@ When your component supports multiple interactions, you might name event handler
 export default function App() {
   return (
     <Toolbar
-      onPlayMovie={() => alert('Playing!')}
-      onUploadImage={() => alert('Uploading!')}
+      onPlayMovie={() => alert('Đang phát!')}
+      onUploadImage={() => alert('Đang tải!')}
     />
   );
 }
@@ -288,10 +288,10 @@ function Toolbar({ onPlayMovie, onUploadImage }) {
   return (
     <div>
       <Button onClick={onPlayMovie}>
-        Play Movie
+        Phát phim
       </Button>
       <Button onClick={onUploadImage}>
-        Upload Image
+        Tải ảnh lên
       </Button>
     </div>
   );
@@ -312,13 +312,13 @@ button { margin-right: 10px; }
 
 </Sandpack>
 
-Notice how the `App` component does not need to know *what* `Toolbar` will do with `onPlayMovie` or `onUploadImage`. That's an implementation detail of the `Toolbar`. Here, `Toolbar` passes them down as `onClick` handlers to its `Button`s, but it could later also trigger them on a keyboard shortcut. Naming props after app-specific interactions like `onPlayMovie` gives you the flexibility to change how they're used later.
+Hãy để ý cách component `App` không cần biết `Toolbar` sẽ làm gì với `onPlayMovie` hoặc `onUploadImage`. Đó là chi tiết thực thi của riêng `Toolbar`. Ở đây, `Toolbar` truyền chúng bằng các prop hàm xử lý `onClick` xuống các `Button` của `Toolbar`, nhưng `Toolbar` cũng có thể kích hoạt chúng sau trên phím tắt của bàn phím. Đặt tên prop theo các tương tác riêng của ứng dụng như `onPlayMovie` cho bạn sự linh hoạt trong việc thay đổi cách sử dụng chúng sau này.
 
-## Event propagation {/*event-propagation*/}
+## Sự lan truyền sự kiện {/*event-propagation*/}
 
-Event handlers will also catch events from any children your component might have. We say that an event "bubbles" or "propagates" up the tree: it starts with where the event happened, and then goes up the tree.
+Các hàm xử lý sự kiện cũng sẽ bắt các sự kiện từ bất cứ component con nào mà component của bạn có thể có. Ta nói sự kiện "nổi bọt" hay "lan truyền" lên cây component: bắt đầu từ nơi sự kiện xảy ra, và sau đó lan lên trên cây.
 
-This `<div>` contains two buttons. Both the `<div>` *and* each button have their own `onClick` handlers. Which handlers do you think will fire when you click a button?
+`<div>` này chứa hai nút. Cả `<div>` *và* mỗi nút đều có hàm xử lý `onClick` riêng. Bạn nghĩ hàm xử lý nào sẽ được kích hoạt khi bạn nhấn vào một nút?
 
 <Sandpack>
 
@@ -326,13 +326,13 @@ This `<div>` contains two buttons. Both the `<div>` *and* each button have their
 export default function Toolbar() {
   return (
     <div className="Toolbar" onClick={() => {
-      alert('You clicked on the toolbar!');
+      alert('Bạn đã nhấn vào thanh công cụ!');
     }}>
-      <button onClick={() => alert('Playing!')}>
-        Play Movie
+      <button onClick={() => alert('Đang phát!')}>
+        Phát phim
       </button>
-      <button onClick={() => alert('Uploading!')}>
-        Upload Image
+      <button onClick={() => alert('Đang tải lên!')}>
+        Tải ảnh lên
       </button>
     </div>
   );
@@ -349,19 +349,19 @@ button { margin: 5px; }
 
 </Sandpack>
 
-If you click on either button, its `onClick` will run first, followed by the parent `<div>`'s `onClick`. So two messages will appear. If you click the toolbar itself, only the parent `<div>`'s `onClick` will run.
+Nếu bạn nhấn vào một trong hai nút, `onClick` của nút đó sẽ chạy trước, tiếp đến là `onClick` của `<div>` cha. Nên hai lời nhắn sẽ xuất hiện. Nếu bạn nhấn vào thanh công cụ, sẽ chỉ có `onClick` của `<div>` cha chạy.
 
 <Pitfall>
 
-All events propagate in React except `onScroll`, which only works on the JSX tag you attach it to.
+Tất cả sự kiện đều lan truyền trong React ngoại trừ `onScroll`, nó chỉ hoạt động trên thẻ JSX mà bạn gắn nó.
 
 </Pitfall>
 
-### Stopping propagation {/*stopping-propagation*/}
+### Dừng sự lan truyền {/*stopping-propagation*/}
 
-Event handlers receive an **event object** as their only argument. By convention, it's usually called `e`, which stands for "event". You can use this object to read information about the event.
+Các hàm xử lý sự kiện nhận một đối tượng sự kiện làm đối số duy nhất. Theo quy chuẩn, đối số này thường được gọi là `e`, viết tắt cho `event` (sự kiện). Bạn có thể sử dụng dối tượng này để đọc thông tin về sự kiện.
 
-That event object also lets you stop the propagation. If you want to prevent an event from reaching parent components, you need to call `e.stopPropagation()` like this `Button` component does:
+Đối tượng sự kiện đó cũng cho bạn dừng sự lan truyền. Nếu bạn muốn ngăn một sự kiện truyền tới các component cha, bạn cần gọi `e.stopPropagation()` như component `Button` dưới đây:
 
 <Sandpack>
 
@@ -380,13 +380,13 @@ function Button({ onClick, children }) {
 export default function Toolbar() {
   return (
     <div className="Toolbar" onClick={() => {
-      alert('You clicked on the toolbar!');
+      alert('Bạn đã nhấn vào thanh công cụ!');
     }}>
-      <Button onClick={() => alert('Playing!')}>
-        Play Movie
+      <Button onClick={() => alert('Đang phát!')}>
+        Phát phim
       </Button>
-      <Button onClick={() => alert('Uploading!')}>
-        Upload Image
+      <Button onClick={() => alert('Đang tải lên!')}>
+        Tải ảnh lên
       </Button>
     </div>
   );
@@ -403,43 +403,43 @@ button { margin: 5px; }
 
 </Sandpack>
 
-When you click on a button:
+Khi bạn nhấn vào một nút:
 
-1. React calls the `onClick` handler passed to `<button>`. 
-2. That handler, defined in `Button`, does the following:
-   * Calls `e.stopPropagation()`, preventing the event from bubbling further.
-   * Calls the `onClick` function, which is a prop passed from the `Toolbar` component.
-3. That function, defined in the `Toolbar` component, displays the button's own alert.
-4. Since the propagation was stopped, the parent `<div>`'s `onClick` handler does *not* run.
+1. React gọi hàm xử lý `onClick` được truyền tới `<button>`.
+2. Hàm xử lý đó, được định nghĩa trong `Button`:
+   * Gọi `e.stopPropagation()`, ngăn sự kiện nổi bọt xa hơn.
+   * Gọi hàm `onClick`, một prop được truyền từ component `Toolbar`.
+3. Hàm đó, được định nghĩa trong component `Toolbar`, hiển thị alert riêng của button.
+4. Vì sự lan truyền đã bị dừng, hàm xử lý `onClick` của `<div>` cha *không* chạy.
 
-As a result of `e.stopPropagation()`, clicking on the buttons now only shows a single alert (from the `<button>`) rather than the two of them (from the `<button>` and the parent toolbar `<div>`). Clicking a button is not the same thing as clicking the surrounding toolbar, so stopping the propagation makes sense for this UI.
+Như một hệ quả của `e.stopPropagation()`, nhấn vào các nút giờ chỉ hiện một alert duy nhất (từ `<button>`) chứ không phải hai alert (từ `<button>` và từ `<div>` cha). Nhấn một nút không giống như việc nhấn vào xung quanh thanh công cụ, nên việc dừng sự lan truyền hợp lý cho giao diện này.
 
 <DeepDive>
 
-#### Capture phase events {/*capture-phase-events*/}
+#### Các sự kiện trong giai đoạn bắt {/*capture-phase-events*/}
 
-In rare cases, you might need to catch all events on child elements, *even if they stopped propagation*. For example, maybe you want to log every click to analytics, regardless of the propagation logic. You can do this by adding `Capture` at the end of the event name:
+Trong một số trường hợp hiếm hoi, bạn có thể cần bắt tất cả sự kiện trên các element con, *kể cả khi chúng đã bị dừng lan truyền*. Ví dụ, có thể bạn muốn log mỗi lượt nhấn để phân tích, bất kể logic lan truyền là gì. Bạn có thể làm thế bằng cách thêm `Capture` vào cuối tên sự kiện:
 
 ```js
-<div onClickCapture={() => { /* this runs first */ }}>
+<div onClickCapture={() => { /* hàm này chạy trước */ }}>
   <button onClick={e => e.stopPropagation()} />
   <button onClick={e => e.stopPropagation()} />
 </div>
 ```
 
-Each event propagates in three phases: 
+Mỗi sự kiện lan truyền theo ba giai đoạn:
 
-1. It travels down, calling all `onClickCapture` handlers.
-2. It runs the clicked element's `onClick` handler. 
-3. It travels upwards, calling all `onClick` handlers.
+1. Đi xuống, gọi tất cả hàm xử lý `onClickCapture`.
+2. Chạy hàm xử lý `onClick` của element được nhấn.
+3. Đi lên, gọi tất cả hàm xử lý `onClick`.
 
-Capture events are useful for code like routers or analytics, but you probably won't use them in app code.
+Việc bắt các sự kiện có lợi cho code như router hay phân tích, nhưng bạn có thể sẽ không cần sử dụng chúng trong code của ứng dụng.
 
 </DeepDive>
 
-### Passing handlers as alternative to propagation {/*passing-handlers-as-alternative-to-propagation*/}
+### Truyền các hàm xử lý thay thế cho sự lan truyền {/*passing-handlers-as-alternative-to-propagation*/}
 
-Notice how this click handler runs a line of code _and then_ calls the `onClick` prop passed by the parent:
+Hãy để ý cách hàm xử lý `onClick` chạy một dòng code _và sau đó_ gọi prop `onClick` được truyền từ component cha:
 
 ```js {4,5}
 function Button({ onClick, children }) {
@@ -454,13 +454,13 @@ function Button({ onClick, children }) {
 }
 ```
 
-You could add more code to this handler before calling the parent `onClick` event handler, too. This pattern provides an *alternative* to propagation. It lets the child component handle the event, while also letting the parent component specify some additional behavior. Unlike propagation, it's not automatic. But the benefit of this pattern is that you can clearly follow the whole chain of code that executes as a result of some event.
+Bạn cũng có thể thêm code vào hàm xử lý trước khi gọi hàm xử lý sự kiện `onClick` cha. Pattern này cung cấp một *phương án thay thế* cho sự lan truyền. Nó cho component con xử lý sự kiện, đồng thời cũng cho component cha chỉ định thêm một số hành vi. Không như sự lan truyền, nó không hề tự động. Nhưng lợi ích của pattern này là bạn có thể theo dõi rõ ràng toàn bộ chuỗi code được thực thi do một số sự kiện gây ra.
 
-If you rely on propagation and it's difficult to trace which handlers execute and why, try this approach instead.
+Nếu bạn dựa vào sự lan truyền và thấy khó theo dõi hàm xử lý nào thực thi và tại sao, hãy thử phương pháp này xem.
 
-### Preventing default behavior {/*preventing-default-behavior*/}
+### Ngăn hành vi mặc định {/*preventing-default-behavior*/}
 
-Some browser events have default behavior associated with them. For example, a `<form>` submit event, which happens when a button inside of it is clicked, will reload the whole page by default:
+Một số sự kiện trình duyệt có hành vi mặc định gắn liền với chúng. Ví dụ, sự kiện submit của `<form>` xảy ra khi một nút bên trong nó bị nhấn, sẽ mặc định tải lại toàn bộ trang:
 
 <Sandpack>
 
@@ -481,7 +481,7 @@ button { margin-left: 5px; }
 
 </Sandpack>
 
-You can call `e.preventDefault()` on the event object to stop this from happening:
+Bạn có thể gọi `e.preventDefault()` trên đối tượng sự kiện để ngăn hành vi này xảy ra:
 
 <Sandpack>
 
@@ -505,38 +505,36 @@ button { margin-left: 5px; }
 
 </Sandpack>
 
-Don't confuse `e.stopPropagation()` and `e.preventDefault()`. They are both useful, but are unrelated:
+Đừng nhầm lẫn `e.stopPropagation()` và `e.preventDefault()`. Cả hai đều có ích, nhưng không liên quan:
 
-* [`e.stopPropagation()`](https://developer.mozilla.org/docs/Web/API/Event/stopPropagation) stops the event handlers attached to the tags above from firing.
-* [`e.preventDefault()` ](https://developer.mozilla.org/docs/Web/API/Event/preventDefault) prevents the default browser behavior for the few events that have it.
+* [`e.stopPropagation()`](https://developer.mozilla.org/docs/Web/API/Event/stopPropagation) không cho các hàm xử lý sự kiện được gắn vào các thẻ trên kích hoạt.
+* [`e.preventDefault()` ](https://developer.mozilla.org/docs/Web/API/Event/preventDefault) ngăn các hành vi mặc định từ trình duyệt của một số ít các sự kiện.
 
-## Can event handlers have side effects? {/*can-event-handlers-have-side-effects*/}
+## Hàm xử lý sự kiện có thể có các side effects không? {/*can-event-handlers-have-side-effects*/}
 
-Absolutely! Event handlers are the best place for side effects.
+Chắc chắn rồi! Các hàm xử lý sự kiện là nơi dễ có side effects nhất.
 
-Unlike rendering functions, event handlers don't need to be [pure](/learn/keeping-components-pure), so it's a great place to *change* something—for example, change an input's value in response to typing, or change a list in response to a button press. However, in order to change some information, you first need some way to store it. In React, this is done by using [state, a component's memory.](/learn/state-a-components-memory) You will learn all about it on the next page.
+Không như các hàm rendering, các hàm xử lý sự kiện không cần phải [pure](/learn/keeping-components-pure), nên nó rất dễ *thay đổi* một thứ gì đó-ví dụ, thay đổi giá trị của input khi gõ phím, hay thay dổi một danh sách khi nhấn nút. Tuy nhiên, để thay đổi một số thông tin, trước tiên bạn cần một vài cách để chứa nó. Trong React, có thể làm điều này bằng cách sử dụng [state, bộ nhớ của component.](/learn/state-a-components-memory) Bạn sẽ học tất cả về nó trong trang tiếp theo.
 
 <Recap>
 
-* You can handle events by passing a function as a prop to an element like `<button>`.
-* Event handlers must be passed, **not called!** `onClick={handleClick}`, not `onClick={handleClick()}`.
-* You can define an event handler function separately or inline.
-* Event handlers are defined inside a component, so they can access props.
-* You can declare an event handler in a parent and pass it as a prop to a child.
-* You can define your own event handler props with application-specific names.
-* Events propagate upwards. Call `e.stopPropagation()` on the first argument to prevent that.
-* Events may have unwanted default browser behavior. Call `e.preventDefault()` to prevent that.
-* Explicitly calling an event handler prop from a child handler is a good alternative to propagation.
+* Bạn có thể xử lý sự kiện bằng cách truyền hàm như một prop tới một element như `<button>`.
+* Các hàm xử lý sự kiện phải được truyền, **không được gọi** `onClick={handleClick}`, not `onClick={handleClick()}`.
+* Bạn có thể định nghĩa một hàm xử lý sự kiện riêng biệt hoặc theo kiểu inline.
+* Các hàm xử lý sự kiện được định nghĩa bên trong một component, để chúng có thể truy cập các prop.
+* Bạn có thể khai báo một hàm xử lý sự kiện trong một component cha và truyền nó như một prop xuống component con.
+* Bạn có thể định nghĩa các prop hàm xử lý sự kiện của bạn với các tên của riêng ứng dụng.
+* Các sự kiện lan truyền từ dưới lên. Gọi `e.stopPropagation()` trên đối số đầu tiên để ngăn điều đó.
+* Các sự kiện có thể có hành vi mặc định không mong muốn từ trình duyệt. Gọi `e.preventDefault()` để ngăn điều đó.
+* Gọi cụ thể prop hàm xử lý sự kiện từ hàm xử lý của component con là một phương pháp tốt thay thế cho sự lan truyền.
 
 </Recap>
 
-
-
 <Challenges>
 
-#### Fix an event handler {/*fix-an-event-handler*/}
+#### Sửa một hàm xử lý sự kiện {/*fix-an-event-handler*/}
 
-Clicking this button is supposed to switch the page background between white and black. However, nothing happens when you click it. Fix the problem. (Don't worry about the logic inside `handleClick`—that part is fine.)
+Nhấn nút này đúng ra sẽ đổi màu nền giữa hai màu đen và trắng. Tuy nhiên, không có gì xảy ra khi bạn nhấn nút. Hãy sửa lỗi. (Đừng lo về logic bên trong `handleClick`-phần đó không có vấn đề gì.)
 
 <Sandpack>
 
@@ -563,7 +561,7 @@ export default function LightSwitch() {
 
 <Solution>
 
-The problem is that `<button onClick={handleClick()}>` _calls_ the `handleClick` function while rendering instead of _passing_ it. Removing the `()` call so that it's `<button onClick={handleClick}>` fixes the issue:
+Vấn đề là `<button onClick={handleClick()}>` _gọi_ hàm `handleClick` trong khi đang render thay vì _truyền_ nó. Bỏ ngoặc `()` để sửa thành `<button onClick={handleClick}>` sẽ giải quyết được vấn đề:
 
 <Sandpack>
 
@@ -588,7 +586,7 @@ export default function LightSwitch() {
 
 </Sandpack>
 
-Alternatively, you could wrap the call into another function, like `<button onClick={() => handleClick()}>`:
+Thay vì thế, bạn có thể bọc cú pháp gọi trong một hàm khác, như `<button onClick={() => handleClick()}>`:
 
 <Sandpack>
 
@@ -615,11 +613,11 @@ export default function LightSwitch() {
 
 </Solution>
 
-#### Wire up the events {/*wire-up-the-events*/}
+#### Kết nối các sự kiện {/*wire-up-the-events*/}
 
-This `ColorSwitch` component renders a button. It's supposed to change the page color. Wire it up to the `onChangeColor` event handler prop it receives from the parent so that clicking the button changes the color.
+Component `ColorSwitch` này render một nút. Nó được dùng để thay đổi màu trang. Kết nối nó với prop hàm xử lý sự kiện `onChangeColor` mà nó nhận từ component cha sao cho khi nhấn nút màu sẽ đổi.
 
-After you do this, notice that clicking the button also increments the page click counter. Your colleague who wrote the parent component insists that `onChangeColor` does not increment any counters. What else might be happening? Fix it so that clicking the button *only* changes the color, and does _not_ increment the counter.
+Sau khi bạn thực hiện xong, để ý khi nhấn nút cũng làm tăng bộ đếm lượt nhấn trang. Đồng nghiệp của bạn là người đã viết component cha khẳng định rằng `onChangeColor` không tăng bất cứ bộ đếm nào. Điều gì khác có thể đang diễn ra? Sửa nó để khi nhấn nút *chỉ* thay đổi màu, và _không_ tăng bộ đếm.
 
 <Sandpack>
 
@@ -673,9 +671,9 @@ export default function App() {
 
 <Solution>
 
-First, you need to add the event handler, like `<button onClick={onChangeColor}>`.
+Đầu tiên, bạn cần thêm hàm xử lý sự kiện, như `<button onClick={onChangeColor}>`.
 
-However, this introduces the problem of the incrementing counter. If `onChangeColor` does not do this, as your colleague insists, then the problem is that this event propagates up, and some handler above does it. To solve this problem, you need to stop the propagation. But don't forget that you should still call `onChangeColor`.
+Tuy nhiên, điều này làm nảy sinh vấn đề tăng bộ đếm. Nếu không phải do `onChangeColor`, như đồng nghiệp của bạn khẳng định, thì vấn đề là do sự kiện này lan truyền lên, và hàm xử lý nào đó bên trên gây ra. Để giải quyết vấn đề này, bạn cần dừng sự lan truyền. Nhưng đừng quên là bạn vẫn nên gọi `onChangeColor`.
 
 <Sandpack>
 
