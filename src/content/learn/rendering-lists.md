@@ -1,24 +1,24 @@
 ---
-title: Rendering Lists
+title: Hiển thị một danh sách phần tử
 ---
 
 <Intro>
 
-You will often want to display multiple similar components from a collection of data. You can use the [JavaScript array methods](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array#) to manipulate an array of data. On this page, you'll use [`filter()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) and [`map()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/map) with React to filter and transform your array of data into an array of components.
+Khi tương tác với dữ liệu trên React, một trong những tác vụ thường gặp nhất đó là hiển thị những mảng dữ liệu đó lên giao diện người dùng. Bạn có thể sử dụng [một số hàm chuyên dành cho mảng trong JavaScript](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array#) để tương tác với các mảng dữ liệu. Trong bài viết này, bạn sẽ được tìm hiểu về cách sử dụng 2 cú pháp [`filter()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) và [`map()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/map) với React để sàng lọc và biển đổi một mảng dữ liệu thành một mảng các phần tử JSX.
 
 </Intro>
 
 <YouWillLearn>
 
-* How to render components from an array using JavaScript's `map()`
-* How to render only specific components using JavaScript's `filter()`
-* When and why to use React keys
+* Hiển thị một danh sách các phần tử bằng cú pháp `map()` của JavaScript
+* Sàng lọc và hiển thị những phần tử trong mảng một cách có điều kiện bằng hàm `filter()` của JavaScript
+* Khi nào và tại sao nên sử dụng thuộc tính `keys` khi hiển thị mảng với React
 
 </YouWillLearn>
 
 ## Rendering data from arrays {/*rendering-data-from-arrays*/}
 
-Say that you have a list of content.
+Cùng làm một vài ví dụ với danh sách dưới đây
 
 ```js
 <ul>
