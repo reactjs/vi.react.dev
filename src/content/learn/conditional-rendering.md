@@ -1,24 +1,24 @@
 ---
-title: Conditional Rendering
+title: Hiển thị phần tử có điều kiện
 ---
 
 <Intro>
 
-Your components will often need to display different things depending on different conditions. In React, you can conditionally render JSX using JavaScript syntax like `if` statements, `&&`, and `? :` operators.
+Các phần tử JSX trên trang web của bạn thường sẽ hiển thị những nội dung khác nhau tùy thuộc vào một số điều kiện nhất định. Với React, bạn có thể hiển thị những phần tử đó một cách có điều kiện bằng những câu lệnh JavaScript như `if`, `&&`, và `? :`.
 
 </Intro>
 
 <YouWillLearn>
 
-* How to return different JSX depending on a condition
-* How to conditionally include or exclude a piece of JSX
-* Common conditional syntax shortcuts you’ll encounter in React codebases
+* Cách hiển thị nội dung khác nhau dựa trên một điều kiện nhất định
+* Cách thêm vào (hay loại bỏ) một phần tử dựa trên một điều kiện nhất định
+* Những cú pháp ngắn gọn thường gặp khi hiển thị phần tử có điều kiện với React
 
 </YouWillLearn>
 
-## Conditionally returning JSX {/*conditionally-returning-jsx*/}
+## Trả về phần tử JSX có điều kiện {/*conditionally-returning-jsx*/}
 
-Let’s say you have a `PackingList` component rendering several `Item`s, which can be marked as packed or not:
+Lấy ví dụ về phần tử `PackingList` bên dưới. Nó có chứa những phần tử con `Item`, những phần tử con này có một thuộc tính đi kèm là `isPacked`:
 
 <Sandpack>
 
@@ -52,9 +52,9 @@ export default function PackingList() {
 
 </Sandpack>
 
-Notice that some of the `Item` components have their `isPacked` prop set to `true` instead of `false`. You want to add a checkmark (✔) to packed items if `isPacked={true}`.
+Để ý kĩ ta sẽ thấy những phần tử con `Item` có điều kiện (thuộc tính) đi kèm `isPacked` khác nhau (một số là `true` trong khi một số khác lại là `false`). Giả sử ta muốn thêm vào một dấu tích xanh (✔) cho những phần tử con `Item` thỏa mãn điều kiện: `isPacked={true}`.
 
-You can write this as an [`if`/`else` statement](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else) like so:
+Ta có thể thực hiện điều đó bằng câu lệnh [`if`/`else`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else) như sau:
 
 ```js
 if (isPacked) {
@@ -63,7 +63,7 @@ if (isPacked) {
 return <li className="item">{name}</li>;
 ```
 
-If the `isPacked` prop is `true`, this code **returns a different JSX tree.** With this change, some of the items get a checkmark at the end:
+Nếu thuộc tính `isPacked` là `true`, đoạn code trên sẽ chỉ **trả về những phần tử `Item` có thuộc tính `isPacked` thỏa mãn điều kiện đó.** Như vậy ta sẽ có được kết quả như bên dưới:
 
 <Sandpack>
 
@@ -100,13 +100,13 @@ export default function PackingList() {
 
 </Sandpack>
 
-Try editing what gets returned in either case, and see how the result changes!
+Nếu thay đổi giá trị thuộc tính `isPacked` của những phần tử `Item` ở đoạn code trên, ta sẽ thấy những dấu tích được thêm vào/loại bỏ tùy thuộc vào giá trị thuộc tính `isPacked`.
 
-Notice how you're creating branching logic with JavaScript's `if` and `return` statements. In React, control flow (like conditions) is handled by JavaScript.
+Để ý kĩ ta sẽ thấy cú pháp `if` và `return` bên trên rất giống với những đoạn code JavaScript thường gặp, đó là vì React sử dụng JavaScript để trả về những phần tử JSX một cách có điều kiện.
 
-### Conditionally returning nothing with `null` {/*conditionally-returning-nothing-with-null*/}
+### Hiển thị phần tử "rỗng" (`null`) có điều kiện {/*conditionally-returning-nothing-with-null*/}
 
-In some situations, you won't want to render anything at all. For example, say you don't want to show packed items at all. A component must return something. In this case, you can return `null`:
+Trong một vài trường hợp nếu điều kiện hiển thị một phần tử không được thỏa mãn, ta hoàn toàn có thể không hiển thị phần tử đó. Để thực hiện điều đó, ta có thể trả về một giá trị rỗng (`null`) như đoạn code bên dưới:
 
 ```js
 if (isPacked) {
@@ -115,7 +115,7 @@ if (isPacked) {
 return <li className="item">{name}</li>;
 ```
 
-If `isPacked` is true, the component will return nothing, `null`. Otherwise, it will return JSX to render.
+Dựa vào đoạn code trên ta thấy những phần tử `Item` thỏa mãn điều kiện `isPacked === true` sẽ không được hiển thị (`return null`) và ngược lại. 
 
 <Sandpack>
 
@@ -152,23 +152,23 @@ export default function PackingList() {
 
 </Sandpack>
 
-In practice, returning `null` from a component isn't common because it might surprise a developer trying to render it. More often, you would conditionally include or exclude the component in the parent component's JSX. Here's how to do that!
+Trên thực tế, việc trả về một giá trị `null` không phải là một cách thức phổ biến để ẩn đi một phần tử. Thường thì ta nên loại bỏ hay thêm vào một phần tử JSX theo cách áp dụng sau đây:
 
-## Conditionally including JSX {/*conditionally-including-jsx*/}
+## Thêm vào (hay loại bỏ) một phần tử JSX dựa trên một điều kiện nhất định {/*conditionally-including-jsx*/}
 
-In the previous example, you controlled which (if any!) JSX tree would be returned by the component. You may already have noticed some duplication in the render output:
+Từ ví dụ "dấu tích xanh" trước đó, để ý kĩ ta sẽ thấy có một lượng code khá giống nhau giữa 2 đoạn code 
 
 ```js
 <li className="item">{name} ✔</li>
 ```
 
-is very similar to
+và
 
 ```js
 <li className="item">{name}</li>
 ```
 
-Both of the conditional branches return `<li className="item">...</li>`:
+Chúng đều trả về phần tử `<li className="item">...</li>` và chỉ khác nhau ở mỗi nội dung bên trong (đó là dấu tích):
 
 ```js
 if (isPacked) {
@@ -177,13 +177,13 @@ if (isPacked) {
 return <li className="item">{name}</li>;
 ```
 
-While this duplication isn't harmful, it could make your code harder to maintain. What if you want to change the `className`? You'd have to do it in two places in your code! In such a situation, you could conditionally include a little JSX to make your code more [DRY.](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself)
+Việc trùng lặp code như vậy không hẳn sẽ đem lại một hiệu ứng gì đó quá tai hại, nhưng nó khiến cho việc kiểm soát và debug code khó khăn hơn. Ví dụ nếu ta muốn sửa đổi thuộc tính `className`, ta sẽ phải sửa đổi nó ở 2 chỗ khác nhau. Điều này tốn nhiều công sức và thời gian hơn khi ta phải đảm bảo rằng giá trị của `className` ở 2 nơi phải trùng khớp! Trong trường hợp như vậy, để giúp cho đoạn code trên được [ngắn gọn và súc tích hơn](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself), ta có thể áp dụng những phương pháp dưới đây: 
 
-### Conditional (ternary) operator (`? :`) {/*conditional-ternary-operator--*/}
+### Sử dụng toán tử ba ngôi (`? :`) {/*conditional-ternary-operator--*/}
 
-JavaScript has a compact syntax for writing a conditional expression -- the [conditional operator](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator) or "ternary operator".
+JavaScript cung cấp cho ta một cách thức để rút gọn những câu lệnh `if` dài dòng  bằng cách sử dụng [toán tử ba ngôi](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_Operator).
 
-Instead of this:
+Sử dụng toán tử ba ngôi, ta có thể viết lại đoạn code dưới đây:
 
 ```js
 if (isPacked) {
@@ -192,7 +192,7 @@ if (isPacked) {
 return <li className="item">{name}</li>;
 ```
 
-You can write this:
+như sau:
 
 ```js
 return (
@@ -202,17 +202,17 @@ return (
 );
 ```
 
-You can read it as *"if `isPacked` is true, then (`?`) render `name + ' ✔'`, otherwise (`:`) render `name`"*.
+Đoạn code rút gọn bên trên có thể được hiểu là: *"Nếu thuộc tính `isPacked` là true, thì (`?`) dấu tích '✔' sẽ được thêm vào ngay sau biến `name`, và ngược lại (`:`) thì ta sẽ chỉ hiện thị mỗi biến `name` mà thôi"*
 
 <DeepDive>
 
-#### Are these two examples fully equivalent? {/*are-these-two-examples-fully-equivalent*/}
+#### Liệu 2 ví dụ trên có thực sự giống nhau? {/*are-these-two-examples-fully-equivalent*/}
 
-If you're coming from an object-oriented programming background, you might assume that the two examples above are subtly different because one of them may create two different "instances" of `<li>`. But JSX elements aren't "instances" because they don't hold any internal state and aren't real DOM nodes. They're lightweight descriptions, like blueprints. So these two examples, in fact, *are* completely equivalent. [Preserving and Resetting State](/learn/preserving-and-resetting-state) goes into detail about how this works.
+Nếu đã quen thuộc với lập trình hướng đối tượng (OOP), bạn có thể cho rằng 2 ví dụ trên là khác nhau về mặt bản chất, vì một trong 2 ví dụ trên trả về một "đối tượng" (instance) `<li>`. Tuy nhiên, các phần tử JSX không phải là đổi tượng của một "lớp" (class) cụ thể nào vì chúng là "virtual DOM" (hay đúng hơn, chúng không thuộc về cây thư mục "thực") và trên hết chúng không nắm dữ một trạng thái nội bộ (internal state) nào. Cho nên trên thực tế 2 ví dụ này là hoàn toàn tương đồng. Đọc thêm về [Preserving and Resetting State](/learn/preserving-and-resetting-state).
 
 </DeepDive>
 
-Now let's say you want to wrap the completed item's text into another HTML tag, like `<del>` to strike it out. You can add even more newlines and parentheses so that it's easier to nest more JSX in each of the cases:
+Giả sử nếu muốn gạch đi (strike out) những `Item` mà có dấu tích bằng cách sử dụng phần tử `<del>`, bạn có thể thay đổi đoạn code như dưới dây:
 
 <Sandpack>
 
@@ -256,11 +256,11 @@ export default function PackingList() {
 
 </Sandpack>
 
-This style works well for simple conditions, but use it in moderation. If your components get messy with too much nested conditional markup, consider extracting child components to clean things up. In React, markup is a part of your code, so you can use tools like variables and functions to tidy up complex expressions.
+Ví dụ trên khá phổ biến, tuy nhiên trên thực tế khi phải làm việc với bất kì dự án React lớn nào, cú pháp trên có thể khiến codebase của bạn trở nên rườm rà và khó kiểm soát hơn. Khi có quá nhiều điều kiện khác nhau được gói gọn trong một phần tử, bạn nên tách chúng ra thành những phần tử con để mọi thứ trở nên gọn gàng hơn. Với React, bạn hoàn toàn có thể làm việc đó bằng cách gán chúng vào những biến (variable) khác nhau.
 
-### Logical AND operator (`&&`) {/*logical-and-operator-*/}
+### Toán tử logic AND (`&&`) {/*logical-and-operator-*/}
 
-Another common shortcut you'll encounter is the [JavaScript logical AND (`&&`) operator.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#:~:text=The%20logical%20AND%20(%20%26%26%20)%20operator,it%20returns%20a%20Boolean%20value.) Inside React components, it often comes up when you want to render some JSX when the condition is true, **or render nothing otherwise.** With `&&`, you could conditionally render the checkmark only if `isPacked` is `true`:
+Một trong những phương thức rút gọn các đoạn code điều kiện khác đó là việc sử dụng [toán tử AND (`&&`) trong JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#:~:text=The%20logical%20AND%20(%20%26%26%20)%20operator,it%20returns%20a%20Boolean%20value.). Như đã bàn ở trên, nếu điều kiện hiển thị một phần tử không được thỏa mãn, ta hoàn toàn có thể không hiển thị phần tử đó. Với toán tử `&&`, ta có thể in ra dấu tích (✔) chỉ khi `isPacked` bằng `true`:
 
 ```js
 return (
@@ -270,9 +270,9 @@ return (
 );
 ```
 
-You can read this as *"if `isPacked`, then (`&&`) render the checkmark, otherwise, render nothing"*.
+Đoạn code trên có thể được hiểu là *"nếu `isPacked` bằng `true`, thì (`&&`) ta hiển thị dấu tích '✔', còn không thì sẽ không hiển thị gì cả"*.
 
-Here it is in action:
+Tham khảo đoạn code dưới đây để hiểu rõ thêm:
 
 <Sandpack>
 
@@ -310,30 +310,30 @@ export default function PackingList() {
 
 </Sandpack>
 
-A [JavaScript && expression](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND) returns the value of its right side (in our case, the checkmark) if the left side (our condition) is `true`. But if the condition is `false`, the whole expression becomes `false`. React considers `false` as a "hole" in the JSX tree, just like `null` or `undefined`, and doesn't render anything in its place.
+Toán tử [&& trong JavaScript](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND) trả về giá trị ở vế bên phải (trong trường hợp này đó chính là dấu tích '✔') nếu điều kiện ở vế bên trái là `true`. Tuy nhiên nếu điều kiện đó là `false`, giá trị ở về phải được trả về sẽ là `false`. Dưới con mắt của React, `false` có hiệu ứng tương tự như `null` hay `undefined`, cho nên nó sẽ không in ra gì cả.
 
 
 <Pitfall>
 
-**Don't put numbers on the left side of `&&`.**
+**Cẩn thận khi đặt các giá trị số (numeric values) trước toán tử `&&`.**
 
-To test the condition, JavaScript converts the left side to a boolean automatically. However, if the left side is `0`, then the whole expression gets that value (`0`), and React will happily render `0` rather than nothing.
+Để kiểm tra điều kiện được cho, JavaScript sẽ tự động chuyển đổi vế bên trái của `&&` thành kiểu dữ liệu boolean. Tuy nhiên, nếu vế trái là số `0`, thì toàn bộ biểu thức sẽ nhận giá trị là số (`0`) thay vì `false`, và React sẽ hiển thị `0` là kết quả cuối cùng, thay vì không hiển thị gì cả.
 
-For example, a common mistake is to write code like `messageCount && <p>New messages</p>`. It's easy to assume that it renders nothing when `messageCount` is `0`, but it really renders the `0` itself!
+Ví dụ sau đây là một lỗi căn bản dành cho trường hợp trên: `messageCount && <p>New messages</p>`. Chúng ta rất dễ nhầm lẫn rằng đoạn code trên sẽ không hiển thị phần tử `<p>` vì `messageCount` bằng `0`, mà dưới con mắt của JavaScript, `0` chính là một giá trị "sai" (falsy value), Tuy nhiên trong trường hợp này React sẽ hiển thị đúng giá trị `0` đó ra màn hình, thay vì không hiển thị gì cả!
 
-To fix it, make the left side a boolean: `messageCount > 0 && <p>New messages</p>`.
+Để khắc phục, ta nên chuyển đổi biểu thức bên tay trái thành kiểu dữ liệu boolean như sau: `messageCount > 0 && <p>New messages</p>`.
 
 </Pitfall>
 
-### Conditionally assigning JSX to a variable {/*conditionally-assigning-jsx-to-a-variable*/}
+### Gán biểu thức JSX vào biến (variable) một cách có điều kiện {/*conditionally-assigning-jsx-to-a-variable*/}
 
-When the shortcuts get in the way of writing plain code, try using an `if` statement and a variable. You can reassign variables defined with [`let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let), so start by providing the default content you want to display, the name:
+Khi các điều kiện trở nên phức tạp khiến cho việc viết code trở nên rườm rà, hãy thử áp dụng phương pháp gán biến kết hợp với câu lệnh `if`. Lưu ý là những biến được khai báo bằng [`let`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let) hoàn toàn có thể được ghi đè, cho nên ta có thể khai báo biến `itemContent` bằng một giá trị mặc định như sau:
 
 ```js
 let itemContent = name;
 ```
 
-Use an `if` statement to reassign a JSX expression to `itemContent` if `isPacked` is `true`:
+Sau đó, ta sử dụng câu lệnh `if` để ghi đè giá trị của `itemContent` nếu `isPacked` bằng `true`:
 
 ```js
 if (isPacked) {
@@ -341,7 +341,7 @@ if (isPacked) {
 }
 ```
 
-[Curly braces open the "window into JavaScript".](/learn/javascript-in-jsx-with-curly-braces#using-curly-braces-a-window-into-the-javascript-world) Embed the variable with curly braces in the returned JSX tree, nesting the previously calculated expression inside of JSX:
+Cuối cùng, việc sử dụng [dấu ngoặc nhọn"](/learn/javascript-in-jsx-with-curly-braces#using-curly-braces-a-window-into-the-javascript-world) sẽ giúp cho việc "nhúng" (embed) biến ở trên vào trong phần tử JSX:
 
 ```js
 <li className="item">
@@ -349,7 +349,7 @@ if (isPacked) {
 </li>
 ```
 
-This style is the most verbose, but it's also the most flexible. Here it is in action:
+Phương pháp trên khá dài dòng nhưng đồng thời cũng cực kì linh hoạt. Để hiểu rõ thêm hãy tham khảo đoạn code dưới đây:
 
 <Sandpack>
 
@@ -391,7 +391,7 @@ export default function PackingList() {
 
 </Sandpack>
 
-Like before, this works not only for text, but for arbitrary JSX too:
+Phương pháp gán biến này cũng có thể được áp dụng với những biểu thức JSX bất kì như sau:
 
 <Sandpack>
 
@@ -437,16 +437,16 @@ export default function PackingList() {
 
 </Sandpack>
 
-If you're not familiar with JavaScript, this variety of styles might seem overwhelming at first. However, learning them will help you read and write any JavaScript code -- and not just React components! Pick the one you prefer for a start, and then consult this reference again if you forget how the other ones work.
+Nếu còn xa lạ với JavaScript, bạn có thể sẽ thấy choáng ngợp với muôn vàn cách viết code khác nhau cho cùng một vấn đề. Tuy nhiên việc hiểu biết về những cách thức trên sẽ giúp bạn trau dồi thêm kiến thức về JavaScript chứ không phải chỉ mỗi React thôi đâu! Để bắt đầu hãy chọn một phương án phù hợp với mình, và tham khảo lại chủ đề này trong tương lai.
 
 <Recap>
 
-* In React, you control branching logic with JavaScript.
-* You can return a JSX expression conditionally with an `if` statement.
-* You can conditionally save some JSX to a variable and then include it inside other JSX by using the curly braces.
-* In JSX, `{cond ? <A /> : <B />}` means *"if `cond`, render `<A />`, otherwise `<B />`"*.
-* In JSX, `{cond && <A />}` means *"if `cond`, render `<A />`, otherwise nothing"*.
-* The shortcuts are common, but you don't have to use them if you prefer plain `if`.
+* Với React, bạn sử dụng JavaScript để kiểm soát những nhánh logic khác nhau.
+* Bạn có thể trả về các biểu thức JSX một cách có điều kiện bằng câu lệnh `if`.
+* Các biểu thức JSX có thể được lưu dưới dạng biến (variable) một cách có điều kiện. Sau đó chúng có thể được dùng (nhúng) vào các biểu thức JSX khác bằng cách sử dụng cặp dấu ngoặc nhọn `{ }`.
+* Trong JSX, `{cond ? <A /> : <B />}` có thể được hiểu là *"Nếu điều kiện `cond` được thỏa mãn, ta sẽ hiển thị (trả về) phần tử `<A />`, nếu không thì ta sẽ hiển thị phần tử `<B />`"*.
+* Trong JSX, `{cond && <A />}` có nghĩa là *"Nếu điều kiện `cond` được thỏa mãn, ta sẽ trả về phần tử `<A />`, nếu không thì ta sẽ không hiển thị gì cả"*.
+* Những phương thức rút gọn bên trên khá phổ biến, tuy nhiên bạn hoàn toàn có thể đạt được kết quả tương tự bằng cách sử dụng lệnh `if`.
 
 </Recap>
 
@@ -454,9 +454,9 @@ If you're not familiar with JavaScript, this variety of styles might seem overwh
 
 <Challenges>
 
-#### Show an icon for incomplete items with `? :` {/*show-an-icon-for-incomplete-items-with--*/}
+#### Hiển thị icon cho những items chưa hoàn thành bằng toán tử 3 ngôi `? :` {/*show-an-icon-for-incomplete-items-with--*/}
 
-Use the conditional operator (`cond ? a : b`) to render a ❌ if `isPacked` isn’t `true`.
+Sử dụng toán tử điều kiện (`cond ? a : b`) để hiển thị dấu ❌ nếu `isPacked` khác `true`.
 
 <Sandpack>
 
@@ -534,15 +534,15 @@ export default function PackingList() {
 
 </Solution>
 
-#### Show the item importance with `&&` {/*show-the-item-importance-with-*/}
+#### Hiển thị item dựa trên độ quan trọng bằng toán tử `&&` {/*show-the-item-importance-with-*/}
 
-In this example, each `Item` receives a numerical `importance` prop. Use the `&&` operator to render "_(Importance: X)_" in italics, but only for items that have non-zero importance. Your item list should end up looking like this:
+Trong ví dụ này, mỗi `Item` có một thuộc tính đi kèm `importance` với kiểu dữ liệu là số. Sử dụng toán tử `&&` để hiển thị cú pháp "_(Importance: X)_" (viết in nghiêng) với những items có thuộc tính `importance` khác không (`0`). Danh sách các items được in ra trông sẽ như sau:
 
 * Space suit _(Importance: 9)_
 * Helmet with a golden leaf
 * Photo of Tam _(Importance: 6)_
 
-Don't forget to add a space between the two labels!
+Lưu ý đừng quên thêm vào dấu cách (khoảng trống) giữa `name` và cú pháp "_(Importance: X)_"
 
 <Sandpack>
 
@@ -582,7 +582,7 @@ export default function PackingList() {
 
 <Solution>
 
-This should do the trick:
+Dưới đây là một phương án hiệu quả cho thử thách trên:
 
 <Sandpack>
 
@@ -624,15 +624,15 @@ export default function PackingList() {
 
 </Sandpack>
 
-Note that you must write `importance > 0 && ...` rather than `importance && ...` so that if the `importance` is `0`, `0` isn't rendered as the result!
+Lưu ý là ở vế trái ta phải viết `importance > 0 && ...` thay vì `importance && ...` để tránh trường hợp `importance` bằng `0`, vì theo đề bài, ta chỉ in ra giá trị của `importance` với các biến khác `0`!
 
-In this solution, two separate conditions are used to insert a space between the name and the importance label. Alternatively, you could use a fragment with a leading space: `importance > 0 && <> <i>...</i></>` or add a space immediately inside the `<i>`:  `importance > 0 && <i> ...</i>`.
+Trong đáp án này, 2 câu lệnh điều kiện khác nhau được sử dụng để chèn khoảng trống vào giữa `name` và cú pháp "_(Importance: X)_". Một cách làm khác là sử dụng phần tử rỗng (fragment) kèm theo sau là khoảng trống như sau: `importance > 0 && <> <i>...</i></>` hoặc thêm khoảng trống vào ngay bên trong phần tử `<i>`:  `importance > 0 && <i> ...</i>`.
 
 </Solution>
 
-#### Refactor a series of `? :` to `if` and variables {/*refactor-a-series-of---to-if-and-variables*/}
+#### Thay thế `? :` bằng phương pháp gán biến kết hợp với lệnh `if` {/*refactor-a-series-of---to-if-and-variables*/}
 
-This `Drink` component uses a series of `? :` conditions to show different information depending on whether the `name` prop is `"tea"` or `"coffee"`. The problem is that the information about each drink is spread across multiple conditions. Refactor this code to use a single `if` statement instead of three `? :` conditions.
+Ta có  hàm`Drink` đang sử dụng một loạt các toán tử `? :` để hiển thị những thông tin khác nhau dựa trên giá trị của thuộc tính `name` là `"tea"` hay là `"coffee"`. Vấn đề ở đây là những thông tin về mỗi món uống được nằm rải rác ở những điều kiện khác nhau. Hãy tái cấu trúc lại đoạn code này bằng cách sử dụng một câu lệnh `if` duy nhất thay vì 3 toán tử `? :`.
 
 <Sandpack>
 
@@ -665,11 +665,11 @@ export default function DrinkList() {
 
 </Sandpack>
 
-Once you've refactored the code to use `if`, do you have further ideas on how to simplify it?
+Câu hỏi đặt ra là, sau khi đã cấu trúc lại đoạn code trên bằng những câu lệnh `if`, liệu có cách nào để đơn giản hóa và làm nó trở nên ngắn gọn hơn hay không?
 
 <Solution>
 
-There are multiple ways you could go about this, but here is one starting point:
+Có khá nhiều phương án cho thử thách trên, dưới đây là một ví dụ:
 
 <Sandpack>
 
@@ -712,9 +712,9 @@ export default function DrinkList() {
 
 </Sandpack>
 
-Here the information about each drink is grouped together instead of being spread across multiple conditions. This makes it easier to add more drinks in the future.
+Phương pháp này nhóm tất cả thông tin của những món uống vào một chỗ thay vì rải rác chúng ở những vị trí khác nhau. Nó giúp cho việc thêm những món uống khác trở nên dễ dàng hơn trong tương lai.
 
-Another solution would be to remove the condition altogether by moving the information into objects:
+Một giải pháp hiệu quả khác mà không cần dùng bất kì một câu lệnh điều kiện nào đó chính là nhóm những thông tin của các món uống vào những "object" riêng biệt:
 
 <Sandpack>
 
