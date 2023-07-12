@@ -4,7 +4,7 @@ title: Hiển thị một danh sách phần tử
 
 <Intro>
 
-Khi tương tác với dữ liệu trên React, một trong những tác vụ thường gặp nhất đó là hiển thị những mảng dữ liệu đó lên giao diện người dùng. Bạn có thể sử dụng [một số hàm chuyên dành cho mảng trong JavaScript](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array#) để tương tác với các mảng dữ liệu. Trong bài viết này, bạn sẽ được tìm hiểu về cách sử dụng 2 cú pháp [`filter()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) và [`map()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/map) với React để sàng lọc và biển đổi một mảng dữ liệu thành một mảng các phần tử JSX.
+Khi tương tác với dữ liệu trên React, một trong những tác vụ thường gặp nhất đó là hiển thị những mảng dữ liệu đó lên giao diện người dùng. Bạn có thể sử dụng [một số hàm chuyên dành cho mảng trong JavaScript](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array#) để tương tác với các mảng dữ liệu. Trong bài viết này, bạn sẽ được tìm hiểu về cách sử dụng 2 hàm [`filter()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) và [`map()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/map) với React để sàng lọc và biển đổi một mảng dữ liệu thành một mảng các phần tử JSX.
 
 </Intro>
 
@@ -16,7 +16,7 @@ Khi tương tác với dữ liệu trên React, một trong những tác vụ th
 
 </YouWillLearn>
 
-## Rendering data from arrays {/*rendering-data-from-arrays*/}
+## Hiển thị dữ liệu từ mảng {/*rendering-data-from-arrays*/}
 
 Cùng làm một vài ví dụ với danh sách dưới đây
 
@@ -30,11 +30,11 @@ Cùng làm một vài ví dụ với danh sách dưới đây
 </ul>
 ```
 
-The only difference among those list items is their contents, their data. You will often need to show several instances of the same component using different data when building interfaces: from lists of comments to galleries of profile images. In these situations, you can store that data in JavaScript objects and arrays and use methods like [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) and [`filter()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) to render lists of components from them.
+Để ý kĩ, bạn sẽ thấy danh sách này chứa toàn phần tử `<li>` và điểm khác biệt duy nhất là nội dung của chúng. Đây cũng là trường hợp mà bạn sẽ gặp rất nhiều trong thực tế - một danh sách mà có những phần tử với phần khung giống nhau và chỉ khác nội dung: ví dụ như một danh sách những bình luận, hay là một tập album ảnh kỉ yếu. Với những trường hợp như vậy, bạn có thể lưu trữ dữ liệu dưới dạng objects và mảng (array) sau đó tận dụng những hàm như [`map()`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) và [`filter()`](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) để hiển thị những dữ liệu đó dưới dạng một mảng các phần tử (components).
 
-Here’s a short example of how to generate a list of items from an array:
+Dưới đây là một ví dụ cho việc hiển thị một danh sách các phần tử từ một mảng dữ liệu:
 
-1. **Move** the data into an array:
+1. **Biến đổi** dữ liệu thành một mảng (`people`) gồm các chuỗi như sau:
 
 ```js
 const people = [
@@ -46,7 +46,7 @@ const people = [
 ];
 ```
 
-2. **Map** the `people` members into a new array of JSX nodes, `listItems`:
+2. **Biến đổi** những chuỗi trong mảng `people` thành một mảng tới, `listItems`, chứa những phần tử JSX:
 
 ```js
 const listItems = people.map(person => <li>{person}</li>);
@@ -93,7 +93,7 @@ Warning: Each child in a list should have a unique "key" prop.
 
 </ConsoleBlock>
 
-You'll learn how to fix this error later on this page. Before we get to that, let's add some structure to your data.
+Đoạn sau của bài viết này sẽ hướng dẫn bạn cách xử lý lỗi trên. Before we get to that, let's add some structure to your data.
 
 ## Filtering arrays of items {/*filtering-arrays-of-items*/}
 
@@ -121,9 +121,9 @@ const people = [{
 }];
 ```
 
-Let's say you want a way to only show people whose profession is `'chemist'`. You can use JavaScript's `filter()` method to return just those people. This method takes an array of items, passes them through a “test” (a function that returns `true` or `false`), and returns a new array of only those items that passed the test (returned `true`).
+Nếu bạn chỉ muốn hiển thị những cá nhân với nghề nghiệp `chemist`, bạn có thể tận dụng hàm `filter()` trong JavaScript để lọc ra những cá nhân thỏa mãn điều kiện trên. This method takes an array of items, passes them through a “test” (a function that returns `true` or `false`), and returns a new array of only those items that passed the test (returned `true`).
 
-You only want the items where `profession` is `'chemist'`. The "test" function for this looks like `(person) => person.profession === 'chemist'`. Here's how to put it together:
+Vì điều kiện ở đây là nghề nghiệp (`profession`) phải là `'chemist'`, The "test" function for this looks like `(person) => person.profession === 'chemist'`. Here's how to put it together:
 
 1. **Create** a new array of just “chemist” people, `chemists`, by calling `filter()` on the `people` filtering by `person.profession === 'chemist'`:
 
