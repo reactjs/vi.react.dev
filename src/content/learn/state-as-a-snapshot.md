@@ -74,10 +74,20 @@ Chúng ta sẽ xem xét kỹ hơn mối quan hệ giữa state và re-render tro
 
 Không giống như một bức ảnh hay một khung hình phim, snapshot UI bạn trả về có tính tương tác. Nó bao gồm logic như event handler chỉ định điều gì xảy ra khi input thay đổi. React cập nhật màn hình để phù hợp với snapshot này và kết nối các event handler. Kết quả là, khi nhấn nút sẽ kích hoạt event handler từ JSX của bạn.
 
+<<<<<<< HEAD
 Khi React re-render một component:
 1. React gọi lại hàm của bạn.
 2. Hàm của bạn trả về một snapshot JSX mới.
 3. React cập nhật màn hình sao cho tương đồng với snapshot bạn đã trả về.
+=======
+Unlike a photograph or a movie frame, the UI "snapshot" you return is interactive. It includes logic like event handlers that specify what happens in response to inputs. React updates the screen to match this snapshot and connects the event handlers. As a result, pressing a button will trigger the click handler from your JSX.
+
+When React re-renders a component:
+
+1. React calls your function again.
+2. Your function returns a new JSX snapshot.
+3. React then updates the screen to match the snapshot your function returned.
+>>>>>>> 4bdb87b172a7723d56d03a5630c8a9870f6f03ec
 
 <IllustrationBlock sequential>
     <Illustration caption="React thực thi hàm của bạn" src="/images/docs/illustrations/i_render1.png" />
