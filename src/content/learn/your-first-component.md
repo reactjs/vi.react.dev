@@ -211,7 +211,11 @@ Khi mà một component con cần dữ liệu từ cha, [hãy truyền nó qua p
 
 #### Sử dụng Component từ đầu đến cuối {/*components-all-the-way-down*/}
 
+<<<<<<< HEAD
 Ứng dụng React của bạn bắt đầu từ một component "gốc" (root). Thường thì component này được tạo ra tự động khi mà bạn bắt đầu một dự án mới. Ví dụ, nếu bạn dùng [CodeSandbox](https://codesandbox.io/) hay [Create React App](https://create-react-app.dev/), component gốc sẽ được định nghĩa ở `src/App.js`. Nếu bạn sử dụng framework [Next.js](https://nextjs.org/), component gốc sẽ được định nghĩa ở `pages/index.js`. Trong những ví dụ này, bạn đã export các component gốc.
+=======
+Your React application begins at a "root" component. Usually, it is created automatically when you start a new project. For example, if you use [CodeSandbox](https://codesandbox.io/) or if you use the framework [Next.js](https://nextjs.org/), the root component is defined in `pages/index.js`. In these examples, you've been exporting root components.
+>>>>>>> 943e3ce4e52be56bcd75b679448847302f557da1
 
 Hầu hết các ứng dụng React đều sử dụng component từ đầu đến cuối. Điều này có nghĩa là bạn không chỉ sử dụng component cho những phần có thể tái sử dụng như các nút (button) mà còn cho các phần lớn hơn như sidebar, các danh sách và đích đến cuối, các trang hoàn chỉnh! Component là một cách tiện lợi để tổ chức code UI và markup, ngay cả khi một số chúng chỉ được sử dụng một lần.
 
