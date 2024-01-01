@@ -84,7 +84,7 @@ Bạn có thể xây dựng theo cách "từ trên xuống" bằng cách bắt �
 
 <Sandpack>
 
-```jsx App.js
+```jsx src/App.js
 function ProductCategoryRow({ category }) {
   return (
     <tr>
@@ -309,7 +309,7 @@ Bạn có thể bắt đầu xem cách ứng dụng của bạn sẽ hoạt đ�
 
 <Sandpack>
 
-```jsx App.js
+```jsx src/App.js
 import { useState } from 'react';
 
 function FilterableProductTable({ products }) {
@@ -509,7 +509,7 @@ Giờ thì ứng dụng của bạn đã hoạt động!
 
 <Sandpack>
 
-```jsx App.js
+```jsx src/App.js
 import { useState } from 'react';
 
 function FilterableProductTable({ products }) {
