@@ -52,7 +52,7 @@
       "path": "/learn/describing-the-ui",
       "routes": [
         {
-          "title": "Your First Component",
+          "title": "Component đầu tiên của bạn",
           "path": "/learn/your-first-component"
         },
         {
@@ -103,7 +103,7 @@
           "path": "/learn/render-and-commit"
         },
         {
-          "title": "State as a Snapshot",
+          "title": "State như một snapshot",
           "path": "/learn/state-as-a-snapshot"
         },
         {
@@ -186,7 +186,7 @@
         },
         {
           "title": "Removing Effect Dependencies",
-          "path": "/learn/removing-effect-dependencies"              
+          "path": "/learn/removing-effect-dependencies"
         },
         {
           "title": "Reusing Logic with Custom Hooks",
