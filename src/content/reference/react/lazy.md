@@ -32,7 +32,11 @@ const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'));
 
 #### Tham số {/*parameters*/}
 
+<<<<<<< HEAD
 * `load`: Một function trả về một [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) hoặc một *thenable* (một đối tượng giống Promise với một phương thức `then`). React sẽ không gọi hàm `load` cho tới khi bạn render component được trả về. Sau khi React gọi `load` lần đầu tiên, React sẽ đợi cho tới khi hàm này được giải quyết xong (resolve), sau đó sẽ render giá trị được giải quyết như một React component. Cả Promise được trả về và giá trị đã được giải quyết của Promise đó đều được lưu lại, nên React sẽ không gọi `load` thêm nữa. Nếu Promise từ chối, React sẽ `throw` lý do từ chối cho Error Boundary gần nhất để xử lý.
+=======
+* `load`: A function that returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or another *thenable* (a Promise-like object with a `then` method). React will not call `load` until the first time you attempt to render the returned component. After React first calls `load`, it will wait for it to resolve, and then render the resolved value's `.default` as a React component. Both the returned Promise and the Promise's resolved value will be cached, so React will not call `load` more than once. If the Promise rejects, React will `throw` the rejection reason for the nearest Error Boundary to handle.
+>>>>>>> 081d1008dd1eebffb9550a3ff623860a7d977acf
 
 #### Giá trị trả về {/*returns*/}
 
@@ -48,7 +52,7 @@ const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'));
 
 #### Returns {/*load-returns*/}
 
-You need to return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or some other *thenable* (a Promise-like object with a `then` method). It needs to eventually resolve to a valid React component type, such as a function, [`memo`](/reference/react/memo), or a [`forwardRef`](/reference/react/forwardRef) component.
+You need to return a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or some other *thenable* (a Promise-like object with a `then` method). It needs to eventually resolve to an object whose `.default` property is a valid React component type, such as a function, [`memo`](/reference/react/memo), or a [`forwardRef`](/reference/react/forwardRef) component.
 
 ---
 
@@ -70,7 +74,11 @@ import { lazy } from 'react';
 const MarkdownPreview = lazy(() => import('./MarkdownPreview.js'));
 ```
 
+<<<<<<< HEAD
 Đoạn code này phụ thuộc vào [dynamic `import()`,](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) có thể sẽ cần được hỗ trợ bởi bundler hoặc framework của bạn.
+=======
+This code relies on [dynamic `import()`,](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/import) which might require support from your bundler or framework. Using this pattern requires that the lazy component you're importing was exported as the `default` export.
+>>>>>>> 081d1008dd1eebffb9550a3ff623860a7d977acf
 
 Bây giờ code của component sẽ tải khi được yêu cầu, bạn sẽ cần phải xác định cái gì sẽ được hiển thị khi component đang được tải. Bạn có thể làm điều này bằng việc bọc lazy component hoặc bất kì phần tử cha của nó vào trong [`<Suspense>`](/reference/react/Suspense):
 
@@ -85,7 +93,7 @@ Trong ví dụ này, đoạn code cho `MarkdownPreview` sẽ không được t�
 
 <Sandpack>
 
-```js App.js
+```js src/App.js
 import { useState, Suspense, lazy } from 'react';
 import Loading from './Loading.js';
 
@@ -120,13 +128,13 @@ function delayForDemo(promise) {
 }
 ```
 
-```js Loading.js
+```js src/Loading.js
 export default function Loading() {
   return <p><i>Loading...</i></p>;
 }
 ```
 
-```js MarkdownPreview.js
+```js src/MarkdownPreview.js
 import { Remarkable } from 'remarkable';
 
 const md = new Remarkable();
