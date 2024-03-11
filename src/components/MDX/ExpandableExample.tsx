@@ -70,14 +70,24 @@ function ExpandableExample({children, excerpt, type}: ExpandableExampleProps) {
           })}>
           {isDeepDive && (
             <>
+<<<<<<< HEAD
               <IconDeepDive className="inline mr-2 dark:text-purple-30 text-purple-40" />
               Tìm hiểu sâu
+=======
+              <IconDeepDive className="inline me-2 dark:text-purple-30 text-purple-40" />
+              Deep Dive
+>>>>>>> 5de85198a3c575d94a395138e3f471cc7172a51c
             </>
           )}
           {isExample && (
             <>
+<<<<<<< HEAD
               <IconCodeBlock className="inline mr-2 dark:text-yellow-30 text-yellow-50" />
               Ví dụ
+=======
+              <IconCodeBlock className="inline me-2 dark:text-yellow-30 text-yellow-50" />
+              Example
+>>>>>>> 5de85198a3c575d94a395138e3f471cc7172a51c
             </>
           )}
         </h5>
@@ -98,7 +108,7 @@ function ExpandableExample({children, excerpt, type}: ExpandableExampleProps) {
               isExample,
           })}
           onClick={() => setIsExpanded((current) => !current)}>
-          <span className="mr-1">
+          <span className="me-1">
             <IconChevron displayDirection={isExpanded ? 'up' : 'down'} />
           </span>
           {isExpanded ? 'Bớt' : 'Thêm'}
