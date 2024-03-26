@@ -1,31 +1,31 @@
 ---
-title: 'Tutorial: Tic-Tac-Toe'
+title: 'Hướng dẫn: Tic-Tac-Toe'
 ---
 
 <Intro>
 
-You will build a small tic-tac-toe game during this tutorial. This tutorial does not assume any existing React knowledge. The techniques you'll learn in the tutorial are fundamental to building any React app, and fully understanding it will give you a deep understanding of React.
+Trong hướng dẫn này, bạn sẽ xây dựng trò chơi tic-tac-toe. Hướng dẫn này không yêu cầu bạn có bất kì hiểu biết nào về React. Các kỹ thuật bạn học trong bài này sẽ là nền móng để xây dựng bất kỳ một ứng dụng React nào, và việc hiểu nó sẽ giúp bạn hiểu sâu hơn về React.
 
 </Intro>
 
 <Note>
 
-This tutorial is designed for people who prefer to **learn by doing** and want to quickly try making something tangible. If you prefer learning each concept step by step, start with [Describing the UI.](/learn/describing-the-ui)
+Hướng dẫn này được thiết kế cho những người thích cách **học thông qua thực hành** và muốn nhanh chóng thử làm cái gì đó hữu hình. Nếu bạn thích học lần lượt từng khái niệm, hãy bắt đầu với [Mô tả giao diện.](/learn/describing-the-ui)
 
 </Note>
 
-The tutorial is divided into several sections:
+Bài hướng dẫn được chia thành nhiều phần:
 
-- [Setup for the tutorial](#setup-for-the-tutorial) will give you **a starting point** to follow the tutorial.
-- [Overview](#overview) will teach you **the fundamentals** of React: components, props, and state.
-- [Completing the game](#completing-the-game) will teach you **the most common techniques** in React development.
-- [Adding time travel](#adding-time-travel) will give you **a deeper insight** into the unique strengths of React.
+- [Cài đặt cho bài hướng dẫn](#setup-for-the-tutorial) sẽ cho bạn **một điểm khởi đầu** để làm theo hướng dẫn.
+- [Tổng quan](#overview) sẽ dạy bạn **các kiến thức căn bản** của React: các component, prop, và state.
+- [Hoàn thiện trò chơi](#completing-the-game) sẽ dạy bạn **các kĩ thuật phổ biến nhất** khi phát triển ứng dụng React.
+- [(TODO: translate) Adding time travel](#adding-time-travel) sẽ cho bạn **một cái nhìn sâu sắc hơn** về những điểm mạnh độc nhất của React.
 
-### What are you building? {/*what-are-you-building*/}
+### Bạn sẽ làm ứng dụng gì? {/*what-are-you-building*/}
 
-In this tutorial, you'll build an interactive tic-tac-toe game with React.
+Trong hướng dẫn này, bạn sẽ xây dựng trò chơi tương tác tic-tac-toe bằng React.
 
-You can see what it will look like when you're finished here:
+Sau khi hoàn thành, nó sẽ trông như sau:
 
 <Sandpack>
 
@@ -194,15 +194,15 @@ body {
 
 </Sandpack>
 
-If the code doesn't make sense to you yet, or if you are unfamiliar with the code's syntax, don't worry! The goal of this tutorial is to help you understand React and its syntax.
+Nếu bạn chưa hiểu được đoạn code trên, hoặc nếu bạn chưa quen với cú pháp của code, đừng lo lắng. Mục tiêu của hướng dẫn này là để giúp bạn hiểu React và cú pháp của nó.
 
-We recommend that you check out the tic-tac-toe game above before continuing with the tutorial. One of the features that you'll notice is that there is a numbered list to the right of the game's board. This list gives you a history of all of the moves that have occurred in the game, and it is updated as the game progresses.
+Chúng tôi khuyến khích bạn thử chơi tic-tac-toe ở trên trước khi tiếp tục với bài hướng dẫn. Một trong các chức năng bạn có thể để ý là một danh sách được đánh số ở phía bên phải của bảng trò chơi. Danh sách này cho bạn biết lịch sử của tất cả các nước đi trước đó, và được cập nhật khi trò chơi diễn ra.
 
-Once you've played around with the finished tic-tac-toe game, keep scrolling. You'll start with a simpler template in this tutorial. Our next step is to set you up so that you can start building the game.
+Sau khi chơi thử, hãy tiếp tục cuộn xuống. Bạn sẽ bắt đầu từ một template đơn giản hơn. Bước tiếp theo của chúng ta là thiết lập để bạn có thể bắt đầu xây dựng trò chơi.
 
-## Setup for the tutorial {/*setup-for-the-tutorial*/}
+## Thiết lập cho bài hướng dẫn {/*setup-for-the-tutorial*/}
 
-In the live code editor below, click **Fork** in the top-right corner to open the editor in a new tab using the website CodeSandbox. CodeSandbox lets you write code in your browser and preview how your users will see the app you've created. The new tab should display an empty square and the starter code for this tutorial.
+Trong trình soạn thảo code bên dưới, ấn vào **Fork** ở góc trên bên phải để mở trình soạn thảo ở cửa sổ trình duyệt mới thông qua trang web CodeSandbox. Codesandbox cho phép bạn viết code trong trình duyệt và xem trước giao diện mà người dùng của bạn sẽ thấy. Ở cửa sổ mới sẽ xuất hiện một hình vuông rỗng và đoạn code khởi đầu cho hướng dẫn này.
 
 <Sandpack>
 
@@ -261,33 +261,33 @@ body {
 
 <Note>
 
-You can also follow this tutorial using your local development environment. To do this, you need to:
+Bạn cũng có thể làm theo hướng dẫn này sử dụng máy tính của bạn (gọi là môi trường local). Bạn cần phải:
 
-1. Install [Node.js](https://nodejs.org/en/)
-1. In the CodeSandbox tab you opened earlier, press the top-left corner button to open the menu, and then choose **File > Export to ZIP** in that menu to download an archive of the files locally
-1. Unzip the archive, then open a terminal and `cd` to the directory you unzipped
-1. Install the dependencies with `npm install`
-1. Run `npm start` to start a local server and follow the prompts to view the code running in a browser
+1. Cài đặt [Node.js](https://nodejs.org/en/)
+1. Trong cửa sổ CodeSandbox bạn vừa mở, ấn nút ở góc trên bên trái để mở menu, rồi chọn **File > Export to ZIP** để tải một tập tin nén chứa các file dùng cho hướng dẫn
+1. Giải nén file vừa tải, sau đó mở một terminal (Powershell trên Windows, hoặc Termial trên Ubuntu/Mac) và `cd` tới thư mục bạn vừa giải nén
+1. Cài đặt các dependency (các thư viện phụ thuộc) với `npm install`
+1. Chạy `npm start` để chạy một local server (server chạy trên máy tính của bạn, dùng trong quá trình phát triển ứng dụng) và làm theo các chỉ dẫn để xem code của bạn trên trình duyệt
 
-If you get stuck, don't let this stop you! Follow along online instead and try a local setup again later.
+Nếu bạn gặp trục trặc, đừng bỏ buộc. Làm theo hướng dẫn trong trình soạn thảo online rồi quay lại thiết lập trên local sau.
 
 </Note>
 
-## Overview {/*overview*/}
+## Tổng quan {/*overview*/}
 
-Now that you're set up, let's get an overview of React!
+Bây giờ khi bạn đã thiết lập xong, hãy bắt đầu với tổng quan về React!
 
-### Inspecting the starter code {/*inspecting-the-starter-code*/}
+### Kiểm tra code khởi đầu {/*inspecting-the-starter-code*/}
 
-In CodeSandbox you'll see three main sections:
+Ở cửa sổ CodeSandbox bạn sẽ thấy ba phần chính:
 
 ![CodeSandbox with starter code](../images/tutorial/react-starter-code-codesandbox.png)
 
-1. The _Files_ section with a list of files like `App.js`, `index.js`, `styles.css` and a folder called `public`
-1. The _code editor_ where you'll see the source code of your selected file
-1. The _browser_ section where you'll see how the code you've written will be displayed
+1. Phần _Files_ với danh sách các file như `App.js`, `index.js`, `styles.css` và một thư mục tên là `public`
+1. Phần _code editor_ là nơi bạn sẽ thấy code của file bạn đã chọn
+1. Phần _browser_ là nơi bạn xem đoạn code bạn viết sẽ hiển thị phía người dùng như thế nào
 
-The `App.js` file should be selected in the _Files_ section. The contents of that file in the _code editor_ should be:
+Chọn `App.js` ở phần _Files_. Nội dung file này ở trong _code editor_ sẽ là:
 
 ```jsx
 export default function Square() {
@@ -295,15 +295,16 @@ export default function Square() {
 }
 ```
 
-The _browser_ section should be displaying a square with a X in it like this:
+Phần _browser_ sẽ hiển thị một hình vuông với một dấu X như này:
 
 ![x-filled square](../images/tutorial/x-filled-square.png)
 
-Now let's have a look at the files in the starter code.
+
+Bây giờ, cùng xem qua các file của code mở đầu.
 
 #### `App.js` {/*appjs*/}
 
-The code in `App.js` creates a _component_. In React, a component is a piece of reusable code that represents a part of a user interface. Components are used to render, manage, and update the UI elements in your application. Let's look at the component line by line to see what's going on:
+Code ở trong `App.js` tạo một _component_. Trong React, một component là một đoạn mã có thể tái sử dụng đại diện cho một phần trong giao diện người dùng. Các component được dùng để render, quản lý và cập nhật các phần tử UI trong ứng dụng của bạn. Cùng nhìn qua từng dòng để xem điều gì đang xảy ra:
 
 ```js {1}
 export default function Square() {
@@ -311,7 +312,7 @@ export default function Square() {
 }
 ```
 
-The first line defines a function called `Square`. The `export` JavaScript keyword makes this function accessible outside of this file. The `default` keyword tells other files using your code that it's the main function in your file.
+Dòng đầu tiên định nghĩa một hàm tên là `Square`. Từ khóa `export` trong JavaScript giúp cho hàm này có thể được gọi từ bên ngoài file này. Từ khóa `default` nói với các file khác sử dụng code của bạn rằng hàm này là hàm chính trong file.
 
 ```js {2}
 export default function Square() {
@@ -319,15 +320,15 @@ export default function Square() {
 }
 ```
 
-The second line returns a button. The `return` JavaScript keyword means whatever comes after is returned as a value to the caller of the function. `<button>` is a *JSX element*. A JSX element is a combination of JavaScript code and HTML tags that describes what you'd like to display. `className="square"` is a button property or *prop* that tells CSS how to style the button. `X` is the text displayed inside of the button and `</button>` closes the JSX element to indicate that any following content shouldn't be placed inside the button.
+Dòng thứ hai trả về một button. Từ khóa `return` trong JavaScript có nghĩa: bất kỳ cái gì ở đằng sau nó sẽ được trả về ở dạng một giá trị cho những chỗ gọi tới hàm đó. `<button>` là một *phần tử JSX*. Một phần tử JSX là sự kết hợp giữa code Javascript và thẻ HTML, mô tả những thứ mà bạn muốn hiển thị. `className="square"` là một thuộc tính (property) hay *prop* của button, cho CSS sử dụng để tạo kiểu (style) cho button. `X` là chữ hiển thị bên trong button và `</button>` kết thúc phần tử JSX để chỉ rằng bất kì nội dung nào phía sau sẽ không được đặt bên trong button.
 
 #### `styles.css` {/*stylescss*/}
 
-Click on the file labeled `styles.css` in the _Files_ section of CodeSandbox. This file defines the styles for your React app. The first two _CSS selectors_ (`*` and `body`) define the style of large parts of your app while the `.square` selector defines the style of any component where the `className` property is set to `square`. In your code, that would match the button from your Square component in the `App.js` file.
+Ấn vào file có tên `styles.css` trong phần _Files_ của CodeSandbox. File này định nghĩa các kiểu cách (styles) cho ứng dụng React của bạn. Hai _CSS selector_ (`*` và `body`) (CSS selector là thứ giúp CSS có thể chọn xem nên chọn phần tử HTML nào để tạo kiểu - style) định nghĩa style của phần lớn ứng dụng của bạn, trong khi `.square` selector định nghĩa style của bất kì component nào có thuộc tính `className` là `square`. Trong code của bạn, nó sẽ là component Square trong file `App.js`.
 
 #### `index.js` {/*indexjs*/}
 
-Click on the file labeled `index.js` in the _Files_ section of CodeSandbox. You won't be editing this file during the tutorial but it is the bridge between the component you created in the `App.js` file and the web browser.
+Ấn vào file `index.js` trong phần _Files_ của CodeSandbox. Bạn sẽ không chỉnh sửa file này trong bài hướng dẫn, nhưng nó là cầu nối giữa component bạn tạo trong file `App.js` với trình duyệt web.
 
 ```jsx
 import { StrictMode } from 'react';
@@ -337,20 +338,20 @@ import './styles.css';
 import App from './App';
 ```
 
-Lines 1-5 brings all the necessary pieces together: 
+Các dòng 1-5 đem tất cả các phần cần thiết lại với nhau: 
 
 * React
-* React's library to talk to web browsers (React DOM)
-* the styles for your components
-* the component you created in `App.js`.
+* Thư viện của React để giao tiếp với trình duyệt web (React DOM)
+* các style cho các component của bạn
+* component bạn tạo trong `App.js`.
 
-The remainder of the file brings all the pieces together and injects the final product into `index.html` in the `public` folder.
+Phần còn lại của file đem tất cả các phần lại với nhau và bơm sản phẩm cuối cùng vào `index.html` trong thư mục `public`.
 
-### Building the board {/*building-the-board*/}
+### Tạo bảng trò chơi {/*building-the-board*/}
 
-Let's get back to `App.js`. This is where you'll spend the rest of the tutorial.
+Hãy quay lại với `App.js`. Từ giờ bạn sẽ chỉ làm bài hướng dẫn ở file này.
 
-Currently the board is only a single square, but you need nine! If you just try and copy paste your square to make two squares like this:
+Hiện tại, bảng trò chơi chỉ là một hình vuông, nhưng chúng ta cần 9 hình vuông như vậy. Nếu bạn chỉ copy và paste hình vuông của bạn để tạo hai hình vuông như này:
 
 ```js {2}
 export default function Square() {
@@ -358,7 +359,7 @@ export default function Square() {
 }
 ```
 
-You'll get this error:
+Bạn sẽ gặp lỗi:
 
 <ConsoleBlock level="error">
 
@@ -366,7 +367,7 @@ You'll get this error:
 
 </ConsoleBlock>
 
-React components need to return a single JSX element and not multiple adjacent JSX elements like two buttons. To fix this you can use *fragments* (`<>` and `</>`) to wrap multiple adjacent JSX elements like this:
+Các component React chỉ được trả về một phần tử JSX chứ không phải nhiều phần tử JSX liền kề như hai button trên. Để sửa, bạn có thể dùng `<>` và `</>`, gọi là *fragments* để bao lấy các phần tử JSX liền kề:
 
 ```js {3-6}
 export default function Square() {
@@ -379,17 +380,17 @@ export default function Square() {
 }
 ```
 
-Now you should see:
+Bây giờ bạn sẽ thấy:
 
 ![two x-filled squares](../images/tutorial/two-x-filled-squares.png)
 
-Great! Now you just need to copy-paste a few times to add nine squares and...
+Tuyệt! Bây giờ bạn chỉ cần copy-paste một vài lần để thêm chín hình vuông và...
 
 ![nine x-filled squares in a line](../images/tutorial/nine-x-filled-squares.png)
 
-Oh no! The squares are all in a single line, not in a grid like you need for our board. To fix this you'll need to group your squares into rows with `div`s and add some CSS classes. While you're at it, you'll give each square a number to make sure you know where each square is displayed.
+Ôi không! Các hình vuông ở trên cùng một dòng, chứ không tạo thành hình lưới như bạn muốn. Để sửa, bạn sẽ cần nhóm các hình vuông thành các dòng với các thẻ `div` và thêm một số CSS class. Sau khi xong, bạn sẽ cho mỗi hình vuông một con số để đảm bảo bạn biết chắc mỗi hình vuông được hiển thị ở đâu.
 
-In the `App.js` file, update the `Square` component to look like this:
+Ở file `App.js`, sửa component `Square` thành như sau:
 
 ```js {3-19}
 export default function Square() {
@@ -415,11 +416,11 @@ export default function Square() {
 }
 ```
 
-The CSS defined in `styles.css` styles the divs with the `className` of `board-row`. Now that you've grouped your components into rows with the styled `div`s you have your tic-tac-toe board:
+CSS định nghĩa trong `styles.css` tạo kiểu cho các thẻ div với `className` là `board-row`. Bây giờ bạn đã nhóm các component thành các dòng với các thẻ `div` đã được tạo kiểu, bạn có bảng trò chơi tic-tac-toe:
 
 ![tic-tac-toe board filled with numbers 1 through 9](../images/tutorial/number-filled-board.png)
 
-But you now have a problem. Your component named `Square`, really isn't a square anymore. Let's fix that by changing the name to `Board`:
+Nhưng giờ bạn lại có một vấn đề. Component của bạn tên là `Square`, thật ra nó đâu có là hình vuông nữa. Hãy sửa lại bằng cách đổi tên nó thành `Board`:
 
 ```js {1}
 export default function Board() {
@@ -427,7 +428,7 @@ export default function Board() {
 }
 ```
 
-At this point your code should look something like this:
+Lúc này, code của bạn sẽ thế này:
 
 <Sandpack>
 
@@ -504,15 +505,15 @@ body {
 
 <Note>
 
-Psssst... That's a lot to type! It's okay to copy and paste code from this page. However, if you're up for a little challenge, we recommend only copying code that you've manually typed at least once yourself.
+Psssst... Nhiều thứ phải gõ quá. Bạn hoàn toàn có thể copy và paste từ trang này. Tuy nhiên, nếu bạn muốn một chút thử thách, chúng tôi khuyến khích bạn chỉ copy những đoạn mà bạn đã gõ tay ít nhất một lần.
 
 </Note>
 
-### Passing data through props {/*passing-data-through-props*/}
+### Truyền data thông qua các thuộc tính (prop) {/*passing-data-through-props*/}
 
-Next, you'll want to change the value of a square from empty to "X" when the user clicks on the square. With how you've built the board so far you would need to copy-paste the code that updates the square nine times (once for each square you have)! Instead of copy-pasting, React's component architecture allows you to create a reusable component to avoid messy, duplicated code.
+Tiếp theo, bạn sẽ muốn thay đổi giá trị của một ô vuông từ rỗng thành "X" khi người dùng ấn vào ô vuông. Với cách mà bạn xây dựng bảng trò chơi hiện tại bạn sẽ cần copy-paste đoạn code dùng để cập nhật ô vuông chín lần (mỗi lần cho một ô vuông)! Thay vì phải copy-paste, cấu trúc component React cho phép bạn tạo một component có thể tái sử dụng để tránh code bị lộn xộn và lặp lại.
 
-First, you are going to copy the line defining your first square (`<button className="square">1</button>`) from your `Board` component into a new `Square` component:
+Đầu tiên, bạn sẽ copy dòng định nghĩa hình vuông đầu tiên (`<button className="square">1</button>`) từ component `Board` ra một component `Square` mới:
 
 ```js {1-3}
 function Square() {
@@ -524,7 +525,7 @@ export default function Board() {
 }
 ```
 
-Then you'll update the Board component to render that `Square` component using JSX syntax:
+Sau đó, bạn sẽ cập nhật component Board để render component `Square` này sử dụng cú pháp JSX:
 
 ```js {5-19}
 // ...
@@ -551,15 +552,15 @@ export default function Board() {
 }
 ```
 
-Note how unlike the browser `div`s, your own components `Board` and `Square` must start with a capital letter. 
+Để ý rằng khác với các thẻ `div`, component `Board` và `Square` của bạn phải bắt đầu bằng chữ cái viết hoa. 
 
-Let's take a look:
+Cùng nhìn qua kết quả:
 
 ![one-filled board](../images/tutorial/board-filled-with-ones.png)
 
-Oh no! You lost the numbered squares you had before. Now each square says "1". To fix this, you will use *props* to pass the value each square should have from the parent component (`Board`) to its child (`Square`).
+Ôi không! Các hình vuông được đánh số đã bị mất, bây giờ tất cả đều chứa số "1". Để sửa lại, bạn sẽ dùng các *prop (thuộc tính)* để truyền giá trị mà mỗi hình vuông nên có từ component cha mẹ (`Board`) xuống con của nó (`Square`).
 
-Update the `Square` component to read the `value` prop that you'll pass from the `Board`:
+Sửa lại component `Square` để đọc thuộc tính `value` mà bạn định truyền từ `Board`:
 
 ```js {1}
 function Square({ value }) {
@@ -567,9 +568,9 @@ function Square({ value }) {
 }
 ```
 
-`function Square({ value })` indicates the Square component can be passed a prop called `value`.
+`function Square({ value })` thể hiện rằng component Square có thể được truyền một thuộc tính (prop) có tên là `value`.
 
-Now you want to display that `value` instead of `1` inside every square. Try doing it like this:
+Bây giờ bạn muốn hiển thị thuộc tính `value` này thay vì `1` ở bên trong mỗi hình vuông. Hãy thử làm như sau:
 
 ```js {2}
 function Square({ value }) {
@@ -577,11 +578,11 @@ function Square({ value }) {
 }
 ```
 
-Oops, this is not what you wanted:
+Oops, đây không phải cái bạn muốn:
 
 ![value-filled board](../images/tutorial/board-filled-with-value.png)
 
-You wanted to render the JavaScript variable called `value` from your component, not the word "value". To "escape into JavaScript" from JSX, you need curly braces. Add curly braces around `value` in JSX like so:
+Bạn muốn render một biến JavaScript gọi là `value` từ component của bạn, chứ không phải chữ "value". Để "trở về với JavaScript" từ JSX, bạn cần các ngoặc nhọn. Thêm cặp ngoặc nhọn xung quanh `value` ở trong JSX như sau:
 
 ```js {2}
 function Square({ value }) {
@@ -589,11 +590,11 @@ function Square({ value }) {
 }
 ```
 
-For now, you should see an empty board:
+Bây giờ, bạn sẽ thấy một bảng trống:
 
 ![empty board](../images/tutorial/empty-board.png)
 
-This is because the `Board` component hasn't passed the `value` prop to each `Square` component it renders yet. To fix it you'll add the `value` prop to each `Square` component rendered by the `Board` component:
+Nguyên nhân là vì component `Board` chưa truyền prop `value` cho mỗi component `Square` mà nó render. Để sửa lại, bạn cần thêm thuộc tính (prop) `value` cho mỗi component `Square` mà component `Board` đang render:
 
 ```js {5-7,10-12,15-17}
 export default function Board() {
@@ -619,11 +620,11 @@ export default function Board() {
 }
 ```
 
-Now you should see a grid of numbers again:
+Bây giờ bạn sẽ thấy một lưới các số như trước:
 
 ![tic-tac-toe board filled with numbers 1 through 9](../images/tutorial/number-filled-board.png)
 
-Your updated code should look like this:
+Code đã được cập nhật sẽ trông như này:
 
 <Sandpack>
 
@@ -702,9 +703,9 @@ body {
 
 </Sandpack>
 
-### Making an interactive component {/*making-an-interactive-component*/}
+### Tạo một component có thể tương tác {/*making-an-interactive-component*/}
 
-Let's fill the `Square` component with an `X` when you click it. Declare a function called `handleClick` inside of the `Square`. Then, add `onClick` to the props of the button JSX element returned from the `Square`:
+Hãy điền vào component `Square` một dấu `X` khi ta nhấn vào nó. Khai báo một hàm tên là `handleClick` bên trong `Square`. Sau đó, thêm prop `onClick` cho phần tử JSX button trả về từ `Square`:
 
 ```js {2-4,9}
 function Square({ value }) {
@@ -723,19 +724,19 @@ function Square({ value }) {
 }
 ```
 
-If you click on a square now, you should see a log saying `"clicked!"` in the _Console_ tab at the bottom of the _Browser_ section in CodeSandbox. Clicking the square more than once will log `"clicked!"` again. Repeated console logs with the same message will not create more lines in the console. Instead, you will see an incrementing counter next to your first `"clicked!"` log.
+Nếu bạn ấn vào hình buông, bạn sẽ thấy một đoạn log `"clicked!"` trong thẻ _Console_ ở phía dưới của phần _Browser_ trong CodeSandbox. Ấn vào hình vuông lần nữa sẽ tiếp tục ghi ra `"clicked!"` lần nữa. Ghi cùng một đoạn tin nhắn nhiều hơn một lần ra console sẽ không tạo thêm nhiều dòng trong console. Thay vào đó, bạn sẽ thấy số đếm tăng thêm bên cạnh dòng log `"clicked!"` đầu tiên.
 
 <Note>
 
-If you are following this tutorial using your local development environment, you need to open your browser's Console. For example, if you use the Chrome browser, you can view the Console with the keyboard shortcut **Shift + Ctrl + J** (on Windows/Linux) or **Option + ⌘ + J** (on macOS).
+Nếu bạn đang làm theo hướng dẫn này sử dụng môi trường local, bạn cần mở Console của trình duyệt. Ví dụ, nếu bạn dùng trình duyệt Chrome, bạn có thể xem Console bằng cách dùng phím tắt **Shift + Ctrl + J** (ở trên Windows/Linux) hoặc **Option + ⌘ + J** (ở trên macOS).
 
 </Note>
 
-As a next step, you want the Square component to "remember" that it got clicked, and fill it with an "X" mark. To "remember" things, components use *state*.
+Tiếp theo, bạn muốn component Square "ghi nhớ" rằng nó được ấn, và điền vào một dấu "X". Để "ghi nhớ" điều gì đó, các component sử dụng *state* (dịch là trạng thái, nhưng từ bây giờ tài liệu này sẽ giữ nguyên là state).
 
-React provides a special function called `useState` that you can call from your component to let it "remember" things. Let's store the current value of the `Square` in state, and change it when the `Square` is clicked.
+React cung cấp một hàm đặc biệt gọi là `useState` mà bạn có thể gọi trong component của bạn để nó "ghi nhớ" điều gì đó. Hãy lưu giá trị hiện tại của `Square` trong state, và thay đổi nó khi `Square` được ấn.
 
-Import `useState` at the top of the file. Remove the `value` prop from the `Square` component. Instead, add a new line at the start of the `Square` that calls `useState`. Have it return a state variable called `value`:
+Import `useState` ở trên cùng của file. Bỏ prop `value` của component `Square`. Thay vào đó, thêm một dòng ở đầu đoạn code của `Square` sử dụng `useState`. Để nó trả về một biến state gọi là `value`:
 
 ```js {1,3,4}
 import { useState } from 'react';
@@ -747,9 +748,9 @@ function Square() {
     //...
 ```
 
-`value` stores the value and `setValue` is a function that can be used to change the value. The `null` passed to `useState` is used as the initial value for this state variable, so `value` here starts off equal to `null`.
+`value` lưu giá trị và `setValue` là hàm có thể được dùng để thay đổi giá trị đó. Giá trị `null` truyền vào `useState` được dùng như giá trị khởi đầu cho biến state này, vì vậy `value` ở đây sẽ bắt đầu với `null`.
 
-Since the `Square` component no longer accepts props anymore, you'll remove the `value` prop from all nine of the Square components created by the Board component:
+Vì component `Square` không nhận bất kỳ prop nào nữa, hãy bỏ prop `value` từ tất cả chín component Square bên trong component Board:
 
 ```js {6-8,11-13,16-18}
 // ...
@@ -776,7 +777,7 @@ export default function Board() {
 }
 ```
 
-Now you'll change `Square` to display an "X" when clicked. Replace the `console.log("clicked!");` event handler with `setValue('X');`. Now your `Square` component looks like this:
+Bây giờ ta sẽ thay đổi `Square` để hiển thị một chữ "X" khi ấn vào. Thay `console.log("clicked!");` với `setValue('X');`. Component `Square` của bạn sẽ trông như này:
 
 ```js {5}
 function Square() {
@@ -797,13 +798,13 @@ function Square() {
 }
 ```
 
-By calling this `set` function from an `onClick` handler, you're telling React to re-render that `Square` whenever its `<button>` is clicked. After the update, the `Square`'s `value` will be `'X'`, so you'll see the "X" on the game board. Click on any Square, and "X" should show up:
+Bằng cách gọi hàm `set` này trong hàm xử lý của `onClick`, bạn đang nói với React render lại component `Square` này mỗi khi `<button>` của nó được ấn. Sau khi cập nhật, `value` của `Square` sẽ là `'X'`, bạn sẽ thấy chữ "X" ở trên bảng trò chơi. Click vào bất kì Square nào, chữ "X" sẽ hiện lên:
 
 ![adding xes to board](../images/tutorial/tictac-adding-x-s.gif)
 
-Each Square has its own state: the `value` stored in each Square is completely independent of the others. When you call a `set` function in a component, React automatically updates the child components inside too.
+Mỗi Square có state riêng của nó: `value` lưu trong mỗi Square hoàn toàn độc lập với những state của Square khác. Nếu bạn gọi một hàm `set` bên trong một component, React cũng sẽ tự động cập nhật các component con bên trong nó.
 
-After you've made the above changes, your code will look like this:
+Sau khi bạn thực hiện các thay đổi bên trên, code của bạn sẽ nhìn như sau:
 
 <Sandpack>
 
@@ -897,25 +898,25 @@ body {
 
 </Sandpack>
 
-### React Developer Tools {/*react-developer-tools*/}
+### Các công cụ phát triển React (React Developer Tools) {/*react-developer-tools*/}
 
-React DevTools let you check the props and the state of your React components. You can find the React DevTools tab at the bottom of the _browser_ section in CodeSandbox:
+React DevTools cho phép bạn kiểm tra các prop và state của các component React của bạn. Bạn có thể tìm thẻ React DevTools ở cuối của phần _browser_ trong CodeSandbox:
 
 ![React DevTools in CodeSandbox](../images/tutorial/codesandbox-devtools.png)
 
-To inspect a particular component on the screen, use the button in the top left corner of React DevTools:
+Để quan sát một component cụ thể trên màn hình, sử dụng nút ở phía trên bên trái của React DevTools:
 
 ![Selecting components on the page with React DevTools](../images/tutorial/devtools-select.gif)
 
 <Note>
 
-For local development, React DevTools is available as a [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/), and [Edge](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil) browser extension. Install it, and the *Components* tab will appear in your browser Developer Tools for sites using React.
+Nếu bạn code trên local, React DevTools có sẵn dưới dạng các tiện ích mở rộng của trình duyệt [Chrome](https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en), [Firefox](https://addons.mozilla.org/en-US/firefox/addon/react-devtools/), và [Edge](https://microsoftedge.microsoft.com/addons/detail/react-developer-tools/gpphkfbcpidddadnkolkpfckpihlkkil). Sau khi cài đặt, thẻ *Components* sẽ xuất hiện trong Developer Tools của trình duyệt khi bạn vào các trang web sử dụng React.
 
 </Note>
 
-## Completing the game {/*completing-the-game*/}
+## Hoàn thiện trò chơi {/*completing-the-game*/}
 
-By this point, you have all the basic building blocks for your tic-tac-toe game. To have a complete game, you now need to alternate placing "X"s and "O"s on the board, and you need a way to determine a winner.
+Hiện giờ, bạn đã có tất cả các phần cơ bản để làm trò chơi tic-tac-toe. Để hoàn thiện trò chơi, bạn cần phải luân phiên đặt các chữ "X" và "O" trên bảng trò chơi, và bạn cần một cách nào đó để xác định người chiến thắng.
 
 ### Lifting state up {/*lifting-state-up*/}
 
@@ -1418,7 +1419,7 @@ function handleClick(i) {
 }
 ```
 
-Now you can only add `X`'s or `O`'s to empty squares! Here is what your code should look like at this point:
+Bây giờ bạn chỉ có thể thêm `X` hoặc `O` vào ô vuông trống. Code của bạn lúc này sẽ như sau:
 
 <Sandpack>
 
@@ -1522,7 +1523,7 @@ body {
 
 ### Declaring a winner {/*declaring-a-winner*/}
 
-Now that the players can take turns, you'll want to show when the game is won and there are no more turns to make. To do this you'll add a helper function called `calculateWinner` that takes an array of 9 squares, checks for a winner and returns `'X'`, `'O'`, or `null` as appropriate. Don't worry too much about the `calculateWinner` function; it's not specific to React:
+Bây giờ người chơi đã có thể chơi luân phiên, bạn sẽ muốn chỉ ra khi nào thì có một người chiến thắng, và không có thêm nước cờ nào nữa. Để làm điều này, bạn sẽ thêm một hàm phụ trợ gọi là `calculateWinner` nhận một mảng của 9 hình vuông, kiểm tra người chiến thắng và trả về `'X'`, `'O'`, hoặc `null` tương ứng. Đừng lo lắng quá về hàm `calculateWinner`; nó không liên quan đến React:
 
 ```js App.js
 export default function Board() {
@@ -1552,11 +1553,11 @@ function calculateWinner(squares) {
 
 <Note>
 
-It does not matter whether you define `calculateWinner` before or after the `Board`. Let's put it at the end so that you don't have to scroll past it every time you edit your components.
+Không quan trọng bạn định nghĩa `calculateWinner` trước hay sau `Board`. Hãy để nó ở cuối để bạn không phải scroll qua nó mỗi khi bạn muốn sửa các component của bạn.
 
 </Note>
 
-You will call `calculateWinner(squares)` in the `Board` component's `handleClick` function to check if a player has won. You can perform this check at the same time you check if a user has clicked a square that already has a `X` or and `O`. We'd like to return early in both cases:
+Bạn sẽ gọi `calculateWinner(squares)` trong hàm `handleClick` của component `Board` để kiểm tra xem đã có ai thắng chưa. Bạn có thể thực hiện kiểm tra người thắng cùng lúc với kiểm tra người chơi có ấn vào một hình vuông đã có `X` hoặc `O`. Chúng ta muốn `return` sớm trong cả hai trường hợp:
 
 ```js {2}
 function handleClick(i) {
@@ -1568,7 +1569,7 @@ function handleClick(i) {
 }
 ```
 
-To let the players know when the game is over, you can display text such as "Winner: X" or "Winner: O". To do that you'll add a `status` section to the `Board` component. The status will display the winner if the game is over and if the game is ongoing you'll display which player's turn is next:
+Để các người chơi biết khi nào thì trò chơi kết thúc, bạn có thể hiển thị ví dụ "Người thắng: X" hoặc "Người thắng: O". Thêm một phần `status` vào component `Board`. Phần này sẽ hiển thị người thắng nếu trò chơi kết thúc và nếu trò chơi vẫn tiếp tục thì hiển thị người có lượt chơi tiếp theo:
 
 ```js {3-9,13}
 export default function Board() {
@@ -1576,9 +1577,9 @@ export default function Board() {
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
-    status = "Winner: " + winner;
+    status = "Người thắng: " + winner;
   } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
+    status = "Người tiếp theo: " + (xIsNext ? "X" : "O");
   }
 
   return (
@@ -1590,7 +1591,7 @@ export default function Board() {
 }
 ```
 
-Congratulations! You now have a working tic-tac-toe game. And you've just learned the basics of React too. So _you_ are the real winner here. Here is what the code should look like:
+Chúc mừng! Bây giờ trò chơi tic-tac-toe đã hoạt động. Bạn cũng đã học các kiến thức cơ bản của React, nên _bạn_ mới chính là người thắng ở đây. Code của bạn sẽ trông như sau:
 
 <Sandpack>
 
@@ -1626,9 +1627,9 @@ export default function Board() {
   const winner = calculateWinner(squares);
   let status;
   if (winner) {
-    status = 'Winner: ' + winner;
+    status = 'Người thắng: ' + winner;
   } else {
-    status = 'Next player: ' + (xIsNext ? 'X' : 'O');
+    status = 'Người tiếp theo: ' + (xIsNext ? 'X' : 'O');
   }
 
   return (
@@ -1721,37 +1722,37 @@ body {
 
 </Sandpack>
 
-## Adding time travel {/*adding-time-travel*/}
+## Thêm du hành thời gian {/*adding-time-travel*/}
 
-As a final exercise, let's make it possible to "go back in time" to the previous moves in the game.
+Bài tập cuối cùng, hãy làm cho nó có thể "quay ngược thời gian" về các nước đi trước đó trong trò chơi.
 
 ### Storing a history of moves {/*storing-a-history-of-moves*/}
 
-If you mutated the `squares` array, implementing time travel would be very difficult.
+Nếu bạn đã sửa mảng `squares`, thực hiện du hành thời gian sẽ rất khó khăn.
 
-However, you used `slice()` to create a new copy of the `squares` array after every move, and treated it as immutable. This will allow you to store every past version of the `squares` array, and navigate between the turns that have already happened.
+Tuy nhiên, bạn đã sử dụng `slice()` để tạo mới một bản sao của mảng `squares` sau mỗi nước đi, và làm nó trở thành không thay đổi được. Việc này giúp bạn lưu mỗi phiên bản quá khứ của mảng `squares`, và điều hướng tới các lượt đã chơi.
 
-You'll store the past `squares` arrays in another array called `history`, which you'll store as a new state variable. The `history` array represents all board states, from the first to the last move, and has a shape like this:
+Bạn sẽ lưu các mảng `squares` quá khứ vào trong mảng khác gọi là `history`, một biến state mới. Mảng `history` đại diện cho state của cả bảng chơi, từ nước đi đầu tới nước đi cuối, và có dạng như sau:
 
 ```jsx
 [
-  // Before first move
+  // Trước nước đi đầu tiên
   [null, null, null, null, null, null, null, null, null],
-  // After first move
+  // Sau nước đi đầu tiên
   [null, null, null, null, 'X', null, null, null, null],
-  // After second move
+  // Sau nước đi thứ hai
   [null, null, null, null, 'X', null, null, null, 'O'],
   // ...
 ]
 ```
 
-### Lifting state up, again {/*lifting-state-up-again*/}
+### Đẩy state lên, lần nữa {/*lifting-state-up-again*/}
 
-You will now write a new top-level component called `Game` to display a list of past moves. That's where you will place the `history` state that contains the entire game history.
+Bạn sẽ viết một component cấp cao nhất mới gọi là `Game` để hiển thị danh sách các nước cờ trong quá khứ. Đây là nơi bạn để state `history` chứa lịch sử của toàn bộ game.
 
-Placing the `history` state into the `Game` component will let you remove the `squares` state from its child `Board` component. Just like you "lifted state up" from the `Square` component into the `Board` component, you will now lift it up from the `Board` into the top-level `Game` component. This gives the `Game` component full control over the `Board`'s data and lets it instruct the `Board` to render previous turns from the `history`.
+Đặt state `history` vào trong component `Game` cho phép bạn xoá state `squares` từ component con `Board`. Giống như bạn "đẩy state lên" từ component `Square` vào component `Board`, bây giờ bạn sẽ đẩy từ `Board` vào `Game`. Nó sẽ giúp `Game` toàn quyền kiểm soát dữ liệu của `Board` và  giúp nó chỉ dẫn `Board` render các nước đi trước dó từ `history`.
 
-First, add a `Game` component with `export default`. Have it render the `Board` component and some markup:
+Đầu tiên, thêm component `Game` với `export default`. Render component `Board` và một vài đoạn nữa bên trong nó:
 
 ```js {1,5-16}
 function Board() {
