@@ -124,13 +124,8 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 * [Kuala Lumpur](https://www.kl-react.com/)
 * [Penang](https://www.facebook.com/groups/reactpenang/)
 
-<<<<<<< HEAD
-## Hà Lan {/*netherlands*/}
-* [Amsterdam](https://www.meetup.com/React-Amsterdam/)
-=======
 ## Netherlands {/*netherlands*/}
 * [Amsterdam](https://guild.host/react-amsterdam)
->>>>>>> 7bdbab144e09d4edf793ff5128080eb1dba79be4
 
 ## New Zealand {/*new-zealand*/}
 * [Wellington](https://www.meetup.com/React-Wellington/)
