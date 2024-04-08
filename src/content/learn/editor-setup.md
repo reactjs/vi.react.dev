@@ -40,7 +40,11 @@ Các trình kiểm tra lỗi code (linters) giúp phát hiện các vấn đề 
 
 ### Định dạng code {/*định-dạng-code*/}
 
+<<<<<<< HEAD
 Điều cuối cùng mà bạn muốn làm khi chia sẻ code của mình cho người khác chính là tranh cãi với họ về việc sử dụng [tabs và spaces](https://www.google.com/search?q=tabs+vs+spaces)! May mắn thay, [Prettier](https://prettier.io/) sẽ giúp bạn làm sạch code của mình bằng cách định dạng lại theo các quy tắc được thiết lập sẵn và có thể cấu hình được. Chạy Prettier và tất cả các tab của bạn sẽ được chuyển đổi thành dấu cách - và các thụt đầu dòng, dấu ngoặc kép, v.v. cũng sẽ được thay đổi để phù hợp với cấu hình. Trong cài đặt lý tưởng, Prettier sẽ chạy khi bạn lưu tệp của mình, nhanh chóng thực hiện các chỉnh sửa này cho bạn.
+=======
+The last thing you want to do when sharing your code with another contributor is get into a discussion about [tabs vs spaces](https://www.google.com/search?q=tabs+vs+spaces)! Fortunately, [Prettier](https://prettier.io/) will clean up your code by reformatting it to conform to preset, configurable rules. Run Prettier, and all your tabs will be converted to spaces—and your indentation, quotes, etc will also all be changed to conform to the configuration. In the ideal setup, Prettier will run when you save your file, quickly making these edits for you.
+>>>>>>> 93177e6ceac8ffb5c2a8f3ed4bd1f80b63097078
 
 Bạn có thể cài đặt [tiện ích Prettier trong VSCode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) bằng những bước sau đây:
 
