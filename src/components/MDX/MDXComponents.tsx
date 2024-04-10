@@ -180,7 +180,7 @@ function YouWillLearn({
   children: any;
   isChapter?: boolean;
 }) {
-  let title = isChapter ? 'In this chapter' : 'You will learn';
+  let title = isChapter ? 'In this chapter' : 'Bạn sẽ học về';
   return <SimpleCallout title={title}>{children}</SimpleCallout>;
 }
 
