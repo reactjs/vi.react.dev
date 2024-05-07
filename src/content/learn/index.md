@@ -77,7 +77,7 @@ Từ khóa `export default` chỉ thành phần (component) chính trong file. N
 
 ## Viết markup với JSX {/*writing-markup-with-jsx*/}
 
-Cú pháp đánh dấu bạn đã thấy ở trên được gọi là *JSX*. Nó là tùy chọn, nhưng hầu hết các dự án React sử dụng JSX vì sự tiện lợi của nó. Tất cả [các công cụ chúng tôi giới thiệu cho việc phát triển cục bộ](/learn/installation) đều hỗ trợ JSX từ đầu.
+Cú pháp đánh dấu bạn đã thấy ở trên được gọi là *JSX*. Nó không bắt buộc, nhưng hầu hết các dự án React sử dụng JSX vì sự tiện lợi của nó. Tất cả [các công cụ chúng tôi giới thiệu cho việc phát triển cục bộ](/learn/installation) đều hỗ trợ JSX từ đầu.
 
 JSX nghiêm ngặt hơn HTML. Bạn phải đóng thẻ như `<br />`. Thành phần (component) của bạn cũng không thể trả về nhiều thẻ JSX. Bạn phải bọc chúng vào một thẻ cha chung, như `<div>...</div>` hoặc một bọc rỗng `<>...</>`:
 
@@ -115,7 +115,7 @@ React không quy định cách bạn thêm các tệp CSS. Trong trường hợp
 
 ## Hiển thị dữ liệu {/*displaying-data*/}
 
-JSX cho phép bạn đặt cú pháp đánh dấu vào JavaScript. Dấu ngoặc nhọn cho phép bạn "thoát lại" vào JavaScript để bạn có thể nhúng một biến từ mã của bạn và hiển thị nó cho người dùng. Ví dụ, điều này sẽ hiển thị `user.name`:
+JSX cho phép bạn đặt cú pháp đánh dấu (markup) vào JavaScript. Dấu ngoặc nhọn cho phép bạn "trở lại" vào JavaScript để bạn có thể nhúng một biến từ mã của bạn và hiển thị nó cho người dùng. Ví dụ, điều này sẽ hiển thị `user.name`:
 
 ```js {3}
 return (
@@ -126,7 +126,7 @@ return (
 ```
 
 
-Bạn cũng có thể "thoát vào JavaScript" từ các thuộc tính JSX, nhưng bạn phải sử dụng dấu ngoặc nhọn *thay vì* dấu ngoặc kép. Ví dụ, `className="avatar"` truyền chuỗi `"avatar"` làm lớp CSS, nhưng `src={user.imageUrl}` đọc giá trị biến JavaScript `user.imageUrl`, và sau đó truyền giá trị đó làm thuộc tính `src`:
+Bạn cũng có thể "trở lại JavaScript" từ các thuộc tính JSX, nhưng bạn phải sử dụng dấu ngoặc nhọn *thay vì* dấu ngoặc kép. Ví dụ, `className="avatar"` truyền chuỗi `"avatar"` làm lớp CSS, nhưng `src={user.imageUrl}` đọc giá trị biến JavaScript `user.imageUrl`, và sau đó truyền giá trị đó làm thuộc tính `src`:
 
 ```js {3,4}
 return (
@@ -210,7 +210,7 @@ Nếu bạn muốn mã gọn hơn, bạn có thể sử dụng [điều kiện `
 </div>
 ```
 
-Khi bạn không cần dùng nhánh `else`, bạn cũng có thể sử dụng cách ngắn hơn [điều kiện `&&` cú pháp](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation):
+Khi bạn không cần nhánh `else`, bạn cũng có thể sử dụng cách ngắn hơn [điều kiện `&&` logic ngắn gọn](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Logical_AND#short-circuit_evaluation):
 
 ```js
 <div>
@@ -279,9 +279,9 @@ export default function ShoppingList() {
 
 </Sandpack>
 
-## Phản ứng tới các sự kiện {/*responding-to-events*/}
+## Xử lý các sự kiện {/*responding-to-events*/}
 
-Bạn có thể phản ứng với các sự kiện bằng cách khai báo các *hàm xử lý sự kiện* bên trong các component của bạn:
+Bạn có thể xử lý các sự kiện bằng cách khai báo các *hàm xử lý sự kiện* bên trong các component của bạn:
 
 ```js {2-4,7}
 function MyButton() {
@@ -388,7 +388,7 @@ Các hàm bắt đầu bằng `use` được gọi là *Hooks*. `useState` là m
 
 Các Hook có các hạn chế hơn so với các hàm khác. Bạn chỉ có thể gọi các Hook *ở đầu* của các component của bạn (hoặc các Hook khác). Nếu bạn muốn sử dụng `useState` trong một điều kiện hoặc một vòng lặp, hãy trích xuất một component mới và đặt nó ở đó.
 
-## Chia sẻ dữ liệu giữa các components {/*sharing-data-between-components*/}
+## Chia sẻ dữ liệu giữa các component {/*sharing-data-between-components*/}
 
 Trong ví dụ trước đó, mỗi `MyButton` có một `count` độc lập riêng, và khi mỗi nút được nhấp vào, chỉ có `count` của nút đó mới thay đổi:
 
@@ -396,14 +396,12 @@ Trong ví dụ trước đó, mỗi `MyButton` có một `count` độc lập ri
 
 <Diagram name="sharing_data_child" height={367} width={407} alt="Diagram showing a tree of three components, one parent labeled MyApp and two children labeled MyButton. Both MyButton components contain a count with value zero.">
 
-Khởi đầu, mỗi trạng thái `count` của `MyButton` là `0`
-
+Ban đầu, trạng thái `count` của mỗi `MyButton` là `0`
 </Diagram>
 
 <Diagram name="sharing_data_child_clicked" height={367} width={407} alt="The same diagram as the previous, with the count of the first child MyButton component highlighted indicating a click with the count value incremented to one. The second MyButton component still contains value zero." >
 
-Đầu tiên `MyButton` được cập nhật `count` của nó lên `1`
-
+Nút `MyButton` đầu tiên cập nhật trạng thái `count` của nó thành `1`
 </Diagram>
 
 </DiagramGroup>
@@ -424,15 +422,15 @@ Ban đầu, trạng thái `count` của `MyApp` là `0` và được truyền xu
 
 <Diagram name="sharing_data_parent_clicked" height={385} width={410} alt="The same diagram as the previous, with the count of the parent MyApp component highlighted indicating a click with the value incremented to one. The flow to both of the children MyButton components is also highlighted, and the count value in each child is set to one indicating the value was passed down." >
 
-Khi nhấp vào, `MyApp` cập nhật trạng thái `count` của nó thành `1` và truyền nó xuống cả hai children
+Khi được nhấp vào, `MyApp` cập nhật trạng thái `count` của nó thành `1` và truyền nó xuống cho cả hai thành phần con.  
 
 </Diagram>
 
 </DiagramGroup>
 
-Bây giờ khi bạn nhấp vào bất kỳ nút nào, `count` trong `MyApp` sẽ thay đổi, điều này sẽ thay đổi cả hai count trong `MyButton`. Đây là cách bạn có thể biểu diễn điều này trong code.
+Bây giờ khi bạn nhấp vào bất kỳ nút nào, `count` trong `MyApp` sẽ thay đổi, điều này sẽ thay đổi cả hai `count` trong `MyButton`. Dưới đây là cách bạn có thể biểu diễn điều này trong mã (code).
 
-Đầu tiên, *dịch chuyển trạng thái (state) đi lên* từ `MyButton` vào `MyApp`:
+Đầu tiên, *di chuyển trạng thái (state) lên* từ `MyButton` vào `MyApp`:
 
 ```js {2-6,18}
 export default function MyApp() {
@@ -457,7 +455,7 @@ function MyButton() {
 
 ```
 
-Sau đó, *truyền trạng thái (state) xuống* từ `MyApp` đến mỗi `MyButton`, cùng với trình xử lý click được chia sẻ. Bạn có thể truyền thông tin cho `MyButton` bằng cách sử dụng dấu ngoặc nhọn JSX, giống như bạn đã làm trước đây với các thẻ tích hợp như `<img>`:
+Sau đó, *truyền trạng thái (state) xuống* từ `MyApp` đến mỗi `MyButton`, cùng với trình xử lý click chung. Bạn có thể truyền thông tin cho `MyButton` bằng cách sử dụng dấu ngoặc nhọn JSX, giống như bạn đã làm trước đây với các thẻ tích hợp như `<img>`:
 
 ```js {11-12}
 export default function MyApp() {
@@ -491,7 +489,7 @@ function MyButton({ count, onClick }) {
 }
 ```
 
-Khi bạn nhấp vào nút, trình xử lý `onClick` được kích hoạt. Mỗi prop `onClick` của nút được đặt thành hàm `handleClick` bên trong `MyApp`, vì vậy mã bên trong nó chạy. Mã đó gọi `setCount(count + 1)`, tăng biến trạng thái `count`. Giá trị `count` mới được truyền như một prop cho mỗi nút, vì vậy chúng đều hiển thị giá trị mới. Điều này được gọi là "nâng cao trạng thái". Bằng cách di chuyển trạng thái lên, bạn đã chia sẻ nó giữa các thành phần.
+Khi bạn nhấp vào nút, trình xử lý `onClick` sẽ được kích hoạt. Mỗi prop `onClick` của nút được đặt thành hàm `handleClick` bên trong `MyApp`, vì vậy mã bên trong nó chạy. Mã đó gọi `setCount(count + 1)`, tăng biến trạng thái `count`. Giá trị `count` mới được truyền như một prop cho mỗi nút, vì vậy chúng đều hiển thị giá trị mới. Điều này được gọi là "nâng cao trạng thái". Bằng cách di chuyển trạng thái lên, bạn đã chia sẻ nó giữa các thành phần.
 
 <Sandpack>
 
