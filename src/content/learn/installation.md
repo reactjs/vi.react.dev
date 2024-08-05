@@ -37,7 +37,11 @@ export default function App() {
 
 Bạn có thể chỉnh sửa trực tiếp hoặc mở nó trong một tab mới bằng cách ấn vào nút "Fork" ở góc trên bên phải.
 
+<<<<<<< HEAD
 Hầu hết các trang trong tài liệu React chứa các sandbox như thế này. Ngoài trang tài liệu React, có rất nhiều các online sandbox hỗ trợ React: ví dụ, [CodeSandbox](https://codesandbox.io/s/new), [StackBlitz](https://stackblitz.com/fork/react), or [CodePen.](https://codepen.io/pen?&editors=0010&layout=left&prefill_data_id=3f4569d1-1b11-4bce-bd46-89090eed5ddb)
+=======
+Most pages in the React documentation contain sandboxes like this. Outside of the React documentation, there are many online sandboxes that support React: for example, [CodeSandbox](https://codesandbox.io/s/new), [StackBlitz](https://stackblitz.com/fork/react), or [CodePen.](https://codepen.io/pen?template=QWYVwWN)
+>>>>>>> 6274d4faf5afcef74357871d06191558050e23d3
 
 ### Thử dùng React trên máy tính của bạn {/*try-react-locally*/}
 
