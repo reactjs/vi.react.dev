@@ -131,14 +131,16 @@
     {
       "title": "Managing State",
       "path": "/learn/managing-state",
-      "tags": ["intermediate"],
+      "tags": [
+        "intermediate"
+      ],
       "routes": [
         {
           "title": "Reacting to Input with State",
           "path": "/learn/reacting-to-input-with-state"
         },
         {
-          "title": "Choosing the State Structure",
+          "title": "Lựa chọn cấu trúc cho state",
           "path": "/learn/choosing-the-state-structure"
         },
         {
@@ -166,7 +168,9 @@
     {
       "title": "Escape Hatches",
       "path": "/learn/escape-hatches",
-      "tags": ["advanced"],
+      "tags": [
+        "advanced"
+      ],
       "routes": [
         {
           "title": "Referencing Values with Refs",
