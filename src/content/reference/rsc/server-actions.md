@@ -53,7 +53,7 @@ When React renders the `EmptyNote` Server Component, it will create a reference 
 export default function Button({onClick}) { 
   console.log(onClick); 
   // {$$typeof: Symbol.for("react.server.reference"), $$id: 'createNoteAction'}
-  return <button onClick={onClick}>Create Empty Note</button>
+  return <button onClick={() => onClick()}>Create Empty Note</button>
 }
 ```
 
@@ -173,7 +173,7 @@ You can compose Server Actions with `useActionState` for the common case where y
 import {updateName} from './actions';
 
 function UpdateName() {
-  const [submitAction, state, isPending] = useActionState(updateName, {error: null});
+  const [state, submitAction, isPending] = useActionState(updateName, {error: null});
 
   return (
     <form action={submitAction}>
