@@ -78,7 +78,7 @@ Bây giờ code của component sẽ tải khi được yêu cầu, bạn sẽ c
 <Suspense fallback={<Loading />}>
   <h2>Preview</h2>
   <MarkdownPreview />
- </Suspense>
+</Suspense>
 ```
 
 Trong ví dụ này, đoạn code cho `MarkdownPreview` sẽ không được tải cho tới khi bạn thực thi việc render nó. Nếu `MarkdownPreview` vẫn chưa được tải xong, `Loading` sẽ được hiển thị vào vị trí của nó. Hãy thử tích vào checkbox dưới đây:
