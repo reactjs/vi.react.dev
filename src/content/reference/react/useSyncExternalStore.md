@@ -41,7 +41,11 @@ Nó trả về ảnh chụp(snapshot) của dữ liệu trong store. Bạn cần
 
 #### Các tham số(Parameters) {/*parameters*/}
 
+<<<<<<< HEAD
 * `subscribe`: Một hàm nhận một đối số `callback` duy nhất và đăng ký nó với store. Khi store thay đổi, nó nên gọi hàm `callback` được cung cấp. Điều này sẽ khiến cho component được render lại. Hàm `subscribe` nên trả về một hàm dùng để dọn dẹp đăng ký(subscription).
+=======
+* `subscribe`: A function that takes a single `callback` argument and subscribes it to the store. When the store changes, it should invoke the provided `callback`, which will cause React to re-call `getSnapshot` and (if needed) re-render the component. The `subscribe` function should return a function that cleans up the subscription.
+>>>>>>> 8201e7e9203321bd1648c3ab0b76ef943c9ec3ad
 
 * `getSnapshot`: Một hàm trả về ảnh chụp(snapshot) của dữ liệu trong store mà component cần. Trong khi store không thay đổi, các lời gọi lại tới `getSnapshot` phải trả về cùng một giá trị. Nếu store thay đổi và giá trị trả về khác nhau (được so sánh bởi [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)), React sẽ render lại component.
 
