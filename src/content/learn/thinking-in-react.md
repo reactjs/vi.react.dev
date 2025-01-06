@@ -271,7 +271,15 @@ Sau khi xác định được dữ liệu state cần thiết cho ứng dụng c
 Ở bước trước, bạn đã tìm thấy hai phần state trong ứng dụng này: văn bản đầu vào tìm kiếm và giá trị của hộp kiểm. Trong ví dụ này, chúng luôn xuất hiện cùng nhau, vì vậy hợp lý để đặt chúng vào cùng một nơi.
 
 
+<<<<<<< HEAD
 Bây giờ chúng ta hãy xem lại chiến lược của chúng ta cho state:
+=======
+1. **Identify components that use state:**
+    * `ProductTable` needs to filter the product list based on that state (search text and checkbox value). 
+    * `SearchBar` needs to display that state (search text and checkbox value).
+2. **Find their common parent:** The first parent component both components share is `FilterableProductTable`.
+3. **Decide where the state lives**: We'll keep the filter text and checked state values in `FilterableProductTable`.
+>>>>>>> b1a249d597016c6584e4c186daa28b180cc9aafc
 
 1. **Xác định các thành phần sử dụng trạng thái (state):**
     * `ProductTable` cần lọc danh sách sản phẩm dựa trên trạng thái đó (văn bản tìm kiếm và giá trị hộp kiểm).
