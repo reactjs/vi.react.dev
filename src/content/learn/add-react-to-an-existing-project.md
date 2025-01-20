@@ -20,9 +20,15 @@ Giả sử bạn có một ứng dụng web tại `example.com` được phát t
 
 Đây là cách chúng tôi đề xuất để cài đặt:
 
+<<<<<<< HEAD
 1. **Xây dựng phần React của ứng dụng của bạn** sử dụng một trong những [nền tảng ứng dụng (framework) sử dụng React](/learn/start-a-new-react-project).
 2. **Chỉ định `/some-app` là *đường dẫn gốc*** trong cấu hình ứng dụng của bạn. (xem hướng dẫn với: [Next.js](https://nextjs.org/docs/api-reference/next.config.js/basepath), [Gatsby](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/)).
 3. **Cấu hình máy chủ của bạn hoặc một proxy** để tất cả các requests ở `/some-app/` được xử lý bởi ứng dụng React của bạn.
+=======
+1. **Build the React part of your app** using one of the [React-based frameworks](/learn/start-a-new-react-project).
+2. **Specify `/some-app` as the *base path*** in your framework's configuration (here's how: [Next.js](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath), [Gatsby](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/)).
+3. **Configure your server or a proxy** so that all requests under `/some-app/` are handled by your React app.
+>>>>>>> b22cbc3fed310b39c99fdd0f01621ac1903d1e8e
 
 Điều này đảm bảo phần React của ứng dụng của bạn có thể được [hưởng lợi từ các tiêu chuẩn tốt nhất](/learn/start-a-new-react-project#can-i-use-react-without-a-framework) đã được tích hợp sẵn trong các Frameworks đó.
 
@@ -57,12 +63,17 @@ Sau đó thêm những dòng code này vào đầu của file JavaScript chính 
 
 <Sandpack>
 
-```html index.html hidden
+```html public/index.html hidden
 <!DOCTYPE html>
 <html>
   <head><title>My app</title></head>
   <body>
+<<<<<<< HEAD
     <!-- Nội dung website của bạn trước đó (chúng sẽ được xoá trong ví dụ này) -->
+=======
+    <!-- Your existing page content (in this example, it gets replaced) -->
+    <div id="root"></div>
+>>>>>>> b22cbc3fed310b39c99fdd0f01621ac1903d1e8e
   </body>
 </html>
 ```
@@ -119,7 +130,7 @@ Thay vào đó, bạn sẽ muốn render các component React ở những nơi c
 
 <Sandpack>
 
-```html index.html
+```html public/index.html
 <!DOCTYPE html>
 <html>
   <head><title>My app</title></head>
