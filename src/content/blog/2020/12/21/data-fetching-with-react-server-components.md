@@ -5,7 +5,11 @@ date: 2020/12/21
 description: 2020 đã là một năm dài. Khi năm này khép lại, chúng tôi muốn chia sẻ một Bản Cập Nhật Đặc Biệt về nghiên cứu của chúng tôi về zero-bundle-size React Server Components.
 ---
 
+<<<<<<< HEAD
 December 21, 2020 bởi [Dan Abramov](https://twitter.com/dan_abramov), [Lauren Tan](https://twitter.com/potetotes), [Joseph Savona](https://twitter.com/en_JS), và [Sebastian Markbåge](https://twitter.com/sebmarkbage)
+=======
+December 21, 2020 by [Dan Abramov](https://bsky.app/profile/danabra.mov), [Lauren Tan](https://twitter.com/potetotes), [Joseph Savona](https://twitter.com/en_JS), and [Sebastian Markbåge](https://twitter.com/sebmarkbage)
+>>>>>>> a5aad0d5e92872ef715b462b1dd6dcbeb45cf781
 
 ---
 
