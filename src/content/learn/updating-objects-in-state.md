@@ -57,6 +57,7 @@ Trong ví dụ này, một đối tượng được lưu trữ trong state để
 
 ```js
 import { useState } from 'react';
+
 export default function MovingDot() {
   const [position, setPosition] = useState({
     x: 0,
@@ -127,6 +128,7 @@ Hãy để ý cách mà điểm màu đó đi theo con trỏ chuột của bạn
 
 ```js
 import { useState } from 'react';
+
 export default function MovingDot() {
   const [position, setPosition] = useState({
     x: 0,
@@ -379,7 +381,11 @@ Hãy chú ý rằng cú pháp phân tán (spread) `...` là "nông"--nó chỉ s
 
 #### Sử dụng một hàm sử lý sự kiện duy nhất cho nhiều fields khác nhau {/*using-a-single-event-handler-for-multiple-fields*/}
 
+<<<<<<< HEAD
 Bạn cũng có thể sử dụng các ký hiệu `[` và `]` bên trong định nghĩa đối tượng của bạn để chỉ định một thuộc tính có tên động (dynamic name). Dưới đây là cùng một ví dụ, nhưng chỉ với một hàm xử lý sự kiện duy nhất thay vì ba hàm sử lý khác nhau: 
+=======
+You can also use the `[` and `]` braces inside your object definition to specify a property with a dynamic name. Here is the same example, but with a single event handler instead of three different ones:
+>>>>>>> ab18d2f0f5151ab0c927a12eb0a64f8170762eff
 
 <Sandpack>
 
