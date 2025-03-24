@@ -69,7 +69,7 @@ Thử comment dòng gọi `root.render()` lại và bạn sẽ thấy component 
 Khi component đã được render khởi tạo, bạn có thể trigger thêm nhiều lần render khác bằng cách cập nhật lại state của nó bằng [`set` function.](/reference/react/useState#setstate) Việc cập nhật lại state cho component của bạn sẽ tự động yêu cầu một lần render. (Bạn có thể tưởng tượng những thứ này giống như việc một vị khách trong nhà hàng đang gọi thêm trà, món tráng miệng và các món khác sau lần gọi món đầu tiên, tùy thuộc vào trạng thái đói hay khát của họ).
 
 <IllustrationBlock sequential>
-  <Illustration caption="State update..." alt="React as a server in a restaurant, serving a Card UI to the user, represented as a patron with a cursor for their head. They patron expresses they want a pink card, not a black one!" src="/images/docs/illustrations/i_rerender1.png" />
+  <Illustration caption="State update..." alt="React as a server in a restaurant, serving a Card UI to the user, represented as a patron with a cursor for their head. The patron expresses they want a pink card, not a black one!" src="/images/docs/illustrations/i_rerender1.png" />
   <Illustration caption="...triggers..." alt="React returns to the Component Kitchen and tells the Card Chef they need a pink Card." src="/images/docs/illustrations/i_rerender2.png" />
   <Illustration caption="...render!" alt="The Card Chef gives React the pink Card." src="/images/docs/illustrations/i_rerender3.png" />
 </IllustrationBlock>
@@ -83,7 +83,11 @@ Sau khi bạn trigger một lần render, React sẽ gọi tới các component 
 
 Quá trình này là một vòng lặp đệ quy: nếu component được cập nhật trả về component thì React tiếp theo sẽ render component _đó_, và nếu component đó lại cũng trả về một component khác thì React sẽ lại tiếp tục render component và cứ thế. Quá trình này sẽ kéo dài cho tới khi không còn component lồng nhau nào nữa và React biết chính xác cái gì sẽ được hiển thị lên màn hình. 
 
+<<<<<<< HEAD
 Trong ví dụ phía dưới, React sẽ gọi tới `Gallery()` và `Image()` nhiều lần:
+=======
+In the following example, React will call `Gallery()` and `Image()` several times:
+>>>>>>> f6d762cbbf958ca45bb8d1d011b31e5289e43a3d
 
 <Sandpack>
 
@@ -148,9 +152,16 @@ Hành vi mặc định của việc render tất cả các component lồng bên
 
 ## Step 3: React commit các thay đổi vào DOM {/*step-3-react-commits-changes-to-the-dom*/}
 
+<<<<<<< HEAD
 Sau khi render (gọi tới) các component của bạn, React sẽ thay đổi DOM.
 
 * **Đối với lần render khởi tạo,** React sẽ dùng DOM API [`appendChild()`](https://developer.mozilla.org/docs/Web/API/Node/appendChild) để hiển thị tất cả các DOM node mà nó đã tạo ra lên trên màn hình.
+=======
+After rendering (calling) your components, React will modify the DOM.
+
+* **For the initial render,** React will use the [`appendChild()`](https://developer.mozilla.org/docs/Web/API/Node/appendChild) DOM API to put all the DOM nodes it has created on screen.
+* **For re-renders,** React will apply the minimal necessary operations (calculated while rendering!) to make the DOM match the latest rendering output.
+>>>>>>> f6d762cbbf958ca45bb8d1d011b31e5289e43a3d
 
 * **Đối với các lần render lại,** React sẽ áp dụng các thao tác tối thiểu cần thiết (được tính toán trong khi render!) để làm cho DOM khớp với kết quả render mới nhất.
 
