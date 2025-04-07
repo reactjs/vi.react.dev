@@ -53,17 +53,21 @@ Hãy tải lại trang web của bạn ngay để có thể nhìn thấy nó v�
 ![Công cụ phát triển React độc lập](/images/docs/react-devtools-standalone.png)
 
 ## Mobile (React Native) {/*mobile-react-native*/}
+<<<<<<< HEAD
 Công cụ phát triển React có thể được sử dụng để kiểm tra các ứng dụng được xây dựng bằng [React Native](https://reactnative.dev/) as well.
 
 Cách đơn giản nhất để sử dụng công cụ phát triển React là cài đặt nó toàn cục trên hệ thống của bạn:
 ```bash
 # Yarn
 yarn global add react-devtools
+=======
 
-# Npm
-npm install -g react-devtools
-```
+To inspect apps built with [React Native](https://reactnative.dev/), you can use [React Native DevTools](https://reactnative.dev/docs/react-native-devtools), the built-in debugger that deeply integrates React Developer Tools. All features work identically to the browser extension, including native element highlighting and selection.
+>>>>>>> 5138e605225b24d25701a1a1f68daa90499122a4
 
+[Learn more about debugging in React Native.](https://reactnative.dev/docs/debugging)
+
+<<<<<<< HEAD
 Sau đó mở công cụ phát triển từ terminal.
 ```bash
 react-devtools
@@ -74,3 +78,6 @@ Nó sẽ kết nối với bất kỳ ứng dụng React Native nào đang chạ
 > Hãy thử tải lại ứng dụng nếu công cụ phát triển không kết nối sau vài giây.
 
 [Tìm hiểu thêm về debugging với React Native.](https://reactnative.dev/docs/debugging)
+=======
+> For versions of React Native earlier than 0.76, please use the standalone build of React DevTools by following the [Safari and other browsers](#safari-and-other-browsers) guide above.
+>>>>>>> 5138e605225b24d25701a1a1f68daa90499122a4
