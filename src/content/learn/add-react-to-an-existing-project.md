@@ -20,9 +20,15 @@ Giả sử bạn có một ứng dụng web tại `example.com` được phát t
 
 Đây là cách chúng tôi đề xuất để cài đặt:
 
+<<<<<<< HEAD
 1. **Xây dựng phần React của ứng dụng của bạn** sử dụng một trong những [nền tảng ứng dụng (framework) sử dụng React](/learn/start-a-new-react-project).
 2. **Chỉ định `/some-app` là *đường dẫn gốc*** trong cấu hình ứng dụng của bạn. (xem hướng dẫn với: [Next.js](https://nextjs.org/docs/api-reference/next.config.js/basepath), [Gatsby](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/)).
 3. **Cấu hình máy chủ của bạn hoặc một proxy** để tất cả các requests ở `/some-app/` được xử lý bởi ứng dụng React của bạn.
+=======
+1. **Build the React part of your app** using one of the [React-based frameworks](/learn/start-a-new-react-project).
+2. **Specify `/some-app` as the *base path*** in your framework's configuration (here's how: [Next.js](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath), [Gatsby](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/)).
+3. **Configure your server or a proxy** so that all requests under `/some-app/` are handled by your React app.
+>>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
 
 Điều này đảm bảo phần React của ứng dụng của bạn có thể được [hưởng lợi từ các tiêu chuẩn tốt nhất](/learn/start-a-new-react-project#can-i-use-react-without-a-framework) đã được tích hợp sẵn trong các Frameworks đó.
 
@@ -45,7 +51,11 @@ Môi trường JavaScript module hóa cho phép bạn viết các component Reac
 
 * **Nếu ứng dụng của bạn đã được chia thành các tệp sử dụng các câu lệnh `import`,** hãy cố gắng sử dụng thiết lập hiện có của bạn. Kiểm tra xem viết `<div />` trong mã JS có gây lỗi cú pháp không. Nếu nó gây ra lỗi cú pháp, bạn có thể cần [chuyển đổi mã JavaScript của mình bằng Babel](https://babeljs.io/setup), và kích hoạt [Babel React preset](https://babeljs.io/docs/babel-preset-react) để sử dụng JSX.
 
+<<<<<<< HEAD
 * **Nếu ứng dụng của bạn không có cài đặt cho việc biên dịch các module JavaScript,** hãy cài đặt với [Vite](https://vitejs.dev/). Cộng động Vite duy trì [nhiều tích hợp với các framework back-end](https://github.com/vitejs/awesome-vite#integrations-with-backends), bao gồm Rails, Django, và Laravel. Nếu framework backend của bạn không được liệt kê, [hãy làm theo hướng dẫn này](https://vitejs.dev/guide/backend-integration.html) để tích hợp Vite với backend của bạn bằng cách thủ công.
+=======
+* **If your app doesn't have an existing setup for compiling JavaScript modules,** set it up with [Vite](https://vite.dev/). The Vite community maintains [many integrations with backend frameworks](https://github.com/vitejs/awesome-vite#integrations-with-backends), including Rails, Django, and Laravel. If your backend framework is not listed, [follow this guide](https://vite.dev/guide/backend-integration.html) to manually integrate Vite builds with your backend.
+>>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
 
 Để kiểm tra xem thiết lập của bạn hoạt động, chạy lệnh này trong thư mục dự án của bạn:
 
@@ -57,12 +67,17 @@ Sau đó thêm những dòng code này vào đầu của file JavaScript chính 
 
 <Sandpack>
 
-```html index.html hidden
+```html public/index.html hidden
 <!DOCTYPE html>
 <html>
   <head><title>My app</title></head>
   <body>
+<<<<<<< HEAD
     <!-- Nội dung website của bạn trước đó (chúng sẽ được xoá trong ví dụ này) -->
+=======
+    <!-- Your existing page content (in this example, it gets replaced) -->
+    <div id="root"></div>
+>>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
   </body>
 </html>
 ```
@@ -84,7 +99,11 @@ Nếu toàn bộ nội dung của trang web của bạn đã bị thay thế b�
 
 <Note>
 
+<<<<<<< HEAD
 Việc tích hợp môi trường JavaScript theo module vào một dự án có sẵn có thể làm bạn cảm thấy hơi đáng sợ trong lần đầu tiên, nhưng sẽ rất đáng công sức bỏ ra! Nếu bạn gặp khó khăn, hãy xem [tài liệu của cộng đồng](/community) hoặc qua [Vite Chat](https://chat.vitejs.dev/).
+=======
+Integrating a modular JavaScript environment into an existing project for the first time can feel intimidating, but it's worth it! If you get stuck, try our [community resources](/community) or the [Vite Chat](https://chat.vite.dev/).
+>>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
 
 </Note>
 
@@ -119,7 +138,7 @@ Thay vào đó, bạn sẽ muốn render các component React ở những nơi c
 
 <Sandpack>
 
-```html index.html
+```html public/index.html
 <!DOCTYPE html>
 <html>
   <head><title>My app</title></head>
