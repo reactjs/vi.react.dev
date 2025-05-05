@@ -83,11 +83,7 @@ Sau khi bạn trigger một lần render, React sẽ gọi tới các component 
 
 Quá trình này là một vòng lặp đệ quy: nếu component được cập nhật trả về component thì React tiếp theo sẽ render component _đó_, và nếu component đó lại cũng trả về một component khác thì React sẽ lại tiếp tục render component và cứ thế. Quá trình này sẽ kéo dài cho tới khi không còn component lồng nhau nào nữa và React biết chính xác cái gì sẽ được hiển thị lên màn hình. 
 
-<<<<<<< HEAD
 Trong ví dụ phía dưới, React sẽ gọi tới `Gallery()` và `Image()` nhiều lần:
-=======
-In the following example, React will call `Gallery()` and `Image()` several times:
->>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
 
 <Sandpack>
 
@@ -152,17 +148,9 @@ Hành vi mặc định của việc render tất cả các component lồng bên
 
 ## Step 3: React commit các thay đổi vào DOM {/*step-3-react-commits-changes-to-the-dom*/}
 
-<<<<<<< HEAD
 Sau khi render (gọi tới) các component của bạn, React sẽ thay đổi DOM.
 
 * **Đối với lần render khởi tạo,** React sẽ dùng DOM API [`appendChild()`](https://developer.mozilla.org/docs/Web/API/Node/appendChild) để hiển thị tất cả các DOM node mà nó đã tạo ra lên trên màn hình.
-=======
-After rendering (calling) your components, React will modify the DOM.
-
-* **For the initial render,** React will use the [`appendChild()`](https://developer.mozilla.org/docs/Web/API/Node/appendChild) DOM API to put all the DOM nodes it has created on screen.
-* **For re-renders,** React will apply the minimal necessary operations (calculated while rendering!) to make the DOM match the latest rendering output.
->>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
-
 * **Đối với các lần render lại,** React sẽ áp dụng các thao tác tối thiểu cần thiết (được tính toán trong khi render!) để làm cho DOM khớp với kết quả render mới nhất.
 
 **React chỉ thay đổi các DOM node nếu có sự khác biệt giữa các lần render.** Ví dụ, dưới đây là một component bị render lại mỗi giây với các props khác nhau được truyền từ component cha của nó. Lưu ý rằng bạn có thể thêm văn bản vào `<input>`, cập nhật `value` của nó, nhưng đoạn văn bản kia sẽ không biến mất khi component render lại:
@@ -207,7 +195,7 @@ export default function App() {
 
 Điều này hoạt động bởi vì trong bước cuối cùng này, React chỉ cập nhật nội dung của thẻ `<h1>` với giá trị `time` mới. Nó thấy rằng thẻ `<input>` vẫn xuất hiện tại vị trí đó trong đoạn JSX, nên React không hề đụng vào thẻ `<input>` hay thuộc tính `value` của nó!
 
-## Tổng kết: Trình duyệt vẽ  {/*epilogue-browser-paint*/}
+## Tổng kết: Trình duyệt vẽ {/*epilogue-browser-paint*/}
 
 Sau khi quá trình render được hoàn tất và React đã cập nhật xong DOM, trình duyệt sẽ tiến hành vẽ lại màn hình. Mặc dù quá trình này thường được biết đến là "render", nhưng chúng ta sẽ gọi nó là "vẽ" để tránh nhầm lẫn xuyên suốt tài liệu này.  
 

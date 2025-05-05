@@ -44,15 +44,6 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 * [Saskatoon, SK](https://www.meetup.com/saskatoon-react-meetup/)
 * [Toronto, ON](https://www.meetup.com/Toronto-React-Native/events/)
 
-<<<<<<< HEAD
-## Chile {/*chile*/}
-* [Santiago](https://www.meetup.com/es-ES/react-santiago/)
-
-## Trung Quốc {/*china*/}
-* [Beijing](https://www.meetup.com/Beijing-ReactJS-Meetup/)
-
-=======
->>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
 ## Colombia {/*colombia*/}
 * [Medellin](https://www.meetup.com/React-Medellin/)
 
@@ -63,28 +54,16 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 * [Aalborg](https://www.meetup.com/Aalborg-React-React-Native-Meetup/)
 * [Aarhus](https://www.meetup.com/Aarhus-ReactJS-Meetup/)
 
-<<<<<<< HEAD
-## Egypt {/*egypt*/}
-* [Cairo](https://www.meetup.com/react-cairo/)
-
 ## Anh (Vương Quốc Anh) {/*england-uk*/}
-=======
-## England (UK) {/*england-uk*/}
->>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
 * [Manchester](https://www.meetup.com/Manchester-React-User-Group/)
 * [React.JS Girls London](https://www.meetup.com/ReactJS-Girls-London/)
 * [React Advanced London](https://guild.host/react-advanced-london)
 * [React Native London](https://guild.host/RNLDN)
 
-<<<<<<< HEAD
-## Pháp {/*france*/}
-* [Nantes](https://www.meetup.com/React-Nantes/)
-=======
-## Finland {/*finland*/}
+## Phần Lan {/*finland*/}
 * [Helsinki](https://www.meetabit.com/communities/react-helsinki)
 
-## France {/*france*/}
->>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
+## Pháp {/*france*/}
 * [Lille](https://www.meetup.com/ReactBeerLille/)
 * [Paris](https://www.meetup.com/ReactJS-Paris/)
 
@@ -101,16 +80,8 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 * [Athens](https://www.meetup.com/React-To-React-Athens-MeetUp/)
 * [Thessaloniki](https://www.meetup.com/Thessaloniki-ReactJS-Meetup/)
 
-<<<<<<< HEAD
-## Hungary {/*hungary*/}
-* [Budapest](https://www.meetup.com/React-Budapest/)
-
 ## Ấn Độ {/*india*/}
-* [Ahmedabad](https://www.meetup.com/react-ahmedabad/)
-=======
-## India {/*india*/}
 * [Ahmedabad](https://reactahmedabad.dev/)
->>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
 * [Bangalore (React)](https://www.meetup.com/ReactJS-Bangalore/)
 * [Bangalore (React Native)](https://www.meetup.com/React-Native-Bangalore-Meetup)
 * [Chennai](https://www.linkedin.com/company/chennaireact)
@@ -190,12 +161,7 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 ## Ukraina {/*ukraine*/}
 * [Kyiv](https://www.meetup.com/Kyiv-ReactJS-Meetup)
 
-<<<<<<< HEAD
 ## Mỹ {/*us*/}
-* [Ann Arbor, MI - ReactJS](https://www.meetup.com/AnnArbor-jsx/)
-=======
-## US {/*us*/}
->>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
 * [Atlanta, GA - ReactJS](https://www.meetup.com/React-ATL/)
 * [Austin, TX - ReactJS](https://www.meetup.com/ReactJS-Austin-Meetup/)
 * [Boston, MA - ReactJS](https://www.meetup.com/ReactJS-Boston/)

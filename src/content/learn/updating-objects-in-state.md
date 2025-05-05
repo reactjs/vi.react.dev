@@ -381,11 +381,7 @@ Hãy chú ý rằng cú pháp phân tán (spread) `...` là "nông"--nó chỉ s
 
 #### Sử dụng một hàm sử lý sự kiện duy nhất cho nhiều fields khác nhau {/*using-a-single-event-handler-for-multiple-fields*/}
 
-<<<<<<< HEAD
 Bạn cũng có thể sử dụng các ký hiệu `[` và `]` bên trong định nghĩa đối tượng của bạn để chỉ định một thuộc tính có tên động (dynamic name). Dưới đây là cùng một ví dụ, nhưng chỉ với một hàm xử lý sự kiện duy nhất thay vì ba hàm sử lý khác nhau: 
-=======
-You can also use the `[` and `]` braces inside your object definition to specify a property with a dynamic name. Here is the same example, but with a single event handler instead of three different ones:
->>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
 
 <Sandpack>
 

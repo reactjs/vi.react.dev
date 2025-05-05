@@ -208,7 +208,7 @@ Sau khi xây dựng các thành phần, bạn sẽ có một thư viện các th
 
 </Pitfall>
 
-## Step 3: Tìm những state đại diện chính trong UI  {/*step-3-find-the-minimal-but-complete-representation-of-ui-state*/}
+## Step 3: Tìm những state đại diện chính trong UI {/*step-3-find-the-minimal-but-complete-representation-of-ui-state*/}
 
 Để làm cho giao diện người dùng trở nên tương tác, bạn cần cho phép người dùng thay đổi mô hình dữ liệu cơ bản của bạn. Bạn sẽ sử dụng *state* cho việc này.
 
@@ -271,15 +271,7 @@ Sau khi xác định được dữ liệu state cần thiết cho ứng dụng c
 Ở bước trước, bạn đã tìm thấy hai phần state trong ứng dụng này: văn bản đầu vào tìm kiếm và giá trị của hộp kiểm. Trong ví dụ này, chúng luôn xuất hiện cùng nhau, vì vậy hợp lý để đặt chúng vào cùng một nơi.
 
 
-<<<<<<< HEAD
 Bây giờ chúng ta hãy xem lại chiến lược của chúng ta cho state:
-=======
-1. **Identify components that use state:**
-    * `ProductTable` needs to filter the product list based on that state (search text and checkbox value). 
-    * `SearchBar` needs to display that state (search text and checkbox value).
-2. **Find their common parent:** The first parent component both components share is `FilterableProductTable`.
-3. **Decide where the state lives**: We'll keep the filter text and checked state values in `FilterableProductTable`.
->>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
 
 1. **Xác định các thành phần sử dụng trạng thái (state):**
     * `ProductTable` cần lọc danh sách sản phẩm dựa trên trạng thái đó (văn bản tìm kiếm và giá trị hộp kiểm).
@@ -481,7 +473,7 @@ function SearchBar({ filterText, inStockOnly }) {
 Tuy nhiên, bạn vẫn chưa thêm bất kì dòng code nào tương tác được với hành động như gõ phím. Đây sẽ bước cuối cùng của bạn.
 
 
-## Step 5: Thêm dữ liệu nghịch đảo  {/*step-5-add-inverse-data-flow*/}
+## Step 5: Thêm dữ liệu nghịch đảo {/*step-5-add-inverse-data-flow*/}
 
 Hiện tại ứng dụng của bạn hiển thị đúng với dữ liệu props và state được truyền xuống theo thứ tự hướng xuống. Nhưng để thay đổi trạng thái theo đầu vào của người dùng, bạn cần hỗ trợ dữ liệu truyền ngược lại: các thành phần biểu mẫu sâu trong cấu trúc cần cập nhật trạng thái trong `FilterableProductTable`.
 

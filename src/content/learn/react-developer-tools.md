@@ -53,31 +53,9 @@ Hãy tải lại trang web của bạn ngay để có thể nhìn thấy nó v�
 ![Công cụ phát triển React độc lập](/images/docs/react-devtools-standalone.png)
 
 ## Mobile (React Native) {/*mobile-react-native*/}
-<<<<<<< HEAD
-Công cụ phát triển React có thể được sử dụng để kiểm tra các ứng dụng được xây dựng bằng [React Native](https://reactnative.dev/) as well.
 
-Cách đơn giản nhất để sử dụng công cụ phát triển React là cài đặt nó toàn cục trên hệ thống của bạn:
-```bash
-# Yarn
-yarn global add react-devtools
-=======
+Để kiểm tra các ứng dụng được xây dựng bằng [React Native](https://reactnative.dev/), bạn có thể sử dụng [React Native DevTools](https://reactnative.dev/docs/react-native-devtools), trình gỡ lỗi tích hợp sẵn với sự liên kết sâu với React Developer Tools. Tất cả các tính năng hoạt động tương tự như tiện ích mở rộng trên trình duyệt, bao gồm cả việc làm nổi bật và chọn các phần tử gốc (native).
 
-To inspect apps built with [React Native](https://reactnative.dev/), you can use [React Native DevTools](https://reactnative.dev/docs/react-native-devtools), the built-in debugger that deeply integrates React Developer Tools. All features work identically to the browser extension, including native element highlighting and selection.
->>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
+[Tìm hiểu thêm về cách debug trong React Native.](https://reactnative.dev/docs/debugging)
 
-[Learn more about debugging in React Native.](https://reactnative.dev/docs/debugging)
-
-<<<<<<< HEAD
-Sau đó mở công cụ phát triển từ terminal.
-```bash
-react-devtools
-```
-
-Nó sẽ kết nối với bất kỳ ứng dụng React Native nào đang chạy trên cùng một máy tính.
-
-> Hãy thử tải lại ứng dụng nếu công cụ phát triển không kết nối sau vài giây.
-
-[Tìm hiểu thêm về debugging với React Native.](https://reactnative.dev/docs/debugging)
-=======
-> For versions of React Native earlier than 0.76, please use the standalone build of React DevTools by following the [Safari and other browsers](#safari-and-other-browsers) guide above.
->>>>>>> 55986965fbf69c2584040039c9586a01bd54eba7
+> Đối với các phiên bản React Native trước 0.76, vui lòng sử dụng bản dựng độc lập của React DevTools bằng cách làm theo hướng dẫn [Safari và các trình duyệt khác](#safari-and-other-browsers) ở trên.
