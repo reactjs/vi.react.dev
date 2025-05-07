@@ -55,7 +55,7 @@ jobs:
         with:
           path: .next/analyze/__bundle_analysis.json
           name: bundle_analysis.json
-          retention-days: 1
+          retention-days: 90
 
       - name: Download base branch bundle stats
         uses: dawidd6/action-download-artifact@268677152d06ba59fcec7a7f0b5d961b6ccd7e1e
@@ -65,6 +65,7 @@ jobs:
           branch: ${{ github.event.pull_request.base.ref }}
           name: bundle_analysis.json
           path: .next/analyze/base/bundle
+          continue-on-error: true
 
       # And here's the second place - this runs after we have both the current and
       # base branch bundle stats, and will compare them to determine what changed.
