@@ -55,7 +55,7 @@ jobs:
         with:
           path: .next/analyze/__bundle_analysis.json
           name: bundle_analysis.json
-          retention-days: 90
+          retention-days: 1
 
       - name: Download base branch bundle stats
         uses: dawidd6/action-download-artifact@268677152d06ba59fcec7a7f0b5d961b6ccd7e1e
@@ -88,7 +88,6 @@ jobs:
         with:
           name: analysis_comment.txt
           path: .next/analyze/__bundle_analysis_comment.txt
-          retention-days: 90
 
       - name: Save PR number
         run: echo ${{ github.event.number }} > ./pr_number
