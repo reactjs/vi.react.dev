@@ -57,6 +57,7 @@ Trong ví dụ này, một đối tượng được lưu trữ trong state để
 
 ```js
 import { useState } from 'react';
+
 export default function MovingDot() {
   const [position, setPosition] = useState({
     x: 0,
@@ -127,6 +128,7 @@ Hãy để ý cách mà điểm màu đó đi theo con trỏ chuột của bạn
 
 ```js
 import { useState } from 'react';
+
 export default function MovingDot() {
   const [position, setPosition] = useState({
     x: 0,

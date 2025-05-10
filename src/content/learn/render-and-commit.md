@@ -69,7 +69,7 @@ Thử comment dòng gọi `root.render()` lại và bạn sẽ thấy component 
 Khi component đã được render khởi tạo, bạn có thể trigger thêm nhiều lần render khác bằng cách cập nhật lại state của nó bằng [`set` function.](/reference/react/useState#setstate) Việc cập nhật lại state cho component của bạn sẽ tự động yêu cầu một lần render. (Bạn có thể tưởng tượng những thứ này giống như việc một vị khách trong nhà hàng đang gọi thêm trà, món tráng miệng và các món khác sau lần gọi món đầu tiên, tùy thuộc vào trạng thái đói hay khát của họ).
 
 <IllustrationBlock sequential>
-  <Illustration caption="State update..." alt="React as a server in a restaurant, serving a Card UI to the user, represented as a patron with a cursor for their head. They patron expresses they want a pink card, not a black one!" src="/images/docs/illustrations/i_rerender1.png" />
+  <Illustration caption="State update..." alt="React as a server in a restaurant, serving a Card UI to the user, represented as a patron with a cursor for their head. The patron expresses they want a pink card, not a black one!" src="/images/docs/illustrations/i_rerender1.png" />
   <Illustration caption="...triggers..." alt="React returns to the Component Kitchen and tells the Card Chef they need a pink Card." src="/images/docs/illustrations/i_rerender2.png" />
   <Illustration caption="...render!" alt="The Card Chef gives React the pink Card." src="/images/docs/illustrations/i_rerender3.png" />
 </IllustrationBlock>
@@ -151,7 +151,6 @@ Hành vi mặc định của việc render tất cả các component lồng bên
 Sau khi render (gọi tới) các component của bạn, React sẽ thay đổi DOM.
 
 * **Đối với lần render khởi tạo,** React sẽ dùng DOM API [`appendChild()`](https://developer.mozilla.org/docs/Web/API/Node/appendChild) để hiển thị tất cả các DOM node mà nó đã tạo ra lên trên màn hình.
-
 * **Đối với các lần render lại,** React sẽ áp dụng các thao tác tối thiểu cần thiết (được tính toán trong khi render!) để làm cho DOM khớp với kết quả render mới nhất.
 
 **React chỉ thay đổi các DOM node nếu có sự khác biệt giữa các lần render.** Ví dụ, dưới đây là một component bị render lại mỗi giây với các props khác nhau được truyền từ component cha của nó. Lưu ý rằng bạn có thể thêm văn bản vào `<input>`, cập nhật `value` của nó, nhưng đoạn văn bản kia sẽ không biến mất khi component render lại:
@@ -196,7 +195,7 @@ export default function App() {
 
 Điều này hoạt động bởi vì trong bước cuối cùng này, React chỉ cập nhật nội dung của thẻ `<h1>` với giá trị `time` mới. Nó thấy rằng thẻ `<input>` vẫn xuất hiện tại vị trí đó trong đoạn JSX, nên React không hề đụng vào thẻ `<input>` hay thuộc tính `value` của nó!
 
-## Tổng kết: Trình duyệt vẽ  {/*epilogue-browser-paint*/}
+## Tổng kết: Trình duyệt vẽ {/*epilogue-browser-paint*/}
 
 Sau khi quá trình render được hoàn tất và React đã cập nhật xong DOM, trình duyệt sẽ tiến hành vẽ lại màn hình. Mặc dù quá trình này thường được biết đến là "render", nhưng chúng ta sẽ gọi nó là "vẽ" để tránh nhầm lẫn xuyên suốt tài liệu này.  
 
