@@ -190,7 +190,7 @@ function LearnMore({
               label="Read More"
               href={path}
               type="primary">
-              Read More
+              Đọc thêm
               <IconNavArrow displayDirection="end" className="inline ms-1" />
             </ButtonLink>
           ) : null}
@@ -241,7 +241,7 @@ function YouWillLearn({
   children: any;
   isChapter?: boolean;
 }) {
-  let title = isChapter ? 'In this chapter' : 'You will learn';
+  let title = isChapter ? 'Trong chương này' : 'Bạn sẽ được học';
   return <SimpleCallout title={title}>{children}</SimpleCallout>;
 }
 

@@ -1,62 +1,62 @@
 ---
-title: Editor Setup
+title: Thiết Lập Editor
 ---
 
 <Intro>
 
-A properly configured editor can make code clearer to read and faster to write. It can even help you catch bugs as you write them! If this is your first time setting up an editor or you're looking to tune up your current editor, we have a few recommendations.
+Một trình soạn thảo (editor) được cấu hình đúng cách có thể giúp code dễ đọc và viết nhanh hơn. Nó thậm chí có thể giúp bạn bắt lỗi ngay khi bạn viết! Nếu đây là lần đầu tiên bạn thiết lập một trình soạn thảo hoặc bạn đang muốn tinh chỉnh trình soạn thảo hiện tại của mình, chúng tôi có một vài đề xuất.
 
 </Intro>
 
 <YouWillLearn>
 
-* What the most popular editors are
-* How to format your code automatically
+* Các trình soạn thảo phổ biến nhất là gì
+* Cách tự động định dạng code của bạn
 
 </YouWillLearn>
 
-## Your editor {/*your-editor*/}
+## Trình soạn thảo của bạn {/*your-editor*/}
 
-[VS Code](https://code.visualstudio.com/) is one of the most popular editors in use today. It has a large marketplace of extensions and integrates well with popular services like GitHub. Most of the features listed below can be added to VS Code as extensions as well, making it highly configurable!
+[VS Code](https://code.visualstudio.com/) là một trong những trình soạn thảo phổ biến nhất hiện nay. Nó có một marketplace lớn các extension và tích hợp tốt với các dịch vụ phổ biến như GitHub. Hầu hết các tính năng được liệt kê bên dưới cũng có thể được thêm vào VS Code dưới dạng extension, làm cho nó có khả năng tùy biến cao!
 
-Other popular text editors used in the React community include:
+Các trình soạn thảo văn bản phổ biến khác được sử dụng trong cộng đồng React bao gồm:
 
-* [WebStorm](https://www.jetbrains.com/webstorm/) is an integrated development environment designed specifically for JavaScript.
-* [Sublime Text](https://www.sublimetext.com/) has support for JSX and TypeScript, [syntax highlighting](https://stackoverflow.com/a/70960574/458193) and autocomplete built in.
-* [Vim](https://www.vim.org/) is a highly configurable text editor built to make creating and changing any kind of text very efficient. It is included as "vi" with most UNIX systems and with Apple OS X.
+* [WebStorm](https://www.jetbrains.com/webstorm/) là một môi trường phát triển tích hợp được thiết kế đặc biệt cho JavaScript.
+* [Sublime Text](https://www.sublimetext.com/) có hỗ trợ JSX và TypeScript, [syntax highlighting](https://stackoverflow.com/a/70960574/458193) và tự động hoàn thành được tích hợp sẵn.
+* [Vim](https://www.vim.org/) là một trình soạn thảo văn bản có khả năng tùy biến cao được xây dựng để tạo và thay đổi bất kỳ loại văn bản nào một cách hiệu quả. Nó được bao gồm dưới dạng "vi" với hầu hết các hệ thống UNIX và với Apple OS X.
 
-## Recommended text editor features {/*recommended-text-editor-features*/}
+## Các tính năng trình soạn thảo văn bản được đề xuất {/*recommended-text-editor-features*/}
 
-Some editors come with these features built in, but others might require adding an extension. Check to see what support your editor of choice provides to be sure!
+Một số trình soạn thảo đi kèm với các tính năng này được tích hợp sẵn, nhưng những trình soạn thảo khác có thể yêu cầu thêm một extension. Hãy kiểm tra xem trình soạn thảo bạn chọn cung cấp hỗ trợ gì để chắc chắn!
 
 ### Linting {/*linting*/}
 
-Code linters find problems in your code as you write, helping you fix them early. [ESLint](https://eslint.org/) is a popular, open source linter for JavaScript. 
+Công cụ lint code tìm các vấn đề trong code của bạn khi bạn viết, giúp bạn sửa chúng sớm. [ESLint](https://eslint.org/) là một công cụ lint mã nguồn mở phổ biến cho JavaScript.
 
-* [Install ESLint with the recommended configuration for React](https://www.npmjs.com/package/eslint-config-react-app) (be sure you have [Node installed!](https://nodejs.org/en/download/current/))
-* [Integrate ESLint in VSCode with the official extension](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
+* [Cài đặt ESLint với cấu hình được đề xuất cho React](https://www.npmjs.com/package/eslint-config-react-app) (hãy chắc chắn rằng bạn đã [cài đặt Node!](https://nodejs.org/en/download/current/))
+* [Tích hợp ESLint trong VSCode với extension chính thức](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
 
-**Make sure that you've enabled all the [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks) rules for your project.** They are essential and catch the most severe bugs early. The recommended [`eslint-config-react-app`](https://www.npmjs.com/package/eslint-config-react-app) preset already includes them.
+**Đảm bảo rằng bạn đã bật tất cả các rule [`eslint-plugin-react-hooks`](https://www.npmjs.com/package/eslint-plugin-react-hooks) cho dự án của mình.** Chúng rất cần thiết và bắt các lỗi nghiêm trọng nhất sớm. Preset [`eslint-config-react-app`](https://www.npmjs.com/package/eslint-config-react-app) được đề xuất đã bao gồm chúng.
 
 ### Formatting {/*formatting*/}
 
-The last thing you want to do when sharing your code with another contributor is get into a discussion about [tabs vs spaces](https://www.google.com/search?q=tabs+vs+spaces)! Fortunately, [Prettier](https://prettier.io/) will clean up your code by reformatting it to conform to preset, configurable rules. Run Prettier, and all your tabs will be converted to spaces—and your indentation, quotes, etc will also all be changed to conform to the configuration. In the ideal setup, Prettier will run when you save your file, quickly making these edits for you.
+Điều cuối cùng bạn muốn làm khi chia sẻ code của mình với một cộng tác viên khác là tham gia vào một cuộc thảo luận về [tabs vs spaces](https://www.google.com/search?q=tabs+vs+spaces)! May mắn thay, [Prettier](https://prettier.io/) sẽ dọn dẹp code của bạn bằng cách định dạng lại nó để tuân theo các rule được đặt trước, có thể định cấu hình. Chạy Prettier và tất cả các tab của bạn sẽ được chuyển đổi thành dấu cách—và thụt lề, dấu ngoặc kép, v.v. cũng sẽ được thay đổi để tuân theo cấu hình. Trong thiết lập lý tưởng, Prettier sẽ chạy khi bạn lưu tệp của mình, nhanh chóng thực hiện các chỉnh sửa này cho bạn.
 
-You can install the [Prettier extension in VSCode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) by following these steps:
+Bạn có thể cài đặt [extension Prettier trong VSCode](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode) bằng cách làm theo các bước sau:
 
-1. Launch VS Code
-2. Use Quick Open (press Ctrl/Cmd+P)
-3. Paste in `ext install esbenp.prettier-vscode`
-4. Press Enter
+1. Khởi chạy VS Code
+2. Sử dụng Quick Open (nhấn Ctrl/Cmd+P)
+3. Dán vào `ext install esbenp.prettier-vscode`
+4. Nhấn Enter
 
-#### Formatting on save {/*formatting-on-save*/}
+#### Formatting khi lưu {/*formatting-on-save*/}
 
-Ideally, you should format your code on every save. VS Code has settings for this!
+Lý tưởng nhất là bạn nên định dạng code của mình mỗi khi lưu. VS Code có các cài đặt cho việc này!
 
-1. In VS Code, press `CTRL/CMD + SHIFT + P`.
-2. Type "settings"
-3. Hit Enter
-4. In the search bar, type "format on save"
-5. Be sure the "format on save" option is ticked!
+1. Trong VS Code, nhấn `CTRL/CMD + SHIFT + P`.
+2. Gõ "settings"
+3. Nhấn Enter
+4. Trong thanh tìm kiếm, gõ "format on save"
+5. Đảm bảo tùy chọn "format on save" được đánh dấu!
 
-> If your ESLint preset has formatting rules, they may conflict with Prettier. We recommend disabling all formatting rules in your ESLint preset using [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) so that ESLint is *only* used for catching logical mistakes. If you want to enforce that files are formatted before a pull request is merged, use [`prettier --check`](https://prettier.io/docs/en/cli.html#--check) for your continuous integration.
+> Nếu preset ESLint của bạn có các rule định dạng, chúng có thể xung đột với Prettier. Chúng tôi khuyên bạn nên tắt tất cả các rule định dạng trong preset ESLint của bạn bằng cách sử dụng [`eslint-config-prettier`](https://github.com/prettier/eslint-config-prettier) để ESLint *chỉ* được sử dụng để bắt các lỗi logic. Nếu bạn muốn thực thi rằng các tệp được định dạng trước khi một pull request được hợp nhất, hãy sử dụng [`prettier --check`](https://prettier.io/docs/en/cli.html#--check) cho tích hợp liên tục của bạn.
