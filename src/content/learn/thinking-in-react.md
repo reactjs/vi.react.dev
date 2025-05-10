@@ -208,7 +208,7 @@ Sau khi xây dựng các thành phần, bạn sẽ có một thư viện các th
 
 </Pitfall>
 
-## Step 3: Tìm những state đại diện chính trong UI  {/*step-3-find-the-minimal-but-complete-representation-of-ui-state*/}
+## Step 3: Tìm những state đại diện chính trong UI {/*step-3-find-the-minimal-but-complete-representation-of-ui-state*/}
 
 Để làm cho giao diện người dùng trở nên tương tác, bạn cần cho phép người dùng thay đổi mô hình dữ liệu cơ bản của bạn. Bạn sẽ sử dụng *state* cho việc này.
 
@@ -473,7 +473,7 @@ function SearchBar({ filterText, inStockOnly }) {
 Tuy nhiên, bạn vẫn chưa thêm bất kì dòng code nào tương tác được với hành động như gõ phím. Đây sẽ bước cuối cùng của bạn.
 
 
-## Step 5: Thêm dữ liệu nghịch đảo  {/*step-5-add-inverse-data-flow*/}
+## Step 5: Thêm dữ liệu nghịch đảo {/*step-5-add-inverse-data-flow*/}
 
 Hiện tại ứng dụng của bạn hiển thị đúng với dữ liệu props và state được truyền xuống theo thứ tự hướng xuống. Nhưng để thay đổi trạng thái theo đầu vào của người dùng, bạn cần hỗ trợ dữ liệu truyền ngược lại: các thành phần biểu mẫu sâu trong cấu trúc cần cập nhật trạng thái trong `FilterableProductTable`.
 

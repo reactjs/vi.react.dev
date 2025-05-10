@@ -41,7 +41,7 @@ Nó trả về ảnh chụp(snapshot) của dữ liệu trong store. Bạn cần
 
 #### Các tham số(Parameters) {/*parameters*/}
 
-* `subscribe`: Một hàm nhận một đối số `callback` duy nhất và đăng ký nó với store. Khi store thay đổi, nó nên gọi hàm `callback` được cung cấp. Điều này sẽ khiến cho component được render lại. Hàm `subscribe` nên trả về một hàm dùng để dọn dẹp đăng ký(subscription).
+* `subscribe`: Một hàm nhận một đối số `callback` duy nhất và đăng ký nó với store. Khi store thay đổi, nó nên gọi hàm `callback` được cung cấp, điều này sẽ khiến React gọi lại `getSnapshot` và (nếu cần thiết) sẽ render lại component. Hàm `subscribe` nên trả về một hàm dùng để dọn dẹp đăng ký (subscription).
 
 * `getSnapshot`: Một hàm trả về ảnh chụp(snapshot) của dữ liệu trong store mà component cần. Trong khi store không thay đổi, các lời gọi lại tới `getSnapshot` phải trả về cùng một giá trị. Nếu store thay đổi và giá trị trả về khác nhau (được so sánh bởi [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)), React sẽ render lại component.
 
@@ -405,7 +405,7 @@ Nếu dữ liệu trong store của bạn là có thế thay đổi(mutable), h�
 
 Hàm `subscribe` được định nghĩa *bên trong* một component nên nó khác nhau trên mỗi lần re-render:
 
-```js {4-7}
+```js {2-5}
 function ChatIndicator() {
   const isOnline = useSyncExternalStore(subscribe, getSnapshot);
   
@@ -413,6 +413,8 @@ function ChatIndicator() {
   function subscribe() {
     // ...
   }
+  
+  const isOnline = useSyncExternalStore(subscribe, getSnapshot);
 
   // ...
 }
@@ -420,28 +422,28 @@ function ChatIndicator() {
   
 React sẽ resubscribe với store của bạn nếu bạn truyền một hàm `subscribe` khác nhau giữa các lần re-renders. Nếu điều này gây ra vấn đề về hiệu suất và bạn muốn tránh việc resubscribing, hãy di chuyển hàm `subscribe` ra bên ngoài:
 
-```js {6-9}
-function ChatIndicator() {
-  const isOnline = useSyncExternalStore(subscribe, getSnapshot);
+```js {1-4}
+// ✅ Luôn luôn cùng một function, để React sẽ không phải resubscribe
+function subscribe() {
   // ...
 }
 
-// ✅ Luôn luôn là một function, vì vậy React sẽ không cần resubscribe
-function subscribe() {
+function ChatIndicator() {
+  const isOnline = useSyncExternalStore(subscribe, getSnapshot);
   // ...
 }
 ```
 
 Hoặc có thể gói `subscribe` trong một [`useCallback`](/reference/react/useCallback) để chỉ resubscribe khi một tham số thay đổi:
 
-```js {4-8}
+```js {2-5}
 function ChatIndicator({ userId }) {
-  const isOnline = useSyncExternalStore(subscribe, getSnapshot);
-  
-  // ✅ Cùng một function miễn là userId không thay đổi
+  // ✅ Cùng function cho đến khi userId không thay đổi
   const subscribe = useCallback(() => {
     // ...
   }, [userId]);
+  
+  const isOnline = useSyncExternalStore(subscribe, getSnapshot);
 
   // ...
 }
