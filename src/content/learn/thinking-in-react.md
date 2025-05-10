@@ -1,19 +1,19 @@
 ---
-title: Tư Duy Trong React
+title: Thinking in React
 ---
 
 <Intro>
- 
-React có thể thay đổi tư duy của bạn về cách thiết kế và xây dựng một ứng dụng. Khi bạn xây dựng giao diện người dùng với React, trước tiên bạn sẽ phân tách nó thành các phần gọi là *component*. Sau đó, bạn sẽ định nghĩa các trạng thái giao diện khác nhau cho mỗi thành phần của bạn. Cuối cùng, bạn sẽ kết nối các thành phần của mình với nhau để dữ liệu được truyền qua chúng. Qua hướng dẫn này, bạn sẽ được hướng dẫn để xây dựng một bảng dữ liệu sản phẩm cùng chức năng tìm kiếm bằng React.
 
+React can change how you think about the designs you look at and the apps you build. When you build a user interface with React, you will first break it apart into pieces called *components*. Then, you will describe the different visual states for each of your components. Finally, you will connect your components together so that the data flows through them. In this tutorial, we’ll guide you through the thought process of building a searchable product data table with React.
 
 </Intro>
 
-## Bắt đầu với dữ liệu mẫu {/*start-with-the-mockup*/}
+## Start with the mockup {/*start-with-the-mockup*/}
 
-Tưỡng tượng bạn đã có sẵn một API dưới dạng JSON được chuẩn bị bỡi người thiết kế sản phẩm.
+Imagine that you already have a JSON API and a mockup from a designer.
 
-Dữ liệu từ API JSON có một số ví dụ sau:
+The JSON API returns some data that looks like this:
+
 ```json
 [
   { category: "Fruits", price: "$1", stocked: true, name: "Apple" },
@@ -25,27 +25,25 @@ Dữ liệu từ API JSON có một số ví dụ sau:
 ]
 ```
 
-Bản thiết kế của sản phẩm như sau:
+The mockup looks like this:
 
 <img src="/images/docs/s_thinking-in-react_ui.png" width="300" style={{margin: '0 auto'}} />
 
-Để triển khai giao diện người dùng (UI) bằng React, thường bạn sẽ làm theo năm bước sau đây:
+To implement a UI in React, you will usually follow the same five steps.
 
-## Bước 1: Phân tách UI thành nhiều thành phần thứ cấp {/*step-1-break-the-ui-into-a-component-hierarchy*/}
+## Step 1: Break the UI into a component hierarchy {/*step-1-break-the-ui-into-a-component-hierarchy*/}
 
-Đầu tiên, hãy vẽ khung viền xung quanh mỗi thành phần chính và thành phần con trong bản phác thảo và đặt tên cho chúng. Nếu bạn làm việc với một nhà thiết kế, họ có thể đã đặt tên cho những thành phần này trong công cụ thiết kế của họ. Hãy hỏi họ!
+Start by drawing boxes around every component and subcomponent in the mockup and naming them. If you work with a designer, they may have already named these components in their design tool. Ask them!
 
-Tùy thuộc vào nền tảng của bạn, bạn có thể nghĩ đến việc chia thiết kế thành các thành phần theo những cách khác nhau:
+Depending on your background, you can think about splitting up a design into components in different ways:
 
-* **Programming**--sử dụng các kỹ thuật tương tự để quyết định liệu bạn có nên tạo một hàm hoặc đối tượng mới hay không. Một trong các kỹ thuật như vậy là [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle) (đơn nhiệm), có nghĩa là lý tưởng nhất mỗi thành phần nên chỉ đảm nhiệm một nhiệm vụ. Nếu nó ngày càng phát triển, nó nên được phân tách thành các thành phần con nhỏ hơn.
+* **Programming**--use the same techniques for deciding if you should create a new function or object. One such technique is the [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle), that is, a component should ideally only do one thing. If it ends up growing, it should be decomposed into smaller subcomponents. 
+* **CSS**--consider what you would make class selectors for. (However, components are a bit less granular.)
+* **Design**--consider how you would organize the design's layers.
 
-* **CSS**--xem xét bạn sẽ tạo các lựa chọn lớp cho điều gì. (Tuy nhiên, các thành phần ít chi tiết hơn một chút.)
-* **Design**--xem xét cách bạn sẽ tổ chức các lớp thiết kế.
+If your JSON is well-structured, you'll often find that it naturally maps to the component structure of your UI. That's because UI and data models often have the same information architecture--that is, the same shape. Separate your UI into components, where each component matches one piece of your data model.
 
-Nếu JSON của bạn có cấu trúc tốt, bạn sẽ thường thấy dữ liệu sẽ hòa hợp với cấu trúc thành phần giao diện người dùng của bạn. Điều đó bởi vì các mô hình UI và dữ liệu thường có cùng kiến ​​trúc thông tin - tức là cùng một hình dạng. Tách giao diện của bạn thành các thành phần, mà trong đó mỗi thành phần phù hợp với một phần của mô hình dữ liệu của bạn.
-
-
-Trong ví dụ này thì màn hình được cấu thành từ 5 thành phần:
+There are five components on this screen:
 
 <FullWidth>
 
@@ -53,19 +51,19 @@ Trong ví dụ này thì màn hình được cấu thành từ 5 thành phần:
 
 <img src="/images/docs/s_thinking-in-react_ui_outline.png" width="500" style={{margin: '0 auto'}} />
 
-1. `FilterableProductTable` (xám) chứa toàn bộ ứng dụng.
-2. `SearchBar` (xanh biển) nhận dữ liệu từ người dùng.
-3. `ProductTable` (tím) hiển thị và lọc danh sách sản phẩm theo đầu vào của người dùng.
-4. `ProductCategoryRow` (xanh) hiển thị tiêu đề cho mỗi danh mục.
-5. `ProductRow`	(vàng) hiển thị một hàng cho mỗi sản phẩm.
+1. `FilterableProductTable` (grey) contains the entire app.
+2. `SearchBar` (blue) receives the user input.
+3. `ProductTable` (lavender) displays and filters the list according to the user input.
+4. `ProductCategoryRow` (green) displays a heading for each category.
+5. `ProductRow`	(yellow) displays a row for each product.
 
 </CodeDiagram>
 
 </FullWidth>
 
-Nếu bạn nhìn vào `ProductTable` (màu oải hương), bạn sẽ thấy rằng phần tiêu đề (chứa nhãn "Name" và "Price") không phải là một thành phần riêng của nó. Điều này là vấn đề về sở thích, và bạn có thể chọn cách nào tùy ý. Đối với ví dụ này, nó là một phần của `ProductTable` vì nó xuất hiện bên trong danh sách của `ProductTable`. Tuy nhiên, nếu phần tiêu đề này trở nên phức tạp hơn (ví dụ: nếu bạn thêm chức năng sắp xếp), bạn có thể chuyển nó vào thành phần riêng của nó là `ProductTableHeader`.
+If you look at `ProductTable` (lavender), you'll see that the table header (containing the "Name" and "Price" labels) isn't its own component. This is a matter of preference, and you could go either way. For this example, it is a part of `ProductTable` because it appears inside the `ProductTable`'s list. However, if this header grows to be complex (e.g., if you add sorting), you can move it into its own `ProductTableHeader` component.
 
-Bây giờ bạn đã xác định các thành phần trong bản mô phỏng, hãy sắp xếp chúng thành một cấu trúc phân cấp. Các thành phần xuất hiện bên trong một thành phần khác trong bản mô phỏng nên xuất hiện dưới dạng một thành phần con trong cấu trúc phân cấp:
+Now that you've identified the components in the mockup, arrange them into a hierarchy. Components that appear within another component in the mockup should appear as a child in the hierarchy:
 
 * `FilterableProductTable`
     * `SearchBar`
@@ -73,14 +71,13 @@ Bây giờ bạn đã xác định các thành phần trong bản mô phỏng, h
         * `ProductCategoryRow`
         * `ProductRow`
 
-## Bước 2: Xây dựng phiên bản tĩnh trong React {/*step-2-build-a-static-version-in-react*/}
+## Step 2: Build a static version in React {/*step-2-build-a-static-version-in-react*/}
 
-Bây giờ bạn đã có cấu trúc phân cấp các thành phần của mình, đến lúc triển khai ứng dụng của bạn. Cách tiếp cận đơn giản nhất là xây dựng một phiên bản hiển thị giao diện người dùng từ mô hình dữ liệu của bạn mà không thêm bất kỳ tính tương tác nào... cho đến bây giờ! Thường thì việc xây dựng phiên bản tĩnh trước sẽ dễ dàng hơn và sau đó mới thêm sự tương tác. Xây dựng một phiên bản tĩnh đòi hỏi phải gõ rất nhiều và không cần suy nghĩ, nhưng thêm tính tương tác lại đòi hỏi phải suy nghĩ nhiều và không cần gõ.
+Now that you have your component hierarchy, it's time to implement your app. The most straightforward approach is to build a version that renders the UI from your data model without adding any interactivity... yet! It's often easier to build the static version first and add interactivity later. Building a static version requires a lot of typing and no thinking, but adding interactivity requires a lot of thinking and not a lot of typing.
 
-Để xây dựng một phiên bản tĩnh của ứng dụng của bạn mà hiển thị dữ liệu của bạn, bạn sẽ cần xây dựng [các thành phần](/learn/your-first-component) mà sử dụng lại các thành phần khác và truyền dữ liệu bằng cách sử dụng [props.](/learn/passing-props-to-a-component) Props là một cách để truyền dữ liệu từ thành phần cha đến thành phần con. (Nếu bạn quen thuộc với khái niệm state, thì không sử dụng [state](/learn/state-a-components-memory) để xây dựng phiên bản tĩnh này. State chỉ được dành cho tính tương tác, tức là dữ liệu thay đổi theo thời gian. Vì đây là một phiên bản tĩnh của ứng dụng, bạn không cần nó.)
+To build a static version of your app that renders your data model, you'll want to build [components](/learn/your-first-component) that reuse other components and pass data using [props.](/learn/passing-props-to-a-component) Props are a way of passing data from parent to child. (If you're familiar with the concept of [state](/learn/state-a-components-memory), don't use state at all to build this static version. State is reserved only for interactivity, that is, data that changes over time. Since this is a static version of the app, you don't need it.)
 
-
-Bạn có thể xây dựng theo cách "từ trên xuống" bằng cách bắt đầu xây dựng các thành phần ở cấp cao hơn trong thứ tự ưu tiên (như `FilterableProductTable`) hoặc "từ dưới lên" bằng cách làm việc từ các thành phần ở cấp thấp hơn (như ProductRow). Trong các ví dụ đơn giản, thì việc theo hướng từ trên xuống thường dễ hơn, và trong các dự án lớn, việc theo hướng từ dưới lên sẽ dễ hơn.
+You can either build "top down" by starting with building the components higher up in the hierarchy (like `FilterableProductTable`) or "bottom up" by working from components lower down (like `ProductRow`). In simpler examples, it’s usually easier to go top-down, and on larger projects, it’s easier to go bottom-up.
 
 <Sandpack>
 
@@ -198,91 +195,85 @@ td {
 
 </Sandpack>
 
-(Nếu bạn không quen với đoạn code trên, đi tới [Quick Start](/learn/) trước tiên)
+(If this code looks intimidating, go through the [Quick Start](/learn/) first!)
 
-Sau khi xây dựng các thành phần, bạn sẽ có một thư viện các thành phần có thể tái sử dụng để hiển thị mô hình dữ liệu. Bởi vì đây là một ứng dụng tĩnh, các thành phần sẽ chỉ trả về JSX. Thành phần ở đầu của thứ tự thành phần (`FilterableProductTable`) sẽ lấy mô hình dữ liệu của bạn như là một prop. Điều này được gọi là dòng dữ liệu một chiều vì dữ liệu chảy từ thành phần cấp cao nhất xuống các thành phần ở cuối của cây.
+After building your components, you'll have a library of reusable components that render your data model. Because this is a static app, the components will only return JSX. The component at the top of the hierarchy (`FilterableProductTable`) will take your data model as a prop. This is called _one-way data flow_ because the data flows down from the top-level component to the ones at the bottom of the tree.
 
 <Pitfall>
 
-Ở bước này, bạn không nên sử dụng bất kỳ state nào. Điều đó để cho bước tiếp theo!
+At this point, you should not be using any state values. That’s for the next step!
 
 </Pitfall>
 
-## Step 3: Tìm những state đại diện chính trong UI  {/*step-3-find-the-minimal-but-complete-representation-of-ui-state*/}
+## Step 3: Find the minimal but complete representation of UI state {/*step-3-find-the-minimal-but-complete-representation-of-ui-state*/}
 
-Để làm cho giao diện người dùng trở nên tương tác, bạn cần cho phép người dùng thay đổi mô hình dữ liệu cơ bản của bạn. Bạn sẽ sử dụng *state* cho việc này.
+To make the UI interactive, you need to let users change your underlying data model. You will use *state* for this.
 
-Hãy tưởng tượng state là tập hợp tối thiểu các dữ liệu thay đổi mà ứng dụng của bạn cần phải ghi nhớ. Nguyên tắc quan trọng nhất để cấu trúc state là giữ cho nó [DRY (Don't Repeat Yourself)](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself). Hãy tìm ra đại diện tối thiểu hoàn chỉnh của trạng thái mà ứng dụng của bạn cần và tính toán tất cả các thứ khác khi có yêu cầu. Ví dụ, nếu bạn đang xây dựng một danh sách mua sắm, bạn có thể lưu trữ các mặt hàng dưới dạng một mảng trong state. Nếu bạn muốn hiển thị số lượng các mặt hàng trong danh sách, đừng lưu trữ số lượng mặt hàng như một giá trị state khác - thay vào đó, đọc độ dài của mảng của bạn.
+Think of state as the minimal set of changing data that your app needs to remember. The most important principle for structuring state is to keep it [DRY (Don't Repeat Yourself).](https://en.wikipedia.org/wiki/Don%27t_repeat_yourself) Figure out the absolute minimal representation of the state your application needs and compute everything else on-demand. For example, if you're building a shopping list, you can store the items as an array in state. If you want to also display the number of items in the list, don't store the number of items as another state value--instead, read the length of your array.
 
-Bây giờ hãy nghĩ về tất cả các phần dữ liệu trong ứng dụng ví dụ này:
+Now think of all of the pieces of data in this example application:
 
-1. Danh sách sản phẩm ban đầu
-2. Văn bản tìm kiếm mà người dùng đã nhập
-3. Giá trị của hộp kiểm
-4. Danh sách sản phẩm đã lọc
+1. The original list of products
+2. The search text the user has entered
+3. The value of the checkbox
+4. The filtered list of products
 
-Những phần sau đây là state? Hãy xác định những phần không phải state:
+Which of these are state? Identify the ones that are not:
 
-* **Có giữ nguyên không đổi** qua thời gian? Nếu vậy, thì đó không phải là state.
-* **Được truyền từ cha** thông qua props? Nếu vậy, thì đó không phải là state.
-* **Có thể tính toán được** dựa trên state hoặc props hiện tại trong component của bạn? Nếu vậy, thì nó *nhất định không phải* là state!
+* Does it **remain unchanged** over time? If so, it isn't state.
+* Is it **passed in from a parent** via props? If so, it isn't state.
+* **Can you compute it** based on existing state or props in your component? If so, it *definitely* isn't state!
 
-Những gì còn lại có thể là state.
+What's left is probably state.
 
-Hãy đi qua từng phần một lần nữa:
+Let's go through them one by one again:
 
-1. Danh sách sản phẩm ban đầu được **truyền vào như là props, vì vậy nó không phải là state**.
-2. Văn bản tìm kiếm dường như là state vì nó thay đổi theo thời gian và không thể tính toán từ bất cứ thứ gì.
-3. Giá trị của hộp tìm kiếm dường như là state vì nó thay đổi theo thời gian và không thể tính toán từ bất cứ thứ gì.
-4. Danh sách sản phẩm đã lọc **không phải là state vì nó có thể được tính toán** bằng cách lấy danh sách sản phẩm ban đầu và lọc nó theo văn bản tìm kiếm và giá trị của hộp tìm kiếm.
+1. The original list of products is **passed in as props, so it's not state.** 
+2. The search text seems to be state since it changes over time and can't be computed from anything.
+3. The value of the checkbox seems to be state since it changes over time and can't be computed from anything.
+4. The filtered list of products **isn't state because it can be computed** by taking the original list of products and filtering it according to the search text and value of the checkbox.
 
-Điều này có nghĩa là chỉ có văn bản tìm kiếm và giá trị của hộp tìm kiếm là state! Làm rất tốt!
-
-
+This means only the search text and the value of the checkbox are state! Nicely done!
 
 <DeepDive>
 
 #### Props vs State {/*props-vs-state*/}
 
+There are two types of "model" data in React: props and state. The two are very different:
 
-Trong React có hai loại dữ liệu "mô hình": props và state. Hai loại này rất khác nhau:
+* [**Props** are like arguments you pass](/learn/passing-props-to-a-component) to a function. They let a parent component pass data to a child component and customize its appearance. For example, a `Form` can pass a `color` prop to a `Button`.
+* [**State** is like a component’s memory.](/learn/state-a-components-memory) It lets a component keep track of some information and change it in response to interactions. For example, a `Button` might keep track of `isHovered` state.
 
-* [**Props** giống như các tham số bạn truyền](/learn/passing-props-to-a-component) cho một hàm. Chúng cho phép một thành phần cha chuyển dữ liệu cho một thành phần con và tùy chỉnh giao diện của nó. Ví dụ, một `Form` có thể truyền một prop `color` cho một `Button`.
-* [**State** giống như bộ nhớ của một thành phần.](/learn/state-a-components-memory) Nó cho phép một thành phần theo dõi một số thông tin và thay đổi nó khi có tương tác. Ví dụ, một `Button` có thể theo dõi trạng thái `isHovered`.
-
-Props và state khác nhau, nhưng chúng làm việc cùng nhau. Một thành phần cha thường sẽ giữ một số thông tin trong state (để có thể thay đổi nó), và *truyền nó xuống* cho các thành phần con dưới dạng props của chúng. Nếu trong lần đọc đầu tiên vẫn còn cảm thấy mơ hồ, không sao cả. Cần một chút thực hành để hiểu rõ hơn!
-
+Props and state are different, but they work together. A parent component will often keep some information in state (so that it can change it), and *pass it down* to child components as their props. It's okay if the difference still feels fuzzy on the first read. It takes a bit of practice for it to really stick!
 
 </DeepDive>
 
-## Step 4: Xác định nơi lưu trữ state {/*step-4-identify-where-your-state-should-live*/}
+## Step 4: Identify where your state should live {/*step-4-identify-where-your-state-should-live*/}
 
-Sau khi xác định được dữ liệu state cần thiết cho ứng dụng của bạn, bạn cần xác định thành phần nào sẽ chịu trách nhiệm thay đổi trạng thái này, hoặc *sở hữu* state. Hãy nhớ: React sử dụng luồng dữ liệu một chiều, truyền dữ liệu từ thành phần cha xuống thành phần con. Có thể không rõ ngay thành phần nào sẽ sở hữu trạng thái nào. Điều này có thể thách thức nếu bạn mới bắt đầu với khái niệm này, nhưng bạn có thể tìm hiểu bằng cách làm theo các bước sau!
+After identifying your app’s minimal state data, you need to identify which component is responsible for changing this state, or *owns* the state. Remember: React uses one-way data flow, passing data down the component hierarchy from parent to child component. It may not be immediately clear which component should own what state. This can be challenging if you’re new to this concept, but you can figure it out by following these steps!
 
-Đối với mỗi phần state trong ứng dụng của bạn:
+For each piece of state in your application:
 
-1. Xác định *mọi* thành phần hiển thị gì đó dựa trên trạng thái đó.
-2. Tìm thành phần cha chung gần nhất của chúng - một thành phần ở trên tất cả trong thứ bậc thành phần.
-3. Quyết định nơi lưu trữ state:
-    1. Thường thì, bạn có thể đặt state trực tiếp vào thành phần cha chung của chúng.
-    2. Bạn cũng có thể đặt state vào một thành phần nằm trên thành phần cha chung của chúng.
-    3. Nếu bạn không thể tìm thấy thành phần nào phù hợp để sở hữu trạng thái, hãy tạo một thành phần mới chỉ để giữ trạng thái và thêm nó vào đâu đó trong thứ bậc trên thành phần cha chung.
+1. Identify *every* component that renders something based on that state.
+2. Find their closest common parent component--a component above them all in the hierarchy.
+3. Decide where the state should live:
+    1. Often, you can put the state directly into their common parent.
+    2. You can also put the state into some component above their common parent.
+    3. If you can't find a component where it makes sense to own the state, create a new component solely for holding the state and add it somewhere in the hierarchy above the common parent component.
 
-Ở bước trước, bạn đã tìm thấy hai phần state trong ứng dụng này: văn bản đầu vào tìm kiếm và giá trị của hộp kiểm. Trong ví dụ này, chúng luôn xuất hiện cùng nhau, vì vậy hợp lý để đặt chúng vào cùng một nơi.
+In the previous step, you found two pieces of state in this application: the search input text, and the value of the checkbox. In this example, they always appear together, so it makes sense to put them into the same place.
 
+Now let's run through our strategy for them:
 
-Bây giờ chúng ta hãy xem lại chiến lược của chúng ta cho state:
+1. **Identify components that use state:**
+    * `ProductTable` needs to filter the product list based on that state (search text and checkbox value). 
+    * `SearchBar` needs to display that state (search text and checkbox value).
+2. **Find their common parent:** The first parent component both components share is `FilterableProductTable`.
+3. **Decide where the state lives**: We'll keep the filter text and checked state values in `FilterableProductTable`.
 
-1. **Xác định các thành phần sử dụng trạng thái (state):**
-    * `ProductTable` cần lọc danh sách sản phẩm dựa trên trạng thái đó (văn bản tìm kiếm và giá trị hộp kiểm).
-    * `SearchBar` cần hiển thị trạng thái đó (văn bản tìm kiếm và giá trị hộp kiểm).
-2. **Tìm kiếm cha chung của chúng:** Các thành phần cha đầu tiên mà cả hai thành phần đều chia sẻ là `FilterableProductTable`.
-3. **Quyết định vị trí trạng thái:** Chúng tôi sẽ giữ các giá trị văn bản tìm kiếm và trạng thái kiểm tra trong `FilterableProductTable`.
+So the state values will live in `FilterableProductTable`. 
 
-Vì vậy, các giá trị trạng thái sẽ được lưu trong `FilterableProductTable`. 
-
-Thêm trạng thái vào thành phần với [`useState()` Hook.](/reference/react/useState) Hooks là các hàm đặc biệt cho phép bạn "kết nối vào" React. Thêm hai biến trạng thái ở đầu `FilterableProductTable` và chỉ định trạng thái ban đầu của chúng:
-
+Add state to the component with the [`useState()` Hook.](/reference/react/useState) Hooks are special functions that let you "hook into" React. Add two state variables at the top of `FilterableProductTable` and specify their initial state:
 
 ```js
 function FilterableProductTable({ products }) {
@@ -290,7 +281,7 @@ function FilterableProductTable({ products }) {
   const [inStockOnly, setInStockOnly] = useState(false);  
 ```
 
-Sau đó, truyền `filterText` và `inStockOnly` tới `ProductTable` và `SearchBar` như là props:
+Then, pass `filterText` and `inStockOnly` to `ProductTable` and `SearchBar` as props:
 
 ```js
 <div>
@@ -304,8 +295,7 @@ Sau đó, truyền `filterText` và `inStockOnly` tới `ProductTable` và `Sear
 </div>
 ```
 
-Bạn có thể bắt đầu xem cách ứng dụng của bạn sẽ hoạt động. Chỉnh sửa giá trị ban đầu của `filterText` từ `useState('')` thành `useState('fruit')` trong đoạn code sandbox dưới đây. Bạn sẽ thấy cả ô văn bản tìm kiếm và bảng được cập nhật:
-
+You can start seeing how your application will behave. Edit the `filterText` initial value from `useState('')` to `useState('fruit')` in the sandbox code below. You'll see both the search input text and the table update:
 
 <Sandpack>
 
@@ -447,8 +437,7 @@ td {
 
 </Sandpack>
 
-Lưu ý rằng chỉnh sửa biểu mẫu vẫn chưa hoạt động. Có một lỗi console trong sandbox ở trên để giải thích tại sao:
-
+Notice that editing the form doesn't work yet. There is a console error in the sandbox above explaining why:
 
 <ConsoleBlock level="error">
 
@@ -456,9 +445,7 @@ You provided a \`value\` prop to a form field without an \`onChange\` handler. T
 
 </ConsoleBlock>
 
-
-Trong môi trường sandbox phía trên, `ProductTable` và `SearchBar` đọc các thuộc tính `filterText` và `inStockOnly` để hiển thị bảng, input, và checkbox. Ví dụ, đây là cách `SearchBar` điền giá trị vào input:
-
+In the sandbox above, `ProductTable` and `SearchBar` read the `filterText` and `inStockOnly` props to render the table, the input, and the checkbox. For example, here is how `SearchBar` populates the input value:
 
 ```js {1,6}
 function SearchBar({ filterText, inStockOnly }) {
@@ -470,16 +457,16 @@ function SearchBar({ filterText, inStockOnly }) {
         placeholder="Search..."/>
 ```
 
-Tuy nhiên, bạn vẫn chưa thêm bất kì dòng code nào tương tác được với hành động như gõ phím. Đây sẽ bước cuối cùng của bạn.
+However, you haven't added any code to respond to the user actions like typing yet. This will be your final step.
 
 
-## Step 5: Thêm dữ liệu nghịch đảo  {/*step-5-add-inverse-data-flow*/}
+## Step 5: Add inverse data flow {/*step-5-add-inverse-data-flow*/}
 
-Hiện tại ứng dụng của bạn hiển thị đúng với dữ liệu props và state được truyền xuống theo thứ tự hướng xuống. Nhưng để thay đổi trạng thái theo đầu vào của người dùng, bạn cần hỗ trợ dữ liệu truyền ngược lại: các thành phần biểu mẫu sâu trong cấu trúc cần cập nhật trạng thái trong `FilterableProductTable`.
+Currently your app renders correctly with props and state flowing down the hierarchy. But to change the state according to user input, you will need to support data flowing the other way: the form components deep in the hierarchy need to update the state in `FilterableProductTable`. 
 
-React làm cho luồng dữ liệu này rõ ràng, nhưng nó yêu cầu một chút việc gõ phím hơn so với ràng buộc dữ liệu hai chiều. Nếu bạn thử gõ hoặc chọn hộp kiểm trong ví dụ ở trên, bạn sẽ thấy rằng React bỏ qua đầu vào của bạn. Điều này là có chủ ý. Bằng cách viết `<input value={filterText} />`, bạn đã đặt thuộc tính `value` của `input` luôn bằng với `filterText` state được truyền vào từ `FilterableProductTable`. Vì `filterText` state không bao giờ được thiết lập, nên đầu vào không bao giờ thay đổi.
+React makes this data flow explicit, but it requires a little more typing than two-way data binding. If you try to type or check the box in the example above, you'll see that React ignores your input. This is intentional. By writing `<input value={filterText} />`, you've set the `value` prop of the `input` to always be equal to the `filterText` state passed in from `FilterableProductTable`. Since `filterText` state is never set, the input never changes.
 
-Bạn muốn làm cho trạng thái được cập nhật mỗi khi người dùng thay đổi đầu vào của biểu mẫu. Trạng thái được quản lý bởi `FilterableProductTable`, nên chỉ nó mới có thể gọi `setFilterText` và `setInStockOnly`. Để cho phép `SearchBar` cập nhật trạng thái của `FilterableProductTable`, bạn cần truyền các hàm này xuống `SearchBar`:
+You want to make it so whenever the user changes the form inputs, the state updates to reflect those changes. The state is owned by `FilterableProductTable`, so only it can call `setFilterText` and `setInStockOnly`. To let `SearchBar` update the `FilterableProductTable`'s state, you need to pass these functions down to `SearchBar`:
 
 ```js {2,3,10,11}
 function FilterableProductTable({ products }) {
@@ -495,7 +482,7 @@ function FilterableProductTable({ products }) {
         onInStockOnlyChange={setInStockOnly} />
 ```
 
-Bên trong `SearchBar`, bạn sẽ thêm quản lý sự kiện `onChange` và thiết lập trạng thái cha từ chúng:
+Inside the `SearchBar`, you will add the `onChange` event handlers and set the parent state from them:
 
 ```js {4,5,13,19}
 function SearchBar({
@@ -519,7 +506,7 @@ function SearchBar({
           onChange={(e) => onInStockOnlyChange(e.target.checked)}
 ```
 
-Giờ thì ứng dụng của bạn đã hoạt động!
+Now the application fully works!
 
 <Sandpack>
 
@@ -668,8 +655,9 @@ td {
 ```
 
 </Sandpack>
-Bạn có thể tìm hiểu về cách xử lý sự kiện và cập nhật trạng thái trong phần [Thêm tính tương tác](/learn/adding-interactivity).
 
-## Tìm hiểu thêm {/*where-to-go-from-here*/}
+You can learn all about handling events and updating state in the [Adding Interactivity](/learn/adding-interactivity) section.
 
-Đây chỉ là một sự giới thiệu rất ngắn gọn về cách tư duy khi xây dựng các thành phần và ứng dụng với React. Bạn có thể [bắt đầu một dự án React](/learn/installation) ngay bây giờ hoặc [đào sâu hơn vào UI](/learn/describing-the-ui) được sử dụng trong hướng dẫn này.
+## Where to go from here {/*where-to-go-from-here*/}
+
+This was a very brief introduction to how to think about building components and applications with React. You can [start a React project](/learn/installation) right now or [dive deeper on all the syntax](/learn/describing-the-ui) used in this tutorial.

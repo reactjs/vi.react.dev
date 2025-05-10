@@ -8,6 +8,7 @@ import cn from 'classnames';
 import {ExternalLink} from 'components/ExternalLink';
 import {IconFacebookCircle} from 'components/Icon/IconFacebookCircle';
 import {IconTwitter} from 'components/Icon/IconTwitter';
+import {IconBsky} from 'components/Icon/IconBsky';
 import {IconGitHub} from 'components/Icon/IconGitHub';
 
 export function Footer() {
@@ -283,7 +284,7 @@ export function Footer() {
           <div
             className="text-xs text-left rtl:text-right mt-2 pe-0.5"
             dir="ltr">
-            &copy;{new Date().getFullYear()}
+            Copyright &copy; Meta Platforms, Inc
           </div>
           <div
             className="uwu-visible text-xs cursor-pointer hover:text-link hover:dark:text-link-dark hover:underline"
@@ -312,50 +313,48 @@ export function Footer() {
         </div>
         <div className="flex flex-col">
           <FooterLink href="/learn" isHeader={true}>
-            Learn React
+            Học React
           </FooterLink>
-          <FooterLink href="/learn/">Quick Start</FooterLink>
-          <FooterLink href="/learn/installation">Installation</FooterLink>
+          <FooterLink href="/learn/">Bắt đầu nhanh</FooterLink>
+          <FooterLink href="/learn/installation">Cài đặt</FooterLink>
           <FooterLink href="/learn/describing-the-ui">
-            Describing the UI
+            Mô tả giao diện người dùng
           </FooterLink>
           <FooterLink href="/learn/adding-interactivity">
-            Adding Interactivity
+            Thêm tính tương tác
           </FooterLink>
-          <FooterLink href="/learn/managing-state">Managing State</FooterLink>
+          <FooterLink href="/learn/managing-state">Quản lý State</FooterLink>
           <FooterLink href="/learn/escape-hatches">Escape Hatches</FooterLink>
         </div>
         <div className="flex flex-col">
           <FooterLink href="/reference/react" isHeader={true}>
-            API Reference
+            API Tham khảo
           </FooterLink>
           <FooterLink href="/reference/react">React APIs</FooterLink>
           <FooterLink href="/reference/react-dom">React DOM APIs</FooterLink>
         </div>
         <div className="md:col-start-2 xl:col-start-4 flex flex-col">
           <FooterLink href="/community" isHeader={true}>
-            Community
+            Cộng đồng
           </FooterLink>
           <FooterLink href="https://github.com/facebook/react/blob/main/CODE_OF_CONDUCT.md">
-            Code of Conduct
+            Quy tắc ứng xử
           </FooterLink>
-          <FooterLink href="/community/team">Meet the Team</FooterLink>
+          <FooterLink href="/community/team">Gặp gỡ đội ngũ</FooterLink>
           <FooterLink href="/community/docs-contributors">
-            Docs Contributors
+            Người đóng góp tài liệu
           </FooterLink>
-          <FooterLink href="/community/acknowledgements">
-            Acknowledgements
-          </FooterLink>
+          <FooterLink href="/community/acknowledgements">Lời cảm ơn</FooterLink>
         </div>
         <div className="flex flex-col">
-          <FooterLink isHeader={true}>More</FooterLink>
+          <FooterLink isHeader={true}>Hơn nữa</FooterLink>
           <FooterLink href="/blog">Blog</FooterLink>
           <FooterLink href="https://reactnative.dev/">React Native</FooterLink>
           <FooterLink href="https://opensource.facebook.com/legal/privacy">
-            Privacy
+            Chính sách quyền riêng tư
           </FooterLink>
           <FooterLink href="https://opensource.fb.com/legal/terms/">
-            Terms
+            Điều khoản dịch vụ
           </FooterLink>
           <div className="flex flex-row items-center mt-8 gap-x-2">
             <ExternalLink
@@ -369,6 +368,12 @@ export function Footer() {
               href="https://twitter.com/reactjs"
               className={socialLinkClasses}>
               <IconTwitter />
+            </ExternalLink>
+            <ExternalLink
+              aria-label="React on Bluesky"
+              href="https://bsky.app/profile/react.dev"
+              className={socialLinkClasses}>
+              <IconBsky />
             </ExternalLink>
             <ExternalLink
               aria-label="React on Github"

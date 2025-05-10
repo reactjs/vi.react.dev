@@ -15,7 +15,7 @@
           "path": "/learn/tutorial-tic-tac-toe"
         },
         {
-          "title": "Tư Duy Trong React",
+          "title": "Thinking in React",
           "path": "/learn/thinking-in-react"
         }
       ]
@@ -25,13 +25,23 @@
       "path": "/learn/installation",
       "routes": [
         {
-          "title": "Start a New React Project",
-          "path": "/learn/start-a-new-react-project"
+          "title": "Creating a React App",
+          "path": "/learn/creating-a-react-app"
+        },
+        {
+          "title": "Build a React App from Scratch",
+          "path": "/learn/build-a-react-app-from-scratch"
         },
         {
           "title": "Add React to an Existing Project",
           "path": "/learn/add-react-to-an-existing-project"
-        },
+        }
+      ]
+    },
+    {
+      "title": "Setup",
+      "path": "/learn/setup",
+      "routes": [
         {
           "title": "Editor Setup",
           "path": "/learn/editor-setup"
@@ -43,6 +53,11 @@
         {
           "title": "React Developer Tools",
           "path": "/learn/react-developer-tools"
+        },
+        {
+          "title": "React Compiler",
+          "path": "/learn/react-compiler",
+          "canary": true
         }
       ]
     },
@@ -56,7 +71,7 @@
       "path": "/learn/describing-the-ui",
       "routes": [
         {
-          "title": "Component đầu tiên của bạn",
+          "title": "Your First Component",
           "path": "/learn/your-first-component"
         },
         {
@@ -111,7 +126,7 @@
           "path": "/learn/render-and-commit"
         },
         {
-          "title": "State như một snapshot",
+          "title": "State as a Snapshot",
           "path": "/learn/state-as-a-snapshot"
         },
         {
@@ -119,11 +134,11 @@
           "path": "/learn/queueing-a-series-of-state-updates"
         },
         {
-          "title": "Cập nhật đối tượng trong state",
+          "title": "Updating Objects in State",
           "path": "/learn/updating-objects-in-state"
         },
         {
-          "title": "Cập nhật mảng trong State",
+          "title": "Updating Arrays in State",
           "path": "/learn/updating-arrays-in-state"
         }
       ]

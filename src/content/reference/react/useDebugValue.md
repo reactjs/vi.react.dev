@@ -4,7 +4,7 @@ title: useDebugValue
 
 <Intro>
 
-`useDebugValue` là một React Hook để giúp thêm nhãn (label) vào một custom Hook khi hiển thị trên [Công cụ phát triển React (React DevTools).](/learn/react-developer-tools)
+`useDebugValue` is a React Hook that lets you add a label to a custom Hook in [React DevTools.](/learn/react-developer-tools)
 
 ```js
 useDebugValue(value, format?)
@@ -16,11 +16,11 @@ useDebugValue(value, format?)
 
 ---
 
-## Tham khảo {/*reference*/}
+## Reference {/*reference*/}
 
 ### `useDebugValue(value, format?)` {/*usedebugvalue*/}
 
-Gọi `useDebugValue` ở cấp cao nhất trong [custom Hook](/learn/reusing-logic-with-custom-hooks) của bạn để hiển thị một giá trị debug (debug value) dễ đọc:
+Call `useDebugValue` at the top level of your [custom Hook](/learn/reusing-logic-with-custom-hooks) to display a readable debug value:
 
 ```js
 import { useDebugValue } from 'react';
@@ -32,22 +32,22 @@ function useOnlineStatus() {
 }
 ```
 
-[Xem thêm các ví dụ phía dưới.](#usage)
+[See more examples below.](#usage)
 
-#### Các tham số (Parameters) {/*parameters*/}
+#### Parameters {/*parameters*/}
 
-* `value`: Giá trị bạn muốn hiển thị trên React DevTools. Giá trị này có thể thuộc bất cứ kiểu nào.
-* `format` (**không bắt buộc**): Là một hàm dùng để định dạng. Khi bạn kiểm tra các thành phần (component), React DevTools sẽ gọi hàm này với đối số là giá trị của `value`, sau đó sẽ hiển thị giá trị sau khi định dạng (giá trị sau khi định dạng cũng có thể thuộc bất cứ kiểu nào). Nếu bạn không thiết lập hàm định dạng, giá trị ban đầu của `value` sẽ được hiển thị.
+* `value`: The value you want to display in React DevTools. It can have any type.
+* **optional** `format`: A formatting function. When the component is inspected, React DevTools will call the formatting function with the `value` as the argument, and then display the returned formatted value (which may have any type). If you don't specify the formatting function, the original `value` itself will be displayed.
 
-#### Giá trị trả về (Returns) {/*returns*/}
+#### Returns {/*returns*/}
 
-`useDebugValue` không trả về bất cứ giá trị nào.
+`useDebugValue` does not return anything.
 
-## Cách sử dụng {/*usage*/}
+## Usage {/*usage*/}
 
-### Thêm label cho custom Hook {/*adding-a-label-to-a-custom-hook*/}
+### Adding a label to a custom Hook {/*adding-a-label-to-a-custom-hook*/}
 
-Gọi `useDebugValue` ở cấp cao nhất trong [custom Hook](/learn/reusing-logic-with-custom-hooks) của bạn để hiển thị một <CodeStep step={1}>debug value</CodeStep> dễ đọc trên [React DevTools.](/learn/react-developer-tools)
+Call `useDebugValue` at the top level of your [custom Hook](/learn/reusing-logic-with-custom-hooks) to display a readable <CodeStep step={1}>debug value</CodeStep> for [React DevTools.](/learn/react-developer-tools)
 
 ```js [[1, 5, "isOnline ? 'Online' : 'Offline'"]]
 import { useDebugValue } from 'react';
@@ -59,11 +59,11 @@ function useOnlineStatus() {
 }
 ```
 
-Việc này sẽ gắn thêm label như là `OnlineStatus: "Online"` cho các component gọi `useOnlineStatus` khi bạn kiểm tra chúng:
+This gives components calling `useOnlineStatus` a label like `OnlineStatus: "Online"` when you inspect them:
 
-![Một ảnh chụp của React DevTools khi hiển thị debug value](/images/docs/react-devtools-usedebugvalue.png)
+![A screenshot of React DevTools showing the debug value](/images/docs/react-devtools-usedebugvalue.png)
 
-Nếu không gọi `useDebugValue`, sẽ chỉ có dữ liệu cơ bản (như ví dụ này là `true`) được hiển thị.
+Without the `useDebugValue` call, only the underlying data (in this example, `true`) would be displayed.
 
 <Sandpack>
 
@@ -103,20 +103,20 @@ function subscribe(callback) {
 
 <Note>
 
-Đừng lạm dụng debug value cho tất cả các custom Hook. Nó có giá trị nhất khi sử dụng cho những custom Hook là một phần của các thư viện dùng chung và có cấu trúc dữ liệu nội bội phức tạp gây khó khăn cho việc kiểm tra.
+Don't add debug values to every custom Hook. It's most valuable for custom Hooks that are part of shared libraries and that have a complex internal data structure that's difficult to inspect.
 
 </Note>
 
 ---
 
-### Trì hoãn việc định dạng một debug value {/*deferring-formatting-of-a-debug-value*/}
+### Deferring formatting of a debug value {/*deferring-formatting-of-a-debug-value*/}
 
-Bạn có thể đưa vào một hàm định dạng làm đối số thứ hai cho `useDebugValue`:
+You can also pass a formatting function as the second argument to `useDebugValue`:
 
 ```js [[1, 1, "date", 18], [2, 1, "date.toDateString()"]]
 useDebugValue(date, date => date.toDateString());
 ```
 
-Hàm định dạng của bạn sẽ nhận được tham số là <CodeStep step={1}>debug value</CodeStep> và cần trả về một <CodeStep step={2}>giá trị đã định dạng để hiển thị (formatted display value)</CodeStep>. Chỉ khi nào component của bạn được kiểm tra, React DevTools sẽ gọi hàm này và hiển thị kết quả được trả về.
+Your formatting function will receive the <CodeStep step={1}>debug value</CodeStep> as a parameter and should return a <CodeStep step={2}>formatted display value</CodeStep>. When your component is inspected, React DevTools will call this function and display its result.
 
-Điều này giúp bạn tránh việc luôn chạy những logic định dạng (đôi khi những logic này có thể sẽ rất tốn kém), trừ phi là lúc component đó đang được kiểm tra. Ví dụ như, `date` là một giá trị kiểu Date, việc sử dụng `useDebugValue` giúp tránh gọi đến `toDateString()` trên giá trị đó cho mỗi lần render.
+This lets you avoid running potentially expensive formatting logic unless the component is actually inspected. For example, if `date` is a Date value, this avoids calling `toDateString()` on it for every render.

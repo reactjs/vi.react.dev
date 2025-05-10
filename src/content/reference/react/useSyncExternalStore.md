@@ -4,7 +4,7 @@ title: useSyncExternalStore
 
 <Intro>
 
-`useSyncExternalStore` là một React Hook cho phép bạn đăng ký vào một external store.
+`useSyncExternalStore` is a React Hook that lets you subscribe to an external store.
 
 ```js
 const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot?)
@@ -16,11 +16,11 @@ const snapshot = useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot?
 
 ---
 
-## Tham khảo {/*reference*/}
+## Reference {/*reference*/}
 
 ### `useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot?)` {/*usesyncexternalstore*/}
 
-Gọi `useSyncExternalStore` ở cấp cao nhất của component của bạn để đọc một giá trị từ một cửa hàng dữ liệu bên ngoài.
+Call `useSyncExternalStore` at the top level of your component to read a value from an external data store.
 
 ```js
 import { useSyncExternalStore } from 'react';
@@ -32,36 +32,36 @@ function TodosApp() {
 }
 ```
 
-Nó trả về ảnh chụp(snapshot) của dữ liệu trong store. Bạn cần truyền hai hàm làm đối số:
+It returns the snapshot of the data in the store. You need to pass two functions as arguments:
 
-1. Hàm `subscribe` nên đăng ký vào store và trả về một hàm có chức năng hủy đăng ký.
-2. Hàm `getSnapshot` nên đọc một ảnh chụp(snapshot) dữ liệu từ cửa hàng.
+1. The `subscribe` function should subscribe to the store and return a function that unsubscribes.
+2. The `getSnapshot` function should read a snapshot of the data from the store.
 
-[Xem thêm các ví dụ phía dưới.](#usage)
+[See more examples below.](#usage)
 
-#### Các tham số(Parameters) {/*parameters*/}
+#### Parameters {/*parameters*/}
 
-* `subscribe`: Một hàm nhận một đối số `callback` duy nhất và đăng ký nó với store. Khi store thay đổi, nó nên gọi hàm `callback` được cung cấp. Điều này sẽ khiến cho component được render lại. Hàm `subscribe` nên trả về một hàm dùng để dọn dẹp đăng ký(subscription).
+* `subscribe`: A function that takes a single `callback` argument and subscribes it to the store. When the store changes, it should invoke the provided `callback`, which will cause React to re-call `getSnapshot` and (if needed) re-render the component. The `subscribe` function should return a function that cleans up the subscription.
 
-* `getSnapshot`: Một hàm trả về ảnh chụp(snapshot) của dữ liệu trong store mà component cần. Trong khi store không thay đổi, các lời gọi lại tới `getSnapshot` phải trả về cùng một giá trị. Nếu store thay đổi và giá trị trả về khác nhau (được so sánh bởi [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)), React sẽ render lại component.
+* `getSnapshot`: A function that returns a snapshot of the data in the store that's needed by the component. While the store has not changed, repeated calls to `getSnapshot` must return the same value. If the store changes and the returned value is different (as compared by [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)), React re-renders the component.
 
-* **tùy chọn** `getServerSnapshot`: Một hàm trả về ảnh chụp(snapshot) ban đầu của dữ liệu trong store. Nó chỉ được sử dụng trong quá trình render phía server và trong quá trình hydrate hóa nội dung được được render bởi server trên client. Ảnh chụp(snapshot) ở server phải giống nhau giữa client và server, và thường được tuần tự hóa và truyền từ server đến client. Nếu bạn bỏ qua đối số này, việc render component phía server sẽ báo lỗi.
+* **optional** `getServerSnapshot`: A function that returns the initial snapshot of the data in the store. It will be used only during server rendering and during hydration of server-rendered content on the client. The server snapshot must be the same between the client and the server, and is usually serialized and passed from the server to the client. If you omit this argument, rendering the component on the server will throw an error.
 
-#### Trả về {/*returns*/}
+#### Returns {/*returns*/}
 
-Ảnh chụp(snapshot) dữ liệu hiện tại của store mà bạn có thể sử dụng trong logic render của mình.
+The current snapshot of the store which you can use in your rendering logic.
 
-#### Cảnh báo {/*caveats*/}
+#### Caveats {/*caveats*/}
 
-* Ảnh chụp(snapshot) của store trả về bởi `getSnapshot` phải là bất biến(immutable). Nếu dữ liệu trong store cơ bản là mutable, trả về một snapshot mới không thể thay đổi(immutable) nếu dữ liệu đã thay đổi. Nếu không, trả về một bản chụp đã được lưu vào bộ nhớ cache.
+* The store snapshot returned by `getSnapshot` must be immutable. If the underlying store has mutable data, return a new immutable snapshot if the data has changed. Otherwise, return a cached last snapshot.
 
-* Nếu một hàm `subscribe` khác được truyền vào lúc re-render, React sẽ đăng ký lại với store hàm `subscribe` mới được truyền vào. Bạn có thể ngăn chặn điều này bằng cách khai báp hàm `subscribe` bên ngoài component.
+* If a different `subscribe` function is passed during a re-render, React will re-subscribe to the store using the newly passed `subscribe` function. You can prevent this by declaring `subscribe` outside the component.
 
-* Nếu store bị thay đổi trong [non-blocking transition update](/reference/react/useTransition), React sẽ chuyển sang thực hiện cập nhật đó như một cập nhật chặn. Cụ thể, cho mỗi transition update, React sẽ gọi `getSnapshot` một lần nữa trước khi áp dụng các thay đổi vào DOM. Nếu nó trả về một giá trị khác so với khi nó được gọi ban đầu, React sẽ khởi động lại việc cập nhật từ đầu, lần này áp dụng nó như một cập nhật chặn, để đảm bảo rằng mọi thành phần trên màn hình đều phản ánh cùng một phiên bản của store.
+* If the store is mutated during a [non-blocking Transition update](/reference/react/useTransition), React will fall back to performing that update as blocking. Specifically, for every Transition update, React will call `getSnapshot` a second time just before applying changes to the DOM. If it returns a different value than when it was called originally, React will restart the update from scratch, this time applying it as a blocking update, to ensure that every component on screen is reflecting the same version of the store.
 
-* Không nên _suspend_ một render dựa trên giá trị của store được trả về bởi `useSyncExternalStore`. Lý do là các thay đổi với cửa hàng bên ngoài(external store) không được đánh dấu là [non-blocking transition updates](/reference/react/useTransition), vì vậy chúng sẽ kích hoạt [`Suspense` fallback](/reference/react/Suspense) gần nhất, thay thế nội dung đã được render trên màn hình bằng một loading spinner, điều này thường tạo ra một trả nghiệm người dùng không tốt.
+* It's not recommended to _suspend_ a render based on a store value returned by `useSyncExternalStore`. The reason is that mutations to the external store cannot be marked as [non-blocking Transition updates](/reference/react/useTransition), so they will trigger the nearest [`Suspense` fallback](/reference/react/Suspense), replacing already-rendered content on screen with a loading spinner, which typically makes a poor UX.
 
-  Ví dụ, những điều sau đây không được khuyến khích:
+  For example, the following are discouraged:
 
   ```js
   const LazyProductDetailPage = lazy(() => import('./ProductDetailPage.js'));
@@ -69,26 +69,26 @@ Nó trả về ảnh chụp(snapshot) của dữ liệu trong store. Bạn cần
   function ShoppingApp() {
     const selectedProductId = useSyncExternalStore(...);
 
-    // ❌ Gọi `use` với một Promise phụ thuộc vào `selectedProductId`
+    // ❌ Calling `use` with a Promise dependent on `selectedProductId`
     const data = use(fetchItem(selectedProductId))
 
-    // ❌ Render theo điều kiện một lazy component dựa vào `selectedProductId`
+    // ❌ Conditionally rendering a lazy component based on `selectedProductId`
     return selectedProductId != null ? <LazyProductDetailPage /> : <FeaturedProducts />;
   }
   ```
 
 ---
 
-## Cách sử dụng {/*usage*/}
+## Usage {/*usage*/}
 
-### Đăng ký vào một cửa hàng bên ngoài {/*subscribing-to-an-external-store*/}
+### Subscribing to an external store {/*subscribing-to-an-external-store*/}
 
-Hầu hết các React component của bạn chỉ đọc dữ liệu từ  [props,](/learn/passing-props-to-a-component) [state,](/reference/react/useState) và [context.](/reference/react/useContext) Tuy nhiên, đôi khi một thành phần cần đọc một số dữ liệu từ một cửa hàng bên ngoài React mà thay đổi theo thời gian. Điều này bao gồm:
+Most of your React components will only read data from their [props,](/learn/passing-props-to-a-component) [state,](/reference/react/useState) and [context.](/reference/react/useContext) However, sometimes a component needs to read some data from some store outside of React that changes over time. This includes:
 
-* Các thư viện quản lý trạng thái bên thứ ba lưu trữ tráng thái bên ngoài của React.
-* Các API của trình duyệt(Browser APIs) cung cấp một giá trị có thể thay đổi và các sự kiện để đăng ký theo dõi sự thay đổi của nó.
+* Third-party state management libraries that hold state outside of React.
+* Browser APIs that expose a mutable value and events to subscribe to its changes.
 
-Gọi `useSyncExternalStore` ở cấp độ cao nhất của component để đọc một giá trị từ một kho dữ liệu bên ngoài(external store).
+Call `useSyncExternalStore` at the top level of your component to read a value from an external data store.
 
 ```js [[1, 5, "todosStore.subscribe"], [2, 5, "todosStore.getSnapshot"], [3, 5, "todos", 0]]
 import { useSyncExternalStore } from 'react';
@@ -100,14 +100,14 @@ function TodosApp() {
 }
 ```
 
-Nó trả về <CodeStep step={3}>snapshot</CodeStep> của dữ liệu trong store. Bạn cần truyền vào hai hàm làm đối số:
+It returns the <CodeStep step={3}>snapshot</CodeStep> of the data in the store. You need to pass two functions as arguments:
 
-1. Hàm <CodeStep step={1}>`subscribe`</CodeStep> nên đăng ký(subscribe) với cửa hàng và trả về một hàm để hủy đăng ký(unsubscribes).
-2. Hàm <CodeStep step={2}>`getSnapshot`</CodeStep> nên đọc một ảnh chụp nhanh(snapshot) của dữ liệu từ store.
+1. The <CodeStep step={1}>`subscribe` function</CodeStep> should subscribe to the store and return a function that unsubscribes.
+2. The <CodeStep step={2}>`getSnapshot` function</CodeStep> should read a snapshot of the data from the store.
 
-React sẽ sử dụng các hàm này để giữ cho component của bạn được đăng ký với store và re-render nó khi có thay đổi.
+React will use these functions to keep your component subscribed to the store and re-render it on changes.
 
-Ví dụ, trong sandbox bên dưới, `todosStore` được triển khai như một external store chứa dữ liệu bên ngoài React. `TodosApp` component kết nối với external store bằng Hook `useSyncExternalStore`. 
+For example, in the sandbox below, `todosStore` is implemented as an external store that stores data outside of React. The `TodosApp` component connects to that external store with the `useSyncExternalStore` Hook. 
 
 <Sandpack>
 
@@ -169,17 +169,17 @@ function emitChange() {
 
 <Note>
 
-Khi có thể, chúng tôi khuyến nghị bạn sử dụng trạng thái được xây dựng sẵn trong React với [`useState`](/reference/react/useState) and [`useReducer`](/reference/react/useReducer) thay thế. API `useSyncExternalStore` chủ yếu hữu ích nếu bạn cần tích hợp với mã không phải React hiện có .
+When possible, we recommend using built-in React state with [`useState`](/reference/react/useState) and [`useReducer`](/reference/react/useReducer) instead. The `useSyncExternalStore` API is mostly useful if you need to integrate with existing non-React code.
 
 </Note>
 
 ---
 
-### Đăng ký với một API trình duyệt {/*subscribing-to-a-browser-api*/}
+### Subscribing to a browser API {/*subscribing-to-a-browser-api*/}
 
-Một lý do khác để bạn thêm `useSyncExternalStore` là khi bạn muốn đăng ký theo dõi một giá trị nào đó được trình duyệt cung cấp và thay đổi theo thời gian. Ví dụ, giả sử bạn muốn component của mình hiển thị liệu kết nối mạng có đang hoạt động không. Trình duyệt cung cấp thông tin này thông qua một thuộc tính có tên là [`navigator.onLine`.](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/onLine)
+Another reason to add `useSyncExternalStore` is when you want to subscribe to some value exposed by the browser that changes over time. For example, suppose that you want your component to display whether the network connection is active. The browser exposes this information via a property called [`navigator.onLine`.](https://developer.mozilla.org/en-US/docs/Web/API/Navigator/onLine)
 
-Giá trị này có thể thay đổi mà React biết, vì vật bạn nên đọc nó với  `useSyncExternalStore`.
+This value can change without React's knowledge, so you should read it with `useSyncExternalStore`.
 
 ```js
 import { useSyncExternalStore } from 'react';
@@ -190,7 +190,7 @@ function ChatIndicator() {
 }
 ```
 
-Để triển khai hàm `getSnapshot`, đọc giá trị hiện tại từ API trình duyệt:
+To implement the `getSnapshot` function, read the current value from the browser API:
 
 ```js
 function getSnapshot() {
@@ -198,7 +198,7 @@ function getSnapshot() {
 }
 ```
 
-Tiếp theo, bạn cần triển khai hàm `subscribe`. Ví dụ, khi `navigator.onLine` thay đổi, trình duyệt sẽ kích hoạt các sự kiện [`online`](https://developer.mozilla.org/en-US/docs/Web/API/Window/online_event) and [`offline`](https://developer.mozilla.org/en-US/docs/Web/API/Window/offline_event) trên đối tượng `window`. Bạn cần đăng ký đối số `callback` vào các sự kiện tương ứng, và sau đó trả về một hàm để dọn dẹp các đăng ký:
+Next, you need to implement the `subscribe` function. For example, when `navigator.onLine` changes, the browser fires the [`online`](https://developer.mozilla.org/en-US/docs/Web/API/Window/online_event) and [`offline`](https://developer.mozilla.org/en-US/docs/Web/API/Window/offline_event) events on the `window` object. You need to subscribe the `callback` argument to the corresponding events, and then return a function that cleans up the subscriptions:
 
 ```js
 function subscribe(callback) {
@@ -211,7 +211,7 @@ function subscribe(callback) {
 }
 ```
 
-Bây giờ React biết các đọc giá trị từ API `navigator.onLine` bên ngoài và cách đăng ký theo dõi dự thay đổi của nó. Ngắt kết nối thiết bị của bạn khỏi mạng và lưu ý răng component sẽ được render phải hồi lại:
+Now React knows how to read the value from the external `navigator.onLine` API and how to subscribe to its changes. Disconnect your device from the network and notice that the component re-renders in response:
 
 <Sandpack>
 
@@ -241,11 +241,11 @@ function subscribe(callback) {
 
 ---
 
-### Tách logic ra thành một custom Hook {/*extracting-the-logic-to-a-custom-hook*/}
+### Extracting the logic to a custom Hook {/*extracting-the-logic-to-a-custom-hook*/}
 
-Thông thường bạn sẽ không trực tiếp viết `useSyncExternalStore` trong các component của bạn. Thay vào đó, bạn sẽ gọi nó từ custom Hook của mình. Điều này sẽ cho phép bạn sử dụng cùng một external store từ các component khác nhau.
+Usually you won't write `useSyncExternalStore` directly in your components. Instead, you'll typically call it from your own custom Hook. This lets you use the same external store from different components.
 
-Ví dụ, custom `useOnlineStatus` Hook này theo dõi mạng có đang online hay không:
+For example, this custom `useOnlineStatus` Hook tracks whether the network is online:
 
 ```js {3,6}
 import { useSyncExternalStore } from 'react';
@@ -264,7 +264,7 @@ function subscribe(callback) {
 }
 ```
 
-Giờ đây, các component có thể gọi `useOnlineStatus` mà không cần lặp lại các cài đặt cơ bản:
+Now different components can call `useOnlineStatus` without repeating the underlying implementation:
 
 <Sandpack>
 
@@ -326,14 +326,14 @@ function subscribe(callback) {
 
 ---
 
-### Thêm hỗ trợ cho việc render phía server {/*adding-support-for-server-rendering*/}
+### Adding support for server rendering {/*adding-support-for-server-rendering*/}
 
-Nếu ứng dụng React của bạn sử dụng kỹ thuật [server rendering,](/reference/react-dom/server) các React components của bạn cũng sẽ được thực thi bên ngoài môi trường trình duyệt để tạo HTML ban đầu. Điều này tạo ra một vài thác thức khi kết nối với một external store:
+If your React app uses [server rendering,](/reference/react-dom/server) your React components will also run outside the browser environment to generate the initial HTML. This creates a few challenges when connecting to an external store:
 
-- Nếu bạn đang kết nối với một API chỉ dùng cho trình duyệt, nó sẽ không hoạt động bởi ví nó không tồn tại trên server.
-- Nếu bạn đang kết nối với một external store của bên thứ ba, bạn sẽ cần dữ liệu cảu nó phải khớp giữa server và client.
+- If you're connecting to a browser-only API, it won't work because it does not exist on the server.
+- If you're connecting to a third-party data store, you'll need its data to match between the server and client.
 
-Để giải quyết những vấn đề này, truyền một hảm `getServerSnapshot` là một đối số thứ ba cho `useSyncExternalStore`:
+To solve these issues, pass a `getServerSnapshot` function as the third argument to `useSyncExternalStore`:
 
 ```js {4,12-14}
 import { useSyncExternalStore } from 'react';
@@ -356,92 +356,92 @@ function subscribe(callback) {
 }
 ```
 
-Hàm `getServerSnapshot` tương tự như hàm `getSnapshot`, nhưng nó chỉ chạy trong hai tình huống:
+The `getServerSnapshot` function is similar to `getSnapshot`, but it runs only in two situations:
 
-- Nó chạy trên server khi tạo HTML.
-- Nó chạy trên client trong quá trình [hydration](/reference/react-dom/client/hydrateRoot), tức là khi React nhận HTML từ server và làm cho nó trở nên tương tác.
+- It runs on the server when generating the HTML.
+- It runs on the client during [hydration](/reference/react-dom/client/hydrateRoot), i.e. when React takes the server HTML and makes it interactive.
 
-Điều này cho phép bạn cung cấp giá trị snapshot ban đầu sẽ được sử dụng trước khi ứng dụng trở nên tương tác. Nếu không có giá trị bàn đầu có ý nghĩa cho việc render trên server, hãy bua đối số này để [force rendering on the client.](/reference/react/Suspense#providing-a-fallback-for-server-errors-and-client-only-content)
+This lets you provide the initial snapshot value which will be used before the app becomes interactive. If there is no meaningful initial value for the server rendering, omit this argument to [force rendering on the client.](/reference/react/Suspense#providing-a-fallback-for-server-errors-and-client-only-content)
 
 <Note>
 
-Hãy chắc chắn rằng `getServerSnapshot` trả về dữ liệu chính xác giống nhau trong lần render ban đầu phía client như nó đã trả về trên server. Ví dụ, nếu `getServerSnapshot` trả về một số nội dung của store được nạp trên server , bạn cần chuyển nội dung này sang máy khách. Một các để thực hiện điều này là phát ra một thẻ `<script>` trong quá trình render phía server đặt một biến toàn cục như `window.MY_STORE_DATA`, và đọc từ biến toàn cục này trên client trong `getServerSnapshot`. External store của bạn nên cung cấp hướng dẫn về cách thực hiện điều này.
+Make sure that `getServerSnapshot` returns the same exact data on the initial client render as it returned on the server. For example, if `getServerSnapshot` returned some prepopulated store content on the server, you need to transfer this content to the client. One way to do this is to emit a `<script>` tag during server rendering that sets a global like `window.MY_STORE_DATA`, and read from that global on the client in `getServerSnapshot`. Your external store should provide instructions on how to do that.
 
 </Note>
 
 ---
 
-## Khắc phục sự cố {/*troubleshooting*/}
+## Troubleshooting {/*troubleshooting*/}
 
-### Tôi đang gặp lỗi: "The result of `getSnapshot` should be cached" {/*im-getting-an-error-the-result-of-getsnapshot-should-be-cached*/}
+### I'm getting an error: "The result of `getSnapshot` should be cached" {/*im-getting-an-error-the-result-of-getsnapshot-should-be-cached*/}
 
-Lỗi này có nghĩa là hàm `getSnapshot` trả về một object mới mỗi lần nó được gọi, ví dụ:
+This error means your `getSnapshot` function returns a new object every time it's called, for example:
 
 ```js {2-5}
 function getSnapshot() {
-  // 🔴 Không trả về các object luôn khác nhau mỗi lần từ getSnapshot
+  // 🔴 Do not return always different objects from getSnapshot
   return {
     todos: myStore.todos
   };
 }
 ```
 
-React sẽ re-render component nếu giá trị trả về của `getSnapshot` khác biệt với lần cuối. Đây là lý do vì sao, nếu bạn luôn trả về một giá trị khác nhau, bạn sẽ rơi vào vòng lặp vô hạn và nhận được lỗi này.
+React will re-render the component if `getSnapshot` return value is different from the last time. This is why, if you always return a different value, you will enter an infinite loop and get this error.
 
 Your `getSnapshot` object should only return a different object if something has actually changed. If your store contains immutable data, you can return that data directly:
 
 ```js {2-3}
 function getSnapshot() {
-  // ✅ Bạn có thể trả về dữ liệu bất biến(immutable)
+  // ✅ You can return immutable data
   return myStore.todos;
 }
 ```
 
-Nếu dữ liệu trong store của bạn là có thế thay đổi(mutable), hàm `getSnapshot` nên trả về một snapshot không thay đổi(immutable) của nó. Điều này có nghĩa là cần phải tạo các đối tượng mới, nhưng không nên làm điều này cho mỗi lần gọi. Thay vào đó, nó nên lưu lại bản snapshot cuối cùng được tính toán, và trả về cùng một snapshot như lần cuối nếu dữ liệu trong store không thay đổi. Cách bạn xác định dữ liệu có thể thay đổi đã có sự thay đổi hay không phụ thuộc vào cách thức hoạt động của store có thể thay đổi mà bạn đang sử dụng.
+If your store data is mutable, your `getSnapshot` function should return an immutable snapshot of it. This means it *does* need to create new objects, but it shouldn't do this for every single call. Instead, it should store the last calculated snapshot, and return the same snapshot as the last time if the data in the store has not changed. How you determine whether mutable data has changed depends on your mutable store.
 
 ---
 
-### Hàm `subscribe` của tôi được gọi sau mỗi lần re-render {/*my-subscribe-function-gets-called-after-every-re-render*/}
+### My `subscribe` function gets called after every re-render {/*my-subscribe-function-gets-called-after-every-re-render*/}
 
-Hàm `subscribe` được định nghĩa *bên trong* một component nên nó khác nhau trên mỗi lần re-render:
+This `subscribe` function is defined *inside* a component so it is different on every re-render:
 
-```js {4-7}
+```js {2-5}
 function ChatIndicator() {
-  const isOnline = useSyncExternalStore(subscribe, getSnapshot);
-  
-  // 🚩 Luôn luôn là hàm khác nhau, vì vậy React sẽ resubscribe trên mỗi lần re-render
+  // 🚩 Always a different function, so React will resubscribe on every re-render
   function subscribe() {
     // ...
   }
+  
+  const isOnline = useSyncExternalStore(subscribe, getSnapshot);
 
   // ...
 }
 ```
   
-React sẽ resubscribe với store của bạn nếu bạn truyền một hàm `subscribe` khác nhau giữa các lần re-renders. Nếu điều này gây ra vấn đề về hiệu suất và bạn muốn tránh việc resubscribing, hãy di chuyển hàm `subscribe` ra bên ngoài:
+React will resubscribe to your store if you pass a different `subscribe` function between re-renders. If this causes performance issues and you'd like to avoid resubscribing, move the `subscribe` function outside:
 
-```js {6-9}
+```js {1-4}
+// ✅ Always the same function, so React won't need to resubscribe
+function subscribe() {
+  // ...
+}
+
 function ChatIndicator() {
   const isOnline = useSyncExternalStore(subscribe, getSnapshot);
   // ...
 }
-
-// ✅ Luôn luôn là một function, vì vậy React sẽ không cần resubscribe
-function subscribe() {
-  // ...
-}
 ```
 
-Hoặc có thể gói `subscribe` trong một [`useCallback`](/reference/react/useCallback) để chỉ resubscribe khi một tham số thay đổi:
+Alternatively, wrap `subscribe` into [`useCallback`](/reference/react/useCallback) to only resubscribe when some argument changes:
 
-```js {4-8}
+```js {2-5}
 function ChatIndicator({ userId }) {
-  const isOnline = useSyncExternalStore(subscribe, getSnapshot);
-  
-  // ✅ Cùng một function miễn là userId không thay đổi
+  // ✅ Same function as long as userId doesn't change
   const subscribe = useCallback(() => {
     // ...
   }, [userId]);
+  
+  const isOnline = useSyncExternalStore(subscribe, getSnapshot);
 
   // ...
 }

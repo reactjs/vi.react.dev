@@ -4,7 +4,7 @@ title: <Fragment> (<>...</>)
 
 <Intro>
 
-`<Fragment>`, hay còn được sử dụng với cú pháp `<>...</>`, cho phép bạn nhóm các phần tử mà không cần bọc chúng trong một node nào đó.
+`<Fragment>`, often used via `<>...</>` syntax, lets you group elements without a wrapper node.
 
 ```js
 <>
@@ -19,29 +19,29 @@ title: <Fragment> (<>...</>)
 
 ---
 
-## Tham khảo {/*reference*/}
+## Reference {/*reference*/}
 
 ### `<Fragment>` {/*fragment*/}
 
-Để nhóm các phần tử lại với nhau trong các tình huống mà bạn cần một phần tử đơn, hãy bọc chúng trong thẻ `<Fragment>`. Nhóm các phần tử trong `Fragment` không ảnh hưởng đến DOM; DOM sẽ giống như khi các phần tử không được nhóm lại. Trong hầu hết các trường hợp Thẻ JSX rỗng `<></>` là cách viết tắt cho `<Fragment></Fragment>`.
+Wrap elements in `<Fragment>` to group them together in situations where you need a single element. Grouping elements in `Fragment` has no effect on the resulting DOM; it is the same as if the elements were not grouped. The empty JSX tag `<></>` is shorthand for `<Fragment></Fragment>` in most cases.
 
 #### Props {/*props*/}
 
-- `key` **tuỳ chọn** : Các Fragment được khai báo bằng cú pháp rõ ràng `<Fragment>` có thể có [keys.](/learn/rendering-lists#keeping-list-items-in-order-with-key)
+- **optional** `key`: Fragments declared with the explicit `<Fragment>` syntax may have [keys.](/learn/rendering-lists#keeping-list-items-in-order-with-key)
 
-#### Những lưu ý {/*caveats*/}
+#### Caveats {/*caveats*/}
 
-- Nếu bạn muốn truyền `key` vào một Fragment, bạn không thể sử dụng cú pháp `<>...</>`.  Bạn phải import rõ ràng `Fragment` từ `'react'` và render `<Fragment key={yourKey}>...</Fragment>`.
+- If you want to pass `key` to a Fragment, you can't use the `<>...</>` syntax. You have to explicitly import `Fragment` from `'react'` and render `<Fragment key={yourKey}>...</Fragment>`.
 
-- React không [đặt lại state](/learn/preserving-and-resetting-state) khi bản chuyển từ việc render `<><Child /></>` sang `[<Child />]` hay ngược lại, hoặc khi bạn chuyển từ render `<><Child /></>` sang `<Child />` và ngược lại. Điều này chỉ hoạt động chính xác ở mức độ một cấp: ví dụ, từ `<><><Child /></></>` sang `<Child />` sẽ đặt lại state. Xem cụ thể về cách hoạt động [ở đây.](https://gist.github.com/clemmy/b3ef00f9507909429d8aa0d3ee4f986b)
+- React does not [reset state](/learn/preserving-and-resetting-state) when you go from rendering `<><Child /></>` to `[<Child />]` or back, or when you go from rendering `<><Child /></>` to `<Child />` and back. This only works a single level deep: for example, going from `<><><Child /></></>` to `<Child />` resets the state. See the precise semantics [here.](https://gist.github.com/clemmy/b3ef00f9507909429d8aa0d3ee4f986b)
 
 ---
 
-## Cách sử dụng {/*usage*/}
+## Usage {/*usage*/}
 
-### Trả về nhiều phần tử {/*returning-multiple-elements*/}
+### Returning multiple elements {/*returning-multiple-elements*/}
 
-Sử dụng `Fragment`, hoặc cú pháp tương đương `<>...</>`, để nhóm các phần tử lại với nhau. Bạn có thể sử dụng Fragment để đặt nhiều phần tử vào bất kỳ nơi nào mà một phần tử đơn lẻ có thể được sử dụng. Ví dụ, một thành phần chỉ có thể trả về một phần tử, nhưng bằng cách sử dụng Fragment, bạn có thể nhóm nhiều phần tử lại với nhau và sau đó trả về chúng như một nhóm.:
+Use `Fragment`, or the equivalent `<>...</>` syntax, to group multiple elements together. You can use it to put multiple elements in any place where a single element can go. For example, a component can only return one element, but by using a Fragment you can group multiple elements together and then return them as a group:
 
 ```js {3,6}
 function Post() {
@@ -54,7 +54,7 @@ function Post() {
 }
 ```
 
-Fragments rất hữu ích vì nhóm các phần tử với một Fragment không ảnh hưởng đến bố cục hay cách các phần tử hiển thị, khác với khi bạn bọc các phần tử trong một container khác như một DOM element. Nếu bạn kiểm tra ví dụ này với các công cụ trình duyệt, bạn sẽ thấy tất cả các nút DOM `<h1>` và `<article>` xuất hiện như là các sibling mà không có các wrapper xung quanh chúng:
+Fragments are useful because grouping elements with a Fragment has no effect on layout or styles, unlike if you wrapped the elements in another container like a DOM element. If you inspect this example with the browser tools, you'll see that all `<h1>` and `<article>` DOM nodes appear as siblings without wrappers around them:
 
 <Sandpack>
 
@@ -94,9 +94,9 @@ function PostBody({ body }) {
 
 <DeepDive>
 
-#### Làm thế nào để viết Fragment mà không cần cú pháp đặc biệt? {/*how-to-write-a-fragment-without-the-special-syntax*/}
+#### How to write a Fragment without the special syntax? {/*how-to-write-a-fragment-without-the-special-syntax*/}
 
-Câu ví dụ trên tương đương với việc import `Fragment` từ React:
+The example above is equivalent to importing `Fragment` from React:
 
 ```js {1,5,8}
 import { Fragment } from 'react';
@@ -111,15 +111,15 @@ function Post() {
 }
 ```
 
-Thông thường bạn sẽ không cần phải làm thế này trừ khi bạn cần [truyền `key` vào `Fragment`.](#rendering-a-list-of-fragments)
+Usually you won't need this unless you need to [pass a `key` to your `Fragment`.](#rendering-a-list-of-fragments)
 
 </DeepDive>
 
 ---
 
-### Gán nhiều phần tử vào một biến {/*assigning-multiple-elements-to-a-variable*/}
+### Assigning multiple elements to a variable {/*assigning-multiple-elements-to-a-variable*/}
 
-Như mọi phần tử khác, bạn có thể gán các phần tử Fragment vào các biến, truyền chúng như props, và hơn thế nữa:
+Like any other element, you can assign Fragment elements to variables, pass them as props, and so on:
 
 ```js
 function CloseDialog() {
@@ -139,9 +139,9 @@ function CloseDialog() {
 
 ---
 
-### Nhóm các phần tử với văn bản {/*grouping-elements-with-text*/}
+### Grouping elements with text {/*grouping-elements-with-text*/}
 
-Bạn có thể dùng `Fragment` để nhóm các văn bản với các thành phần:
+You can use `Fragment` to group text together with components:
 
 ```js
 function DateRangePicker({ start, end }) {
@@ -158,9 +158,9 @@ function DateRangePicker({ start, end }) {
 
 ---
 
-### Hiển thị một danh sách gồm các Fragment {/*rendering-a-list-of-fragments*/}
+### Rendering a list of Fragments {/*rendering-a-list-of-fragments*/}
 
-Dưới đây là một trường hợp mà bạn cần viết `Fragment` một cách rõ ràng thay vì sử dụng cú pháp `<></>`.  Khi bạn [render  nhiều phần tử trong một vòng lặp](/learn/rendering-lists), bạn cần gán một `key` cho mỗi phần tử. Nếu các phần tử trong vòng lặp là Fragments, bạn cần sử dụng cú pháp JSX thông thường để cung cấp thuộc tính `key`:
+Here's a situation where you need to write `Fragment` explicitly instead of using the `<></>` syntax. When you [render multiple elements in a loop](/learn/rendering-lists), you need to assign a `key` to each element. If the elements within the loop are Fragments, you need to use the normal JSX element syntax in order to provide the `key` attribute:
 
 ```js {3,6}
 function Blog() {
@@ -173,7 +173,7 @@ function Blog() {
 }
 ```
 
-Bạn có thể kiểm tra DOM để xác nhận rằng không có phần tử bao quanh các phần tử con của Fragmen:
+You can inspect the DOM to verify that there are no wrapper elements around the Fragment children:
 
 <Sandpack>
 

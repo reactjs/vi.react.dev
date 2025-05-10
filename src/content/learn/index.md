@@ -1,77 +1,37 @@
 ---
-title: Quick Start
+title: Bắt đầu nhanh
 ---
 
 <Intro>
 
-Welcome to the React documentation! This page will give you an introduction to the 80% of React concepts that you will use on a daily basis.
+Chào mừng bạn đến với tài liệu React! Trang này sẽ cung cấp cho bạn phần giới thiệu về 80% các khái niệm React mà bạn sẽ sử dụng hàng ngày.
 
 </Intro>
 
 <YouWillLearn>
 
-- How to create and nest components
-- How to add markup and styles
-- How to display data
-- How to render conditions and lists
-- How to respond to events and update the screen
-- How to share data between components
+- Cách tạo và lồng các component
+- Cách thêm markup và style
+- Cách hiển thị dữ liệu
+- Cách render điều kiện và danh sách
+- Cách phản hồi sự kiện và cập nhật giao diện
+- Cách chia sẻ dữ liệu giữa các component
 
 </YouWillLearn>
 
-## Creating and nesting components {/*components*/}
+## Tạo và lồng các component {/*components*/}
 
-React apps are made out of *components*. A component is a piece of the UI (user interface) that has its own logic and appearance. A component can be as small as a button, or as large as an entire page.
+Ứng dụng React được xây dựng từ *component*. Một component là một phần của giao diện người dùng (UI) có logic và giao diện riêng. Một component có thể nhỏ như một nút bấm, hoặc lớn như cả một trang.
 
-React components are JavaScript functions that return markup:
-
-```js
-function MyButton() {
-  return (
-    <button>I'm a button</button>
-  );
-}
-```
-
-Now that you've declared `MyButton`, you can nest it into another component:
-
-```js {5}
-export default function MyApp() {
-  return (
-    <div>
-      <h1>Welcome to my app</h1>
-      <MyButton />
-    </div>
-  );
-}
-```
-
-Notice that `<MyButton />` starts with a capital letter. That's how you know it's a React component. React component names must always start with a capital letter, while HTML tags must be lowercase.
-
-Have a look at the result:
-
-<Sandpack>
+Các component trong React là các hàm JavaScript trả về markup:
 
 ```js
 function MyButton() {
   return (
-    <button>
-      I'm a button
-    </button>
+    <button>Tôi là một nút bấm</button>
   );
 }
 
-export default function MyApp() {
-  return (
-    <div>
-      <h1>Welcome to my app</h1>
-      <MyButton />
-    </div>
-  );
-}
-```
-
-</Sandpack>
 
 The `export default` keywords specify the main component in the file. If you're not familiar with some piece of JavaScript syntax, [MDN](https://developer.mozilla.org/en-US/docs/web/javascript/reference/statements/export) and [javascript.info](https://javascript.info/import-export) have great references.
 

@@ -136,7 +136,7 @@ export function HomeContent() {
             React
           </h1>
           <p className="text-4xl font-display max-w-lg md:max-w-full py-1 text-center text-secondary dark:text-primary-dark leading-snug self-center">
-            The library for web and native user interfaces
+            Thư viện dành cho giao diện người dùng trên web và ứng dụng native
           </p>
           <div className="mt-5 self-center flex gap-2 w-full sm:w-auto flex-col sm:flex-row">
             <ButtonLink
@@ -145,7 +145,7 @@ export function HomeContent() {
               size="lg"
               className="w-full sm:w-auto justify-center"
               label="Learn React">
-              Learn React
+              Học React
             </ButtonLink>
             <ButtonLink
               href={'/reference/react'}
@@ -153,20 +153,20 @@ export function HomeContent() {
               size="lg"
               className="w-full sm:w-auto justify-center"
               label="API Reference">
-              API Reference
+              API Tham khảo
             </ButtonLink>
           </div>
         </div>
 
         <Section background="left-card">
           <Center>
-            <Header>Create user interfaces from components</Header>
+            <Header>Tạo giao diện người dùng từ các component</Header>
             <Para>
-              React lets you build user interfaces out of individual pieces
-              called components. Create your own React components like{' '}
-              <Code>Thumbnail</Code>, <Code>LikeButton</Code>, and{' '}
-              <Code>Video</Code>. Then combine them into entire screens, pages,
-              and apps.
+              React cho phép bạn xây dựng giao diện người dùng từ các phần riêng
+              lẻ được gọi là thành phần (component). Tạo các component riêng của
+              bạn như <Code>Thumbnail</Code>, <Code>LikeButton</Code>, and{' '}
+              <Code>Video</Code>. Sau đó kết hợp chúng thành toàn bộ màn hình,
+              trang và ứng dụng
             </Para>
           </Center>
           <FullBleed>
@@ -174,22 +174,22 @@ export function HomeContent() {
           </FullBleed>
           <Center>
             <Para>
-              Whether you work on your own or with thousands of other
-              developers, using React feels the same. It is designed to let you
-              seamlessly combine components written by independent people,
-              teams, and organizations.
+              Cho dù bạn làm việc một mình hay với hàng ngàn nhà phát triển
+              khác, sử dụng React đều mang lại cảm giác như nhau. Nó được thiết
+              kế để cho phép bạn kết hợp liền mạch các thành phần được viết bởi
+              những người, nhóm và tổ chức độc lập.
             </Para>
           </Center>
         </Section>
 
         <Section background="right-card">
           <Center>
-            <Header>Write components with code and markup</Header>
+            <Header>Viết các thành phần(components) với mã và đánh dấu</Header>
             <Para>
-              React components are JavaScript functions. Want to show some
-              content conditionally? Use an <Code>if</Code> statement.
-              Displaying a list? Try array <Code>map()</Code>. Learning React is
-              learning programming.
+              Các thành phần React là các hàm JavaScript. Bạn muốn hiển thị một
+              số nội dung có điều kiện? Sử dụng một <Code>if</Code> câu lệnh.
+              Hiển thị một danh sách? Hãy thử mảng <Code> map()</Code>. Học
+              React là học lập trình.
             </Para>
           </Center>
           <FullBleed>
@@ -197,22 +197,22 @@ export function HomeContent() {
           </FullBleed>
           <Center>
             <Para>
-              This markup syntax is called JSX. It is a JavaScript syntax
-              extension popularized by React. Putting JSX markup close to
-              related rendering logic makes React components easy to create,
-              maintain, and delete.
+              Cú pháp đánh dấu này được gọi là JSX. Đây là phần mở rộng cú pháp
+              JavaScript được React phổ biến. Đặt đánh dấu JSX gần với logic kết
+              xuất liên quan giúp các thành phần React dễ tạo, bảo trì và xóa.
             </Para>
           </Center>
         </Section>
 
         <Section background="left-card">
           <Center>
-            <Header>Add interactivity wherever you need it</Header>
+            <Header>Thêm tính tương tác ở bất cứ đâu bạn cần</Header>
             <Para>
-              React components receive data and return what should appear on the
-              screen. You can pass them new data in response to an interaction,
-              like when the user types into an input. React will then update the
-              screen to match the new data.
+              Các component trong React nhận dữ liệu và trả về những gì cần hiển
+              thị trên màn hình. Bạn có thể truyền dữ liệu mới vào các component
+              này khi có một sự kiện tương tác, ví dụ như khi người dùng nhập
+              liệu vào ô input. React sẽ tự động cập nhật màn hình để hiển thị
+              dữ liệu mới.
             </Para>
           </Center>
           <FullBleed>
@@ -220,16 +220,16 @@ export function HomeContent() {
           </FullBleed>
           <Center>
             <Para>
-              You don’t have to build your whole page in React. Add React to
-              your existing HTML page, and render interactive React components
-              anywhere on it.
+              Bạn không cần phải xây dựng toàn bộ trang của mình bằng React. Bạn
+              có thể thêm React vào trang HTML hiện tại và render các component
+              React tương tác ở bất cứ đâu trên trang.
             </Para>
             <div className="flex justify-start w-full lg:justify-center">
               <CTA
                 color="gray"
                 icon="code"
                 href="/learn/add-react-to-an-existing-project">
-                Add React to your page
+                Thêm React vào trang của bạn
               </CTA>
             </div>
           </Center>
@@ -238,14 +238,15 @@ export function HomeContent() {
         <Section background="right-card">
           <Center>
             <Header>
-              Go full-stack <br className="hidden lg:inline" />
-              with a framework
+              Xây dựng ứng dụng full-stack <br className="hidden lg:inline" />
+              với một framework
             </Header>
             <Para>
-              React is a library. It lets you put components together, but it
-              doesn’t prescribe how to do routing and data fetching. To build an
-              entire app with React, we recommend a full-stack React framework
-              like <Link href="https://nextjs.org">Next.js</Link> or{' '}
+              React là một thư viện. Nó cho phép bạn ghép các component lại với
+              nhau, nhưng không hướng dẫn bạn cách làm routing hay lấy dữ liệu.
+              Để xây dựng một ứng dụng hoàn chỉnh với React, chúng tôi khuyên
+              bạn nên sử dụng một framework full-stack cho React như{' '}
+              <Link href="https://nextjs.org">Next.js</Link> hoặc{' '}
               <Link href="https://remix.run">Remix</Link>.
             </Para>
           </Center>
@@ -254,30 +255,33 @@ export function HomeContent() {
           </FullBleed>
           <Center>
             <Para>
-              React is also an architecture. Frameworks that implement it let
-              you fetch data in asynchronous components that run on the server
-              or even during the build. Read data from a file or a database, and
-              pass it down to your interactive components.
+              React cũng là một kiến trúc. Các framework áp dụng kiến trúc này
+              cho phép bạn lấy dữ liệu trong các component bất đồng bộ chạy trên
+              server hoặc thậm chí trong quá trình build. Bạn có thể đọc dữ liệu
+              từ tệp hoặc cơ sở dữ liệu và truyền nó xuống các component tương
+              tác của mình.
             </Para>
             <div className="flex justify-start w-full lg:justify-center">
               <CTA
                 color="gray"
                 icon="framework"
                 href="/learn/start-a-new-react-project">
-                Get started with a framework
+                Bắt đầu với một framework
               </CTA>
             </div>
           </Center>
         </Section>
+
         <Section background="left-card">
           <div className="mx-auto flex flex-col w-full">
             <div className="mx-auto max-w-4xl lg:text-center items-center px-5 flex flex-col">
-              <Header>Use the best from every platform</Header>
+              <Header>Sử dụng tốt nhất từ mỗi nền tảng</Header>
               <Para>
-                People love web and native apps for different reasons. React
-                lets you build both web apps and native apps using the same
-                skills. It leans upon each platform’s unique strengths to let
-                your interfaces feel just right on every platform.
+                Người dùng yêu thích ứng dụng web và native vì những lý do khác
+                nhau. React cho phép bạn xây dựng cả ứng dụng web và ứng dụng
+                native sử dụng cùng một kỹ năng. Nó tận dụng các điểm mạnh riêng
+                biệt của từng nền tảng để giúp giao diện của bạn cảm thấy hoàn
+                hảo trên mọi nền tảng.
               </Para>
             </div>
             <div className="max-w-7xl mx-auto flex flex-col lg:flex-row mt-16 mb-20 lg:mb-28 px-5 gap-20 lg:gap-5">
@@ -291,15 +295,16 @@ export function HomeContent() {
                     <div className="bg-wash relative h-14 w-full" />
                     <div className="relative flex items-start justify-center flex-col flex-1 pb-16 pt-5 gap-3 px-5 lg:px-10 lg:pt-8">
                       <h4 className="leading-tight text-primary font-semibold text-3xl lg:text-4xl">
-                        Stay true to the web
+                        Hãy trung thành với Web
                       </h4>
                       <p className="lg:text-xl leading-normal text-secondary">
-                        People expect web app pages to load fast. On the server,
-                        React lets you start streaming HTML while you’re still
-                        fetching data, progressively filling in the remaining
-                        content before any JavaScript code loads. On the client,
-                        React can use standard web APIs to keep your UI
-                        responsive even in the middle of rendering.
+                        Mọi người mong đợi các trang web ứng dụng tải nhanh.
+                        Trên máy chủ, React cho phép bạn bắt đầu truyền phát
+                        HTML trong khi bạn vẫn đang lấy dữ liệu, dần dần điền
+                        vào nội dung còn lại trước khi bất kỳ mã JavaScript nào
+                        tải. Trên máy khách, React có thể sử dụng các API web
+                        chuẩn để giữ cho giao diện người dùng của bạn phản hồi
+                        ngay cả khi đang kết xuất.
                       </p>
                     </div>
                   </div>
@@ -377,21 +382,22 @@ export function HomeContent() {
                       </div>
                       <div className="flex flex-col items-start justify-center pt-0 gap-3 px-2.5 lg:pt-8 lg:px-8">
                         <h4 className="leading-tight text-primary dark:text-primary-dark font-semibold text-3xl lg:text-4xl">
-                          Go truly native
+                          Trở thành người bản sứ thực sự
                         </h4>
                         <p className="h-full lg:text-xl text-secondary dark:text-secondary-dark leading-normal">
-                          People expect native apps to look and feel like their
-                          platform.{' '}
+                          Người dùng kỳ vọng các ứng dụng native phải trông và
+                          cảm nhận giống như nền tảng của chúng
                           <Link href="https://reactnative.dev">
                             React Native
                           </Link>{' '}
-                          and{' '}
+                          và{' '}
                           <Link href="https://github.com/expo/expo">Expo</Link>{' '}
-                          let you build apps in React for Android, iOS, and
-                          more. They look and feel native because their UIs{' '}
-                          <i>are</i> truly native. It’s not a web view—your
-                          React components render real Android and iOS views
-                          provided by the platform.
+                          cho phép bạn xây dựng ứng dụng bằng React cho Android,
+                          iOS, và nhiều nền tảng khác. Chúng trông và hoạt động
+                          như ứng dụng native vì giao diện người dùng của chúng{' '}
+                          <i>thực sự</i> là native. Đây không phải là một web
+                          view — các component React của bạn sẽ render ra các
+                          view Android và iOS thực sự do nền tảng cung cấp.
                         </p>
                       </div>
                     </div>
@@ -401,14 +407,15 @@ export function HomeContent() {
             </div>
             <div className="px-5 lg:px-0 max-w-4xl mx-auto lg:text-center text-secondary dark:text-secondary-dark">
               <Para>
-                With React, you can be a web <i>and</i> a native developer. Your
-                team can ship to many platforms without sacrificing the user
-                experience. Your organization can bridge the platform silos, and
-                form teams that own entire features end-to-end.
+                Với React, bạn có thể trở thành lập trình viên web <i>và</i>{' '}
+                native. Nhóm của bạn có thể triển khai lên nhiều nền tảng mà
+                không làm giảm trải nghiệm người dùng. Tổ chức của bạn có thể
+                kết nối các nền tảng riêng biệt và tạo nên các nhóm sở hữu toàn
+                bộ tính năng từ đầu đến cuối.
               </Para>
               <div className="flex justify-start w-full lg:justify-center">
                 <CTA color="gray" icon="native" href="https://reactnative.dev/">
-                  Build for native platforms
+                  Xây dựng cho nền tảng native
                 </CTA>
               </div>
             </div>
@@ -419,23 +426,24 @@ export function HomeContent() {
           <div className="max-w-7xl mx-auto flex flex-col lg:flex-row px-5">
             <div className="max-w-3xl lg:max-w-7xl gap-5 flex flex-col lg:flex-row lg:px-5">
               <div className="w-full lg:w-6/12 max-w-3xl flex flex-col items-start justify-start lg:ps-5 lg:pe-10">
-                <Header>Upgrade when the future is ready</Header>
+                <Header>Nâng cấp khi tương lai sẵn sàng</Header>
                 <Para>
-                  React approaches changes with care. Every React commit is
-                  tested on business-critical surfaces with over a billion
-                  users. Over 100,000 React components at Meta help validate
-                  every migration strategy.
+                  React tiếp cận các thay đổi một cách cẩn trọng. Mỗi lần commit
+                  của React đều được kiểm tra trên các nền tảng quan trọng với
+                  hơn một tỷ người dùng. Hơn 100.000 component React tại Meta
+                  giúp xác minh mọi chiến lược chuyển đổi.
                 </Para>
                 <div className="order-last pt-5">
                   <Para>
-                    The React team is always researching how to improve React.
-                    Some research takes years to pay off. React has a high bar
-                    for taking a research idea into production. Only proven
-                    approaches become a part of React.
+                    Nhóm phát triển React luôn nghiên cứu cách cải tiến React.
+                    Một số nghiên cứu mất nhiều năm mới mang lại hiệu quả. React
+                    đặt ra tiêu chuẩn cao để một ý tưởng nghiên cứu được đưa vào
+                    sản phẩm. Chỉ những phương pháp đã được kiểm chứng mới trở
+                    thành một phần của React.
                   </Para>
                   <div className="hidden lg:flex justify-start w-full">
                     <CTA color="gray" icon="news" href="/blog">
-                      Read more React news
+                      Đọc thêm tin tức về React
                     </CTA>
                   </div>
                 </div>
@@ -443,7 +451,7 @@ export function HomeContent() {
               <div className="w-full lg:w-6/12">
                 <p className="uppercase tracking-wide font-bold text-sm text-tertiary dark:text-tertiary-dark flex flex-row gap-2 items-center mt-5 lg:-mt-2 w-full">
                   <IconChevron />
-                  Latest React News
+                  Tin tức React mới nhất
                 </p>
                 <div className="flex-col sm:flex-row flex-wrap flex gap-5 text-start my-5">
                   <div className="flex-1 min-w-[40%] text-start">
@@ -461,7 +469,7 @@ export function HomeContent() {
                 </div>
                 <div className="flex lg:hidden justify-start w-full">
                   <CTA color="gray" icon="news" href="/blog">
-                    Read more React news
+                    Đọc thêm tin tức về React
                   </CTA>
                 </div>
               </div>
@@ -474,13 +482,13 @@ export function HomeContent() {
             <div className="mx-auto flex flex-col max-w-4xl">
               <Center>
                 <Header>
-                  Join a community <br className="hidden lg:inline" />
-                  of millions
+                  Tham gia cộng đồng <br className="hidden lg:inline" />
+                  của hàng triệu người
                 </Header>
                 <Para>
-                  You’re not alone. Two million developers from all over the
-                  world visit the React docs every month. React is something
-                  that people and teams can agree on.
+                  Bạn không cô đơn. Hai triệu lập trình viên từ khắp nơi trên
+                  thế giới ghé thăm tài liệu React mỗi tháng. React là thứ mà
+                  mọi người và các nhóm có thể đồng ý.
                 </Para>
               </Center>
             </div>
@@ -488,13 +496,14 @@ export function HomeContent() {
             <div className="mx-auto flex flex-col max-w-4xl">
               <Center>
                 <Para>
-                  This is why React is more than a library, an architecture, or
-                  even an ecosystem. React is a community. It’s a place where
-                  you can ask for help, find opportunities, and meet new
-                  friends. You will meet both developers and designers,
-                  beginners and experts, researchers and artists, teachers and
-                  students. Our backgrounds may be very different, but React
-                  lets us all create user interfaces together.
+                  Đây là lý do tại sao React không chỉ là một thư viện, một kiến
+                  trúc, hay thậm chí một hệ sinh thái. React là một cộng đồng.
+                  Đây là nơi bạn có thể yêu cầu sự giúp đỡ, tìm kiếm cơ hội, và
+                  gặp gỡ những người bạn mới. Bạn sẽ gặp cả lập trình viên và
+                  nhà thiết kế, người mới bắt đầu và người có kinh nghiệm, nhà
+                  nghiên cứu và nghệ sĩ, thầy cô và học sinh. Xuất thân của
+                  chúng ta có thể rất khác nhau, nhưng React giúp tất cả chúng
+                  ta cùng tạo ra giao diện người dùng.
                 </Para>
               </Center>
             </div>
@@ -511,15 +520,15 @@ export function HomeContent() {
             </div>
             <Logo className="uwu-hidden text-brand dark:text-brand-dark w-24 lg:w-28 mb-10 lg:mb-8 mt-12 h-auto mx-auto self-start" />
             <Header>
-              Welcome to the <br className="hidden lg:inline" />
-              React community
+              Chào mừng bạn đến với <br className="hidden lg:inline" />
+              Cộng đồng React
             </Header>
             <ButtonLink
               href={'/learn'}
               type="primary"
               size="lg"
               label="Take the Tutorial">
-              Get Started
+              Bắt đầu
             </ButtonLink>
           </div>
         </Section>
