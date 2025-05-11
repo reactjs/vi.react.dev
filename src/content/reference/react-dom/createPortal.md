@@ -4,7 +4,7 @@ title: createPortal
 
 <Intro>
 
-`createPortal` cho phép bạn hiển thị một số phần tử con vào một phần khác của DOM.
+`createPortal` cho phép bạn kết xuất một số children vào một phần khác của DOM.
 
 ```js
 <div>
@@ -23,7 +23,7 @@ title: createPortal
 
 ### `createPortal(children, domNode, key?)` {/*createportal*/}
 
-Để tạo một portal, hãy gọi `createPortal`, truyền một số JSX và DOM node nơi nó sẽ được hiển thị:
+Để tạo một portal, hãy gọi `createPortal`, truyền một số JSX và nút DOM nơi nó sẽ được kết xuất:
 
 ```js
 import { createPortal } from 'react-dom';
@@ -31,9 +31,9 @@ import { createPortal } from 'react-dom';
 // ...
 
 <div>
-  <p>Phần tử con này được đặt trong div cha.</p>
+  <p>Child này được đặt trong div cha.</p>
   {createPortal(
-    <p>Phần tử con này được đặt trong document body.</p>,
+    <p>Child này được đặt trong phần body của tài liệu.</p>,
     document.body
   )}
 </div>
@@ -41,43 +41,43 @@ import { createPortal } from 'react-dom';
 
 [Xem thêm các ví dụ bên dưới.](#usage)
 
-Một portal chỉ thay đổi vị trí vật lý của DOM node. Về mọi mặt khác, JSX bạn hiển thị vào một portal hoạt động như một node con của React component hiển thị nó. Ví dụ: phần tử con có thể truy cập context được cung cấp bởi cây cha và các event nổi lên từ con đến cha theo cây React.
+Một portal chỉ thay đổi vị trí vật lý của nút DOM. Về mọi mặt khác, JSX bạn kết xuất vào một portal hoạt động như một nút con của thành phần React kết xuất nó. Ví dụ: child có thể truy cập ngữ cảnh được cung cấp bởi cây cha và các sự kiện nổi lên từ children lên cha theo cây React.
 
 #### Tham số {/*parameters*/}
 
-* `children`: Bất cứ thứ gì có thể được hiển thị bằng React, chẳng hạn như một đoạn JSX (ví dụ: `<div />` hoặc `<SomeComponent />`), một [Fragment](/reference/react/Fragment) (`<>...</>`), một chuỗi hoặc một số, hoặc một mảng các phần tử này.
+* `children`: Bất cứ thứ gì có thể được kết xuất bằng React, chẳng hạn như một đoạn JSX (ví dụ: `<div />` hoặc `<SomeComponent />`), một [Fragment](/reference/react/Fragment) (`<>...</>`), một chuỗi hoặc một số, hoặc một mảng các phần tử này.
 
-* `domNode`: Một số DOM node, chẳng hạn như những node được trả về bởi `document.getElementById()`. Node này phải đã tồn tại. Việc truyền một DOM node khác trong quá trình cập nhật sẽ khiến nội dung portal được tạo lại.
+* `domNode`: Một số nút DOM, chẳng hạn như những nút được trả về bởi `document.getElementById()`. Nút phải đã tồn tại. Truyền một nút DOM khác trong quá trình cập nhật sẽ khiến nội dung cổng được tạo lại.
 
-* **optional** `key`: Một chuỗi hoặc số duy nhất được sử dụng làm [key](/learn/rendering-lists/#keeping-list-items-in-order-with-key) của portal.
+* **tùy chọn** `key`: Một chuỗi hoặc số duy nhất được sử dụng làm [key của portal.](/learn/rendering-lists/#keeping-list-items-in-order-with-key)
 
-#### Giá trị trả về {/*returns*/}
+#### Trả về {/*returns*/}
 
-`createPortal` trả về một React node có thể được đưa vào JSX hoặc trả về từ một React component. Nếu React bắt gặp nó trong đầu ra hiển thị, nó sẽ đặt `children` đã cung cấp bên trong `domNode` đã cung cấp.
+`createPortal` trả về một nút React có thể được đưa vào JSX hoặc được trả về từ một thành phần React. Nếu React gặp nó trong đầu ra kết xuất, nó sẽ đặt `children` đã cung cấp bên trong `domNode` đã cung cấp.
 
 #### Lưu ý {/*caveats*/}
 
-* Các event từ portal lan truyền theo cây React chứ không phải cây DOM. Ví dụ: nếu bạn nhấp vào bên trong một portal và portal được bao bọc trong `<div onClick>`, thì trình xử lý `onClick` đó sẽ kích hoạt. Nếu điều này gây ra sự cố, hãy dừng sự lan truyền event từ bên trong portal hoặc di chuyển chính portal lên trên trong cây React.
+* Các sự kiện từ cổng lan truyền theo cây React chứ không phải cây DOM. Ví dụ: nếu bạn nhấp vào bên trong một cổng và cổng được bao bọc trong `<div onClick>`, trình xử lý `onClick` đó sẽ kích hoạt. Nếu điều này gây ra sự cố, hãy dừng lan truyền sự kiện từ bên trong cổng hoặc di chuyển chính cổng đó lên trên cây React.
 
 ---
 
 ## Cách sử dụng {/*usage*/}
 
-### Hiển thị đến một phần khác của DOM {/*rendering-to-a-different-part-of-the-dom*/}
+### Kết xuất đến một phần khác của DOM {/*rendering-to-a-different-part-of-the-dom*/}
 
-*Portals* cho phép các component của bạn hiển thị một số phần tử con của chúng vào một vị trí khác trong DOM. Điều này cho phép một phần của component của bạn "thoát" khỏi bất kỳ container nào mà nó có thể ở trong đó. Ví dụ: một component có thể hiển thị một hộp thoại modal hoặc một tooltip xuất hiện phía trên và bên ngoài phần còn lại của trang.
+*Portals* cho phép các thành phần của bạn kết xuất một số children của chúng vào một vị trí khác trong DOM. Điều này cho phép một phần của thành phần của bạn "thoát" khỏi bất kỳ vùng chứa nào mà nó có thể ở trong đó. Ví dụ: một thành phần có thể hiển thị một hộp thoại phương thức hoặc một chú giải công cụ xuất hiện phía trên và bên ngoài phần còn lại của trang.
 
-Để tạo một portal, hãy hiển thị kết quả của `createPortal` với <CodeStep step={1}>một số JSX</CodeStep> và <CodeStep step={2}>DOM node nơi nó sẽ đi đến</CodeStep>:
+Để tạo một portal, hãy kết xuất kết quả của `createPortal` với <CodeStep step={1}>một số JSX</CodeStep> và <CodeStep step={2}>nút DOM nơi nó sẽ đi</CodeStep>:
 
-```js [[1, 8, "<p>This child is placed in the document body.</p>"], [2, 9, "document.body"]]
+```js [[1, 8, "<p>Child này được đặt trong phần body của tài liệu.</p>"], [2, 9, "document.body"]]
 import { createPortal } from 'react-dom';
 
 function MyComponent() {
   return (
     <div style={{ border: '2px solid black' }}>
-      <p>Phần tử con này được đặt trong div cha.</p>
+      <p>Child này được đặt trong div cha.</p>
       {createPortal(
-        <p>Phần tử con này được đặt trong document body.</p>,
+        <p>Child này được đặt trong phần body của tài liệu.</p>,
         document.body
       )}
     </div>
@@ -85,7 +85,7 @@ function MyComponent() {
 }
 ```
 
-React sẽ đặt các DOM node cho <CodeStep step={1}>JSX bạn đã truyền</CodeStep> vào bên trong <CodeStep step={2}>DOM node bạn đã cung cấp</CodeStep>.
+React sẽ đặt các nút DOM cho <CodeStep step={1}>JSX bạn đã truyền</CodeStep> bên trong <CodeStep step={2}>nút DOM bạn đã cung cấp</CodeStep>.
 
 Nếu không có portal, `<p>` thứ hai sẽ được đặt bên trong `<div>` cha, nhưng portal đã "dịch chuyển" nó vào [`document.body`:](https://developer.mozilla.org/en-US/docs/Web/API/Document/body)
 
@@ -97,9 +97,9 @@ import { createPortal } from 'react-dom';
 export default function MyComponent() {
   return (
     <div style={{ border: '2px solid black' }}>
-      <p>Phần tử con này được đặt trong div cha.</p>
+      <p>Child này được đặt trong div cha.</p>
       {createPortal(
-        <p>Phần tử con này được đặt trong document body.</p>,
+        <p>Child này được đặt trong phần body của tài liệu.</p>,
         document.body
       )}
     </div>
@@ -116,23 +116,23 @@ Lưu ý cách đoạn văn thứ hai xuất hiện trực quan bên ngoài `<div
   <div id="root">
     ...
       <div style="border: 2px solid black">
-        <p>Phần tử con này được đặt bên trong div cha.</p>
+        <p>Child này được đặt bên trong div cha.</p>
       </div>
     ...
   </div>
-  <p>Phần tử con này được đặt trong document body.</p>
+  <p>Child này được đặt trong phần body của tài liệu.</p>
 </body>
 ```
 
-Một portal chỉ thay đổi vị trí vật lý của DOM node. Về mọi mặt khác, JSX bạn hiển thị vào một portal hoạt động như một node con của React component hiển thị nó. Ví dụ: phần tử con có thể truy cập context được cung cấp bởi cây cha và các event vẫn nổi lên từ con đến cha theo cây React.
+Một portal chỉ thay đổi vị trí vật lý của nút DOM. Về mọi mặt khác, JSX bạn kết xuất vào một portal hoạt động như một nút con của thành phần React kết xuất nó. Ví dụ: child có thể truy cập ngữ cảnh được cung cấp bởi cây cha và các sự kiện vẫn nổi lên từ children lên cha theo cây React.
 
 ---
 
-### Hiển thị một hộp thoại modal bằng portal {/*rendering-a-modal-dialog-with-a-portal*/}
+### Kết xuất hộp thoại phương thức bằng portal {/*rendering-a-modal-dialog-with-a-portal*/}
 
-Bạn có thể sử dụng một portal để tạo một hộp thoại modal nổi phía trên phần còn lại của trang, ngay cả khi component triệu hồi hộp thoại nằm bên trong một container có `overflow: hidden` hoặc các style khác gây trở ngại cho hộp thoại.
+Bạn có thể sử dụng một portal để tạo một hộp thoại phương thức nổi phía trên phần còn lại của trang, ngay cả khi thành phần triệu hồi hộp thoại nằm bên trong một vùng chứa có `overflow: hidden` hoặc các kiểu khác gây trở ngại cho hộp thoại.
 
-Trong ví dụ này, hai container có các style làm gián đoạn hộp thoại modal, nhưng hộp thoại được hiển thị vào một portal không bị ảnh hưởng vì, trong DOM, modal không nằm trong các phần tử JSX cha.
+Trong ví dụ này, hai vùng chứa có các kiểu làm gián đoạn hộp thoại phương thức, nhưng vùng chứa được kết xuất vào một portal không bị ảnh hưởng vì, trong DOM, phương thức không nằm trong các phần tử JSX cha.
 
 <Sandpack>
 
@@ -163,7 +163,7 @@ export default function NoPortalExample() {
   return (
     <>
       <button onClick={() => setShowModal(true)}>
-        Hiển thị modal không có portal
+        Hiển thị phương thức mà không cần portal
       </button>
       {showModal && (
         <ModalContent onClose={() => setShowModal(false)} />
@@ -183,7 +183,7 @@ export default function PortalExample() {
   return (
     <>
       <button onClick={() => setShowModal(true)}>
-        Hiển thị modal sử dụng portal
+        Hiển thị phương thức bằng portal
       </button>
       {showModal && createPortal(
         <ModalContent onClose={() => setShowModal(false)} />,
@@ -198,12 +198,13 @@ export default function PortalExample() {
 export default function ModalContent({ onClose }) {
   return (
     <div className="modal">
-      <div>Tôi là một hộp thoại modal</div>
+      <div>Tôi là một hộp thoại phương thức</div>
       <button onClick={onClose}>Đóng</button>
     </div>
   );
 }
 ```
+
 
 ```css src/styles.css
 .clipping-container {
@@ -236,29 +237,29 @@ export default function ModalContent({ onClose }) {
 
 <Pitfall>
 
-Điều quan trọng là đảm bảo rằng ứng dụng của bạn có thể truy cập được khi sử dụng portal. Ví dụ: bạn có thể cần quản lý focus bàn phím để người dùng có thể di chuyển focus vào và ra khỏi portal một cách tự nhiên.
+Điều quan trọng là đảm bảo rằng ứng dụng của bạn có thể truy cập được khi sử dụng cổng. Ví dụ: bạn có thể cần quản lý tiêu điểm bàn phím để người dùng có thể di chuyển tiêu điểm vào và ra khỏi cổng một cách tự nhiên.
 
-Hãy tuân theo [WAI-ARIA Modal Authoring Practices](https://www.w3.org/WAI/ARIA/apg/#dialog_modal) khi tạo modal. Nếu bạn sử dụng một gói cộng đồng, hãy đảm bảo rằng nó có thể truy cập được và tuân theo các nguyên tắc này.
+Hãy tuân theo [Các phương pháp tạo phương thức WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/#dialog_modal) khi tạo phương thức. Nếu bạn sử dụng một gói cộng đồng, hãy đảm bảo rằng nó có thể truy cập được và tuân theo các nguyên tắc này.
 
 </Pitfall>
 
 ---
 
-### Hiển thị các React component vào markup server không phải React {/*rendering-react-components-into-non-react-server-markup*/}
+### Kết xuất các thành phần React vào mã đánh dấu máy chủ không phải React {/*rendering-react-components-into-non-react-server-markup*/}
 
-Portal có thể hữu ích nếu React root của bạn chỉ là một phần của một trang tĩnh hoặc được hiển thị trên server mà không được xây dựng bằng React. Ví dụ: nếu trang của bạn được xây dựng bằng một framework server như Rails, bạn có thể tạo các khu vực tương tác trong các khu vực tĩnh như sidebar. So với việc có [nhiều React root riêng biệt,](/reference/react-dom/client/createRoot#rendering-a-page-partially-built-with-react) portal cho phép bạn coi ứng dụng như một cây React duy nhất với trạng thái được chia sẻ ngay cả khi các phần của nó hiển thị đến các phần khác nhau của DOM.
+Portals có thể hữu ích nếu gốc React của bạn chỉ là một phần của trang tĩnh hoặc được kết xuất trên máy chủ không được xây dựng bằng React. Ví dụ: nếu trang của bạn được xây dựng bằng một framework máy chủ như Rails, bạn có thể tạo các khu vực tương tác trong các khu vực tĩnh như thanh bên. So với việc có [nhiều gốc React riêng biệt,](/reference/react-dom/client/createRoot#rendering-a-page-partially-built-with-react) portals cho phép bạn coi ứng dụng như một cây React duy nhất với trạng thái được chia sẻ ngay cả khi các phần của nó kết xuất đến các phần khác nhau của DOM.
 
 <Sandpack>
 
 ```html public/index.html
 <!DOCTYPE html>
 <html>
-  <head><title>Ứng dụng của tôi</title></head>
+  <head><title>My app</title></head>
   <body>
-    <h1>Chào mừng đến với ứng dụng hybrid của tôi</h1>
+    <h1>Welcome to my hybrid app</h1>
     <div class="parent">
       <div class="sidebar">
-        Đây là markup không phải React của server
+        This is server non-React markup
         <div id="sidebar-content"></div>
       </div>
       <div id="root"></div>
@@ -299,11 +300,11 @@ export default function App() {
 }
 
 function MainContent() {
-  return <p>Phần này được hiển thị bởi React</p>;
+  return <p>This part is rendered by React</p>;
 }
 
 function SidebarContent() {
-  return <p>Phần này cũng được hiển thị bởi React!</p>;
+  return <p>This part is also rendered by React!</p>;
 }
 ```
 
@@ -340,15 +341,15 @@ p {
 
 ---
 
-### Hiển thị các React component vào các DOM node không phải React {/*rendering-react-components-into-non-react-dom-nodes*/}
+### Kết xuất các thành phần React vào các nút DOM không phải React {/*rendering-react-components-into-non-react-dom-nodes*/}
 
-Bạn cũng có thể sử dụng một portal để quản lý nội dung của một DOM node được quản lý bên ngoài React. Ví dụ: giả sử bạn đang tích hợp với một widget bản đồ không phải React và bạn muốn hiển thị nội dung React bên trong một popup. Để thực hiện việc này, hãy khai báo một biến trạng thái `popupContainer` để lưu trữ DOM node mà bạn sẽ hiển thị vào:
+Bạn cũng có thể sử dụng cổng để quản lý nội dung của một nút DOM được quản lý bên ngoài React. Ví dụ: giả sử bạn đang tích hợp với một tiện ích bản đồ không phải React và bạn muốn kết xuất nội dung React bên trong một cửa sổ bật lên. Để thực hiện việc này, hãy khai báo một biến trạng thái `popupContainer` để lưu trữ nút DOM mà bạn sẽ kết xuất vào:
 
 ```js
 const [popupContainer, setPopupContainer] = useState(null);
 ```
 
-Khi bạn tạo widget của bên thứ ba, hãy lưu trữ DOM node được trả về bởi widget để bạn có thể hiển thị vào nó:
+Khi bạn tạo tiện ích của bên thứ ba, hãy lưu trữ nút DOM được trả về bởi tiện ích để bạn có thể kết xuất vào nó:
 
 ```js {5-6}
 useEffect(() => {
@@ -361,20 +362,21 @@ useEffect(() => {
 }, []);
 ```
 
-Điều này cho phép bạn sử dụng `createPortal` để hiển thị nội dung React vào `popupContainer` sau khi nó khả dụng:
+Điều này cho phép bạn sử dụng `createPortal` để kết xuất nội dung React vào `popupContainer` sau khi nó khả dụng:
 
 ```js {3-6}
 return (
   <div style={{ width: 250, height: 250 }} ref={containerRef}>
     {popupContainer !== null && createPortal(
-      <p>Xin chào từ React!</p>,
+      <p>Hello from React!</p>,
       popupContainer
     )}
   </div>
 );
 ```
 
-Dưới đây là một ví dụ hoàn chỉnh mà bạn có thể dùng thử:
+Dưới đây là một ví dụ hoàn chỉnh mà bạn có thể thử:
+
 
 <Sandpack>
 
@@ -418,7 +420,7 @@ export default function Map() {
   return (
     <div style={{ width: 250, height: 250 }} ref={containerRef}>
       {popupContainer !== null && createPortal(
-        <p>Xin chào từ React!</p>,
+        <p>Hello from React!</p>,
         popupContainer
       )}
     </div>
