@@ -1,5 +1,5 @@
 ---
-title: `<Profiler>`
+title: <Profiler>
 ---
 
 <Intro>
@@ -87,7 +87,7 @@ Hồ sơ thêm một số chi phí bổ sung, vì vậy **nó bị tắt theo m�
 
 <Note>
 
-`<Profiler>` cho phép bạn thu thập các phép đo theo программно. Nếu bạn đang tìm kiếm một profiler tương tác, hãy thử tab Profiler trong [React Developer Tools](/learn/react-developer-tools). Nó hiển thị chức năng tương tự như một tiện ích mở rộng trình duyệt.
+`<Profiler>` cho phép bạn thu thập các phép đo một cách программно. Nếu bạn đang tìm kiếm một profiler tương tác, hãy thử tab Profiler trong [React Developer Tools](/learn/react-developer-tools). Nó hiển thị chức năng tương tự như một tiện ích mở rộng trình duyệt.
 
 </Note>
 
