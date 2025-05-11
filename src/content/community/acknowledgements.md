@@ -1,16 +1,16 @@
 ---
-title: Acknowledgements
+title: Lời Cảm Ơn
 ---
 
 <Intro>
 
-React was originally created by [Jordan Walke.](https://github.com/jordwalke) Today, React has a [dedicated full-time team working on it](/community/team), as well as over a thousand [open source contributors.](https://github.com/facebook/react/graphs/contributors)
+React ban đầu được tạo ra bởi [Jordan Walke.](https://github.com/jordwalke) Ngày nay, React có một [đội ngũ toàn thời gian tận tâm làm việc](/community/team), cũng như hơn một nghìn [người đóng góp mã nguồn mở.](https://github.com/facebook/react/graphs/contributors)
 
 </Intro>
 
-## Past contributors {/*past-contributors*/}
+## Những người đóng góp trước đây {/*past-contributors*/}
 
-We'd like to recognize a few people who have made significant contributions to React and its documentation in the past and have helped maintain them over the years:
+Chúng tôi xin ghi nhận một vài người đã có những đóng góp đáng kể cho React và tài liệu của nó trong quá khứ và đã giúp duy trì chúng trong những năm qua:
 
 * [Almero Steyn](https://github.com/AlmeroSteyn)
 * [Andreas Svensson](https://github.com/syranide)
@@ -60,15 +60,15 @@ We'd like to recognize a few people who have made significant contributions to R
 * [Tim Yung](https://github.com/yungsters)
 * [Xuan Huang](https://github.com/huxpro)
 
-This list is not exhaustive.
+Danh sách này không đầy đủ.
 
-We'd like to give special thanks to [Tom Occhino](https://github.com/tomocchino) and [Adam Wolff](https://github.com/wolffiex) for their guidance and support over the years. We are also thankful to all the volunteers who [translated React into other languages.](https://translations.react.dev/)
+Chúng tôi xin đặc biệt cảm ơn [Tom Occhino](https://github.com/tomocchino) và [Adam Wolff](https://github.com/wolffiex) vì sự hướng dẫn và hỗ trợ của họ trong những năm qua. Chúng tôi cũng biết ơn tất cả các tình nguyện viên đã [dịch React sang các ngôn ngữ khác.](https://translations.react.dev/)
 
-## Additional Thanks {/*additional-thanks*/}
+## Lời Cảm Ơn Thêm {/*additional-thanks*/}
 
-Additionally, we're grateful to:
+Ngoài ra, chúng tôi rất biết ơn:
 
-* [Jeff Barczewski](https://github.com/jeffbski) for allowing us to use the `react` package name on npm
-* [Christopher Aue](https://christopheraue.net/) for letting us use the reactjs.com domain name and the [@reactjs](https://twitter.com/reactjs) username on Twitter
-* [ProjectMoon](https://github.com/ProjectMoon) for letting us use the [flux](https://www.npmjs.com/package/flux) package name on npm
-* Shane Anderson for allowing us to use the [react](https://github.com/react) org on GitHub
+* [Jeff Barczewski](https://github.com/jeffbski) vì đã cho phép chúng tôi sử dụng tên gói `react` trên npm
+* [Christopher Aue](https://christopheraue.net/) vì đã cho phép chúng tôi sử dụng tên miền reactjs.com và tên người dùng [@reactjs](https://twitter.com/reactjs) trên Twitter
+* [ProjectMoon](https://github.com/ProjectMoon) vì đã cho phép chúng tôi sử dụng tên gói [flux](https://www.npmjs.com/package/flux) trên npm
+* Shane Anderson vì đã cho phép chúng tôi sử dụng tổ chức [react](https://github.com/react) trên GitHub

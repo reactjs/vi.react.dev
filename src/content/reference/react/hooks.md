@@ -1,10 +1,10 @@
 ---
-title: "Built-in React Hooks"
+title: "Các React Hook tích hợp sẵn"
 ---
 
 <Intro>
 
-*Hooks* let you use different React features from your components. You can either use the built-in Hooks or combine them to build your own. This page lists all built-in Hooks in React.
+*Hook* cho phép bạn sử dụng các tính năng khác nhau của React từ các component của bạn. Bạn có thể sử dụng các Hook tích hợp sẵn hoặc kết hợp chúng để xây dựng Hook của riêng bạn. Trang này liệt kê tất cả các Hook tích hợp sẵn trong React.
 
 </Intro>
 
@@ -12,12 +12,12 @@ title: "Built-in React Hooks"
 
 ## State Hooks {/*state-hooks*/}
 
-*State* lets a component ["remember" information like user input.](/learn/state-a-components-memory) For example, a form component can use state to store the input value, while an image gallery component can use state to store the selected image index.
+*State* cho phép một component ["ghi nhớ" thông tin như đầu vào của người dùng.](/learn/state-a-components-memory) Ví dụ: một component form có thể sử dụng state để lưu trữ giá trị đầu vào, trong khi một component thư viện ảnh có thể sử dụng state để lưu trữ chỉ mục ảnh đã chọn.
 
-To add state to a component, use one of these Hooks:
+Để thêm state vào một component, hãy sử dụng một trong các Hook sau:
 
-* [`useState`](/reference/react/useState) declares a state variable that you can update directly.
-* [`useReducer`](/reference/react/useReducer) declares a state variable with the update logic inside a [reducer function.](/learn/extracting-state-logic-into-a-reducer)
+* [`useState`](/reference/react/useState) khai báo một biến state mà bạn có thể cập nhật trực tiếp.
+* [`useReducer`](/reference/react/useReducer) khai báo một biến state với logic cập nhật bên trong một [hàm reducer.](/learn/extracting-state-logic-into-a-reducer)
 
 ```js
 function ImageGallery() {
@@ -29,9 +29,9 @@ function ImageGallery() {
 
 ## Context Hooks {/*context-hooks*/}
 
-*Context* lets a component [receive information from distant parents without passing it as props.](/learn/passing-props-to-a-component) For example, your app's top-level component can pass the current UI theme to all components below, no matter how deep.
+*Context* cho phép một component [nhận thông tin từ các component cha ở xa mà không cần truyền nó dưới dạng props.](/learn/passing-props-to-a-component) Ví dụ: component cấp cao nhất của ứng dụng của bạn có thể truyền theme UI hiện tại cho tất cả các component bên dưới, bất kể độ sâu.
 
-* [`useContext`](/reference/react/useContext) reads and subscribes to a context.
+* [`useContext`](/reference/react/useContext) đọc và đăng ký một context.
 
 ```js
 function Button() {
@@ -43,10 +43,10 @@ function Button() {
 
 ## Ref Hooks {/*ref-hooks*/}
 
-*Refs* let a component [hold some information that isn't used for rendering,](/learn/referencing-values-with-refs) like a DOM node or a timeout ID. Unlike with state, updating a ref does not re-render your component. Refs are an "escape hatch" from the React paradigm. They are useful when you need to work with non-React systems, such as the built-in browser APIs.
+*Refs* cho phép một component [giữ một số thông tin không được sử dụng để hiển thị,](/learn/referencing-values-with-refs) như một DOM node hoặc một ID timeout. Không giống như state, việc cập nhật một ref không làm component của bạn render lại. Refs là một "cửa thoát hiểm" khỏi mô hình React. Chúng hữu ích khi bạn cần làm việc với các hệ thống không phải React, chẳng hạn như các API trình duyệt tích hợp sẵn.
 
-* [`useRef`](/reference/react/useRef) declares a ref. You can hold any value in it, but most often it's used to hold a DOM node.
-* [`useImperativeHandle`](/reference/react/useImperativeHandle) lets you customize the ref exposed by your component. This is rarely used.
+* [`useRef`](/reference/react/useRef) khai báo một ref. Bạn có thể giữ bất kỳ giá trị nào trong đó, nhưng thường được sử dụng để giữ một DOM node.
+* [`useImperativeHandle`](/reference/react/useImperativeHandle) cho phép bạn tùy chỉnh ref được hiển thị bởi component của bạn. Điều này hiếm khi được sử dụng.
 
 ```js
 function Form() {
@@ -58,9 +58,9 @@ function Form() {
 
 ## Effect Hooks {/*effect-hooks*/}
 
-*Effects* let a component [connect to and synchronize with external systems.](/learn/synchronizing-with-effects) This includes dealing with network, browser DOM, animations, widgets written using a different UI library, and other non-React code.
+*Effects* cho phép một component [kết nối và đồng bộ hóa với các hệ thống bên ngoài.](/learn/synchronizing-with-effects) Điều này bao gồm việc xử lý mạng, DOM của trình duyệt, hoạt ảnh, các widget được viết bằng một thư viện UI khác và các code không phải React khác.
 
-* [`useEffect`](/reference/react/useEffect) connects a component to an external system.
+* [`useEffect`](/reference/react/useEffect) kết nối một component với một hệ thống bên ngoài.
 
 ```js
 function ChatRoom({ roomId }) {
@@ -72,23 +72,23 @@ function ChatRoom({ roomId }) {
   // ...
 ```
 
-Effects are an "escape hatch" from the React paradigm. Don't use Effects to orchestrate the data flow of your application. If you're not interacting with an external system, [you might not need an Effect.](/learn/you-might-not-need-an-effect)
+Effects là một "cửa thoát hiểm" khỏi mô hình React. Không sử dụng Effects để điều phối luồng dữ liệu của ứng dụng của bạn. Nếu bạn không tương tác với một hệ thống bên ngoài, [bạn có thể không cần Effect.](/learn/you-might-not-need-an-effect)
 
-There are two rarely used variations of `useEffect` with differences in timing:
+Có hai biến thể hiếm khi được sử dụng của `useEffect` với sự khác biệt về thời gian:
 
-* [`useLayoutEffect`](/reference/react/useLayoutEffect) fires before the browser repaints the screen. You can measure layout here.
-* [`useInsertionEffect`](/reference/react/useInsertionEffect) fires before React makes changes to the DOM. Libraries can insert dynamic CSS here.
+* [`useLayoutEffect`](/reference/react/useLayoutEffect) kích hoạt trước khi trình duyệt vẽ lại màn hình. Bạn có thể đo layout ở đây.
+* [`useInsertionEffect`](/reference/react/useInsertionEffect) kích hoạt trước khi React thực hiện các thay đổi đối với DOM. Các thư viện có thể chèn CSS động ở đây.
 
 ---
 
 ## Performance Hooks {/*performance-hooks*/}
 
-A common way to optimize re-rendering performance is to skip unnecessary work. For example, you can tell React to reuse a cached calculation or to skip a re-render if the data has not changed since the previous render.
+Một cách phổ biến để tối ưu hóa hiệu suất render lại là bỏ qua các công việc không cần thiết. Ví dụ: bạn có thể yêu cầu React sử dụng lại một phép tính đã được lưu trong bộ nhớ cache hoặc bỏ qua việc render lại nếu dữ liệu không thay đổi kể từ lần render trước.
 
-To skip calculations and unnecessary re-rendering, use one of these Hooks:
+Để bỏ qua các phép tính và render lại không cần thiết, hãy sử dụng một trong các Hook sau:
 
-- [`useMemo`](/reference/react/useMemo) lets you cache the result of an expensive calculation.
-- [`useCallback`](/reference/react/useCallback) lets you cache a function definition before passing it down to an optimized component.
+- [`useMemo`](/reference/react/useMemo) cho phép bạn lưu vào bộ nhớ cache kết quả của một phép tính tốn kém.
+- [`useCallback`](/reference/react/useCallback) cho phép bạn lưu vào bộ nhớ cache một định nghĩa hàm trước khi truyền nó xuống một component đã được tối ưu hóa.
 
 ```js
 function TodoList({ todos, tab, theme }) {
@@ -97,26 +97,26 @@ function TodoList({ todos, tab, theme }) {
 }
 ```
 
-Sometimes, you can't skip re-rendering because the screen actually needs to update. In that case, you can improve performance by separating blocking updates that must be synchronous (like typing into an input) from non-blocking updates which don't need to block the user interface (like updating a chart).
+Đôi khi, bạn không thể bỏ qua việc render lại vì màn hình thực sự cần được cập nhật. Trong trường hợp đó, bạn có thể cải thiện hiệu suất bằng cách tách các cập nhật chặn phải đồng bộ (như nhập vào một input) khỏi các cập nhật không chặn không cần chặn giao diện người dùng (như cập nhật biểu đồ).
 
-To prioritize rendering, use one of these Hooks:
+Để ưu tiên render, hãy sử dụng một trong các Hook sau:
 
-- [`useTransition`](/reference/react/useTransition) lets you mark a state transition as non-blocking and allow other updates to interrupt it.
-- [`useDeferredValue`](/reference/react/useDeferredValue) lets you defer updating a non-critical part of the UI and let other parts update first.
+- [`useTransition`](/reference/react/useTransition) cho phép bạn đánh dấu một chuyển đổi state là không chặn và cho phép các cập nhật khác làm gián đoạn nó.
+- [`useDeferredValue`](/reference/react/useDeferredValue) cho phép bạn trì hoãn việc cập nhật một phần không quan trọng của UI và cho phép các phần khác cập nhật trước.
 
 ---
 
 ## Other Hooks {/*other-hooks*/}
 
-These Hooks are mostly useful to library authors and aren't commonly used in the application code.
+Các Hook này chủ yếu hữu ích cho các tác giả thư viện và không được sử dụng phổ biến trong code ứng dụng.
 
-- [`useDebugValue`](/reference/react/useDebugValue) lets you customize the label React DevTools displays for your custom Hook.
-- [`useId`](/reference/react/useId) lets a component associate a unique ID with itself. Typically used with accessibility APIs.
-- [`useSyncExternalStore`](/reference/react/useSyncExternalStore) lets a component subscribe to an external store.
-* [`useActionState`](/reference/react/useActionState) allows you to manage state of actions.
+- [`useDebugValue`](/reference/react/useDebugValue) cho phép bạn tùy chỉnh nhãn mà React DevTools hiển thị cho Hook tùy chỉnh của bạn.
+- [`useId`](/reference/react/useId) cho phép một component liên kết một ID duy nhất với chính nó. Thường được sử dụng với các API hỗ trợ tiếp cận.
+- [`useSyncExternalStore`](/reference/react/useSyncExternalStore) cho phép một component đăng ký một kho bên ngoài.
+* [`useActionState`](/reference/react/useActionState) cho phép bạn quản lý trạng thái của các hành động.
 
 ---
 
 ## Your own Hooks {/*your-own-hooks*/}
 
-You can also [define your own custom Hooks](/learn/reusing-logic-with-custom-hooks#extracting-your-own-custom-hook-from-a-component) as JavaScript functions.
+Bạn cũng có thể [xác định các Hook tùy chỉnh của riêng bạn](/learn/reusing-logic-with-custom-hooks#extracting-your-own-custom-hook-from-a-component) dưới dạng các hàm JavaScript.
