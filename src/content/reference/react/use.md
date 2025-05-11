@@ -4,7 +4,7 @@ title: use
 
 <Intro>
 
-`use` is a React API that lets you read the value of a resource like a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or [context](/learn/passing-data-deeply-with-context).
+`use` là một API của React cho phép bạn đọc giá trị của một tài nguyên như [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) hoặc [context](/learn/passing-data-deeply-with-context).
 
 ```js
 const value = use(resource);
@@ -16,11 +16,11 @@ const value = use(resource);
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `use(resource)` {/*use*/}
 
-Call `use` in your component to read the value of a resource like a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or [context](/learn/passing-data-deeply-with-context).
+Gọi `use` trong component của bạn để đọc giá trị của một tài nguyên như [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) hoặc [context](/learn/passing-data-deeply-with-context).
 
 ```jsx
 import { use } from 'react';
@@ -31,33 +31,33 @@ function MessageComponent({ messagePromise }) {
   // ...
 ```
 
-Unlike React Hooks, `use` can be called within loops and conditional statements like `if`. Like React Hooks, the function that calls `use` must be a Component or Hook.
+Không giống như React Hooks, `use` có thể được gọi bên trong các vòng lặp và các câu lệnh điều kiện như `if`. Giống như React Hooks, hàm gọi `use` phải là một Component hoặc Hook.
 
-When called with a Promise, the `use` API integrates with [`Suspense`](/reference/react/Suspense) and [error boundaries](/reference/react/Component#catching-rendering-errors-with-an-error-boundary). The component calling `use` *suspends* while the Promise passed to `use` is pending. If the component that calls `use` is wrapped in a Suspense boundary, the fallback will be displayed.  Once the Promise is resolved, the Suspense fallback is replaced by the rendered components using the data returned by the `use` API. If the Promise passed to `use` is rejected, the fallback of the nearest Error Boundary will be displayed.
+Khi được gọi với một Promise, API `use` tích hợp với [`Suspense`](/reference/react/Suspense) và [error boundaries](/reference/react/Component#catching-rendering-errors-with-an-error-boundary). Component gọi `use` sẽ *tạm dừng* trong khi Promise được truyền cho `use` đang ở trạng thái pending. Nếu component gọi `use` được bao bọc trong một Suspense boundary, fallback sẽ được hiển thị. Khi Promise được resolve, Suspense fallback sẽ được thay thế bằng các component được render bằng dữ liệu trả về bởi API `use`. Nếu Promise được truyền cho `use` bị reject, fallback của Error Boundary gần nhất sẽ được hiển thị.
 
-[See more examples below.](#usage)
+[Xem thêm các ví dụ bên dưới.](#usage)
 
-#### Parameters {/*parameters*/}
+#### Tham số {/*parameters*/}
 
-* `resource`: this is the source of the data you want to read a value from. A resource can be a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or a [context](/learn/passing-data-deeply-with-context).
+* `resource`: Đây là nguồn dữ liệu mà bạn muốn đọc giá trị. Một resource có thể là một [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) hoặc một [context](/learn/passing-data-deeply-with-context).
 
-#### Returns {/*returns*/}
+#### Giá trị trả về {/*returns*/}
 
-The `use` API returns the value that was read from the resource like the resolved value of a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or [context](/learn/passing-data-deeply-with-context).
+API `use` trả về giá trị được đọc từ resource, chẳng hạn như giá trị đã được resolve của một [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) hoặc [context](/learn/passing-data-deeply-with-context).
 
-#### Caveats {/*caveats*/}
+#### Lưu ý {/*caveats*/}
 
-* The `use` API must be called inside a Component or a Hook.
-* When fetching data in a [Server Component](/reference/rsc/server-components), prefer `async` and `await` over `use`. `async` and `await` pick up rendering from the point where `await` was invoked, whereas `use` re-renders the component after the data is resolved.
-* Prefer creating Promises in [Server Components](/reference/rsc/server-components) and passing them to [Client Components](/reference/rsc/use-client) over creating Promises in Client Components. Promises created in Client Components are recreated on every render. Promises passed from a Server Component to a Client Component are stable across re-renders. [See this example](#streaming-data-from-server-to-client).
+* API `use` phải được gọi bên trong một Component hoặc một Hook.
+* Khi tìm nạp dữ liệu trong một [Server Component](/reference/rsc/server-components), hãy ưu tiên `async` và `await` hơn `use`. `async` và `await` tiếp tục quá trình render từ điểm mà `await` được gọi, trong khi `use` render lại component sau khi dữ liệu được resolve.
+* Ưu tiên tạo Promises trong [Server Components](/reference/rsc/server-components) và truyền chúng cho [Client Components](/reference/rsc/use-client) hơn là tạo Promises trong Client Components. Promises được tạo trong Client Components sẽ được tạo lại trên mỗi lần render. Promises được truyền từ một Server Component sang một Client Component sẽ ổn định trên các lần re-render. [Xem ví dụ này](#streaming-data-from-server-to-client).
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Reading context with `use` {/*reading-context-with-use*/}
+### Đọc context với `use` {/*reading-context-with-use*/}
 
-When a [context](/learn/passing-data-deeply-with-context) is passed to `use`, it works similarly to [`useContext`](/reference/react/useContext). While `useContext` must be called at the top level of your component, `use` can be called inside conditionals like `if` and loops like `for`. `use` is preferred over `useContext` because it is more flexible.
+Khi một [context](/learn/passing-data-deeply-with-context) được truyền cho `use`, nó hoạt động tương tự như [`useContext`](/reference/react/useContext). Trong khi `useContext` phải được gọi ở cấp cao nhất của component, `use` có thể được gọi bên trong các điều kiện như `if` và các vòng lặp như `for`. `use` được ưu tiên hơn `useContext` vì nó linh hoạt hơn.
 
 ```js [[2, 4, "theme"], [1, 4, "ThemeContext"]]
 import { use } from 'react';
@@ -67,9 +67,9 @@ function Button() {
   // ... 
 ```
 
-`use` returns the <CodeStep step={2}>context value</CodeStep> for the <CodeStep step={1}>context</CodeStep> you passed. To determine the context value, React searches the component tree and finds **the closest context provider above** for that particular context.
+`use` trả về <CodeStep step={2}>giá trị context</CodeStep> cho <CodeStep step={1}>context</CodeStep> mà bạn đã truyền. Để xác định giá trị context, React tìm kiếm trên cây component và tìm **context provider gần nhất ở phía trên** cho context cụ thể đó.
 
-To pass context to a `Button`, wrap it or one of its parent components into the corresponding context provider.
+Để truyền context cho một `Button`, hãy bọc nó hoặc một trong các component cha của nó vào context provider tương ứng.
 
 ```js [[1, 3, "ThemeContext"], [2, 3, "\\"dark\\""], [1, 5, "ThemeContext"]]
 function MyPage() {
@@ -85,9 +85,9 @@ function Form() {
 }
 ```
 
-It doesn't matter how many layers of components there are between the provider and the `Button`. When a `Button` *anywhere* inside of `Form` calls `use(ThemeContext)`, it will receive `"dark"` as the value.
+Không quan trọng có bao nhiêu lớp component giữa provider và `Button`. Khi một `Button` *ở bất kỳ đâu* bên trong `Form` gọi `use(ThemeContext)`, nó sẽ nhận được `dark` làm giá trị.
 
-Unlike [`useContext`](/reference/react/useContext), <CodeStep step={2}>`use`</CodeStep> can be called in conditionals and loops like <CodeStep step={1}>`if`</CodeStep>.
+Không giống như [`useContext`](/reference/react/useContext), <CodeStep step={2}>`use`</CodeStep> có thể được gọi trong các điều kiện và vòng lặp như <CodeStep step={1}>`if`</CodeStep>.
 
 ```js [[1, 2, "if"], [2, 3, "use"]]
 function HorizontalRule({ show }) {
@@ -99,11 +99,11 @@ function HorizontalRule({ show }) {
 }
 ```
 
-<CodeStep step={2}>`use`</CodeStep> is called from inside a <CodeStep step={1}>`if`</CodeStep> statement, allowing you to conditionally read values from a Context.
+<CodeStep step={2}>`use`</CodeStep> được gọi từ bên trong một câu lệnh <CodeStep step={1}>`if`</CodeStep>, cho phép bạn đọc có điều kiện các giá trị từ một Context.
 
 <Pitfall>
 
-Like `useContext`, `use(context)` always looks for the closest context provider *above* the component that calls it. It searches upwards and **does not** consider context providers in the component from which you're calling `use(context)`.
+Giống như `useContext`, `use(context)` luôn tìm kiếm context provider gần nhất *ở phía trên* component gọi nó. Nó tìm kiếm lên trên và **không** xem xét các context provider trong component mà bạn đang gọi `use(context)`.
 
 </Pitfall>
 
@@ -194,9 +194,9 @@ function Button({ show, children }) {
 
 </Sandpack>
 
-### Streaming data from the server to the client {/*streaming-data-from-server-to-client*/}
+### Truyền dữ liệu từ server đến client {/*streaming-data-from-server-to-client*/}
 
-Data can be streamed from the server to the client by passing a Promise as a prop from a <CodeStep step={1}>Server Component</CodeStep> to a <CodeStep step={2}>Client Component</CodeStep>.
+Dữ liệu có thể được truyền từ server đến client bằng cách truyền một Promise như một prop từ một <CodeStep step={1}>Server Component</CodeStep> đến một <CodeStep step={2}>Client Component</CodeStep>.
 
 ```js [[1, 4, "App"], [2, 2, "Message"], [3, 7, "Suspense"], [4, 8, "messagePromise", 30], [4, 5, "messagePromise"]]
 import { fetchMessage } from './lib.js';
@@ -212,7 +212,7 @@ export default function App() {
 }
 ```
 
-The <CodeStep step={2}>Client Component</CodeStep> then takes <CodeStep step={4}>the Promise it received as a prop</CodeStep> and passes it to the <CodeStep step={5}>`use`</CodeStep> API. This allows the <CodeStep step={2}>Client Component</CodeStep> to read the value from <CodeStep step={4}>the Promise</CodeStep> that was initially created by the Server Component.
+<CodeStep step={2}>Client Component</CodeStep> sau đó nhận <CodeStep step={4}>Promise mà nó nhận được như một prop</CodeStep> và truyền nó cho API <CodeStep step={5}>`use`</CodeStep>. Điều này cho phép <CodeStep step={2}>Client Component</CodeStep> đọc giá trị từ <CodeStep step={4}>Promise</CodeStep> ban đầu được tạo bởi Server Component.
 
 ```js [[2, 6, "Message"], [4, 6, "messagePromise"], [4, 7, "messagePromise"], [5, 7, "use"]]
 // message.js
@@ -225,7 +225,7 @@ export function Message({ messagePromise }) {
   return <p>Here is the message: {messageContent}</p>;
 }
 ```
-Because <CodeStep step={2}>`Message`</CodeStep> is wrapped in <CodeStep step={3}>[`Suspense`](/reference/react/Suspense)</CodeStep>, the fallback will be displayed until the Promise is resolved. When the Promise is resolved, the value will be read by the <CodeStep step={5}>`use`</CodeStep> API and the <CodeStep step={2}>`Message`</CodeStep> component will replace the Suspense fallback.
+Vì <CodeStep step={2}>`Message`</CodeStep> được bao bọc trong <CodeStep step={3}>[`Suspense`](/reference/react/Suspense)</CodeStep>, fallback sẽ được hiển thị cho đến khi Promise được resolve. Khi Promise được resolve, giá trị sẽ được đọc bởi API <CodeStep step={5}>`use`</CodeStep> và component <CodeStep step={2}>`Message`</CodeStep> sẽ thay thế Suspense fallback.
 
 <Sandpack>
 
@@ -294,16 +294,16 @@ root.render(
 
 <Note>
 
-When passing a Promise from a Server Component to a Client Component, its resolved value must be serializable to pass between server and client. Data types like functions aren't serializable and cannot be the resolved value of such a Promise.
+Khi truyền một Promise từ một Server Component đến một Client Component, giá trị đã được resolve của nó phải có thể tuần tự hóa để truyền giữa server và client. Các kiểu dữ liệu như functions không thể tuần tự hóa và không thể là giá trị đã được resolve của một Promise như vậy.
 
 </Note>
 
 
 <DeepDive>
 
-#### Should I resolve a Promise in a Server or Client Component? {/*resolve-promise-in-server-or-client-component*/}
+#### Tôi nên resolve một Promise trong Server Component hay Client Component? {/*resolve-promise-in-server-or-client-component*/}
 
-A Promise can be passed from a Server Component to a Client Component and resolved in the Client Component with the `use` API. You can also resolve the Promise in a Server Component with `await` and pass the required data to the Client Component as a prop.
+Một Promise có thể được truyền từ một Server Component đến một Client Component và được resolve trong Client Component với API `use`. Bạn cũng có thể resolve Promise trong một Server Component với `await` và truyền dữ liệu cần thiết cho Client Component như một prop.
 
 ```js
 export default async function App() {
@@ -312,24 +312,24 @@ export default async function App() {
 }
 ```
 
-But using `await` in a [Server Component](/reference/react/components#server-components) will block its rendering until the `await` statement is finished. Passing a Promise from a Server Component to a Client Component prevents the Promise from blocking the rendering of the Server Component.
+Nhưng sử dụng `await` trong một [Server Component](/reference/react/components#server-components) sẽ chặn quá trình render của nó cho đến khi câu lệnh `await` kết thúc. Truyền một Promise từ một Server Component đến một Client Component ngăn Promise chặn quá trình render của Server Component.
 
 </DeepDive>
 
-### Dealing with rejected Promises {/*dealing-with-rejected-promises*/}
+### Xử lý các Promise bị reject {/*dealing-with-rejected-promises*/}
 
-In some cases a Promise passed to `use` could be rejected. You can handle rejected Promises by either:
+Trong một số trường hợp, một Promise được truyền cho `use` có thể bị reject. Bạn có thể xử lý các Promise bị reject bằng một trong hai cách:
 
-1. [Displaying an error to users with an error boundary.](#displaying-an-error-to-users-with-error-boundary)
-2. [Providing an alternative value with `Promise.catch`](#providing-an-alternative-value-with-promise-catch)
+1. [Hiển thị lỗi cho người dùng bằng error boundary.](#displaying-an-error-to-users-with-error-boundary)
+2. [Cung cấp một giá trị thay thế với `Promise.catch`](#providing-an-alternative-value-with-promise-catch)
 
 <Pitfall>
-`use` cannot be called in a try-catch block. Instead of a try-catch block [wrap your component in an Error Boundary](#displaying-an-error-to-users-with-error-boundary), or [provide an alternative value to use with the Promise's `.catch` method](#providing-an-alternative-value-with-promise-catch).
+Không thể gọi `use` trong một khối try-catch. Thay vì một khối try-catch, [hãy bọc component của bạn trong một Error Boundary](#displaying-an-error-to-users-with-error-boundary), hoặc [cung cấp một giá trị thay thế cho use với phương thức `.catch` của Promise](#providing-an-alternative-value-with-promise-catch).
 </Pitfall>
 
-#### Displaying an error to users with an error boundary {/*displaying-an-error-to-users-with-error-boundary*/}
+#### Hiển thị lỗi cho người dùng bằng error boundary {/*displaying-an-error-to-users-with-error-boundary*/}
 
-If you'd like to display an error to your users when a Promise is rejected, you can use an [error boundary](/reference/react/Component#catching-rendering-errors-with-an-error-boundary). To use an error boundary, wrap the component where you are calling the `use` API in an error boundary. If the Promise passed to `use` is rejected the fallback for the error boundary will be displayed.
+Nếu bạn muốn hiển thị lỗi cho người dùng khi một Promise bị reject, bạn có thể sử dụng một [error boundary](/reference/react/Component#catching-rendering-errors-with-an-error-boundary). Để sử dụng một error boundary, hãy bọc component nơi bạn đang gọi API `use` trong một error boundary. Nếu Promise được truyền cho `use` bị reject, fallback cho error boundary sẽ được hiển thị.
 
 <Sandpack>
 
@@ -410,9 +410,9 @@ root.render(
 ```
 </Sandpack>
 
-#### Providing an alternative value with `Promise.catch` {/*providing-an-alternative-value-with-promise-catch*/}
+#### Cung cấp một giá trị thay thế với `Promise.catch` {/*providing-an-alternative-value-with-promise-catch*/}
 
-If you'd like to provide an alternative value when the Promise passed to `use` is rejected you can use the Promise's <CodeStep step={1}>[`catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch)</CodeStep> method.
+Nếu bạn muốn cung cấp một giá trị thay thế khi Promise được truyền cho `use` bị reject, bạn có thể sử dụng phương thức <CodeStep step={1}>[`catch`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch)</CodeStep> của Promise.
 
 ```js [[1, 6, "catch"],[2, 7, "return"]]
 import { Message } from './message.js';
@@ -432,31 +432,31 @@ export default function App() {
 }
 ```
 
-To use the Promise's <CodeStep step={1}>`catch`</CodeStep> method, call <CodeStep step={1}>`catch`</CodeStep> on the Promise object. <CodeStep step={1}>`catch`</CodeStep> takes a single argument: a function that takes an error message as an argument. Whatever is <CodeStep step={2}>returned</CodeStep> by the function passed to <CodeStep step={1}>`catch`</CodeStep> will be used as the resolved value of the Promise.
+Để sử dụng phương thức <CodeStep step={1}>`catch`</CodeStep> của Promise, hãy gọi <CodeStep step={1}>`catch`</CodeStep> trên đối tượng Promise. <CodeStep step={1}>`catch`</CodeStep> nhận một đối số duy nhất: một hàm nhận một thông báo lỗi làm đối số. Bất cứ điều gì được <CodeStep step={2}>trả về</CodeStep> bởi hàm được truyền cho <CodeStep step={1}>`catch`</CodeStep> sẽ được sử dụng làm giá trị đã được resolve của Promise.
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## Khắc phục sự cố {/*troubleshooting*/}
 
 ### "Suspense Exception: This is not a real error!" {/*suspense-exception-error*/}
 
-You are either calling `use` outside of a React Component or Hook function, or calling `use` in a try–catch block. If you are calling `use` inside a try–catch block, wrap your component in an error boundary, or call the Promise's `catch` to catch the error and resolve the Promise with another value. [See these examples](#dealing-with-rejected-promises).
+Bạn đang gọi `use` bên ngoài một React Component hoặc hàm Hook, hoặc gọi `use` trong một khối try-catch. Nếu bạn đang gọi `use` bên trong một khối try-catch, hãy bọc component của bạn trong một error boundary, hoặc gọi `catch` của Promise để bắt lỗi và resolve Promise với một giá trị khác. [Xem các ví dụ này](#dealing-with-rejected-promises).
 
-If you are calling `use` outside a React Component or Hook function, move the `use` call to a React Component or Hook function.
+Nếu bạn đang gọi `use` bên ngoài một React Component hoặc hàm Hook, hãy di chuyển lệnh gọi `use` đến một React Component hoặc hàm Hook.
 
 ```jsx
 function MessageComponent({messagePromise}) {
   function download() {
-    // ❌ the function calling `use` is not a Component or Hook
+    // ❌ hàm gọi `use` không phải là một Component hoặc Hook
     const message = use(messagePromise);
     // ...
 ```
 
-Instead, call `use` outside any component closures, where the function that calls `use` is a Component or Hook.
+Thay vào đó, hãy gọi `use` bên ngoài bất kỳ closure component nào, nơi hàm gọi `use` là một Component hoặc Hook.
 
 ```jsx
 function MessageComponent({messagePromise}) {
-  // ✅ `use` is being called from a component. 
+  // ✅ `use` đang được gọi từ một component. 
   const message = use(messagePromise);
   // ...
 ```

@@ -4,13 +4,13 @@ title: preinit
 
 <Note>
 
-[React-based frameworks](/learn/start-a-new-react-project) frequently handle resource loading for you, so you might not have to call this API yourself. Consult your framework's documentation for details.
+[Các framework dựa trên React](/learn/start-a-new-react-project) thường tự động xử lý việc tải tài nguyên cho bạn, vì vậy bạn có thể không cần phải tự gọi API này. Tham khảo tài liệu của framework để biết thêm chi tiết.
 
 </Note>
 
 <Intro>
 
-`preinit` lets you eagerly fetch and evaluate a stylesheet or external script.
+`preinit` cho phép bạn tìm nạp và thực thi một cách chủ động một stylesheet hoặc script bên ngoài.
 
 ```js
 preinit("https://example.com/script.js", {as: "script"});
@@ -22,11 +22,11 @@ preinit("https://example.com/script.js", {as: "script"});
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `preinit(href, options)` {/*preinit*/}
 
-To preinit a script or stylesheet, call the `preinit` function from `react-dom`.
+Để preinit một script hoặc stylesheet, hãy gọi hàm `preinit` từ `react-dom`.
 
 ```js
 import { preinit } from 'react-dom';
@@ -38,42 +38,42 @@ function AppRoot() {
 
 ```
 
-[See more examples below.](#usage)
+[Xem thêm các ví dụ bên dưới.](#usage)
 
-The `preinit` function provides the browser with a hint that it should start downloading and executing the given resource, which can save time. Scripts that you `preinit` are executed when they finish downloading. Stylesheets that you preinit are inserted into the document, which causes them to go into effect right away.
+Hàm `preinit` cung cấp cho trình duyệt một gợi ý rằng nó nên bắt đầu tải xuống và thực thi tài nguyên đã cho, điều này có thể tiết kiệm thời gian. Các script mà bạn `preinit` sẽ được thực thi khi chúng tải xuống xong. Các stylesheet mà bạn preinit sẽ được chèn vào tài liệu, điều này khiến chúng có hiệu lực ngay lập tức.
 
-#### Parameters {/*parameters*/}
+#### Tham số {/*parameters*/}
 
-* `href`: a string. The URL of the resource you want to download and execute.
-* `options`: an object. It contains the following properties:
-  *  `as`: a required string. The type of resource. Its possible values are `script` and `style`.
-  * `precedence`: a string. Required with stylesheets. Says where to insert the stylesheet relative to others. Stylesheets with higher precedence can override those with lower precedence. The possible values are `reset`, `low`, `medium`, `high`. 
-  *  `crossOrigin`: a string. The [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) to use. Its possible values are `anonymous` and `use-credentials`. It is required when `as` is set to `"fetch"`.
-  *  `integrity`: a string. A cryptographic hash of the resource, to [verify its authenticity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity).
-  *  `nonce`: a string. A cryptographic [nonce to allow the resource](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) when using a strict Content Security Policy. 
-  *  `fetchPriority`: a string. Suggests a relative priority for fetching the resource. The possible values are `auto` (the default), `high`, and `low`.
+* `href`: một chuỗi. URL của tài nguyên bạn muốn tải xuống và thực thi.
+* `options`: một đối tượng. Nó chứa các thuộc tính sau:
+  * `as`: một chuỗi bắt buộc. Loại tài nguyên. Các giá trị có thể là `script` và `style`.
+  * `precedence`: một chuỗi. Bắt buộc với stylesheet. Cho biết vị trí chèn stylesheet so với các stylesheet khác. Các stylesheet có độ ưu tiên cao hơn có thể ghi đè các stylesheet có độ ưu tiên thấp hơn. Các giá trị có thể là `reset`, `low`, `medium`, `high`.
+  * `crossOrigin`: một chuỗi. [Chính sách CORS](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) để sử dụng. Các giá trị có thể là `anonymous` và `use-credentials`. Nó là bắt buộc khi `as` được đặt thành `"fetch"`.
+  * `integrity`: một chuỗi. Một hàm băm mật mã của tài nguyên, để [xác minh tính xác thực của nó](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity).
+  * `nonce`: một chuỗi. Một [nonce mật mã để cho phép tài nguyên](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) khi sử dụng Chính sách bảo mật nội dung nghiêm ngặt.
+  * `fetchPriority`: một chuỗi. Đề xuất mức độ ưu tiên tương đối để tìm nạp tài nguyên. Các giá trị có thể là `auto` (mặc định), `high` và `low`.
 
-#### Returns {/*returns*/}
+#### Giá trị trả về {/*returns*/}
 
-`preinit` returns nothing.
+`preinit` không trả về gì cả.
 
-#### Caveats {/*caveats*/}
+#### Lưu ý {/*caveats*/}
 
-* Multiple calls to `preinit` with the same `href` have the same effect as a single call.
-* In the browser, you can call `preinit` in any situation: while rendering a component, in an Effect, in an event handler, and so on.
-* In server-side rendering or when rendering Server Components, `preinit` only has an effect if you call it while rendering a component or in an async context originating from rendering a component. Any other calls will be ignored.
+* Nhiều lệnh gọi đến `preinit` với cùng một `href` có cùng hiệu ứng như một lệnh gọi duy nhất.
+* Trong trình duyệt, bạn có thể gọi `preinit` trong mọi tình huống: trong khi hiển thị một component, trong một Effect, trong một trình xử lý sự kiện, v.v.
+* Trong quá trình hiển thị phía máy chủ hoặc khi hiển thị Server Components, `preinit` chỉ có hiệu lực nếu bạn gọi nó trong khi hiển thị một component hoặc trong một ngữ cảnh không đồng bộ bắt nguồn từ việc hiển thị một component. Bất kỳ lệnh gọi nào khác sẽ bị bỏ qua.
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Preiniting when rendering {/*preiniting-when-rendering*/}
+### Preinit khi hiển thị {/*preiniting-when-rendering*/}
 
-Call `preinit` when rendering a component if you know that it or its children will use a specific resource, and you're OK with the resource being evaluated and thereby taking effect immediately upon being downloaded.
+Gọi `preinit` khi hiển thị một component nếu bạn biết rằng nó hoặc các component con của nó sẽ sử dụng một tài nguyên cụ thể và bạn đồng ý với việc tài nguyên được đánh giá và do đó có hiệu lực ngay lập tức sau khi được tải xuống.
 
-<Recipes titleText="Examples of preiniting">
+<Recipes titleText="Ví dụ về preinit">
 
-#### Preiniting an external script {/*preiniting-an-external-script*/}
+#### Preinit một script bên ngoài {/*preiniting-an-external-script*/}
 
 ```js
 import { preinit } from 'react-dom';
@@ -84,11 +84,11 @@ function AppRoot() {
 }
 ```
 
-If you want the browser to download the script but not to execute it right away, use [`preload`](/reference/react-dom/preload) instead. If you want to load an ESM module, use [`preinitModule`](/reference/react-dom/preinitModule).
+Nếu bạn muốn trình duyệt tải xuống script nhưng không thực thi nó ngay lập tức, hãy sử dụng [`preload`](/reference/react-dom/preload) thay thế. Nếu bạn muốn tải một mô-đun ESM, hãy sử dụng [`preinitModule`](/reference/react-dom/preinitModule).
 
 <Solution />
 
-#### Preiniting a stylesheet {/*preiniting-a-stylesheet*/}
+#### Preinit một stylesheet {/*preiniting-a-stylesheet*/}
 
 ```js
 import { preinit } from 'react-dom';
@@ -99,17 +99,17 @@ function AppRoot() {
 }
 ```
 
-The `precedence` option, which is required, lets you control the order of stylesheets within the document. Stylesheets with higher precedence can overrule those with lower precedence.
+Tùy chọn `precedence`, là bắt buộc, cho phép bạn kiểm soát thứ tự của các stylesheet trong tài liệu. Các stylesheet có độ ưu tiên cao hơn có thể ghi đè các stylesheet có độ ưu tiên thấp hơn.
 
-If you want to download the stylesheet but not to insert it into the document right away, use [`preload`](/reference/react-dom/preload) instead.
+Nếu bạn muốn tải xuống stylesheet nhưng không chèn nó vào tài liệu ngay lập tức, hãy sử dụng [`preload`](/reference/react-dom/preload) thay thế.
 
 <Solution />
 
 </Recipes>
 
-### Preiniting in an event handler {/*preiniting-in-an-event-handler*/}
+### Preinit trong một trình xử lý sự kiện {/*preiniting-in-an-event-handler*/}
 
-Call `preinit` in an event handler before transitioning to a page or state where external resources will be needed. This gets the process started earlier than if you call it during the rendering of the new page or state.
+Gọi `preinit` trong một trình xử lý sự kiện trước khi chuyển sang một trang hoặc trạng thái nơi các tài nguyên bên ngoài sẽ cần thiết. Điều này giúp quá trình bắt đầu sớm hơn so với khi bạn gọi nó trong quá trình hiển thị trang hoặc trạng thái mới.
 
 ```js
 import { preinit } from 'react-dom';

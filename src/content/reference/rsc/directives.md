@@ -1,22 +1,22 @@
 ---
-title: Directives
+title: Chỉ thị
 ---
 
 <RSC>
 
-Directives are for use in [React Server Components](/learn/start-a-new-react-project#bleeding-edge-react-frameworks).
+Các chỉ thị được sử dụng trong [React Server Components](/learn/start-a-new-react-project#bleeding-edge-react-frameworks).
 
 </RSC>
 
 <Intro>
 
-Directives provide instructions to [bundlers compatible with React Server Components](/learn/start-a-new-react-project#bleeding-edge-react-frameworks).
+Các chỉ thị cung cấp hướng dẫn cho [các trình đóng gói tương thích với React Server Components](/learn/start-a-new-react-project#bleeding-edge-react-frameworks).
 
 </Intro>
 
 ---
 
-## Source code directives {/*source-code-directives*/}
+## Chỉ thị mã nguồn {/*source-code-directives*/}
 
-* [`'use client'`](/reference/rsc/use-client) lets you mark what code runs on the client.
-* [`'use server'`](/reference/rsc/use-server) marks server-side functions that can be called from client-side code.
+* [`'use client'`](/reference/rsc/use-client) cho phép bạn đánh dấu mã nào chạy trên máy khách.
+* [`'use server'`](/reference/rsc/use-server) đánh dấu các hàm phía máy chủ có thể được gọi từ mã phía máy khách.

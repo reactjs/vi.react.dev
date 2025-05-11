@@ -1,53 +1,53 @@
 ---
-title: Rules of Hooks
+title: Các quy tắc của Hook
 ---
 
 <Intro>
-Hooks are defined using JavaScript functions, but they represent a special type of reusable UI logic with restrictions on where they can be called.
+Hook được định nghĩa bằng các hàm JavaScript, nhưng chúng đại diện cho một loại logic UI có thể tái sử dụng đặc biệt với các hạn chế về nơi chúng có thể được gọi.
 </Intro>
 
 <InlineToc />
 
 ---
 
-##  Only call Hooks at the top level {/*only-call-hooks-at-the-top-level*/}
+## Chỉ gọi Hook ở cấp cao nhất {/*only-call-hooks-at-the-top-level*/}
 
-Functions whose names start with `use` are called [*Hooks*](/reference/react) in React.
+Các hàm có tên bắt đầu bằng `use` được gọi là [*Hook*](/reference/react) trong React.
 
-**Don’t call Hooks inside loops, conditions, nested functions, or `try`/`catch`/`finally` blocks.** Instead, always use Hooks at the top level of your React function, before any early returns. You can only call Hooks while React is rendering a function component:
+**Không gọi Hook bên trong vòng lặp, điều kiện, hàm lồng nhau hoặc khối `try`/`catch`/`finally`.** Thay vào đó, luôn sử dụng Hook ở cấp cao nhất của hàm React, trước bất kỳ lệnh trả về sớm nào. Bạn chỉ có thể gọi Hook khi React đang hiển thị một component hàm:
 
-* ✅ Call them at the top level in the body of a [function component](/learn/your-first-component).
-* ✅ Call them at the top level in the body of a [custom Hook](/learn/reusing-logic-with-custom-hooks).
+* ✅ Gọi chúng ở cấp cao nhất trong phần thân của [component hàm](/learn/your-first-component).
+* ✅ Gọi chúng ở cấp cao nhất trong phần thân của [Hook tùy chỉnh](/learn/reusing-logic-with-custom-hooks).
 
 ```js{2-3,8-9}
 function Counter() {
-  // ✅ Good: top-level in a function component
+  // ✅ Tốt: cấp cao nhất trong một component hàm
   const [count, setCount] = useState(0);
   // ...
 }
 
 function useWindowWidth() {
-  // ✅ Good: top-level in a custom Hook
+  // ✅ Tốt: cấp cao nhất trong một Hook tùy chỉnh
   const [width, setWidth] = useState(window.innerWidth);
   // ...
 }
 ```
 
-It’s **not** supported to call Hooks (functions starting with `use`) in any other cases, for example:
+Không được hỗ trợ việc gọi Hook (các hàm bắt đầu bằng `use`) trong bất kỳ trường hợp nào khác, ví dụ:
 
-* 🔴 Do not call Hooks inside conditions or loops.
-* 🔴 Do not call Hooks after a conditional `return` statement.
-* 🔴 Do not call Hooks in event handlers.
-* 🔴 Do not call Hooks in class components.
-* 🔴 Do not call Hooks inside functions passed to `useMemo`, `useReducer`, or `useEffect`.
-* 🔴 Do not call Hooks inside `try`/`catch`/`finally` blocks.
+* 🔴 Không gọi Hook bên trong điều kiện hoặc vòng lặp.
+* 🔴 Không gọi Hook sau câu lệnh `return` có điều kiện.
+* 🔴 Không gọi Hook trong trình xử lý sự kiện.
+* 🔴 Không gọi Hook trong component class.
+* 🔴 Không gọi Hook bên trong các hàm được truyền cho `useMemo`, `useReducer` hoặc `useEffect`.
+* 🔴 Không gọi Hook bên trong khối `try`/`catch`/`finally`.
 
-If you break these rules, you might see this error.
+Nếu bạn vi phạm các quy tắc này, bạn có thể thấy lỗi này.
 
 ```js{3-4,11-12,20-21}
 function Bad({ cond }) {
   if (cond) {
-    // 🔴 Bad: inside a condition (to fix, move it outside!)
+    // 🔴 Sai: bên trong một điều kiện (để sửa, hãy di chuyển nó ra ngoài!)
     const theme = useContext(ThemeContext);
   }
   // ...
@@ -55,7 +55,7 @@ function Bad({ cond }) {
 
 function Bad() {
   for (let i = 0; i < 10; i++) {
-    // 🔴 Bad: inside a loop (to fix, move it outside!)
+    // 🔴 Sai: bên trong một vòng lặp (để sửa, hãy di chuyển nó ra ngoài!)
     const theme = useContext(ThemeContext);
   }
   // ...
@@ -65,14 +65,14 @@ function Bad({ cond }) {
   if (cond) {
     return;
   }
-  // 🔴 Bad: after a conditional return (to fix, move it before the return!)
+  // 🔴 Sai: sau một lệnh return có điều kiện (để sửa, hãy di chuyển nó trước lệnh return!)
   const theme = useContext(ThemeContext);
   // ...
 }
 
 function Bad() {
   function handleClick() {
-    // 🔴 Bad: inside an event handler (to fix, move it outside!)
+    // 🔴 Sai: bên trong một trình xử lý sự kiện (để sửa, hãy di chuyển nó ra ngoài!)
     const theme = useContext(ThemeContext);
   }
   // ...
@@ -80,7 +80,7 @@ function Bad() {
 
 function Bad() {
   const style = useMemo(() => {
-    // 🔴 Bad: inside useMemo (to fix, move it outside!)
+    // 🔴 Sai: bên trong useMemo (để sửa, hãy di chuyển nó ra ngoài!)
     const theme = useContext(ThemeContext);
     return createStyle(theme);
   });
@@ -89,7 +89,7 @@ function Bad() {
 
 class Bad extends React.Component {
   render() {
-    // 🔴 Bad: inside a class component (to fix, write a function component instead of a class!)
+    // 🔴 Sai: bên trong một component class (để sửa, hãy viết một component hàm thay vì một class!)
     useEffect(() => {})
     // ...
   }
@@ -97,7 +97,7 @@ class Bad extends React.Component {
 
 function Bad() {
   try {
-    // 🔴 Bad: inside try/catch/finally block (to fix, move it outside!)
+    // 🔴 Sai: bên trong khối try/catch/finally (để sửa, hãy di chuyển nó ra ngoài!)
     const [x, setX] = useState(0);
   } catch {
     const [x, setX] = useState(1);
@@ -105,31 +105,31 @@ function Bad() {
 }
 ```
 
-You can use the [`eslint-plugin-react-hooks` plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks) to catch these mistakes.
+Bạn có thể sử dụng [`eslint-plugin-react-hooks` plugin](https://www.npmjs.com/package/eslint-plugin-react-hooks) để bắt các lỗi này.
 
 <Note>
 
-[Custom Hooks](/learn/reusing-logic-with-custom-hooks) *may* call other Hooks (that's their whole purpose). This works because custom Hooks are also supposed to only be called while a function component is rendering.
+[Hook tùy chỉnh](/learn/reusing-logic-with-custom-hooks) *có thể* gọi các Hook khác (đó là toàn bộ mục đích của chúng). Điều này hoạt động vì Hook tùy chỉnh cũng chỉ được gọi khi một component hàm đang hiển thị.
 
 </Note>
 
 ---
 
-## Only call Hooks from React functions {/*only-call-hooks-from-react-functions*/}
+## Chỉ gọi Hook từ các hàm React {/*only-call-hooks-from-react-functions*/}
 
-Don’t call Hooks from regular JavaScript functions. Instead, you can:
+Không gọi Hook từ các hàm JavaScript thông thường. Thay vào đó, bạn có thể:
 
-✅ Call Hooks from React function components.
-✅ Call Hooks from [custom Hooks](/learn/reusing-logic-with-custom-hooks#extracting-your-own-custom-hook-from-a-component).
+✅ Gọi Hook từ các component hàm React.
+✅ Gọi Hook từ [Hook tùy chỉnh](/learn/reusing-logic-with-custom-hooks#extracting-your-own-custom-hook-from-a-component).
 
-By following this rule, you ensure that all stateful logic in a component is clearly visible from its source code.
+Bằng cách tuân theo quy tắc này, bạn đảm bảo rằng tất cả logic có trạng thái trong một component đều hiển thị rõ ràng từ mã nguồn của nó.
 
 ```js {2,5}
 function FriendList() {
   const [onlineStatus, setOnlineStatus] = useOnlineStatus(); // ✅
 }
 
-function setOnlineStatus() { // ❌ Not a component or custom Hook!
+function setOnlineStatus() { // ❌ Không phải là một component hoặc Hook tùy chỉnh!
   const [onlineStatus, setOnlineStatus] = useOnlineStatus();
 }
 ```

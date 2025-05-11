@@ -1,55 +1,55 @@
 ---
-title: Components and Hooks must be pure
+title: Các thành phần và Hook phải thuần khiết
 ---
 
 <Intro>
-Pure functions only perform a calculation and nothing more. It makes your code easier to understand, debug, and allows React to automatically optimize your components and Hooks correctly.
+Các hàm thuần khiết chỉ thực hiện một phép tính và không làm gì khác. Nó giúp mã của bạn dễ hiểu, gỡ lỗi hơn và cho phép React tự động tối ưu hóa các thành phần và Hook của bạn một cách chính xác.
 </Intro>
 
 <Note>
-This reference page covers advanced topics and requires familiarity with the concepts covered in the [Keeping Components Pure](/learn/keeping-components-pure) page.
+Trang tham khảo này bao gồm các chủ đề nâng cao và yêu cầu bạn phải làm quen với các khái niệm được đề cập trong trang [Giữ cho các thành phần thuần khiết](/learn/keeping-components-pure).
 </Note>
 
 <InlineToc />
 
-### Why does purity matter? {/*why-does-purity-matter*/}
+### Tại sao tính thuần khiết lại quan trọng? {/*why-does-purity-matter*/}
 
-One of the key concepts that makes React, _React_ is _purity_. A pure component or hook is one that is:
+Một trong những khái niệm chính làm nên React, _React_ là _tính thuần khiết_. Một thành phần hoặc hook thuần khiết là một thành phần:
 
-* **Idempotent** – You [always get the same result every time](/learn/keeping-components-pure#purity-components-as-formulas) you run it with the same inputs – props, state, context for component inputs; and arguments for hook inputs.
-* **Has no side effects in render** – Code with side effects should run [**separately from rendering**](#how-does-react-run-your-code). For example as an [event handler](/learn/responding-to-events) – where the user interacts with the UI and causes it to update; or as an [Effect](/reference/react/useEffect) – which runs after render.
-* **Does not mutate non-local values**: Components and Hooks should [never modify values that aren't created locally](#mutation) in render.
+*   **Idempotent (Tính lũy đẳng)** – Bạn [luôn nhận được kết quả giống nhau mỗi khi](/learn/keeping-components-pure#purity-components-as-formulas) bạn chạy nó với cùng một đầu vào – props, state, context cho đầu vào thành phần; và các đối số cho đầu vào hook.
+*   **Không có tác dụng phụ trong quá trình render** – Mã có tác dụng phụ nên chạy [**tách biệt với quá trình render**](#how-does-react-run-your-code). Ví dụ: như một [trình xử lý sự kiện](/learn/responding-to-events) – nơi người dùng tương tác với giao diện người dùng và khiến nó cập nhật; hoặc như một [Effect](/reference/react/useEffect) – chạy sau khi render.
+*   **Không làm thay đổi các giá trị không cục bộ**: Các thành phần và Hook không bao giờ được [sửa đổi các giá trị không được tạo cục bộ](#mutation) trong quá trình render.
 
-When render is kept pure, React can understand how to prioritize which updates are most important for the user to see first. This is made possible because of render purity: since components don't have side effects [in render](#how-does-react-run-your-code), React can pause rendering components that aren't as important to update, and only come back to them later when it's needed.
+Khi quá trình render được giữ thuần khiết, React có thể hiểu cách ưu tiên các bản cập nhật nào là quan trọng nhất để người dùng thấy trước. Điều này có thể thực hiện được nhờ tính thuần khiết của quá trình render: vì các thành phần không có tác dụng phụ [trong quá trình render](#how-does-react-run-your-code), React có thể tạm dừng render các thành phần không quan trọng bằng cách cập nhật và chỉ quay lại chúng sau khi cần.
 
-Concretely, this means that rendering logic can be run multiple times in a way that allows React to give your user a pleasant user experience. However, if your component has an untracked side effect – like modifying the value of a global variable [during render](#how-does-react-run-your-code) – when React runs your rendering code again, your side effects will be triggered in a way that won't match what you want. This often leads to unexpected bugs that can degrade how your users experience your app. You can see an [example of this in the Keeping Components Pure page](/learn/keeping-components-pure#side-effects-unintended-consequences).
+Cụ thể, điều này có nghĩa là logic render có thể được chạy nhiều lần theo cách cho phép React mang lại cho người dùng của bạn trải nghiệm người dùng dễ chịu. Tuy nhiên, nếu thành phần của bạn có một tác dụng phụ không được theo dõi – chẳng hạn như sửa đổi giá trị của một biến toàn cục [trong quá trình render](#how-does-react-run-your-code) – khi React chạy lại mã render của bạn, các tác dụng phụ của bạn sẽ được kích hoạt theo cách không khớp với những gì bạn muốn. Điều này thường dẫn đến các lỗi không mong muốn có thể làm giảm trải nghiệm ứng dụng của người dùng. Bạn có thể xem [ví dụ về điều này trong trang Giữ cho các thành phần thuần khiết](/learn/keeping-components-pure#side-effects-unintended-consequences).
 
-#### How does React run your code? {/*how-does-react-run-your-code*/}
+#### React chạy mã của bạn như thế nào? {/*how-does-react-run-your-code*/}
 
-React is declarative: you tell React _what_ to render, and React will figure out _how_ best to display it to your user. To do this, React has a few phases where it runs your code. You don't need to know about all of these phases to use React well. But at a high level, you should know about what code runs in _render_, and what runs outside of it.
+React là khai báo: bạn cho React biết _cái gì_ để render và React sẽ tìm ra _cách_ tốt nhất để hiển thị nó cho người dùng của bạn. Để làm điều này, React có một vài giai đoạn để chạy mã của bạn. Bạn không cần phải biết về tất cả các giai đoạn này để sử dụng React tốt. Nhưng ở cấp độ cao, bạn nên biết về mã nào chạy trong _render_ và mã nào chạy bên ngoài nó.
 
-_Rendering_ refers to calculating what the next version of your UI should look like. After rendering, [Effects](/reference/react/useEffect) are _flushed_ (meaning they are run until there are no more left) and may update the calculation if the Effects have impacts on layout. React takes this new calculation and compares it to the calculation used to create the previous version of your UI, then _commits_ just the minimum changes needed to the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) (what your user actually sees) to catch it up to the latest version.
+_Rendering_ đề cập đến việc tính toán giao diện của phiên bản tiếp theo của giao diện người dùng của bạn. Sau khi render, [Effects](/reference/react/useEffect) được _flush_ (có nghĩa là chúng được chạy cho đến khi không còn cái nào nữa) và có thể cập nhật phép tính nếu Effects có tác động đến bố cục. React lấy phép tính mới này và so sánh nó với phép tính được sử dụng để tạo phiên bản trước của giao diện người dùng của bạn, sau đó _commit_ chỉ những thay đổi tối thiểu cần thiết cho [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) (những gì người dùng của bạn thực sự thấy) để bắt kịp phiên bản mới nhất.
 
 <DeepDive>
 
-#### How to tell if code runs in render {/*how-to-tell-if-code-runs-in-render*/}
+#### Làm thế nào để biết mã có chạy trong quá trình render hay không {/*how-to-tell-if-code-runs-in-render*/}
 
-One quick heuristic to tell if code runs during render is to examine where it is: if it's written at the top level like in the example below, there's a good chance it runs during render.
+Một phương pháp heuristic nhanh chóng để biết liệu mã có chạy trong quá trình render hay không là kiểm tra vị trí của nó: nếu nó được viết ở cấp cao nhất như trong ví dụ bên dưới, thì rất có thể nó chạy trong quá trình render.
 
 ```js {2}
 function Dropdown() {
-  const selectedItems = new Set(); // created during render
+  const selectedItems = new Set(); // được tạo trong quá trình render
   // ...
 }
 ```
 
-Event handlers and Effects don't run in render:
+Trình xử lý sự kiện và Effects không chạy trong quá trình render:
 
 ```js {4}
 function Dropdown() {
   const selectedItems = new Set();
   const onSelect = (item) => {
-    // this code is in an event handler, so it's only run when the user triggers this
+    // mã này nằm trong trình xử lý sự kiện, vì vậy nó chỉ được chạy khi người dùng kích hoạt nó
     selectedItems.add(item);
   }
 }
@@ -59,31 +59,32 @@ function Dropdown() {
 function Dropdown() {
   const selectedItems = new Set();
   useEffect(() => {
-    // this code is inside of an Effect, so it only runs after rendering
+    // mã này nằm bên trong Effect, vì vậy nó chỉ chạy sau khi render
     logForAnalytics(selectedItems);
   }, [selectedItems]);
 }
 ```
+
 </DeepDive>
 
 ---
 
-## Components and Hooks must be idempotent {/*components-and-hooks-must-be-idempotent*/}
+## Các thành phần và Hook phải là idempotent {/*components-and-hooks-must-be-idempotent*/}
 
-Components must always return the same output with respect to their inputs – props, state, and context. This is known as _idempotency_. [Idempotency](https://en.wikipedia.org/wiki/Idempotence) is a term popularized in functional programming. It refers to the idea that you [always get the same result every time](learn/keeping-components-pure) you run that piece of code with the same inputs.
+Các thành phần phải luôn trả về cùng một đầu ra đối với đầu vào của chúng – props, state và context. Điều này được gọi là _idempotency_ (tính lũy đẳng). [Idempotency](https://en.wikipedia.org/wiki/Idempotence) là một thuật ngữ được phổ biến trong lập trình hàm. Nó đề cập đến ý tưởng rằng bạn [luôn nhận được kết quả giống nhau mỗi khi](learn/keeping-components-pure) bạn chạy đoạn mã đó với cùng một đầu vào.
 
-This means that _all_ code that runs [during render](#how-does-react-run-your-code) must also be idempotent in order for this rule to hold. For example, this line of code is not idempotent (and therefore, neither is the component):
+Điều này có nghĩa là _tất cả_ mã chạy [trong quá trình render](#how-does-react-run-your-code) cũng phải là idempotent để quy tắc này có hiệu lực. Ví dụ: dòng mã này không phải là idempotent (và do đó, thành phần cũng không phải):
 
 ```js {2}
 function Clock() {
-  const time = new Date(); // 🔴 Bad: always returns a different result!
+  const time = new Date(); // 🔴 Sai: luôn trả về một kết quả khác!
   return <span>{time.toLocaleString()}</span>
 }
 ```
 
-`new Date()` is not idempotent as it always returns the current date and changes its result every time it's called. When you render the above component, the time displayed on the screen will stay stuck on the time that the component was rendered. Similarly, functions like `Math.random()` also aren't idempotent, because they return different results every time they're called, even when the inputs are the same.
+`new Date()` không phải là idempotent vì nó luôn trả về ngày hiện tại và thay đổi kết quả của nó mỗi khi nó được gọi. Khi bạn render thành phần trên, thời gian hiển thị trên màn hình sẽ bị kẹt vào thời điểm thành phần được render. Tương tự, các hàm như `Math.random()` cũng không phải là idempotent, vì chúng trả về các kết quả khác nhau mỗi khi chúng được gọi, ngay cả khi đầu vào giống nhau.
 
-This doesn't mean you shouldn't use non-idempotent functions like `new Date()` _at all_ – you should just avoid using them [during render](#how-does-react-run-your-code). In this case, we can _synchronize_ the latest date to this component using an [Effect](/reference/react/useEffect):
+Điều này không có nghĩa là bạn không nên sử dụng các hàm không idempotent như `new Date()` _hoàn toàn_ – bạn chỉ nên tránh sử dụng chúng [trong quá trình render](#how-does-react-run-your-code). Trong trường hợp này, chúng ta có thể _đồng bộ hóa_ ngày mới nhất với thành phần này bằng cách sử dụng [Effect](/reference/react/useEffect):
 
 <Sandpack>
 
@@ -91,17 +92,16 @@ This doesn't mean you shouldn't use non-idempotent functions like `new Date()` _
 import { useState, useEffect } from 'react';
 
 function useTime() {
-  // 1. Keep track of the current date's state. `useState` receives an initializer function as its
-  //    initial state. It only runs once when the hook is called, so only the current date at the
-  //    time the hook is called is set first.
+  // 1. Theo dõi trạng thái của ngày hiện tại. `useState` nhận một hàm khởi tạo làm trạng thái ban đầu của nó.
+  //    Nó chỉ chạy một lần khi hook được gọi, vì vậy chỉ ngày hiện tại tại thời điểm hook được gọi được đặt trước.
   const [time, setTime] = useState(() => new Date());
 
   useEffect(() => {
-    // 2. Update the current date every second using `setInterval`.
+    // 2. Cập nhật ngày hiện tại mỗi giây bằng cách sử dụng `setInterval`.
     const id = setInterval(() => {
-      setTime(new Date()); // ✅ Good: non-idempotent code no longer runs in render
+      setTime(new Date()); // ✅ Tốt: mã không idempotent không còn chạy trong quá trình render
     }, 1000);
-    // 3. Return a cleanup function so we don't leak the `setInterval` timer.
+    // 3. Trả về một hàm dọn dẹp để chúng ta không làm rò rỉ bộ hẹn giờ `setInterval`.
     return () => clearInterval(id);
   }, []);
 
@@ -116,128 +116,131 @@ export default function Clock() {
 
 </Sandpack>
 
-By wrapping the non-idempotent `new Date()` call in an Effect, it moves that calculation [outside of rendering](#how-does-react-run-your-code).
+Bằng cách gói lệnh gọi `new Date()` không idempotent trong một Effect, nó sẽ di chuyển phép tính đó [ra khỏi quá trình render](#how-does-react-run-your-code).
 
-If you don't need to synchronize some external state with React, you can also consider using an [event handler](/learn/responding-to-events) if it only needs to be updated in response to a user interaction.
+Nếu bạn không cần đồng bộ hóa một số trạng thái bên ngoài với React, bạn cũng có thể cân nhắc sử dụng [trình xử lý sự kiện](/learn/responding-to-events) nếu nó chỉ cần được cập nhật để đáp ứng với tương tác của người dùng.
 
 ---
 
-## Side effects must run outside of render {/*side-effects-must-run-outside-of-render*/}
+## Các tác dụng phụ phải chạy bên ngoài quá trình render {/*side-effects-must-run-outside-of-render*/}
 
-[Side effects](/learn/keeping-components-pure#side-effects-unintended-consequences) should not run [in render](#how-does-react-run-your-code), as React can render components multiple times to create the best possible user experience.
+[Các tác dụng phụ](/learn/keeping-components-pure#side-effects-unintended-consequences) không nên chạy [trong quá trình render](#how-does-react-run-your-code), vì React có thể render các thành phần nhiều lần để tạo ra trải nghiệm người dùng tốt nhất có thể.
 
 <Note>
-Side effects are a broader term than Effects. Effects specifically refer to code that's wrapped in `useEffect`, while a side effect is a general term for code that has any observable effect other than its primary result of returning a value to the caller.
+Tác dụng phụ là một thuật ngữ rộng hơn Effects. Effects đặc biệt đề cập đến mã được gói trong `useEffect`, trong khi tác dụng phụ là một thuật ngữ chung cho mã có bất kỳ tác dụng quan sát được nào khác ngoài kết quả chính của nó là trả về một giá trị cho người gọi.
 
-Side effects are typically written inside of [event handlers](/learn/responding-to-events) or Effects. But never during render.
+Tác dụng phụ thường được viết bên trong [trình xử lý sự kiện](/learn/responding-to-events) hoặc Effects. Nhưng không bao giờ trong quá trình render.
 </Note>
 
-While render must be kept pure, side effects are necessary at some point in order for your app to do anything interesting, like showing something on the screen! The key point of this rule is that side effects should not run [in render](#how-does-react-run-your-code), as React can render components multiple times. In most cases, you'll use [event handlers](learn/responding-to-events) to handle side effects. Using an event handler explicitly tells React that this code doesn't need to run during render, keeping render pure. If you've exhausted all options – and only as a last resort – you can also handle side effects using `useEffect`.
+Mặc dù quá trình render phải được giữ thuần khiết, nhưng các tác dụng phụ là cần thiết tại một thời điểm nào đó để ứng dụng của bạn có thể làm bất cứ điều gì thú vị, như hiển thị thứ gì đó trên màn hình! Điểm mấu chốt của quy tắc này là các tác dụng phụ không nên chạy [trong quá trình render](#how-does-react-run-your-code), vì React có thể render các thành phần nhiều lần. Trong hầu hết các trường hợp, bạn sẽ sử dụng [trình xử lý sự kiện](learn/responding-to-events) để xử lý các tác dụng phụ. Sử dụng trình xử lý sự kiện sẽ cho React biết một cách rõ ràng rằng mã này không cần chạy trong quá trình render, giữ cho quá trình render thuần khiết. Nếu bạn đã sử dụng hết tất cả các tùy chọn – và chỉ là phương sách cuối cùng – bạn cũng có thể xử lý các tác dụng phụ bằng cách sử dụng `useEffect`.
 
-### When is it okay to have mutation? {/*mutation*/}
+### Khi nào thì được phép có mutation? {/*mutation*/}
 
-#### Local mutation {/*local-mutation*/}
-One common example of a side effect is mutation, which in JavaScript refers to changing the value of a non-[primitive](https://developer.mozilla.org/en-US/docs/Glossary/Primitive) value. In general, while mutation is not idiomatic in React, _local_ mutation is absolutely fine:
+#### Mutation cục bộ {/*local-mutation*/}
+
+Một ví dụ phổ biến về tác dụng phụ là mutation, trong JavaScript đề cập đến việc thay đổi giá trị của một giá trị không phải là [primitive](https://developer.mozilla.org/en-US/docs/Glossary/Primitive). Nói chung, mặc dù mutation không phải là thành ngữ trong React, nhưng mutation _cục bộ_ hoàn toàn ổn:
 
 ```js {2,7}
 function FriendList({ friends }) {
-  const items = []; // ✅ Good: locally created
+  const items = []; // ✅ Tốt: được tạo cục bộ
   for (let i = 0; i < friends.length; i++) {
     const friend = friends[i];
     items.push(
       <Friend key={friend.id} friend={friend} />
-    ); // ✅ Good: local mutation is okay
+    ); // ✅ Tốt: mutation cục bộ là ổn
   }
   return <section>{items}</section>;
 }
 ```
 
-There is no need to contort your code to avoid local mutation. [`Array.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) could also be used here for brevity, but there is nothing wrong with creating a local array and then pushing items into it [during render](#how-does-react-run-your-code).
+Không cần phải bóp méo mã của bạn để tránh mutation cục bộ. [`Array.map`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map) cũng có thể được sử dụng ở đây để ngắn gọn, nhưng không có gì sai khi tạo một mảng cục bộ và sau đó đẩy các mục vào đó [trong quá trình render](#how-does-react-run-your-code).
 
-Even though it looks like we are mutating `items`, the key point to note is that this code only does so _locally_ – the mutation isn't "remembered" when the component is rendered again. In other words, `items` only stays around as long as the component does. Because `items` is always _recreated_ every time `<FriendList />` is rendered, the component will always return the same result.
+Mặc dù có vẻ như chúng ta đang thay đổi `items`, nhưng điểm mấu chốt cần lưu ý là mã này chỉ thực hiện _cục bộ_ – mutation không được "ghi nhớ" khi thành phần được render lại. Nói cách khác, `items` chỉ tồn tại chừng nào thành phần còn tồn tại. Vì `items` luôn được _tạo lại_ mỗi khi `<FriendList />` được render, thành phần sẽ luôn trả về cùng một kết quả.
 
-On the other hand, if `items` was created outside of the component, it holds on to its previous values and remembers changes:
+Mặt khác, nếu `items` được tạo bên ngoài thành phần, nó sẽ giữ lại các giá trị trước đó và ghi nhớ các thay đổi:
 
 ```js {1,7}
-const items = []; // 🔴 Bad: created outside of the component
+const items = []; // 🔴 Sai: được tạo bên ngoài thành phần
 function FriendList({ friends }) {
   for (let i = 0; i < friends.length; i++) {
     const friend = friends[i];
     items.push(
       <Friend key={friend.id} friend={friend} />
-    ); // 🔴 Bad: mutates a value created outside of render
+    ); // 🔴 Sai: thay đổi một giá trị được tạo bên ngoài quá trình render
   }
   return <section>{items}</section>;
 }
 ```
 
-When `<FriendList />` runs again, we will continue appending `friends` to `items` every time that component is run, leading to multiple duplicated results. This version of `<FriendList />` has observable side effects [during render](#how-does-react-run-your-code) and **breaks the rule**.
+Khi `<FriendList />` chạy lại, chúng ta sẽ tiếp tục nối `friends` vào `items` mỗi khi thành phần đó được chạy, dẫn đến nhiều kết quả trùng lặp. Phiên bản `<FriendList />` này có các tác dụng phụ có thể quan sát được [trong quá trình render](#how-does-react-run-your-code) và **phá vỡ quy tắc**.
 
-#### Lazy initialization {/*lazy-initialization*/}
+#### Khởi tạo lazy {/*lazy-initialization*/}
 
-Lazy initialization is also fine despite not being fully "pure":
+Khởi tạo lazy cũng ổn mặc dù không hoàn toàn "thuần khiết":
 
 ```js {2}
 function ExpenseForm() {
-  SuperCalculator.initializeIfNotReady(); // ✅ Good: if it doesn't affect other components
-  // Continue rendering...
+  SuperCalculator.initializeIfNotReady(); // ✅ Tốt: nếu nó không ảnh hưởng đến các thành phần khác
+  // Tiếp tục render...
 }
 ```
 
-#### Changing the DOM {/*changing-the-dom*/}
+#### Thay đổi DOM {/*changing-the-dom*/}
 
-Side effects that are directly visible to the user are not allowed in the render logic of React components. In other words, merely calling a component function shouldn’t by itself produce a change on the screen.
+Các tác dụng phụ hiển thị trực tiếp cho người dùng không được phép trong logic render của các thành phần React. Nói cách khác, chỉ cần gọi một hàm thành phần không được tự nó tạo ra một thay đổi trên màn hình.
 
 ```js {2}
 function ProductDetailPage({ product }) {
-  document.title = product.title; // 🔴 Bad: Changes the DOM
+  document.title = product.title; // 🔴 Sai: Thay đổi DOM
 }
 ```
 
-One way to achieve the desired result of updating `document.title` outside of render is to [synchronize the component with `document`](/learn/synchronizing-with-effects).
+Một cách để đạt được kết quả mong muốn là cập nhật `document.title` bên ngoài quá trình render là [đồng bộ hóa thành phần với `document`](/learn/synchronizing-with-effects).
 
-As long as calling a component multiple times is safe and doesn’t affect the rendering of other components, React doesn’t care if it’s 100% pure in the strict functional programming sense of the word. It is more important that [components must be idempotent](/reference/rules/components-and-hooks-must-be-pure).
+Miễn là việc gọi một thành phần nhiều lần là an toàn và không ảnh hưởng đến quá trình render của các thành phần khác, React không quan tâm nếu nó thuần khiết 100% theo nghĩa lập trình hàm nghiêm ngặt của từ này. Điều quan trọng hơn là [các thành phần phải là idempotent](/reference/rules/components-and-hooks-must-be-pure).
 
 ---
 
-## Props and state are immutable {/*props-and-state-are-immutable*/}
+## Props và state là bất biến {/*props-and-state-are-immutable*/}
 
-A component's props and state are immutable [snapshots](learn/state-as-a-snapshot). Never mutate them directly. Instead, pass new props down, and use the setter function from `useState`.
+Props và state của một thành phần là [ảnh chụp nhanh](learn/state-as-a-snapshot) bất biến. Không bao giờ thay đổi chúng trực tiếp. Thay vào đó, hãy truyền các props mới xuống và sử dụng hàm setter từ `useState`.
 
-You can think of the props and state values as snapshots that are updated after rendering. For this reason, you don't modify the props or state variables directly: instead you pass new props, or use the setter function provided to you to tell React that state needs to update the next time the component is rendered.
+Bạn có thể coi các giá trị props và state là ảnh chụp nhanh được cập nhật sau khi render. Vì lý do này, bạn không sửa đổi trực tiếp các biến props hoặc state: thay vào đó, bạn truyền các props mới hoặc sử dụng hàm setter được cung cấp cho bạn để cho React biết rằng state cần cập nhật vào lần thành phần được render tiếp theo.
 
-### Don't mutate Props {/*props*/}
-Props are immutable because if you mutate them, the application will produce inconsistent output, which can be hard to debug since it may or may not work depending on the circumstance.
+### Không thay đổi Props {/*props*/}
+
+Props là bất biến vì nếu bạn thay đổi chúng, ứng dụng sẽ tạo ra đầu ra không nhất quán, điều này có thể khó gỡ lỗi vì nó có thể hoạt động hoặc không hoạt động tùy thuộc vào hoàn cảnh.
 
 ```js {2}
 function Post({ item }) {
-  item.url = new Url(item.url, base); // 🔴 Bad: never mutate props directly
+  item.url = new Url(item.url, base); // 🔴 Sai: không bao giờ thay đổi props trực tiếp
   return <Link url={item.url}>{item.title}</Link>;
 }
 ```
 
 ```js {2}
 function Post({ item }) {
-  const url = new Url(item.url, base); // ✅ Good: make a copy instead
+  const url = new Url(item.url, base); // ✅ Tốt: thay vào đó hãy tạo một bản sao
   return <Link url={url}>{item.title}</Link>;
 }
 ```
 
-### Don't mutate State {/*state*/}
-`useState` returns the state variable and a setter to update that state.
+### Không thay đổi State {/*state*/}
+
+`useState` trả về biến state và một setter để cập nhật state đó.
 
 ```js
 const [stateVariable, setter] = useState(0);
 ```
 
-Rather than updating the state variable in-place, we need to update it using the setter function that is returned by `useState`. Changing values on the state variable doesn't cause the component to update, leaving your users with an outdated UI. Using the setter function informs React that the state has changed, and that we need to queue a re-render to update the UI.
+Thay vì cập nhật biến state tại chỗ, chúng ta cần cập nhật nó bằng hàm setter được trả về bởi `useState`. Thay đổi các giá trị trên biến state không khiến thành phần cập nhật, khiến người dùng của bạn có một giao diện người dùng lỗi thời. Sử dụng hàm setter thông báo cho React rằng state đã thay đổi và chúng ta cần xếp hàng đợi render lại để cập nhật giao diện người dùng.
 
 ```js {5}
 function Counter() {
   const [count, setCount] = useState(0);
 
   function handleClick() {
-    count = count + 1; // 🔴 Bad: never mutate state directly
+    count = count + 1; // 🔴 Sai: không bao giờ thay đổi state trực tiếp
   }
 
   return (
@@ -253,7 +256,7 @@ function Counter() {
   const [count, setCount] = useState(0);
 
   function handleClick() {
-    setCount(count + 1); // ✅ Good: use the setter function returned by useState
+    setCount(count + 1); // ✅ Tốt: sử dụng hàm setter được trả về bởi useState
   }
 
   return (
@@ -266,15 +269,15 @@ function Counter() {
 
 ---
 
-## Return values and arguments to Hooks are immutable {/*return-values-and-arguments-to-hooks-are-immutable*/}
+## Các giá trị trả về và đối số cho Hook là bất biến {/*return-values-and-arguments-to-hooks-are-immutable*/}
 
-Once values are passed to a hook, you should not modify them. Like props in JSX, values become immutable when passed to a hook.
+Sau khi các giá trị được truyền cho một hook, bạn không nên sửa đổi chúng. Giống như props trong JSX, các giá trị trở nên bất biến khi được truyền cho một hook.
 
 ```js {4}
 function useIconStyle(icon) {
   const theme = useContext(ThemeContext);
   if (icon.enabled) {
-    icon.className = computeStyle(icon, theme); // 🔴 Bad: never mutate hook arguments directly
+    icon.className = computeStyle(icon, theme); // 🔴 Sai: không bao giờ thay đổi trực tiếp các đối số hook
   }
   return icon;
 }
@@ -283,7 +286,7 @@ function useIconStyle(icon) {
 ```js {3}
 function useIconStyle(icon) {
   const theme = useContext(ThemeContext);
-  const newIcon = { ...icon }; // ✅ Good: make a copy instead
+  const newIcon = { ...icon }; // ✅ Tốt: thay vào đó hãy tạo một bản sao
   if (icon.enabled) {
     newIcon.className = computeStyle(icon, theme);
   }
@@ -291,7 +294,7 @@ function useIconStyle(icon) {
 }
 ```
 
-One important principle in React is _local reasoning_: the ability to understand what a component or hook does by looking at its code in isolation. Hooks should be treated like "black boxes" when they are called. For example, a custom hook might have used its arguments as dependencies to memoize values inside it:
+Một nguyên tắc quan trọng trong React là _lý luận cục bộ_: khả năng hiểu những gì một thành phần hoặc hook làm bằng cách xem xét mã của nó một cách riêng biệt. Các hook nên được coi là "hộp đen" khi chúng được gọi. Ví dụ: một hook tùy chỉnh có thể đã sử dụng các đối số của nó làm phần phụ thuộc để ghi nhớ các giá trị bên trong nó:
 
 ```js {4}
 function useIconStyle(icon) {
@@ -307,35 +310,35 @@ function useIconStyle(icon) {
 }
 ```
 
-If you were to mutate the Hooks arguments, the custom hook's memoization will become incorrect,  so it's important to avoid doing that.
+Nếu bạn thay đổi các đối số của Hook, quá trình ghi nhớ của hook tùy chỉnh sẽ trở nên không chính xác, vì vậy điều quan trọng là phải tránh làm điều đó.
 
 ```js {4}
-style = useIconStyle(icon);         // `style` is memoized based on `icon`
-icon.enabled = false;               // Bad: 🔴 never mutate hook arguments directly
-style = useIconStyle(icon);         // previously memoized result is returned
+style = useIconStyle(icon);         // `style` được ghi nhớ dựa trên `icon`
+icon.enabled = false;               // Sai: 🔴 không bao giờ thay đổi trực tiếp các đối số hook
+style = useIconStyle(icon);         // kết quả được ghi nhớ trước đó được trả về
 ```
 
 ```js {4}
-style = useIconStyle(icon);         // `style` is memoized based on `icon`
-icon = { ...icon, enabled: false }; // Good: ✅ make a copy instead
-style = useIconStyle(icon);         // new value of `style` is calculated
+style = useIconStyle(icon);         // `style` được ghi nhớ dựa trên `icon`
+icon = { ...icon, enabled: false }; // Tốt: ✅ thay vào đó hãy tạo một bản sao
+style = useIconStyle(icon);         // giá trị mới của `style` được tính toán
 ```
 
-Similarly, it's important to not modify the return values of Hooks, as they may have been memoized.
+Tương tự, điều quan trọng là không sửa đổi các giá trị trả về của Hook, vì chúng có thể đã được ghi nhớ.
 
 ---
 
-## Values are immutable after being passed to JSX {/*values-are-immutable-after-being-passed-to-jsx*/}
+## Các giá trị là bất biến sau khi được truyền cho JSX {/*values-are-immutable-after-being-passed-to-jsx*/}
 
-Don't mutate values after they've been used in JSX. Move the mutation before the JSX is created.
+Không thay đổi các giá trị sau khi chúng đã được sử dụng trong JSX. Di chuyển mutation trước khi JSX được tạo.
 
-When you use JSX in an expression, React may eagerly evaluate the JSX before the component finishes rendering. This means that mutating values after they've been passed to JSX can lead to outdated UIs, as React won't know to update the component's output.
+Khi bạn sử dụng JSX trong một biểu thức, React có thể đánh giá JSX một cách háo hức trước khi thành phần kết thúc render. Điều này có nghĩa là việc thay đổi các giá trị sau khi chúng đã được truyền cho JSX có thể dẫn đến giao diện người dùng lỗi thời, vì React sẽ không biết cập nhật đầu ra của thành phần.
 
 ```js {4}
 function Page({ colour }) {
   const styles = { colour, size: "large" };
   const header = <Header styles={styles} />;
-  styles.size = "small"; // 🔴 Bad: styles was already used in the JSX above
+  styles.size = "small"; // 🔴 Sai: styles đã được sử dụng trong JSX ở trên
   const footer = <Footer styles={styles} />;
   return (
     <>
@@ -351,7 +354,7 @@ function Page({ colour }) {
 function Page({ colour }) {
   const headerStyles = { colour, size: "large" };
   const header = <Header styles={headerStyles} />;
-  const footerStyles = { colour, size: "small" }; // ✅ Good: we created a new value
+  const footerStyles = { colour, size: "small" }; // ✅ Tốt: chúng ta đã tạo một giá trị mới
   const footer = <Footer styles={footerStyles} />;
   return (
     <>

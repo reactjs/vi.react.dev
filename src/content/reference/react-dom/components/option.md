@@ -4,7 +4,7 @@ title: "<option>"
 
 <Intro>
 
-The [built-in browser `<option>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option) lets you render an option inside a [`<select>`](/reference/react-dom/components/select) box.
+[`<option>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option) tích hợp sẵn của trình duyệt cho phép bạn hiển thị một tùy chọn bên trong hộp [`<select>`](/reference/react-dom/components/select).
 
 ```js
 <select>
@@ -19,11 +19,11 @@ The [built-in browser `<option>` component](https://developer.mozilla.org/en-US/
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `<option>` {/*option*/}
 
-The [built-in browser `<option>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option) lets you render an option inside a [`<select>`](/reference/react-dom/components/select) box.
+[`<option>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option) tích hợp sẵn của trình duyệt cho phép bạn hiển thị một tùy chọn bên trong hộp [`<select>`](/reference/react-dom/components/select).
 
 ```js
 <select>
@@ -32,31 +32,31 @@ The [built-in browser `<option>` component](https://developer.mozilla.org/en-US/
 </select>
 ```
 
-[See more examples below.](#usage)
+[Xem thêm các ví dụ bên dưới.](#usage)
 
 #### Props {/*props*/}
 
-`<option>` supports all [common element props.](/reference/react-dom/components/common#props)
+`<option>` hỗ trợ tất cả [các thuộc tính phần tử thông thường.](/reference/react-dom/components/common#props)
 
-Additionally, `<option>` supports these props:
+Ngoài ra, `<option>` hỗ trợ các thuộc tính sau:
 
-* [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#disabled): A boolean. If `true`, the option will not be selectable and will appear dimmed.
-* [`label`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#label): A string. Specifies the meaning of the option. If not specified, the text inside the option is used.
-* [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#value): The value to be used [when submitting the parent `<select>` in a form](/reference/react-dom/components/select#reading-the-select-box-value-when-submitting-a-form) if this option is selected.
+* [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#disabled): Một giá trị boolean. Nếu `true`, tùy chọn sẽ không thể chọn và sẽ xuất hiện màu xám.
+* [`label`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#label): Một chuỗi. Chỉ định ý nghĩa của tùy chọn. Nếu không được chỉ định, văn bản bên trong tùy chọn sẽ được sử dụng.
+* [`value`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/option#value): Giá trị được sử dụng [khi gửi `<select>` mẹ trong một biểu mẫu](/reference/react-dom/components/select#reading-the-select-box-value-when-submitting-a-form) nếu tùy chọn này được chọn.
 
-#### Caveats {/*caveats*/}
+#### Lưu ý {/*caveats*/}
 
-* React does not support the `selected` attribute on `<option>`. Instead, pass this option's `value` to the parent [`<select defaultValue>`](/reference/react-dom/components/select#providing-an-initially-selected-option) for an uncontrolled select box, or [`<select value>`](/reference/react-dom/components/select#controlling-a-select-box-with-a-state-variable) for a controlled select.
+* React không hỗ trợ thuộc tính `selected` trên `<option>`. Thay vào đó, hãy truyền `value` của tùy chọn này cho [`<select defaultValue>`](/reference/react-dom/components/select#providing-an-initially-selected-option) mẹ cho một hộp chọn không được kiểm soát hoặc [`<select value>`](/reference/react-dom/components/select#controlling-a-select-box-with-a-state-variable) cho một lựa chọn được kiểm soát.
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Displaying a select box with options {/*displaying-a-select-box-with-options*/}
+### Hiển thị hộp chọn với các tùy chọn {/*displaying-a-select-box-with-options*/}
 
-Render a `<select>` with a list of `<option>` components inside to display a select box. Give each `<option>` a `value` representing the data to be submitted with the form.
+Kết xuất một `<select>` với một danh sách các thành phần `<option>` bên trong để hiển thị một hộp chọn. Cung cấp cho mỗi `<option>` một `value` đại diện cho dữ liệu sẽ được gửi với biểu mẫu.
 
-[Read more about displaying a `<select>` with a list of `<option>` components.](/reference/react-dom/components/select)
+[Đọc thêm về hiển thị một `<select>` với một danh sách các thành phần `<option>`.](/reference/react-dom/components/select)
 
 <Sandpack>
 
@@ -64,11 +64,11 @@ Render a `<select>` with a list of `<option>` components inside to display a sel
 export default function FruitPicker() {
   return (
     <label>
-      Pick a fruit:
+      Chọn một loại trái cây:
       <select name="selectedFruit">
-        <option value="apple">Apple</option>
-        <option value="banana">Banana</option>
-        <option value="orange">Orange</option>
+        <option value="apple">Táo</option>
+        <option value="banana">Chuối</option>
+        <option value="orange">Cam</option>
       </select>
     </label>
   );
@@ -79,5 +79,4 @@ export default function FruitPicker() {
 select { margin: 5px; }
 ```
 
-</Sandpack>  
-
+</Sandpack>

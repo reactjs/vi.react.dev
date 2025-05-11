@@ -4,13 +4,13 @@ title: createRef
 
 <Pitfall>
 
-`createRef` is mostly used for [class components.](/reference/react/Component) Function components typically rely on [`useRef`](/reference/react/useRef) instead.
+`createRef` chủ yếu được sử dụng cho [component class.](/reference/react/Component) Các component function thường dựa vào [`useRef`](/reference/react/useRef) để thay thế.
 
 </Pitfall>
 
 <Intro>
 
-`createRef` creates a [ref](/learn/referencing-values-with-refs) object which can contain arbitrary value.
+`createRef` tạo ra một đối tượng [ref](/learn/referencing-values-with-refs) có thể chứa giá trị tùy ý.
 
 ```js
 class MyInput extends Component {
@@ -25,11 +25,11 @@ class MyInput extends Component {
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `createRef()` {/*createref*/}
 
-Call `createRef` to declare a [ref](/learn/referencing-values-with-refs) inside a [class component.](/reference/react/Component)
+Gọi `createRef` để khai báo một [ref](/learn/referencing-values-with-refs) bên trong một [component class.](/reference/react/Component)
 
 ```js
 import { createRef, Component } from 'react';
@@ -40,31 +40,31 @@ class MyComponent extends Component {
   // ...
 ```
 
-[See more examples below.](#usage)
+[Xem thêm các ví dụ bên dưới.](#usage)
 
-#### Parameters {/*parameters*/}
+#### Tham số {/*parameters*/}
 
-`createRef` takes no parameters.
+`createRef` không có tham số.
 
-#### Returns {/*returns*/}
+#### Giá trị trả về {/*returns*/}
 
-`createRef` returns an object with a single property:
+`createRef` trả về một đối tượng với một thuộc tính duy nhất:
 
-* `current`: Initially, it's set to the `null`. You can later set it to something else. If you pass the ref object to React as a `ref` attribute to a JSX node, React will set its `current` property.
+* `current`: Ban đầu, nó được đặt thành `null`. Bạn có thể đặt nó thành một giá trị khác sau này. Nếu bạn truyền đối tượng ref cho React dưới dạng một thuộc tính `ref` cho một nút JSX, React sẽ đặt thuộc tính `current` của nó.
 
-#### Caveats {/*caveats*/}
+#### Lưu ý {/*caveats*/}
 
-* `createRef` always returns a *different* object. It's equivalent to writing `{ current: null }` yourself.
-* In a function component, you probably want [`useRef`](/reference/react/useRef) instead which always returns the same object.
-* `const ref = useRef()` is equivalent to `const [ref, _] = useState(() => createRef(null))`.
+* `createRef` luôn trả về một đối tượng *khác*. Nó tương đương với việc tự viết `{ current: null }`.
+* Trong một component function, bạn có thể muốn sử dụng [`useRef`](/reference/react/useRef) thay thế, nó luôn trả về cùng một đối tượng.
+* `const ref = useRef()` tương đương với `const [ref, _] = useState(() => createRef(null))`.
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Declaring a ref in a class component {/*declaring-a-ref-in-a-class-component*/}
+### Khai báo một ref trong một component class {/*declaring-a-ref-in-a-class-component*/}
 
-To declare a ref inside a [class component,](/reference/react/Component) call `createRef` and assign its result to a class field:
+Để khai báo một ref bên trong một [component class,](/reference/react/Component) gọi `createRef` và gán kết quả của nó cho một trường class:
 
 ```js {4}
 import { Component, createRef } from 'react';
@@ -76,7 +76,7 @@ class Form extends Component {
 }
 ```
 
-If you now pass `ref={this.inputRef}` to an `<input>` in your JSX, React will populate `this.inputRef.current` with the input DOM node. For example, here is how you make a button that focuses the input:
+Nếu bây giờ bạn truyền `ref={this.inputRef}` cho một `<input>` trong JSX của bạn, React sẽ điền `this.inputRef.current` với nút DOM input. Ví dụ: đây là cách bạn tạo một nút tập trung vào input:
 
 <Sandpack>
 
@@ -107,17 +107,17 @@ export default class Form extends Component {
 
 <Pitfall>
 
-`createRef` is mostly used for [class components.](/reference/react/Component) Function components typically rely on [`useRef`](/reference/react/useRef) instead.
+`createRef` chủ yếu được sử dụng cho [component class.](/reference/react/Component) Các component function thường dựa vào [`useRef`](/reference/react/useRef) để thay thế.
 
 </Pitfall>
 
 ---
 
-## Alternatives {/*alternatives*/}
+## Các lựa chọn thay thế {/*alternatives*/}
 
-### Migrating from a class with `createRef` to a function with `useRef` {/*migrating-from-a-class-with-createref-to-a-function-with-useref*/}
+### Chuyển đổi từ một class với `createRef` sang một function với `useRef` {/*migrating-from-a-class-with-createref-to-a-function-with-useref*/}
 
-We recommend using function components instead of [class components](/reference/react/Component) in new code. If you have some existing class components using `createRef`, here is how you can convert them. This is the original code:
+Chúng tôi khuyên bạn nên sử dụng component function thay vì [component class](/reference/react/Component) trong code mới. Nếu bạn có một số component class hiện tại đang sử dụng `createRef`, đây là cách bạn có thể chuyển đổi chúng. Đây là code gốc:
 
 <Sandpack>
 
@@ -146,7 +146,7 @@ export default class Form extends Component {
 
 </Sandpack>
 
-When you [convert this component from a class to a function,](/reference/react/Component#alternatives) replace calls to `createRef` with calls to [`useRef`:](/reference/react/useRef)
+Khi bạn [chuyển đổi component này từ một class sang một function,](/reference/react/Component#alternatives) hãy thay thế các lệnh gọi đến `createRef` bằng các lệnh gọi đến [`useRef`:](/reference/react/useRef)
 
 <Sandpack>
 

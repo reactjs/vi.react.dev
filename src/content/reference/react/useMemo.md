@@ -4,7 +4,7 @@ title: useMemo
 
 <Intro>
 
-`useMemo` is a React Hook that lets you cache the result of a calculation between re-renders.
+`useMemo` là một React Hook cho phép bạn lưu vào bộ nhớ cache kết quả của một phép tính giữa các lần render lại.
 
 ```js
 const cachedValue = useMemo(calculateValue, dependencies)
@@ -16,11 +16,11 @@ const cachedValue = useMemo(calculateValue, dependencies)
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `useMemo(calculateValue, dependencies)` {/*usememo*/}
 
-Call `useMemo` at the top level of your component to cache a calculation between re-renders:
+Gọi `useMemo` ở cấp cao nhất của component để lưu vào bộ nhớ cache một phép tính giữa các lần render lại:
 
 ```js
 import { useMemo } from 'react';
@@ -34,39 +34,39 @@ function TodoList({ todos, tab }) {
 }
 ```
 
-[See more examples below.](#usage)
+[Xem thêm các ví dụ bên dưới.](#usage)
 
-#### Parameters {/*parameters*/}
+#### Tham số {/*parameters*/}
 
-* `calculateValue`: The function calculating the value that you want to cache. It should be pure, should take no arguments, and should return a value of any type. React will call your function during the initial render. On next renders, React will return the same value again if the `dependencies` have not changed since the last render. Otherwise, it will call `calculateValue`, return its result, and store it so it can be reused later.
+*   `calculateValue`: Hàm tính toán giá trị mà bạn muốn lưu vào bộ nhớ cache. Nó phải là thuần túy, không có tham số và trả về một giá trị thuộc bất kỳ loại nào. React sẽ gọi hàm của bạn trong quá trình render ban đầu. Trong các lần render tiếp theo, React sẽ trả về lại giá trị tương tự nếu `dependencies` không thay đổi so với lần render cuối cùng. Nếu không, nó sẽ gọi `calculateValue`, trả về kết quả của nó và lưu trữ nó để có thể được sử dụng lại sau này.
 
-* `dependencies`: The list of all reactive values referenced inside of the `calculateValue` code. Reactive values include props, state, and all the variables and functions declared directly inside your component body. If your linter is [configured for React](/learn/editor-setup#linting), it will verify that every reactive value is correctly specified as a dependency. The list of dependencies must have a constant number of items and be written inline like `[dep1, dep2, dep3]`. React will compare each dependency with its previous value using the [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison.
+*   `dependencies`: Danh sách tất cả các giá trị phản ứng được tham chiếu bên trong mã `calculateValue`. Các giá trị phản ứng bao gồm props, state và tất cả các biến và hàm được khai báo trực tiếp bên trong phần thân component của bạn. Nếu trình lint của bạn được [cấu hình cho React](/learn/editor-setup#linting), nó sẽ xác minh rằng mọi giá trị phản ứng được chỉ định chính xác là một dependency. Danh sách các dependency phải có một số lượng mục không đổi và được viết nội dòng như `[dep1, dep2, dep3]`. React sẽ so sánh từng dependency với giá trị trước đó của nó bằng cách sử dụng so sánh [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is).
 
-#### Returns {/*returns*/}
+#### Trả về {/*returns*/}
 
-On the initial render, `useMemo` returns the result of calling `calculateValue` with no arguments.
+Trong lần render ban đầu, `useMemo` trả về kết quả của việc gọi `calculateValue` mà không có tham số.
 
-During next renders, it will either return an already stored value from the last render (if the dependencies haven't changed), or call `calculateValue` again, and return the result that `calculateValue` has returned.
+Trong các lần render tiếp theo, nó sẽ trả về một giá trị đã được lưu trữ từ lần render cuối cùng (nếu các dependency không thay đổi) hoặc gọi lại `calculateValue` và trả về kết quả mà `calculateValue` đã trả về.
 
-#### Caveats {/*caveats*/}
+#### Lưu ý {/*caveats*/}
 
-* `useMemo` is a Hook, so you can only call it **at the top level of your component** or your own Hooks. You can't call it inside loops or conditions. If you need that, extract a new component and move the state into it.
-* In Strict Mode, React will **call your calculation function twice** in order to [help you find accidental impurities.](#my-calculation-runs-twice-on-every-re-render) This is development-only behavior and does not affect production. If your calculation function is pure (as it should be), this should not affect your logic. The result from one of the calls will be ignored.
-* React **will not throw away the cached value unless there is a specific reason to do that.** For example, in development, React throws away the cache when you edit the file of your component. Both in development and in production, React will throw away the cache if your component suspends during the initial mount. In the future, React may add more features that take advantage of throwing away the cache--for example, if React adds built-in support for virtualized lists in the future, it would make sense to throw away the cache for items that scroll out of the virtualized table viewport. This should be fine if you rely on `useMemo` solely as a performance optimization. Otherwise, a [state variable](/reference/react/useState#avoiding-recreating-the-initial-state) or a [ref](/reference/react/useRef#avoiding-recreating-the-ref-contents) may be more appropriate.
+*   `useMemo` là một Hook, vì vậy bạn chỉ có thể gọi nó **ở cấp cao nhất của component** hoặc các Hook của riêng bạn. Bạn không thể gọi nó bên trong các vòng lặp hoặc điều kiện. Nếu bạn cần điều đó, hãy trích xuất một component mới và di chuyển state vào đó.
+*   Trong Strict Mode, React sẽ **gọi hàm tính toán của bạn hai lần** để [giúp bạn tìm ra các tạp chất vô tình.](#my-calculation-runs-twice-on-every-re-render) Đây là hành vi chỉ dành cho development và không ảnh hưởng đến production. Nếu hàm tính toán của bạn là thuần túy (như nó phải vậy), điều này sẽ không ảnh hưởng đến logic của bạn. Kết quả từ một trong các lệnh gọi sẽ bị bỏ qua.
+*   React **sẽ không loại bỏ giá trị được lưu trong bộ nhớ cache trừ khi có một lý do cụ thể để làm điều đó.** Ví dụ: trong quá trình development, React sẽ loại bỏ bộ nhớ cache khi bạn chỉnh sửa tệp của component. Cả trong development và production, React sẽ loại bỏ bộ nhớ cache nếu component của bạn tạm ngưng trong quá trình mount ban đầu. Trong tương lai, React có thể thêm nhiều tính năng hơn tận dụng việc loại bỏ bộ nhớ cache--ví dụ: nếu React thêm hỗ trợ tích hợp cho danh sách ảo hóa trong tương lai, thì việc loại bỏ bộ nhớ cache cho các mục cuộn ra khỏi khung nhìn của bảng ảo hóa sẽ có ý nghĩa. Điều này sẽ ổn nếu bạn chỉ dựa vào `useMemo` như một tối ưu hóa hiệu suất. Nếu không, một [biến state](/reference/react/useState#avoiding-recreating-the-initial-state) hoặc một [ref](/reference/react/useRef#avoiding-recreating-the-ref-contents) có thể phù hợp hơn.
 
 <Note>
 
-Caching return values like this is also known as [*memoization*,](https://en.wikipedia.org/wiki/Memoization) which is why this Hook is called `useMemo`.
+Việc lưu vào bộ nhớ cache các giá trị trả về như thế này còn được gọi là [*memoization*,](https://en.wikipedia.org/wiki/Memoization) đó là lý do tại sao Hook này được gọi là `useMemo`.
 
 </Note>
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Skipping expensive recalculations {/*skipping-expensive-recalculations*/}
+### Bỏ qua các phép tính lại tốn kém {/*skipping-expensive-recalculations*/}
 
-To cache a calculation between re-renders, wrap it in a `useMemo` call at the top level of your component:
+Để lưu vào bộ nhớ cache một phép tính giữa các lần render lại, hãy bọc nó trong một lệnh gọi `useMemo` ở cấp cao nhất của component:
 
 ```js [[3, 4, "visibleTodos"], [1, 4, "() => filterTodos(todos, tab)"], [2, 4, "[todos, tab]"]]
 import { useMemo } from 'react';
@@ -77,20 +77,20 @@ function TodoList({ todos, tab, theme }) {
 }
 ```
 
-You need to pass two things to `useMemo`:
+Bạn cần chuyển hai thứ cho `useMemo`:
 
-1. A <CodeStep step={1}>calculation function</CodeStep> that takes no arguments, like `() =>`, and returns what you wanted to calculate.
-2. A <CodeStep step={2}>list of dependencies</CodeStep> including every value within your component that's used inside your calculation.
+1.  Một <CodeStep step={1}>hàm tính toán</CodeStep> không có tham số, như `() =>`, và trả về những gì bạn muốn tính toán.
+2.  Một <CodeStep step={2}>danh sách các dependency</CodeStep> bao gồm mọi giá trị trong component của bạn được sử dụng bên trong phép tính của bạn.
 
-On the initial render, the <CodeStep step={3}>value</CodeStep> you'll get from `useMemo` will be the result of calling your <CodeStep step={1}>calculation</CodeStep>.
+Trong lần render ban đầu, <CodeStep step={3}>giá trị</CodeStep> bạn nhận được từ `useMemo` sẽ là kết quả của việc gọi <CodeStep step={1}>phép tính</CodeStep> của bạn.
 
-On every subsequent render, React will compare the <CodeStep step={2}>dependencies</CodeStep> with the dependencies you passed during the last render. If none of the dependencies have changed (compared with [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)), `useMemo` will return the value you already calculated before. Otherwise, React will re-run your calculation and return the new value.
+Trong mỗi lần render tiếp theo, React sẽ so sánh <CodeStep step={2}>các dependency</CodeStep> với các dependency bạn đã chuyển trong lần render cuối cùng. Nếu không có dependency nào thay đổi (so sánh với [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)), `useMemo` sẽ trả về giá trị bạn đã tính toán trước đó. Nếu không, React sẽ chạy lại phép tính của bạn và trả về giá trị mới.
 
-In other words, `useMemo` caches a calculation result between re-renders until its dependencies change.
+Nói cách khác, `useMemo` lưu vào bộ nhớ cache kết quả tính toán giữa các lần render lại cho đến khi các dependency của nó thay đổi.
 
-**Let's walk through an example to see when this is useful.**
+**Hãy xem qua một ví dụ để xem khi nào điều này hữu ích.**
 
-By default, React will re-run the entire body of your component every time that it re-renders. For example, if this `TodoList` updates its state or receives new props from its parent, the `filterTodos` function will re-run:
+Theo mặc định, React sẽ chạy lại toàn bộ phần thân component của bạn mỗi khi nó render lại. Ví dụ: nếu `TodoList` này cập nhật state của nó hoặc nhận các props mới từ cha mẹ của nó, hàm `filterTodos` sẽ chạy lại:
 
 ```js {2}
 function TodoList({ todos, tab, theme }) {
@@ -99,21 +99,22 @@ function TodoList({ todos, tab, theme }) {
 }
 ```
 
-Usually, this isn't a problem because most calculations are very fast. However, if you're filtering or transforming a large array, or doing some expensive computation, you might want to skip doing it again if data hasn't changed. If both `todos` and `tab` are the same as they were during the last render, wrapping the calculation in `useMemo` like earlier lets you reuse `visibleTodos` you've already calculated before.
+Thông thường, đây không phải là một vấn đề vì hầu hết các phép tính đều rất nhanh. Tuy nhiên, nếu bạn đang lọc hoặc chuyển đổi một mảng lớn hoặc thực hiện một số tính toán tốn kém, bạn có thể muốn bỏ qua việc thực hiện lại nếu dữ liệu không thay đổi. Nếu cả `todos` và `tab` đều giống như trong lần render cuối cùng, việc bọc phép tính trong `useMemo` như trước cho phép bạn sử dụng lại `visibleTodos` mà bạn đã tính toán trước đó.
 
-This type of caching is called *[memoization.](https://en.wikipedia.org/wiki/Memoization)*
+Loại lưu vào bộ nhớ cache này được gọi là *[memoization.](https://en.wikipedia.org/wiki/Memoization)*
 
 <Note>
 
-**You should only rely on `useMemo` as a performance optimization.** If your code doesn't work without it, find the underlying problem and fix it first. Then you may add `useMemo` to improve performance.
+**Bạn chỉ nên dựa vào `useMemo` như một tối ưu hóa hiệu suất.** Nếu mã của bạn không hoạt động nếu không có nó, hãy tìm vấn đề cơ bản và khắc phục nó trước. Sau đó, bạn có thể thêm `useMemo` để cải thiện hiệu suất.
+
 
 </Note>
 
 <DeepDive>
 
-#### How to tell if a calculation is expensive? {/*how-to-tell-if-a-calculation-is-expensive*/}
+#### Làm thế nào để biết một phép tính có tốn kém hay không? {/*how-to-tell-if-a-calculation-is-expensive*/}
 
-In general, unless you're creating or looping over thousands of objects, it's probably not expensive. If you want to get more confidence, you can add a console log to measure the time spent in a piece of code:
+Nói chung, trừ khi bạn đang tạo hoặc lặp qua hàng ngàn đối tượng, có lẽ nó không tốn kém. Nếu bạn muốn tự tin hơn, bạn có thể thêm một bản ghi console để đo thời gian dành cho một đoạn mã:
 
 ```js {1,3}
 console.time('filter array');
@@ -121,59 +122,59 @@ const visibleTodos = filterTodos(todos, tab);
 console.timeEnd('filter array');
 ```
 
-Perform the interaction you're measuring (for example, typing into the input). You will then see logs like `filter array: 0.15ms` in your console. If the overall logged time adds up to a significant amount (say, `1ms` or more), it might make sense to memoize that calculation. As an experiment, you can then wrap the calculation in `useMemo` to verify whether the total logged time has decreased for that interaction or not:
+Thực hiện tương tác bạn đang đo (ví dụ: nhập vào đầu vào). Sau đó, bạn sẽ thấy các bản ghi như `filter array: 0.15ms` trong bảng điều khiển của mình. Nếu tổng thời gian được ghi lại cộng lại thành một lượng đáng kể (ví dụ: `1ms` trở lên), có thể có ý nghĩa khi ghi nhớ phép tính đó. Như một thử nghiệm, sau đó bạn có thể bọc phép tính trong `useMemo` để xác minh xem tổng thời gian được ghi lại có giảm cho tương tác đó hay không:
 
 ```js
 console.time('filter array');
 const visibleTodos = useMemo(() => {
-  return filterTodos(todos, tab); // Skipped if todos and tab haven't changed
+  return filterTodos(todos, tab); // Bỏ qua nếu todos và tab không thay đổi
 }, [todos, tab]);
 console.timeEnd('filter array');
 ```
 
-`useMemo` won't make the *first* render faster. It only helps you skip unnecessary work on updates.
+`useMemo` sẽ không làm cho lần render *đầu tiên* nhanh hơn. Nó chỉ giúp bạn bỏ qua công việc không cần thiết khi cập nhật.
 
-Keep in mind that your machine is probably faster than your users' so it's a good idea to test the performance with an artificial slowdown. For example, Chrome offers a [CPU Throttling](https://developer.chrome.com/blog/new-in-devtools-61/#throttling) option for this.
+Hãy nhớ rằng máy của bạn có thể nhanh hơn máy của người dùng của bạn, vì vậy bạn nên kiểm tra hiệu suất với một độ chậm nhân tạo. Ví dụ: Chrome cung cấp tùy chọn [CPU Throttling](https://developer.chrome.com/blog/new-in-devtools-61/#throttling) cho việc này.
 
-Also note that measuring performance in development will not give you the most accurate results. (For example, when [Strict Mode](/reference/react/StrictMode) is on, you will see each component render twice rather than once.) To get the most accurate timings, build your app for production and test it on a device like your users have.
+Ngoài ra, hãy lưu ý rằng việc đo hiệu suất trong quá trình phát triển sẽ không cung cấp cho bạn kết quả chính xác nhất. (Ví dụ: khi [Strict Mode](/reference/react/StrictMode) được bật, bạn sẽ thấy mỗi thành phần render hai lần thay vì một lần.) Để có được thời gian chính xác nhất, hãy xây dựng ứng dụng của bạn để sản xuất và kiểm tra nó trên một thiết bị giống như thiết bị mà người dùng của bạn có.
 
 </DeepDive>
 
 <DeepDive>
 
-#### Should you add useMemo everywhere? {/*should-you-add-usememo-everywhere*/}
+#### Bạn có nên thêm useMemo ở mọi nơi không? {/*should-you-add-usememo-everywhere*/}
 
-If your app is like this site, and most interactions are coarse (like replacing a page or an entire section), memoization is usually unnecessary. On the other hand, if your app is more like a drawing editor, and most interactions are granular (like moving shapes), then you might find memoization very helpful. 
+Nếu ứng dụng của bạn giống như trang web này và hầu hết các tương tác đều thô (như thay thế một trang hoặc toàn bộ một phần), thì việc ghi nhớ thường là không cần thiết. Mặt khác, nếu ứng dụng của bạn giống một trình chỉnh sửa bản vẽ hơn và hầu hết các tương tác đều chi tiết (như di chuyển hình dạng), thì bạn có thể thấy việc ghi nhớ rất hữu ích.
 
-Optimizing with `useMemo`  is only valuable in a few cases:
+Tối ưu hóa với `useMemo` chỉ có giá trị trong một vài trường hợp:
 
-- The calculation you're putting in `useMemo` is noticeably slow, and its dependencies rarely change.
-- You pass it as a prop to a component wrapped in [`memo`.](/reference/react/memo) You want to skip re-rendering if the value hasn't changed. Memoization lets your component re-render only when dependencies aren't the same.
-- The value you're passing is later used as a dependency of some Hook. For example, maybe another `useMemo` calculation value depends on it. Or maybe you are depending on this value from [`useEffect.`](/reference/react/useEffect)
+- Phép tính bạn đang đưa vào `useMemo` chậm đáng kể và các dependency của nó hiếm khi thay đổi.
+- Bạn chuyển nó dưới dạng một prop cho một thành phần được bọc trong [`memo`.](/reference/react/memo) Bạn muốn bỏ qua việc render lại nếu giá trị không thay đổi. Việc ghi nhớ cho phép thành phần của bạn chỉ render lại khi các dependency không giống nhau.
+- Giá trị bạn đang chuyển sau đó được sử dụng làm dependency của một Hook nào đó. Ví dụ: có thể một giá trị tính toán `useMemo` khác phụ thuộc vào nó. Hoặc có thể bạn đang phụ thuộc vào giá trị này từ [`useEffect.`](/reference/react/useEffect)
 
-There is no benefit to wrapping a calculation in `useMemo` in other cases. There is no significant harm to doing that either, so some teams choose to not think about individual cases, and memoize as much as possible. The downside of this approach is that code becomes less readable. Also, not all memoization is effective: a single value that's "always new" is enough to break memoization for an entire component.
+Không có lợi ích gì khi bọc một phép tính trong `useMemo` trong các trường hợp khác. Cũng không có tác hại đáng kể nào khi làm như vậy, vì vậy một số nhóm chọn không nghĩ về các trường hợp riêng lẻ và ghi nhớ càng nhiều càng tốt. Nhược điểm của phương pháp này là mã trở nên khó đọc hơn. Ngoài ra, không phải tất cả các ghi nhớ đều hiệu quả: một giá trị duy nhất "luôn mới" là đủ để phá vỡ việc ghi nhớ cho toàn bộ một thành phần.
 
-**In practice, you can make a lot of memoization unnecessary by following a few principles:**
+**Trong thực tế, bạn có thể làm cho rất nhiều ghi nhớ trở nên không cần thiết bằng cách tuân theo một vài nguyên tắc:**
 
-1. When a component visually wraps other components, let it [accept JSX as children.](/learn/passing-props-to-a-component#passing-jsx-as-children) This way, when the wrapper component updates its own state, React knows that its children don't need to re-render.
-1. Prefer local state and don't [lift state up](/learn/sharing-state-between-components) any further than necessary. For example, don't keep transient state like forms and whether an item is hovered at the top of your tree or in a global state library.
-1. Keep your [rendering logic pure.](/learn/keeping-components-pure) If re-rendering a component causes a problem or produces some noticeable visual artifact, it's a bug in your component! Fix the bug instead of adding memoization.
-1. Avoid [unnecessary Effects that update state.](/learn/you-might-not-need-an-effect) Most performance problems in React apps are caused by chains of updates originating from Effects that cause your components to render over and over.
-1. Try to [remove unnecessary dependencies from your Effects.](/learn/removing-effect-dependencies) For example, instead of memoization, it's often simpler to move some object or a function inside an Effect or outside the component.
+1. Khi một thành phần bao bọc trực quan các thành phần khác, hãy để nó [chấp nhận JSX làm children.](/learn/passing-props-to-a-component#passing-jsx-as-children) Bằng cách này, khi thành phần bao bọc cập nhật trạng thái của chính nó, React biết rằng các children của nó không cần phải render lại.
+2. Ưu tiên trạng thái cục bộ và không [nâng trạng thái lên](/learn/sharing-state-between-components) xa hơn mức cần thiết. Ví dụ: không giữ trạng thái tạm thời như biểu mẫu và việc một mục có được di chuột hay không ở đầu cây của bạn hoặc trong một thư viện trạng thái toàn cục.
+3. Giữ cho [logic render của bạn thuần túy.](/learn/keeping-components-pure) Nếu việc render lại một thành phần gây ra sự cố hoặc tạo ra một tạo tác trực quan đáng chú ý, đó là một lỗi trong thành phần của bạn! Hãy sửa lỗi thay vì thêm ghi nhớ.
+4. Tránh [các Effect không cần thiết cập nhật trạng thái.](/learn/you-might-not-need-an-effect) Hầu hết các vấn đề về hiệu suất trong các ứng dụng React đều do chuỗi các bản cập nhật bắt nguồn từ các Effect khiến các thành phần của bạn render đi render lại.
+5. Cố gắng [loại bỏ các dependency không cần thiết khỏi các Effect của bạn.](/learn/removing-effect-dependencies) Ví dụ: thay vì ghi nhớ, thường đơn giản hơn là di chuyển một số đối tượng hoặc một hàm vào bên trong một Effect hoặc bên ngoài thành phần.
 
-If a specific interaction still feels laggy, [use the React Developer Tools profiler](https://legacy.reactjs.org/blog/2018/09/10/introducing-the-react-profiler.html) to see which components would benefit the most from memoization, and add memoization where needed. These principles make your components easier to debug and understand, so it's good to follow them in any case. In the long term, we're researching [doing granular memoization automatically](https://www.youtube.com/watch?v=lGEMwh32soc) to solve this once and for all.
+Nếu một tương tác cụ thể vẫn cảm thấy chậm, [hãy sử dụng trình phân tích hiệu năng React Developer Tools](https://legacy.reactjs.org/blog/2018/09/10/introducing-the-react-profiler.html) để xem thành phần nào sẽ được hưởng lợi nhiều nhất từ việc ghi nhớ và thêm ghi nhớ khi cần thiết. Các nguyên tắc này giúp các thành phần của bạn dễ gỡ lỗi và hiểu hơn, vì vậy tốt nhất là tuân theo chúng trong mọi trường hợp. Về lâu dài, chúng tôi đang nghiên cứu [tự động thực hiện ghi nhớ chi tiết](https://www.youtube.com/watch?v=lGEMwh32soc) để giải quyết vấn đề này một lần và mãi mãi.
 
 </DeepDive>
 
-<Recipes titleText="The difference between useMemo and calculating a value directly" titleId="examples-recalculation">
+<Recipes titleText="Sự khác biệt giữa useMemo và tính toán trực tiếp một giá trị" titleId="examples-recalculation">
 
-#### Skipping recalculation with `useMemo` {/*skipping-recalculation-with-usememo*/}
+#### Bỏ qua tính toán lại với `useMemo` {/*skipping-recalculation-with-usememo*/}
 
-In this example, the `filterTodos` implementation is **artificially slowed down** so that you can see what happens when some JavaScript function you're calling during rendering is genuinely slow. Try switching the tabs and toggling the theme.
+Trong ví dụ này, việc triển khai `filterTodos` **bị làm chậm một cách giả tạo** để bạn có thể thấy điều gì xảy ra khi một số hàm JavaScript bạn đang gọi trong quá trình render thực sự chậm. Hãy thử chuyển đổi các tab và bật tắt chủ đề.
 
-Switching the tabs feels slow because it forces the slowed down `filterTodos` to re-execute. That's expected because the `tab` has changed, and so the entire calculation *needs* to re-run. (If you're curious why it runs twice, it's explained [here.](#my-calculation-runs-twice-on-every-re-render))
+Việc chuyển đổi các tab có cảm giác chậm vì nó buộc `filterTodos` bị làm chậm phải thực thi lại. Điều đó được mong đợi vì `tab` đã thay đổi và do đó toàn bộ phép tính *cần* phải chạy lại. (Nếu bạn tò mò tại sao nó chạy hai lần, nó được giải thích [ở đây.](#my-calculation-runs-twice-on-every-re-render))
 
-Toggle the theme. **Thanks to `useMemo`, it's fast despite the artificial slowdown!** The slow `filterTodos` call was skipped because both `todos` and `tab` (which you pass as dependencies to `useMemo`) haven't changed since the last render.
+Bật tắt chủ đề. **Nhờ `useMemo`, nó nhanh chóng mặc dù bị làm chậm nhân tạo!** Lệnh gọi `filterTodos` chậm đã bị bỏ qua vì cả `todos` và `tab` (mà bạn chuyển làm dependency cho `useMemo`) đều không thay đổi kể từ lần render cuối cùng.
 
 <Sandpack>
 
@@ -230,7 +231,7 @@ export default function TodoList({ todos, theme, tab }) {
   );
   return (
     <div className={theme}>
-      <p><b>Note: <code>filterTodos</code> is artificially slowed down!</b></p>
+      <p><b>Lưu ý: <code>filterTodos</code> bị làm chậm một cách giả tạo!</b></p>
       <ul>
         {visibleTodos.map(todo => (
           <li key={todo.id}>
@@ -299,11 +300,11 @@ label {
 
 <Solution />
 
-#### Always recalculating a value {/*always-recalculating-a-value*/}
+#### Luôn tính toán lại một giá trị {/*always-recalculating-a-value*/}
 
-In this example, the `filterTodos` implementation is also **artificially slowed down** so that you can see what happens when some JavaScript function you're calling during rendering is genuinely slow. Try switching the tabs and toggling the theme.
+Trong ví dụ này, việc triển khai `filterTodos` cũng **bị làm chậm một cách giả tạo** để bạn có thể thấy điều gì xảy ra khi một số hàm JavaScript bạn đang gọi trong quá trình render thực sự chậm. Hãy thử chuyển đổi các tab và bật tắt chủ đề.
 
-Unlike in the previous example, toggling the theme is also slow now! This is because **there is no `useMemo` call in this version,** so the artificially slowed down `filterTodos` gets called on every re-render. It is called even if only `theme` has changed.
+Không giống như trong ví dụ trước, việc bật tắt chủ đề cũng chậm bây giờ! Điều này là do **không có lệnh gọi `useMemo` trong phiên bản này,** vì vậy `filterTodos` bị làm chậm một cách giả tạo được gọi trên mỗi lần render lại. Nó được gọi ngay cả khi chỉ có `theme` đã thay đổi.
 
 <Sandpack>
 
@@ -357,7 +358,7 @@ export default function TodoList({ todos, theme, tab }) {
   return (
     <div className={theme}>
       <ul>
-        <p><b>Note: <code>filterTodos</code> is artificially slowed down!</b></p>
+        <p><b>Lưu ý: <code>filterTodos</code> bị làm chậm một cách giả tạo!</b></p>
         {visibleTodos.map(todo => (
           <li key={todo.id}>
             {todo.completed ?
@@ -423,7 +424,7 @@ label {
 
 </Sandpack>
 
-However, here is the same code **with the artificial slowdown removed.** Does the lack of `useMemo` feel noticeable or not?
+Tuy nhiên, đây là cùng một mã **với độ chậm nhân tạo đã được loại bỏ.** Việc thiếu `useMemo` có cảm thấy đáng chú ý hay không?
 
 <Sandpack>
 
@@ -538,9 +539,9 @@ label {
 
 </Sandpack>
 
-Quite often, code without memoization works fine. If your interactions are fast enough, you might not need memoization.
+Khá thường xuyên, mã không có ghi nhớ hoạt động tốt. Nếu các tương tác của bạn đủ nhanh, bạn có thể không cần ghi nhớ.
 
-You can try increasing the number of todo items in `utils.js` and see how the behavior changes. This particular calculation wasn't very expensive to begin with, but if the number of todos grows significantly, most of the overhead will be in re-rendering rather than in the filtering. Keep reading below to see how you can optimize re-rendering with `useMemo`.
+Bạn có thể thử tăng số lượng mục todo trong `utils.js` và xem hành vi thay đổi như thế nào. Phép tính cụ thể này không tốn kém lắm ngay từ đầu, nhưng nếu số lượng todo tăng lên đáng kể, hầu hết chi phí sẽ nằm ở việc render lại hơn là ở việc lọc. Hãy tiếp tục đọc bên dưới để xem cách bạn có thể tối ưu hóa việc render lại bằng `useMemo`.
 
 <Solution />
 
@@ -548,9 +549,9 @@ You can try increasing the number of todo items in `utils.js` and see how the be
 
 ---
 
-### Skipping re-rendering of components {/*skipping-re-rendering-of-components*/}
+### Bỏ qua việc render lại các thành phần {/*skipping-re-rendering-of-components*/}
 
-In some cases, `useMemo` can also help you optimize performance of re-rendering child components. To illustrate this, let's say this `TodoList` component passes the `visibleTodos` as a prop to the child `List` component:
+Trong một số trường hợp, `useMemo` cũng có thể giúp bạn tối ưu hóa hiệu suất của việc render lại các thành phần con. Để minh họa điều này, giả sử thành phần `TodoList` này chuyển `visibleTodos` làm một prop cho thành phần `List` con:
 
 ```js {5}
 export default function TodoList({ todos, tab, theme }) {
@@ -563,9 +564,9 @@ export default function TodoList({ todos, tab, theme }) {
 }
 ```
 
-You've noticed that toggling the `theme` prop freezes the app for a moment, but if you remove `<List />` from your JSX, it feels fast. This tells you that it's worth trying to optimize the `List` component.
+Bạn đã nhận thấy rằng việc bật tắt prop `theme` làm đóng băng ứng dụng trong một khoảnh khắc, nhưng nếu bạn xóa `<List />` khỏi JSX của mình, nó sẽ cảm thấy nhanh. Điều này cho bạn biết rằng đáng để thử tối ưu hóa thành phần `List`.
 
-**By default, when a component re-renders, React re-renders all of its children recursively.** This is why, when `TodoList` re-renders with a different `theme`, the `List` component *also* re-renders. This is fine for components that don't require much calculation to re-render. But if you've verified that a re-render is slow, you can tell `List` to skip re-rendering when its props are the same as on last render by wrapping it in [`memo`:](/reference/react/memo)
+**Theo mặc định, khi một thành phần render lại, React render lại tất cả các children của nó một cách đệ quy.** Đây là lý do tại sao, khi `TodoList` render lại với một `theme` khác, thành phần `List` *cũng* render lại. Điều này là tốt cho các thành phần không yêu cầu nhiều tính toán để render lại. Nhưng nếu bạn đã xác minh rằng việc render lại chậm, bạn có thể yêu cầu `List` bỏ qua việc render lại khi các prop của nó giống như trên lần render cuối cùng bằng cách bọc nó trong [`memo`:](/reference/react/memo)
 
 ```js {3,5}
 import { memo } from 'react';
@@ -575,47 +576,46 @@ const List = memo(function List({ items }) {
 });
 ```
 
-**With this change, `List` will skip re-rendering if all of its props are the *same* as on the last render.** This is where caching the calculation becomes important! Imagine that you calculated `visibleTodos` without `useMemo`:
+**Với thay đổi này, `List` sẽ bỏ qua việc render lại nếu tất cả các prop của nó *giống nhau* như trên lần render cuối cùng.** Đây là nơi việc lưu vào bộ nhớ cache tính toán trở nên quan trọng! Hãy tưởng tượng rằng bạn đã tính toán `visibleTodos` mà không có `useMemo`:
 
 ```js {2-3,6-7}
 export default function TodoList({ todos, tab, theme }) {
-  // Every time the theme changes, this will be a different array...
+  // Mỗi khi chủ đề thay đổi, đây sẽ là một mảng khác...
   const visibleTodos = filterTodos(todos, tab);
   return (
     <div className={theme}>
-      {/* ... so List's props will never be the same, and it will re-render every time */}
+      {/* ... vì vậy các prop của List sẽ không bao giờ giống nhau và nó sẽ render lại mỗi lần */}
       <List items={visibleTodos} />
     </div>
   );
 }
 ```
 
-**In the above example, the `filterTodos` function always creates a *different* array,** similar to how the `{}` object literal always creates a new object. Normally, this wouldn't be a problem, but it means that `List` props will never be the same, and your [`memo`](/reference/react/memo) optimization won't work. This is where `useMemo` comes in handy:
+**Trong ví dụ trên, hàm `filterTodos` luôn tạo ra một mảng *khác*,** tương tự như cách ký tự đối tượng `{}` luôn tạo ra một đối tượng mới. Thông thường, điều này sẽ không phải là một vấn đề, nhưng nó có nghĩa là các prop của `List` sẽ không bao giờ giống nhau và tối ưu hóa [`memo`](/reference/react/memo) của bạn sẽ không hoạt động. Đây là nơi `useMemo` пригодится:
 
 ```js {2-3,5,9-10}
 export default function TodoList({ todos, tab, theme }) {
-  // Tell React to cache your calculation between re-renders...
+  // Yêu cầu React lưu vào bộ nhớ cache tính toán của bạn giữa các lần render lại...
   const visibleTodos = useMemo(
     () => filterTodos(todos, tab),
-    [todos, tab] // ...so as long as these dependencies don't change...
+    [todos, tab] // ...miễn là các dependency này không thay đổi...
   );
   return (
     <div className={theme}>
-      {/* ...List will receive the same props and can skip re-rendering */}
+      {/* ...List sẽ nhận được các prop giống nhau và có thể bỏ qua việc render lại */}
       <List items={visibleTodos} />
     </div>
   );
 }
 ```
 
-
-**By wrapping the `visibleTodos` calculation in `useMemo`, you ensure that it has the *same* value between the re-renders** (until dependencies change). You don't *have to* wrap a calculation in `useMemo` unless you do it for some specific reason. In this example, the reason is that you pass it to a component wrapped in [`memo`,](/reference/react/memo) and this lets it skip re-rendering. There are a few other reasons to add `useMemo` which are described further on this page.
+**Bằng cách bọc tính toán `visibleTodos` trong `useMemo`, bạn đảm bảo rằng nó có giá trị *giống nhau* giữa các lần render lại** (cho đến khi các dependency thay đổi). Bạn không *phải* bọc một tính toán trong `useMemo` trừ khi bạn làm điều đó vì một lý do cụ thể nào đó. Trong ví dụ này, lý do là bạn chuyển nó cho một thành phần được bọc trong [`memo`,](/reference/react/memo) và điều này cho phép nó bỏ qua việc render lại. Có một vài lý do khác để thêm `useMemo` được mô tả thêm trên trang này.
 
 <DeepDive>
 
-#### Memoizing individual JSX nodes {/*memoizing-individual-jsx-nodes*/}
+#### Ghi nhớ các nút JSX riêng lẻ {/*memoizing-individual-jsx-nodes*/}
 
-Instead of wrapping `List` in [`memo`](/reference/react/memo), you could wrap the `<List />` JSX node itself in `useMemo`:
+Thay vì bọc `List` trong [`memo`](/reference/react/memo), bạn có thể bọc chính nút JSX `<List />` trong `useMemo`:
 
 ```js {3,6}
 export default function TodoList({ todos, tab, theme }) {
@@ -629,25 +629,25 @@ export default function TodoList({ todos, tab, theme }) {
 }
 ```
 
-The behavior would be the same. If the `visibleTodos` haven't changed, `List` won't be re-rendered.
+Hành vi sẽ giống nhau. Nếu `visibleTodos` không thay đổi, `List` sẽ không được render lại.
 
-A JSX node like `<List items={visibleTodos} />` is an object like `{ type: List, props: { items: visibleTodos } }`. Creating this object is very cheap, but React doesn't know whether its contents is the same as last time or not. This is why by default, React will re-render the `List` component.
+Một nút JSX như `<List items={visibleTodos} />` là một đối tượng như `{ type: List, props: { items: visibleTodos } }`. Việc tạo đối tượng này rất rẻ, nhưng React không biết liệu nội dung của nó có giống như lần trước hay không. Đây là lý do tại sao theo mặc định, React sẽ render lại thành phần `List`.
 
-However, if React sees the same exact JSX as during the previous render, it won't try to re-render your component. This is because JSX nodes are [immutable.](https://en.wikipedia.org/wiki/Immutable_object) A JSX node object could not have changed over time, so React knows it's safe to skip a re-render. However, for this to work, the node has to *actually be the same object*, not merely look the same in code. This is what `useMemo` does in this example.
+Tuy nhiên, nếu React thấy chính xác JSX giống như trong quá trình render trước đó, nó sẽ không cố gắng render lại thành phần của bạn. Điều này là do các nút JSX là [bất biến.](https://en.wikipedia.org/wiki/Immutable_object) Một đối tượng nút JSX không thể thay đổi theo thời gian, vì vậy React biết rằng việc bỏ qua render lại là an toàn. Tuy nhiên, để điều này hoạt động, nút phải *thực sự là cùng một đối tượng*, không chỉ trông giống nhau trong mã. Đây là những gì `useMemo` làm trong ví dụ này.
 
-Manually wrapping JSX nodes into `useMemo` is not convenient. For example, you can't do this conditionally. This is usually why you would wrap components with [`memo`](/reference/react/memo) instead of wrapping JSX nodes.
+Việc bọc thủ công các nút JSX vào `useMemo` không thuận tiện. Ví dụ: bạn không thể làm điều này có điều kiện. Đây thường là lý do tại sao bạn sẽ bọc các thành phần bằng [`memo`](/reference/react/memo) thay vì bọc các nút JSX.
 
 </DeepDive>
 
-<Recipes titleText="The difference between skipping re-renders and always re-rendering" titleId="examples-rerendering">
+<Recipes titleText="Sự khác biệt giữa việc bỏ qua render lại và luôn render lại" titleId="examples-rerendering">
 
-#### Skipping re-rendering with `useMemo` and `memo` {/*skipping-re-rendering-with-usememo-and-memo*/}
+#### Bỏ qua render lại với `useMemo` và `memo` {/*skipping-re-rendering-with-usememo-and-memo*/}
 
-In this example, the `List` component is **artificially slowed down** so that you can see what happens when a React component you're rendering is genuinely slow. Try switching the tabs and toggling the theme.
+Trong ví dụ này, thành phần `List` **bị làm chậm một cách giả tạo** để bạn có thể thấy điều gì xảy ra khi một thành phần React bạn đang render thực sự chậm. Hãy thử chuyển đổi các tab và bật tắt chủ đề.
 
-Switching the tabs feels slow because it forces the slowed down `List` to re-render. That's expected because the `tab` has changed, and so you need to reflect the user's new choice on the screen.
+Việc chuyển đổi các tab có cảm giác chậm vì nó buộc `List` bị làm chậm phải render lại. Điều đó được mong đợi vì `tab` đã thay đổi và do đó bạn cần phản ánh lựa chọn mới của người dùng trên màn hình.
 
-Next, try toggling the theme. **Thanks to `useMemo` together with [`memo`](/reference/react/memo), it’s fast despite the artificial slowdown!** The `List` skipped re-rendering because the `visibleTodos` array has not changed since the last render. The `visibleTodos` array has not changed because both `todos` and `tab` (which you pass as dependencies to `useMemo`) haven't changed since the last render.
+Tiếp theo, hãy thử bật tắt chủ đề. **Nhờ `useMemo` cùng với [`memo`](/reference/react/memo), nó nhanh chóng mặc dù bị làm chậm nhân tạo!** `List` đã bỏ qua việc render lại vì mảng `visibleTodos` không thay đổi kể từ lần render cuối cùng. Mảng `visibleTodos` không thay đổi vì cả `todos` và `tab` (mà bạn chuyển làm dependency cho `useMemo`) đều không thay đổi kể từ lần render cuối cùng.
 
 <Sandpack>
 
@@ -785,11 +785,11 @@ label {
 
 <Solution />
 
-#### Always re-rendering a component {/*always-re-rendering-a-component*/}
+#### Luôn luôn kết xuất lại một thành phần {/*always-re-rendering-a-component*/}
 
-In this example, the `List` implementation is also **artificially slowed down** so that you can see what happens when some React component you're rendering is genuinely slow. Try switching the tabs and toggling the theme.
+Trong ví dụ này, việc triển khai `List` cũng **bị làm chậm một cách giả tạo** để bạn có thể thấy điều gì xảy ra khi một thành phần React mà bạn đang kết xuất thực sự chậm. Hãy thử chuyển đổi các tab và bật tắt chủ đề.
 
-Unlike in the previous example, toggling the theme is also slow now! This is because **there is no `useMemo` call in this version,** so the `visibleTodos` is always a different array, and the slowed down `List` component can't skip re-rendering.
+Không giống như trong ví dụ trước, việc bật tắt chủ đề bây giờ cũng chậm! Điều này là do **không có lệnh gọi `useMemo` trong phiên bản này,** vì vậy `visibleTodos` luôn là một mảng khác và thành phần `List` bị chậm không thể bỏ qua việc kết xuất lại.
 
 <Sandpack>
 
@@ -921,7 +921,7 @@ label {
 
 </Sandpack>
 
-However, here is the same code **with the artificial slowdown removed.** Does the lack of `useMemo` feel noticeable or not?
+Tuy nhiên, đây là cùng một mã **với độ chậm nhân tạo đã được loại bỏ.** Việc thiếu `useMemo` có cảm thấy đáng chú ý hay không?
 
 <Sandpack>
 
@@ -1046,9 +1046,9 @@ label {
 
 </Sandpack>
 
-Quite often, code without memoization works fine. If your interactions are fast enough, you don't need memoization.
+Thông thường, mã không có memoization hoạt động tốt. Nếu các tương tác của bạn đủ nhanh, bạn không cần memoization.
 
-Keep in mind that you need to run React in production mode, disable [React Developer Tools](/learn/react-developer-tools), and use devices similar to the ones your app's users have in order to get a realistic sense of what's actually slowing down your app.
+Hãy nhớ rằng bạn cần chạy React ở chế độ production, tắt [React Developer Tools](/learn/react-developer-tools) và sử dụng các thiết bị tương tự như những thiết bị mà người dùng ứng dụng của bạn có để có được cảm giác thực tế về những gì thực sự làm chậm ứng dụng của bạn.
 
 <Solution />
 
@@ -1056,9 +1056,9 @@ Keep in mind that you need to run React in production mode, disable [React Devel
 
 ---
 
-### Preventing an Effect from firing too often {/*preventing-an-effect-from-firing-too-often*/}
+### Ngăn chặn một Effect kích hoạt quá thường xuyên {/*preventing-an-effect-from-firing-too-often*/}
 
-Sometimes, you might want to use a value inside an [Effect:](/learn/synchronizing-with-effects)
+Đôi khi, bạn có thể muốn sử dụng một giá trị bên trong một [Effect:](/learn/synchronizing-with-effects)
 
 ```js {4-7,10}
 function ChatRoom({ roomId }) {
@@ -1075,7 +1075,7 @@ function ChatRoom({ roomId }) {
     // ...
 ```
 
-This creates a problem. [Every reactive value must be declared as a dependency of your Effect.](/learn/lifecycle-of-reactive-effects#react-verifies-that-you-specified-every-reactive-value-as-a-dependency) However, if you declare `options` as a dependency, it will cause your Effect to constantly reconnect to the chat room:
+Điều này tạo ra một vấn đề. [Mọi giá trị phản ứng phải được khai báo là một dependency của Effect của bạn.](/learn/lifecycle-of-reactive-effects#react-verifies-that-you-specified-every-reactive-value-as-a-dependency) Tuy nhiên, nếu bạn khai báo `options` là một dependency, nó sẽ khiến Effect của bạn liên tục kết nối lại với phòng chat:
 
 
 ```js {5}
@@ -1083,11 +1083,11 @@ This creates a problem. [Every reactive value must be declared as a dependency o
     const connection = createConnection(options);
     connection.connect();
     return () => connection.disconnect();
-  }, [options]); // 🔴 Problem: This dependency changes on every render
+  }, [options]); // 🔴 Vấn đề: Dependency này thay đổi trên mỗi lần render
   // ...
 ```
 
-To solve this, you can wrap the object you need to call from an Effect in `useMemo`:
+Để giải quyết vấn đề này, bạn có thể bọc đối tượng bạn cần gọi từ một Effect trong `useMemo`:
 
 ```js {4-9,16}
 function ChatRoom({ roomId }) {
@@ -1098,26 +1098,26 @@ function ChatRoom({ roomId }) {
       serverUrl: 'https://localhost:1234',
       roomId: roomId
     };
-  }, [roomId]); // ✅ Only changes when roomId changes
+  }, [roomId]); // ✅ Chỉ thay đổi khi roomId thay đổi
 
   useEffect(() => {
     const connection = createConnection(options);
     connection.connect();
     return () => connection.disconnect();
-  }, [options]); // ✅ Only changes when options changes
+  }, [options]); // ✅ Chỉ thay đổi khi options thay đổi
   // ...
 ```
 
-This ensures that the `options` object is the same between re-renders if `useMemo` returns the cached object.
+Điều này đảm bảo rằng đối tượng `options` là giống nhau giữa các lần render lại nếu `useMemo` trả về đối tượng được lưu trong bộ nhớ cache.
 
-However, since `useMemo` is performance optimization, not a semantic guarantee, React may throw away the cached value if [there is a specific reason to do that](#caveats). This will also cause the effect to re-fire, **so it's even better to remove the need for a function dependency** by moving your object *inside* the Effect:
+Tuy nhiên, vì `useMemo` là tối ưu hóa hiệu suất, không phải là một đảm bảo về ngữ nghĩa, React có thể loại bỏ giá trị được lưu trong bộ nhớ cache nếu [có một lý do cụ thể để làm điều đó](#caveats). Điều này cũng sẽ khiến effect kích hoạt lại, **vì vậy tốt hơn nữa là loại bỏ nhu cầu về một dependency hàm** bằng cách di chuyển đối tượng của bạn *vào bên trong* Effect:
 
 ```js {5-8,13}
 function ChatRoom({ roomId }) {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const options = { // ✅ No need for useMemo or object dependencies!
+    const options = { // ✅ Không cần useMemo hoặc các dependencies đối tượng!
       serverUrl: 'https://localhost:1234',
       roomId: roomId
     }
@@ -1125,16 +1125,16 @@ function ChatRoom({ roomId }) {
     const connection = createConnection(options);
     connection.connect();
     return () => connection.disconnect();
-  }, [roomId]); // ✅ Only changes when roomId changes
+  }, [roomId]); // ✅ Chỉ thay đổi khi roomId thay đổi
   // ...
 ```
 
-Now your code is simpler and doesn't need `useMemo`. [Learn more about removing Effect dependencies.](/learn/removing-effect-dependencies#move-dynamic-objects-and-functions-inside-your-effect)
+Bây giờ mã của bạn đơn giản hơn và không cần `useMemo`. [Tìm hiểu thêm về việc loại bỏ các dependencies Effect.](/learn/removing-effect-dependencies#move-dynamic-objects-and-functions-inside-your-effect)
 
 
-### Memoizing a dependency of another Hook {/*memoizing-a-dependency-of-another-hook*/}
+### Memoizing một dependency của một Hook khác {/*memoizing-a-dependency-of-another-hook*/}
 
-Suppose you have a calculation that depends on an object created directly in the component body:
+Giả sử bạn có một phép tính phụ thuộc vào một đối tượng được tạo trực tiếp trong phần thân của thành phần:
 
 ```js {2}
 function Dropdown({ allItems, text }) {
@@ -1142,44 +1142,44 @@ function Dropdown({ allItems, text }) {
 
   const visibleItems = useMemo(() => {
     return searchItems(allItems, searchOptions);
-  }, [allItems, searchOptions]); // 🚩 Caution: Dependency on an object created in the component body
+  }, [allItems, searchOptions]); // 🚩 Thận trọng: Dependency trên một đối tượng được tạo trong phần thân của thành phần
   // ...
 ```
 
-Depending on an object like this defeats the point of memoization. When a component re-renders, all of the code directly inside the component body runs again. **The lines of code creating the `searchOptions` object will also run on every re-render.** Since `searchOptions` is a dependency of your `useMemo` call, and it's different every time, React knows the dependencies are different, and recalculate `searchItems` every time.
+Việc phụ thuộc vào một đối tượng như thế này làm mất đi ý nghĩa của memoization. Khi một thành phần render lại, tất cả mã trực tiếp bên trong phần thân của thành phần sẽ chạy lại. **Các dòng mã tạo đối tượng `searchOptions` cũng sẽ chạy trên mỗi lần render lại.** Vì `searchOptions` là một dependency của lệnh gọi `useMemo` của bạn và nó khác nhau mỗi lần, React biết các dependency khác nhau và tính toán lại `searchItems` mỗi lần.
 
-To fix this, you could memoize the `searchOptions` object *itself* before passing it as a dependency:
+Để khắc phục điều này, bạn có thể memoize đối tượng `searchOptions` *trước* khi chuyển nó làm dependency:
 
 ```js {2-4}
 function Dropdown({ allItems, text }) {
   const searchOptions = useMemo(() => {
     return { matchMode: 'whole-word', text };
-  }, [text]); // ✅ Only changes when text changes
+  }, [text]); // ✅ Chỉ thay đổi khi text thay đổi
 
   const visibleItems = useMemo(() => {
     return searchItems(allItems, searchOptions);
-  }, [allItems, searchOptions]); // ✅ Only changes when allItems or searchOptions changes
+  }, [allItems, searchOptions]); // ✅ Chỉ thay đổi khi allItems hoặc searchOptions thay đổi
   // ...
 ```
 
-In the example above, if the `text` did not change, the `searchOptions` object also won't change. However, an even better fix is to move the `searchOptions` object declaration *inside* of the `useMemo` calculation function:
+Trong ví dụ trên, nếu `text` không thay đổi, đối tượng `searchOptions` cũng sẽ không thay đổi. Tuy nhiên, một cách khắc phục thậm chí còn tốt hơn là di chuyển khai báo đối tượng `searchOptions` *vào bên trong* hàm tính toán `useMemo`:
 
 ```js {3}
 function Dropdown({ allItems, text }) {
   const visibleItems = useMemo(() => {
     const searchOptions = { matchMode: 'whole-word', text };
     return searchItems(allItems, searchOptions);
-  }, [allItems, text]); // ✅ Only changes when allItems or text changes
+  }, [allItems, text]); // ✅ Chỉ thay đổi khi allItems hoặc text thay đổi
   // ...
 ```
 
-Now your calculation depends on `text` directly (which is a string and can't "accidentally" become different).
+Bây giờ phép tính của bạn phụ thuộc trực tiếp vào `text` (là một chuỗi và không thể "vô tình" trở nên khác biệt).
 
 ---
 
-### Memoizing a function {/*memoizing-a-function*/}
+### Memoizing một hàm {/*memoizing-a-function*/}
 
-Suppose the `Form` component is wrapped in [`memo`.](/reference/react/memo) You want to pass a function to it as a prop:
+Giả sử thành phần `Form` được bọc trong [`memo`.](/reference/react/memo) Bạn muốn chuyển một hàm cho nó dưới dạng một prop:
 
 ```js {2-7}
 export default function ProductPage({ productId, referrer }) {
@@ -1194,9 +1194,9 @@ export default function ProductPage({ productId, referrer }) {
 }
 ```
 
-Just as `{}` creates a different object, function declarations like `function() {}` and expressions like `() => {}` produce a *different* function on every re-render. By itself, creating a new function is not a problem. This is not something to avoid! However, if the `Form` component is memoized, presumably you want to skip re-rendering it when no props have changed. A prop that is *always* different would defeat the point of memoization.
+Giống như `{}` tạo ra một đối tượng khác, các khai báo hàm như `function() {}` và các biểu thức như `() => {}` tạo ra một hàm *khác* trên mỗi lần render lại. Bản thân việc tạo một hàm mới không phải là một vấn đề. Đây không phải là điều cần tránh! Tuy nhiên, nếu thành phần `Form` được memoize, có lẽ bạn muốn bỏ qua việc render lại nó khi không có prop nào thay đổi. Một prop *luôn* khác biệt sẽ làm mất đi ý nghĩa của memoization.
 
-To memoize a function with `useMemo`, your calculation function would have to return another function:
+Để memoize một hàm với `useMemo`, hàm tính toán của bạn sẽ phải trả về một hàm khác:
 
 ```js {2-3,8-9}
 export default function Page({ productId, referrer }) {
@@ -1213,7 +1213,7 @@ export default function Page({ productId, referrer }) {
 }
 ```
 
-This looks clunky! **Memoizing functions is common enough that React has a built-in Hook specifically for that. Wrap your functions into [`useCallback`](/reference/react/useCallback) instead of `useMemo`** to avoid having to write an extra nested function:
+Điều này trông vụng về! **Memoizing các hàm là đủ phổ biến để React có một Hook tích hợp dành riêng cho việc đó. Bọc các hàm của bạn vào [`useCallback`](/reference/react/useCallback) thay vì `useMemo`** để tránh phải viết một hàm lồng nhau bổ sung:
 
 ```js {2,7}
 export default function Page({ productId, referrer }) {
@@ -1228,88 +1228,88 @@ export default function Page({ productId, referrer }) {
 }
 ```
 
-The two examples above are completely equivalent. The only benefit to `useCallback` is that it lets you avoid writing an extra nested function inside. It doesn't do anything else. [Read more about `useCallback`.](/reference/react/useCallback)
+Hai ví dụ trên hoàn toàn tương đương. Lợi ích duy nhất của `useCallback` là nó cho phép bạn tránh viết một hàm lồng nhau bổ sung bên trong. Nó không làm bất cứ điều gì khác. [Đọc thêm về `useCallback`.](/reference/react/useCallback)
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## Khắc phục sự cố {/*troubleshooting*/}
 
-### My calculation runs twice on every re-render {/*my-calculation-runs-twice-on-every-re-render*/}
+### Phép tính của tôi chạy hai lần trên mỗi lần render lại {/*my-calculation-runs-twice-on-every-re-render*/}
 
-In [Strict Mode](/reference/react/StrictMode), React will call some of your functions twice instead of once:
+Trong [Strict Mode](/reference/react/StrictMode), React sẽ gọi một số hàm của bạn hai lần thay vì một lần:
 
 ```js {2,5,6}
 function TodoList({ todos, tab }) {
-  // This component function will run twice for every render.
+  // Hàm thành phần này sẽ chạy hai lần cho mỗi lần render.
 
   const visibleTodos = useMemo(() => {
-    // This calculation will run twice if any of the dependencies change.
+    // Phép tính này sẽ chạy hai lần nếu bất kỳ dependency nào thay đổi.
     return filterTodos(todos, tab);
   }, [todos, tab]);
 
   // ...
 ```
 
-This is expected and shouldn't break your code.
+Điều này được mong đợi và không nên làm hỏng mã của bạn.
 
-This **development-only** behavior helps you [keep components pure.](/learn/keeping-components-pure) React uses the result of one of the calls, and ignores the result of the other call. As long as your component and calculation functions are pure, this shouldn't affect your logic. However, if they are accidentally impure, this helps you notice and fix the mistake.
+Hành vi **chỉ dành cho development** này giúp bạn [giữ cho các thành phần thuần túy.](/learn/keeping-components-pure) React sử dụng kết quả của một trong các lệnh gọi và bỏ qua kết quả của lệnh gọi kia. Miễn là thành phần và các hàm tính toán của bạn là thuần túy, điều này sẽ không ảnh hưởng đến logic của bạn. Tuy nhiên, nếu chúng vô tình không thuần túy, điều này sẽ giúp bạn nhận thấy và sửa chữa sai lầm.
 
-For example, this impure calculation function mutates an array you received as a prop:
+Ví dụ: hàm tính toán không thuần túy này làm thay đổi một mảng bạn nhận được dưới dạng một prop:
 
 ```js {2-3}
   const visibleTodos = useMemo(() => {
-    // 🚩 Mistake: mutating a prop
+    // 🚩 Sai lầm: làm thay đổi một prop
     todos.push({ id: 'last', text: 'Go for a walk!' });
     const filtered = filterTodos(todos, tab);
     return filtered;
   }, [todos, tab]);
 ```
 
-React calls your function twice, so you'd notice the todo is added twice. Your calculation shouldn't change any existing objects, but it's okay to change any *new* objects you created during the calculation. For example, if the `filterTodos` function always returns a *different* array, you can mutate *that* array instead:
+React gọi hàm của bạn hai lần, vì vậy bạn sẽ nhận thấy todo được thêm hai lần. Phép tính của bạn không được thay đổi bất kỳ đối tượng hiện có nào, nhưng bạn có thể thay đổi bất kỳ đối tượng *mới* nào bạn đã tạo trong quá trình tính toán. Ví dụ: nếu hàm `filterTodos` luôn trả về một mảng *khác*, bạn có thể thay đổi *mảng đó* thay thế:
 
 ```js {3,4}
   const visibleTodos = useMemo(() => {
     const filtered = filterTodos(todos, tab);
-    // ✅ Correct: mutating an object you created during the calculation
+    // ✅ Chính xác: làm thay đổi một đối tượng bạn đã tạo trong quá trình tính toán
     filtered.push({ id: 'last', text: 'Go for a walk!' });
     return filtered;
   }, [todos, tab]);
 ```
 
-Read [keeping components pure](/learn/keeping-components-pure) to learn more about purity.
+Đọc [giữ cho các thành phần thuần túy](/learn/keeping-components-pure) để tìm hiểu thêm về tính thuần túy.
 
-Also, check out the guides on [updating objects](/learn/updating-objects-in-state) and [updating arrays](/learn/updating-arrays-in-state) without mutation.
+Ngoài ra, hãy xem các hướng dẫn về [cập nhật các đối tượng](/learn/updating-objects-in-state) và [cập nhật các mảng](/learn/updating-arrays-in-state) mà không cần thay đổi.
 
 ---
 
-### My `useMemo` call is supposed to return an object, but returns undefined {/*my-usememo-call-is-supposed-to-return-an-object-but-returns-undefined*/}
+### Lệnh gọi `useMemo` của tôi được cho là trả về một đối tượng, nhưng trả về undefined {/*my-usememo-call-is-supposed-to-return-an-object-but-returns-undefined*/}
 
-This code doesn't work:
+Mã này không hoạt động:
 
 ```js {1-2,5}
-  // 🔴 You can't return an object from an arrow function with () => {
+  // 🔴 Bạn không thể trả về một đối tượng từ một hàm mũi tên với () => {
   const searchOptions = useMemo(() => {
     matchMode: 'whole-word',
     text: text
   }, [text]);
 ```
 
-In JavaScript, `() => {` starts the arrow function body, so the `{` brace is not a part of your object. This is why it doesn't return an object, and leads to mistakes. You could fix it by adding parentheses like `({` and `})`:
+Trong JavaScript, `() => {` bắt đầu phần thân của hàm mũi tên, vì vậy dấu ngoặc nhọn `{` không phải là một phần của đối tượng của bạn. Đây là lý do tại sao nó không trả về một đối tượng và dẫn đến sai lầm. Bạn có thể sửa nó bằng cách thêm dấu ngoặc đơn như `({` và `})`:
 
 ```js {1-2,5}
-  // This works, but is easy for someone to break again
+  // Điều này hoạt động, nhưng rất dễ để ai đó phá vỡ lại
   const searchOptions = useMemo(() => ({
     matchMode: 'whole-word',
     text: text
   }), [text]);
 ```
 
-However, this is still confusing and too easy for someone to break by removing the parentheses.
+Tuy nhiên, điều này vẫn gây nhầm lẫn và quá dễ để ai đó phá vỡ bằng cách xóa dấu ngoặc đơn.
 
-To avoid this mistake, write a `return` statement explicitly:
+Để tránh sai lầm này, hãy viết một câu lệnh `return` một cách rõ ràng:
 
 ```js {1-3,6-7}
-  // ✅ This works and is explicit
+  // ✅ Điều này hoạt động và rõ ràng
   const searchOptions = useMemo(() => {
     return {
       matchMode: 'whole-word',
@@ -1320,57 +1320,57 @@ To avoid this mistake, write a `return` statement explicitly:
 
 ---
 
-### Every time my component renders, the calculation in `useMemo` re-runs {/*every-time-my-component-renders-the-calculation-in-usememo-re-runs*/}
+### Mỗi khi thành phần của tôi render, phép tính trong `useMemo` chạy lại {/*every-time-my-component-renders-the-calculation-in-usememo-re-runs*/}
 
-Make sure you've specified the dependency array as a second argument!
+Đảm bảo rằng bạn đã chỉ định mảng dependency làm đối số thứ hai!
 
-If you forget the dependency array, `useMemo` will re-run the calculation every time:
+Nếu bạn quên mảng dependency, `useMemo` sẽ chạy lại phép tính mỗi lần:
 
 ```js {2-3}
 function TodoList({ todos, tab }) {
-  // 🔴 Recalculates every time: no dependency array
+  // 🔴 Tính toán lại mỗi lần: không có mảng dependency
   const visibleTodos = useMemo(() => filterTodos(todos, tab));
   // ...
 ```
 
-This is the corrected version passing the dependency array as a second argument:
+Đây là phiên bản đã sửa, chuyển mảng dependency làm đối số thứ hai:
 
 ```js {2-3}
 function TodoList({ todos, tab }) {
-  // ✅ Does not recalculate unnecessarily
+  // ✅ Không tính toán lại một cách không cần thiết
   const visibleTodos = useMemo(() => filterTodos(todos, tab), [todos, tab]);
   // ...
 ```
 
-If this doesn't help, then the problem is that at least one of your dependencies is different from the previous render. You can debug this problem by manually logging your dependencies to the console:
+Nếu điều này không giúp ích, thì vấn đề là ít nhất một trong các dependency của bạn khác với lần render trước. Bạn có thể gỡ lỗi vấn đề này bằng cách ghi nhật ký các dependency của bạn vào bảng điều khiển theo cách thủ công:
 
 ```js
   const visibleTodos = useMemo(() => filterTodos(todos, tab), [todos, tab]);
   console.log([todos, tab]);
 ```
 
-You can then right-click on the arrays from different re-renders in the console and select "Store as a global variable" for both of them. Assuming the first one got saved as `temp1` and the second one got saved as `temp2`, you can then use the browser console to check whether each dependency in both arrays is the same:
+Sau đó, bạn có thể nhấp chuột phải vào các mảng từ các lần render lại khác nhau trong bảng điều khiển và chọn "Store as a global variable" cho cả hai. Giả sử cái đầu tiên được lưu dưới dạng `temp1` và cái thứ hai được lưu dưới dạng `temp2`, sau đó bạn có thể sử dụng bảng điều khiển của trình duyệt để kiểm tra xem mỗi dependency trong cả hai mảng có giống nhau hay không:
 
 ```js
-Object.is(temp1[0], temp2[0]); // Is the first dependency the same between the arrays?
-Object.is(temp1[1], temp2[1]); // Is the second dependency the same between the arrays?
-Object.is(temp1[2], temp2[2]); // ... and so on for every dependency ...
+Object.is(temp1[0], temp2[0]); // Dependency đầu tiên có giống nhau giữa các mảng không?
+Object.is(temp1[1], temp2[1]); // Dependency thứ hai có giống nhau giữa các mảng không?
+Object.is(temp1[2], temp2[2]); // ... và cứ thế cho mọi dependency ...
 ```
 
-When you find which dependency breaks memoization, either find a way to remove it, or [memoize it as well.](#memoizing-a-dependency-of-another-hook)
+Khi bạn tìm thấy dependency nào phá vỡ memoization, hãy tìm cách loại bỏ nó hoặc [memoize nó.](#memoizing-a-dependency-of-another-hook)
 
 ---
 
-### I need to call `useMemo` for each list item in a loop, but it's not allowed {/*i-need-to-call-usememo-for-each-list-item-in-a-loop-but-its-not-allowed*/}
+### Tôi cần gọi `useMemo` cho mỗi mục danh sách trong một vòng lặp, nhưng nó không được phép {/*i-need-to-call-usememo-for-each-list-item-in-a-loop-but-its-not-allowed*/}
 
-Suppose the `Chart` component is wrapped in [`memo`](/reference/react/memo). You want to skip re-rendering every `Chart` in the list when the `ReportList` component re-renders. However, you can't call `useMemo` in a loop:
+Giả sử thành phần `Chart` được bọc trong [`memo`.](/reference/react/memo) Bạn muốn bỏ qua việc render lại mọi `Chart` trong danh sách khi thành phần `ReportList` render lại. Tuy nhiên, bạn không thể gọi `useMemo` trong một vòng lặp:
 
 ```js {5-11}
 function ReportList({ items }) {
   return (
     <article>
       {items.map(item => {
-        // 🔴 You can't call useMemo in a loop like this:
+        // 🔴 Bạn không thể gọi useMemo trong một vòng lặp như thế này:
         const data = useMemo(() => calculateReport(item), [item]);
         return (
           <figure key={item.id}>
@@ -1383,7 +1383,7 @@ function ReportList({ items }) {
 }
 ```
 
-Instead, extract a component for each item and memoize data for individual items:
+Thay vào đó, hãy trích xuất một thành phần cho mỗi mục và memoize dữ liệu cho các mục riêng lẻ:
 
 ```js {5,12-18}
 function ReportList({ items }) {
@@ -1397,7 +1397,7 @@ function ReportList({ items }) {
 }
 
 function Report({ item }) {
-  // ✅ Call useMemo at the top level:
+  // ✅ Gọi useMemo ở cấp cao nhất:
   const data = useMemo(() => calculateReport(item), [item]);
   return (
     <figure>
@@ -1407,7 +1407,22 @@ function Report({ item }) {
 }
 ```
 
-Alternatively, you could remove `useMemo` and instead wrap `Report` itself in [`memo`.](/reference/react/memo) If the `item` prop does not change, `Report` will skip re-rendering, so `Chart` will skip re-rendering too:
+Ngoài ra, bạn có thể xóa `useMemo` và thay vào đó bọc chính `Report` trong [`memo`.](/reference/react/memo) Nếu prop `item` không thay đổi, `Report` sẽ bỏ qua việc render lại, vì vậy `Chart` cũng sẽ bỏ qua việc render lại:
+
+```js {5,6,12}
+function ReportList({ items }) {
+  // ...
+}
+
+const Report = memo(function Report({ item }) {
+  const data = calculateReport(item);
+  return (
+    <figure>
+      <Chart data={data} />
+    </figure>
+  );
+});
+```
 
 ```js {5,6,12}
 function ReportList({ items }) {

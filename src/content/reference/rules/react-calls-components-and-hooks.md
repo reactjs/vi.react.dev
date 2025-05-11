@@ -1,86 +1,86 @@
 ---
-title: React calls Components and Hooks
+title: React gọi Components và Hooks
 ---
 
 <Intro>
-React is responsible for rendering components and Hooks when necessary to optimize the user experience. It is declarative: you tell React what to render in your component’s logic, and React will figure out how best to display it to your user.
+React chịu trách nhiệm hiển thị các component và Hook khi cần thiết để tối ưu hóa trải nghiệm người dùng. Nó mang tính khai báo: bạn cho React biết những gì cần hiển thị trong logic của component và React sẽ tìm ra cách tốt nhất để hiển thị nó cho người dùng của bạn.
 </Intro>
 
 <InlineToc />
 
 ---
 
-## Never call component functions directly {/*never-call-component-functions-directly*/}
-Components should only be used in JSX. Don't call them as regular functions. React should call it.
+## Không bao giờ gọi trực tiếp các hàm component {/*never-call-component-functions-directly*/}
+Các component chỉ nên được sử dụng trong JSX. Không gọi chúng như các hàm thông thường. React nên gọi nó.
 
-React must decide when your component function is called [during rendering](/reference/rules/components-and-hooks-must-be-pure#how-does-react-run-your-code). In React, you do this using JSX.
+React phải quyết định khi nào hàm component của bạn được gọi [trong quá trình render](/reference/rules/components-and-hooks-must-be-pure#how-does-react-run-your-code). Trong React, bạn thực hiện điều này bằng JSX.
 
 ```js {2}
 function BlogPost() {
-  return <Layout><Article /></Layout>; // ✅ Good: Only use components in JSX
+  return <Layout><Article /></Layout>; // ✅ Tốt: Chỉ sử dụng component trong JSX
 }
 ```
 
 ```js {2}
 function BlogPost() {
-  return <Layout>{Article()}</Layout>; // 🔴 Bad: Never call them directly
+  return <Layout>{Article()}</Layout>; // 🔴 Sai: Không bao giờ gọi chúng trực tiếp
 }
 ```
 
-If a component contains Hooks, it's easy to violate the [Rules of Hooks](/reference/rules/rules-of-hooks) when components are called directly in a loop or conditionally.
+Nếu một component chứa Hook, rất dễ vi phạm [Quy tắc của Hook](/reference/rules/rules-of-hooks) khi các component được gọi trực tiếp trong một vòng lặp hoặc có điều kiện.
 
-Letting React orchestrate rendering also allows a number of benefits:
+Việc để React điều phối quá trình render cũng mang lại một số lợi ích:
 
-* **Components become more than functions.** React can augment them with features like _local state_ through Hooks that are tied to the component's identity in the tree.
-* **Component types participate in reconciliation.** By letting React call your components, you also tell it more about the conceptual structure of your tree. For example, when you move from rendering `<Feed>` to the `<Profile>` page, React won’t attempt to re-use them.
-* **React can enhance your user experience.** For example, it can let the browser do some work between component calls so that re-rendering a large component tree doesn’t block the main thread.
-* **A better debugging story.** If components are first-class citizens that the library is aware of, we can build rich developer tools for introspection in development.
-* **More efficient reconciliation.** React can decide exactly which components in the tree need re-rendering and skip over the ones that don't. That makes your app faster and more snappy.
+* **Các component trở nên nhiều hơn là các hàm.** React có thể tăng cường chúng bằng các tính năng như _trạng thái cục bộ_ thông qua Hook được gắn với định danh của component trong cây.
+* **Các loại component tham gia vào quá trình hòa giải.** Bằng cách cho phép React gọi các component của bạn, bạn cũng cho nó biết thêm về cấu trúc khái niệm của cây của bạn. Ví dụ: khi bạn chuyển từ hiển thị `<Feed>` sang trang `<Profile>`, React sẽ không cố gắng sử dụng lại chúng.
+* **React có thể nâng cao trải nghiệm người dùng của bạn.** Ví dụ: nó có thể cho phép trình duyệt thực hiện một số công việc giữa các lệnh gọi component để việc render lại một cây component lớn không chặn luồng chính.
+* **Câu chuyện gỡ lỗi tốt hơn.** Nếu các component là các phần tử hạng nhất mà thư viện nhận biết được, chúng ta có thể xây dựng các công cụ dành cho nhà phát triển phong phú để xem xét nội bộ trong quá trình phát triển.
+* **Hòa giải hiệu quả hơn.** React có thể quyết định chính xác những component nào trong cây cần render lại và bỏ qua những component không cần. Điều đó làm cho ứng dụng của bạn nhanh hơn và nhạy hơn.
 
 ---
 
-## Never pass around Hooks as regular values {/*never-pass-around-hooks-as-regular-values*/}
+## Không bao giờ truyền Hook như các giá trị thông thường {/*never-pass-around-hooks-as-regular-values*/}
 
-Hooks should only be called inside of components or Hooks. Never pass it around as a regular value.
+Hook chỉ nên được gọi bên trong các component hoặc Hook. Không bao giờ truyền nó như một giá trị thông thường.
 
-Hooks allow you to augment a component with React features. They should always be called as a function, and never passed around as a regular value. This enables _local reasoning_, or the ability for developers to understand everything a component can do by looking at that component in isolation.
+Hook cho phép bạn tăng cường một component với các tính năng của React. Chúng phải luôn được gọi như một hàm và không bao giờ được truyền như một giá trị thông thường. Điều này cho phép _lý luận cục bộ_, hoặc khả năng các nhà phát triển hiểu mọi thứ mà một component có thể làm bằng cách xem xét component đó một cách riêng biệt.
 
-Breaking this rule will cause React to not automatically optimize your component.
+Vi phạm quy tắc này sẽ khiến React không tự động tối ưu hóa component của bạn.
 
-### Don't dynamically mutate a Hook {/*dont-dynamically-mutate-a-hook*/}
+### Không thay đổi Hook một cách động {/*dont-dynamically-mutate-a-hook*/}
 
-Hooks should be as "static" as possible. This means you shouldn't dynamically mutate them. For example, this means you shouldn't write higher order Hooks:
+Hook phải "tĩnh" nhất có thể. Điều này có nghĩa là bạn không nên thay đổi chúng một cách động. Ví dụ: điều này có nghĩa là bạn không nên viết Hook bậc cao hơn:
 
 ```js {2}
 function ChatInput() {
-  const useDataWithLogging = withLogging(useData); // 🔴 Bad: don't write higher order Hooks
+  const useDataWithLogging = withLogging(useData); // 🔴 Sai: không viết Hook bậc cao hơn
   const data = useDataWithLogging();
 }
 ```
 
-Hooks should be immutable and not be mutated. Instead of mutating a Hook dynamically, create a static version of the Hook with the desired functionality.
+Hook phải là bất biến và không được thay đổi. Thay vì thay đổi Hook một cách động, hãy tạo một phiên bản tĩnh của Hook với chức năng mong muốn.
 
 ```js {2,6}
 function ChatInput() {
-  const data = useDataWithLogging(); // ✅ Good: Create a new version of the Hook
+  const data = useDataWithLogging(); // ✅ Tốt: Tạo một phiên bản mới của Hook
 }
 
 function useDataWithLogging() {
-  // ... Create a new version of the Hook and inline the logic here
+  // ... Tạo một phiên bản mới của Hook và nội tuyến logic ở đây
 }
 ```
 
-### Don't dynamically use Hooks {/*dont-dynamically-use-hooks*/}
+### Không sử dụng Hook một cách động {/*dont-dynamically-use-hooks*/}
 
-Hooks should also not be dynamically used: for example, instead of doing dependency injection in a component by passing a Hook as a value:
+Hook cũng không nên được sử dụng một cách động: ví dụ: thay vì thực hiện dependency injection trong một component bằng cách truyền một Hook làm giá trị:
 
 ```js {2}
 function ChatInput() {
-  return <Button useData={useDataWithLogging} /> // 🔴 Bad: don't pass Hooks as props
+  return <Button useData={useDataWithLogging} /> // 🔴 Sai: không truyền Hook làm đạo cụ
 }
 ```
 
-You should always inline the call of the Hook into that component and handle any logic in there.
+Bạn nên luôn nội tuyến lệnh gọi Hook vào component đó và xử lý mọi logic ở đó.
 
 ```js {6}
 function ChatInput() {
@@ -88,14 +88,13 @@ function ChatInput() {
 }
 
 function Button() {
-  const data = useDataWithLogging(); // ✅ Good: Use the Hook directly
+  const data = useDataWithLogging(); // ✅ Tốt: Sử dụng Hook trực tiếp
 }
 
 function useDataWithLogging() {
-  // If there's any conditional logic to change the Hook's behavior, it should be inlined into
-  // the Hook
+  // Nếu có bất kỳ logic có điều kiện nào để thay đổi hành vi của Hook, nó sẽ được nội tuyến vào
+  // Hook
 }
 ```
 
-This way, `<Button />` is much easier to understand and debug. When Hooks are used in dynamic ways, it increases the complexity of your app greatly and inhibits local reasoning, making your team less productive in the long term. It also makes it easier to accidentally break the [Rules of Hooks](/reference/rules/rules-of-hooks) that Hooks should not be called conditionally. If you find yourself needing to mock components for tests, it's better to mock the server instead to respond with canned data. If possible, it's also usually more effective to test your app with end-to-end tests.
-
+Bằng cách này, `<Button />` dễ hiểu và gỡ lỗi hơn nhiều. Khi Hook được sử dụng theo những cách động, nó làm tăng đáng kể độ phức tạp của ứng dụng của bạn và ức chế lý luận cục bộ, khiến nhóm của bạn kém năng suất hơn về lâu dài. Nó cũng giúp bạn dễ dàng vô tình phá vỡ [Quy tắc của Hook](/reference/rules/rules-of-hooks) rằng Hook không được gọi có điều kiện. Nếu bạn thấy mình cần mô phỏng các component để kiểm tra, tốt hơn là mô phỏng máy chủ thay vì phản hồi bằng dữ liệu đóng hộp. Nếu có thể, việc kiểm tra ứng dụng của bạn bằng các bài kiểm tra end-to-end thường hiệu quả hơn.

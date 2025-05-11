@@ -197,10 +197,9 @@ export function HomeContent() {
           </FullBleed>
           <Center>
             <Para>
-              Cú pháp markup này được gọi là JSX. Đây là một phần mở rộng cú
-              pháp JavaScript được React популяризировал. Đặt JSX markup gần với
-              logic hiển thị liên quan giúp React component dễ tạo, bảo trì và
-              xóa.
+              Cú pháp đánh dấu này được gọi là JSX. Đây là phần mở rộng cú pháp
+              JavaScript được React phổ biến. Đặt đánh dấu JSX gần với logic kết
+              xuất liên quan giúp các thành phần React dễ tạo, bảo trì và xóa.
             </Para>
           </Center>
         </Section>

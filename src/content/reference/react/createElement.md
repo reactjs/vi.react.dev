@@ -4,7 +4,7 @@ title: createElement
 
 <Intro>
 
-`createElement` lets you create a React element. It serves as an alternative to writing [JSX.](/learn/writing-markup-with-jsx)
+`createElement` cho phép bạn tạo một phần tử React. Nó đóng vai trò như một giải pháp thay thế cho việc viết [JSX.](/learn/writing-markup-with-jsx)
 
 ```js
 const element = createElement(type, props, ...children)
@@ -16,11 +16,11 @@ const element = createElement(type, props, ...children)
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `createElement(type, props, ...children)` {/*createelement*/}
 
-Call `createElement` to create a React element with the given `type`, `props`, and `children`.
+Gọi `createElement` để tạo một phần tử React với `type`, `props` và `children` đã cho.
 
 ```js
 import { createElement } from 'react';
@@ -34,44 +34,44 @@ function Greeting({ name }) {
 }
 ```
 
-[See more examples below.](#usage)
+[Xem thêm các ví dụ bên dưới.](#usage)
 
-#### Parameters {/*parameters*/}
+#### Tham số {/*parameters*/}
 
-* `type`: The `type` argument must be a valid React component type. For example, it could be a tag name string (such as `'div'` or `'span'`), or a React component (a function, a class, or a special component like [`Fragment`](/reference/react/Fragment)).
+* `type`: Đối số `type` phải là một kiểu component React hợp lệ. Ví dụ: nó có thể là một chuỗi tên thẻ (chẳng hạn như `'div'` hoặc `'span'`), hoặc một component React (một hàm, một class hoặc một component đặc biệt như [`Fragment`](/reference/react/Fragment)).
 
-* `props`: The `props` argument must either be an object or `null`. If you pass `null`, it will be treated the same as an empty object. React will create an element with props matching the `props` you have passed. Note that `ref` and `key` from your `props` object are special and will *not* be available as `element.props.ref` and `element.props.key` on the returned `element`. They will be available as `element.ref` and `element.key`.
+* `props`: Đối số `props` phải là một đối tượng hoặc `null`. Nếu bạn truyền `null`, nó sẽ được coi như một đối tượng trống. React sẽ tạo một phần tử với các props khớp với `props` mà bạn đã truyền. Lưu ý rằng `ref` và `key` từ đối tượng `props` của bạn là đặc biệt và sẽ *không* khả dụng dưới dạng `element.props.ref` và `element.props.key` trên `element` được trả về. Chúng sẽ có sẵn dưới dạng `element.ref` và `element.key`.
 
-* **optional** `...children`: Zero or more child nodes. They can be any React nodes, including React elements, strings, numbers, [portals](/reference/react-dom/createPortal), empty nodes (`null`, `undefined`, `true`, and `false`), and arrays of React nodes.
+* **tùy chọn** `...children`: Không hoặc nhiều node con. Chúng có thể là bất kỳ node React nào, bao gồm các phần tử React, chuỗi, số, [portal](/reference/react-dom/createPortal), các node trống (`null`, `undefined`, `true` và `false`) và mảng các node React.
 
-#### Returns {/*returns*/}
+#### Giá trị trả về {/*returns*/}
 
-`createElement` returns a React element object with a few properties:
+`createElement` trả về một đối tượng phần tử React với một vài thuộc tính:
 
-* `type`: The `type` you have passed.
-* `props`: The `props` you have passed except for `ref` and `key`.
-* `ref`: The `ref` you have passed. If missing, `null`.
-* `key`: The `key` you have passed, coerced to a string. If missing, `null`.
+* `type`: `type` bạn đã truyền.
+* `props`: `props` bạn đã truyền ngoại trừ `ref` và `key`.
+* `ref`: `ref` bạn đã truyền. Nếu thiếu, `null`.
+* `key`: `key` bạn đã truyền, được ép thành một chuỗi. Nếu thiếu, `null`.
 
-Usually, you'll return the element from your component or make it a child of another element. Although you may read the element's properties, it's best to treat every element as opaque after it's created, and only render it.
+Thông thường, bạn sẽ trả về phần tử từ component của mình hoặc tạo nó thành một phần tử con của một phần tử khác. Mặc dù bạn có thể đọc các thuộc tính của phần tử, nhưng tốt nhất là coi mọi phần tử là không rõ ràng sau khi nó được tạo và chỉ hiển thị nó.
 
-#### Caveats {/*caveats*/}
+#### Lưu ý {/*caveats*/}
 
-* You must **treat React elements and their props as [immutable](https://en.wikipedia.org/wiki/Immutable_object)** and never change their contents after creation. In development, React will [freeze](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) the returned element and its `props` property shallowly to enforce this.
+* Bạn phải **coi các phần tử React và các props của chúng là [bất biến](https://en.wikipedia.org/wiki/Immutable_object)** và không bao giờ thay đổi nội dung của chúng sau khi tạo. Trong quá trình phát triển, React sẽ [đóng băng](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/freeze) phần tử được trả về và thuộc tính `props` của nó một cách nông cạn để thực thi điều này.
 
-* When you use JSX, **you must start a tag with a capital letter to render your own custom component.** In other words, `<Something />` is equivalent to `createElement(Something)`, but `<something />` (lowercase) is equivalent to `createElement('something')` (note it's a string, so it will be treated as a built-in HTML tag).
+* Khi bạn sử dụng JSX, **bạn phải bắt đầu một thẻ bằng một chữ cái viết hoa để hiển thị component tùy chỉnh của riêng bạn.** Nói cách khác, `<Something />` tương đương với `createElement(Something)`, nhưng `<something />` (chữ thường) tương đương với `createElement('something')` (lưu ý nó là một chuỗi, vì vậy nó sẽ được coi là một thẻ HTML tích hợp).
 
-* You should only **pass children as multiple arguments to `createElement` if they are all statically known,** like `createElement('h1', {}, child1, child2, child3)`. If your children are dynamic, pass the entire array as the third argument: `createElement('ul', {}, listItems)`. This ensures that React will [warn you about missing `key`s](/learn/rendering-lists#keeping-list-items-in-order-with-key) for any dynamic lists. For static lists this is not necessary because they never reorder.
+* Bạn chỉ nên **truyền children dưới dạng nhiều đối số cho `createElement` nếu tất cả chúng đều được biết tĩnh,** như `createElement('h1', {}, child1, child2, child3)`. Nếu children của bạn là động, hãy truyền toàn bộ mảng làm đối số thứ ba: `createElement('ul', {}, listItems)`. Điều này đảm bảo rằng React sẽ [cảnh báo bạn về việc thiếu `key`](/learn/rendering-lists#keeping-list-items-in-order-with-key) cho bất kỳ danh sách động nào. Đối với danh sách tĩnh, điều này là không cần thiết vì chúng không bao giờ sắp xếp lại.
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Creating an element without JSX {/*creating-an-element-without-jsx*/}
+### Tạo một phần tử mà không cần JSX {/*creating-an-element-without-jsx*/}
 
-If you don't like [JSX](/learn/writing-markup-with-jsx) or can't use it in your project, you can use `createElement` as an alternative.
+Nếu bạn không thích [JSX](/learn/writing-markup-with-jsx) hoặc không thể sử dụng nó trong dự án của mình, bạn có thể sử dụng `createElement` như một giải pháp thay thế.
 
-To create an element without JSX, call `createElement` with some <CodeStep step={1}>type</CodeStep>, <CodeStep step={2}>props</CodeStep>, and <CodeStep step={3}>children</CodeStep>:
+Để tạo một phần tử mà không cần JSX, hãy gọi `createElement` với một <CodeStep step={1}>type</CodeStep>, <CodeStep step={2}>props</CodeStep> và <CodeStep step={3}>children</CodeStep>:
 
 ```js [[1, 5, "'h1'"], [2, 6, "{ className: 'greeting' }"], [3, 7, "'Hello ',"], [3, 8, "createElement('i', null, name),"], [3, 9, "'. Welcome!'"]]
 import { createElement } from 'react';
@@ -87,7 +87,7 @@ function Greeting({ name }) {
 }
 ```
 
-The <CodeStep step={3}>children</CodeStep> are optional, and you can pass as many as you need (the example above has three children). This code will display a `<h1>` header with a greeting. For comparison, here is the same example rewritten with JSX:
+Các <CodeStep step={3}>children</CodeStep> là tùy chọn và bạn có thể truyền bao nhiêu tùy ý (ví dụ trên có ba children). Đoạn code này sẽ hiển thị một tiêu đề `<h1>` với lời chào. Để so sánh, đây là ví dụ tương tự được viết lại bằng JSX:
 
 ```js [[1, 3, "h1"], [2, 3, "className=\\"greeting\\""], [3, 4, "Hello <i>{name}</i>. Welcome!"], [1, 5, "h1"]]
 function Greeting({ name }) {
@@ -99,7 +99,7 @@ function Greeting({ name }) {
 }
 ```
 
-To render your own React component, pass a function like `Greeting` as the <CodeStep step={1}>type</CodeStep> instead of a string like `'h1'`:
+Để hiển thị component React của riêng bạn, hãy truyền một hàm như `Greeting` làm <CodeStep step={1}>type</CodeStep> thay vì một chuỗi như `'h1'`:
 
 ```js [[1, 2, "Greeting"], [2, 2, "{ name: 'Taylor' }"]]
 export default function App() {
@@ -107,7 +107,7 @@ export default function App() {
 }
 ```
 
-With JSX, it would look like this:
+Với JSX, nó sẽ trông như thế này:
 
 ```js [[1, 2, "Greeting"], [2, 2, "name=\\"Taylor\\""]]
 export default function App() {
@@ -115,7 +115,7 @@ export default function App() {
 }
 ```
 
-Here is a complete example written with `createElement`:
+Đây là một ví dụ hoàn chỉnh được viết bằng `createElement`:
 
 <Sandpack>
 
@@ -149,7 +149,7 @@ export default function App() {
 
 </Sandpack>
 
-And here is the same example written using JSX:
+Và đây là ví dụ tương tự được viết bằng JSX:
 
 <Sandpack>
 
@@ -176,16 +176,16 @@ export default function App() {
 
 </Sandpack>
 
-Both coding styles are fine, so you can use whichever one you prefer for your project. The main benefit of using JSX compared to `createElement` is that it's easy to see which closing tag corresponds to which opening tag.
+Cả hai kiểu code đều ổn, vì vậy bạn có thể sử dụng bất kỳ kiểu nào bạn thích cho dự án của mình. Lợi ích chính của việc sử dụng JSX so với `createElement` là dễ dàng nhận thấy thẻ đóng nào tương ứng với thẻ mở nào.
 
 <DeepDive>
 
-#### What is a React element, exactly? {/*what-is-a-react-element-exactly*/}
+#### Chính xác thì một phần tử React là gì? {/*what-is-a-react-element-exactly*/}
 
-An element is a lightweight description of a piece of the user interface. For example, both `<Greeting name="Taylor" />` and `createElement(Greeting, { name: 'Taylor' })` produce an object like this:
+Một phần tử là một mô tả nhẹ về một phần của giao diện người dùng. Ví dụ: cả `<Greeting name="Taylor" />` và `createElement(Greeting, { name: 'Taylor' })` đều tạo ra một đối tượng như thế này:
 
 ```js
-// Slightly simplified
+// Đơn giản hóa một chút
 {
   type: Greeting,
   props: {
@@ -196,10 +196,10 @@ An element is a lightweight description of a piece of the user interface. For ex
 }
 ```
 
-**Note that creating this object does not render the `Greeting` component or create any DOM elements.**
+**Lưu ý rằng việc tạo đối tượng này không hiển thị component `Greeting` hoặc tạo bất kỳ phần tử DOM nào.**
 
-A React element is more like a description--an instruction for React to later render the `Greeting` component. By returning this object from your `App` component, you tell React what to do next.
+Một phần tử React giống như một mô tả--một hướng dẫn để React hiển thị component `Greeting` sau này. Bằng cách trả về đối tượng này từ component `App` của bạn, bạn cho React biết phải làm gì tiếp theo.
 
-Creating elements is extremely cheap so you don't need to try to optimize or avoid it.
+Việc tạo các phần tử cực kỳ rẻ nên bạn không cần cố gắng tối ưu hóa hoặc tránh nó.
 
 </DeepDive>

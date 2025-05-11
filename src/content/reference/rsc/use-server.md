@@ -1,18 +1,17 @@
 ---
 title: "'use server'"
-titleForTitleTag: "'use server' directive"
+titleForTitleTag: "Chỉ thị `'use server'`"
 ---
 
 <RSC>
 
-`'use server'` is for use with [using React Server Components](/learn/start-a-new-react-project#bleeding-edge-react-frameworks).
+`'use server'` dùng để sử dụng với [React Server Components](/learn/start-a-new-react-project#bleeding-edge-react-frameworks).
 
 </RSC>
 
-
 <Intro>
 
-`'use server'` marks server-side functions that can be called from client-side code.
+`'use server'` đánh dấu các hàm phía máy chủ có thể được gọi từ mã phía máy khách.
 
 </Intro>
 
@@ -20,11 +19,11 @@ titleForTitleTag: "'use server' directive"
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `'use server'` {/*use-server*/}
 
-Add `'use server'` at the top of an async function body to mark the function as callable by the client. We call these functions [_Server Functions_](/reference/rsc/server-functions).
+Thêm `'use server'` vào đầu phần thân hàm async để đánh dấu hàm đó có thể được gọi bởi máy khách. Chúng ta gọi những hàm này là [_Server Functions_](/reference/rsc/server-functions).
 
 ```js {2}
 async function addToCart(data) {
@@ -33,78 +32,78 @@ async function addToCart(data) {
 }
 ```
 
-When calling a Server Function on the client, it will make a network request to the server that includes a serialized copy of any arguments passed. If the Server Function returns a value, that value will be serialized and returned to the client.
+Khi gọi một Server Function trên máy khách, nó sẽ tạo một yêu cầu mạng đến máy chủ bao gồm một bản sao được tuần tự hóa của bất kỳ đối số nào được truyền. Nếu Server Function trả về một giá trị, giá trị đó sẽ được tuần tự hóa và trả về cho máy khách.
 
-Instead of individually marking functions with `'use server'`, you can add the directive to the top of a file to mark all exports within that file as Server Functions that can be used anywhere, including imported in client code.
+Thay vì đánh dấu riêng lẻ các hàm bằng `'use server'`, bạn có thể thêm chỉ thị vào đầu tệp để đánh dấu tất cả các exports trong tệp đó là Server Functions có thể được sử dụng ở bất kỳ đâu, kể cả được nhập trong mã máy khách.
 
-#### Caveats {/*caveats*/}
-* `'use server'` must be at the very beginning of their function or module; above any other code including imports (comments above directives are OK). They must be written with single or double quotes, not backticks.
-* `'use server'` can only be used in server-side files. The resulting Server Functions can be passed to Client Components through props. See supported [types for serialization](#serializable-parameters-and-return-values).
-* To import a Server Functions from [client code](/reference/rsc/use-client), the directive must be used on a module level.
-* Because the underlying network calls are always asynchronous, `'use server'` can only be used on async functions.
-* Always treat arguments to Server Functions as untrusted input and authorize any mutations. See [security considerations](#security).
-* Server Functions should be called in a [Transition](/reference/react/useTransition). Server Functions passed to [`<form action>`](/reference/react-dom/components/form#props) or [`formAction`](/reference/react-dom/components/input#props) will automatically be called in a transition.
-* Server Functions are designed for mutations that update server-side state; they are not recommended for data fetching. Accordingly, frameworks implementing Server Functions typically process one action at a time and do not have a way to cache the return value.
+#### Lưu ý {/*caveats*/}
+* `'use server'` phải ở ngay đầu hàm hoặc mô-đun của chúng; phía trên bất kỳ mã nào khác bao gồm cả imports (các comment phía trên các chỉ thị đều OK). Chúng phải được viết bằng dấu nháy đơn hoặc dấu nháy kép, không phải dấu backtick.
+* `'use server'` chỉ có thể được sử dụng trong các tệp phía máy chủ. Các Server Functions kết quả có thể được truyền đến Client Components thông qua props. Xem các [kiểu được hỗ trợ để tuần tự hóa](#serializable-parameters-and-return-values).
+* Để nhập một Server Functions từ [mã máy khách](/reference/rsc/use-client), chỉ thị phải được sử dụng ở cấp độ mô-đun.
+* Vì các lệnh gọi mạng cơ bản luôn không đồng bộ, `'use server'` chỉ có thể được sử dụng trên các hàm async.
+* Luôn coi các đối số cho Server Functions là đầu vào không đáng tin cậy và ủy quyền cho bất kỳ thay đổi nào. Xem [các cân nhắc về bảo mật](#security).
+* Server Functions nên được gọi trong một [Transition](/reference/react/useTransition). Server Functions được truyền đến [`<form action>`](/reference/react-dom/components/form#props) hoặc [`formAction`](/reference/react-dom/components/input#props) sẽ tự động được gọi trong một transition.
+* Server Functions được thiết kế cho các thay đổi cập nhật trạng thái phía máy chủ; chúng không được khuyến nghị để tìm nạp dữ liệu. Theo đó, các framework triển khai Server Functions thường xử lý một hành động tại một thời điểm và không có cách nào để lưu vào bộ nhớ cache giá trị trả về.
 
-### Security considerations {/*security*/}
+### Cân nhắc về bảo mật {/*security*/}
 
-Arguments to Server Functions are fully client-controlled. For security, always treat them as untrusted input, and make sure to validate and escape arguments as appropriate.
+Các đối số cho Server Functions hoàn toàn do máy khách kiểm soát. Vì lý do bảo mật, hãy luôn coi chúng là đầu vào không đáng tin cậy và đảm bảo xác thực và thoát các đối số khi thích hợp.
 
-In any Server Function, make sure to validate that the logged-in user is allowed to perform that action.
+Trong bất kỳ Server Function nào, hãy đảm bảo xác thực rằng người dùng đã đăng nhập được phép thực hiện hành động đó.
 
 <Wip>
 
-To prevent sending sensitive data from a Server Function, there are experimental taint APIs to prevent unique values and objects from being passed to client code.
+Để ngăn chặn việc gửi dữ liệu nhạy cảm từ một Server Function, có các API taint thử nghiệm để ngăn chặn các giá trị và đối tượng duy nhất được truyền đến mã máy khách.
 
-See [experimental_taintUniqueValue](/reference/react/experimental_taintUniqueValue) and [experimental_taintObjectReference](/reference/react/experimental_taintObjectReference).
+Xem [experimental_taintUniqueValue](/reference/react/experimental_taintUniqueValue) và [experimental_taintObjectReference](/reference/react/experimental_taintObjectReference).
 
 </Wip>
 
-### Serializable arguments and return values {/*serializable-parameters-and-return-values*/}
+### Các đối số và giá trị trả về có thể tuần tự hóa {/*serializable-parameters-and-return-values*/}
 
-Since client code calls the Server Function over the network, any arguments passed will need to be serializable.
+Vì mã máy khách gọi Server Function qua mạng, bất kỳ đối số nào được truyền sẽ cần phải được tuần tự hóa.
 
-Here are supported types for Server Function arguments:
+Dưới đây là các kiểu được hỗ trợ cho các đối số của Server Function:
 
-* Primitives
-	* [string](https://developer.mozilla.org/en-US/docs/Glossary/String)
-	* [number](https://developer.mozilla.org/en-US/docs/Glossary/Number)
-	* [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
-	* [boolean](https://developer.mozilla.org/en-US/docs/Glossary/Boolean)
-	* [undefined](https://developer.mozilla.org/en-US/docs/Glossary/Undefined)
-	* [null](https://developer.mozilla.org/en-US/docs/Glossary/Null)
-	* [symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol), only symbols registered in the global Symbol registry via [`Symbol.for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/for)
-* Iterables containing serializable values
-	* [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
-	* [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
-	* [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
-	* [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
-	* [TypedArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray) and [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
+* Các kiểu nguyên thủy
+  * [string](https://developer.mozilla.org/en-US/docs/Glossary/String)
+  * [number](https://developer.mozilla.org/en-US/docs/Glossary/Number)
+  * [bigint](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt)
+  * [boolean](https://developer.mozilla.org/en-US/docs/Glossary/Boolean)
+  * [undefined](https://developer.mozilla.org/en-US/docs/Glossary/Undefined)
+  * [null](https://developer.mozilla.org/en-US/docs/Glossary/Null)
+  * [symbol](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol), chỉ các symbol được đăng ký trong registry Symbol toàn cục thông qua [`Symbol.for`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol/for)
+* Các iterable chứa các giá trị có thể tuần tự hóa
+  * [String](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String)
+  * [Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array)
+  * [Map](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map)
+  * [Set](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set)
+  * [TypedArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray) và [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer)
 * [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date)
-* [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData) instances
-* Plain [objects](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object): those created with [object initializers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer), with serializable properties
-* Functions that are Server Functions
+* Các instance của [FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData)
+* Các [object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) thuần túy: những object được tạo bằng [object initializers](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer), với các thuộc tính có thể tuần tự hóa
+* Các function là Server Functions
 * [Promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 
-Notably, these are not supported:
-* React elements, or [JSX](/learn/writing-markup-with-jsx)
-* Functions, including component functions or any other function that is not a Server Function
+Đáng chú ý, những điều này không được hỗ trợ:
+* Các phần tử React, hoặc [JSX](/learn/writing-markup-with-jsx)
+* Các function, bao gồm các function component hoặc bất kỳ function nào khác không phải là Server Function
 * [Classes](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Classes_in_JavaScript)
-* Objects that are instances of any class (other than the built-ins mentioned) or objects with [a null prototype](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object#null-prototype_objects)
-* Symbols not registered globally, ex. `Symbol('my new symbol')`
-* Events from event handlers
+* Các object là instance của bất kỳ class nào (ngoài các built-in đã đề cập) hoặc các object có [prototype null](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object#null-prototype_objects)
+* Các Symbol không được đăng ký trên toàn cục, ví dụ: `Symbol('my new symbol')`
+* Các Event từ trình xử lý sự kiện
 
 
-Supported serializable return values are the same as [serializable props](/reference/rsc/use-client#passing-props-from-server-to-client-components) for a boundary Client Component.
+Các giá trị trả về có thể tuần tự hóa được hỗ trợ giống như [các prop có thể tuần tự hóa](/reference/rsc/use-client#passing-props-from-server-to-client-components) cho một Client Component boundary.
 
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Server Functions in forms {/*server-functions-in-forms*/}
+### Server Functions trong các form {/*server-functions-in-forms*/}
 
-The most common use case of Server Functions will be calling functions that mutate data. On the browser, the [HTML form element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) is the traditional approach for a user to submit a mutation. With React Server Components, React introduces first-class support for Server Functions as Actions in [forms](/reference/react-dom/components/form).
+Trường hợp sử dụng phổ biến nhất của Server Functions sẽ là gọi các function làm thay đổi dữ liệu. Trên trình duyệt, [phần tử form HTML](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) là phương pháp truyền thống để người dùng gửi một thay đổi. Với React Server Components, React giới thiệu hỗ trợ hạng nhất cho Server Functions dưới dạng Actions trong [các form](/reference/react-dom/components/form).
 
-Here is a form that allows a user to request a username.
+Đây là một form cho phép người dùng yêu cầu tên người dùng.
 
 ```js [[1, 3, "formData"]]
 // App.js
@@ -119,21 +118,21 @@ export default function App() {
   return (
     <form action={requestUsername}>
       <input type="text" name="username" />
-      <button type="submit">Request</button>
+      <button type="submit">Yêu cầu</button>
     </form>
   );
 }
 ```
 
-In this example `requestUsername` is a Server Function passed to a `<form>`. When a user submits this form, there is a network request to the server function `requestUsername`. When calling a Server Function in a form, React will supply the form's <CodeStep step={1}>[FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData)</CodeStep> as the first argument to the Server Function.
+Trong ví dụ này, `requestUsername` là một Server Function được truyền cho một `<form>`. Khi người dùng gửi form này, có một yêu cầu mạng đến server function `requestUsername`. Khi gọi một Server Function trong một form, React sẽ cung cấp <CodeStep step={1}>[FormData](https://developer.mozilla.org/en-US/docs/Web/API/FormData)</CodeStep> của form làm đối số đầu tiên cho Server Function.
 
-By passing a Server Function to the form `action`, React can [progressively enhance](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement) the form. This means that forms can be submitted before the JavaScript bundle is loaded.
+Bằng cách truyền một Server Function cho form `action`, React có thể [cải thiện dần](https://developer.mozilla.org/en-US/docs/Glossary/Progressive_Enhancement) form. Điều này có nghĩa là các form có thể được gửi trước khi bundle JavaScript được tải.
 
-#### Handling return values in forms {/*handling-return-values*/}
+#### Xử lý các giá trị trả về trong các form {/*handling-return-values*/}
 
-In the username request form, there might be the chance that a username is not available. `requestUsername` should tell us if it fails or not.
+Trong form yêu cầu tên người dùng, có thể có trường hợp tên người dùng không khả dụng. `requestUsername` sẽ cho chúng ta biết nếu nó thất bại hay không.
 
-To update the UI based on the result of a Server Function while supporting progressive enhancement, use [`useActionState`](/reference/react/useActionState).
+Để cập nhật UI dựa trên kết quả của một Server Function trong khi hỗ trợ cải thiện dần, hãy sử dụng [`useActionState`](/reference/react/useActionState).
 
 ```js
 // requestUsername.js
@@ -163,21 +162,21 @@ function UsernameForm() {
     <>
       <form action={action}>
         <input type="text" name="username" />
-        <button type="submit">Request</button>
+        <button type="submit">Yêu cầu</button>
       </form>
-      <p>Last submission request returned: {state}</p>
+      <p>Yêu cầu gửi gần nhất trả về: {state}</p>
     </>
   );
 }
 ```
 
-Note that like most Hooks, `useActionState` can only be called in <CodeStep step={1}>[client code](/reference/rsc/use-client)</CodeStep>.
+Lưu ý rằng giống như hầu hết các Hook, `useActionState` chỉ có thể được gọi trong <CodeStep step={1}>[mã máy khách](/reference/rsc/use-client)</CodeStep>.
 
-### Calling a Server Function outside of `<form>` {/*calling-a-server-function-outside-of-form*/}
+### Gọi một Server Function bên ngoài `<form>` {/*calling-a-server-function-outside-of-form*/}
 
-Server Functions are exposed server endpoints and can be called anywhere in client code.
+Server Functions được hiển thị các endpoint máy chủ và có thể được gọi ở bất kỳ đâu trong mã máy khách.
 
-When using a Server Function outside a [form](/reference/react-dom/components/form), call the Server Function in a [Transition](/reference/react/useTransition), which allows you to display a loading indicator, show [optimistic state updates](/reference/react/useOptimistic), and handle unexpected errors. Forms will automatically wrap Server Functions in transitions.
+Khi sử dụng một Server Function bên ngoài một [form](/reference/react-dom/components/form), hãy gọi Server Function trong một [Transition](/reference/react/useTransition), cho phép bạn hiển thị chỉ báo tải, hiển thị [cập nhật trạng thái lạc quan](/reference/react/useOptimistic) và xử lý các lỗi không mong muốn. Các form sẽ tự động bọc Server Functions trong các transition.
 
 ```js {9-12}
 import incrementLike from './actions';
@@ -196,8 +195,8 @@ function LikeButton() {
 
   return (
     <>
-      <p>Total Likes: {likeCount}</p>
-      <button onClick={onClick} disabled={isPending}>Like</button>;
+      <p>Tổng số lượt thích: {likeCount}</p>
+      <button onClick={onClick} disabled={isPending}>Thích</button>;
     </>
   );
 }
@@ -214,4 +213,4 @@ export default async function incrementLike() {
 }
 ```
 
-To read a Server Function return value, you'll need to `await` the promise returned.
+Để đọc giá trị trả về của Server Function, bạn sẽ cần `await` promise được trả về.

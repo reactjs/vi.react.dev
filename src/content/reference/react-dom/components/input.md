@@ -4,7 +4,7 @@ title: "<input>"
 
 <Intro>
 
-The [built-in browser `<input>` component](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) lets you render different kinds of form inputs.
+[Component `<input>` tích hợp sẵn của trình duyệt](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) cho phép bạn render các loại input form khác nhau.
 
 ```js
 <input />
@@ -16,94 +16,94 @@ The [built-in browser `<input>` component](https://developer.mozilla.org/en-US/d
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `<input>` {/*input*/}
 
-To display an input, render the [built-in browser `<input>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input) component.
+Để hiển thị một input, render component `<input>` tích hợp sẵn của trình duyệt.
 
 ```js
 <input name="myInput" />
 ```
 
-[See more examples below.](#usage)
+[Xem thêm các ví dụ bên dưới.](#usage)
 
 #### Props {/*props*/}
 
-`<input>` supports all [common element props.](/reference/react-dom/components/common#props)
+`<input>` hỗ trợ tất cả [các props phần tử thông thường.](/reference/react-dom/components/common#props)
 
-- [`formAction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formaction): A string or function. Overrides the parent `<form action>` for `type="submit"` and `type="image"`. When a URL is passed to `action` the form will behave like a standard HTML form. When a function is passed to `formAction` the function will handle the form submission. See [`<form action>`](/reference/react-dom/components/form#props).
+- [`formAction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formaction): Một chuỗi hoặc một hàm. Ghi đè `<form action>` của phần tử cha cho `type="submit"` và `type="image"`. Khi một URL được truyền cho `action`, form sẽ hoạt động như một form HTML tiêu chuẩn. Khi một hàm được truyền cho `formAction`, hàm đó sẽ xử lý việc gửi form. Xem [`<form action>`](/reference/react-dom/components/form#props).
 
-You can [make an input controlled](#controlling-an-input-with-a-state-variable) by passing one of these props:
+Bạn có thể [làm cho một input được kiểm soát](#controlling-an-input-with-a-state-variable) bằng cách truyền một trong các props sau:
 
-* [`checked`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement#checked): A boolean. For a checkbox input or a radio button, controls whether it is selected.
-* [`value`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement#value): A string. For a text input, controls its text. (For a radio button, specifies its form data.)
+* [`checked`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement#checked): Một boolean. Đối với một input checkbox hoặc một radio button, kiểm soát xem nó có được chọn hay không.
+* [`value`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement#value): Một chuỗi. Đối với một input văn bản, kiểm soát văn bản của nó. (Đối với một radio button, chỉ định dữ liệu form của nó.)
 
-When you pass either of them, you must also pass an `onChange` handler that updates the passed value.
+Khi bạn truyền một trong hai prop này, bạn cũng phải truyền một trình xử lý `onChange` để cập nhật giá trị đã truyền.
 
-These `<input>` props are only relevant for uncontrolled inputs:
+Các props `<input>` này chỉ liên quan đến các input không được kiểm soát:
 
-* [`defaultChecked`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement#defaultChecked): A boolean. Specifies [the initial value](#providing-an-initial-value-for-an-input) for `type="checkbox"` and `type="radio"` inputs.
-* [`defaultValue`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement#defaultValue): A string. Specifies [the initial value](#providing-an-initial-value-for-an-input) for a text input.
+* [`defaultChecked`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement#defaultChecked): Một boolean. Chỉ định [giá trị ban đầu](#providing-an-initial-value-for-an-input) cho các input `type="checkbox"` và `type="radio"`.
+* [`defaultValue`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement#defaultValue): Một chuỗi. Chỉ định [giá trị ban đầu](#providing-an-initial-value-for-an-input) cho một input văn bản.
 
-These `<input>` props are relevant both for uncontrolled and controlled inputs:
+Các props `<input>` này có liên quan đến cả input được kiểm soát và không được kiểm soát:
 
-* [`accept`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#accept): A string. Specifies which filetypes are accepted by a `type="file"` input.
-* [`alt`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#alt): A string. Specifies the alternative image text for a `type="image"` input.
-* [`capture`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#capture): A string. Specifies the media (microphone, video, or camera) captured by a `type="file"` input.
-* [`autoComplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#autocomplete): A string. Specifies one of the possible [autocomplete behaviors.](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#values)
-* [`autoFocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#autofocus): A boolean. If `true`, React will focus the element on mount.
-* [`dirname`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#dirname): A string. Specifies the form field name for the element's directionality.
-* [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled): A boolean. If `true`, the input will not be interactive and will appear dimmed.
-* `children`: `<input>` does not accept children.
-* [`form`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#form): A string. Specifies the `id` of the `<form>` this input belongs to. If omitted, it's the closest parent form.
-* [`formAction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formaction): A string. Overrides the parent `<form action>` for `type="submit"` and `type="image"`.
-* [`formEnctype`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formenctype): A string. Overrides the parent `<form enctype>` for `type="submit"` and `type="image"`.
-* [`formMethod`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formmethod): A string. Overrides the parent `<form method>` for `type="submit"` and `type="image"`.
-* [`formNoValidate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formnovalidate): A string. Overrides the parent `<form noValidate>` for `type="submit"` and `type="image"`.
-* [`formTarget`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formtarget): A string. Overrides the parent `<form target>` for `type="submit"` and `type="image"`.
-* [`height`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#height): A string. Specifies the image height for `type="image"`.
-* [`list`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#list): A string. Specifies the `id` of the `<datalist>` with the autocomplete options.
-* [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#max): A number. Specifies the maximum value of numerical and datetime inputs.
-* [`maxLength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#maxlength): A number. Specifies the maximum length of text and other inputs.
-* [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#min): A number. Specifies the minimum value of numerical and datetime inputs.
-* [`minLength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#minlength): A number. Specifies the minimum length of text and other inputs.
-* [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#multiple): A boolean. Specifies whether multiple values are allowed for `<type="file"` and `type="email"`.
-* [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#name): A string. Specifies the name for this input that's [submitted with the form.](#reading-the-input-values-when-submitting-a-form)
-* `onChange`: An [`Event` handler](/reference/react-dom/components/common#event-handler) function. Required for [controlled inputs.](#controlling-an-input-with-a-state-variable) Fires immediately when the input's value is changed by the user (for example, it fires on every keystroke). Behaves like the browser [`input` event.](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event)
-* `onChangeCapture`: A version of `onChange` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onInput`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event): An [`Event` handler](/reference/react-dom/components/common#event-handler) function. Fires immediately when the value is changed by the user. For historical reasons, in React it is idiomatic to use `onChange` instead which works similarly.
-* `onInputCapture`: A version of `onInput` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onInvalid`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/invalid_event): An [`Event` handler](/reference/react-dom/components/common#event-handler) function. Fires if an input fails validation on form submit. Unlike the built-in `invalid` event, the React `onInvalid` event bubbles.
-* `onInvalidCapture`: A version of `onInvalid` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`onSelect`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select_event): An [`Event` handler](/reference/react-dom/components/common#event-handler) function. Fires after the selection inside the `<input>` changes. React extends the `onSelect` event to also fire for empty selection and on edits (which may affect the selection).
-* `onSelectCapture`: A version of `onSelect` that fires in the [capture phase.](/learn/responding-to-events#capture-phase-events)
-* [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#pattern): A string. Specifies the pattern that the `value` must match.
-* [`placeholder`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#placeholder): A string. Displayed in a dimmed color when the input value is empty.
-* [`readOnly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly): A boolean. If `true`, the input is not editable by the user.
-* [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#required): A boolean. If `true`, the value must be provided for the form to submit.
-* [`size`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#size): A number. Similar to setting width, but the unit depends on the control.
-* [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#src): A string. Specifies the image source for a `type="image"` input.
-* [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#step): A positive number or an `'any'` string. Specifies the distance between valid values.
-* [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type): A string. One of the [input types.](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types)
-* [`width`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#width):  A string. Specifies the image width for a `type="image"` input.
+* [`accept`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#accept): Một chuỗi. Chỉ định loại file nào được chấp nhận bởi một input `type="file"`.
+* [`alt`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#alt): Một chuỗi. Chỉ định văn bản thay thế hình ảnh cho một input `type="image"`.
+* [`capture`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#capture): Một chuỗi. Chỉ định phương tiện (microphone, video hoặc camera) được chụp bởi một input `type="file"`.
+* [`autoComplete`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#autocomplete): Một chuỗi. Chỉ định một trong các [hành vi autocomplete có thể.](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/autocomplete#values)
+* [`autoFocus`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#autofocus): Một boolean. Nếu `true`, React sẽ focus phần tử khi mount.
+* [`dirname`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#dirname): Một chuỗi. Chỉ định tên trường form cho hướng của phần tử.
+* [`disabled`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#disabled): Một boolean. Nếu `true`, input sẽ không tương tác được và sẽ xuất hiện màu xám.
+* `children`: `<input>` không chấp nhận children.
+* [`form`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#form): Một chuỗi. Chỉ định `id` của `<form>` mà input này thuộc về. Nếu bị bỏ qua, nó là form cha gần nhất.
+* [`formAction`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formaction): Một chuỗi. Ghi đè `<form action>` của phần tử cha cho `type="submit"` và `type="image"`.
+* [`formEnctype`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formenctype): Một chuỗi. Ghi đè `<form enctype>` của phần tử cha cho `type="submit"` và `type="image"`.
+* [`formMethod`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formmethod): Một chuỗi. Ghi đè `<form method>` của phần tử cha cho `type="submit"` và `type="image"`.
+* [`formNoValidate`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formnovalidate): Một chuỗi. Ghi đè `<form noValidate>` của phần tử cha cho `type="submit"` và `type="image"`.
+* [`formTarget`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#formtarget): Một chuỗi. Ghi đè `<form target>` của phần tử cha cho `type="submit"` và `type="image"`.
+* [`height`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#height): Một chuỗi. Chỉ định chiều cao hình ảnh cho `type="image"`.
+* [`list`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#list): Một chuỗi. Chỉ định `id` của `<datalist>` với các tùy chọn autocomplete.
+* [`max`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#max): Một số. Chỉ định giá trị tối đa của các input số và ngày giờ.
+* [`maxLength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#maxlength): Một số. Chỉ định độ dài tối đa của văn bản và các input khác.
+* [`min`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#min): Một số. Chỉ định giá trị tối thiểu của các input số và ngày giờ.
+* [`minLength`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#minlength): Một số. Chỉ định độ dài tối thiểu của văn bản và các input khác.
+* [`multiple`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#multiple): Một boolean. Chỉ định xem nhiều giá trị có được phép cho `<type="file"` và `type="email"` hay không.
+* [`name`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#name): Một chuỗi. Chỉ định tên cho input này được [gửi cùng với form.](#reading-the-input-values-when-submitting-a-form)
+* `onChange`: Một hàm [`Event` handler](/reference/react-dom/components/common#event-handler). Bắt buộc đối với [các input được kiểm soát.](#controlling-an-input-with-a-state-variable) Kích hoạt ngay lập tức khi giá trị của input bị thay đổi bởi người dùng (ví dụ: nó kích hoạt trên mỗi lần gõ phím). Hoạt động giống như sự kiện [`input` của trình duyệt.](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event)
+* `onChangeCapture`: Một phiên bản của `onChange` kích hoạt trong [giai đoạn capture.](/learn/responding-to-events#capture-phase-events)
+* [`onInput`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/input_event): Một hàm [`Event` handler](/reference/react-dom/components/common#event-handler). Kích hoạt ngay lập tức khi giá trị bị thay đổi bởi người dùng. Vì lý do lịch sử, trong React, thành ngữ là sử dụng `onChange` thay thế, hoạt động tương tự.
+* `onInputCapture`: Một phiên bản của `onInput` kích hoạt trong [giai đoạn capture.](/learn/responding-to-events#capture-phase-events)
+* [`onInvalid`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/invalid_event): Một hàm [`Event` handler](/reference/react-dom/components/common#event-handler). Kích hoạt nếu một input không vượt qua xác thực khi gửi form. Không giống như sự kiện `invalid` tích hợp, sự kiện `onInvalid` của React nổi bọt.
+* `onInvalidCapture`: Một phiên bản của `onInvalid` kích hoạt trong [giai đoạn capture.](/learn/responding-to-events#capture-phase-events)
+* [`onSelect`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLInputElement/select_event): Một hàm [`Event` handler](/reference/react-dom/components/common#event-handler). Kích hoạt sau khi lựa chọn bên trong `<input>` thay đổi. React mở rộng sự kiện `onSelect` để cũng kích hoạt cho lựa chọn trống và khi chỉnh sửa (có thể ảnh hưởng đến lựa chọn).
+* `onSelectCapture`: Một phiên bản của `onSelect` kích hoạt trong [giai đoạn capture.](/learn/responding-to-events#capture-phase-events)
+* [`pattern`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#pattern): Một chuỗi. Chỉ định pattern mà `value` phải khớp.
+* [`placeholder`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#placeholder): Một chuỗi. Được hiển thị bằng màu mờ khi giá trị input trống.
+* [`readOnly`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#readonly): Một boolean. Nếu `true`, input không thể chỉnh sửa được bởi người dùng.
+* [`required`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#required): Một boolean. Nếu `true`, giá trị phải được cung cấp để form được gửi.
+* [`size`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#size): Một số. Tương tự như cài đặt width, nhưng đơn vị phụ thuộc vào control.
+* [`src`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#src): Một chuỗi. Chỉ định nguồn hình ảnh cho một input `type="image"`.
+* [`step`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#step): Một số dương hoặc một chuỗi `'any'`. Chỉ định khoảng cách giữa các giá trị hợp lệ.
+* [`type`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#type): Một chuỗi. Một trong các [loại input.](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types)
+* [`width`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#width):  Một chuỗi. Chỉ định chiều rộng hình ảnh cho một input `type="image"`.
 
-#### Caveats {/*caveats*/}
+#### Lưu ý {/*caveats*/}
 
-- Checkboxes need `checked` (or `defaultChecked`), not `value` (or `defaultValue`).
-- If a text input receives a string `value` prop, it will be [treated as controlled.](#controlling-an-input-with-a-state-variable)
-- If a checkbox or a radio button receives a boolean `checked` prop, it will be [treated as controlled.](#controlling-an-input-with-a-state-variable)
-- An input can't be both controlled and uncontrolled at the same time.
-- An input cannot switch between being controlled or uncontrolled over its lifetime.
-- Every controlled input needs an `onChange` event handler that synchronously updates its backing value.
+- Checkbox cần `checked` (hoặc `defaultChecked`), không phải `value` (hoặc `defaultValue`).
+- Nếu một input văn bản nhận được một prop `value` kiểu chuỗi, nó sẽ được [xử lý như được kiểm soát.](#controlling-an-input-with-a-state-variable)
+- Nếu một checkbox hoặc một radio button nhận được một prop `checked` kiểu boolean, nó sẽ được [xử lý như được kiểm soát.](#controlling-an-input-with-a-state-variable)
+- Một input không thể vừa được kiểm soát vừa không được kiểm soát cùng một lúc.
+- Một input không thể chuyển đổi giữa việc được kiểm soát hoặc không được kiểm soát trong suốt vòng đời của nó.
+- Mọi input được kiểm soát cần một trình xử lý sự kiện `onChange` để đồng bộ cập nhật giá trị backing của nó.
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Displaying inputs of different types {/*displaying-inputs-of-different-types*/}
+### Hiển thị các input thuộc các loại khác nhau {/*displaying-inputs-of-different-types*/}
 
-To display an input, render an `<input>` component. By default, it will be a text input. You can pass `type="checkbox"` for a checkbox, `type="radio"` for a radio button, [or one of the other input types.](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types)
+Để hiển thị một input, render một component `<input>`. Theo mặc định, nó sẽ là một input văn bản. Bạn có thể truyền `type="checkbox"` cho một checkbox, `type="radio"` cho một radio button, [hoặc một trong các loại input khác.](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#input_types)
 
 <Sandpack>
 
@@ -148,11 +148,11 @@ input { margin: 5px; }
 
 ---
 
-### Providing a label for an input {/*providing-a-label-for-an-input*/}
+### Cung cấp một label cho một input {/*providing-a-label-for-an-input*/}
 
-Typically, you will place every `<input>` inside a [`<label>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label) tag. This tells the browser that this label is associated with that input. When the user clicks the label, the browser will automatically focus the input. It's also essential for accessibility: a screen reader will announce the label caption when the user focuses the associated input.
+Thông thường, bạn sẽ đặt mọi `<input>` bên trong một thẻ [`<label>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label). Điều này cho trình duyệt biết rằng label này được liên kết với input đó. Khi người dùng nhấp vào label, trình duyệt sẽ tự động focus vào input. Nó cũng rất cần thiết cho khả năng truy cập: một trình đọc màn hình sẽ thông báo caption của label khi người dùng focus vào input được liên kết.
 
-If you can't nest `<input>` into a `<label>`, associate them by passing the same ID to `<input id>` and [`<label htmlFor>`.](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLabelElement/htmlFor) To avoid conflicts between multiple instances of one component, generate such an ID with [`useId`.](/reference/react/useId)
+Nếu bạn không thể lồng `<input>` vào một `<label>`, hãy liên kết chúng bằng cách truyền cùng một ID cho `<input id>` và [`<label htmlFor>`.](https://developer.mozilla.org/en-US/docs/Web/API/HTMLLabelElement/htmlFor) Để tránh xung đột giữa nhiều instance của một component, hãy tạo một ID như vậy bằng [`useId`.](/reference/react/useId)
 
 <Sandpack>
 
@@ -183,9 +183,9 @@ input { margin: 5px; }
 
 ---
 
-### Providing an initial value for an input {/*providing-an-initial-value-for-an-input*/}
+### Cung cấp một giá trị ban đầu cho một input {/*providing-an-initial-value-for-an-input*/}
 
-You can optionally specify the initial value for any input. Pass it as the `defaultValue` string for text inputs. Checkboxes and radio buttons should specify the initial value with the `defaultChecked` boolean instead.
+Bạn có thể tùy chọn chỉ định giá trị ban đầu cho bất kỳ input nào. Truyền nó dưới dạng chuỗi `defaultValue` cho các input văn bản. Checkbox và radio button nên chỉ định giá trị ban đầu bằng boolean `defaultChecked` thay thế.
 
 <Sandpack>
 
@@ -235,25 +235,25 @@ input { margin: 5px; }
 
 ---
 
-### Reading the input values when submitting a form {/*reading-the-input-values-when-submitting-a-form*/}
+### Đọc các giá trị input khi gửi form {/*reading-the-input-values-when-submitting-a-form*/}
 
-Add a [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) around your inputs with a [`<button type="submit">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) inside. It will call your `<form onSubmit>` event handler. By default, the browser will send the form data to the current URL and refresh the page. You can override that behavior by calling `e.preventDefault()`. Read the form data with [`new FormData(e.target)`](https://developer.mozilla.org/en-US/docs/Web/API/FormData).
+Thêm một [`<form>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/form) xung quanh các input của bạn với một [`<button type="submit">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) bên trong. Nó sẽ gọi trình xử lý sự kiện `<form onSubmit>` của bạn. Theo mặc định, trình duyệt sẽ gửi dữ liệu form đến URL hiện tại và làm mới trang. Bạn có thể ghi đè hành vi đó bằng cách gọi `e.preventDefault()`. Đọc dữ liệu form bằng [`new FormData(e.target)`](https://developer.mozilla.org/en-US/docs/Web/API/FormData).
 <Sandpack>
 
 ```js
 export default function MyForm() {
   function handleSubmit(e) {
-    // Prevent the browser from reloading the page
+    // Ngăn trình duyệt tải lại trang
     e.preventDefault();
 
-    // Read the form data
+    // Đọc dữ liệu form
     const form = e.target;
     const formData = new FormData(form);
 
-    // You can pass formData as a fetch body directly:
+    // Bạn có thể truyền formData làm body fetch trực tiếp:
     fetch('/some-api', { method: form.method, body: formData });
 
-    // Or you can work with it as a plain object:
+    // Hoặc bạn có thể làm việc với nó như một đối tượng thuần túy:
     const formJson = Object.fromEntries(formData.entries());
     console.log(formJson);
   }
@@ -291,38 +291,38 @@ input { margin: 5px; }
 
 <Note>
 
-Give a `name` to every `<input>`, for example `<input name="firstName" defaultValue="Taylor" />`. The `name` you specified will be used as a key in the form data, for example `{ firstName: "Taylor" }`.
+Đặt một `name` cho mỗi `<input>`, ví dụ: `<input name="firstName" defaultValue="Taylor" />`. `name` bạn đã chỉ định sẽ được sử dụng làm key trong dữ liệu form, ví dụ: `{ firstName: "Taylor" }`.
 
 </Note>
 
 <Pitfall>
 
-By default, a `<button>` inside a `<form>` without a `type` attribute will submit it. This can be surprising! If you have your own custom `Button` React component, consider using [`<button type="button">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) instead of `<button>` (with no type). Then, to be explicit, use `<button type="submit">` for buttons that *are* supposed to submit the form.
+Theo mặc định, một `<button>` bên trong một `<form>` mà không có thuộc tính `type` sẽ gửi nó. Điều này có thể gây ngạc nhiên! Nếu bạn có component React `Button` tùy chỉnh của riêng mình, hãy cân nhắc sử dụng [`<button type="button">`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button) thay vì `<button>` (không có type). Sau đó, để rõ ràng, hãy sử dụng `<button type="submit">` cho các button *có* nhiệm vụ gửi form.
 
 </Pitfall>
 
 ---
 
-### Controlling an input with a state variable {/*controlling-an-input-with-a-state-variable*/}
+### Kiểm soát một input bằng một biến trạng thái {/*controlling-an-input-with-a-state-variable*/}
 
-An input like `<input />` is *uncontrolled.* Even if you [pass an initial value](#providing-an-initial-value-for-an-input) like `<input defaultValue="Initial text" />`, your JSX only specifies the initial value. It does not control what the value should be right now.
+Một input như `<input />` là *không được kiểm soát.* Ngay cả khi bạn [truyền một giá trị ban đầu](#providing-an-initial-value-for-an-input) như `<input defaultValue="Initial text" />`, JSX của bạn chỉ chỉ định giá trị ban đầu. Nó không kiểm soát giá trị nên là gì ngay bây giờ.
 
-**To render a _controlled_ input, pass the `value` prop to it (or `checked` for checkboxes and radios).** React will force the input to always have the `value` you passed. Usually, you would do this by declaring a [state variable:](/reference/react/useState)
+**Để render một input _được kiểm soát_, hãy truyền prop `value` cho nó (hoặc `checked` cho checkbox và radio).** React sẽ buộc input luôn có `value` mà bạn đã truyền. Thông thường, bạn sẽ làm điều này bằng cách khai báo một [biến trạng thái:](/reference/react/useState)
 
 ```js {2,6,7}
 function Form() {
-  const [firstName, setFirstName] = useState(''); // Declare a state variable...
+  const [firstName, setFirstName] = useState(''); // Khai báo một biến trạng thái...
   // ...
   return (
     <input
-      value={firstName} // ...force the input's value to match the state variable...
-      onChange={e => setFirstName(e.target.value)} // ... and update the state variable on any edits!
+      value={firstName} // ...buộc giá trị của input khớp với biến trạng thái...
+      onChange={e => setFirstName(e.target.value)} // ...và cập nhật biến trạng thái trên mọi chỉnh sửa!
     />
   );
 }
 ```
 
-A controlled input makes sense if you needed state anyway--for example, to re-render your UI on every edit:
+Một input được kiểm soát có ý nghĩa nếu bạn cần trạng thái anyway--ví dụ: để re-render UI của bạn trên mọi chỉnh sửa:
 
 ```js {2,9}
 function Form() {
@@ -337,7 +337,7 @@ function Form() {
       ...
 ```
 
-It's also useful if you want to offer multiple ways to adjust the input state (for example, by clicking a button):
+Nó cũng hữu ích nếu bạn muốn cung cấp nhiều cách để điều chỉnh trạng thái input (ví dụ: bằng cách nhấp vào một button):
 
 ```js {3-4,10-11,14}
 function Form() {
@@ -358,7 +358,7 @@ function Form() {
         </button>
 ```
 
-The `value` you pass to controlled components should not be `undefined` or `null`. If you need the initial value to be empty (such as with the `firstName` field below), initialize your state variable to an empty string (`''`).
+`value` bạn truyền cho các component được kiểm soát không được là `undefined` hoặc `null`. Nếu bạn cần giá trị ban đầu là trống (chẳng hạn như với trường `firstName` bên dưới), hãy khởi tạo biến trạng thái của bạn thành một chuỗi trống (`''`).
 
 <Sandpack>
 
@@ -410,17 +410,17 @@ p { font-weight: bold; }
 
 <Pitfall>
 
-**If you pass `value` without `onChange`, it will be impossible to type into the input.** When you control an input by passing some `value` to it, you *force* it to always have the value you passed. So if you pass a state variable as a `value` but forget to update that state variable synchronously during the `onChange` event handler, React will revert the input after every keystroke back to the `value` that you specified.
+**Nếu bạn truyền `value` mà không có `onChange`, sẽ không thể nhập vào input.** Khi bạn kiểm soát một input bằng cách truyền một số `value` cho nó, bạn *buộc* nó luôn có giá trị bạn đã truyền. Vì vậy, nếu bạn truyền một biến trạng thái làm `value` nhưng quên cập nhật biến trạng thái đó một cách đồng bộ trong trình xử lý sự kiện `onChange`, React sẽ hoàn nguyên input sau mỗi lần gõ phím trở lại `value` mà bạn đã chỉ định.
 
 </Pitfall>
 
 ---
 
-### Optimizing re-rendering on every keystroke {/*optimizing-re-rendering-on-every-keystroke*/}
+### Tối ưu hóa re-rendering trên mỗi lần gõ phím {/*optimizing-re-rendering-on-every-keystroke*/}
 
-When you use a controlled input, you set the state on every keystroke. If the component containing your state re-renders a large tree, this can get slow. There's a few ways you can optimize re-rendering performance.
+Khi bạn sử dụng một input được kiểm soát, bạn đặt trạng thái trên mỗi lần gõ phím. Nếu component chứa trạng thái của bạn re-render một cây lớn, điều này có thể trở nên chậm. Có một vài cách bạn có thể tối ưu hóa hiệu suất re-rendering.
 
-For example, suppose you start with a form that re-renders all page content on every keystroke:
+Ví dụ: giả sử bạn bắt đầu với một form re-render tất cả nội dung trang trên mỗi lần gõ phím:
 
 ```js {5-8}
 function App() {
@@ -436,7 +436,7 @@ function App() {
 }
 ```
 
-Since `<PageContent />` doesn't rely on the input state, you can move the input state into its own component:
+Vì `<PageContent />` không dựa vào trạng thái input, bạn có thể di chuyển trạng thái input vào component riêng của nó:
 
 ```js {4,10-17}
 function App() {
@@ -458,140 +458,140 @@ function SignupForm() {
 }
 ```
 
-This significantly improves performance because now only `SignupForm` re-renders on every keystroke.
+Điều này cải thiện đáng kể hiệu suất vì bây giờ chỉ `SignupForm` re-render trên mỗi lần gõ phím.
 
-If there is no way to avoid re-rendering (for example, if `PageContent` depends on the search input's value), [`useDeferredValue`](/reference/react/useDeferredValue#deferring-re-rendering-for-a-part-of-the-ui) lets you keep the controlled input responsive even in the middle of a large re-render.
+Nếu không có cách nào để tránh re-rendering (ví dụ: nếu `PageContent` phụ thuộc vào giá trị của input tìm kiếm), [`useDeferredValue`](/reference/react/useDeferredValue#deferring-re-rendering-for-a-part-of-the-ui) cho phép bạn giữ cho input được kiểm soát phản hồi ngay cả ở giữa một re-render lớn.
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## Khắc phục sự cố {/*troubleshooting*/}
 
-### My text input doesn't update when I type into it {/*my-text-input-doesnt-update-when-i-type-into-it*/}
+### Input văn bản của tôi không cập nhật khi tôi nhập vào nó {/*my-text-input-doesnt-update-when-i-type-into-it*/}
 
-If you render an input with `value` but no `onChange`, you will see an error in the console:
+Nếu bạn render một input với `value` nhưng không có `onChange`, bạn sẽ thấy một lỗi trong console:
 
 ```js
-// 🔴 Bug: controlled text input with no onChange handler
+// 🔴 Lỗi: input văn bản được kiểm soát không có trình xử lý onChange
 <input value={something} />
 ```
 
 <ConsoleBlock level="error">
 
-You provided a `value` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultValue`. Otherwise, set either `onChange` or `readOnly`.
+Bạn đã cung cấp một prop `value` cho một trường form mà không có trình xử lý `onChange`. Điều này sẽ render một trường chỉ đọc. Nếu trường nên có thể thay đổi, hãy sử dụng `defaultValue`. Nếu không, hãy đặt `onChange` hoặc `readOnly`.
 
 </ConsoleBlock>
 
-As the error message suggests, if you only wanted to [specify the *initial* value,](#providing-an-initial-value-for-an-input) pass `defaultValue` instead:
+Như thông báo lỗi gợi ý, nếu bạn chỉ muốn [chỉ định giá trị *ban đầu*,](#providing-an-initial-value-for-an-input) hãy truyền `defaultValue` thay thế:
 
 ```js
-// ✅ Good: uncontrolled input with an initial value
+// ✅ Tốt: input không được kiểm soát với một giá trị ban đầu
 <input defaultValue={something} />
 ```
 
-If you want [to control this input with a state variable,](#controlling-an-input-with-a-state-variable) specify an `onChange` handler:
+Nếu bạn muốn [kiểm soát input này bằng một biến trạng thái,](#controlling-an-input-with-a-state-variable) hãy chỉ định một trình xử lý `onChange`:
 
 ```js
-// ✅ Good: controlled input with onChange
+// ✅ Tốt: input được kiểm soát với onChange
 <input value={something} onChange={e => setSomething(e.target.value)} />
 ```
 
-If the value is intentionally read-only, add a `readOnly` prop to suppress the error:
+Nếu giá trị cố ý chỉ đọc, hãy thêm một prop `readOnly` để ngăn chặn lỗi:
 
 ```js
-// ✅ Good: readonly controlled input without on change
+// ✅ Tốt: input được kiểm soát chỉ đọc không có on change
 <input value={something} readOnly={true} />
 ```
 
 ---
 
-### My checkbox doesn't update when I click on it {/*my-checkbox-doesnt-update-when-i-click-on-it*/}
+### Checkbox của tôi không cập nhật khi tôi nhấp vào nó {/*my-checkbox-doesnt-update-when-i-click-on-it*/}
 
-If you render a checkbox with `checked` but no `onChange`, you will see an error in the console:
+Nếu bạn render một checkbox với `checked` nhưng không có `onChange`, bạn sẽ thấy một lỗi trong console:
 
 ```js
-// 🔴 Bug: controlled checkbox with no onChange handler
+// 🔴 Lỗi: checkbox được kiểm soát không có trình xử lý onChange
 <input type="checkbox" checked={something} />
 ```
 
 <ConsoleBlock level="error">
 
-You provided a `checked` prop to a form field without an `onChange` handler. This will render a read-only field. If the field should be mutable use `defaultChecked`. Otherwise, set either `onChange` or `readOnly`.
+Bạn đã cung cấp một prop `checked` cho một trường form mà không có trình xử lý `onChange`. Điều này sẽ render một trường chỉ đọc. Nếu trường nên có thể thay đổi, hãy sử dụng `defaultChecked`. Nếu không, hãy đặt `onChange` hoặc `readOnly`.
 
 </ConsoleBlock>
 
-As the error message suggests, if you only wanted to [specify the *initial* value,](#providing-an-initial-value-for-an-input) pass `defaultChecked` instead:
+Như thông báo lỗi gợi ý, nếu bạn chỉ muốn [chỉ định giá trị *ban đầu*,](#providing-an-initial-value-for-an-input) hãy truyền `defaultChecked` thay thế:
 
 ```js
-// ✅ Good: uncontrolled checkbox with an initial value
+// ✅ Tốt: checkbox không được kiểm soát với một giá trị ban đầu
 <input type="checkbox" defaultChecked={something} />
 ```
 
-If you want [to control this checkbox with a state variable,](#controlling-an-input-with-a-state-variable) specify an `onChange` handler:
+Nếu bạn muốn [kiểm soát checkbox này bằng một biến trạng thái,](#controlling-an-input-with-a-state-variable) hãy chỉ định một trình xử lý `onChange`:
 
 ```js
-// ✅ Good: controlled checkbox with onChange
+// ✅ Tốt: checkbox được kiểm soát với onChange
 <input type="checkbox" checked={something} onChange={e => setSomething(e.target.checked)} />
 ```
 
 <Pitfall>
 
-You need to read `e.target.checked` rather than `e.target.value` for checkboxes.
+Bạn cần đọc `e.target.checked` thay vì `e.target.value` cho checkbox.
 
 </Pitfall>
 
-If the checkbox is intentionally read-only, add a `readOnly` prop to suppress the error:
+Nếu checkbox cố ý chỉ đọc, hãy thêm một prop `readOnly` để ngăn chặn lỗi:
 
 ```js
-// ✅ Good: readonly controlled input without on change
+// ✅ Tốt: input được kiểm soát chỉ đọc không có on change
 <input type="checkbox" checked={something} readOnly={true} />
 ```
 
 ---
 
-### My input caret jumps to the beginning on every keystroke {/*my-input-caret-jumps-to-the-beginning-on-every-keystroke*/}
+### Caret input của tôi nhảy về đầu trên mỗi lần gõ phím {/*my-input-caret-jumps-to-the-beginning-on-every-keystroke*/}
 
-If you [control an input,](#controlling-an-input-with-a-state-variable) you must update its state variable to the input's value from the DOM during `onChange`.
+Nếu bạn [kiểm soát một input,](#controlling-an-input-with-a-state-variable) bạn phải cập nhật biến trạng thái của nó thành giá trị của input từ DOM trong `onChange`.
 
-You can't update it to something other than `e.target.value` (or `e.target.checked` for checkboxes):
+Bạn không thể cập nhật nó thành một thứ khác ngoài `e.target.value` (hoặc `e.target.checked` cho checkbox):
 
 ```js
 function handleChange(e) {
-  // 🔴 Bug: updating an input to something other than e.target.value
+  // 🔴 Lỗi: cập nhật một input thành một thứ khác ngoài e.target.value
   setFirstName(e.target.value.toUpperCase());
 }
 ```
 
-You also can't update it asynchronously:
+Bạn cũng không thể cập nhật nó một cách không đồng bộ:
 
 ```js
 function handleChange(e) {
-  // 🔴 Bug: updating an input asynchronously
+  // 🔴 Lỗi: cập nhật một input một cách không đồng bộ
   setTimeout(() => {
     setFirstName(e.target.value);
   }, 100);
 }
 ```
 
-To fix your code, update it synchronously to `e.target.value`:
+Để sửa mã của bạn, hãy cập nhật nó một cách đồng bộ thành `e.target.value`:
 
 ```js
 function handleChange(e) {
-  // ✅ Updating a controlled input to e.target.value synchronously
+  // ✅ Cập nhật một input được kiểm soát thành e.target.value một cách đồng bộ
   setFirstName(e.target.value);
 }
 ```
 
-If this doesn't fix the problem, it's possible that the input gets removed and re-added from the DOM on every keystroke. This can happen if you're accidentally [resetting state](/learn/preserving-and-resetting-state) on every re-render, for example if the input or one of its parents always receives a different `key` attribute, or if you nest component function definitions (which is not supported and causes the "inner" component to always be considered a different tree).
+Nếu điều này không khắc phục được sự cố, có thể input bị xóa và thêm lại từ DOM trên mỗi lần gõ phím. Điều này có thể xảy ra nếu bạn vô tình [đặt lại trạng thái](/learn/preserving-and-resetting-state) trên mỗi lần re-render, ví dụ: nếu input hoặc một trong các phần tử cha của nó luôn nhận một thuộc tính `key` khác nhau, hoặc nếu bạn lồng các định nghĩa hàm component (điều này không được hỗ trợ và khiến component "bên trong" luôn được coi là một cây khác).
 
 ---
 
-### I'm getting an error: "A component is changing an uncontrolled input to be controlled" {/*im-getting-an-error-a-component-is-changing-an-uncontrolled-input-to-be-controlled*/}
+### Tôi đang gặp lỗi: "Một component đang thay đổi một input không được kiểm soát thành được kiểm soát" {/*im-getting-an-error-a-component-is-changing-an-uncontrolled-input-to-be-controlled*/}
 
 
-If you provide a `value` to the component, it must remain a string throughout its lifetime.
+Nếu bạn cung cấp một `value` cho component, nó phải duy trì là một chuỗi trong suốt vòng đời của nó.
 
-You cannot pass `value={undefined}` first and later pass `value="some string"` because React won't know whether you want the component to be uncontrolled or controlled. A controlled component should always receive a string `value`, not `null` or `undefined`.
+Bạn không thể truyền `value={undefined}` trước và sau đó truyền `value="some string"` vì React sẽ không biết bạn muốn component không được kiểm soát hay được kiểm soát. Một component được kiểm soát phải luôn nhận một `value` kiểu chuỗi, không phải `null` hoặc `undefined`.
 
-If your `value` is coming from an API or a state variable, it might be initialized to `null` or `undefined`. In that case, either set it to an empty string (`''`) initially, or pass `value={someValue ?? ''}` to ensure `value` is a string.
+Nếu `value` của bạn đến từ một API hoặc một biến trạng thái, nó có thể được khởi tạo thành `null` hoặc `undefined`. Trong trường hợp đó, hãy đặt nó thành một chuỗi trống (`''`) ban đầu, hoặc truyền `value={someValue ?? ''}` để đảm bảo `value` là một chuỗi.
 
-Similarly, if you pass `checked` to a checkbox, ensure it's always a boolean.
+Tương tự, nếu bạn truyền `checked` cho một checkbox, hãy đảm bảo nó luôn là một boolean.
