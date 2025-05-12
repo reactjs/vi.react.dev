@@ -1,45 +1,45 @@
 ---
-title: 'You Might Not Need an Effect'
+title: 'Có Thể Bạn Không Cần Effect'
 ---
 
 <Intro>
 
-Effects are an escape hatch from the React paradigm. They let you "step outside" of React and synchronize your components with some external system like a non-React widget, network, or the browser DOM. If there is no external system involved (for example, if you want to update a component's state when some props or state change), you shouldn't need an Effect. Removing unnecessary Effects will make your code easier to follow, faster to run, and less error-prone.
+Effect là một lối thoát khỏi mô hình React. Chúng cho phép bạn "bước ra ngoài" React và đồng bộ hóa các component của bạn với một số hệ thống bên ngoài như một widget không phải React, mạng hoặc DOM của trình duyệt. Nếu không có hệ thống bên ngoài nào liên quan (ví dụ: nếu bạn muốn cập nhật state của một component khi một số prop hoặc state thay đổi), bạn không nên cần đến Effect. Loại bỏ các Effect không cần thiết sẽ giúp code của bạn dễ theo dõi hơn, chạy nhanh hơn và ít bị lỗi hơn.
 
 </Intro>
 
 <YouWillLearn>
 
-* Why and how to remove unnecessary Effects from your components
-* How to cache expensive computations without Effects
-* How to reset and adjust component state without Effects
-* How to share logic between event handlers
-* Which logic should be moved to event handlers
-* How to notify parent components about changes
+* Tại sao và làm thế nào để loại bỏ các Effect không cần thiết khỏi component của bạn
+* Cách lưu trữ các phép tính tốn kém mà không cần Effect
+* Cách đặt lại và điều chỉnh state của component mà không cần Effect
+* Cách chia sẻ logic giữa các trình xử lý sự kiện
+* Logic nào nên được chuyển sang trình xử lý sự kiện
+* Cách thông báo cho các component cha về các thay đổi
 
 </YouWillLearn>
 
-## How to remove unnecessary Effects {/*how-to-remove-unnecessary-effects*/}
+## Làm thế nào để loại bỏ các Effect không cần thiết {/*how-to-remove-unnecessary-effects*/}
 
-There are two common cases in which you don't need Effects:
+Có hai trường hợp phổ biến mà bạn không cần Effect:
 
-* **You don't need Effects to transform data for rendering.** For example, let's say you want to filter a list before displaying it. You might feel tempted to write an Effect that updates a state variable when the list changes. However, this is inefficient. When you update the state, React will first call your component functions to calculate what should be on the screen. Then React will ["commit"](/learn/render-and-commit) these changes to the DOM, updating the screen. Then React will run your Effects. If your Effect *also* immediately updates the state, this restarts the whole process from scratch! To avoid the unnecessary render passes, transform all the data at the top level of your components. That code will automatically re-run whenever your props or state change.
-* **You don't need Effects to handle user events.** For example, let's say you want to send an `/api/buy` POST request and show a notification when the user buys a product. In the Buy button click event handler, you know exactly what happened. By the time an Effect runs, you don't know *what* the user did (for example, which button was clicked). This is why you'll usually handle user events in the corresponding event handlers.
+* **Bạn không cần Effect để chuyển đổi dữ liệu để hiển thị.** Ví dụ: giả sử bạn muốn lọc một danh sách trước khi hiển thị nó. Bạn có thể cảm thấy muốn viết một Effect để cập nhật một biến state khi danh sách thay đổi. Tuy nhiên, điều này không hiệu quả. Khi bạn cập nhật state, React sẽ gọi các hàm component của bạn để tính toán những gì sẽ hiển thị trên màn hình. Sau đó, React sẽ ["commit"](/learn/render-and-commit) những thay đổi này vào DOM, cập nhật màn hình. Sau đó, React sẽ chạy các Effect của bạn. Nếu Effect của bạn *cũng* ngay lập tức cập nhật state, điều này sẽ khởi động lại toàn bộ quá trình từ đầu! Để tránh các lần render không cần thiết, hãy chuyển đổi tất cả dữ liệu ở cấp cao nhất của component của bạn. Code đó sẽ tự động chạy lại bất cứ khi nào prop hoặc state của bạn thay đổi.
+* **Bạn không cần Effect để xử lý các sự kiện của người dùng.** Ví dụ: giả sử bạn muốn gửi một yêu cầu POST `/api/buy` và hiển thị một thông báo khi người dùng mua một sản phẩm. Trong trình xử lý sự kiện click của nút Mua, bạn biết chính xác những gì đã xảy ra. Vào thời điểm Effect chạy, bạn không biết *người dùng* đã làm gì (ví dụ: nút nào đã được click). Đây là lý do tại sao bạn thường xử lý các sự kiện của người dùng trong các trình xử lý sự kiện tương ứng.
 
-You *do* need Effects to [synchronize](/learn/synchronizing-with-effects#what-are-effects-and-how-are-they-different-from-events) with external systems. For example, you can write an Effect that keeps a jQuery widget synchronized with the React state. You can also fetch data with Effects: for example, you can synchronize the search results with the current search query. Keep in mind that modern [frameworks](/learn/start-a-new-react-project#production-grade-react-frameworks) provide more efficient built-in data fetching mechanisms than writing Effects directly in your components.
+Bạn *cần* Effect để [đồng bộ hóa](/learn/synchronizing-with-effects#what-are-effects-and-how-are-they-different-from-events) với các hệ thống bên ngoài. Ví dụ: bạn có thể viết một Effect để giữ cho một widget jQuery được đồng bộ hóa với state của React. Bạn cũng có thể tìm nạp dữ liệu bằng Effect: ví dụ: bạn có thể đồng bộ hóa kết quả tìm kiếm với truy vấn tìm kiếm hiện tại. Hãy nhớ rằng các [framework](/learn/start-a-new-react-project#production-grade-react-frameworks) hiện đại cung cấp các cơ chế tìm nạp dữ liệu tích hợp hiệu quả hơn so với việc viết Effect trực tiếp trong component của bạn.
 
-To help you gain the right intuition, let's look at some common concrete examples!
+Để giúp bạn có được trực giác đúng đắn, hãy xem một số ví dụ cụ thể phổ biến!
 
-### Updating state based on props or state {/*updating-state-based-on-props-or-state*/}
+### Cập nhật state dựa trên prop hoặc state {/*updating-state-based-on-props-or-state*/}
 
-Suppose you have a component with two state variables: `firstName` and `lastName`. You want to calculate a `fullName` from them by concatenating them. Moreover, you'd like `fullName` to update whenever `firstName` or `lastName` change. Your first instinct might be to add a `fullName` state variable and update it in an Effect:
+Giả sử bạn có một component với hai biến state: `firstName` và `lastName`. Bạn muốn tính toán một `fullName` từ chúng bằng cách nối chúng lại với nhau. Hơn nữa, bạn muốn `fullName` cập nhật bất cứ khi nào `firstName` hoặc `lastName` thay đổi. Bản năng đầu tiên của bạn có thể là thêm một biến state `fullName` và cập nhật nó trong một Effect:
 
 ```js {5-9}
 function Form() {
   const [firstName, setFirstName] = useState('Taylor');
   const [lastName, setLastName] = useState('Swift');
 
-  // 🔴 Avoid: redundant state and unnecessary Effect
+  // 🔴 Tránh: state dư thừa và Effect không cần thiết
   const [fullName, setFullName] = useState('');
   useEffect(() => {
     setFullName(firstName + ' ' + lastName);
@@ -48,29 +48,29 @@ function Form() {
 }
 ```
 
-This is more complicated than necessary. It is inefficient too: it does an entire render pass with a stale value for `fullName`, then immediately re-renders with the updated value. Remove the state variable and the Effect:
+Điều này phức tạp hơn mức cần thiết. Nó cũng không hiệu quả: nó thực hiện một lần render hoàn chỉnh với một giá trị cũ cho `fullName`, sau đó ngay lập tức render lại với giá trị đã cập nhật. Loại bỏ biến state và Effect:
 
 ```js {4-5}
 function Form() {
   const [firstName, setFirstName] = useState('Taylor');
   const [lastName, setLastName] = useState('Swift');
-  // ✅ Good: calculated during rendering
+  // ✅ Tốt: được tính toán trong quá trình render
   const fullName = firstName + ' ' + lastName;
   // ...
 }
 ```
 
-**When something can be calculated from the existing props or state, [don't put it in state.](/learn/choosing-the-state-structure#avoid-redundant-state) Instead, calculate it during rendering.** This makes your code faster (you avoid the extra "cascading" updates), simpler (you remove some code), and less error-prone (you avoid bugs caused by different state variables getting out of sync with each other). If this approach feels new to you, [Thinking in React](/learn/thinking-in-react#step-3-find-the-minimal-but-complete-representation-of-ui-state) explains what should go into state.
+**Khi một cái gì đó có thể được tính toán từ các prop hoặc state hiện có, [đừng đưa nó vào state.](/learn/choosing-the-state-structure#avoid-redundant-state) Thay vào đó, hãy tính toán nó trong quá trình render.** Điều này làm cho code của bạn nhanh hơn (bạn tránh được các cập nhật "xếp tầng" bổ sung), đơn giản hơn (bạn loại bỏ một số code) và ít bị lỗi hơn (bạn tránh được các lỗi do các biến state khác nhau bị lệch pha với nhau). Nếu cách tiếp cận này có vẻ mới đối với bạn, [Thinking in React](/learn/thinking-in-react#step-3-find-the-minimal-but-complete-representation-of-ui-state) giải thích những gì nên đưa vào state.
 
-### Caching expensive calculations {/*caching-expensive-calculations*/}
+### Lưu trữ các phép tính tốn kém {/*caching-expensive-calculations*/}
 
-This component computes `visibleTodos` by taking the `todos` it receives by props and filtering them according to the `filter` prop. You might feel tempted to store the result in state and update it from an Effect:
+Component này tính toán `visibleTodos` bằng cách lấy `todos` mà nó nhận được bằng prop và lọc chúng theo prop `filter`. Bạn có thể cảm thấy muốn lưu trữ kết quả trong state và cập nhật nó từ một Effect:
 
 ```js {4-8}
 function TodoList({ todos, filter }) {
   const [newTodo, setNewTodo] = useState('');
 
-  // 🔴 Avoid: redundant state and unnecessary Effect
+  // 🔴 Tránh: state dư thừa và Effect không cần thiết
   const [visibleTodos, setVisibleTodos] = useState([]);
   useEffect(() => {
     setVisibleTodos(getFilteredTodos(todos, filter));
@@ -80,20 +80,20 @@ function TodoList({ todos, filter }) {
 }
 ```
 
-Like in the earlier example, this is both unnecessary and inefficient. First, remove the state and the Effect:
+Giống như trong ví dụ trước, điều này vừa không cần thiết vừa không hiệu quả. Đầu tiên, loại bỏ state và Effect:
 
 ```js {3-4}
 function TodoList({ todos, filter }) {
   const [newTodo, setNewTodo] = useState('');
-  // ✅ This is fine if getFilteredTodos() is not slow.
+  // ✅ Điều này ổn nếu getFilteredTodos() không chậm.
   const visibleTodos = getFilteredTodos(todos, filter);
   // ...
 }
 ```
 
-Usually, this code is fine! But maybe `getFilteredTodos()` is slow or you have a lot of `todos`. In that case you don't want to recalculate `getFilteredTodos()` if some unrelated state variable like `newTodo` has changed.
+Thông thường, đoạn code này vẫn ổn! Nhưng có thể `getFilteredTodos()` chạy chậm hoặc bạn có rất nhiều `todos`. Trong trường hợp đó, bạn không muốn tính toán lại `getFilteredTodos()` nếu một biến state không liên quan như `newTodo` đã thay đổi.
 
-You can cache (or ["memoize"](https://en.wikipedia.org/wiki/Memoization)) an expensive calculation by wrapping it in a [`useMemo`](/reference/react/useMemo) Hook:
+Bạn có thể lưu vào bộ nhớ cache (hoặc ["ghi nhớ"](https://en.wikipedia.org/wiki/Memoization)) một phép tính tốn kém bằng cách bọc nó trong một Hook [`useMemo`](/reference/react/useMemo):
 
 ```js {5-8}
 import { useMemo, useState } from 'react';
@@ -101,35 +101,35 @@ import { useMemo, useState } from 'react';
 function TodoList({ todos, filter }) {
   const [newTodo, setNewTodo] = useState('');
   const visibleTodos = useMemo(() => {
-    // ✅ Does not re-run unless todos or filter change
+    // ✅ Không chạy lại trừ khi todos hoặc filter thay đổi
     return getFilteredTodos(todos, filter);
   }, [todos, filter]);
   // ...
 }
 ```
 
-Or, written as a single line:
+Hoặc, viết dưới dạng một dòng duy nhất:
 
 ```js {5-6}
 import { useMemo, useState } from 'react';
 
 function TodoList({ todos, filter }) {
   const [newTodo, setNewTodo] = useState('');
-  // ✅ Does not re-run getFilteredTodos() unless todos or filter change
+  // ✅ Không chạy lại getFilteredTodos() trừ khi todos hoặc filter thay đổi
   const visibleTodos = useMemo(() => getFilteredTodos(todos, filter), [todos, filter]);
   // ...
 }
 ```
 
-**This tells React that you don't want the inner function to re-run unless either `todos` or `filter` have changed.** React will remember the return value of `getFilteredTodos()` during the initial render. During the next renders, it will check if `todos` or `filter` are different. If they're the same as last time, `useMemo` will return the last result it has stored. But if they are different, React will call the inner function again (and store its result).
+**Điều này cho React biết rằng bạn không muốn hàm bên trong chạy lại trừ khi `todos` hoặc `filter` đã thay đổi.** React sẽ ghi nhớ giá trị trả về của `getFilteredTodos()` trong quá trình render ban đầu. Trong quá trình render tiếp theo, nó sẽ kiểm tra xem `todos` hoặc `filter` có khác nhau hay không. Nếu chúng giống như lần trước, `useMemo` sẽ trả về kết quả cuối cùng mà nó đã lưu trữ. Nhưng nếu chúng khác nhau, React sẽ gọi lại hàm bên trong (và lưu trữ kết quả của nó).
 
-The function you wrap in [`useMemo`](/reference/react/useMemo) runs during rendering, so this only works for [pure calculations.](/learn/keeping-components-pure)
+Hàm bạn bọc trong [`useMemo`](/reference/react/useMemo) chạy trong quá trình render, vì vậy điều này chỉ hoạt động đối với [các phép tính thuần túy.](/learn/keeping-components-pure)
 
 <DeepDive>
 
-#### How to tell if a calculation is expensive? {/*how-to-tell-if-a-calculation-is-expensive*/}
+#### Làm thế nào để biết một phép tính có tốn kém hay không? {/*how-to-tell-if-a-calculation-is-expensive*/}
 
-In general, unless you're creating or looping over thousands of objects, it's probably not expensive. If you want to get more confidence, you can add a console log to measure the time spent in a piece of code:
+Nói chung, trừ khi bạn đang tạo hoặc lặp qua hàng nghìn đối tượng, có lẽ nó không tốn kém. Nếu bạn muốn tự tin hơn, bạn có thể thêm một bản ghi console để đo thời gian dành cho một đoạn code:
 
 ```js {1,3}
 console.time('filter array');
@@ -137,33 +137,33 @@ const visibleTodos = getFilteredTodos(todos, filter);
 console.timeEnd('filter array');
 ```
 
-Perform the interaction you're measuring (for example, typing into the input). You will then see logs like `filter array: 0.15ms` in your console. If the overall logged time adds up to a significant amount (say, `1ms` or more), it might make sense to memoize that calculation. As an experiment, you can then wrap the calculation in `useMemo` to verify whether the total logged time has decreased for that interaction or not:
+Thực hiện tương tác bạn đang đo (ví dụ: nhập vào đầu vào). Sau đó, bạn sẽ thấy các bản ghi như `filter array: 0.15ms` trong bảng điều khiển của mình. Nếu tổng thời gian được ghi lại cộng lại thành một lượng đáng kể (ví dụ: `1ms` trở lên), thì có thể có ý nghĩa khi ghi nhớ phép tính đó. Như một thử nghiệm, sau đó bạn có thể bọc phép tính trong `useMemo` để xác minh xem tổng thời gian được ghi lại có giảm cho tương tác đó hay không:
 
 ```js
 console.time('filter array');
 const visibleTodos = useMemo(() => {
-  return getFilteredTodos(todos, filter); // Skipped if todos and filter haven't changed
+  return getFilteredTodos(todos, filter); // Bỏ qua nếu todos và filter không thay đổi
 }, [todos, filter]);
 console.timeEnd('filter array');
 ```
 
-`useMemo` won't make the *first* render faster. It only helps you skip unnecessary work on updates.
+`useMemo` sẽ không làm cho quá trình render *đầu tiên* nhanh hơn. Nó chỉ giúp bạn bỏ qua các công việc không cần thiết khi cập nhật.
 
-Keep in mind that your machine is probably faster than your users' so it's a good idea to test the performance with an artificial slowdown. For example, Chrome offers a [CPU Throttling](https://developer.chrome.com/blog/new-in-devtools-61/#throttling) option for this.
+Hãy nhớ rằng máy của bạn có thể nhanh hơn máy của người dùng, vì vậy bạn nên kiểm tra hiệu suất với một sự chậm lại nhân tạo. Ví dụ: Chrome cung cấp tùy chọn [Điều chỉnh CPU](https://developer.chrome.com/blog/new-in-devtools-61/#throttling) cho việc này.
 
-Also note that measuring performance in development will not give you the most accurate results. (For example, when [Strict Mode](/reference/react/StrictMode) is on, you will see each component render twice rather than once.) To get the most accurate timings, build your app for production and test it on a device like your users have.
+Cũng lưu ý rằng việc đo hiệu suất trong quá trình phát triển sẽ không cung cấp cho bạn kết quả chính xác nhất. (Ví dụ: khi [Chế độ nghiêm ngặt](/reference/react/StrictMode) được bật, bạn sẽ thấy mỗi thành phần render hai lần thay vì một lần.) Để có được thời gian chính xác nhất, hãy xây dựng ứng dụng của bạn để sản xuất và kiểm tra nó trên một thiết bị như người dùng của bạn có.
 
 </DeepDive>
 
-### Resetting all state when a prop changes {/*resetting-all-state-when-a-prop-changes*/}
+### Đặt lại tất cả trạng thái khi một prop thay đổi {/*resetting-all-state-when-a-prop-changes*/}
 
-This `ProfilePage` component receives a `userId` prop. The page contains a comment input, and you use a `comment` state variable to hold its value. One day, you notice a problem: when you navigate from one profile to another, the `comment` state does not get reset. As a result, it's easy to accidentally post a comment on a wrong user's profile. To fix the issue, you want to clear out the `comment` state variable whenever the `userId` changes:
+Thành phần `ProfilePage` này nhận một prop `userId`. Trang này chứa một đầu vào nhận xét và bạn sử dụng một biến state `comment` để giữ giá trị của nó. Một ngày nọ, bạn nhận thấy một vấn đề: khi bạn điều hướng từ hồ sơ này sang hồ sơ khác, trạng thái `comment` không được đặt lại. Do đó, rất dễ vô tình đăng nhận xét trên hồ sơ của người dùng sai. Để khắc phục sự cố, bạn muốn xóa biến state `comment` bất cứ khi nào `userId` thay đổi:
 
 ```js {4-7}
 export default function ProfilePage({ userId }) {
   const [comment, setComment] = useState('');
 
-  // 🔴 Avoid: Resetting state on prop change in an Effect
+  // 🔴 Tránh: Đặt lại trạng thái khi thay đổi prop trong một Effect
   useEffect(() => {
     setComment('');
   }, [userId]);
@@ -171,9 +171,9 @@ export default function ProfilePage({ userId }) {
 }
 ```
 
-This is inefficient because `ProfilePage` and its children will first render with the stale value, and then render again. It is also complicated because you'd need to do this in *every* component that has some state inside `ProfilePage`. For example, if the comment UI is nested, you'd want to clear out nested comment state too.
+Điều này không hiệu quả vì `ProfilePage` và các thành phần con của nó sẽ render trước với giá trị cũ, sau đó render lại. Nó cũng phức tạp vì bạn cần phải làm điều này trong *mọi* thành phần có một số state bên trong `ProfilePage`. Ví dụ: nếu giao diện người dùng nhận xét được lồng nhau, bạn cũng muốn xóa state nhận xét lồng nhau.
 
-Instead, you can tell React that each user's profile is conceptually a _different_ profile by giving it an explicit key. Split your component in two and pass a `key` attribute from the outer component to the inner one:
+Thay vào đó, bạn có thể cho React biết rằng hồ sơ của mỗi người dùng về mặt khái niệm là một hồ sơ _khác nhau_ bằng cách cung cấp cho nó một khóa rõ ràng. Chia component của bạn thành hai và chuyển một thuộc tính `key` từ component bên ngoài sang component bên trong:
 
 ```js {5,11-12}
 export default function ProfilePage({ userId }) {
@@ -186,28 +186,28 @@ export default function ProfilePage({ userId }) {
 }
 
 function Profile({ userId }) {
-  // ✅ This and any other state below will reset on key change automatically
+  // ✅ Trạng thái này và bất kỳ trạng thái nào khác bên dưới sẽ tự động đặt lại khi thay đổi khóa
   const [comment, setComment] = useState('');
   // ...
 }
 ```
 
-Normally, React preserves the state when the same component is rendered in the same spot. **By passing `userId` as a `key` to the `Profile` component, you're asking React to treat two `Profile` components with different `userId` as two different components that should not share any state.** Whenever the key (which you've set to `userId`) changes, React will recreate the DOM and [reset the state](/learn/preserving-and-resetting-state#option-2-resetting-state-with-a-key) of the `Profile` component and all of its children. Now the `comment` field will clear out automatically when navigating between profiles.
+Thông thường, React giữ nguyên state khi cùng một component được render ở cùng một vị trí. **Bằng cách chuyển `userId` làm `key` cho component `Profile`, bạn đang yêu cầu React coi hai component `Profile` có `userId` khác nhau là hai component khác nhau không được chia sẻ bất kỳ state nào.** Bất cứ khi nào khóa (mà bạn đã đặt thành `userId`) thay đổi, React sẽ tạo lại DOM và [đặt lại state](/learn/preserving-and-resetting-state#option-2-resetting-state-with-a-key) của component `Profile` và tất cả các component con của nó. Bây giờ trường `comment` sẽ tự động xóa khi điều hướng giữa các hồ sơ.
 
-Note that in this example, only the outer `ProfilePage` component is exported and visible to other files in the project. Components rendering `ProfilePage` don't need to pass the key to it: they pass `userId` as a regular prop. The fact `ProfilePage` passes it as a `key` to the inner `Profile` component is an implementation detail.
+Lưu ý rằng trong ví dụ này, chỉ component `ProfilePage` bên ngoài được xuất và hiển thị cho các tệp khác trong dự án. Các component render `ProfilePage` không cần phải chuyển khóa cho nó: chúng chuyển `userId` làm một prop thông thường. Việc `ProfilePage` chuyển nó làm `key` cho component `Profile` bên trong là một chi tiết triển khai.
 
-### Adjusting some state when a prop changes {/*adjusting-some-state-when-a-prop-changes*/}
+### Điều chỉnh một số trạng thái khi một prop thay đổi {/*adjusting-some-state-when-a-prop-changes*/}
 
-Sometimes, you might want to reset or adjust a part of the state on a prop change, but not all of it.
+Đôi khi, bạn có thể muốn đặt lại hoặc điều chỉnh một phần của state khi một prop thay đổi, nhưng không phải tất cả.
 
-This `List` component receives a list of `items` as a prop, and maintains the selected item in the `selection` state variable. You want to reset the `selection` to `null` whenever the `items` prop receives a different array:
+Component `List` này nhận một danh sách `items` làm một prop và duy trì mục đã chọn trong biến state `selection`. Bạn muốn đặt lại `selection` thành `null` bất cứ khi nào
 
 ```js {5-8}
 function List({ items }) {
   const [isReverse, setIsReverse] = useState(false);
   const [selection, setSelection] = useState(null);
 
-  // 🔴 Avoid: Adjusting state on prop change in an Effect
+  // 🔴 Tránh: Điều chỉnh trạng thái khi thay đổi prop trong một Effect
   useEffect(() => {
     setSelection(null);
   }, [items]);
@@ -215,16 +215,16 @@ function List({ items }) {
 }
 ```
 
-This, too, is not ideal. Every time the `items` change, the `List` and its child components will render with a stale `selection` value at first. Then React will update the DOM and run the Effects. Finally, the `setSelection(null)` call will cause another re-render of the `List` and its child components, restarting this whole process again.
+Điều này cũng không lý tưởng. Mỗi khi `items` thay đổi, `List` và các thành phần con của nó sẽ render với giá trị `selection` cũ trước. Sau đó, React sẽ cập nhật DOM và chạy các Effect. Cuối cùng, lệnh gọi `setSelection(null)` sẽ gây ra một lần render lại `List` và các thành phần con của nó, khởi động lại toàn bộ quá trình này.
 
-Start by deleting the Effect. Instead, adjust the state directly during rendering:
+Bắt đầu bằng cách xóa Effect. Thay vào đó, hãy điều chỉnh trạng thái trực tiếp trong quá trình render:
 
 ```js {5-11}
 function List({ items }) {
   const [isReverse, setIsReverse] = useState(false);
   const [selection, setSelection] = useState(null);
 
-  // Better: Adjust the state while rendering
+  // Tốt hơn: Điều chỉnh trạng thái trong khi render
   const [prevItems, setPrevItems] = useState(items);
   if (items !== prevItems) {
     setPrevItems(items);
@@ -234,34 +234,34 @@ function List({ items }) {
 }
 ```
 
-[Storing information from previous renders](/reference/react/useState#storing-information-from-previous-renders) like this can be hard to understand, but it’s better than updating the same state in an Effect. In the above example, `setSelection` is called directly during a render. React will re-render the `List` *immediately* after it exits with a `return` statement. React has not rendered the `List` children or updated the DOM yet, so this lets the `List` children skip rendering the stale `selection` value.
+[Lưu trữ thông tin từ các lần render trước](/reference/react/useState#storing-information-from-previous-renders) như thế này có thể khó hiểu, nhưng nó tốt hơn là cập nhật cùng một trạng thái trong một Effect. Trong ví dụ trên, `setSelection` được gọi trực tiếp trong quá trình render. React sẽ render lại `List` *ngay lập tức* sau khi nó thoát bằng một câu lệnh `return`. React chưa render các thành phần con `List` hoặc cập nhật DOM, vì vậy điều này cho phép các thành phần con `List` bỏ qua việc render giá trị `selection` cũ.
 
-When you update a component during rendering, React throws away the returned JSX and immediately retries rendering. To avoid very slow cascading retries, React only lets you update the *same* component's state during a render. If you update another component's state during a render, you'll see an error. A condition like `items !== prevItems` is necessary to avoid loops. You may adjust state like this, but any other side effects (like changing the DOM or setting timeouts) should stay in event handlers or Effects to [keep components pure.](/learn/keeping-components-pure)
+Khi bạn cập nhật một thành phần trong quá trình render, React sẽ loại bỏ JSX được trả về và thử lại render ngay lập tức. Để tránh các lần thử lại xếp tầng rất chậm, React chỉ cho phép bạn cập nhật trạng thái của *cùng* một thành phần trong quá trình render. Nếu bạn cập nhật trạng thái của một thành phần khác trong quá trình render, bạn sẽ thấy lỗi. Một điều kiện như `items !== prevItems` là cần thiết để tránh các vòng lặp. Bạn có thể điều chỉnh trạng thái như thế này, nhưng bất kỳ tác dụng phụ nào khác (như thay đổi DOM hoặc đặt thời gian chờ) nên ở trong các trình xử lý sự kiện hoặc Effect để [giữ cho các thành phần thuần túy.](/learn/keeping-components-pure)
 
-**Although this pattern is more efficient than an Effect, most components shouldn't need it either.** No matter how you do it, adjusting state based on props or other state makes your data flow more difficult to understand and debug. Always check whether you can [reset all state with a key](#resetting-all-state-when-a-prop-changes) or [calculate everything during rendering](#updating-state-based-on-props-or-state) instead. For example, instead of storing (and resetting) the selected *item*, you can store the selected *item ID:*
+**Mặc dù mẫu này hiệu quả hơn một Effect, nhưng hầu hết các thành phần cũng không cần nó.** Bất kể bạn làm điều đó như thế nào, việc điều chỉnh trạng thái dựa trên các prop hoặc trạng thái khác sẽ làm cho luồng dữ liệu của bạn khó hiểu và gỡ lỗi hơn. Luôn kiểm tra xem bạn có thể [đặt lại tất cả trạng thái bằng một khóa](#resetting-all-state-when-a-prop-changes) hoặc [tính toán mọi thứ trong quá trình render](#updating-state-based-on-props-or-state) hay không. Ví dụ: thay vì lưu trữ (và đặt lại) *mục* đã chọn, bạn có thể lưu trữ *ID mục* đã chọn:
 
 ```js {3-5}
 function List({ items }) {
   const [isReverse, setIsReverse] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
-  // ✅ Best: Calculate everything during rendering
+  // ✅ Tốt nhất: Tính toán mọi thứ trong quá trình render
   const selection = items.find(item => item.id === selectedId) ?? null;
   // ...
 }
 ```
 
-Now there is no need to "adjust" the state at all. If the item with the selected ID is in the list, it remains selected. If it's not, the `selection` calculated during rendering will be `null` because no matching item was found. This behavior is different, but arguably better because most changes to `items` preserve the selection.
+Bây giờ không cần phải "điều chỉnh" trạng thái nữa. Nếu mục có ID đã chọn nằm trong danh sách, nó vẫn được chọn. Nếu không, `selection` được tính toán trong quá trình render sẽ là `null` vì không tìm thấy mục phù hợp. Hành vi này khác, nhưng có thể tốt hơn vì hầu hết các thay đổi đối với `items` đều giữ nguyên lựa chọn.
 
-### Sharing logic between event handlers {/*sharing-logic-between-event-handlers*/}
+### Chia sẻ logic giữa các trình xử lý sự kiện {/*sharing-logic-between-event-handlers*/}
 
-Let's say you have a product page with two buttons (Buy and Checkout) that both let you buy that product. You want to show a notification whenever the user puts the product in the cart. Calling `showNotification()` in both buttons' click handlers feels repetitive so you might be tempted to place this logic in an Effect:
+Giả sử bạn có một trang sản phẩm với hai nút (Mua và Thanh toán) cho phép bạn mua sản phẩm đó. Bạn muốn hiển thị thông báo bất cứ khi nào người dùng đặt sản phẩm vào giỏ hàng. Gọi `showNotification()` trong cả hai trình xử lý nhấp của nút có vẻ lặp đi lặp lại, vì vậy bạn có thể muốn đặt logic này trong một Effect:
 
 ```js {2-7}
 function ProductPage({ product, addToCart }) {
-  // 🔴 Avoid: Event-specific logic inside an Effect
+  // 🔴 Tránh: Logic dành riêng cho sự kiện bên trong một Effect
   useEffect(() => {
     if (product.isInCart) {
-      showNotification(`Added ${product.name} to the shopping cart!`);
+      showNotification(`Đã thêm ${product.name} vào giỏ hàng!`);
     }
   }, [product]);
 
@@ -277,16 +277,16 @@ function ProductPage({ product, addToCart }) {
 }
 ```
 
-This Effect is unnecessary. It will also most likely cause bugs. For example, let's say that your app "remembers" the shopping cart between the page reloads. If you add a product to the cart once and refresh the page, the notification will appear again. It will keep appearing every time you refresh that product's page. This is because `product.isInCart` will already be `true` on the page load, so the Effect above will call `showNotification()`.
+Effect này là không cần thiết. Nó cũng rất có thể gây ra lỗi. Ví dụ: giả sử ứng dụng của bạn "ghi nhớ" giỏ hàng giữa các lần tải lại trang. Nếu bạn thêm một sản phẩm vào giỏ hàng một lần và làm mới trang, thông báo sẽ xuất hiện lại. Nó sẽ tiếp tục xuất hiện mỗi khi bạn làm mới trang sản phẩm đó. Điều này là do `product.isInCart` sẽ đã là `true` khi tải trang, vì vậy Effect trên sẽ gọi `showNotification()`.
 
-**When you're not sure whether some code should be in an Effect or in an event handler, ask yourself *why* this code needs to run. Use Effects only for code that should run *because* the component was displayed to the user.** In this example, the notification should appear because the user *pressed the button*, not because the page was displayed! Delete the Effect and put the shared logic into a function called from both event handlers:
+**Khi bạn không chắc chắn liệu một số mã nên nằm trong một Effect hay trong một trình xử lý sự kiện, hãy tự hỏi *tại sao* mã này cần chạy. Chỉ sử dụng Effect cho mã nên chạy *vì* thành phần đã được hiển thị cho người dùng.** Trong ví dụ này, thông báo sẽ xuất hiện vì người dùng *nhấn nút*, không phải vì trang đã được hiển thị! Xóa Effect và đặt logic được chia sẻ vào một hàm được gọi từ cả hai trình xử lý sự kiện:
 
 ```js {2-6,9,13}
 function ProductPage({ product, addToCart }) {
-  // ✅ Good: Event-specific logic is called from event handlers
+  // ✅ Tốt: Logic dành riêng cho sự kiện được gọi từ các trình xử lý sự kiện
   function buyProduct() {
     addToCart(product);
-    showNotification(`Added ${product.name} to the shopping cart!`);
+    showNotification(`Đã thêm ${product.name} vào giỏ hàng!`);
   }
 
   function handleBuyClick() {
@@ -301,23 +301,23 @@ function ProductPage({ product, addToCart }) {
 }
 ```
 
-This both removes the unnecessary Effect and fixes the bug.
+Điều này vừa loại bỏ Effect không cần thiết vừa sửa lỗi.
 
-### Sending a POST request {/*sending-a-post-request*/}
+### Gửi một yêu cầu POST {/*sending-a-post-request*/}
 
-This `Form` component sends two kinds of POST requests. It sends an analytics event when it mounts. When you fill in the form and click the Submit button, it will send a POST request to the `/api/register` endpoint:
+Thành phần `Form` này gửi hai loại yêu cầu POST. Nó gửi một sự kiện phân tích khi nó được gắn kết. Khi bạn điền vào biểu mẫu và nhấp vào nút Gửi, nó sẽ gửi một yêu cầu POST đến điểm cuối `/api/register`:
 
 ```js {5-8,10-16}
 function Form() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
-  // ✅ Good: This logic should run because the component was displayed
+  // ✅ Tốt: Logic này sẽ chạy vì thành phần đã được hiển thị
   useEffect(() => {
     post('/analytics/event', { eventName: 'visit_form' });
   }, []);
 
-  // 🔴 Avoid: Event-specific logic inside an Effect
+  // 🔴 Tránh: Logic dành riêng cho sự kiện bên trong một Effect
   const [jsonToSubmit, setJsonToSubmit] = useState(null);
   useEffect(() => {
     if (jsonToSubmit !== null) {
@@ -333,36 +333,36 @@ function Form() {
 }
 ```
 
-Let's apply the same criteria as in the example before.
+Hãy áp dụng các tiêu chí tương tự như trong ví dụ trước.
 
-The analytics POST request should remain in an Effect. This is because the _reason_ to send the analytics event is that the form was displayed. (It would fire twice in development, but [see here](/learn/synchronizing-with-effects#sending-analytics) for how to deal with that.)
+Yêu cầu POST phân tích nên vẫn còn trong một Effect. Điều này là do _lý do_ để gửi sự kiện phân tích là biểu mẫu đã được hiển thị. (Nó sẽ kích hoạt hai lần trong quá trình phát triển, nhưng [xem tại đây](/learn/synchronizing-with-effects#sending-analytics) để biết cách xử lý điều đó.)
 
-However, the `/api/register` POST request is not caused by the form being _displayed_. You only want to send the request at one specific moment in time: when the user presses the button. It should only ever happen _on that particular interaction_. Delete the second Effect and move that POST request into the event handler:
+Tuy nhiên, yêu cầu POST `/api/register` không phải do biểu mẫu được _hiển thị_. Bạn chỉ muốn gửi yêu cầu vào một thời điểm cụ thể: khi người dùng nhấn nút. Nó sẽ chỉ xảy ra _trong tương tác cụ thể đó_. Xóa Effect thứ hai và di chuyển yêu cầu POST đó vào trình xử lý sự kiện:
 
 ```js {12-13}
 function Form() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
 
-  // ✅ Good: This logic runs because the component was displayed
+  // ✅ Tốt: Logic này chạy vì thành phần đã được hiển thị
   useEffect(() => {
     post('/analytics/event', { eventName: 'visit_form' });
   }, []);
 
   function handleSubmit(e) {
     e.preventDefault();
-    // ✅ Good: Event-specific logic is in the event handler
+    // ✅ Tốt: Logic dành riêng cho sự kiện nằm trong trình xử lý sự kiện
     post('/api/register', { firstName, lastName });
   }
   // ...
 }
 ```
 
-When you choose whether to put some logic into an event handler or an Effect, the main question you need to answer is _what kind of logic_ it is from the user's perspective. If this logic is caused by a particular interaction, keep it in the event handler. If it's caused by the user _seeing_ the component on the screen, keep it in the Effect.
+Khi bạn chọn có nên đặt một số logic vào một trình xử lý sự kiện hay một Effect, câu hỏi chính bạn cần trả lời là _loại logic_ đó là gì từ quan điểm của người dùng. Nếu logic này được gây ra bởi một tương tác cụ thể, hãy giữ nó trong trình xử lý sự kiện. Nếu nó được gây ra bởi người dùng _nhìn thấy_ thành phần trên màn hình, hãy giữ nó trong Effect.
 
-### Chains of computations {/*chains-of-computations*/}
+### Chuỗi các phép tính {/*chains-of-computations*/}
 
-Sometimes you might feel tempted to chain Effects that each adjust a piece of state based on other state:
+Đôi khi bạn có thể cảm thấy muốn xâu chuỗi các Effect mà mỗi Effect điều chỉnh một phần của trạng thái dựa trên trạng thái khác:
 
 ```js {7-29}
 function Game() {
@@ -371,7 +371,7 @@ function Game() {
   const [round, setRound] = useState(1);
   const [isGameOver, setIsGameOver] = useState(false);
 
-  // 🔴 Avoid: Chains of Effects that adjust the state solely to trigger each other
+  // 🔴 Tránh: Chuỗi các Effect điều chỉnh trạng thái chỉ để kích hoạt lẫn nhau
   useEffect(() => {
     if (card !== null && card.gold) {
       setGoldCardCount(c => c + 1);
@@ -406,13 +406,13 @@ function Game() {
   // ...
 ```
 
-There are two problems with this code.
+Có hai vấn đề với đoạn code này.
 
-The first problem is that it is very inefficient: the component (and its children) have to re-render between each `set` call in the chain. In the example above, in the worst case (`setCard` → render → `setGoldCardCount` → render → `setRound` → render → `setIsGameOver` → render) there are three unnecessary re-renders of the tree below.
+Vấn đề đầu tiên là nó rất kém hiệu quả: thành phần (và các thành phần con của nó) phải render lại giữa mỗi lệnh gọi `set` trong chuỗi. Trong ví dụ trên, trong trường hợp xấu nhất (`setCard` → render → `setGoldCardCount` → render → `setRound` → render → `setIsGameOver` → render) có ba lần render lại cây không cần thiết bên dưới.
 
-The second problem is that even if it weren't slow, as your code evolves, you will run into cases where the "chain" you wrote doesn't fit the new requirements. Imagine you are adding a way to step through the history of the game moves. You'd do it by updating each state variable to a value from the past. However, setting the `card` state to a value from the past would trigger the Effect chain again and change the data you're showing. Such code is often rigid and fragile.
+Vấn đề thứ hai là ngay cả khi nó không chậm, khi code của bạn phát triển, bạn sẽ gặp phải các trường hợp mà "chuỗi" bạn đã viết không phù hợp với các yêu cầu mới. Hãy tưởng tượng bạn đang thêm một cách để xem qua lịch sử các bước di chuyển của trò chơi. Bạn sẽ làm điều đó bằng cách cập nhật từng biến trạng thái thành một giá trị từ quá khứ. Tuy nhiên, việc đặt trạng thái `card` thành một giá trị từ quá khứ sẽ kích hoạt lại chuỗi Effect và thay đổi dữ liệu bạn đang hiển thị. Code như vậy thường cứng nhắc và dễ vỡ.
 
-In this case, it's better to calculate what you can during rendering, and adjust the state in the event handler:
+Trong trường hợp này, tốt hơn là tính toán những gì bạn có thể trong quá trình render và điều chỉnh trạng thái trong trình xử lý sự kiện:
 
 ```js {6-7,14-26}
 function Game() {
@@ -420,7 +420,7 @@ function Game() {
   const [goldCardCount, setGoldCardCount] = useState(0);
   const [round, setRound] = useState(1);
 
-  // ✅ Calculate what you can during rendering
+  // ✅ Tính toán những gì bạn có thể trong quá trình render
   const isGameOver = round > 5;
 
   function handlePlaceCard(nextCard) {
@@ -428,7 +428,7 @@ function Game() {
       throw Error('Game already ended.');
     }
 
-    // ✅ Calculate all the next state in the event handler
+    // ✅ Tính toán tất cả trạng thái tiếp theo trong trình xử lý sự kiện
     setCard(nextCard);
     if (nextCard.gold) {
       if (goldCardCount <= 3) {
@@ -446,21 +446,21 @@ function Game() {
   // ...
 ```
 
-This is a lot more efficient. Also, if you implement a way to view game history, now you will be able to set each state variable to a move from the past without triggering the Effect chain that adjusts every other value. If you need to reuse logic between several event handlers, you can [extract a function](#sharing-logic-between-event-handlers) and call it from those handlers.
+Điều này hiệu quả hơn rất nhiều. Ngoài ra, nếu bạn triển khai một cách để xem lịch sử trò chơi, giờ đây bạn sẽ có thể đặt từng biến trạng thái thành một bước di chuyển từ quá khứ mà không kích hoạt chuỗi Effect điều chỉnh mọi giá trị khác. Nếu bạn cần sử dụng lại logic giữa một số trình xử lý sự kiện, bạn có thể [trích xuất một hàm](#sharing-logic-between-event-handlers) và gọi nó từ các trình xử lý đó.
 
-Remember that inside event handlers, [state behaves like a snapshot.](/learn/state-as-a-snapshot) For example, even after you call `setRound(round + 1)`, the `round` variable will reflect the value at the time the user clicked the button. If you need to use the next value for calculations, define it manually like `const nextRound = round + 1`.
+Hãy nhớ rằng bên trong các trình xử lý sự kiện, [trạng thái hoạt động như một ảnh chụp nhanh.](/learn/state-as-a-snapshot) Ví dụ: ngay cả sau khi bạn gọi `setRound(round + 1)`, biến `round` sẽ phản ánh giá trị tại thời điểm người dùng nhấp vào nút. Nếu bạn cần sử dụng giá trị tiếp theo cho các phép tính, hãy xác định nó theo cách thủ công như `const nextRound = round + 1`.
 
-In some cases, you *can't* calculate the next state directly in the event handler. For example, imagine a form with multiple dropdowns where the options of the next dropdown depend on the selected value of the previous dropdown. Then, a chain of Effects is appropriate because you are synchronizing with network.
+Trong một số trường hợp, bạn *không thể* tính toán trạng thái tiếp theo trực tiếp trong trình xử lý sự kiện. Ví dụ: hãy tưởng tượng một biểu mẫu có nhiều danh sách thả xuống, trong đó các tùy chọn của danh sách thả xuống tiếp theo phụ thuộc vào giá trị đã chọn của danh sách thả xuống trước đó. Sau đó, một chuỗi các Effect là phù hợp vì bạn đang đồng bộ hóa với mạng.
 
-### Initializing the application {/*initializing-the-application*/}
+### Khởi tạo ứng dụng {/*initializing-the-application*/}
 
-Some logic should only run once when the app loads.
+Một số logic chỉ nên chạy một lần khi ứng dụng tải.
 
-You might be tempted to place it in an Effect in the top-level component:
+Bạn có thể muốn đặt nó trong một Effect trong thành phần cấp cao nhất:
 
 ```js {2-6}
 function App() {
-  // 🔴 Avoid: Effects with logic that should only ever run once
+  // 🔴 Tránh: Effect với logic chỉ nên chạy một lần
   useEffect(() => {
     loadDataFromLocalStorage();
     checkAuthToken();
@@ -469,9 +469,9 @@ function App() {
 }
 ```
 
-However, you'll quickly discover that it [runs twice in development.](/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development) This can cause issues--for example, maybe it invalidates the authentication token because the function wasn't designed to be called twice. In general, your components should be resilient to being remounted. This includes your top-level `App` component.
+Tuy nhiên, bạn sẽ nhanh chóng phát hiện ra rằng nó [chạy hai lần trong quá trình phát triển.](/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development) Điều này có thể gây ra sự cố--ví dụ: có thể nó làm mất hiệu lực mã thông báo xác thực vì hàm không được thiết kế để được gọi hai lần. Nói chung, các thành phần của bạn nên có khả năng phục hồi khi được gắn lại. Điều này bao gồm thành phần `App` cấp cao nhất của bạn.
 
-Although it may not ever get remounted in practice in production, following the same constraints in all components makes it easier to move and reuse code. If some logic must run *once per app load* rather than *once per component mount*, add a top-level variable to track whether it has already executed:
+Mặc dù nó có thể không bao giờ được gắn lại trong thực tế trong quá trình sản xuất, nhưng việc tuân theo các ràng buộc tương tự trong tất cả các thành phần giúp bạn dễ dàng di chuyển và sử dụng lại code hơn. Nếu một số logic phải chạy *một lần cho mỗi lần tải ứng dụng* thay vì *một lần cho mỗi lần gắn kết thành phần*, hãy thêm một biến cấp cao nhất để theo dõi xem nó đã được thực thi hay chưa:
 
 ```js {1,5-6,10}
 let didInit = false;
@@ -480,7 +480,7 @@ function App() {
   useEffect(() => {
     if (!didInit) {
       didInit = true;
-      // ✅ Only runs once per app load
+      // ✅ Chỉ chạy một lần cho mỗi lần tải ứng dụng
       loadDataFromLocalStorage();
       checkAuthToken();
     }
@@ -489,11 +489,11 @@ function App() {
 }
 ```
 
-You can also run it during module initialization and before the app renders:
+Bạn cũng có thể chạy nó trong quá trình khởi tạo mô-đun và trước khi ứng dụng render:
 
 ```js {1,5}
-if (typeof window !== 'undefined') { // Check if we're running in the browser.
-   // ✅ Only runs once per app load
+if (typeof window !== 'undefined') { // Kiểm tra xem chúng ta có đang chạy trong trình duyệt hay không.
+   // ✅ Chỉ chạy một lần cho mỗi lần tải ứng dụng
   checkAuthToken();
   loadDataFromLocalStorage();
 }
@@ -503,11 +503,11 @@ function App() {
 }
 ```
 
-Code at the top level runs once when your component is imported--even if it doesn't end up being rendered. To avoid slowdown or surprising behavior when importing arbitrary components, don't overuse this pattern. Keep app-wide initialization logic to root component modules like `App.js` or in your application's entry point.
+Code ở cấp cao nhất chạy một lần khi thành phần của bạn được nhập--ngay cả khi nó không được render. Để tránh chậm trễ hoặc hành vi đáng ngạc nhiên khi nhập các thành phần tùy ý, đừng lạm dụng mẫu này. Giữ logic khởi tạo trên toàn ứng dụng cho các mô-đun thành phần gốc như `App.js` hoặc trong điểm nhập của ứng dụng của bạn.
 
-### Notifying parent components about state changes {/*notifying-parent-components-about-state-changes*/}
+### Thông báo cho các thành phần cha về các thay đổi trạng thái {/*notifying-parent-components-about-state-changes*/}
 
-Let's say you're writing a `Toggle` component with an internal `isOn` state which can be either `true` or `false`. There are a few different ways to toggle it (by clicking or dragging). You want to notify the parent component whenever the `Toggle` internal state changes, so you expose an `onChange` event and call it from an Effect:
+Giả sử bạn đang viết một thành phần `Toggle` với trạng thái `isOn` bên trong có thể là `true` hoặc `false`. Có một vài cách khác nhau để chuyển đổi nó (bằng cách nhấp hoặc kéo). Bạn muốn thông báo cho thành phần cha bất cứ khi nào trạng thái bên trong `Toggle` thay đổi, vì vậy bạn hiển thị một sự kiện `onChange` và gọi nó từ một Effect:
 
 ```js {4-7}
 function Toggle({ onChange }) {
@@ -533,17 +533,16 @@ function Toggle({ onChange }) {
   // ...
 }
 ```
+Giống như trước đây, điều này không lý tưởng. `Toggle` cập nhật trạng thái của nó trước, và React cập nhật màn hình. Sau đó, React chạy Effect, gọi hàm `onChange` được truyền từ một thành phần cha. Bây giờ thành phần cha sẽ cập nhật trạng thái của chính nó, bắt đầu một lượt render khác. Sẽ tốt hơn nếu thực hiện mọi thứ trong một lượt duy nhất.
 
-Like earlier, this is not ideal. The `Toggle` updates its state first, and React updates the screen. Then React runs the Effect, which calls the `onChange` function passed from a parent component. Now the parent component will update its own state, starting another render pass. It would be better to do everything in a single pass.
-
-Delete the Effect and instead update the state of *both* components within the same event handler:
+Xóa Effect và thay vào đó cập nhật trạng thái của *cả hai* thành phần trong cùng một trình xử lý sự kiện:
 
 ```js {5-7,11,16,18}
 function Toggle({ onChange }) {
   const [isOn, setIsOn] = useState(false);
 
   function updateToggle(nextIsOn) {
-    // ✅ Good: Perform all updates during the event that caused them
+    // ✅ Tốt: Thực hiện tất cả các cập nhật trong sự kiện gây ra chúng
     setIsOn(nextIsOn);
     onChange(nextIsOn);
   }
@@ -564,12 +563,12 @@ function Toggle({ onChange }) {
 }
 ```
 
-With this approach, both the `Toggle` component and its parent component update their state during the event. React [batches updates](/learn/queueing-a-series-of-state-updates) from different components together, so there will only be one render pass.
+Với cách tiếp cận này, cả thành phần `Toggle` và thành phần cha của nó đều cập nhật trạng thái của chúng trong sự kiện. React [gom các cập nhật](/learn/queueing-a-series-of-state-updates) từ các thành phần khác nhau lại với nhau, vì vậy sẽ chỉ có một lượt render.
 
-You might also be able to remove the state altogether, and instead receive `isOn` from the parent component:
+Bạn cũng có thể loại bỏ hoàn toàn trạng thái và thay vào đó nhận `isOn` từ thành phần cha:
 
 ```js {1,2}
-// ✅ Also good: the component is fully controlled by its parent
+// ✅ Cũng tốt: thành phần được kiểm soát hoàn toàn bởi thành phần cha
 function Toggle({ isOn, onChange }) {
   function handleClick() {
     onChange(!isOn);
@@ -587,11 +586,11 @@ function Toggle({ isOn, onChange }) {
 }
 ```
 
-["Lifting state up"](/learn/sharing-state-between-components) lets the parent component fully control the `Toggle` by toggling the parent's own state. This means the parent component will have to contain more logic, but there will be less state overall to worry about. Whenever you try to keep two different state variables synchronized, try lifting state up instead!
+["Nâng trạng thái lên"](/learn/sharing-state-between-components) cho phép thành phần cha kiểm soát hoàn toàn `Toggle` bằng cách chuyển đổi trạng thái của chính thành phần cha. Điều này có nghĩa là thành phần cha sẽ phải chứa nhiều logic hơn, nhưng sẽ có ít trạng thái tổng thể hơn để lo lắng. Bất cứ khi nào bạn cố gắng giữ cho hai biến trạng thái khác nhau được đồng bộ hóa, hãy thử nâng trạng thái lên thay thế!
 
-### Passing data to the parent {/*passing-data-to-the-parent*/}
+### Truyền dữ liệu cho thành phần cha {/*passing-data-to-the-parent*/}
 
-This `Child` component fetches some data and then passes it to the `Parent` component in an Effect:
+Thành phần `Child` này tìm nạp một số dữ liệu và sau đó truyền nó cho thành phần `Parent` trong một Effect:
 
 ```js {9-14}
 function Parent() {
@@ -602,7 +601,7 @@ function Parent() {
 
 function Child({ onFetched }) {
   const data = useSomeAPI();
-  // 🔴 Avoid: Passing data to the parent in an Effect
+  // 🔴 Tránh: Truyền dữ liệu cho thành phần cha trong một Effect
   useEffect(() => {
     if (data) {
       onFetched(data);
@@ -612,13 +611,13 @@ function Child({ onFetched }) {
 }
 ```
 
-In React, data flows from the parent components to their children. When you see something wrong on the screen, you can trace where the information comes from by going up the component chain until you find which component passes the wrong prop or has the wrong state. When child components update the state of their parent components in Effects, the data flow becomes very difficult to trace. Since both the child and the parent need the same data, let the parent component fetch that data, and *pass it down* to the child instead:
+Trong React, dữ liệu chảy từ các thành phần cha xuống các thành phần con của chúng. Khi bạn thấy điều gì đó không đúng trên màn hình, bạn có thể theo dõi thông tin đến từ đâu bằng cách đi lên chuỗi thành phần cho đến khi bạn tìm thấy thành phần nào truyền sai prop hoặc có trạng thái sai. Khi các thành phần con cập nhật trạng thái của các thành phần cha của chúng trong Effects, luồng dữ liệu trở nên rất khó theo dõi. Vì cả thành phần con và thành phần cha đều cần cùng một dữ liệu, hãy để thành phần cha tìm nạp dữ liệu đó và *truyền nó xuống* cho thành phần con thay thế:
 
 ```js {4-5}
 function Parent() {
   const data = useSomeAPI();
   // ...
-  // ✅ Good: Passing data down to the child
+  // ✅ Tốt: Truyền dữ liệu xuống cho thành phần con
   return <Child data={data} />;
 }
 
@@ -627,15 +626,15 @@ function Child({ data }) {
 }
 ```
 
-This is simpler and keeps the data flow predictable: the data flows down from the parent to the child.
+Điều này đơn giản hơn và giữ cho luồng dữ liệu có thể dự đoán được: dữ liệu chảy xuống từ thành phần cha đến thành phần con.
 
-### Subscribing to an external store {/*subscribing-to-an-external-store*/}
+### Đăng ký vào một kho bên ngoài {/*subscribing-to-an-external-store*/}
 
-Sometimes, your components may need to subscribe to some data outside of the React state. This data could be from a third-party library or a built-in browser API. Since this data can change without React's knowledge, you need to manually subscribe your components to it. This is often done with an Effect, for example:
+Đôi khi, các thành phần của bạn có thể cần đăng ký vào một số dữ liệu bên ngoài trạng thái React. Dữ liệu này có thể đến từ một thư viện của bên thứ ba hoặc một API trình duyệt tích hợp. Vì dữ liệu này có thể thay đổi mà React không hề hay biết, bạn cần đăng ký thủ công các thành phần của mình vào nó. Điều này thường được thực hiện với một Effect, ví dụ:
 
 ```js {2-17}
 function useOnlineStatus() {
-  // Not ideal: Manual store subscription in an Effect
+  // Không lý tưởng: Đăng ký kho thủ công trong một Effect
   const [isOnline, setIsOnline] = useState(true);
   useEffect(() => {
     function updateState() {
@@ -660,9 +659,9 @@ function ChatIndicator() {
 }
 ```
 
-Here, the component subscribes to an external data store (in this case, the browser `navigator.onLine` API). Since this API does not exist on the server (so it can't be used for the initial HTML), initially the state is set to `true`. Whenever the value of that data store changes in the browser, the component updates its state.
+Ở đây, thành phần đăng ký vào một kho dữ liệu bên ngoài (trong trường hợp này, API `navigator.onLine` của trình duyệt). Vì API này không tồn tại trên máy chủ (vì vậy nó không thể được sử dụng cho HTML ban đầu), ban đầu trạng thái được đặt thành `true`. Bất cứ khi nào giá trị của kho dữ liệu đó thay đổi trong trình duyệt, thành phần sẽ cập nhật trạng thái của nó.
 
-Although it's common to use Effects for this, React has a purpose-built Hook for subscribing to an external store that is preferred instead. Delete the Effect and replace it with a call to [`useSyncExternalStore`](/reference/react/useSyncExternalStore):
+Mặc dù việc sử dụng Effects cho việc này là phổ biến, nhưng React có một Hook được xây dựng có mục đích để đăng ký vào một kho bên ngoài được ưu tiên hơn. Xóa Effect và thay thế nó bằng một lệnh gọi đến [`useSyncExternalStore`](/reference/react/useSyncExternalStore):
 
 ```js {11-16}
 function subscribe(callback) {
@@ -675,11 +674,11 @@ function subscribe(callback) {
 }
 
 function useOnlineStatus() {
-  // ✅ Good: Subscribing to an external store with a built-in Hook
+  // ✅ Tốt: Đăng ký vào một kho bên ngoài với một Hook tích hợp
   return useSyncExternalStore(
-    subscribe, // React won't resubscribe for as long as you pass the same function
-    () => navigator.onLine, // How to get the value on the client
-    () => true // How to get the value on the server
+    subscribe, // React sẽ không đăng ký lại miễn là bạn truyền cùng một hàm
+    () => navigator.onLine, // Cách lấy giá trị trên máy khách
+    () => true // Cách lấy giá trị trên máy chủ
   );
 }
 
@@ -689,11 +688,11 @@ function ChatIndicator() {
 }
 ```
 
-This approach is less error-prone than manually syncing mutable data to React state with an Effect. Typically, you'll write a custom Hook like `useOnlineStatus()` above so that you don't need to repeat this code in the individual components. [Read more about subscribing to external stores from React components.](/reference/react/useSyncExternalStore)
+Cách tiếp cận này ít gây ra lỗi hơn so với việc đồng bộ hóa thủ công dữ liệu có thể thay đổi với trạng thái React bằng một Effect. Thông thường, bạn sẽ viết một Hook tùy chỉnh như `useOnlineStatus()` ở trên để bạn không cần lặp lại mã này trong các thành phần riêng lẻ. [Đọc thêm về đăng ký vào các kho bên ngoài từ các thành phần React.](/reference/react/useSyncExternalStore)
 
-### Fetching data {/*fetching-data*/}
+### Tìm nạp dữ liệu {/*fetching-data*/}
 
-Many apps use Effects to kick off data fetching. It is quite common to write a data fetching Effect like this:
+Nhiều ứng dụng sử dụng Effects để bắt đầu tìm nạp dữ liệu. Việc viết một Effect tìm nạp dữ liệu như thế này là khá phổ biến:
 
 ```js {5-10}
 function SearchResults({ query }) {
@@ -701,7 +700,7 @@ function SearchResults({ query }) {
   const [page, setPage] = useState(1);
 
   useEffect(() => {
-    // 🔴 Avoid: Fetching without cleanup logic
+    // 🔴 Tránh: Tìm nạp mà không có logic dọn dẹp
     fetchResults(query, page).then(json => {
       setResults(json);
     });
@@ -714,15 +713,15 @@ function SearchResults({ query }) {
 }
 ```
 
-You *don't* need to move this fetch to an event handler.
+Bạn *không* cần phải di chuyển quá trình tìm nạp này sang một trình xử lý sự kiện.
 
-This might seem like a contradiction with the earlier examples where you needed to put the logic into the event handlers! However, consider that it's not *the typing event* that's the main reason to fetch. Search inputs are often prepopulated from the URL, and the user might navigate Back and Forward without touching the input.
+Điều này có vẻ như một mâu thuẫn với các ví dụ trước đó, nơi bạn cần đặt logic vào các trình xử lý sự kiện! Tuy nhiên, hãy xem xét rằng không phải *sự kiện gõ* là lý do chính để tìm nạp. Các đầu vào tìm kiếm thường được điền trước từ URL và người dùng có thể điều hướng Quay lại và Chuyển tiếp mà không cần chạm vào đầu vào.
 
-It doesn't matter where `page` and `query` come from. While this component is visible, you want to keep `results` [synchronized](/learn/synchronizing-with-effects) with data from the network for the current `page` and `query`. This is why it's an Effect.
+Không quan trọng `page` và `query` đến từ đâu. Trong khi thành phần này hiển thị, bạn muốn giữ cho `results` được [đồng bộ hóa](/learn/synchronizing-with-effects) với dữ liệu từ mạng cho `page` và `query` hiện tại. Đây là lý do tại sao nó là một Effect.
 
-However, the code above has a bug. Imagine you type `"hello"` fast. Then the `query` will change from `"h"`, to `"he"`, `"hel"`, `"hell"`, and `"hello"`. This will kick off separate fetches, but there is no guarantee about which order the responses will arrive in. For example, the `"hell"` response may arrive *after* the `"hello"` response. Since it will call `setResults()` last, you will be displaying the wrong search results. This is called a ["race condition"](https://en.wikipedia.org/wiki/Race_condition): two different requests "raced" against each other and came in a different order than you expected.
+Tuy nhiên, mã trên có một lỗi. Hãy tưởng tượng bạn gõ `"hello"` nhanh. Sau đó, `query` sẽ thay đổi từ `"h"`, thành `"he"`, `"hel"`, `"hell"`, và `"hello"`. Điều này sẽ bắt đầu các quá trình tìm nạp riêng biệt, nhưng không có gì đảm bảo về thứ tự các phản hồi sẽ đến. Ví dụ: phản hồi `hell"` có thể đến *sau* phản hồi `"hello"`. Vì nó sẽ gọi `setResults()` cuối cùng, bạn sẽ hiển thị sai kết quả tìm kiếm. Điều này được gọi là một ["điều kiện cuộc đua"](https://en.wikipedia.org/wiki/Race_condition): hai yêu cầu khác nhau "chạy đua" với nhau và đến theo một thứ tự khác với những gì bạn mong đợi.
 
-**To fix the race condition, you need to [add a cleanup function](/learn/synchronizing-with-effects#fetching-data) to ignore stale responses:**
+**Để khắc phục điều kiện cuộc đua, bạn cần [thêm một hàm dọn dẹp](/learn/synchronizing-with-effects#fetching-data) để bỏ qua các phản hồi cũ:**
 
 ```js {5,7,9,11-13}
 function SearchResults({ query }) {
@@ -747,13 +746,13 @@ function SearchResults({ query }) {
 }
 ```
 
-This ensures that when your Effect fetches data, all responses except the last requested one will be ignored.
+Điều này đảm bảo rằng khi Effect của bạn tìm nạp dữ liệu, tất cả các phản hồi ngoại trừ phản hồi được yêu cầu cuối cùng sẽ bị bỏ qua.
 
-Handling race conditions is not the only difficulty with implementing data fetching. You might also want to think about caching responses (so that the user can click Back and see the previous screen instantly), how to fetch data on the server (so that the initial server-rendered HTML contains the fetched content instead of a spinner), and how to avoid network waterfalls (so that a child can fetch data without waiting for every parent).
+Xử lý các điều kiện cuộc đua không phải là khó khăn duy nhất khi triển khai tìm nạp dữ liệu. Bạn cũng có thể muốn nghĩ về việc lưu vào bộ nhớ cache các phản hồi (để người dùng có thể nhấp vào Quay lại và xem màn hình trước đó ngay lập tức), cách tìm nạp dữ liệu trên máy chủ (để HTML được hiển thị ban đầu trên máy chủ chứa nội dung đã tìm nạp thay vì một trình quay), và cách tránh các thác nước mạng (để một thành phần con có thể tìm nạp dữ liệu mà không cần chờ đợi mọi thành phần cha).
 
-**These issues apply to any UI library, not just React. Solving them is not trivial, which is why modern [frameworks](/learn/start-a-new-react-project#production-grade-react-frameworks) provide more efficient built-in data fetching mechanisms than fetching data in Effects.**
+**Những vấn đề này áp dụng cho bất kỳ thư viện giao diện người dùng nào, không chỉ React. Giải quyết chúng không phải là điều tầm thường, đó là lý do tại sao các [khung](/learn/start-a-new-react-project#production-grade-react-frameworks) hiện đại cung cấp các cơ chế tìm nạp dữ liệu tích hợp hiệu quả hơn so với việc tìm nạp dữ liệu trong Effects.**
 
-If you don't use a framework (and don't want to build your own) but would like to make data fetching from Effects more ergonomic, consider extracting your fetching logic into a custom Hook like in this example:
+Nếu bạn không sử dụng một khung (và không muốn xây dựng khung của riêng bạn) nhưng muốn làm cho việc tìm nạp dữ liệu từ Effects trở nên tiện dụng hơn, hãy cân nhắc trích xuất logic tìm nạp của bạn vào một Hook tùy chỉnh như trong ví dụ này:
 
 ```js {4}
 function SearchResults({ query }) {
@@ -786,30 +785,30 @@ function useData(url) {
 }
 ```
 
-You'll likely also want to add some logic for error handling and to track whether the content is loading. You can build a Hook like this yourself or use one of the many solutions already available in the React ecosystem. **Although this alone won't be as efficient as using a framework's built-in data fetching mechanism, moving the data fetching logic into a custom Hook will make it easier to adopt an efficient data fetching strategy later.**
+Bạn có thể cũng muốn thêm một số logic để xử lý lỗi và theo dõi xem nội dung có đang tải hay không. Bạn có thể xây dựng một Hook như thế này cho chính mình hoặc sử dụng một trong nhiều giải pháp đã có sẵn trong hệ sinh thái React. **Mặc dù điều này một mình sẽ không hiệu quả bằng việc sử dụng cơ chế tìm nạp dữ liệu tích hợp của một khung, nhưng việc di chuyển logic tìm nạp dữ liệu vào một Hook tùy chỉnh sẽ giúp bạn dễ dàng áp dụng một chiến lược tìm nạp dữ liệu hiệu quả hơn sau này.**
 
-In general, whenever you have to resort to writing Effects, keep an eye out for when you can extract a piece of functionality into a custom Hook with a more declarative and purpose-built API like `useData` above. The fewer raw `useEffect` calls you have in your components, the easier you will find to maintain your application.
+Nói chung, bất cứ khi nào bạn phải dùng đến việc viết Effects, hãy để ý đến khi nào bạn có thể trích xuất một phần chức năng vào một Hook tùy chỉnh với một API khai báo và có mục đích xây dựng hơn như `useData` ở trên. Càng ít lệnh gọi `useEffect` thô mà bạn có trong các thành phần của mình, bạn sẽ càng thấy dễ dàng hơn để bảo trì ứng dụng của mình.
 
 <Recap>
 
-- If you can calculate something during render, you don't need an Effect.
-- To cache expensive calculations, add `useMemo` instead of `useEffect`.
-- To reset the state of an entire component tree, pass a different `key` to it.
-- To reset a particular bit of state in response to a prop change, set it during rendering.
-- Code that runs because a component was *displayed* should be in Effects, the rest should be in events.
-- If you need to update the state of several components, it's better to do it during a single event.
-- Whenever you try to synchronize state variables in different components, consider lifting state up.
-- You can fetch data with Effects, but you need to implement cleanup to avoid race conditions.
+- Nếu bạn có thể tính toán một cái gì đó trong quá trình render, bạn không cần một Effect.
+- Để lưu vào bộ nhớ cache các phép tính tốn kém, hãy thêm `useMemo` thay vì `useEffect`.
+- Để đặt lại trạng thái của toàn bộ cây thành phần, hãy truyền một `key` khác cho nó.
+- Để đặt lại một bit trạng thái cụ thể để đáp ứng với một thay đổi prop, hãy đặt nó trong quá trình render.
+- Mã chạy vì một thành phần đã được *hiển thị* nên nằm trong Effects, phần còn lại nên nằm trong các sự kiện.
+- Nếu bạn cần cập nhật trạng thái của một số thành phần, tốt hơn là thực hiện nó trong một sự kiện duy nhất.
+- Bất cứ khi nào bạn cố gắng đồng bộ hóa các biến trạng thái trong các thành phần khác nhau, hãy cân nhắc nâng trạng thái lên.
+- Bạn có thể tìm nạp dữ liệu với Effects, nhưng bạn cần triển khai dọn dẹp để tránh các điều kiện cuộc đua.
 
 </Recap>
 
 <Challenges>
 
-#### Transform data without Effects {/*transform-data-without-effects*/}
+#### Chuyển đổi dữ liệu mà không cần Effects {/*transform-data-without-effects*/}
 
-The `TodoList` below displays a list of todos. When the "Show only active todos" checkbox is ticked, completed todos are not displayed in the list. Regardless of which todos are visible, the footer displays the count of todos that are not yet completed.
+`TodoList` bên dưới hiển thị một danh sách các todo. Khi hộp kiểm "Chỉ hiển thị các todo đang hoạt động" được đánh dấu, các todo đã hoàn thành sẽ không được hiển thị trong danh sách. Bất kể todo nào hiển thị, chân trang hiển thị số lượng todo chưa hoàn thành.
 
-Simplify this component by removing all the unnecessary state and Effects.
+Đơn giản hóa thành phần này bằng cách loại bỏ tất cả các trạng thái và Effects không cần thiết.
 
 <Sandpack>
 
@@ -909,15 +908,15 @@ input { margin-top: 10px; }
 
 <Hint>
 
-If you can calculate something during rendering, you don't need state or an Effect that updates it.
+Nếu bạn có thể tính toán một cái gì đó trong quá trình render, bạn không cần trạng thái hoặc một Effect để cập nhật nó.
 
 </Hint>
 
 <Solution>
 
-There are only two essential pieces of state in this example: the list of `todos` and the `showActive` state variable which represents whether the checkbox is ticked. All of the other state variables are [redundant](/learn/choosing-the-state-structure#avoid-redundant-state) and can be calculated during rendering instead. This includes the `footer` which you can move directly into the surrounding JSX.
+Chỉ có hai phần trạng thái thiết yếu trong ví dụ này: danh sách `todos` và biến trạng thái `showActive` đại diện cho việc hộp kiểm có được đánh dấu hay không. Tất cả các biến trạng thái khác đều [dư thừa](/learn/choosing-the-state-structure#avoid-redundant-state) và có thể được tính toán trong quá trình render thay thế. Điều này bao gồm cả `footer` mà bạn có thể di chuyển trực tiếp vào JSX xung quanh.
 
-Your result should end up looking like this:
+Kết quả của bạn sẽ trông như thế này:
 
 <Sandpack>
 
@@ -1002,15 +1001,15 @@ input { margin-top: 10px; }
 
 </Solution>
 
-#### Cache a calculation without Effects {/*cache-a-calculation-without-effects*/}
+#### Cache một phép tính mà không cần Effects {/*cache-a-calculation-without-effects*/}
 
-In this example, filtering the todos was extracted into a separate function called `getVisibleTodos()`. This function contains a `console.log()` call inside of it which helps you notice when it's being called. Toggle "Show only active todos" and notice that it causes `getVisibleTodos()` to re-run. This is expected because visible todos change when you toggle which ones to display.
+Trong ví dụ này, việc lọc các todo đã được trích xuất thành một hàm riêng biệt có tên là `getVisibleTodos()`. Hàm này chứa một lệnh gọi `console.log()` bên trong nó giúp bạn nhận thấy khi nào nó đang được gọi. Chuyển đổi "Chỉ hiển thị các todo đang hoạt động" và nhận thấy rằng nó khiến `getVisibleTodos()` chạy lại. Điều này là dự kiến vì các todo hiển thị thay đổi khi bạn chuyển đổi những todo nào sẽ hiển thị.
 
-Your task is to remove the Effect that recomputes the `visibleTodos` list in the `TodoList` component. However, you need to make sure that `getVisibleTodos()` does *not* re-run (and so does not print any logs) when you type into the input.
+Nhiệm vụ của bạn là loại bỏ Effect tính toán lại danh sách `visibleTodos` trong thành phần `TodoList`. Tuy nhiên, bạn cần đảm bảo rằng `getVisibleTodos()` *không* chạy lại (và do đó không in bất kỳ nhật ký nào) khi bạn nhập vào đầu vào.
 
 <Hint>
 
-One solution is to add a `useMemo` call to cache the visible todos. There is also another, less obvious solution.
+Một giải pháp là thêm một lệnh gọi `useMemo` để lưu vào bộ nhớ cache các todo hiển thị. Ngoài ra còn có một giải pháp khác, ít rõ ràng hơn.
 
 </Hint>
 
@@ -1096,7 +1095,7 @@ input { margin-top: 10px; }
 
 <Solution>
 
-Remove the state variable and the Effect, and instead add a `useMemo` call to cache the result of calling `getVisibleTodos()`:
+Xóa biến trạng thái và Effect, và thay vào đó thêm một lệnh gọi `useMemo` để lưu vào bộ nhớ cache kết quả của việc gọi `getVisibleTodos()`:
 
 <Sandpack>
 
@@ -1177,9 +1176,9 @@ input { margin-top: 10px; }
 
 </Sandpack>
 
-With this change, `getVisibleTodos()` will be called only if `todos` or `showActive` change. Typing into the input only changes the `text` state variable, so it does not trigger a call to `getVisibleTodos()`.
+Với thay đổi này, `getVisibleTodos()` sẽ chỉ được gọi nếu `todos` hoặc `showActive` thay đổi. Nhập vào đầu vào chỉ thay đổi biến trạng thái `text`, vì vậy nó không kích hoạt một lệnh gọi đến `getVisibleTodos()`.
 
-There is also another solution which does not need `useMemo`. Since the `text` state variable can't possibly affect the list of todos, you can extract the `NewTodo` form into a separate component, and move the `text` state variable inside of it:
+Ngoài ra còn có một giải pháp khác không cần `useMemo`. Vì biến trạng thái `text` không thể ảnh hưởng đến danh sách các todo, bạn có thể trích xuất biểu mẫu `NewTodo` thành một thành phần riêng biệt và di chuyển biến trạng thái `text` vào bên trong nó:
 
 <Sandpack>
 
@@ -1266,15 +1265,16 @@ input { margin-top: 10px; }
 
 </Sandpack>
 
-This approach satisfies the requirements too. When you type into the input, only the `text` state variable updates. Since the `text` state variable is in the child `NewTodo` component, the parent `TodoList` component won't get re-rendered. This is why `getVisibleTodos()` doesn't get called when you type. (It would still be called if the `TodoList` re-renders for another reason.)
+Cách tiếp cận này cũng đáp ứng các yêu cầu. Khi bạn nhập vào đầu vào, chỉ biến trạng thái `text` được cập nhật. Vì biến trạng thái `text` nằm trong thành phần con `NewTodo`, thành phần `TodoList` cha sẽ không được render lại. Đây là lý do tại sao `getVisibleTodos()` không được gọi khi bạn nhập. (Nó vẫn sẽ được gọi nếu `TodoList` render lại vì một lý do khác.)
 
 </Solution>
 
-#### Reset state without Effects {/*reset-state-without-effects*/}
+#### Đặt lại trạng thái mà không cần Effects {/*reset-state-without-effects*/}
 
-This `EditContact` component receives a contact object shaped like `{ id, name, email }` as the `savedContact` prop. Try editing the name and email input fields. When you press Save, the contact's button above the form updates to the edited name. When you press Reset, any pending changes in the form are discarded. Play around with this UI to get a feel for it.
+Thành phần `EditContact` này nhận một đối tượng liên hệ có dạng như `{ id, name, email }` làm prop `savedContact`. Hãy thử chỉnh sửa các trường nhập tên và email. Khi bạn nhấn Lưu, nút liên hệ phía trên biểu mẫu sẽ cập nhật theo tên đã chỉnh sửa. Khi bạn nhấn Đặt lại, mọi thay đổi đang chờ xử lý trong biểu mẫu sẽ bị loại bỏ. Hãy chơi với giao diện người dùng này để làm quen với nó.
 
-When you select a contact with the buttons at the top, the form resets to reflect that contact's details. This is done with an Effect inside `EditContact.js`. Remove this Effect. Find another way to reset the form when `savedContact.id` changes.
+Khi bạn chọn một liên hệ bằng các nút ở trên cùng, biểu mẫu sẽ đặt lại để phản ánh chi tiết của liên hệ đó. Điều này được thực hiện bằng một Effect bên trong `EditContact.js`. Loại bỏ Effect này. Tìm một cách khác để đặt lại biểu mẫu khi `savedContact.id` thay đổi.
+
 
 <Sandpack>
 
@@ -1432,13 +1432,12 @@ button {
 
 <Hint>
 
-It would be nice if there was a way to tell React that when `savedContact.id` is different, the `EditContact` form is conceptually a _different contact's form_ and should not preserve state. Do you recall any such way?
-
+Nếu có cách nào để báo cho React biết rằng khi `savedContact.id` khác, thì biểu mẫu `EditContact` về mặt khái niệm là _biểu mẫu của một liên hệ khác_ và không nên giữ lại trạng thái. Bạn có nhớ cách nào như vậy không?
 </Hint>
 
 <Solution>
 
-Split the `EditContact` component in two. Move all the form state into the inner `EditForm` component. Export the outer `EditContact` component, and make it pass `savedContact.id` as the `key` to the inner `EditForm` component. As a result, the inner `EditForm` component resets all of the form state and recreates the DOM whenever you select a different contact.
+Chia thành phần `EditContact` thành hai. Chuyển tất cả trạng thái biểu mẫu vào thành phần `EditForm` bên trong. Xuất thành phần `EditContact` bên ngoài và làm cho nó truyền `savedContact.id` làm `key` cho thành phần `EditForm` bên trong. Do đó, thành phần `EditForm` bên trong sẽ đặt lại tất cả trạng thái biểu mẫu và tạo lại DOM bất cứ khi nào bạn chọn một liên hệ khác.
 
 <Sandpack>
 
@@ -1600,17 +1599,17 @@ button {
 
 </Solution>
 
-#### Submit a form without Effects {/*submit-a-form-without-effects*/}
+#### Gửi biểu mẫu mà không cần Hiệu ứng {/*submit-a-form-without-effects*/}
 
-This `Form` component lets you send a message to a friend. When you submit the form, the `showForm` state variable is set to `false`. This triggers an Effect calling `sendMessage(message)`, which sends the message (you can see it in the console). After the message is sent, you see a "Thank you" dialog with an "Open chat" button that lets you get back to the form.
+Thành phần `Form` này cho phép bạn gửi tin nhắn cho một người bạn. Khi bạn gửi biểu mẫu, biến trạng thái `showForm` được đặt thành `false`. Điều này kích hoạt một Hiệu ứng gọi `sendMessage(message)`, để gửi tin nhắn (bạn có thể thấy nó trong bảng điều khiển). Sau khi tin nhắn được gửi, bạn sẽ thấy một hộp thoại "Cảm ơn" với nút "Mở trò chuyện" cho phép bạn quay lại biểu mẫu.
 
-Your app's users are sending way too many messages. To make chatting a little bit more difficult, you've decided to show the "Thank you" dialog *first* rather than the form. Change the `showForm` state variable to initialize to `false` instead of `true`. As soon as you make that change, the console will show that an empty message was sent. Something in this logic is wrong!
+Người dùng ứng dụng của bạn đang gửi quá nhiều tin nhắn. Để làm cho việc trò chuyện trở nên khó khăn hơn một chút, bạn đã quyết định hiển thị hộp thoại "Cảm ơn" *trước* thay vì biểu mẫu. Thay đổi biến trạng thái `showForm` để khởi tạo thành `false` thay vì `true`. Ngay sau khi bạn thực hiện thay đổi đó, bảng điều khiển sẽ hiển thị rằng một tin nhắn trống đã được gửi. Có gì đó không đúng trong logic này!
 
-What's the root cause of this problem? And how can you fix it?
+Đâu là nguyên nhân gốc rễ của vấn đề này? Và làm thế nào bạn có thể sửa nó?
 
 <Hint>
 
-Should the message be sent _because_ the user saw the "Thank you" dialog? Or is it the other way around?
+Có phải tin nhắn được gửi _vì_ người dùng đã thấy hộp thoại "Cảm ơn"? Hay là ngược lại?
 
 </Hint>
 
@@ -1675,7 +1674,7 @@ label, textarea { margin-bottom: 10px; display: block; }
 
 <Solution>
 
-The `showForm` state variable determines whether to show the form or the "Thank you" dialog. However, you aren't sending the message because the "Thank you" dialog was _displayed_. You want to send the message because the user has _submitted the form._ Delete the misleading Effect and move the `sendMessage` call inside the `handleSubmit` event handler:
+Biến trạng thái `showForm` xác định xem có hiển thị biểu mẫu hay hộp thoại "Cảm ơn". Tuy nhiên, bạn không gửi tin nhắn vì hộp thoại "Cảm ơn" đã được _hiển thị_. Bạn muốn gửi tin nhắn vì người dùng đã _gửi biểu mẫu_. Xóa Hiệu ứng gây hiểu lầm và di chuyển lệnh gọi `sendMessage` vào bên trong trình xử lý sự kiện `handleSubmit`:
 
 <Sandpack>
 
@@ -1731,7 +1730,7 @@ label, textarea { margin-bottom: 10px; display: block; }
 
 </Sandpack>
 
-Notice how in this version, only _submitting the form_ (which is an event) causes the message to be sent. It works equally well regardless of whether `showForm` is initially set to `true` or `false`. (Set it to `false` and notice no extra console messages.)
+Lưu ý cách trong phiên bản này, chỉ _gửi biểu mẫu_ (đó là một sự kiện) mới khiến tin nhắn được gửi. Nó hoạt động tốt như nhau bất kể `showForm` ban đầu được đặt thành `true` hay `false`. (Đặt nó thành `false` và lưu ý không có thêm tin nhắn bảng điều khiển.)
 
 </Solution>
 

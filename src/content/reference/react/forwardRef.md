@@ -4,15 +4,15 @@ title: forwardRef
 
 <Deprecated>
 
-In React 19, `forwardRef` is no longer necessary. Pass `ref` as a prop instead.
+Trong React 19, `forwardRef` không còn cần thiết nữa. Thay vào đó, hãy truyền `ref` như một prop.
 
-`forwardRef` will deprecated in a future release. Learn more [here](/blog/2024/04/25/react-19#ref-as-a-prop).
+`forwardRef` sẽ bị loại bỏ trong một bản phát hành trong tương lai. Tìm hiểu thêm [tại đây](/blog/2024/04/25/react-19#ref-as-a-prop).
 
 </Deprecated>
 
 <Intro>
 
-`forwardRef` lets your component expose a DOM node to parent component with a [ref.](/learn/manipulating-the-dom-with-refs)
+`forwardRef` cho phép component của bạn hiển thị một DOM node cho component cha bằng một [ref.](/learn/manipulating-the-dom-with-refs)
 
 ```js
 const SomeComponent = forwardRef(render)
@@ -24,11 +24,11 @@ const SomeComponent = forwardRef(render)
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `forwardRef(render)` {/*forwardref*/}
 
-Call `forwardRef()` to let your component receive a ref and forward it to a child component:
+Gọi `forwardRef()` để cho phép component của bạn nhận một ref và chuyển nó đến một component con:
 
 ```js
 import { forwardRef } from 'react';
@@ -38,26 +38,26 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 });
 ```
 
-[See more examples below.](#usage)
+[Xem thêm các ví dụ bên dưới.](#usage)
 
-#### Parameters {/*parameters*/}
+#### Tham số {/*parameters*/}
 
-* `render`: The render function for your component. React calls this function with the props and `ref` that your component received from its parent. The JSX you return will be the output of your component.
+* `render`: Hàm render cho component của bạn. React gọi hàm này với các props và `ref` mà component của bạn nhận được từ component cha. JSX bạn trả về sẽ là đầu ra của component của bạn.
 
-#### Returns {/*returns*/}
+#### Giá trị trả về {/*returns*/}
 
-`forwardRef` returns a React component that you can render in JSX. Unlike React components defined as plain functions, a component returned by `forwardRef` is also able to receive a `ref` prop.
+`forwardRef` trả về một React component mà bạn có thể render trong JSX. Không giống như các React component được định nghĩa là các hàm thuần túy, một component được trả về bởi `forwardRef` cũng có thể nhận một prop `ref`.
 
-#### Caveats {/*caveats*/}
+#### Lưu ý {/*caveats*/}
 
-* In Strict Mode, React will **call your render function twice** in order to [help you find accidental impurities.](/reference/react/useState#my-initializer-or-updater-function-runs-twice) This is development-only behavior and does not affect production. If your render function is pure (as it should be), this should not affect the logic of your component. The result from one of the calls will be ignored.
+* Trong Strict Mode, React sẽ **gọi hàm render của bạn hai lần** để [giúp bạn tìm các tạp chất vô tình.](/reference/react/useState#my-initializer-or-updater-function-runs-twice) Đây là hành vi chỉ dành cho quá trình phát triển và không ảnh hưởng đến production. Nếu hàm render của bạn là thuần túy (như nó phải vậy), điều này sẽ không ảnh hưởng đến logic của component của bạn. Kết quả từ một trong các lệnh gọi sẽ bị bỏ qua.
 
 
 ---
 
-### `render` function {/*render-function*/}
+### Hàm `render` {/*render-function*/}
 
-`forwardRef` accepts a render function as an argument. React calls this function with `props` and `ref`:
+`forwardRef` chấp nhận một hàm render làm đối số. React gọi hàm này với `props` và `ref`:
 
 ```js
 const MyInput = forwardRef(function MyInput(props, ref) {
@@ -70,23 +70,23 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 });
 ```
 
-#### Parameters {/*render-parameters*/}
+#### Tham số {/*render-parameters*/}
 
-* `props`: The props passed by the parent component.
+* `props`: Các props được truyền bởi component cha.
 
-* `ref`:  The `ref` attribute passed by the parent component. The `ref` can be an object or a function. If the parent component has not passed a ref, it will be `null`. You should either pass the `ref` you receive to another component, or pass it to [`useImperativeHandle`.](/reference/react/useImperativeHandle)
+* `ref`: Thuộc tính `ref` được truyền bởi component cha. `ref` có thể là một đối tượng hoặc một hàm. Nếu component cha không truyền ref, nó sẽ là `null`. Bạn nên truyền `ref` bạn nhận được cho một component khác hoặc truyền nó cho [`useImperativeHandle`.](/reference/react/useImperativeHandle)
 
-#### Returns {/*render-returns*/}
+#### Giá trị trả về {/*render-returns*/}
 
-`forwardRef` returns a React component that you can render in JSX. Unlike React components defined as plain functions, the component returned by `forwardRef` is able to take a `ref` prop.
+`forwardRef` trả về một React component mà bạn có thể render trong JSX. Không giống như các React component được định nghĩa là các hàm thuần túy, component được trả về bởi `forwardRef` có thể nhận một prop `ref`.
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Exposing a DOM node to the parent component {/*exposing-a-dom-node-to-the-parent-component*/}
+### Hiển thị một DOM node cho component cha {/*exposing-a-dom-node-to-the-parent-component*/}
 
-By default, each component's DOM nodes are private. However, sometimes it's useful to expose a DOM node to the parent--for example, to allow focusing it. To opt in, wrap your component definition into `forwardRef()`:
+Theo mặc định, các DOM node của mỗi component là riêng tư. Tuy nhiên, đôi khi hữu ích khi hiển thị một DOM node cho component cha--ví dụ: để cho phép focus nó. Để chọn tham gia, hãy bọc định nghĩa component của bạn vào `forwardRef()`:
 
 ```js {3,11}
 import { forwardRef } from 'react';
@@ -102,7 +102,7 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 });
 ```
 
-You will receive a <CodeStep step={1}>ref</CodeStep> as the second argument after props. Pass it to the DOM node that you want to expose:
+Bạn sẽ nhận được một <CodeStep step={1}>ref</CodeStep> làm đối số thứ hai sau props. Truyền nó đến DOM node mà bạn muốn hiển thị:
 
 ```js {8} [[1, 3, "ref"], [1, 8, "ref", 30]]
 import { forwardRef } from 'react';
@@ -118,7 +118,7 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 });
 ```
 
-This lets the parent `Form` component access the <CodeStep step={2}>`<input>` DOM node</CodeStep> exposed by `MyInput`:
+Điều này cho phép component `Form` cha truy cập <CodeStep step={2}>`<input>` DOM node</CodeStep> được hiển thị bởi `MyInput`:
 
 ```js [[1, 2, "ref"], [1, 10, "ref", 41], [2, 5, "ref.current"]]
 function Form() {
@@ -139,15 +139,15 @@ function Form() {
 }
 ```
 
-This `Form` component [passes a ref](/reference/react/useRef#manipulating-the-dom-with-a-ref) to `MyInput`. The `MyInput` component *forwards* that ref to the `<input>` browser tag. As a result, the `Form` component can access that `<input>` DOM node and call [`focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) on it.
+Component `Form` này [truyền một ref](/reference/react/useRef#manipulating-the-dom-with-a-ref) cho `MyInput`. Component `MyInput` *chuyển tiếp* ref đó đến thẻ trình duyệt `<input>`. Do đó, component `Form` có thể truy cập DOM node `<input>` đó và gọi [`focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) trên nó.
 
-Keep in mind that exposing a ref to the DOM node inside your component makes it harder to change your component's internals later. You will typically expose DOM nodes from reusable low-level components like buttons or text inputs, but you won't do it for application-level components like an avatar or a comment.
+Hãy nhớ rằng việc hiển thị một ref cho DOM node bên trong component của bạn sẽ khiến việc thay đổi các thành phần bên trong của component sau này trở nên khó khăn hơn. Bạn thường sẽ hiển thị các DOM node từ các component cấp thấp có thể tái sử dụng như nút hoặc đầu vào văn bản, nhưng bạn sẽ không làm điều đó cho các component cấp ứng dụng như hình đại diện hoặc nhận xét.
 
-<Recipes titleText="Examples of forwarding a ref">
+<Recipes titleText="Ví dụ về chuyển tiếp ref">
 
-#### Focusing a text input {/*focusing-a-text-input*/}
+#### Tập trung vào một đầu vào văn bản {/*focusing-a-text-input*/}
 
-Clicking the button will focus the input. The `Form` component defines a ref and passes it to the `MyInput` component. The `MyInput` component forwards that ref to the browser `<input>`. This lets the `Form` component focus the `<input>`.
+Nhấp vào nút sẽ tập trung vào đầu vào. Component `Form` xác định một ref và truyền nó cho component `MyInput`. Component `MyInput` chuyển tiếp ref đó đến trình duyệt `<input>`. Điều này cho phép component `Form` tập trung vào `<input>`.
 
 <Sandpack>
 
@@ -199,9 +199,9 @@ input {
 
 <Solution />
 
-#### Playing and pausing a video {/*playing-and-pausing-a-video*/}
+#### Phát và tạm dừng video {/*playing-and-pausing-a-video*/}
 
-Clicking the button will call [`play()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play) and [`pause()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause) on a `<video>` DOM node. The `App` component defines a ref and passes it to the `MyVideoPlayer` component. The `MyVideoPlayer` component forwards that ref to the browser `<video>` node. This lets the `App` component play and pause the `<video>`.
+Nhấp vào nút sẽ gọi [`play()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play) và [`pause()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause) trên một DOM node `<video>`. Component `App` xác định một ref và truyền nó cho component `MyVideoPlayer`. Component `MyVideoPlayer` chuyển tiếp ref đó đến node trình duyệt `<video>`. Điều này cho phép component `App` phát và tạm dừng `<video>`.
 
 <Sandpack>
 
@@ -260,9 +260,9 @@ button { margin-bottom: 10px; margin-right: 10px; }
 
 ---
 
-### Forwarding a ref through multiple components {/*forwarding-a-ref-through-multiple-components*/}
+### Chuyển tiếp một ref qua nhiều component {/*forwarding-a-ref-through-multiple-components*/}
 
-Instead of forwarding a `ref` to a DOM node, you can forward it to your own component like `MyInput`:
+Thay vì chuyển tiếp một `ref` đến một DOM node, bạn có thể chuyển tiếp nó đến component của riêng bạn như `MyInput`:
 
 ```js {1,5}
 const FormField = forwardRef(function FormField(props, ref) {
@@ -276,7 +276,7 @@ const FormField = forwardRef(function FormField(props, ref) {
 });
 ```
 
-If that `MyInput` component forwards a ref to its `<input>`, a ref to `FormField` will give you that `<input>`:
+Nếu component `MyInput` đó chuyển tiếp một ref đến `<input>` của nó, một ref đến `FormField` sẽ cung cấp cho bạn `<input>` đó:
 
 ```js {2,5,10}
 function Form() {
@@ -297,7 +297,7 @@ function Form() {
 }
 ```
 
-The `Form` component defines a ref and passes it to `FormField`. The `FormField` component forwards that ref to `MyInput`, which forwards it to a browser `<input>` DOM node. This is how `Form` accesses that DOM node.
+Component `Form` xác định một ref và truyền nó cho `FormField`. Component `FormField` chuyển tiếp ref đó đến `MyInput`, và `MyInput` chuyển tiếp nó đến một DOM node `<input>` của trình duyệt. Đây là cách `Form` truy cập DOM node đó.
 
 
 <Sandpack>
@@ -375,9 +375,9 @@ input, button {
 
 ---
 
-### Exposing an imperative handle instead of a DOM node {/*exposing-an-imperative-handle-instead-of-a-dom-node*/}
+### Hiển thị một imperative handle thay vì một DOM node {/*exposing-an-imperative-handle-instead-of-a-dom-node*/}
 
-Instead of exposing an entire DOM node, you can expose a custom object, called an *imperative handle,* with a more constrained set of methods. To do this, you'd need to define a separate ref to hold the DOM node:
+Thay vì hiển thị toàn bộ DOM node, bạn có thể hiển thị một đối tượng tùy chỉnh, được gọi là *imperative handle,* với một tập hợp các phương thức bị ràng buộc hơn. Để làm điều này, bạn cần xác định một ref riêng biệt để giữ DOM node:
 
 ```js {2,6}
 const MyInput = forwardRef(function MyInput(props, ref) {
@@ -389,7 +389,7 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 });
 ```
 
-Pass the `ref` you received to [`useImperativeHandle`](/reference/react/useImperativeHandle) and specify the value you want to expose to the `ref`:
+Truyền `ref` bạn nhận được cho [`useImperativeHandle`](/reference/react/useImperativeHandle) và chỉ định giá trị bạn muốn hiển thị cho `ref`:
 
 ```js {6-15}
 import { forwardRef, useRef, useImperativeHandle } from 'react';
@@ -412,7 +412,7 @@ const MyInput = forwardRef(function MyInput(props, ref) {
 });
 ```
 
-If some component gets a ref to `MyInput`, it will only receive your `{ focus, scrollIntoView }` object instead of the DOM node. This lets you limit the information you expose about your DOM node to the minimum.
+Nếu một số component nhận được một ref đến `MyInput`, nó sẽ chỉ nhận được đối tượng `{ focus, scrollIntoView }` của bạn thay vì DOM node. Điều này cho phép bạn giới hạn thông tin bạn hiển thị về DOM node của mình ở mức tối thiểu.
 
 <Sandpack>
 
@@ -471,25 +471,25 @@ input {
 
 </Sandpack>
 
-[Read more about using imperative handles.](/reference/react/useImperativeHandle)
+[Đọc thêm về sử dụng imperative handle.](/reference/react/useImperativeHandle)
 
 <Pitfall>
 
-**Do not overuse refs.** You should only use refs for *imperative* behaviors that you can't express as props: for example, scrolling to a node, focusing a node, triggering an animation, selecting text, and so on.
+**Không lạm dụng refs.** Bạn chỉ nên sử dụng refs cho các hành vi *bắt buộc* mà bạn không thể thể hiện dưới dạng props: ví dụ: cuộn đến một node, tập trung vào một node, kích hoạt một hoạt ảnh, chọn văn bản, v.v.
 
-**If you can express something as a prop, you should not use a ref.** For example, instead of exposing an imperative handle like `{ open, close }` from a `Modal` component, it is better to take `isOpen` as a prop like `<Modal isOpen={isOpen} />`. [Effects](/learn/synchronizing-with-effects) can help you expose imperative behaviors via props.
+**Nếu bạn có thể thể hiện một cái gì đó như một prop, bạn không nên sử dụng ref.** Ví dụ: thay vì hiển thị một imperative handle như `{ open, close }` từ một component `Modal`, tốt hơn là lấy `isOpen` làm một prop như `<Modal isOpen={isOpen} />`. [Effects](/learn/synchronizing-with-effects) có thể giúp bạn hiển thị các hành vi bắt buộc thông qua props.
 
 </Pitfall>
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## Khắc phục sự cố {/*troubleshooting*/}
 
-### My component is wrapped in `forwardRef`, but the `ref` to it is always `null` {/*my-component-is-wrapped-in-forwardref-but-the-ref-to-it-is-always-null*/}
+### Component của tôi được bọc trong `forwardRef`, nhưng `ref` đến nó luôn là `null` {/*my-component-is-wrapped-in-forwardref-but-the-ref-to-it-is-always-null*/}
 
-This usually means that you forgot to actually use the `ref` that you received.
+Điều này thường có nghĩa là bạn đã quên sử dụng `ref` mà bạn đã nhận được.
 
-For example, this component doesn't do anything with its `ref`:
+Ví dụ: component này không làm gì với `ref` của nó:
 
 ```js {1}
 const MyInput = forwardRef(function MyInput({ label }, ref) {
@@ -502,7 +502,7 @@ const MyInput = forwardRef(function MyInput({ label }, ref) {
 });
 ```
 
-To fix it, pass the `ref` down to a DOM node or another component that can accept a ref:
+Để khắc phục, hãy truyền `ref` xuống một DOM node hoặc một component khác có thể chấp nhận một ref:
 
 ```js {1,5}
 const MyInput = forwardRef(function MyInput({ label }, ref) {
@@ -515,7 +515,7 @@ const MyInput = forwardRef(function MyInput({ label }, ref) {
 });
 ```
 
-The `ref` to `MyInput` could also be `null` if some of the logic is conditional:
+`ref` đến `MyInput` cũng có thể là `null` nếu một số logic là có điều kiện:
 
 ```js {1,5}
 const MyInput = forwardRef(function MyInput({ label, showInput }, ref) {
@@ -528,7 +528,7 @@ const MyInput = forwardRef(function MyInput({ label, showInput }, ref) {
 });
 ```
 
-If `showInput` is `false`, then the ref won't be forwarded to any node, and a ref to `MyInput` will remain empty. This is particularly easy to miss if the condition is hidden inside another component, like `Panel` in this example:
+Nếu `showInput` là `false`, thì ref sẽ không được chuyển tiếp đến bất kỳ node nào và một ref đến `MyInput` sẽ vẫn trống. Điều này đặc biệt dễ bỏ lỡ nếu điều kiện được ẩn bên trong một component khác, như `Panel` trong ví dụ này:
 
 ```js {5,7}
 const MyInput = forwardRef(function MyInput({ label, showInput }, ref) {

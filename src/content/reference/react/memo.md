@@ -4,7 +4,7 @@ title: memo
 
 <Intro>
 
-`memo` lets you skip re-rendering a component when its props are unchanged.
+`memo` cho phép bạn bỏ qua việc kết xuất lại một thành phần khi các đạo cụ của nó không thay đổi.
 
 ```
 const MemoizedComponent = memo(SomeComponent, arePropsEqual?)
@@ -16,11 +16,11 @@ const MemoizedComponent = memo(SomeComponent, arePropsEqual?)
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `memo(Component, arePropsEqual?)` {/*memo*/}
 
-Wrap a component in `memo` to get a *memoized* version of that component. This memoized version of your component will usually not be re-rendered when its parent component is re-rendered as long as its props have not changed. But React may still re-render it: memoization is a performance optimization, not a guarantee.
+Bọc một thành phần trong `memo` để có được một phiên bản *ghi nhớ* của thành phần đó. Phiên bản ghi nhớ này của thành phần của bạn thường sẽ không được kết xuất lại khi thành phần cha của nó được kết xuất lại miễn là các đạo cụ của nó không thay đổi. Nhưng React vẫn có thể kết xuất lại nó: ghi nhớ là một tối ưu hóa hiệu suất, không phải là một sự đảm bảo.
 
 ```js
 import { memo } from 'react';
@@ -30,39 +30,39 @@ const SomeComponent = memo(function SomeComponent(props) {
 });
 ```
 
-[See more examples below.](#usage)
+[Xem thêm các ví dụ bên dưới.](#usage)
 
-#### Parameters {/*parameters*/}
+#### Tham số {/*parameters*/}
 
-* `Component`: The component that you want to memoize. The `memo` does not modify this component, but returns a new, memoized component instead. Any valid React component, including functions and [`forwardRef`](/reference/react/forwardRef) components, is accepted.
+* `Component`: Thành phần mà bạn muốn ghi nhớ. `memo` không sửa đổi thành phần này, nhưng thay vào đó trả về một thành phần mới, đã ghi nhớ. Bất kỳ thành phần React hợp lệ nào, bao gồm các hàm và các thành phần [`forwardRef`](/reference/react/forwardRef), đều được chấp nhận.
 
-* **optional** `arePropsEqual`: A function that accepts two arguments: the component's previous props, and its new props. It should return `true` if the old and new props are equal: that is, if the component will render the same output and behave in the same way with the new props as with the old. Otherwise it should return `false`. Usually, you will not specify this function. By default, React will compare each prop with [`Object.is`.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)
+* **tùy chọn** `arePropsEqual`: Một hàm chấp nhận hai đối số: các đạo cụ trước đó của thành phần và các đạo cụ mới của nó. Nó sẽ trả về `true` nếu các đạo cụ cũ và mới bằng nhau: nghĩa là, nếu thành phần sẽ kết xuất cùng một đầu ra và hoạt động theo cùng một cách với các đạo cụ mới như với các đạo cụ cũ. Nếu không, nó sẽ trả về `false`. Thông thường, bạn sẽ không chỉ định hàm này. Theo mặc định, React sẽ so sánh từng đạo cụ với [`Object.is`.](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is)
 
-#### Returns {/*returns*/}
+#### Trả về {/*returns*/}
 
-`memo` returns a new React component. It behaves the same as the component provided to `memo` except that React will not always re-render it when its parent is being re-rendered unless its props have changed.
+`memo` trả về một thành phần React mới. Nó hoạt động giống như thành phần được cung cấp cho `memo` ngoại trừ việc React sẽ không phải lúc nào cũng kết xuất lại nó khi thành phần cha của nó đang được kết xuất lại trừ khi các đạo cụ của nó đã thay đổi.
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Skipping re-rendering when props are unchanged {/*skipping-re-rendering-when-props-are-unchanged*/}
+### Bỏ qua việc kết xuất lại khi các đạo cụ không thay đổi {/*skipping-re-rendering-when-props-are-unchanged*/}
 
-React normally re-renders a component whenever its parent re-renders. With `memo`, you can create a component that React will not re-render when its parent re-renders so long as its new props are the same as the old props. Such a component is said to be *memoized*.
+React thường kết xuất lại một thành phần bất cứ khi nào thành phần cha của nó kết xuất lại. Với `memo`, bạn có thể tạo một thành phần mà React sẽ không kết xuất lại khi thành phần cha của nó kết xuất lại miễn là các đạo cụ mới của nó giống với các đạo cụ cũ. Một thành phần như vậy được gọi là *đã ghi nhớ*.
 
-To memoize a component, wrap it in `memo` and use the value that it returns in place of your original component:
+Để ghi nhớ một thành phần, hãy bọc nó trong `memo` và sử dụng giá trị mà nó trả về thay cho thành phần gốc của bạn:
 
 ```js
 const Greeting = memo(function Greeting({ name }) {
-  return <h1>Hello, {name}!</h1>;
+  return <h1>Xin chào, {name}!</h1>;
 });
 
 export default Greeting;
 ```
 
-A React component should always have [pure rendering logic.](/learn/keeping-components-pure) This means that it must return the same output if its props, state, and context haven't changed. By using `memo`, you are telling React that your component complies with this requirement, so React doesn't need to re-render as long as its props haven't changed. Even with `memo`, your component will re-render if its own state changes or if a context that it's using changes.
+Một thành phần React phải luôn có [logic kết xuất thuần túy.](/learn/keeping-components-pure) Điều này có nghĩa là nó phải trả về cùng một đầu ra nếu các đạo cụ, trạng thái và ngữ cảnh của nó không thay đổi. Bằng cách sử dụng `memo`, bạn đang nói với React rằng thành phần của bạn tuân thủ yêu cầu này, vì vậy React không cần phải kết xuất lại miễn là các đạo cụ của nó không thay đổi. Ngay cả với `memo`, thành phần của bạn sẽ kết xuất lại nếu trạng thái riêng của nó thay đổi hoặc nếu một ngữ cảnh mà nó đang sử dụng thay đổi.
 
-In this example, notice that the `Greeting` component re-renders whenever `name` is changed (because that's one of its props), but not when `address` is changed (because it's not passed to `Greeting` as a prop):
+Trong ví dụ này, hãy lưu ý rằng thành phần `Greeting` kết xuất lại bất cứ khi nào `name` thay đổi (vì đó là một trong các đạo cụ của nó), nhưng không phải khi `address` thay đổi (vì nó không được truyền cho `Greeting` dưới dạng một đạo cụ):
 
 <Sandpack>
 
@@ -75,11 +75,11 @@ export default function MyApp() {
   return (
     <>
       <label>
-        Name{': '}
+        Tên{': '}
         <input value={name} onChange={e => setName(e.target.value)} />
       </label>
       <label>
-        Address{': '}
+        Địa chỉ{': '}
         <input value={address} onChange={e => setAddress(e.target.value)} />
       </label>
       <Greeting name={name} />
@@ -88,8 +88,8 @@ export default function MyApp() {
 }
 
 const Greeting = memo(function Greeting({ name }) {
-  console.log("Greeting was rendered at", new Date().toLocaleTimeString());
-  return <h3>Hello{name && ', '}{name}!</h3>;
+  console.log("Greeting đã được kết xuất vào lúc", new Date().toLocaleTimeString());
+  return <h3>Xin chào{name && ', '}{name}!</h3>;
 });
 ```
 
@@ -104,37 +104,37 @@ label {
 
 <Note>
 
-**You should only rely on `memo` as a performance optimization.** If your code doesn't work without it, find the underlying problem and fix it first. Then you may add `memo` to improve performance.
+**Bạn chỉ nên dựa vào `memo` như một tối ưu hóa hiệu suất.** Nếu mã của bạn không hoạt động nếu không có nó, hãy tìm vấn đề cơ bản và khắc phục nó trước. Sau đó, bạn có thể thêm `memo` để cải thiện hiệu suất.
 
 </Note>
 
 <DeepDive>
 
-#### Should you add memo everywhere? {/*should-you-add-memo-everywhere*/}
+#### Bạn có nên thêm memo ở mọi nơi không? {/*should-you-add-memo-everywhere*/}
 
-If your app is like this site, and most interactions are coarse (like replacing a page or an entire section), memoization is usually unnecessary. On the other hand, if your app is more like a drawing editor, and most interactions are granular (like moving shapes), then you might find memoization very helpful. 
+Nếu ứng dụng của bạn giống như trang web này và hầu hết các tương tác đều thô (như thay thế một trang hoặc toàn bộ một phần), thì việc ghi nhớ thường là không cần thiết. Mặt khác, nếu ứng dụng của bạn giống như một trình chỉnh sửa bản vẽ hơn và hầu hết các tương tác đều chi tiết (như di chuyển hình dạng), thì bạn có thể thấy việc ghi nhớ rất hữu ích.
 
-Optimizing with `memo`  is only valuable when your component re-renders often with the same exact props, and its re-rendering logic is expensive. If there is no perceptible lag when your component re-renders, `memo` is unnecessary. Keep in mind that `memo` is completely useless if the props passed to your component are *always different,* such as if you pass an object or a plain function defined during rendering. This is why you will often need [`useMemo`](/reference/react/useMemo#skipping-re-rendering-of-components) and [`useCallback`](/reference/react/useCallback#skipping-re-rendering-of-components) together with `memo`.
+Tối ưu hóa với `memo` chỉ có giá trị khi thành phần của bạn kết xuất lại thường xuyên với cùng một đạo cụ chính xác và logic kết xuất lại của nó tốn kém. Nếu không có độ trễ nhận thấy khi thành phần của bạn kết xuất lại, thì `memo` là không cần thiết. Hãy nhớ rằng `memo` hoàn toàn vô dụng nếu các đạo cụ được truyền cho thành phần của bạn *luôn khác nhau,* chẳng hạn như nếu bạn truyền một đối tượng hoặc một hàm thuần túy được xác định trong quá trình kết xuất. Đây là lý do tại sao bạn thường cần [`useMemo`](/reference/react/useMemo#skipping-re-rendering-of-components) và [`useCallback`](/reference/react/useCallback#skipping-re-rendering-of-components) cùng với `memo`.
 
-There is no benefit to wrapping a component in `memo` in other cases. There is no significant harm to doing that either, so some teams choose to not think about individual cases, and memoize as much as possible. The downside of this approach is that code becomes less readable. Also, not all memoization is effective: a single value that's "always new" is enough to break memoization for an entire component.
+Không có lợi ích gì khi bọc một thành phần trong `memo` trong các trường hợp khác. Cũng không có hại đáng kể nào khi làm điều đó, vì vậy một số nhóm chọn không nghĩ về các trường hợp riêng lẻ và ghi nhớ càng nhiều càng tốt. Nhược điểm của phương pháp này là mã trở nên khó đọc hơn. Ngoài ra, không phải tất cả các hoạt động ghi nhớ đều hiệu quả: một giá trị duy nhất "luôn mới" là đủ để phá vỡ hoạt động ghi nhớ cho toàn bộ một thành phần.
 
-**In practice, you can make a lot of memoization unnecessary by following a few principles:**
+**Trong thực tế, bạn có thể làm cho rất nhiều hoạt động ghi nhớ trở nên không cần thiết bằng cách tuân theo một vài nguyên tắc:**
 
-1. When a component visually wraps other components, let it [accept JSX as children.](/learn/passing-props-to-a-component#passing-jsx-as-children) This way, when the wrapper component updates its own state, React knows that its children don't need to re-render.
-1. Prefer local state and don't [lift state up](/learn/sharing-state-between-components) any further than necessary. For example, don't keep transient state like forms and whether an item is hovered at the top of your tree or in a global state library.
-1. Keep your [rendering logic pure.](/learn/keeping-components-pure) If re-rendering a component causes a problem or produces some noticeable visual artifact, it's a bug in your component! Fix the bug instead of adding memoization.
-1. Avoid [unnecessary Effects that update state.](/learn/you-might-not-need-an-effect) Most performance problems in React apps are caused by chains of updates originating from Effects that cause your components to render over and over.
-1. Try to [remove unnecessary dependencies from your Effects.](/learn/removing-effect-dependencies) For example, instead of memoization, it's often simpler to move some object or a function inside an Effect or outside the component.
+1. Khi một thành phần bao bọc trực quan các thành phần khác, hãy để nó [chấp nhận JSX làm con.](/learn/passing-props-to-a-component#passing-jsx-as-children) Bằng cách này, khi thành phần bao bọc cập nhật trạng thái của chính nó, React biết rằng các thành phần con của nó không cần phải kết xuất lại.
+2. Ưu tiên trạng thái cục bộ và không [nâng trạng thái lên](/learn/sharing-state-between-components) xa hơn mức cần thiết. Ví dụ: không giữ trạng thái tạm thời như biểu mẫu và liệu một mục có được di chuột hay không ở đầu cây của bạn hoặc trong một thư viện trạng thái toàn cầu.
+3. Giữ cho [logic kết xuất của bạn thuần túy.](/learn/keeping-components-pure) Nếu việc kết xuất lại một thành phần gây ra sự cố hoặc tạo ra một số tạo tác trực quan đáng chú ý, thì đó là một lỗi trong thành phần của bạn! Hãy sửa lỗi thay vì thêm hoạt động ghi nhớ.
+4. Tránh [các Effect không cần thiết cập nhật trạng thái.](/learn/you-might-not-need-an-effect) Hầu hết các vấn đề về hiệu suất trong các ứng dụng React đều do chuỗi các bản cập nhật bắt nguồn từ các Effect khiến các thành phần của bạn kết xuất đi kết xuất lại.
+5. Cố gắng [xóa các phụ thuộc không cần thiết khỏi các Effect của bạn.](/learn/removing-effect-dependencies) Ví dụ: thay vì ghi nhớ, thường đơn giản hơn là di chuyển một số đối tượng hoặc một hàm bên trong một Effect hoặc bên ngoài thành phần.
 
-If a specific interaction still feels laggy, [use the React Developer Tools profiler](https://legacy.reactjs.org/blog/2018/09/10/introducing-the-react-profiler.html) to see which components would benefit the most from memoization, and add memoization where needed. These principles make your components easier to debug and understand, so it's good to follow them in any case. In the long term, we're researching [doing granular memoization automatically](https://www.youtube.com/watch?v=lGEMwh32soc) to solve this once and for all.
+Nếu một tương tác cụ thể vẫn cảm thấy chậm trễ, hãy [sử dụng trình hồ sơ React Developer Tools](https://legacy.reactjs.org/blog/2018/09/10/introducing-the-react-profiler.html) để xem thành phần nào sẽ được hưởng lợi nhiều nhất từ việc ghi nhớ và thêm hoạt động ghi nhớ khi cần thiết. Các nguyên tắc này giúp các thành phần của bạn dễ gỡ lỗi và hiểu hơn, vì vậy tốt nhất là tuân theo chúng trong mọi trường hợp. Về lâu dài, chúng tôi đang nghiên cứu [tự động thực hiện hoạt động ghi nhớ chi tiết](https://www.youtube.com/watch?v=lGEMwh32soc) để giải quyết vấn đề này một lần và mãi mãi.
 
 </DeepDive>
 
 ---
 
-### Updating a memoized component using state {/*updating-a-memoized-component-using-state*/}
+### Cập nhật một thành phần đã ghi nhớ bằng cách sử dụng trạng thái {/*updating-a-memoized-component-using-state*/}
 
-Even when a component is memoized, it will still re-render when its own state changes. Memoization only has to do with props that are passed to the component from its parent.
+Ngay cả khi một thành phần được ghi nhớ, nó vẫn sẽ kết xuất lại khi trạng thái riêng của nó thay đổi. Hoạt động ghi nhớ chỉ liên quan đến các đạo cụ được truyền cho thành phần từ thành phần cha của nó.
 
 <Sandpack>
 
@@ -147,11 +147,11 @@ export default function MyApp() {
   return (
     <>
       <label>
-        Name{': '}
+        Tên{': '}
         <input value={name} onChange={e => setName(e.target.value)} />
       </label>
       <label>
-        Address{': '}
+        Địa chỉ{': '}
         <input value={address} onChange={e => setAddress(e.target.value)} />
       </label>
       <Greeting name={name} />
@@ -160,8 +160,8 @@ export default function MyApp() {
 }
 
 const Greeting = memo(function Greeting({ name }) {
-  console.log('Greeting was rendered at', new Date().toLocaleTimeString());
-  const [greeting, setGreeting] = useState('Hello');
+  console.log('Greeting đã được kết xuất vào lúc', new Date().toLocaleTimeString());
+  const [greeting, setGreeting] = useState('Xin chào');
   return (
     <>
       <h3>{greeting}{name && ', '}{name}!</h3>
@@ -176,18 +176,18 @@ function GreetingSelector({ value, onChange }) {
       <label>
         <input
           type="radio"
-          checked={value === 'Hello'}
-          onChange={e => onChange('Hello')}
+          checked={value === 'Xin chào'}
+          onChange={e => onChange('Xin chào')}
         />
-        Regular greeting
+        Lời chào thông thường
       </label>
       <label>
         <input
           type="radio"
-          checked={value === 'Hello and welcome'}
-          onChange={e => onChange('Hello and welcome')}
+          checked={value === 'Xin chào và chào mừng'}
+          onChange={e => onChange('Xin chào và chào mừng')}
         />
-        Enthusiastic greeting
+        Lời chào nhiệt tình
       </label>
     </>
   );
@@ -203,13 +203,13 @@ label {
 
 </Sandpack>
 
-If you set a state variable to its current value, React will skip re-rendering your component even without `memo`. You may still see your component function being called an extra time, but the result will be discarded.
+Nếu bạn đặt một biến trạng thái thành giá trị hiện tại của nó, React sẽ bỏ qua việc kết xuất lại thành phần của bạn ngay cả khi không có `memo`. Bạn vẫn có thể thấy hàm thành phần của bạn được gọi thêm một lần, nhưng kết quả sẽ bị loại bỏ.
 
 ---
 
-### Updating a memoized component using a context {/*updating-a-memoized-component-using-a-context*/}
+### Cập nhật một thành phần đã ghi nhớ bằng cách sử dụng một ngữ cảnh {/*updating-a-memoized-component-using-a-context*/}
 
-Even when a component is memoized, it will still re-render when a context that it's using changes. Memoization only has to do with props that are passed to the component from its parent.
+Ngay cả khi một thành phần được ghi nhớ, nó vẫn sẽ kết xuất lại khi một ngữ cảnh mà nó đang sử dụng thay đổi. Hoạt động ghi nhớ chỉ liên quan đến các đạo cụ được truyền cho thành phần từ thành phần cha của nó.
 
 <Sandpack>
 
@@ -228,7 +228,7 @@ export default function MyApp() {
   return (
     <ThemeContext.Provider value={theme}>
       <button onClick={handleClick}>
-        Switch theme
+        Chuyển đổi chủ đề
       </button>
       <Greeting name="Taylor" />
     </ThemeContext.Provider>
@@ -236,10 +236,10 @@ export default function MyApp() {
 }
 
 const Greeting = memo(function Greeting({ name }) {
-  console.log("Greeting was rendered at", new Date().toLocaleTimeString());
+  console.log("Greeting đã được kết xuất vào lúc", new Date().toLocaleTimeString());
   const theme = useContext(ThemeContext);
   return (
-    <h3 className={theme}>Hello, {name}!</h3>
+    <h3 className={theme}>Xin chào, {name}!</h3>
   );
 });
 ```
@@ -263,16 +263,15 @@ label {
 
 </Sandpack>
 
-To make your component re-render only when a _part_ of some context changes, split your component in two. Read what you need from the context in the outer component, and pass it down to a memoized child as a prop.
+Để làm cho thành phần của bạn chỉ kết xuất lại khi một _phần_ của một số ngữ cảnh thay đổi, hãy chia thành phần của bạn thành hai. Đọc những gì bạn cần từ ngữ cảnh trong thành phần bên ngoài và truyền nó xuống một thành phần con đã ghi nhớ dưới dạng một đạo cụ.
 
 ---
 
-### Minimizing props changes {/*minimizing-props-changes*/}
+### Giảm thiểu các thay đổi đạo cụ {/*minimizing-props-changes*/}
 
-When you use `memo`, your component re-renders whenever any prop is not *shallowly equal* to what it was previously. This means that React compares every prop in your component with its previous value using the [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison. Note that `Object.is(3, 3)` is `true`, but `Object.is({}, {})` is `false`.
+Khi bạn sử dụng `memo`, thành phần của bạn kết xuất lại bất cứ khi nào bất kỳ đạo cụ nào không *bằng nhau một cách nông cạn* với những gì nó đã có trước đó. Điều này có nghĩa là React so sánh mọi đạo cụ trong thành phần của bạn với giá trị trước đó của nó bằng cách sử dụng so sánh [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is). Lưu ý rằng `Object.is(3, 3)` là `true`, nhưng `Object.is({}, {})` là `false`.
 
-
-To get the most out of `memo`, minimize the times that the props change. For example, if the prop is an object, prevent the parent component from re-creating that object every time by using [`useMemo`:](/reference/react/useMemo)
+Để tận dụng tối đa `memo`, hãy giảm thiểu số lần các đạo cụ thay đổi. Ví dụ: nếu đạo cụ là một đối tượng, hãy ngăn thành phần cha tạo lại đối tượng đó mỗi lần bằng cách sử dụng [`useMemo`:](/reference/react/useMemo)
 
 ```js {5-8}
 function Page() {
@@ -292,7 +291,7 @@ const Profile = memo(function Profile({ person }) {
 });
 ```
 
-A better way to minimize props changes is to make sure the component accepts the minimum necessary information in its props. For example, it could accept individual values instead of a whole object:
+Một cách tốt hơn để giảm thiểu các thay đổi đạo cụ là đảm bảo thành phần chấp nhận thông tin cần thiết tối thiểu trong các đạo cụ của nó. Ví dụ: nó có thể chấp nhận các giá trị riêng lẻ thay vì toàn bộ một đối tượng:
 
 ```js {4,7}
 function Page() {
@@ -306,7 +305,7 @@ const Profile = memo(function Profile({ name, age }) {
 });
 ```
 
-Even individual values can sometimes be projected to ones that change less frequently. For example, here a component accepts a boolean indicating the presence of a value rather than the value itself:
+Ngay cả các giá trị riêng lẻ đôi khi có thể được chiếu thành các giá trị thay đổi ít thường xuyên hơn. Ví dụ: ở đây một thành phần chấp nhận một boolean cho biết sự hiện diện của một giá trị thay vì chính giá trị đó:
 
 ```js {3}
 function GroupsLanding({ person }) {
@@ -319,13 +318,13 @@ const CallToAction = memo(function CallToAction({ hasGroups }) {
 });
 ```
 
-When you need to pass a function to memoized component, either declare it outside your component so that it never changes, or [`useCallback`](/reference/react/useCallback#skipping-re-rendering-of-components) to cache its definition between re-renders.
+Khi bạn cần truyền một hàm cho thành phần đã ghi nhớ, hãy khai báo nó bên ngoài thành phần của bạn để nó không bao giờ thay đổi hoặc [`useCallback`](/reference/react/useCallback#skipping-re-rendering-of-components) để lưu trữ định nghĩa của nó giữa các lần kết xuất lại.
 
 ---
 
-### Specifying a custom comparison function {/*specifying-a-custom-comparison-function*/}
+### Chỉ định một hàm so sánh tùy chỉnh {/*specifying-a-custom-comparison-function*/}
 
-In rare cases it may be infeasible to minimize the props changes of a memoized component. In that case, you can provide a custom comparison function, which React will use to compare the old and new props instead of using shallow equality. This function is passed as a second argument to `memo`. It should return `true` only if the new props would result in the same output as the old props; otherwise it should return `false`.
+Trong một số trường hợp hiếm hoi, có thể không khả thi để giảm thiểu các thay đổi đạo cụ của một thành phần đã ghi nhớ. Trong trường hợp đó, bạn có thể cung cấp một hàm so sánh tùy chỉnh, mà React sẽ sử dụng để so sánh các đạo cụ cũ và mới thay vì sử dụng sự bằng nhau nông cạn. Hàm này được truyền dưới dạng đối số thứ hai cho `memo`. Nó sẽ trả về `true` chỉ khi các đạo cụ mới sẽ dẫn đến cùng một đầu ra như các đạo cụ cũ; nếu không, nó sẽ trả về `false`.
 
 ```js {3}
 const Chart = memo(function Chart({ dataPoints }) {
@@ -343,21 +342,21 @@ function arePropsEqual(oldProps, newProps) {
 }
 ```
 
-If you do this, use the Performance panel in your browser developer tools to make sure that your comparison function is actually faster than re-rendering the component. You might be surprised.
+Nếu bạn làm điều này, hãy sử dụng bảng điều khiển Performance trong các công cụ dành cho nhà phát triển của trình duyệt của bạn để đảm bảo rằng hàm so sánh của bạn thực sự nhanh hơn việc kết xuất lại thành phần. Bạn có thể ngạc nhiên đấy.
 
-When you do performance measurements, make sure that React is running in the production mode.
+Khi bạn thực hiện các phép đo hiệu suất, hãy đảm bảo rằng React đang chạy ở chế độ sản xuất.
 
 <Pitfall>
 
-If you provide a custom `arePropsEqual` implementation, **you must compare every prop, including functions.** Functions often [close over](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) the props and state of parent components. If you return `true` when `oldProps.onClick !== newProps.onClick`, your component will keep "seeing" the props and state from a previous render inside its `onClick` handler, leading to very confusing bugs.
+Nếu bạn cung cấp một triển khai `arePropsEqual` tùy chỉnh, **bạn phải so sánh mọi đạo cụ, bao gồm cả các hàm.** Các hàm thường [đóng trên](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) các đạo cụ và trạng thái của các thành phần cha. Nếu bạn trả về `true` khi `oldProps.onClick !== newProps.onClick`, thành phần của bạn sẽ tiếp tục "nhìn thấy" các đạo cụ và trạng thái từ một lần kết xuất trước đó bên trong trình xử lý `onClick` của nó, dẫn đến các lỗi rất khó hiểu.
 
-Avoid doing deep equality checks inside `arePropsEqual` unless you are 100% sure that the data structure you're working with has a known limited depth. **Deep equality checks can become incredibly slow** and can freeze your app for many seconds if someone changes the data structure later.
+Tránh thực hiện các kiểm tra tính bằng nhau sâu bên trong `arePropsEqual` trừ khi bạn chắc chắn 100% rằng cấu trúc dữ liệu mà bạn đang làm việc có độ sâu giới hạn đã biết. **Các kiểm tra tính bằng nhau sâu có thể trở nên cực kỳ chậm** và có thể đóng băng ứng dụng của bạn trong nhiều giây nếu ai đó thay đổi cấu trúc dữ liệu sau này.
 
 </Pitfall>
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
-### My component re-renders when a prop is an object, array, or function {/*my-component-rerenders-when-a-prop-is-an-object-or-array*/}
+## Khắc phục sự cố {/*troubleshooting*/}
+### Thành phần của tôi kết xuất lại khi một đạo cụ là một đối tượng, mảng hoặc hàm {/*my-component-rerenders-when-a-prop-is-an-object-or-array*/}
 
-React compares old and new props by shallow equality: that is, it considers whether each new prop is reference-equal to the old prop. If you create a new object or array each time the parent is re-rendered, even if the individual elements are each the same, React will still consider it to be changed. Similarly, if you create a new function when rendering the parent component, React will consider it to have changed even if the function has the same definition. To avoid this, [simplify props or memoize props in the parent component](#minimizing-props-changes).
+React so sánh các đạo cụ cũ và mới bằng tính bằng nhau nông cạn: nghĩa là, nó xem xét liệu mỗi đạo cụ mới có bằng tham chiếu với đạo cụ cũ hay không. Nếu bạn tạo một đối tượng hoặc mảng mới mỗi khi thành phần cha được kết xuất lại, ngay cả khi các phần tử riêng lẻ đều giống nhau, React vẫn sẽ coi nó là đã thay đổi. Tương tự, nếu bạn tạo một hàm mới khi kết xuất thành phần cha, React sẽ coi nó là đã thay đổi ngay cả khi hàm có cùng định nghĩa. Để tránh điều này, hãy [đơn giản hóa các đạo cụ hoặc ghi nhớ các đạo cụ trong thành phần cha](#minimizing-props-changes).

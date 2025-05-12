@@ -4,34 +4,34 @@ title: Server Components
 
 <RSC>
 
-Server Components are for use in [React Server Components](/learn/start-a-new-react-project#bleeding-edge-react-frameworks).
+Server Components (Thành phần máy chủ) được sử dụng trong [React Server Components](/learn/start-a-new-react-project#bleeding-edge-react-frameworks).
 
 </RSC>
 
 <Intro>
 
-Server Components are a new type of Component that renders ahead of time, before bundling, in an environment separate from your client app or SSR server.
+Server Components là một loại Component mới, được hiển thị trước, trước khi đóng gói, trong một môi trường tách biệt với ứng dụng client hoặc máy chủ SSR của bạn.
 
 </Intro>
 
-This separate environment is the "server" in React Server Components. Server Components can run once at build time on your CI server, or they can be run for each request using a web server.
+Môi trường riêng biệt này là "máy chủ" trong React Server Components. Server Components có thể chạy một lần tại thời điểm xây dựng trên máy chủ CI của bạn, hoặc chúng có thể được chạy cho mỗi yêu cầu bằng cách sử dụng một máy chủ web.
 
 <InlineToc />
 
 <Note>
 
-#### How do I build support for Server Components? {/*how-do-i-build-support-for-server-components*/}
+#### Làm cách nào để xây dựng hỗ trợ cho Server Components? {/*how-do-i-build-support-for-server-components*/}
 
-While React Server Components in React 19 are stable and will not break between minor versions, the underlying APIs used to implement a React Server Components bundler or framework do not follow semver and may break between minors in React 19.x. 
+Mặc dù React Server Components trong React 19 ổn định và sẽ không bị hỏng giữa các phiên bản nhỏ, nhưng các API cơ bản được sử dụng để triển khai trình đóng gói hoặc framework React Server Components không tuân theo semver và có thể bị hỏng giữa các phiên bản nhỏ trong React 19.x.
 
-To support React Server Components as a bundler or framework, we recommend pinning to a specific React version, or using the Canary release. We will continue working with bundlers and frameworks to stabilize the APIs used to implement React Server Components in the future.
+Để hỗ trợ React Server Components như một trình đóng gói hoặc framework, chúng tôi khuyên bạn nên ghim vào một phiên bản React cụ thể hoặc sử dụng bản phát hành Canary. Chúng tôi sẽ tiếp tục làm việc với các trình đóng gói và framework để ổn định các API được sử dụng để triển khai React Server Components trong tương lai.
 
 </Note>
 
-### Server Components without a Server {/*server-components-without-a-server*/}
-Server components can run at build time to read from the filesystem or fetch static content, so a web server is not required. For example, you may want to read static data from a content management system.
+### Server Components không cần máy chủ {/*server-components-without-a-server*/}
+Server components có thể chạy tại thời điểm xây dựng để đọc từ hệ thống tệp hoặc tìm nạp nội dung tĩnh, vì vậy không cần máy chủ web. Ví dụ: bạn có thể muốn đọc dữ liệu tĩnh từ hệ thống quản lý nội dung.
 
-Without Server Components, it's common to fetch static data on the client with an Effect:
+Nếu không có Server Components, thông thường bạn sẽ tìm nạp dữ liệu tĩnh trên máy khách bằng Effect:
 ```js
 // bundle.js
 import marked from 'marked'; // 35.9K (11.2K gzipped)
@@ -58,13 +58,13 @@ app.get(`/api/content/:page`, async (req, res) => {
 });
 ```
 
-This pattern means users need to download and parse an additional 75K (gzipped) of libraries, and wait for a second request to fetch the data after the page loads, just to render static content that will not change for the lifetime of the page.
+Mô hình này có nghĩa là người dùng cần tải xuống và phân tích cú pháp thêm 75K (đã nén gzip) thư viện và đợi yêu cầu thứ hai để tìm nạp dữ liệu sau khi trang tải, chỉ để hiển thị nội dung tĩnh sẽ không thay đổi trong suốt thời gian tồn tại của trang.
 
-With Server Components, you can render these components once at build time:
+Với Server Components, bạn có thể hiển thị các component này một lần tại thời điểm xây dựng:
 
 ```js
-import marked from 'marked'; // Not included in bundle
-import sanitizeHtml from 'sanitize-html'; // Not included in bundle
+import marked from 'marked'; // Không được bao gồm trong bundle
+import sanitizeHtml from 'sanitize-html'; // Không được bao gồm trong bundle
 
 async function Page({page}) {
   // NOTE: loads *during* render, when the app is built.
@@ -74,17 +74,17 @@ async function Page({page}) {
 }
 ```
 
-The rendered output can then be server-side rendered (SSR) to HTML and uploaded to a CDN. When the app loads, the client will not see the original `Page` component, or the expensive libraries for rendering the markdown. The client will only see the rendered output:
+Đầu ra được hiển thị sau đó có thể được hiển thị phía máy chủ (SSR) thành HTML và tải lên CDN. Khi ứng dụng tải, máy khách sẽ không thấy component `Page` ban đầu hoặc các thư viện tốn kém để hiển thị markdown. Máy khách sẽ chỉ thấy đầu ra được hiển thị:
 
 ```js
-<div><!-- html for markdown --></div>
+<div>{/* html for markdown */}</div>
 ```
 
-This means the content is visible during first page load, and the bundle does not include the expensive libraries needed to render the static content.
+Điều này có nghĩa là nội dung hiển thị trong lần tải trang đầu tiên và bundle không bao gồm các thư viện tốn kém cần thiết để hiển thị nội dung tĩnh.
 
 <Note>
 
-You may notice that the Server Component above is an async function:
+Bạn có thể nhận thấy rằng Server Component ở trên là một hàm async:
 
 ```js
 async function Page({page}) {
@@ -92,16 +92,16 @@ async function Page({page}) {
 }
 ```
 
-Async Components are a new feature of Server Components that allow you to `await` in render.
+Async Components là một tính năng mới của Server Components cho phép bạn `await` trong quá trình render.
 
-See [Async components with Server Components](#async-components-with-server-components) below.
+Xem [Async components with Server Components](#async-components-with-server-components) bên dưới.
 
 </Note>
 
-### Server Components with a Server {/*server-components-with-a-server*/}
-Server Components can also run on a web server during a request for a page, letting you access your data layer without having to build an API. They are rendered before your application is bundled, and can pass data and JSX as props to Client Components.
+### Server Components với máy chủ {/*server-components-with-a-server*/}
+Server Components cũng có thể chạy trên máy chủ web trong quá trình yêu cầu một trang, cho phép bạn truy cập lớp dữ liệu của mình mà không cần xây dựng API. Chúng được hiển thị trước khi ứng dụng của bạn được đóng gói và có thể chuyển dữ liệu và JSX làm đạo cụ cho Client Components.
 
-Without Server Components, it's common to fetch dynamic data on the client in an Effect:
+Nếu không có Server Components, thông thường bạn sẽ tìm nạp dữ liệu động trên máy khách trong Effect:
 
 ```js
 // bundle.js
@@ -150,7 +150,7 @@ app.get(`/api/authors/:id`, async (req, res) => {
 });
 ```
 
-With Server Components, you can read the data and render it in the component:
+Với Server Components, bạn có thể đọc dữ liệu và hiển thị nó trong component:
 
 ```js
 import db from './database';
@@ -174,7 +174,7 @@ async function Author({id}) {
 }
 ```
 
-The bundler then combines the data, rendered Server Components and dynamic Client Components into a bundle. Optionally, that bundle can then be server-side rendered (SSR) to create the initial HTML for the page. When the page loads, the browser does not see the original `Note` and `Author` components; only the rendered output is sent to the client:
+Sau đó, trình đóng gói kết hợp dữ liệu, Server Components được hiển thị và Client Components động thành một bundle. Tùy chọn, bundle đó sau đó có thể được hiển thị phía máy chủ (SSR) để tạo HTML ban đầu cho trang. Khi trang tải, trình duyệt không thấy các component `Note` và `Author` ban đầu; chỉ đầu ra được hiển thị được gửi đến máy khách:
 
 ```js
 <div>
@@ -183,24 +183,24 @@ The bundler then combines the data, rendered Server Components and dynamic Clien
 </div>
 ```
 
-Server Components can be made dynamic by re-fetching them from a server, where they can access the data and render again. This new application architecture combines the simple “request/response” mental model of server-centric Multi-Page Apps with the seamless interactivity of client-centric Single-Page Apps, giving you the best of both worlds.
+Server Components có thể được tạo động bằng cách tìm nạp lại chúng từ máy chủ, nơi chúng có thể truy cập dữ liệu và hiển thị lại. Kiến trúc ứng dụng mới này kết hợp mô hình tinh thần "yêu cầu/phản hồi" đơn giản của các Ứng dụng nhiều trang tập trung vào máy chủ với tính tương tác liền mạch của các Ứng dụng một trang tập trung vào máy khách, mang đến cho bạn những điều tốt nhất của cả hai thế giới.
 
-### Adding interactivity to Server Components {/*adding-interactivity-to-server-components*/}
+### Thêm tính tương tác vào Server Components {/*adding-interactivity-to-server-components*/}
 
-Server Components are not sent to the browser, so they cannot use interactive APIs like `useState`. To add interactivity to Server Components, you can compose them with Client Component using the `"use client"` directive.
+Server Components không được gửi đến trình duyệt, vì vậy chúng không thể sử dụng các API tương tác như `useState`. Để thêm tính tương tác vào Server Components, bạn có thể kết hợp chúng với Client Component bằng chỉ thị `"use client"`.
 
 <Note>
 
-#### There is no directive for Server Components. {/*there-is-no-directive-for-server-components*/}
+#### Không có chỉ thị cho Server Components. {/*there-is-no-directive-for-server-components*/}
 
-A common misunderstanding is that Server Components are denoted by `"use server"`, but there is no directive for Server Components. The `"use server"` directive is used for Server Functions.
+Một sự hiểu lầm phổ biến là Server Components được biểu thị bằng `"use server"`, nhưng không có chỉ thị nào cho Server Components. Chỉ thị `"use server"` được sử dụng cho Server Functions.
 
-For more info, see the docs for [Directives](/reference/rsc/directives).
+Để biết thêm thông tin, hãy xem tài liệu về [Directives](/reference/rsc/directives).
 
 </Note>
 
 
-In the following example, the `Notes` Server Component imports an `Expandable` Client Component that uses state to toggle its `expanded` state:
+Trong ví dụ sau, Server Component `Notes` nhập một Client Component `Expandable` sử dụng trạng thái để chuyển đổi trạng thái `expanded` của nó:
 ```js
 // Server Component
 import Expandable from './Expandable';
@@ -237,11 +237,11 @@ export default function Expandable({children}) {
 }
 ```
 
-This works by first rendering `Notes` as a Server Component, and then instructing the bundler to create a bundle for the Client Component `Expandable`. In the browser, the Client Components will see output of the Server Components passed as props:
+Điều này hoạt động bằng cách hiển thị `Notes` dưới dạng Server Component trước, sau đó hướng dẫn trình đóng gói tạo một bundle cho Client Component `Expandable`. Trong trình duyệt, Client Components sẽ thấy đầu ra của Server Components được chuyển dưới dạng đạo cụ:
 
 ```js
 <head>
-  <!-- the bundle for Client Components -->
+  {/* the bundle for Client Components */}
   <script src="bundle.js" />
 </head>
 <body>
@@ -252,16 +252,16 @@ This works by first rendering `Notes` as a Server Component, and then instructin
     <Expandable key={2}>
       <p>this is the second note</p>
     </Expandable>
-    <!--...-->
+    {/*...*/}
   </div> 
 </body>
 ```
 
-### Async components with Server Components {/*async-components-with-server-components*/}
+### Async components với Server Components {/*async-components-with-server-components*/}
 
-Server Components introduce a new way to write Components using async/await. When you `await` in an async component, React will suspend and wait for the promise to resolve before resuming rendering. This works across server/client boundaries with streaming support for Suspense.
+Server Components giới thiệu một cách mới để viết Components bằng async/await. Khi bạn `await` trong một component async, React sẽ tạm dừng và đợi promise được giải quyết trước khi tiếp tục hiển thị. Điều này hoạt động trên các ranh giới máy chủ/máy khách với hỗ trợ phát trực tuyến cho Suspense.
 
-You can even create a promise on the server, and await it on the client:
+Bạn thậm chí có thể tạo một promise trên máy chủ và đợi nó trên máy khách:
 
 ```js
 // Server Component
@@ -297,6 +297,6 @@ function Comments({commentsPromise}) {
 }
 ```
 
-The `note` content is important data for the page to render, so we `await` it on the server. The comments are below the fold and lower-priority, so we start the promise on the server, and wait for it on the client with the `use` API. This will Suspend on the client, without blocking the `note` content from rendering.
+Nội dung `note` là dữ liệu quan trọng để trang hiển thị, vì vậy chúng tôi `await` nó trên máy chủ. Các comment nằm bên dưới phần hiển thị đầu tiên và có mức độ ưu tiên thấp hơn, vì vậy chúng tôi bắt đầu promise trên máy chủ và đợi nó trên máy khách bằng API `use`. Điều này sẽ tạm dừng trên máy khách mà không chặn nội dung `note` hiển thị.
 
-Since async components are not supported on the client, we await the promise with `use`.
+Vì các component async không được hỗ trợ trên máy khách, chúng tôi đợi promise bằng `use`.

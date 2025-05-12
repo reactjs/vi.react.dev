@@ -1,37 +1,37 @@
 {
-  "title": "React Docs",
+  "title": "Tài liệu React",
   "path": "/",
   "routes": [
     {
       "hasSectionHeader": true,
-      "sectionHeader": "GET STARTED"
+      "sectionHeader": "BẮT ĐẦU"
     },
     {
-      "title": "Quick Start",
+      "title": "Bắt Đầu Nhanh",
       "path": "/learn"
     },
     {
-      "title": "Installation",
+      "title": "Cài đặt",
       "path": "/learn/installation"
     },
     {
       "hasSectionHeader": true,
-      "sectionHeader": "LEARN REACT"
+      "sectionHeader": "HỌC REACT"
     },
     {
-      "title": "Describing the UI",
+      "title": "Mô tả giao diện người dùng",
       "path": "/learn/describing-the-ui"
     },
     {
-      "title": "Adding Interactivity",
+      "title": "Thêm tính tương tác",
       "path": "/learn/adding-interactivity"
     },
     {
-      "title": "Managing State",
+      "title": "Quản lý trạng thái",
       "path": "/learn/managing-state"
     },
     {
-      "title": "Escape Hatches",
+      "title": "Các lối thoát hiểm",
       "path": "/learn/escape-hatches"
     },
     {
@@ -76,18 +76,18 @@
     },
     {
       "hasSectionHeader": true,
-      "sectionHeader": "GET INVOLVED"
+      "sectionHeader": "THAM GIA"
     },
     {
-      "title": "React Community",
+      "title": "Cộng đồng React",
       "path": "/community"
     },
     {
       "hasSectionHeader": true,
-      "sectionHeader": "STAY INFORMED"
+      "sectionHeader": "LUÔN CẬP NHẬT"
     },
     {
-      "title": "React Blog",
+      "title": "Blog React",
       "path": "/blog"
     }
   ]

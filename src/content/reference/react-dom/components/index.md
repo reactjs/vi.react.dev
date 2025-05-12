@@ -1,40 +1,40 @@
 ---
-title: "React DOM Components"
+title: "Các thành phần React DOM"
 ---
 
 <Intro>
 
-React supports all of the browser built-in [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) and [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) components.
+React hỗ trợ tất cả các thành phần [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML/Element) và [SVG](https://developer.mozilla.org/en-US/docs/Web/SVG/Element) được tích hợp sẵn của trình duyệt.
 
 </Intro>
 
 ---
 
-## Common components {/*common-components*/}
+## Các thành phần phổ biến {/*common-components*/}
 
-All of the built-in browser components support some props and events.
+Tất cả các thành phần trình duyệt tích hợp sẵn đều hỗ trợ một số thuộc tính và sự kiện.
 
-* [Common components (e.g. `<div>`)](/reference/react-dom/components/common)
+* [Các thành phần phổ biến (ví dụ: `<div>`)](/reference/react-dom/components/common)
 
-This includes React-specific props like `ref` and `dangerouslySetInnerHTML`.
+Điều này bao gồm các thuộc tính dành riêng cho React như `ref` và `dangerouslySetInnerHTML`.
 
 ---
 
-## Form components {/*form-components*/}
+## Các thành phần biểu mẫu {/*form-components*/}
 
-These built-in browser components accept user input:
+Các thành phần trình duyệt tích hợp sẵn này chấp nhận đầu vào của người dùng:
 
 * [`<input>`](/reference/react-dom/components/input)
 * [`<select>`](/reference/react-dom/components/select)
 * [`<textarea>`](/reference/react-dom/components/textarea)
 
-They are special in React because passing the `value` prop to them makes them *[controlled.](/reference/react-dom/components/input#controlling-an-input-with-a-state-variable)*
+Chúng đặc biệt trong React vì việc truyền thuộc tính `value` cho chúng sẽ khiến chúng trở thành *[được kiểm soát.](/reference/react-dom/components/input#controlling-an-input-with-a-state-variable)*
 
 ---
 
-## Resource and Metadata Components {/*resource-and-metadata-components*/}
+## Các thành phần Tài nguyên và Siêu dữ liệu {/*resource-and-metadata-components*/}
 
-These built-in browser components let you load external resources or annotate the document with metadata:
+Các thành phần trình duyệt tích hợp sẵn này cho phép bạn tải tài nguyên bên ngoài hoặc chú thích tài liệu bằng siêu dữ liệu:
 
 * [`<link>`](/reference/react-dom/components/link)
 * [`<meta>`](/reference/react-dom/components/meta)
@@ -42,13 +42,13 @@ These built-in browser components let you load external resources or annotate th
 * [`<style>`](/reference/react-dom/components/style)
 * [`<title>`](/reference/react-dom/components/title)
 
-They are special in React because React can render them into the document head, suspend while resources are loading, and enact other behaviors that are described on the reference page for each specific component.
+Chúng đặc biệt trong React vì React có thể hiển thị chúng vào đầu tài liệu, tạm dừng trong khi tài nguyên đang tải và ban hành các hành vi khác được mô tả trên trang tham khảo cho từng thành phần cụ thể.
 
 ---
 
-## All HTML components {/*all-html-components*/}
+## Tất cả các thành phần HTML {/*all-html-components*/}
 
-React supports all built-in browser HTML components. This includes:
+React hỗ trợ tất cả các thành phần HTML trình duyệt tích hợp sẵn. Điều này bao gồm:
 
 * [`<aside>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/aside)
 * [`<audio>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/audio)
@@ -154,38 +154,38 @@ React supports all built-in browser HTML components. This includes:
 
 <Note>
 
-Similar to the [DOM standard,](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) React uses a `camelCase` convention for prop names. For example, you'll write `tabIndex` instead of `tabindex`. You can convert existing HTML to JSX with an [online converter.](https://transform.tools/html-to-jsx)
+Tương tự như [tiêu chuẩn DOM,](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) React sử dụng quy ước `camelCase` cho tên thuộc tính. Ví dụ: bạn sẽ viết `tabIndex` thay vì `tabindex`. Bạn có thể chuyển đổi HTML hiện có sang JSX bằng một [công cụ chuyển đổi trực tuyến.](https://transform.tools/html-to-jsx)
 
 </Note>
 
 ---
 
-### Custom HTML elements {/*custom-html-elements*/}
+### Các phần tử HTML tùy chỉnh {/*custom-html-elements*/}
 
-If you render a tag with a dash, like `<my-element>`, React will assume you want to render a [custom HTML element.](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) In React, rendering custom elements works differently from rendering built-in browser tags:
+Nếu bạn hiển thị một thẻ có dấu gạch ngang, chẳng hạn như `<my-element>`, React sẽ cho rằng bạn muốn hiển thị một [phần tử HTML tùy chỉnh.](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_custom_elements) Trong React, việc hiển thị các phần tử tùy chỉnh hoạt động khác với việc hiển thị các thẻ trình duyệt tích hợp sẵn:
 
-- All custom element props are serialized to strings and are always set using attributes.
-- Custom elements accept `class` rather than `className`, and `for` rather than `htmlFor`.
+- Tất cả các thuộc tính của phần tử tùy chỉnh được tuần tự hóa thành chuỗi và luôn được đặt bằng các thuộc tính.
+- Các phần tử tùy chỉnh chấp nhận `class` thay vì `className` và `for` thay vì `htmlFor`.
 
-If you render a built-in browser HTML element with an [`is`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is) attribute, it will also be treated as a custom element.
+Nếu bạn hiển thị một phần tử HTML trình duyệt tích hợp sẵn với thuộc tính [`is`](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/is), nó cũng sẽ được coi là một phần tử tùy chỉnh.
 
 <Note>
 
-[A future version of React will include more comprehensive support for custom elements.](https://github.com/facebook/react/issues/11347#issuecomment-1122275286)
+[Một phiên bản React trong tương lai sẽ bao gồm hỗ trợ toàn diện hơn cho các phần tử tùy chỉnh.](https://github.com/facebook/react/issues/11347#issuecomment-1122275286)
 
-You can try it by upgrading React packages to the most recent experimental version:
+Bạn có thể thử bằng cách nâng cấp các gói React lên phiên bản thử nghiệm mới nhất:
 
 - `react@experimental`
 - `react-dom@experimental`
 
-Experimental versions of React may contain bugs. Don't use them in production.
+Các phiên bản thử nghiệm của React có thể chứa lỗi. Không sử dụng chúng trong sản xuất.
 
 </Note>
 ---
 
-## All SVG components {/*all-svg-components*/}
+## Tất cả các thành phần SVG {/*all-svg-components*/}
 
-React supports all built-in browser SVG components. This includes:
+React hỗ trợ tất cả các thành phần SVG trình duyệt tích hợp sẵn. Điều này bao gồm:
 
 * [`<a>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/a)
 * [`<animate>`](https://developer.mozilla.org/en-US/docs/Web/SVG/Element/animate)
@@ -256,20 +256,20 @@ React supports all built-in browser SVG components. This includes:
 
 <Note>
 
-Similar to the [DOM standard,](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) React uses a `camelCase` convention for prop names. For example, you'll write `tabIndex` instead of `tabindex`. You can convert existing SVG to JSX with an [online converter.](https://transform.tools/)
+Tương tự như [tiêu chuẩn DOM,](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) React sử dụng quy ước `camelCase` cho tên thuộc tính. Ví dụ: bạn sẽ viết `tabIndex` thay vì `tabindex`. Bạn có thể chuyển đổi SVG hiện có sang JSX bằng một [công cụ chuyển đổi trực tuyến.](https://transform.tools/)
 
-Namespaced attributes also have to be written without the colon:
+Các thuộc tính có không gian tên cũng phải được viết không có dấu hai chấm:
 
-* `xlink:actuate` becomes `xlinkActuate`.
-* `xlink:arcrole` becomes `xlinkArcrole`.
-* `xlink:href` becomes `xlinkHref`.
-* `xlink:role` becomes `xlinkRole`.
-* `xlink:show` becomes `xlinkShow`.
-* `xlink:title` becomes `xlinkTitle`.
-* `xlink:type` becomes `xlinkType`.
-* `xml:base` becomes `xmlBase`.
-* `xml:lang` becomes `xmlLang`.
-* `xml:space` becomes `xmlSpace`.
-* `xmlns:xlink` becomes `xmlnsXlink`.
+* `xlink:actuate` trở thành `xlinkActuate`.
+* `xlink:arcrole` trở thành `xlinkArcrole`.
+* `xlink:href` trở thành `xlinkHref`.
+* `xlink:role` trở thành `xlinkRole`.
+* `xlink:show` trở thành `xlinkShow`.
+* `xlink:title` trở thành `xlinkTitle`.
+* `xlink:type` trở thành `xlinkType`.
+* `xml:base` trở thành `xmlBase`.
+* `xml:lang` trở thành `xmlLang`.
+* `xml:space` trở thành `xmlSpace`.
+* `xmlns:xlink` trở thành `xmlnsXlink`.
 
 </Note>

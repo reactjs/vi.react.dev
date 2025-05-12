@@ -1,35 +1,35 @@
 ---
-title: Translations
+title: Bản dịch
 ---
 
 <Intro>
 
-React docs are translated by the global community into many languages all over the world.
+Tài liệu React được cộng đồng toàn cầu dịch sang nhiều ngôn ngữ trên khắp thế giới.
 
 </Intro>
 
-## Source site {/*main-site*/}
+## Trang gốc {/*main-site*/}
 
-All translations are provided from the canonical source docs:
+Tất cả các bản dịch được cung cấp từ tài liệu gốc chính thức:
 
-- [English](https://react.dev/) &mdash; [Contribute](https://github.com/reactjs/react.dev/)
+- [Tiếng Anh](https://react.dev/) &mdash; [Đóng góp](https://github.com/reactjs/react.dev/)
 
-## Full translations {/*full-translations*/}
+## Bản dịch đầy đủ {/*full-translations*/}
 
-{/* If you are a language maintainer and want to add your language here, finish the "Core" translations and edit `deployedTranslations` under `src/utils`. */}
+{/* Nếu bạn là người bảo trì ngôn ngữ và muốn thêm ngôn ngữ của mình vào đây, hãy hoàn thành bản dịch "Core" và chỉnh sửa `deployedTranslations` trong `src/utils`. */}
 
 <LanguageList progress="complete" />
 
-## In-progress translations {/*in-progress-translations*/}
+## Bản dịch đang tiến hành {/*in-progress-translations*/}
 
-For the progress of each translation, see: [Is React Translated Yet?](https://translations.react.dev/)
+Để biết tiến độ của từng bản dịch, hãy xem: [React Đã Được Dịch Chưa?](https://translations.react.dev/)
 
 <LanguageList progress="in-progress" />
 
-## How to contribute {/*how-to-contribute*/}
+## Cách đóng góp {/*how-to-contribute*/}
 
-You can contribute to the translation efforts! 
+Bạn có thể đóng góp vào nỗ lực dịch thuật!
 
-The community conducts the translation work for the React docs on each language-specific fork of react.dev. Typical translation work involves directly translating a Markdown file and creating a pull request. Click the "contribute" link above to the GitHub repository for your language, and follow the instructions there to help with the translation effort.
+Cộng đồng thực hiện công việc dịch tài liệu React trên mỗi nhánh dành riêng cho ngôn ngữ của react.dev. Công việc dịch thuật điển hình bao gồm dịch trực tiếp tệp Markdown và tạo một pull request. Nhấp vào liên kết "đóng góp" ở trên để đến kho lưu trữ GitHub cho ngôn ngữ của bạn và làm theo hướng dẫn ở đó để giúp nỗ lực dịch thuật.
 
-If you want to start a new translation for your language, visit: [translations.react.dev](https://github.com/reactjs/translations.react.dev)
+Nếu bạn muốn bắt đầu một bản dịch mới cho ngôn ngữ của mình, hãy truy cập: [translations.react.dev](https://github.com/reactjs/translations.react.dev)

@@ -1,37 +1,37 @@
 ---
-title: Reacting to Input with State
+title: Phản hồi Đầu vào bằng State
 ---
 
 <Intro>
 
-React provides a declarative way to manipulate the UI. Instead of manipulating individual pieces of the UI directly, you describe the different states that your component can be in, and switch between them in response to the user input. This is similar to how designers think about the UI.
+React cung cấp một cách khai báo để thao tác UI. Thay vì thao tác trực tiếp các phần tử UI riêng lẻ, bạn mô tả các trạng thái khác nhau mà component của bạn có thể ở và chuyển đổi giữa chúng để phản hồi đầu vào của người dùng. Điều này tương tự như cách các nhà thiết kế nghĩ về UI.
 
 </Intro>
 
 <YouWillLearn>
 
-* How declarative UI programming differs from imperative UI programming
-* How to enumerate the different visual states your component can be in
-* How to trigger the changes between the different visual states from code
+* Sự khác biệt giữa lập trình UI khai báo và lập trình UI mệnh lệnh
+* Cách liệt kê các trạng thái hiển thị khác nhau mà component của bạn có thể ở
+* Cách kích hoạt các thay đổi giữa các trạng thái hiển thị khác nhau từ code
 
 </YouWillLearn>
 
-## How declarative UI compares to imperative {/*how-declarative-ui-compares-to-imperative*/}
+## So sánh UI khai báo với UI mệnh lệnh {/*how-declarative-ui-compares-to-imperative*/}
 
-When you design UI interactions, you probably think about how the UI *changes* in response to user actions. Consider a form that lets the user submit an answer:
+Khi bạn thiết kế các tương tác UI, bạn có thể nghĩ về cách UI *thay đổi* để phản hồi các hành động của người dùng. Hãy xem xét một biểu mẫu cho phép người dùng gửi câu trả lời:
 
-* When you type something into the form, the "Submit" button **becomes enabled.**
-* When you press "Submit", both the form and the button **become disabled,** and a spinner **appears.**
-* If the network request succeeds, the form **gets hidden,** and the "Thank you" message **appears.**
-* If the network request fails, an error message **appears,** and the form **becomes enabled** again.
+* Khi bạn nhập nội dung gì đó vào biểu mẫu, nút "Gửi" **sẽ được bật.**
+* Khi bạn nhấn "Gửi", cả biểu mẫu và nút **sẽ bị tắt,** và một spinner **xuất hiện.**
+* Nếu yêu cầu mạng thành công, biểu mẫu **sẽ bị ẩn,** và thông báo "Cảm ơn" **xuất hiện.**
+* Nếu yêu cầu mạng không thành công, một thông báo lỗi **xuất hiện,** và biểu mẫu **sẽ được bật** lại.
 
-In **imperative programming,** the above corresponds directly to how you implement interaction. You have to write the exact instructions to manipulate the UI depending on what just happened. Here's another way to think about this: imagine riding next to someone in a car and telling them turn by turn where to go.
+Trong **lập trình mệnh lệnh,** điều trên tương ứng trực tiếp với cách bạn triển khai tương tác. Bạn phải viết các hướng dẫn chính xác để thao tác UI tùy thuộc vào những gì vừa xảy ra. Đây là một cách khác để nghĩ về điều này: hãy tưởng tượng bạn đang đi cạnh ai đó trong xe hơi và chỉ cho họ từng ngã rẽ nơi cần đi.
 
-<Illustration src="/images/docs/illustrations/i_imperative-ui-programming.png"  alt="In a car driven by an anxious-looking person representing JavaScript, a passenger orders the driver to execute a sequence of complicated turn by turn navigations." />
+<Illustration src="/images/docs/illustrations/i_imperative-ui-programming.png" alt="Trong một chiếc xe hơi do một người trông lo lắng đại diện cho JavaScript lái, một hành khách ra lệnh cho người lái xe thực hiện một chuỗi điều hướng phức tạp từng ngã rẽ." />
 
-They don't know where you want to go, they just follow your commands. (And if you get the directions wrong, you end up in the wrong place!) It's called *imperative* because you have to "command" each element, from the spinner to the button, telling the computer *how* to update the UI.
+Họ không biết bạn muốn đi đâu, họ chỉ làm theo lệnh của bạn. (Và nếu bạn chỉ sai đường, bạn sẽ đến nhầm chỗ!) Nó được gọi là *mệnh lệnh* vì bạn phải "ra lệnh" cho từng phần tử, từ spinner đến nút, cho máy tính biết *cách* cập nhật UI.
 
-In this example of imperative UI programming, the form is built *without* React. It only uses the browser [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model):
+Trong ví dụ về lập trình UI mệnh lệnh này, biểu mẫu được xây dựng *không* có React. Nó chỉ sử dụng [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model) của trình duyệt:
 
 <Sandpack>
 
@@ -131,37 +131,37 @@ body { font-family: sans-serif; margin: 20px; padding: 0; }
 
 </Sandpack>
 
-Manipulating the UI imperatively works well enough for isolated examples, but it gets exponentially more difficult to manage in more complex systems. Imagine updating a page full of different forms like this one. Adding a new UI element or a new interaction would require carefully checking all existing code to make sure you haven't introduced a bug (for example, forgetting to show or hide something).
+Thao tác UI một cách mệnh lệnh hoạt động đủ tốt cho các ví dụ riêng lẻ, nhưng nó trở nên khó quản lý hơn theo cấp số nhân trong các hệ thống phức tạp hơn. Hãy tưởng tượng việc cập nhật một trang đầy các biểu mẫu khác nhau như thế này. Việc thêm một phần tử UI mới hoặc một tương tác mới sẽ yêu cầu kiểm tra cẩn thận tất cả code hiện có để đảm bảo bạn không gây ra lỗi (ví dụ: quên hiển thị hoặc ẩn nội dung gì đó).
 
-React was built to solve this problem.
+React được xây dựng để giải quyết vấn đề này.
 
-In React, you don't directly manipulate the UI--meaning you don't enable, disable, show, or hide components directly. Instead, you **declare what you want to show,** and React figures out how to update the UI. Think of getting into a taxi and telling the driver where you want to go instead of telling them exactly where to turn. It's the driver's job to get you there, and they might even know some shortcuts you haven't considered!
+Trong React, bạn không thao tác trực tiếp UI--nghĩa là bạn không bật, tắt, hiển thị hoặc ẩn các component trực tiếp. Thay vào đó, bạn **khai báo những gì bạn muốn hiển thị,** và React sẽ tìm ra cách cập nhật UI. Hãy nghĩ đến việc bắt taxi và nói với tài xế nơi bạn muốn đến thay vì chỉ cho họ chính xác nơi cần rẽ. Công việc của tài xế là đưa bạn đến đó, và họ thậm chí có thể biết một số đường tắt mà bạn chưa xem xét!
 
-<Illustration src="/images/docs/illustrations/i_declarative-ui-programming.png" alt="In a car driven by React, a passenger asks to be taken to a specific place on the map. React figures out how to do that." />
+<Illustration src="/images/docs/illustrations/i_declarative-ui-programming.png" alt="Trong một chiếc xe hơi do React lái, một hành khách yêu cầu được đưa đến một địa điểm cụ thể trên bản đồ. React tìm ra cách thực hiện điều đó." />
 
-## Thinking about UI declaratively {/*thinking-about-ui-declaratively*/}
+## Tư duy về UI một cách khai báo {/*thinking-about-ui-declaratively*/}
 
-You've seen how to implement a form imperatively above. To better understand how to think in React, you'll walk through reimplementing this UI in React below:
+Bạn đã thấy cách triển khai một biểu mẫu một cách mệnh lệnh ở trên. Để hiểu rõ hơn về cách tư duy trong React, bạn sẽ thực hiện lại UI này trong React bên dưới:
 
-1. **Identify** your component's different visual states
-2. **Determine** what triggers those state changes
-3. **Represent** the state in memory using `useState`
-4. **Remove** any non-essential state variables
-5. **Connect** the event handlers to set the state
+1. **Xác định** các trạng thái hiển thị khác nhau của component của bạn
+2. **Xác định** điều gì kích hoạt những thay đổi trạng thái đó
+3. **Biểu diễn** trạng thái trong bộ nhớ bằng `useState`
+4. **Loại bỏ** bất kỳ biến trạng thái không cần thiết nào
+5. **Kết nối** các trình xử lý sự kiện để đặt trạng thái
 
-### Step 1: Identify your component's different visual states {/*step-1-identify-your-components-different-visual-states*/}
+### Bước 1: Xác định các trạng thái hiển thị khác nhau của component của bạn {/*step-1-identify-your-components-different-visual-states*/}
 
-In computer science, you may hear about a ["state machine"](https://en.wikipedia.org/wiki/Finite-state_machine) being in one of several “states”. If you work with a designer, you may have seen mockups for different "visual states". React stands at the intersection of design and computer science, so both of these ideas are sources of inspiration.
+Trong khoa học máy tính, bạn có thể nghe nói về một ["máy trạng thái"](https://en.wikipedia.org/wiki/Finite-state_machine) đang ở một trong số các "trạng thái". Nếu bạn làm việc với một nhà thiết kế, bạn có thể đã thấy các bản mô phỏng cho các "trạng thái hiển thị" khác nhau. React đứng ở giao điểm giữa thiết kế và khoa học máy tính, vì vậy cả hai ý tưởng này đều là nguồn cảm hứng.
 
-First, you need to visualize all the different "states" of the UI the user might see:
+Đầu tiên, bạn cần hình dung tất cả các "trạng thái" khác nhau của UI mà người dùng có thể thấy:
 
-* **Empty**: Form has a disabled "Submit" button.
-* **Typing**: Form has an enabled "Submit" button.
-* **Submitting**: Form is completely disabled. Spinner is shown.
-* **Success**: "Thank you" message is shown instead of a form.
-* **Error**: Same as Typing state, but with an extra error message.
+* **Trống**: Biểu mẫu có nút "Gửi" bị tắt.
+* **Đang nhập**: Biểu mẫu có nút "Gửi" được bật.
+* **Đang gửi**: Biểu mẫu hoàn toàn bị tắt. Spinner được hiển thị.
+* **Thành công**: Thông báo "Cảm ơn" được hiển thị thay vì biểu mẫu.
+* **Lỗi**: Giống như trạng thái Đang nhập, nhưng có thêm thông báo lỗi.
 
-Just like a designer, you'll want to "mock up" or create "mocks" for the different states before you add logic. For example, here is a mock for just the visual part of the form. This mock is controlled by a prop called `status` with a default value of `'empty'`:
+Giống như một nhà thiết kế, bạn sẽ muốn "mô phỏng" hoặc tạo "bản mô phỏng" cho các trạng thái khác nhau trước khi bạn thêm logic. Ví dụ: đây là bản mô phỏng chỉ cho phần hiển thị của biểu mẫu. Bản mô phỏng này được điều khiển bởi một prop có tên là `status` với giá trị mặc định là `'empty'`:
 
 <Sandpack>
 
@@ -192,7 +192,7 @@ export default function Form({
 
 </Sandpack>
 
-You could call that prop anything you like, the naming is not important. Try editing `status = 'empty'` to `status = 'success'` to see the success message appear. Mocking lets you quickly iterate on the UI before you wire up any logic. Here is a more fleshed out prototype of the same component, still "controlled" by the `status` prop:
+Bạn có thể gọi prop đó là bất cứ điều gì bạn thích, việc đặt tên không quan trọng. Hãy thử chỉnh sửa `status = 'empty'` thành `status = 'success'` để thấy thông báo thành công xuất hiện. Mô phỏng cho phép bạn nhanh chóng lặp lại trên UI trước khi bạn kết nối bất kỳ logic nào. Dưới đây là một nguyên mẫu đầy đủ hơn của cùng một component, vẫn "được điều khiển" bởi prop `status`:
 
 <Sandpack>
 
@@ -240,9 +240,9 @@ export default function Form({
 
 <DeepDive>
 
-#### Displaying many visual states at once {/*displaying-many-visual-states-at-once*/}
+#### Hiển thị nhiều trạng thái hiển thị cùng một lúc {/*displaying-many-visual-states-at-once*/}
 
-If a component has a lot of visual states, it can be convenient to show them all on one page:
+Nếu một component có nhiều trạng thái hiển thị, có thể thuận tiện để hiển thị tất cả chúng trên một trang:
 
 <Sandpack>
 
@@ -307,61 +307,61 @@ body { margin: 0; }
 
 </Sandpack>
 
-Pages like this are often called "living styleguides" or "storybooks".
+Các trang như thế này thường được gọi là "living styleguides" hoặc "storybooks".
 
 </DeepDive>
 
-### Step 2: Determine what triggers those state changes {/*step-2-determine-what-triggers-those-state-changes*/}
+### Bước 2: Xác định điều gì kích hoạt những thay đổi trạng thái đó {/*step-2-determine-what-triggers-those-state-changes*/}
 
-You can trigger state updates in response to two kinds of inputs:
+Bạn có thể kích hoạt cập nhật trạng thái để phản hồi hai loại đầu vào:
 
-* **Human inputs,** like clicking a button, typing in a field, navigating a link.
-* **Computer inputs,** like a network response arriving, a timeout completing, an image loading.
+* **Đầu vào của con người,** như nhấp vào nút, nhập vào một trường, điều hướng một liên kết.
+* **Đầu vào của máy tính,** như phản hồi mạng đến, thời gian chờ hoàn thành, hình ảnh tải.
 
 <IllustrationBlock>
   <Illustration caption="Human inputs" alt="A finger." src="/images/docs/illustrations/i_inputs1.png" />
   <Illustration caption="Computer inputs" alt="Ones and zeroes." src="/images/docs/illustrations/i_inputs2.png" />
 </IllustrationBlock>
 
-In both cases, **you must set [state variables](/learn/state-a-components-memory#anatomy-of-usestate) to update the UI.** For the form you're developing, you will need to change state in response to a few different inputs:
+Trong cả hai trường hợp, **bạn phải đặt [biến trạng thái](/learn/state-a-components-memory#anatomy-of-usestate) để cập nhật UI.** Đối với biểu mẫu bạn đang phát triển, bạn sẽ cần thay đổi trạng thái để phản hồi một vài đầu vào khác nhau:
 
-* **Changing the text input** (human) should switch it from the *Empty* state to the *Typing* state or back, depending on whether the text box is empty or not.
-* **Clicking the Submit button** (human) should switch it to the *Submitting* state.
-* **Successful network response** (computer) should switch it to the *Success* state.
-* **Failed network response** (computer) should switch it to the *Error* state with the matching error message.
+* **Thay đổi đầu vào văn bản** (con người) sẽ chuyển nó từ trạng thái *Trống* sang trạng thái *Đang nhập* hoặc ngược lại, tùy thuộc vào việc hộp văn bản có trống hay không.
+* **Nhấp vào nút Gửi** (con người) sẽ chuyển nó sang trạng thái *Đang gửi*.
+* **Phản hồi mạng thành công** (máy tính) sẽ chuyển nó sang trạng thái *Thành công*.
+* **Phản hồi mạng không thành công** (máy tính) sẽ chuyển nó sang trạng thái *Lỗi* với thông báo lỗi phù hợp.
 
 <Note>
 
-Notice that human inputs often require [event handlers](/learn/responding-to-events)!
+Lưu ý rằng đầu vào của con người thường yêu cầu [trình xử lý sự kiện](/learn/responding-to-events)!
 
 </Note>
 
-To help visualize this flow, try drawing each state on paper as a labeled circle, and each change between two states as an arrow. You can sketch out many flows this way and sort out bugs long before implementation.
+Để giúp hình dung luồng này, hãy thử vẽ từng trạng thái trên giấy dưới dạng một vòng tròn được gắn nhãn và mỗi thay đổi giữa hai trạng thái dưới dạng một mũi tên. Bạn có thể phác thảo nhiều luồng theo cách này và sắp xếp các lỗi trước khi triển khai.
 
 <DiagramGroup>
 
-<Diagram name="responding_to_input_flow" height={350} width={688} alt="Flow chart moving left to right with 5 nodes. The first node labeled 'empty' has one edge labeled 'start typing' connected to a node labeled 'typing'. That node has one edge labeled 'press submit' connected to a node labeled 'submitting', which has two edges. The left edge is labeled 'network error' connecting to a node labeled 'error'. The right edge is labeled 'network success' connecting to a node labeled 'success'.">
+<Diagram name="responding_to_input_flow" height={350} width={688} alt="Lưu đồ di chuyển từ trái sang phải với 5 nút. Nút đầu tiên có nhãn 'trống' có một cạnh có nhãn 'bắt đầu nhập' được kết nối với một nút có nhãn 'đang nhập'. Nút đó có một cạnh có nhãn 'nhấn gửi' được kết nối với một nút có nhãn 'đang gửi', nút này có hai cạnh. Cạnh bên trái có nhãn 'lỗi mạng' kết nối với một nút có nhãn 'lỗi'. Cạnh bên phải có nhãn 'mạng thành công' kết nối với một nút có nhãn 'thành công'." >
 
-Form states
+Trạng thái biểu mẫu
 
 </Diagram>
 
 </DiagramGroup>
 
-### Step 3: Represent the state in memory with `useState` {/*step-3-represent-the-state-in-memory-with-usestate*/}
+### Bước 3: Biểu diễn trạng thái trong bộ nhớ bằng `useState` {/*step-3-represent-the-state-in-memory-with-usestate*/}
 
-Next you'll need to represent the visual states of your component in memory with [`useState`.](/reference/react/useState) Simplicity is key: each piece of state is a "moving piece", and **you want as few "moving pieces" as possible.** More complexity leads to more bugs!
+Tiếp theo, bạn sẽ cần biểu diễn các trạng thái hiển thị của component của bạn trong bộ nhớ bằng [`useState`.](/reference/react/useState) Sự đơn giản là chìa khóa: mỗi phần của trạng thái là một "mảnh ghép chuyển động" và **bạn muốn càng ít "mảnh ghép chuyển động" càng tốt.** Càng phức tạp thì càng có nhiều lỗi!
 
-Start with the state that *absolutely must* be there. For example, you'll need to store the `answer` for the input, and the `error` (if it exists) to store the last error:
+Bắt đầu với trạng thái *tuyệt đối phải* có ở đó. Ví dụ: bạn sẽ cần lưu trữ `answer` cho đầu vào và `error` (nếu có) để lưu trữ lỗi cuối cùng:
 
 ```js
 const [answer, setAnswer] = useState('');
 const [error, setError] = useState(null);
 ```
 
-Then, you'll need a state variable representing which one of the visual states that you want to display. There's usually more than a single way to represent that in memory, so you'll need to experiment with it.
+Sau đó, bạn sẽ cần một biến trạng thái đại diện cho một trong các trạng thái hiển thị mà bạn muốn hiển thị. Thường có nhiều hơn một cách để biểu diễn điều đó trong bộ nhớ, vì vậy bạn sẽ cần thử nghiệm với nó.
 
-If you struggle to think of the best way immediately, start by adding enough state that you're *definitely* sure that all the possible visual states are covered:
+Nếu bạn gặp khó khăn trong việc nghĩ ra cách tốt nhất ngay lập tức, hãy bắt đầu bằng cách thêm đủ trạng thái mà bạn *chắc chắn* rằng tất cả các trạng thái hiển thị có thể có đều được bao phủ:
 
 ```js
 const [isEmpty, setIsEmpty] = useState(true);
@@ -371,19 +371,19 @@ const [isSuccess, setIsSuccess] = useState(false);
 const [isError, setIsError] = useState(false);
 ```
 
-Your first idea likely won't be the best, but that's ok--refactoring state is a part of the process!
+Ý tưởng đầu tiên của bạn có thể không phải là tốt nhất, nhưng điều đó không sao--tái cấu trúc trạng thái là một phần của quy trình!
 
-### Step 4: Remove any non-essential state variables {/*step-4-remove-any-non-essential-state-variables*/}
+### Bước 4: Loại bỏ bất kỳ biến trạng thái không cần thiết nào {/*step-4-remove-any-non-essential-state-variables*/}
 
-You want to avoid duplication in the state content so you're only tracking what is essential. Spending a little time on refactoring your state structure will make your components easier to understand, reduce duplication, and avoid unintended meanings. Your goal is to **prevent the cases where the state in memory doesn't represent any valid UI that you'd want a user to see.** (For example, you never want to show an error message and disable the input at the same time, or the user won't be able to correct the error!)
+Bạn muốn tránh trùng lặp trong nội dung trạng thái để bạn chỉ theo dõi những gì cần thiết. Dành một chút thời gian để tái cấu trúc cấu trúc trạng thái của bạn sẽ giúp các component của bạn dễ hiểu hơn, giảm trùng lặp và tránh các ý nghĩa không mong muốn. Mục tiêu của bạn là **ngăn chặn các trường hợp trạng thái trong bộ nhớ không đại diện cho bất kỳ UI hợp lệ nào mà bạn muốn người dùng thấy.** (Ví dụ: bạn không bao giờ muốn hiển thị thông báo lỗi và tắt đầu vào cùng một lúc, nếu không người dùng sẽ không thể sửa lỗi!)
 
-Here are some questions you can ask about your state variables:
+Dưới đây là một số câu hỏi bạn có thể hỏi về các biến trạng thái của mình:
 
-* **Does this state cause a paradox?** For example, `isTyping` and `isSubmitting` can't both be `true`. A paradox usually means that the state is not constrained enough. There are four possible combinations of two booleans, but only three correspond to valid states. To remove the "impossible" state, you can combine these into a `status` that must be one of three values: `'typing'`, `'submitting'`, or `'success'`.
-* **Is the same information available in another state variable already?** Another paradox: `isEmpty` and `isTyping` can't be `true` at the same time. By making them separate state variables, you risk them going out of sync and causing bugs. Fortunately, you can remove `isEmpty` and instead check `answer.length === 0`.
-* **Can you get the same information from the inverse of another state variable?** `isError` is not needed because you can check `error !== null` instead.
+* **Trạng thái này có gây ra nghịch lý không?** Ví dụ: `isTyping` và `isSubmitting` không thể đồng thời là `true`. Một nghịch lý thường có nghĩa là trạng thái không đủ ràng buộc. Có bốn tổ hợp có thể có của hai boolean, nhưng chỉ ba tổ hợp tương ứng với các trạng thái hợp lệ. Để loại bỏ trạng thái "không thể", bạn có thể kết hợp chúng thành một `status` phải là một trong ba giá trị: `'typing'`, `'submitting'` hoặc `'success'`.
+* **Thông tin tương tự đã có trong một biến trạng thái khác chưa?** Một nghịch lý khác: `isEmpty` và `isTyping` không thể đồng thời là `true`. Bằng cách tạo chúng thành các biến trạng thái riêng biệt, bạn có nguy cơ chúng không đồng bộ và gây ra lỗi. May mắn thay, bạn có thể loại bỏ `isEmpty` và thay vào đó kiểm tra `answer.length === 0`.
+* **Bạn có thể nhận được thông tin tương tự từ nghịch đảo của một biến trạng thái khác không?** Không cần `isError` vì bạn có thể kiểm tra `error !== null` thay thế.
 
-After this clean-up, you're left with 3 (down from 7!) *essential* state variables:
+Sau khi dọn dẹp này, bạn còn lại 3 (giảm từ 7!) biến trạng thái *cần thiết*:
 
 ```js
 const [answer, setAnswer] = useState('');
@@ -391,19 +391,19 @@ const [error, setError] = useState(null);
 const [status, setStatus] = useState('typing'); // 'typing', 'submitting', or 'success'
 ```
 
-You know they are essential, because you can't remove any of them without breaking the functionality.
+Bạn biết chúng là cần thiết, vì bạn không thể loại bỏ bất kỳ biến nào trong số chúng mà không làm hỏng chức năng.
 
 <DeepDive>
 
-#### Eliminating “impossible” states with a reducer {/*eliminating-impossible-states-with-a-reducer*/}
+#### Loại bỏ các trạng thái “không thể” bằng một reducer {/*eliminating-impossible-states-with-a-reducer*/}
 
-These three variables are a good enough representation of this form's state. However, there are still some intermediate states that don't fully make sense. For example, a non-null `error` doesn't make sense when `status` is `'success'`. To model the state more precisely, you can [extract it into a reducer.](/learn/extracting-state-logic-into-a-reducer) Reducers let you unify multiple state variables into a single object and consolidate all the related logic!
+Ba biến này là một biểu diễn đủ tốt về trạng thái của biểu mẫu này. Tuy nhiên, vẫn còn một số trạng thái trung gian không hoàn toàn có ý nghĩa. Ví dụ: `error` khác null không có ý nghĩa khi `status` là `'success'`. Để mô hình hóa trạng thái chính xác hơn, bạn có thể [trích xuất nó vào một reducer.](/learn/extracting-state-logic-into-a-reducer) Reducer cho phép bạn hợp nhất nhiều biến trạng thái thành một đối tượng duy nhất và hợp nhất tất cả logic liên quan!
 
 </DeepDive>
 
-### Step 5: Connect the event handlers to set state {/*step-5-connect-the-event-handlers-to-set-state*/}
+### Bước 5: Kết nối các trình xử lý sự kiện để đặt trạng thái {/*step-5-connect-the-event-handlers-to-set-state*/}
 
-Lastly, create event handlers that update the state. Below is the final form, with all event handlers wired up:
+Cuối cùng, tạo các trình xử lý sự kiện để cập nhật trạng thái. Dưới đây là biểu mẫu cuối cùng, với tất cả các trình xử lý sự kiện được kết nối:
 
 <Sandpack>
 
@@ -485,29 +485,27 @@ function submitForm(answer) {
 
 </Sandpack>
 
-Although this code is longer than the original imperative example, it is much less fragile. Expressing all interactions as state changes lets you later introduce new visual states without breaking existing ones. It also lets you change what should be displayed in each state without changing the logic of the interaction itself.
+Mặc dù code này dài hơn ví dụ mệnh lệnh ban đầu, nhưng nó ít bị lỗi hơn nhiều. Việc thể hiện tất cả các tương tác như là các thay đổi trạng thái cho phép bạn giới thiệu các trạng thái hiển thị mới mà không làm hỏng các trạng thái hiện có. Nó cũng cho phép bạn thay đổi những gì sẽ được hiển thị trong mỗi trạng thái mà không thay đổi logic của chính tương tác đó.
 
 <Recap>
 
-* Declarative programming means describing the UI for each visual state rather than micromanaging the UI (imperative).
-* When developing a component:
-  1. Identify all its visual states.
-  2. Determine the human and computer triggers for state changes.
-  3. Model the state with `useState`.
-  4. Remove non-essential state to avoid bugs and paradoxes.
-  5. Connect the event handlers to set state.
+* Lập trình khai báo có nghĩa là mô tả giao diện người dùng cho mỗi trạng thái hiển thị thay vì quản lý chi tiết giao diện người dùng (mệnh lệnh).
+* Khi phát triển một component:
+  1. Xác định tất cả các trạng thái hiển thị của nó.
+  2. Xác định các tác nhân kích hoạt thay đổi trạng thái từ con người và máy tính.
+  3. Mô hình hóa trạng thái bằng `useState`.
+  4. Loại bỏ trạng thái không cần thiết để tránh lỗi và nghịch lý.
+  5. Kết nối các trình xử lý sự kiện để đặt trạng thái.
 
 </Recap>
 
-
-
 <Challenges>
 
-#### Add and remove a CSS class {/*add-and-remove-a-css-class*/}
+#### Thêm và xóa một lớp CSS {/*add-and-remove-a-css-class*/}
 
-Make it so that clicking on the picture *removes* the `background--active` CSS class from the outer `<div>`, but *adds* the `picture--active` class to the `<img>`. Clicking the background again should restore the original CSS classes.
+Làm cho việc nhấp vào hình ảnh *xóa* lớp CSS `background--active` khỏi `<div>` bên ngoài, nhưng *thêm* lớp `picture--active` vào `<img>`. Nhấp lại vào nền sẽ khôi phục các lớp CSS ban đầu.
 
-Visually, you should expect that clicking on the picture removes the purple background and highlights the picture border. Clicking outside the picture highlights the background, but removes the picture border highlight.
+Về mặt hình ảnh, bạn nên mong đợi rằng việc nhấp vào hình ảnh sẽ loại bỏ nền màu tím và làm nổi bật đường viền của hình ảnh. Nhấp vào bên ngoài hình ảnh sẽ làm nổi bật nền, nhưng loại bỏ điểm nổi bật của đường viền hình ảnh.
 
 <Sandpack>
 
@@ -557,14 +555,14 @@ body { margin: 0; padding: 0; height: 250px; }
 
 <Solution>
 
-This component has two visual states: when the image is active, and when the image is inactive:
+Component này có hai trạng thái hiển thị: khi hình ảnh hoạt động và khi hình ảnh không hoạt động:
 
-* When the image is active, the CSS classes are `background` and `picture picture--active`.
-* When the image is inactive, the CSS classes are `background background--active` and `picture`.
+* Khi hình ảnh hoạt động, các lớp CSS là `background` và `picture picture--active`.
+* Khi hình ảnh không hoạt động, các lớp CSS là `background background--active` và `picture`.
 
-A single boolean state variable is enough to remember whether the image is active. The original task was to remove or add CSS classes. However, in React you need to *describe* what you want to see rather than *manipulate* the UI elements. So you need to calculate both CSS classes based on the current state. You also need to [stop the propagation](/learn/responding-to-events#stopping-propagation) so that clicking the image doesn't register as a click on the background.
+Một biến trạng thái boolean duy nhất là đủ để ghi nhớ xem hình ảnh có hoạt động hay không. Nhiệm vụ ban đầu là xóa hoặc thêm các lớp CSS. Tuy nhiên, trong React, bạn cần *mô tả* những gì bạn muốn thấy thay vì *thao tác* các phần tử giao diện người dùng. Vì vậy, bạn cần tính toán cả hai lớp CSS dựa trên trạng thái hiện tại. Bạn cũng cần [ngăn chặn sự lan truyền](/learn/responding-to-events#stopping-propagation) để việc nhấp vào hình ảnh không được đăng ký là một cú nhấp vào nền.
 
-Verify that this version works by clicking the image and then outside of it:
+Xác minh rằng phiên bản này hoạt động bằng cách nhấp vào hình ảnh và sau đó bên ngoài nó:
 
 <Sandpack>
 
@@ -631,7 +629,7 @@ body { margin: 0; padding: 0; height: 250px; }
 
 </Sandpack>
 
-Alternatively, you could return two separate chunks of JSX:
+Ngoài ra, bạn có thể trả về hai đoạn JSX riêng biệt:
 
 <Sandpack>
 
@@ -698,13 +696,13 @@ body { margin: 0; padding: 0; height: 250px; }
 
 </Sandpack>
 
-Keep in mind that if two different JSX chunks describe the same tree, their nesting (first `<div>` → first `<img>`) has to line up. Otherwise, toggling `isActive` would recreate the whole tree below and [reset its state.](/learn/preserving-and-resetting-state) This is why, if a similar JSX tree gets returned in both cases, it is better to write them as a single piece of JSX.
+Hãy nhớ rằng nếu hai đoạn JSX khác nhau mô tả cùng một cây, thì sự lồng nhau của chúng (thẻ `<div>` đầu tiên → thẻ `<img>` đầu tiên) phải thẳng hàng. Nếu không, việc chuyển đổi `isActive` sẽ tạo lại toàn bộ cây bên dưới và [đặt lại trạng thái của nó.](/learn/preserving-and-resetting-state) Đây là lý do tại sao, nếu một cây JSX tương tự được trả về trong cả hai trường hợp, thì tốt hơn là viết chúng dưới dạng một đoạn JSX duy nhất.
 
 </Solution>
 
-#### Profile editor {/*profile-editor*/}
+#### Trình chỉnh sửa hồ sơ {/*profile-editor*/}
 
-Here is a small form implemented with plain JavaScript and DOM. Play with it to understand its behavior:
+Đây là một biểu mẫu nhỏ được triển khai bằng JavaScript và DOM thuần túy. Hãy chơi với nó để hiểu hành vi của nó:
 
 <Sandpack>
 
@@ -801,11 +799,11 @@ label { display: block; margin-bottom: 20px; }
 
 </Sandpack>
 
-This form switches between two modes: in the editing mode, you see the inputs, and in the viewing mode, you only see the result. The button label changes between "Edit" and "Save" depending on the mode you're in. When you change the inputs, the welcome message at the bottom updates in real time.
+Biểu mẫu này chuyển đổi giữa hai chế độ: ở chế độ chỉnh sửa, bạn thấy các trường nhập liệu và ở chế độ xem, bạn chỉ thấy kết quả. Nhãn nút thay đổi giữa "Chỉnh sửa" và "Lưu" tùy thuộc vào chế độ bạn đang ở. Khi bạn thay đổi các trường nhập liệu, thông báo chào mừng ở phía dưới sẽ cập nhật theo thời gian thực.
 
-Your task is to reimplement it in React in the sandbox below. For your convenience, the markup was already converted to JSX, but you'll need to make it show and hide the inputs like the original does.
+Nhiệm vụ của bạn là triển khai lại nó trong React trong sandbox bên dưới. Để thuận tiện cho bạn, đánh dấu đã được chuyển đổi sang JSX, nhưng bạn sẽ cần làm cho nó hiển thị và ẩn các trường nhập liệu như bản gốc.
 
-Make sure that it updates the text at the bottom, too!
+Đảm bảo rằng nó cũng cập nhật văn bản ở phía dưới!
 
 <Sandpack>
 
@@ -840,9 +838,9 @@ label { display: block; margin-bottom: 20px; }
 
 <Solution>
 
-You will need two state variables to hold the input values: `firstName` and `lastName`. You're also going to need an `isEditing` state variable that holds whether to display the inputs or not. You should _not_ need a `fullName` variable because the full name can always be calculated from the `firstName` and the `lastName`.
+Bạn sẽ cần hai biến trạng thái để giữ các giá trị đầu vào: `firstName` và `lastName`. Bạn cũng sẽ cần một biến trạng thái `isEditing` để biết có hiển thị các trường nhập liệu hay không. Bạn _không_ nên cần một biến `fullName` vì tên đầy đủ luôn có thể được tính từ `firstName` và `lastName`.
 
-Finally, you should use [conditional rendering](/learn/conditional-rendering) to show or hide the inputs depending on `isEditing`.
+Cuối cùng, bạn nên sử dụng [kết xuất có điều kiện](/learn/conditional-rendering) để hiển thị hoặc ẩn các trường nhập liệu tùy thuộc vào `isEditing`.
 
 <Sandpack>
 
@@ -900,13 +898,13 @@ label { display: block; margin-bottom: 20px; }
 
 </Sandpack>
 
-Compare this solution to the original imperative code. How are they different?
+So sánh giải pháp này với mã mệnh lệnh ban đầu. Chúng khác nhau như thế nào?
 
 </Solution>
 
-#### Refactor the imperative solution without React {/*refactor-the-imperative-solution-without-react*/}
+#### Tái cấu trúc giải pháp mệnh lệnh mà không cần React {/*refactor-the-imperative-solution-without-react*/}
 
-Here is the original sandbox from the previous challenge, written imperatively without React:
+Đây là sandbox ban đầu từ thử thách trước, được viết theo kiểu mệnh lệnh mà không cần React:
 
 <Sandpack>
 
@@ -1003,9 +1001,9 @@ label { display: block; margin-bottom: 20px; }
 
 </Sandpack>
 
-Imagine React didn't exist. Can you refactor this code in a way that makes the logic less fragile and more similar to the React version? What would it look like if the state was explicit, like in React?
+Hãy tưởng tượng React không tồn tại. Bạn có thể tái cấu trúc mã này theo cách làm cho logic ít bị lỗi hơn và tương tự như phiên bản React hơn không? Nó sẽ trông như thế nào nếu trạng thái là rõ ràng, giống như trong React?
 
-If you're struggling to think where to start, the stub below already has most of the structure in place. If you start here, fill in the missing logic in the `updateDOM` function. (Refer to the original code where needed.)
+Nếu bạn đang gặp khó khăn trong việc suy nghĩ về nơi bắt đầu, thì đoạn mã dưới đây đã có hầu hết cấu trúc tại chỗ. Nếu bạn bắt đầu từ đây, hãy điền vào logic còn thiếu trong hàm `updateDOM`. (Tham khảo mã gốc khi cần.)
 
 <Sandpack>
 
@@ -1228,8 +1226,7 @@ label { display: block; margin-bottom: 20px; }
 ```
 
 </Sandpack>
-
-The `updateDOM` function you wrote shows what React does under the hood when you set the state. (However, React also avoids touching the DOM for properties that have not changed since the last time they were set.)
+Hàm `updateDOM` mà bạn đã viết cho thấy những gì React thực hiện bên dưới khi bạn đặt trạng thái. (Tuy nhiên, React cũng tránh chạm vào DOM đối với các thuộc tính không thay đổi kể từ lần cuối cùng chúng được đặt.)
 
 </Solution>
 

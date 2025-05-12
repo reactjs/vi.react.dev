@@ -1,16 +1,15 @@
 ---
-title: react-test-renderer Deprecation Warnings
+title: Cảnh báo ngừng sử dụng react-test-renderer
 ---
 
-TODO: Update this for 19?
+TODO: Cập nhật cho bản 19?
 
-## ReactTestRenderer.create() warning {/*reacttestrenderercreate-warning*/}
+## Cảnh báo ReactTestRenderer.create() {/*reacttestrenderercreate-warning*/}
 
-react-test-renderer is deprecated. A warning will fire whenever calling ReactTestRenderer.create() or ReactShallowRender.render(). The react-test-renderer package will remain available on NPM but will not be maintained and may break with new React features or changes to React's internals.
+react-test-renderer đã bị ngừng sử dụng. Một cảnh báo sẽ xuất hiện bất cứ khi nào gọi ReactTestRenderer.create() hoặc ReactShallowRender.render(). Gói react-test-renderer sẽ vẫn có sẵn trên NPM nhưng sẽ không được bảo trì và có thể bị hỏng với các tính năng mới của React hoặc các thay đổi đối với các thành phần bên trong của React.
 
-The React Team recommends migrating your tests to [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) or [@testing-library/react-native](https://callstack.github.io/react-native-testing-library/docs/start/intro) for a modern and well supported testing experience.
+Nhóm React khuyên bạn nên di chuyển các thử nghiệm của mình sang [@testing-library/react](https://testing-library.com/docs/react-testing-library/intro/) hoặc [@testing-library/react-native](https://callstack.github.io/react-native-testing-library/docs/start/intro/) để có trải nghiệm kiểm tra hiện đại và được hỗ trợ tốt.
 
+## Cảnh báo new ShallowRenderer() {/*new-shallowrenderer-warning*/}
 
-## new ShallowRenderer() warning {/*new-shallowrenderer-warning*/}
-
-The react-test-renderer package no longer exports a shallow renderer at `react-test-renderer/shallow`. This was simply a repackaging of a previously extracted separate package: `react-shallow-renderer`. Therefore you can continue using the shallow renderer in the same way by installing it directly. See [Github](https://github.com/enzymejs/react-shallow-renderer) / [NPM](https://www.npmjs.com/package/react-shallow-renderer).
+Gói react-test-renderer không còn xuất trình kết xuất nông tại `react-test-renderer/shallow`. Đây chỉ đơn giản là việc đóng gói lại một gói riêng biệt đã được trích xuất trước đó: `react-shallow-renderer`. Do đó, bạn có thể tiếp tục sử dụng trình kết xuất nông theo cách tương tự bằng cách cài đặt trực tiếp. Xem [Github](https://github.com/enzymejs/react-shallow-renderer) / [NPM](https://www.npmjs.com/package/react-shallow-renderer).

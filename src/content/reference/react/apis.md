@@ -1,31 +1,31 @@
 ---
-title: "Built-in React APIs"
+title: "Các API React Tích Hợp"
 ---
 
 <Intro>
 
-In addition to [Hooks](/reference/react) and [Components](/reference/react/components), the `react` package exports a few other APIs that are useful for defining components. This page lists all the remaining modern React APIs.
+Ngoài [Hooks](/reference/react) và [Components](/reference/react/components), gói `react` xuất ra một vài API khác hữu ích cho việc định nghĩa các component. Trang này liệt kê tất cả các API React hiện đại còn lại.
 
 </Intro>
 
 ---
 
-* [`createContext`](/reference/react/createContext) lets you define and provide context to the child components. Used with [`useContext`.](/reference/react/useContext)
-* [`forwardRef`](/reference/react/forwardRef) lets your component expose a DOM node as a ref to the parent. Used with [`useRef`.](/reference/react/useRef)
-* [`lazy`](/reference/react/lazy) lets you defer loading a component's code until it's rendered for the first time.
-* [`memo`](/reference/react/memo) lets your component skip re-renders with same props. Used with [`useMemo`](/reference/react/useMemo) and [`useCallback`.](/reference/react/useCallback)
-* [`startTransition`](/reference/react/startTransition) lets you mark a state update as non-urgent. Similar to [`useTransition`.](/reference/react/useTransition)
-* [`act`](/reference/react/act) lets you wrap renders and interactions in tests to ensure updates have processed before making assertions.
+* [`createContext`](/reference/react/createContext) cho phép bạn định nghĩa và cung cấp context cho các component con. Được sử dụng với [`useContext`.](/reference/react/useContext)
+* [`forwardRef`](/reference/react/forwardRef) cho phép component của bạn hiển thị một DOM node như một ref cho component cha. Được sử dụng với [`useRef`.](/reference/react/useRef)
+* [`lazy`](/reference/react/lazy) cho phép bạn trì hoãn việc tải code của một component cho đến khi nó được render lần đầu tiên.
+* [`memo`](/reference/react/memo) cho phép component của bạn bỏ qua việc re-render khi props không thay đổi. Được sử dụng với [`useMemo`](/reference/react/useMemo) và [`useCallback`.](/reference/react/useCallback)
+* [`startTransition`](/reference/react/startTransition) cho phép bạn đánh dấu một cập nhật trạng thái là không khẩn cấp. Tương tự như [`useTransition`.](/reference/react/useTransition)
+* [`act`](/reference/react/act) cho phép bạn bao bọc các lần render và tương tác trong các bài kiểm tra để đảm bảo các cập nhật đã được xử lý trước khi đưa ra các khẳng định.
 
 ---
 
 ## Resource APIs {/*resource-apis*/}
 
-*Resources* can be accessed by a component without having them as part of their state. For example, a component can read a message from a Promise or read styling information from a context.
+*Resources* có thể được truy cập bởi một component mà không cần chúng là một phần của state của component đó. Ví dụ: một component có thể đọc một tin nhắn từ một Promise hoặc đọc thông tin kiểu dáng từ một context.
 
-To read a value from a resource, use this API:
+Để đọc một giá trị từ một resource, hãy sử dụng API này:
 
-* [`use`](/reference/react/use) lets you read the value of a resource like a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) or [context](/learn/passing-data-deeply-with-context).
+* [`use`](/reference/react/use) cho phép bạn đọc giá trị của một resource như một [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) hoặc [context](/learn/passing-data-deeply-with-context).
 ```js
 function MessageComponent({ messagePromise }) {
   const message = use(messagePromise);

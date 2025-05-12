@@ -1,46 +1,46 @@
 {
-  "title": "Community",
+  "title": "Cộng đồng",
   "path": "/community",
   "routes": [
     {
       "hasSectionHeader": true,
-      "sectionHeader": "GET INVOLVED"
+      "sectionHeader": "THAM GIA"
     },
     {
-      "title": "Community",
+      "title": "Cộng đồng",
       "path": "/community",
       "skipBreadcrumb": true,
       "routes": [
         {
-          "title": "React Conferences",
+          "title": "Hội nghị React",
           "path": "/community/conferences"
         },
         {
-          "title": "React Meetups",
+          "title": "Gặp gỡ React",
           "path": "/community/meetups"
         },
         {
-          "title": "React Videos",
+          "title": "Video React",
           "path": "/community/videos"
         },
         {
-          "title": "Meet the Team",
+          "title": "Gặp gỡ Nhóm",
           "path": "/community/team"
         },
         {
-          "title": "Docs Contributors",
+          "title": "Người đóng góp tài liệu",
           "path": "/community/docs-contributors"
         },
         {
-          "title": "Translations",
+          "title": "Bản dịch",
           "path": "/community/translations"
         },
         {
-          "title": "Acknowledgements",
+          "title": "Lời cảm ơn",
           "path": "/community/acknowledgements"
         },
         {
-          "title": "Versioning Policy",
+          "title": "Chính sách phiên bản",
           "path": "/community/versioning-policy"
         }
       ]

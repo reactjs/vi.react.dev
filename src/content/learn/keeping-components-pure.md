@@ -1,41 +1,41 @@
 ---
-title: Keeping Components Pure
+title: Giữ Các Component Thuần Khiết
 ---
 
 <Intro>
 
-Some JavaScript functions are *pure.* Pure functions only perform a calculation and nothing more. By strictly only writing your components as pure functions, you can avoid an entire class of baffling bugs and unpredictable behavior as your codebase grows. To get these benefits, though, there are a few rules you must follow.
+Một số hàm JavaScript là *thuần khiết.* Các hàm thuần khiết chỉ thực hiện một phép tính và không làm gì khác. Bằng cách chỉ viết các component của bạn như các hàm thuần khiết, bạn có thể tránh được cả một loạt các lỗi khó hiểu và hành vi không thể đoán trước khi codebase của bạn phát triển. Để có được những lợi ích này, bạn phải tuân theo một vài quy tắc.
 
 </Intro>
 
 <YouWillLearn>
 
-* What purity is and how it helps you avoid bugs
-* How to keep components pure by keeping changes out of the render phase
-* How to use Strict Mode to find mistakes in your components
+* Tính thuần khiết là gì và nó giúp bạn tránh lỗi như thế nào
+* Làm thế nào để giữ cho các component thuần khiết bằng cách giữ các thay đổi bên ngoài giai đoạn render
+* Cách sử dụng Strict Mode để tìm lỗi trong các component của bạn
 
 </YouWillLearn>
 
-## Purity: Components as formulas {/*purity-components-as-formulas*/}
+## Tính Thuần Khiết: Các Component Như Các Công Thức {/*purity-components-as-formulas*/}
 
-In computer science (and especially the world of functional programming), [a pure function](https://wikipedia.org/wiki/Pure_function) is a function with the following characteristics:
+Trong khoa học máy tính (và đặc biệt là thế giới của lập trình hàm), [một hàm thuần khiết](https://wikipedia.org/wiki/Pure_function) là một hàm có các đặc điểm sau:
 
-* **It minds its own business.** It does not change any objects or variables that existed before it was called.
-* **Same inputs, same output.** Given the same inputs, a pure function should always return the same result.
+* **Nó chỉ lo việc của nó.** Nó không thay đổi bất kỳ đối tượng hoặc biến nào đã tồn tại trước khi nó được gọi.
+* **Đầu vào giống nhau, đầu ra giống nhau.** Với cùng một đầu vào, một hàm thuần khiết phải luôn trả về cùng một kết quả.
 
-You might already be familiar with one example of pure functions: formulas in math.
+Bạn có thể đã quen thuộc với một ví dụ về các hàm thuần khiết: các công thức trong toán học.
 
-Consider this math formula: <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math>.
+Xem xét công thức toán học này: <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math>.
 
-If <Math><MathI>x</MathI> = 2</Math> then <Math><MathI>y</MathI> = 4</Math>. Always. 
+Nếu <Math><MathI>x</MathI> = 2</Math> thì <Math><MathI>y</MathI> = 4</Math>. Luôn luôn.
 
-If <Math><MathI>x</MathI> = 3</Math> then <Math><MathI>y</MathI> = 6</Math>. Always. 
+Nếu <Math><MathI>x</MathI> = 3</Math> thì <Math><MathI>y</MathI> = 6</Math>. Luôn luôn.
 
-If <Math><MathI>x</MathI> = 3</Math>, <MathI>y</MathI> won't sometimes be <Math>9</Math> or <Math>–1</Math> or <Math>2.5</Math> depending on the time of day or the state of the stock market. 
+Nếu <Math><MathI>x</MathI> = 3</Math>, <MathI>y</MathI> sẽ không đôi khi là <Math>9</Math> hoặc <Math>–1</Math> hoặc <Math>2.5</Math> tùy thuộc vào thời gian trong ngày hoặc trạng thái của thị trường chứng khoán.
 
-If <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math> and <Math><MathI>x</MathI> = 3</Math>, <MathI>y</MathI> will _always_ be <Math>6</Math>. 
+Nếu <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math> và <Math><MathI>x</MathI> = 3</Math>, <MathI>y</MathI> sẽ _luôn luôn_ là <Math>6</Math>.
 
-If we made this into a JavaScript function, it would look like this:
+Nếu chúng ta biến điều này thành một hàm JavaScript, nó sẽ trông như thế này:
 
 ```js
 function double(number) {
@@ -43,9 +43,9 @@ function double(number) {
 }
 ```
 
-In the above example, `double` is a **pure function.** If you pass it `3`, it will return `6`. Always.
+Trong ví dụ trên, `double` là một **hàm thuần khiết.** Nếu bạn truyền cho nó `3`, nó sẽ trả về `6`. Luôn luôn.
 
-React is designed around this concept. **React assumes that every component you write is a pure function.** This means that React components you write must always return the same JSX given the same inputs:
+React được thiết kế dựa trên khái niệm này. **React giả định rằng mọi component bạn viết là một hàm thuần khiết.** Điều này có nghĩa là các component React bạn viết phải luôn trả về cùng một JSX với cùng một đầu vào:
 
 <Sandpack>
 
@@ -53,9 +53,9 @@ React is designed around this concept. **React assumes that every component you 
 function Recipe({ drinkers }) {
   return (
     <ol>    
-      <li>Boil {drinkers} cups of water.</li>
-      <li>Add {drinkers} spoons of tea and {0.5 * drinkers} spoons of spice.</li>
-      <li>Add {0.5 * drinkers} cups of milk to boil and sugar to taste.</li>
+      <li>Đun sôi {drinkers} cốc nước.</li>
+      <li>Thêm {drinkers} thìa trà và {0.5 * drinkers} thìa gia vị.</li>
+      <li>Thêm {0.5 * drinkers} cốc sữa vào đun sôi và đường tùy khẩu vị.</li>
     </ol>
   );
 }
@@ -63,10 +63,10 @@ function Recipe({ drinkers }) {
 export default function App() {
   return (
     <section>
-      <h1>Spiced Chai Recipe</h1>
-      <h2>For two</h2>
+      <h1>Công Thức Trà Chai Cay</h1>
+      <h2>Cho hai người</h2>
       <Recipe drinkers={2} />
-      <h2>For a gathering</h2>
+      <h2>Cho một buổi tụ tập</h2>
       <Recipe drinkers={4} />
     </section>
   );
@@ -75,21 +75,21 @@ export default function App() {
 
 </Sandpack>
 
-When you pass `drinkers={2}` to `Recipe`, it will return JSX containing `2 cups of water`. Always. 
+Khi bạn truyền `drinkers={2}` cho `Recipe`, nó sẽ trả về JSX chứa `2 cốc nước`. Luôn luôn.
 
-If you pass `drinkers={4}`, it will return JSX containing `4 cups of water`. Always.
+Nếu bạn truyền `drinkers={4}`, nó sẽ trả về JSX chứa `4 cốc nước`. Luôn luôn.
 
-Just like a math formula. 
+Giống như một công thức toán học.
 
-You could think of your components as recipes: if you follow them and don't introduce new ingredients during the cooking process, you will get the same dish every time. That "dish" is the JSX that the component serves to React to [render.](/learn/render-and-commit)
+Bạn có thể nghĩ về các component của mình như các công thức nấu ăn: nếu bạn làm theo chúng và không đưa thêm nguyên liệu mới trong quá trình nấu, bạn sẽ nhận được món ăn giống nhau mỗi lần. "Món ăn" đó là JSX mà component phục vụ cho React để [render.](/learn/render-and-commit)
 
-<Illustration src="/images/docs/illustrations/i_puritea-recipe.png" alt="A tea recipe for x people: take x cups of water, add x spoons of tea and 0.5x spoons of spices, and 0.5x cups of milk" />
+<Illustration src="/images/docs/illustrations/i_puritea-recipe.png" alt="Một công thức trà cho x người: lấy x cốc nước, thêm x thìa trà và 0.5x thìa gia vị, và 0.5x cốc sữa" />
 
-## Side Effects: (un)intended consequences {/*side-effects-unintended-consequences*/}
+## Tác Dụng Phụ: Hậu Quả (Không) Mong Muốn {/*side-effects-unintended-consequences*/}
 
-React's rendering process must always be pure. Components should only *return* their JSX, and not *change* any objects or variables that existed before rendering—that would make them impure!
+Quá trình render của React phải luôn thuần khiết. Các component chỉ nên *trả về* JSX của chúng, và không *thay đổi* bất kỳ đối tượng hoặc biến nào đã tồn tại trước khi render—điều đó sẽ làm cho chúng không thuần khiết!
 
-Here is a component that breaks this rule:
+Đây là một component vi phạm quy tắc này:
 
 <Sandpack>
 
@@ -97,9 +97,9 @@ Here is a component that breaks this rule:
 let guest = 0;
 
 function Cup() {
-  // Bad: changing a preexisting variable!
+  // Sai: thay đổi một biến đã tồn tại!
   guest = guest + 1;
-  return <h2>Tea cup for guest #{guest}</h2>;
+  return <h2>Cốc trà cho khách #{guest}</h2>;
 }
 
 export default function TeaSet() {
@@ -115,17 +115,17 @@ export default function TeaSet() {
 
 </Sandpack>
 
-This component is reading and writing a `guest` variable declared outside of it. This means that **calling this component multiple times will produce different JSX!** And what's more, if _other_ components read `guest`, they will produce different JSX, too, depending on when they were rendered! That's not predictable.
+Component này đang đọc và ghi một biến `guest` được khai báo bên ngoài nó. Điều này có nghĩa là **gọi component này nhiều lần sẽ tạo ra JSX khác nhau!** Và hơn thế nữa, nếu các component _khác_ đọc `guest`, chúng cũng sẽ tạo ra JSX khác nhau, tùy thuộc vào thời điểm chúng được render! Điều đó không thể đoán trước được.
 
-Going back to our formula <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math>, now even if <Math><MathI>x</MathI> = 2</Math>, we cannot trust that <Math><MathI>y</MathI> = 4</Math>. Our tests could fail, our users would be baffled, planes would fall out of the sky—you can see how this would lead to confusing bugs!
+Quay trở lại công thức của chúng ta <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math>, bây giờ ngay cả khi <Math><MathI>x</MathI> = 2</Math>, chúng ta không thể tin rằng <Math><MathI>y</MathI> = 4</Math>. Các bài kiểm tra của chúng ta có thể thất bại, người dùng của chúng ta sẽ bối rối, máy bay sẽ rơi khỏi bầu trời—bạn có thể thấy điều này sẽ dẫn đến những lỗi khó hiểu như thế nào!
 
-You can fix this component by [passing `guest` as a prop instead](/learn/passing-props-to-a-component):
+Bạn có thể sửa component này bằng cách [truyền `guest` như một prop](/learn/passing-props-to-a-component):
 
 <Sandpack>
 
 ```js
 function Cup({ guest }) {
-  return <h2>Tea cup for guest #{guest}</h2>;
+  return <h2>Cốc trà cho khách #{guest}</h2>;
 }
 
 export default function TeaSet() {
@@ -141,37 +141,37 @@ export default function TeaSet() {
 
 </Sandpack>
 
-Now your component is pure, as the JSX it returns only depends on the `guest` prop.
+Bây giờ component của bạn là thuần khiết, vì JSX mà nó trả về chỉ phụ thuộc vào prop `guest`.
 
-In general, you should not expect your components to be rendered in any particular order. It doesn't matter if you call <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math> before or after <Math><MathI>y</MathI> = 5<MathI>x</MathI></Math>: both formulas will resolve independently of each other. In the same way, each component should only "think for itself", and not attempt to coordinate with or depend upon others during rendering. Rendering is like a school exam: each component should calculate JSX on their own!
+Nói chung, bạn không nên mong đợi các component của mình được render theo bất kỳ thứ tự cụ thể nào. Không quan trọng nếu bạn gọi <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math> trước hay sau <Math><MathI>y</MathI> = 5<MathI>x</MathI></Math>: cả hai công thức sẽ giải quyết độc lập với nhau. Tương tự, mỗi component chỉ nên "tự suy nghĩ cho bản thân", và không cố gắng phối hợp với hoặc phụ thuộc vào những người khác trong quá trình render. Render giống như một bài kiểm tra ở trường: mỗi component nên tự tính toán JSX!
 
 <DeepDive>
 
-#### Detecting impure calculations with StrictMode {/*detecting-impure-calculations-with-strict-mode*/}
+#### Phát hiện các phép tính không thuần khiết với StrictMode {/*detecting-impure-calculations-with-strict-mode*/}
 
-Although you might not have used them all yet, in React there are three kinds of inputs that you can read while rendering: [props](/learn/passing-props-to-a-component), [state](/learn/state-a-components-memory), and [context.](/learn/passing-data-deeply-with-context) You should always treat these inputs as read-only.
+Mặc dù bạn có thể chưa sử dụng tất cả chúng, nhưng trong React có ba loại đầu vào mà bạn có thể đọc trong khi render: [props](/learn/passing-props-to-a-component), [state](/learn/state-a-components-memory), và [context.](/learn/passing-data-deeply-with-context) Bạn nên luôn coi các đầu vào này là chỉ đọc.
 
-When you want to *change* something in response to user input, you should [set state](/learn/state-a-components-memory) instead of writing to a variable. You should never change preexisting variables or objects while your component is rendering.
+Khi bạn muốn *thay đổi* một cái gì đó để đáp ứng với đầu vào của người dùng, bạn nên [set state](/learn/state-a-components-memory) thay vì ghi vào một biến. Bạn không bao giờ nên thay đổi các biến hoặc đối tượng đã tồn tại trong khi component của bạn đang render.
 
-React offers a "Strict Mode" in which it calls each component's function twice during development. **By calling the component functions twice, Strict Mode helps find components that break these rules.**
+React cung cấp một "Strict Mode" trong đó nó gọi hàm của mỗi component hai lần trong quá trình phát triển. **Bằng cách gọi các hàm component hai lần, Strict Mode giúp tìm các component vi phạm các quy tắc này.**
 
-Notice how the original example displayed "Guest #2", "Guest #4", and "Guest #6" instead of "Guest #1", "Guest #2", and "Guest #3". The original function was impure, so calling it twice broke it. But the fixed pure version works even if the function is called twice every time. **Pure functions only calculate, so calling them twice won't change anything**--just like calling `double(2)` twice doesn't change what's returned, and solving <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math> twice doesn't change what <MathI>y</MathI> is. Same inputs, same outputs. Always.
+Lưu ý cách ví dụ ban đầu hiển thị "Khách #2", "Khách #4" và "Khách #6" thay vì "Khách #1", "Khách #2" và "Khách #3". Hàm ban đầu không thuần khiết, vì vậy gọi nó hai lần đã làm hỏng nó. Nhưng phiên bản thuần khiết đã sửa hoạt động ngay cả khi hàm được gọi hai lần mỗi lần. **Các hàm thuần khiết chỉ tính toán, vì vậy gọi chúng hai lần sẽ không thay đổi bất cứ điều gì**--giống như gọi `double(2)` hai lần không thay đổi những gì được trả về, và giải <Math><MathI>y</MathI> = 2<MathI>x</MathI></Math> hai lần không thay đổi <MathI>y</MathI> là gì. Đầu vào giống nhau, đầu ra giống nhau. Luôn luôn.
 
-Strict Mode has no effect in production, so it won't slow down the app for your users. To opt into Strict Mode, you can wrap your root component into `<React.StrictMode>`. Some frameworks do this by default.
+Strict Mode không có hiệu lực trong sản xuất, vì vậy nó sẽ không làm chậm ứng dụng cho người dùng của bạn. Để chọn tham gia Strict Mode, bạn có thể bọc component gốc của mình trong `<React.StrictMode>`. Một số framework thực hiện điều này theo mặc định.
 
 </DeepDive>
 
-### Local mutation: Your component's little secret {/*local-mutation-your-components-little-secret*/}
+### Thay Đổi Cục Bộ: Bí Mật Nhỏ Của Component Của Bạn {/*local-mutation-your-components-little-secret*/}
 
-In the above example, the problem was that the component changed a *preexisting* variable while rendering. This is often called a **"mutation"** to make it sound a bit scarier. Pure functions don't mutate variables outside of the function's scope or objects that were created before the call—that makes them impure!
+Trong ví dụ trên, vấn đề là component đã thay đổi một biến *đã tồn tại* trong khi render. Điều này thường được gọi là **"mutation"** để làm cho nó nghe có vẻ đáng sợ hơn một chút. Các hàm thuần khiết không mutate các biến bên ngoài phạm vi của hàm hoặc các đối tượng được tạo trước khi gọi—điều đó làm cho chúng không thuần khiết!
 
-However, **it's completely fine to change variables and objects that you've *just* created while rendering.** In this example, you create an `[]` array, assign it to a `cups` variable, and then `push` a dozen cups into it:
+Tuy nhiên, **hoàn toàn ổn khi thay đổi các biến và đối tượng mà bạn *vừa* tạo trong khi render.** Trong ví dụ này, bạn tạo một mảng `[]`, gán nó cho một biến `cups`, và sau đó `push` một tá cốc vào nó:
 
 <Sandpack>
 
 ```js
 function Cup({ guest }) {
-  return <h2>Tea cup for guest #{guest}</h2>;
+  return <h2>Cốc trà cho khách #{guest}</h2>;
 }
 
 export default function TeaGathering() {
@@ -185,59 +185,57 @@ export default function TeaGathering() {
 
 </Sandpack>
 
-If the `cups` variable or the `[]` array were created outside the `TeaGathering` function, this would be a huge problem! You would be changing a *preexisting* object by pushing items into that array.
+Nếu biến `cups` hoặc mảng `[]` được tạo bên ngoài hàm `TeaGathering`, đây sẽ là một vấn đề lớn! Bạn sẽ thay đổi một đối tượng *đã tồn tại* bằng cách đẩy các mục vào mảng đó.
 
-However, it's fine because you've created them *during the same render*, inside `TeaGathering`. No code outside of `TeaGathering` will ever know that this happened. This is called **"local mutation"**—it's like your component's little secret.
+Tuy nhiên, điều đó ổn vì bạn đã tạo chúng *trong cùng một lần render*, bên trong `TeaGathering`. Không có mã nào bên ngoài `TeaGathering` sẽ biết rằng điều này đã xảy ra. Điều này được gọi là **"local mutation"**—nó giống như bí mật nhỏ của component của bạn.
 
-## Where you _can_ cause side effects {/*where-you-_can_-cause-side-effects*/}
+## Nơi Bạn _Có Thể_ Gây Ra Tác Dụng Phụ {/*where-you-_can_-cause-side-effects*/}
 
-While functional programming relies heavily on purity, at some point, somewhere, _something_ has to change. That's kind of the point of programming! These changes—updating the screen, starting an animation, changing the data—are called **side effects.** They're things that happen _"on the side"_, not during rendering.
+Mặc dù lập trình hàm dựa nhiều vào tính thuần khiết, nhưng tại một thời điểm nào đó, ở đâu đó, _một cái gì đó_ phải thay đổi. Đó là mục đích của lập trình! Những thay đổi này—cập nhật màn hình, bắt đầu hoạt ảnh, thay đổi dữ liệu—được gọi là **tác dụng phụ.** Chúng là những thứ xảy ra _"ở bên cạnh"_, không phải trong quá trình render.
 
-In React, **side effects usually belong inside [event handlers.](/learn/responding-to-events)** Event handlers are functions that React runs when you perform some action—for example, when you click a button. Even though event handlers are defined *inside* your component, they don't run *during* rendering! **So event handlers don't need to be pure.**
+Trong React, **tác dụng phụ thường thuộc về bên trong [trình xử lý sự kiện.](/learn/responding-to-events)** Trình xử lý sự kiện là các hàm mà React chạy khi bạn thực hiện một số hành động—ví dụ: khi bạn nhấp vào một nút. Mặc dù trình xử lý sự kiện được xác định *bên trong* component của bạn, nhưng chúng không chạy *trong* quá trình render! **Vì vậy, trình xử lý sự kiện không cần phải thuần khiết.**
 
-If you've exhausted all other options and can't find the right event handler for your side effect, you can still attach it to your returned JSX with a [`useEffect`](/reference/react/useEffect) call in your component. This tells React to execute it later, after rendering, when side effects are allowed. **However, this approach should be your last resort.**
+Nếu bạn đã cạn kiệt tất cả các tùy chọn khác và không thể tìm thấy trình xử lý sự kiện phù hợp cho tác dụng phụ của mình, bạn vẫn có thể đính kèm nó vào JSX được trả về của mình bằng một lệnh gọi [`useEffect`](/reference/react/useEffect) trong component của bạn. Điều này cho React biết để thực thi nó sau đó, sau khi render, khi các tác dụng phụ được cho phép. **Tuy nhiên, cách tiếp cận này nên là phương sách cuối cùng của bạn.**
 
-When possible, try to express your logic with rendering alone. You'll be surprised how far this can take you!
+Khi có thể, hãy cố gắng thể hiện logic của bạn chỉ bằng cách render. Bạn sẽ ngạc nhiên về mức độ bạn có thể đạt được!
 
 <DeepDive>
 
-#### Why does React care about purity? {/*why-does-react-care-about-purity*/}
+#### Tại Sao React Quan Tâm Đến Tính Thuần Khiết? {/*why-does-react-care-about-purity*/}
 
-Writing pure functions takes some habit and discipline. But it also unlocks marvelous opportunities:
+Viết các hàm thuần khiết cần một số thói quen và kỷ luật. Nhưng nó cũng mở ra những cơ hội tuyệt vời:
 
-* Your components could run in a different environment—for example, on the server! Since they return the same result for the same inputs, one component can serve many user requests.
-* You can improve performance by [skipping rendering](/reference/react/memo) components whose inputs have not changed. This is safe because pure functions always return the same results, so they are safe to cache.
-* If some data changes in the middle of rendering a deep component tree, React can restart rendering without wasting time to finish the outdated render. Purity makes it safe to stop calculating at any time.
+* Các component của bạn có thể chạy trong một môi trường khác—ví dụ: trên máy chủ! Vì chúng trả về cùng một kết quả cho cùng một đầu vào, một component có thể phục vụ nhiều yêu cầu của người dùng.
+* Bạn có thể cải thiện hiệu suất bằng cách [bỏ qua việc render](/reference/react/memo) các component có đầu vào không thay đổi. Điều này an toàn vì các hàm thuần khiết luôn trả về cùng một kết quả, vì vậy chúng an toàn để lưu vào bộ nhớ cache.
+* Nếu một số dữ liệu thay đổi ở giữa quá trình render một cây component sâu, React có thể khởi động lại quá trình render mà không lãng phí thời gian để hoàn thành quá trình render đã lỗi thời. Tính thuần khiết giúp bạn an toàn khi dừng tính toán bất cứ lúc nào.
 
-Every new React feature we're building takes advantage of purity. From data fetching to animations to performance, keeping components pure unlocks the power of the React paradigm.
+Mọi tính năng React mới mà chúng tôi đang xây dựng đều tận dụng tính thuần khiết. Từ tìm nạp dữ liệu đến hoạt ảnh đến hiệu suất, việc giữ cho các component thuần khiết sẽ mở ra sức mạnh của mô hình React.
 
 </DeepDive>
 
 <Recap>
 
-* A component must be pure, meaning:
-  * **It minds its own business.** It should not change any objects or variables that existed before rendering.
-  * **Same inputs, same output.** Given the same inputs, a component should always return the same JSX. 
-* Rendering can happen at any time, so components should not depend on each others' rendering sequence.
-* You should not mutate any of the inputs that your components use for rendering. That includes props, state, and context. To update the screen, ["set" state](/learn/state-a-components-memory) instead of mutating preexisting objects.
-* Strive to express your component's logic in the JSX you return. When you need to "change things", you'll usually want to do it in an event handler. As a last resort, you can `useEffect`.
-* Writing pure functions takes a bit of practice, but it unlocks the power of React's paradigm.
+* Một component phải thuần khiết, có nghĩa là:
+  * **Nó chỉ lo việc của nó.** Nó không nên thay đổi bất kỳ đối tượng hoặc biến nào đã tồn tại trước khi render.
+  * **Đầu vào giống nhau, đầu ra giống nhau.** Với cùng một đầu vào, một component phải luôn trả về cùng một JSX.
+* Quá trình render có thể xảy ra bất cứ lúc nào, vì vậy các component không nên phụ thuộc vào trình tự render của nhau.
+* Bạn không nên mutate bất kỳ đầu vào nào mà các component của bạn sử dụng để render. Điều đó bao gồm props, state và context. Để cập nhật màn hình, hãy ["set" state](/learn/state-a-components-memory) thay vì mutate các đối tượng đã tồn tại.
+* Cố gắng thể hiện logic của component của bạn trong JSX mà bạn trả về. Khi bạn cần "thay đổi mọi thứ", bạn thường sẽ muốn thực hiện nó trong một trình xử lý sự kiện. Là phương sách cuối cùng, bạn có thể sử dụng `useEffect`.
+* Viết các hàm thuần khiết cần một chút luyện tập, nhưng nó sẽ mở ra sức mạnh của mô hình React.
 
 </Recap>
 
-
-  
 <Challenges>
 
-#### Fix a broken clock {/*fix-a-broken-clock*/}
+#### Sửa Một Chiếc Đồng Hồ Bị Hỏng {/*fix-a-broken-clock*/}
 
-This component tries to set the `<h1>`'s CSS class to `"night"` during the time from midnight to six hours in the morning, and `"day"` at all other times. However, it doesn't work. Can you fix this component?
+Component này cố gắng đặt CSS class của `<h1>` thành `"night"` trong khoảng thời gian từ nửa đêm đến sáu giờ sáng, và `"day"` vào tất cả các thời điểm khác. Tuy nhiên, nó không hoạt động. Bạn có thể sửa component này không?
 
-You can verify whether your solution works by temporarily changing the computer's timezone. When the current time is between midnight and six in the morning, the clock should have inverted colors!
+Bạn có thể xác minh xem giải pháp của bạn có hoạt động hay không bằng cách tạm thời thay đổi múi giờ của máy tính. Khi thời gian hiện tại là từ nửa đêm đến sáu giờ sáng, đồng hồ sẽ có màu đảo ngược!
 
 <Hint>
 
-Rendering is a *calculation*, it shouldn't try to "do" things. Can you express the same idea differently?
+Render là một *phép tính*, nó không nên cố gắng "làm" mọi thứ. Bạn có thể thể hiện cùng một ý tưởng một cách khác không?
 
 </Hint>
 
@@ -301,7 +299,7 @@ body > * {
 
 <Solution>
 
-You can fix this component by calculating the `className` and including it in the render output:
+Bạn có thể sửa component này bằng cách tính toán `className` và bao gồm nó trong đầu ra render:
 
 <Sandpack>
 
@@ -362,19 +360,19 @@ body > * {
 
 </Sandpack>
 
-In this example, the side effect (modifying the DOM) was not necessary at all. You only needed to return JSX.
+Trong ví dụ này, tác dụng phụ (sửa đổi DOM) là không cần thiết. Bạn chỉ cần trả về JSX.
 
 </Solution>
 
-#### Fix a broken profile {/*fix-a-broken-profile*/}
+#### Sửa Một Hồ Sơ Bị Hỏng {/*fix-a-broken-profile*/}
 
-Two `Profile` components are rendered side by side with different data. Press "Collapse" on the first profile, and then "Expand" it. You'll notice that both profiles now show the same person. This is a bug.
+Hai component `Profile` được render cạnh nhau với dữ liệu khác nhau. Nhấn "Collapse" trên hồ sơ đầu tiên, và sau đó "Expand" nó. Bạn sẽ nhận thấy rằng cả hai hồ sơ bây giờ hiển thị cùng một người. Đây là một lỗi.
 
-Find the cause of the bug and fix it.
+Tìm nguyên nhân gây ra lỗi và sửa nó.
 
 <Hint>
 
-The buggy code is in `Profile.js`. Make sure you read it all from top to bottom!
+Mã bị lỗi nằm trong `Profile.js`. Hãy chắc chắn rằng bạn đọc tất cả từ trên xuống dưới!
 
 </Hint>
 
@@ -475,9 +473,9 @@ h1 { margin: 5px; font-size: 18px; }
 
 <Solution>
 
-The problem is that the `Profile` component writes to a preexisting variable called `currentPerson`, and the `Header` and `Avatar` components read from it. This makes *all three of them* impure and difficult to predict.
+Vấn đề là component `Profile` ghi vào một biến đã tồn tại có tên là `currentPerson`, và các component `Header` và `Avatar` đọc từ nó. Điều này làm cho *cả ba* không thuần khiết và khó dự đoán.
 
-To fix the bug, remove the `currentPerson` variable. Instead, pass all information from `Profile` to `Header` and `Avatar` via props. You'll need to add a `person` prop to both components and pass it all the way down.
+Để sửa lỗi, hãy xóa biến `currentPerson`. Thay vào đó, hãy truyền tất cả thông tin từ `Profile` đến `Header` và `Avatar` thông qua props. Bạn sẽ cần thêm một prop `person` cho cả hai component và truyền nó xuống.
 
 <Sandpack>
 
@@ -571,15 +569,15 @@ h1 { margin: 5px; font-size: 18px; }
 
 </Sandpack>
 
-Remember that React does not guarantee that component functions will execute in any particular order, so you can't communicate between them by setting variables. All communication must happen through props.
+Hãy nhớ rằng React không đảm bảo rằng các hàm component sẽ thực thi theo bất kỳ thứ tự cụ thể nào, vì vậy bạn không thể giao tiếp giữa chúng bằng cách đặt các biến. Tất cả giao tiếp phải diễn ra thông qua props.
 
 </Solution>
 
-#### Fix a broken story tray {/*fix-a-broken-story-tray*/}
+#### Sửa Một Khay Story Bị Hỏng {/*fix-a-broken-story-tray*/}
 
-The CEO of your company is asking you to add "stories" to your online clock app, and you can't say no. You've written a `StoryTray` component that accepts a list of `stories`, followed by a "Create Story" placeholder.
+CEO của công ty bạn đang yêu cầu bạn thêm "stories" vào ứng dụng đồng hồ trực tuyến của bạn, và bạn không thể từ chối. Bạn đã viết một component `StoryTray` chấp nhận một danh sách `stories`, theo sau là một trình giữ chỗ "Create Story".
 
-You implemented the "Create Story" placeholder by pushing one more fake story at the end of the `stories` array that you receive as a prop. But for some reason, "Create Story" appears more than once. Fix the issue.
+Bạn đã triển khai trình giữ chỗ "Create Story" bằng cách đẩy thêm một story giả vào cuối mảng `stories` mà bạn nhận được dưới dạng prop. Nhưng vì một số lý do, "Create Story" xuất hiện nhiều lần. Sửa vấn đề.
 
 <Sandpack>
 
@@ -675,11 +673,11 @@ li {
 
 <Solution>
 
-Notice how whenever the clock updates, "Create Story" is added *twice*. This serves as a hint that we have a mutation during rendering--Strict Mode calls components twice to make these issues more noticeable.
+Lưu ý rằng bất cứ khi nào đồng hồ cập nhật, "Create Story" được thêm vào *hai lần*. Điều này đóng vai trò là một gợi ý rằng chúng ta có một mutation trong quá trình render--Strict Mode gọi các component hai lần để làm cho những vấn đề này dễ nhận thấy hơn.
 
-`StoryTray` function is not pure. By calling `push` on the received `stories` array (a prop!), it is mutating an object that was created *before* `StoryTray` started rendering. This makes it buggy and very difficult to predict.
+Hàm `StoryTray` không thuần khiết. Bằng cách gọi `push` trên mảng `stories` đã nhận (một prop!), nó đang mutate một đối tượng được tạo *trước khi* `StoryTray` bắt đầu render. Điều này làm cho nó bị lỗi và rất khó dự đoán.
 
-The simplest fix is to not touch the array at all, and render "Create Story" separately:
+Cách sửa đơn giản nhất là không chạm vào mảng và render "Create Story" riêng biệt:
 
 <Sandpack>
 
@@ -763,16 +761,16 @@ li {
 
 </Sandpack>
 
-Alternatively, you could create a _new_ array (by copying the existing one) before you push an item into it:
+Ngoài ra, bạn có thể tạo một mảng _mới_ (bằng cách sao chép mảng hiện có) trước khi bạn đẩy một mục vào nó:
 
 <Sandpack>
 
 ```js src/StoryTray.js active
 export default function StoryTray({ stories }) {
-  // Copy the array!
+  // Sao chép mảng!
   let storiesToDisplay = stories.slice();
 
-  // Does not affect the original array:
+  // Không ảnh hưởng đến mảng ban đầu:
   storiesToDisplay.push({
     id: 'create',
     label: 'Create Story'
@@ -855,9 +853,9 @@ li {
 
 </Sandpack>
 
-This keeps your mutation local and your rendering function pure. However, you still need to be careful: for example, if you tried to change any of the array's existing items, you'd have to clone those items too.
+Điều này giữ cho mutation của bạn cục bộ và hàm render của bạn thuần khiết. Tuy nhiên, bạn vẫn cần phải cẩn thận: ví dụ: nếu bạn cố gắng thay đổi bất kỳ mục hiện có nào của mảng, bạn cũng sẽ phải clone những mục đó.
 
-It is useful to remember which operations on arrays mutate them, and which don't. For example, `push`, `pop`, `reverse`, and `sort` will mutate the original array, but `slice`, `filter`, and `map` will create a new one.
+Điều hữu ích là ghi nhớ những thao tác nào trên mảng mutate chúng và những thao tác nào không. Ví dụ: `push`, `pop`, `reverse` và `sort` sẽ mutate mảng ban đầu, nhưng `slice`, `filter` và `map` sẽ tạo một mảng mới.
 
 </Solution>
 

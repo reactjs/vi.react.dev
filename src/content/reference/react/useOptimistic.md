@@ -4,7 +4,7 @@ title: useOptimistic
 
 <Intro>
 
-`useOptimistic` is a React Hook that lets you optimistically update the UI.
+`useOptimistic` là một React Hook cho phép bạn cập nhật giao diện người dùng một cách lạc quan.
 
 ```js
   const [optimisticState, addOptimistic] = useOptimistic(state, updateFn);
@@ -16,13 +16,13 @@ title: useOptimistic
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `useOptimistic(state, updateFn)` {/*use*/}
 
-`useOptimistic` is a React Hook that lets you show a different state while an async action is underway. It accepts some state as an argument and returns a copy of that state that can be different during the duration of an async action such as a network request. You provide a function that takes the current state and the input to the action, and returns the optimistic state to be used while the action is pending.
+`useOptimistic` là một React Hook cho phép bạn hiển thị một trạng thái khác trong khi một hành động không đồng bộ đang diễn ra. Nó chấp nhận một số trạng thái làm đối số và trả về một bản sao của trạng thái đó có thể khác trong suốt thời gian của một hành động không đồng bộ như một yêu cầu mạng. Bạn cung cấp một hàm lấy trạng thái hiện tại và đầu vào cho hành động, và trả về trạng thái lạc quan sẽ được sử dụng trong khi hành động đang chờ xử lý.
 
-This state is called the "optimistic" state because it is usually used to immediately present the user with the result of performing an action, even though the action actually takes time to complete.
+Trạng thái này được gọi là trạng thái "lạc quan" vì nó thường được sử dụng để ngay lập tức trình bày cho người dùng kết quả của việc thực hiện một hành động, mặc dù hành động đó thực sự mất thời gian để hoàn thành.
 
 ```js
 import { useOptimistic } from 'react';
@@ -32,38 +32,36 @@ function AppContainer() {
     state,
     // updateFn
     (currentState, optimisticValue) => {
-      // merge and return new state
-      // with optimistic value
+      // hợp nhất và trả về trạng thái mới
+      // với giá trị lạc quan
     }
   );
 }
 ```
 
-[See more examples below.](#usage)
+[Xem thêm các ví dụ bên dưới.](#usage)
 
-#### Parameters {/*parameters*/}
+#### Tham số {/*parameters*/}
 
-* `state`: the value to be returned initially and whenever no action is pending.
-* `updateFn(currentState, optimisticValue)`: a function that takes the current state and the optimistic value passed to `addOptimistic` and returns the resulting optimistic state. It must be a pure function. `updateFn` takes in two parameters. The `currentState` and the `optimisticValue`. The return value will be the merged value of the `currentState` and `optimisticValue`.
+* `state`: giá trị sẽ được trả về ban đầu và bất cứ khi nào không có hành động nào đang chờ xử lý.
+* `updateFn(currentState, optimisticValue)`: một hàm lấy trạng thái hiện tại và giá trị lạc quan được truyền cho `addOptimistic` và trả về trạng thái lạc quan kết quả. Nó phải là một hàm thuần túy. `updateFn` nhận hai tham số. `currentState` và `optimisticValue`. Giá trị trả về sẽ là giá trị được hợp nhất của `currentState` và `optimisticValue`.
 
+#### Giá trị trả về {/*returns*/}
 
-#### Returns {/*returns*/}
-
-* `optimisticState`: The resulting optimistic state. It is equal to `state` unless an action is pending, in which case it is equal to the value returned by `updateFn`.
-* `addOptimistic`: `addOptimistic` is the dispatching function to call when you have an optimistic update. It takes one argument, `optimisticValue`, of any type and will call the `updateFn` with `state` and `optimisticValue`.
+* `optimisticState`: Trạng thái lạc quan kết quả. Nó bằng `state` trừ khi một hành động đang chờ xử lý, trong trường hợp đó nó bằng giá trị được trả về bởi `updateFn`.
+* `addOptimistic`: `addOptimistic` là hàm điều phối để gọi khi bạn có một bản cập nhật lạc quan. Nó nhận một đối số, `optimisticValue`, thuộc bất kỳ loại nào và sẽ gọi `updateFn` với `state` và `optimisticValue`.
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Optimistically updating forms {/*optimistically-updating-with-forms*/}
+### Cập nhật lạc quan với biểu mẫu {/*optimistically-updating-with-forms*/}
 
-The `useOptimistic` Hook provides a way to optimistically update the user interface before a background operation, like a network request, completes. In the context of forms, this technique helps to make apps feel more responsive. When a user submits a form, instead of waiting for the server's response to reflect the changes, the interface is immediately updated with the expected outcome.
+Hook `useOptimistic` cung cấp một cách để cập nhật giao diện người dùng một cách lạc quan trước khi một hoạt động nền, như một yêu cầu mạng, hoàn thành. Trong ngữ cảnh của biểu mẫu, kỹ thuật này giúp làm cho ứng dụng có cảm giác phản hồi nhanh hơn. Khi người dùng gửi biểu mẫu, thay vì chờ phản hồi của máy chủ để phản ánh các thay đổi, giao diện sẽ được cập nhật ngay lập tức với kết quả dự kiến.
 
-For example, when a user types a message into the form and hits the "Send" button, the `useOptimistic` Hook allows the message to immediately appear in the list with a "Sending..." label, even before the message is actually sent to a server. This "optimistic" approach gives the impression of speed and responsiveness. The form then attempts to truly send the message in the background. Once the server confirms the message has been received, the "Sending..." label is removed.
+Ví dụ: khi người dùng nhập một tin nhắn vào biểu mẫu và nhấn nút "Gửi", Hook `useOptimistic` cho phép tin nhắn xuất hiện ngay lập tức trong danh sách với nhãn "Đang gửi...", ngay cả trước khi tin nhắn thực sự được gửi đến máy chủ. Cách tiếp cận "lạc quan" này tạo ấn tượng về tốc độ và khả năng phản hồi. Sau đó, biểu mẫu cố gắng thực sự gửi tin nhắn trong nền. Khi máy chủ xác nhận rằng tin nhắn đã được nhận, nhãn "Đang gửi..." sẽ bị xóa.
 
 <Sandpack>
-
 
 ```js src/App.js
 import { useOptimistic, useState, useRef } from "react";
@@ -92,12 +90,12 @@ function Thread({ messages, sendMessage }) {
       {optimisticMessages.map((message, index) => (
         <div key={index}>
           {message.text}
-          {!!message.sending && <small> (Sending...)</small>}
+          {!!message.sending && <small> (Đang gửi...)</small>}
         </div>
       ))}
       <form action={formAction} ref={formRef}>
-        <input type="text" name="message" placeholder="Hello!" />
-        <button type="submit">Send</button>
+        <input type="text" name="message" placeholder="Xin chào!" />
+        <button type="submit">Gửi</button>
       </form>
     </>
   );
@@ -105,7 +103,7 @@ function Thread({ messages, sendMessage }) {
 
 export default function App() {
   const [messages, setMessages] = useState([
-    { text: "Hello there!", sending: false, key: 1 }
+    { text: "Xin chào!", sending: false, key: 1 }
   ]);
   async function sendMessage(formData) {
     const sentMessage = await deliverMessage(formData.get("message"));
@@ -121,6 +119,5 @@ export async function deliverMessage(message) {
   return message;
 }
 ```
-
 
 </Sandpack>

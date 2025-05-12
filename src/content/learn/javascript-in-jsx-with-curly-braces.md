@@ -1,25 +1,25 @@
 ---
-title: JavaScript in JSX with Curly Braces
+title: JavaScript trong JSX với Dấu ngoặc nhọn
 ---
 
 <Intro>
 
-JSX lets you write HTML-like markup inside a JavaScript file, keeping rendering logic and content in the same place. Sometimes you will want to add a little JavaScript logic or reference a dynamic property inside that markup. In this situation, you can use curly braces in your JSX to open a window to JavaScript.
+JSX cho phép bạn viết mã đánh dấu giống HTML bên trong tệp JavaScript, giữ logic hiển thị và nội dung ở cùng một nơi. Đôi khi bạn sẽ muốn thêm một chút logic JavaScript hoặc tham chiếu một thuộc tính động bên trong mã đánh dấu đó. Trong tình huống này, bạn có thể sử dụng dấu ngoặc nhọn trong JSX để mở ra một "cánh cửa" vào JavaScript.
 
 </Intro>
 
 <YouWillLearn>
 
-* How to pass strings with quotes
-* How to reference a JavaScript variable inside JSX with curly braces
-* How to call a JavaScript function inside JSX with curly braces
-* How to use a JavaScript object inside JSX with curly braces
+* Cách truyền chuỗi với dấu ngoặc kép
+* Cách tham chiếu một biến JavaScript bên trong JSX với dấu ngoặc nhọn
+* Cách gọi một hàm JavaScript bên trong JSX với dấu ngoặc nhọn
+* Cách sử dụng một đối tượng JavaScript bên trong JSX với dấu ngoặc nhọn
 
 </YouWillLearn>
 
-## Passing strings with quotes {/*passing-strings-with-quotes*/}
+## Truyền chuỗi với dấu ngoặc kép {/*passing-strings-with-quotes*/}
 
-When you want to pass a string attribute to JSX, you put it in single or double quotes:
+Khi bạn muốn truyền một thuộc tính chuỗi cho JSX, bạn đặt nó trong dấu ngoặc đơn hoặc dấu ngoặc kép:
 
 <Sandpack>
 
@@ -41,9 +41,9 @@ export default function Avatar() {
 
 </Sandpack>
 
-Here, `"https://i.imgur.com/7vQD0fPs.jpg"` and `"Gregorio Y. Zara"` are being passed as strings.
+Ở đây, `"https://i.imgur.com/7vQD0fPs.jpg"` và `"Gregorio Y. Zara"` đang được truyền dưới dạng chuỗi.
 
-But what if you want to dynamically specify the `src` or `alt` text? You could **use a value from JavaScript by replacing `"` and `"` with `{` and `}`**:
+Nhưng điều gì sẽ xảy ra nếu bạn muốn chỉ định động văn bản `src` hoặc `alt`? Bạn có thể **sử dụng một giá trị từ JavaScript bằng cách thay thế `"` và `"` bằng `{` và `}`**:
 
 <Sandpack>
 
@@ -67,11 +67,11 @@ export default function Avatar() {
 
 </Sandpack>
 
-Notice the difference between `className="avatar"`, which specifies an `"avatar"` CSS class name that makes the image round, and `src={avatar}` that reads the value of the JavaScript variable called `avatar`. That's because curly braces let you work with JavaScript right there in your markup!
+Lưu ý sự khác biệt giữa `className="avatar"`, chỉ định một tên lớp CSS `"avatar"` để làm cho hình ảnh tròn và `src={avatar}` đọc giá trị của biến JavaScript có tên là `avatar`. Đó là bởi vì dấu ngoặc nhọn cho phép bạn làm việc với JavaScript ngay tại đó trong mã đánh dấu của bạn!
 
-## Using curly braces: A window into the JavaScript world {/*using-curly-braces-a-window-into-the-javascript-world*/}
+## Sử dụng dấu ngoặc nhọn: Một "cánh cửa" vào thế giới JavaScript {/*using-curly-braces-a-window-into-the-javascript-world*/}
 
-JSX is a special way of writing JavaScript. That means it’s possible to use JavaScript inside it—with curly braces `{ }`. The example below first declares a name for the scientist, `name`, then embeds it with curly braces inside the `<h1>`:
+JSX là một cách viết JavaScript đặc biệt. Điều đó có nghĩa là có thể sử dụng JavaScript bên trong nó—với dấu ngoặc nhọn `{ }`. Ví dụ dưới đây trước tiên khai báo một tên cho nhà khoa học, `name`, sau đó nhúng nó với dấu ngoặc nhọn bên trong thẻ `<h1>`:
 
 <Sandpack>
 
@@ -86,9 +86,9 @@ export default function TodoList() {
 
 </Sandpack>
 
-Try changing the `name`'s value from `'Gregorio Y. Zara'` to `'Hedy Lamarr'`. See how the list title changes?
+Hãy thử thay đổi giá trị của `name` từ `'Gregorio Y. Zara'` thành `'Hedy Lamarr'`. Bạn có thấy tiêu đề danh sách thay đổi không?
 
-Any JavaScript expression will work between curly braces, including function calls like `formatDate()`:
+Bất kỳ biểu thức JavaScript nào cũng sẽ hoạt động giữa dấu ngoặc nhọn, bao gồm cả các lệnh gọi hàm như `formatDate()`:
 
 <Sandpack>
 
@@ -111,18 +111,18 @@ export default function TodoList() {
 
 </Sandpack>
 
-### Where to use curly braces {/*where-to-use-curly-braces*/}
+### Nơi sử dụng dấu ngoặc nhọn {/*where-to-use-curly-braces*/}
 
-You can only use curly braces in two ways inside JSX:
+Bạn chỉ có thể sử dụng dấu ngoặc nhọn theo hai cách bên trong JSX:
 
-1. **As text** directly inside a JSX tag: `<h1>{name}'s To Do List</h1>` works, but `<{tag}>Gregorio Y. Zara's To Do List</{tag}>`  will not.
-2. **As attributes** immediately following the `=` sign: `src={avatar}` will read the `avatar` variable, but `src="{avatar}"` will pass the string `"{avatar}"`.
+1. **Dưới dạng văn bản** trực tiếp bên trong một thẻ JSX: `<h1>{name}'s To Do List</h1>` hoạt động, nhưng `<{tag}>Gregorio Y. Zara's To Do List</{tag}>` sẽ không hoạt động.
+2. **Dưới dạng thuộc tính** ngay sau dấu `=`: `src={avatar}` sẽ đọc biến `avatar`, nhưng `src="{avatar}"` sẽ truyền chuỗi `"{avatar}"`.
 
-## Using "double curlies": CSS and other objects in JSX {/*using-double-curlies-css-and-other-objects-in-jsx*/}
+## Sử dụng "dấu ngoặc kép": CSS và các đối tượng khác trong JSX {/*using-double-curlies-css-and-other-objects-in-jsx*/}
 
-In addition to strings, numbers, and other JavaScript expressions, you can even pass objects in JSX. Objects are also denoted with curly braces, like `{ name: "Hedy Lamarr", inventions: 5 }`. Therefore, to pass a JS object in JSX, you must wrap the object in another pair of curly braces: `person={{ name: "Hedy Lamarr", inventions: 5 }}`.
+Ngoài chuỗi, số và các biểu thức JavaScript khác, bạn thậm chí có thể truyền các đối tượng trong JSX. Các đối tượng cũng được biểu thị bằng dấu ngoặc nhọn, như `{ name: "Hedy Lamarr", inventions: 5 }`. Do đó, để truyền một đối tượng JS trong JSX, bạn phải bọc đối tượng trong một cặp dấu ngoặc nhọn khác: `person={{ name: "Hedy Lamarr", inventions: 5 }}`.
 
-You may see this with inline CSS styles in JSX. React does not require you to use inline styles (CSS classes work great for most cases). But when you need an inline style, you pass an object to the `style` attribute:
+Bạn có thể thấy điều này với các kiểu CSS nội tuyến trong JSX. React không yêu cầu bạn sử dụng các kiểu nội tuyến (các lớp CSS hoạt động tốt cho hầu hết các trường hợp). Nhưng khi bạn cần một kiểu nội tuyến, bạn sẽ truyền một đối tượng cho thuộc tính `style`:
 
 <Sandpack>
 
@@ -148,9 +148,9 @@ ul { padding: 20px 20px 20px 40px; margin: 0; }
 
 </Sandpack>
 
-Try changing the values of `backgroundColor` and `color`.
+Hãy thử thay đổi các giá trị của `backgroundColor` và `color`.
 
-You can really see the JavaScript object inside the curly braces when you write it like this:
+Bạn thực sự có thể thấy đối tượng JavaScript bên trong dấu ngoặc nhọn khi bạn viết nó như thế này:
 
 ```js {2-5}
 <ul style={
@@ -161,17 +161,17 @@ You can really see the JavaScript object inside the curly braces when you write 
 }>
 ```
 
-The next time you see `{{` and `}}` in JSX, know that it's nothing more than an object inside the JSX curlies!
+Lần tới khi bạn thấy `{{` và `}}` trong JSX, hãy biết rằng nó không là gì khác ngoài một đối tượng bên trong dấu ngoặc nhọn JSX!
 
 <Pitfall>
 
-Inline `style` properties are written in camelCase. For example, HTML `<ul style="background-color: black">` would be written as `<ul style={{ backgroundColor: 'black' }}>`  in your component.
+Các thuộc tính `style` nội tuyến được viết bằng camelCase. Ví dụ: HTML `<ul style="background-color: black">` sẽ được viết là `<ul style={{ backgroundColor: 'black' }}>` trong thành phần của bạn.
 
 </Pitfall>
 
-## More fun with JavaScript objects and curly braces {/*more-fun-with-javascript-objects-and-curly-braces*/}
+## Thêm niềm vui với các đối tượng JavaScript và dấu ngoặc nhọn {/*more-fun-with-javascript-objects-and-curly-braces*/}
 
-You can move several expressions into one object, and reference them in your JSX inside curly braces:
+Bạn có thể di chuyển một số biểu thức vào một đối tượng và tham chiếu chúng trong JSX của bạn bên trong dấu ngoặc nhọn:
 
 <Sandpack>
 
@@ -211,7 +211,7 @@ body > div > div { padding: 20px; }
 
 </Sandpack>
 
-In this example, the `person` JavaScript object contains a `name` string and a `theme` object:
+Trong ví dụ này, đối tượng JavaScript `person` chứa một chuỗi `name` và một đối tượng `theme`:
 
 ```js
 const person = {
@@ -223,31 +223,31 @@ const person = {
 };
 ```
 
-The component can use these values from `person` like so:
+Thành phần có thể sử dụng các giá trị này từ `person` như sau:
 
 ```js
 <div style={person.theme}>
   <h1>{person.name}'s Todos</h1>
 ```
 
-JSX is very minimal as a templating language because it lets you organize data and logic using JavaScript.
+JSX rất tối giản như một ngôn ngữ tạo khuôn mẫu vì nó cho phép bạn tổ chức dữ liệu và logic bằng JavaScript.
 
 <Recap>
 
-Now you know almost everything about JSX:
+Bây giờ bạn đã biết gần như mọi thứ về JSX:
 
-* JSX attributes inside quotes are passed as strings.
-* Curly braces let you bring JavaScript logic and variables into your markup.
-* They work inside the JSX tag content or immediately after `=` in attributes.
-* `{{` and `}}` is not special syntax: it's a JavaScript object tucked inside JSX curly braces.
+* Các thuộc tính JSX bên trong dấu ngoặc kép được truyền dưới dạng chuỗi.
+* Dấu ngoặc nhọn cho phép bạn đưa logic và biến JavaScript vào mã đánh dấu của mình.
+* Chúng hoạt động bên trong nội dung thẻ JSX hoặc ngay sau `=` trong các thuộc tính.
+* `{{` và `}}` không phải là cú pháp đặc biệt: nó là một đối tượng JavaScript được giấu bên trong dấu ngoặc nhọn JSX.
 
 </Recap>
 
 <Challenges>
 
-#### Fix the mistake {/*fix-the-mistake*/}
+#### Sửa lỗi {/*fix-the-mistake*/}
 
-This code crashes with an error saying `Objects are not valid as a React child`:
+Đoạn mã này bị lỗi với thông báo `Objects are not valid as a React child`:
 
 <Sandpack>
 
@@ -287,15 +287,15 @@ body > div > div { padding: 20px; }
 
 </Sandpack>
 
-Can you find the problem?
+Bạn có thể tìm ra vấn đề không?
 
-<Hint>Look for what's inside the curly braces. Are we putting the right thing there?</Hint>
+<Hint>Hãy xem những gì bên trong dấu ngoặc nhọn. Chúng ta có đang đặt đúng thứ ở đó không?</Hint>
 
 <Solution>
 
-This is happening because this example renders *an object itself* into the markup rather than a string: `<h1>{person}'s Todos</h1>` is trying to render the entire `person` object! Including raw objects as text content throws an error because React doesn't know how you want to display them.
+Điều này xảy ra vì ví dụ này hiển thị *bản thân đối tượng* vào mã đánh dấu thay vì một chuỗi: `<h1>{person}'s Todos</h1>` đang cố gắng hiển thị toàn bộ đối tượng `person`! Bao gồm các đối tượng thô làm nội dung văn bản sẽ gây ra lỗi vì React không biết bạn muốn hiển thị chúng như thế nào.
 
-To fix it, replace `<h1>{person}'s Todos</h1>` with `<h1>{person.name}'s Todos</h1>`:
+Để khắc phục, hãy thay thế `<h1>{person}'s Todos</h1>` bằng `<h1>{person.name}'s Todos</h1>`:
 
 <Sandpack>
 
@@ -337,9 +337,9 @@ body > div > div { padding: 20px; }
 
 </Solution>
 
-#### Extract information into an object {/*extract-information-into-an-object*/}
+#### Trích xuất thông tin vào một đối tượng {/*extract-information-into-an-object*/}
 
-Extract the image URL into the `person` object.
+Trích xuất URL hình ảnh vào đối tượng `person`.
 
 <Sandpack>
 
@@ -381,7 +381,7 @@ body > div > div { padding: 20px; }
 
 <Solution>
 
-Move the image URL into a property called `person.imageUrl` and read it from the `<img>` tag using the curlies:
+Di chuyển URL hình ảnh vào một thuộc tính có tên là `person.imageUrl` và đọc nó từ thẻ `<img>` bằng cách sử dụng dấu ngoặc nhọn:
 
 <Sandpack>
 
@@ -424,13 +424,13 @@ body > div > div { padding: 20px; }
 
 </Solution>
 
-#### Write an expression inside JSX curly braces {/*write-an-expression-inside-jsx-curly-braces*/}
+#### Viết một biểu thức bên trong dấu ngoặc nhọn JSX {/*write-an-expression-inside-jsx-curly-braces*/}
 
-In the object below, the full image URL is split into four parts: base URL, `imageId`, `imageSize`, and file extension.
+Trong đối tượng bên dưới, URL hình ảnh đầy đủ được chia thành bốn phần: URL cơ sở, `imageId`, `imageSize` và phần mở rộng tệp.
 
-We want the image URL to combine these attributes together: base URL (always `'https://i.imgur.com/'`), `imageId` (`'7vQD0fP'`), `imageSize` (`'s'`), and file extension (always `'.jpg'`). However, something is wrong with how the `<img>` tag specifies its `src`.
+Chúng tôi muốn URL hình ảnh kết hợp các thuộc tính này với nhau: URL cơ sở (luôn là `'https://i.imgur.com/'`), `imageId` (`'7vQD0fP'`), `imageSize` (`'s'`) và phần mở rộng tệp (luôn là `'.jpg'`). Tuy nhiên, có điều gì đó không ổn với cách thẻ `<img>` chỉ định `src` của nó.
 
-Can you fix it?
+Bạn có thể sửa nó không?
 
 <Sandpack>
 
@@ -474,15 +474,15 @@ body > div > div { padding: 20px; }
 
 </Sandpack>
 
-To check that your fix worked, try changing the value of `imageSize` to `'b'`. The image should resize after your edit.
+Để kiểm tra xem bản sửa lỗi của bạn có hoạt động không, hãy thử thay đổi giá trị của `imageSize` thành `'b'`. Hình ảnh sẽ thay đổi kích thước sau khi bạn chỉnh sửa.
 
 <Solution>
 
-You can write it as `src={baseUrl + person.imageId + person.imageSize + '.jpg'}`.
+Bạn có thể viết nó là `src={baseUrl + person.imageId + person.imageSize + '.jpg'}`.
 
-1. `{` opens the JavaScript expression
-2. `baseUrl + person.imageId + person.imageSize + '.jpg'` produces the correct URL string
-3. `}` closes the JavaScript expression
+1. `{` mở biểu thức JavaScript
+2. `baseUrl + person.imageId + person.imageSize + '.jpg'` tạo ra chuỗi URL chính xác
+3. `}` đóng biểu thức JavaScript
 
 <Sandpack>
 
@@ -525,7 +525,7 @@ body > div > div { padding: 20px; }
 
 </Sandpack>
 
-You can also move this expression into a separate function like `getImageUrl` below:
+Bạn cũng có thể di chuyển biểu thức này vào một hàm riêng biệt như `getImageUrl` bên dưới:
 
 <Sandpack>
 
@@ -580,7 +580,7 @@ body > div > div { padding: 20px; }
 
 </Sandpack>
 
-Variables and functions can help you keep the markup simple!
+Các biến và hàm có thể giúp bạn giữ cho mã đánh dấu đơn giản!
 
 </Solution>
 

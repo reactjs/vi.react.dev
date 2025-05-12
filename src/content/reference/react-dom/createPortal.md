@@ -4,8 +4,7 @@ title: createPortal
 
 <Intro>
 
-`createPortal` lets you render some children into a different part of the DOM.
-
+`createPortal` cho phép bạn kết xuất một số children vào một phần khác của DOM.
 
 ```js
 <div>
@@ -20,11 +19,11 @@ title: createPortal
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `createPortal(children, domNode, key?)` {/*createportal*/}
 
-To create a portal, call `createPortal`, passing some JSX, and the DOM node where it should be rendered:
+Để tạo một portal, hãy gọi `createPortal`, truyền một số JSX và nút DOM nơi nó sẽ được kết xuất:
 
 ```js
 import { createPortal } from 'react-dom';
@@ -32,53 +31,53 @@ import { createPortal } from 'react-dom';
 // ...
 
 <div>
-  <p>This child is placed in the parent div.</p>
+  <p>Child này được đặt trong div cha.</p>
   {createPortal(
-    <p>This child is placed in the document body.</p>,
+    <p>Child này được đặt trong phần body của tài liệu.</p>,
     document.body
   )}
 </div>
 ```
 
-[See more examples below.](#usage)
+[Xem thêm các ví dụ bên dưới.](#usage)
 
-A portal only changes the physical placement of the DOM node. In every other way, the JSX you render into a portal acts as a child node of the React component that renders it. For example, the child can access the context provided by the parent tree, and events bubble up from children to parents according to the React tree.
+Một portal chỉ thay đổi vị trí vật lý của nút DOM. Về mọi mặt khác, JSX bạn kết xuất vào một portal hoạt động như một nút con của thành phần React kết xuất nó. Ví dụ: child có thể truy cập ngữ cảnh được cung cấp bởi cây cha và các sự kiện nổi lên từ children lên cha theo cây React.
 
-#### Parameters {/*parameters*/}
+#### Tham số {/*parameters*/}
 
-* `children`: Anything that can be rendered with React, such as a piece of JSX (e.g. `<div />` or `<SomeComponent />`), a [Fragment](/reference/react/Fragment) (`<>...</>`), a string or a number, or an array of these.
+* `children`: Bất cứ thứ gì có thể được kết xuất bằng React, chẳng hạn như một đoạn JSX (ví dụ: `<div />` hoặc `<SomeComponent />`), một [Fragment](/reference/react/Fragment) (`<>...</>`), một chuỗi hoặc một số, hoặc một mảng các phần tử này.
 
-* `domNode`: Some DOM node, such as those returned by `document.getElementById()`. The node must already exist. Passing a different DOM node during an update will cause the portal content to be recreated.
+* `domNode`: Một số nút DOM, chẳng hạn như những nút được trả về bởi `document.getElementById()`. Nút phải đã tồn tại. Truyền một nút DOM khác trong quá trình cập nhật sẽ khiến nội dung cổng được tạo lại.
 
-* **optional** `key`: A unique string or number to be used as the portal's [key.](/learn/rendering-lists/#keeping-list-items-in-order-with-key)
+* **tùy chọn** `key`: Một chuỗi hoặc số duy nhất được sử dụng làm [key của portal.](/learn/rendering-lists/#keeping-list-items-in-order-with-key)
 
-#### Returns {/*returns*/}
+#### Trả về {/*returns*/}
 
-`createPortal` returns a React node that can be included into JSX or returned from a React component. If React encounters it in the render output, it will place the provided `children` inside the provided `domNode`.
+`createPortal` trả về một nút React có thể được đưa vào JSX hoặc được trả về từ một thành phần React. Nếu React gặp nó trong đầu ra kết xuất, nó sẽ đặt `children` đã cung cấp bên trong `domNode` đã cung cấp.
 
-#### Caveats {/*caveats*/}
+#### Lưu ý {/*caveats*/}
 
-* Events from portals propagate according to the React tree rather than the DOM tree. For example, if you click inside a portal, and the portal is wrapped in `<div onClick>`, that `onClick` handler will fire. If this causes issues, either stop the event propagation from inside the portal, or move the portal itself up in the React tree.
+* Các sự kiện từ cổng lan truyền theo cây React chứ không phải cây DOM. Ví dụ: nếu bạn nhấp vào bên trong một cổng và cổng được bao bọc trong `<div onClick>`, trình xử lý `onClick` đó sẽ kích hoạt. Nếu điều này gây ra sự cố, hãy dừng lan truyền sự kiện từ bên trong cổng hoặc di chuyển chính cổng đó lên trên cây React.
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Rendering to a different part of the DOM {/*rendering-to-a-different-part-of-the-dom*/}
+### Kết xuất đến một phần khác của DOM {/*rendering-to-a-different-part-of-the-dom*/}
 
-*Portals* let your components render some of their children into a different place in the DOM. This lets a part of your component "escape" from whatever containers it may be in. For example, a component can display a modal dialog or a tooltip that appears above and outside of the rest of the page.
+*Portals* cho phép các thành phần của bạn kết xuất một số children của chúng vào một vị trí khác trong DOM. Điều này cho phép một phần của thành phần của bạn "thoát" khỏi bất kỳ vùng chứa nào mà nó có thể ở trong đó. Ví dụ: một thành phần có thể hiển thị một hộp thoại phương thức hoặc một chú giải công cụ xuất hiện phía trên và bên ngoài phần còn lại của trang.
 
-To create a portal, render the result of `createPortal` with <CodeStep step={1}>some JSX</CodeStep> and the <CodeStep step={2}>DOM node where it should go</CodeStep>:
+Để tạo một portal, hãy kết xuất kết quả của `createPortal` với <CodeStep step={1}>một số JSX</CodeStep> và <CodeStep step={2}>nút DOM nơi nó sẽ đi</CodeStep>:
 
-```js [[1, 8, "<p>This child is placed in the document body.</p>"], [2, 9, "document.body"]]
+```js [[1, 8, "<p>Child này được đặt trong phần body của tài liệu.</p>"], [2, 9, "document.body"]]
 import { createPortal } from 'react-dom';
 
 function MyComponent() {
   return (
     <div style={{ border: '2px solid black' }}>
-      <p>This child is placed in the parent div.</p>
+      <p>Child này được đặt trong div cha.</p>
       {createPortal(
-        <p>This child is placed in the document body.</p>,
+        <p>Child này được đặt trong phần body của tài liệu.</p>,
         document.body
       )}
     </div>
@@ -86,9 +85,9 @@ function MyComponent() {
 }
 ```
 
-React will put the DOM nodes for <CodeStep step={1}>the JSX you passed</CodeStep> inside of the <CodeStep step={2}>DOM node you provided</CodeStep>.
+React sẽ đặt các nút DOM cho <CodeStep step={1}>JSX bạn đã truyền</CodeStep> bên trong <CodeStep step={2}>nút DOM bạn đã cung cấp</CodeStep>.
 
-Without a portal, the second `<p>` would be placed inside the parent `<div>`, but the portal "teleported" it into the [`document.body`:](https://developer.mozilla.org/en-US/docs/Web/API/Document/body)
+Nếu không có portal, `<p>` thứ hai sẽ được đặt bên trong `<div>` cha, nhưng portal đã "dịch chuyển" nó vào [`document.body`:](https://developer.mozilla.org/en-US/docs/Web/API/Document/body)
 
 <Sandpack>
 
@@ -98,9 +97,9 @@ import { createPortal } from 'react-dom';
 export default function MyComponent() {
   return (
     <div style={{ border: '2px solid black' }}>
-      <p>This child is placed in the parent div.</p>
+      <p>Child này được đặt trong div cha.</p>
       {createPortal(
-        <p>This child is placed in the document body.</p>,
+        <p>Child này được đặt trong phần body của tài liệu.</p>,
         document.body
       )}
     </div>
@@ -110,30 +109,30 @@ export default function MyComponent() {
 
 </Sandpack>
 
-Notice how the second paragraph visually appears outside the parent `<div>` with the border. If you inspect the DOM structure with developer tools, you'll see that the second `<p>` got placed directly into the `<body>`:
+Lưu ý cách đoạn văn thứ hai xuất hiện trực quan bên ngoài `<div>` cha có đường viền. Nếu bạn kiểm tra cấu trúc DOM bằng các công cụ dành cho nhà phát triển, bạn sẽ thấy rằng `<p>` thứ hai đã được đặt trực tiếp vào `<body>`:
 
 ```html {4-6,9}
 <body>
   <div id="root">
     ...
       <div style="border: 2px solid black">
-        <p>This child is placed inside the parent div.</p>
+        <p>Child này được đặt bên trong div cha.</p>
       </div>
     ...
   </div>
-  <p>This child is placed in the document body.</p>
+  <p>Child này được đặt trong phần body của tài liệu.</p>
 </body>
 ```
 
-A portal only changes the physical placement of the DOM node. In every other way, the JSX you render into a portal acts as a child node of the React component that renders it. For example, the child can access the context provided by the parent tree, and events still bubble up from children to parents according to the React tree.
+Một portal chỉ thay đổi vị trí vật lý của nút DOM. Về mọi mặt khác, JSX bạn kết xuất vào một portal hoạt động như một nút con của thành phần React kết xuất nó. Ví dụ: child có thể truy cập ngữ cảnh được cung cấp bởi cây cha và các sự kiện vẫn nổi lên từ children lên cha theo cây React.
 
 ---
 
-### Rendering a modal dialog with a portal {/*rendering-a-modal-dialog-with-a-portal*/}
+### Kết xuất hộp thoại phương thức bằng portal {/*rendering-a-modal-dialog-with-a-portal*/}
 
-You can use a portal to create a modal dialog that floats above the rest of the page, even if the component that summons the dialog is inside a container with `overflow: hidden` or other styles that interfere with the dialog.
+Bạn có thể sử dụng một portal để tạo một hộp thoại phương thức nổi phía trên phần còn lại của trang, ngay cả khi thành phần triệu hồi hộp thoại nằm bên trong một vùng chứa có `overflow: hidden` hoặc các kiểu khác gây trở ngại cho hộp thoại.
 
-In this example, the two containers have styles that disrupt the modal dialog, but the one rendered into a portal is unaffected because, in the DOM, the modal is not contained within the parent JSX elements.
+Trong ví dụ này, hai vùng chứa có các kiểu làm gián đoạn hộp thoại phương thức, nhưng vùng chứa được kết xuất vào một portal không bị ảnh hưởng vì, trong DOM, phương thức không nằm trong các phần tử JSX cha.
 
 <Sandpack>
 
@@ -164,7 +163,7 @@ export default function NoPortalExample() {
   return (
     <>
       <button onClick={() => setShowModal(true)}>
-        Show modal without a portal
+        Hiển thị phương thức mà không cần portal
       </button>
       {showModal && (
         <ModalContent onClose={() => setShowModal(false)} />
@@ -184,7 +183,7 @@ export default function PortalExample() {
   return (
     <>
       <button onClick={() => setShowModal(true)}>
-        Show modal using a portal
+        Hiển thị phương thức bằng portal
       </button>
       {showModal && createPortal(
         <ModalContent onClose={() => setShowModal(false)} />,
@@ -199,8 +198,8 @@ export default function PortalExample() {
 export default function ModalContent({ onClose }) {
   return (
     <div className="modal">
-      <div>I'm a modal dialog</div>
-      <button onClick={onClose}>Close</button>
+      <div>Tôi là một hộp thoại phương thức</div>
+      <button onClick={onClose}>Đóng</button>
     </div>
   );
 }
@@ -238,17 +237,17 @@ export default function ModalContent({ onClose }) {
 
 <Pitfall>
 
-It's important to make sure that your app is accessible when using portals. For instance, you may need to manage keyboard focus so that the user can move the focus in and out of the portal in a natural way.
+Điều quan trọng là đảm bảo rằng ứng dụng của bạn có thể truy cập được khi sử dụng cổng. Ví dụ: bạn có thể cần quản lý tiêu điểm bàn phím để người dùng có thể di chuyển tiêu điểm vào và ra khỏi cổng một cách tự nhiên.
 
-Follow the [WAI-ARIA Modal Authoring Practices](https://www.w3.org/WAI/ARIA/apg/#dialog_modal) when creating modals. If you use a community package, ensure that it is accessible and follows these guidelines.
+Hãy tuân theo [Các phương pháp tạo phương thức WAI-ARIA](https://www.w3.org/WAI/ARIA/apg/#dialog_modal) khi tạo phương thức. Nếu bạn sử dụng một gói cộng đồng, hãy đảm bảo rằng nó có thể truy cập được và tuân theo các nguyên tắc này.
 
 </Pitfall>
 
 ---
 
-### Rendering React components into non-React server markup {/*rendering-react-components-into-non-react-server-markup*/}
+### Kết xuất các thành phần React vào mã đánh dấu máy chủ không phải React {/*rendering-react-components-into-non-react-server-markup*/}
 
-Portals can be useful if your React root is only part of a static or server-rendered page that isn't built with React. For example, if your page is built with a server framework like Rails, you can create areas of interactivity within static areas such as sidebars. Compared with having [multiple separate React roots,](/reference/react-dom/client/createRoot#rendering-a-page-partially-built-with-react) portals let you treat the app as a single React tree with shared state even though its parts render to different parts of the DOM.
+Portals có thể hữu ích nếu gốc React của bạn chỉ là một phần của trang tĩnh hoặc được kết xuất trên máy chủ không được xây dựng bằng React. Ví dụ: nếu trang của bạn được xây dựng bằng một framework máy chủ như Rails, bạn có thể tạo các khu vực tương tác trong các khu vực tĩnh như thanh bên. So với việc có [nhiều gốc React riêng biệt,](/reference/react-dom/client/createRoot#rendering-a-page-partially-built-with-react) portals cho phép bạn coi ứng dụng như một cây React duy nhất với trạng thái được chia sẻ ngay cả khi các phần của nó kết xuất đến các phần khác nhau của DOM.
 
 <Sandpack>
 
@@ -342,15 +341,15 @@ p {
 
 ---
 
-### Rendering React components into non-React DOM nodes {/*rendering-react-components-into-non-react-dom-nodes*/}
+### Kết xuất các thành phần React vào các nút DOM không phải React {/*rendering-react-components-into-non-react-dom-nodes*/}
 
-You can also use a portal to manage the content of a DOM node that's managed outside of React. For example, suppose you're integrating with a non-React map widget and you want to render React content inside a popup. To do this, declare a `popupContainer` state variable to store the DOM node you're going to render into:
+Bạn cũng có thể sử dụng cổng để quản lý nội dung của một nút DOM được quản lý bên ngoài React. Ví dụ: giả sử bạn đang tích hợp với một tiện ích bản đồ không phải React và bạn muốn kết xuất nội dung React bên trong một cửa sổ bật lên. Để thực hiện việc này, hãy khai báo một biến trạng thái `popupContainer` để lưu trữ nút DOM mà bạn sẽ kết xuất vào:
 
 ```js
 const [popupContainer, setPopupContainer] = useState(null);
 ```
 
-When you create the third-party widget, store the DOM node returned by the widget so you can render into it:
+Khi bạn tạo tiện ích của bên thứ ba, hãy lưu trữ nút DOM được trả về bởi tiện ích để bạn có thể kết xuất vào nó:
 
 ```js {5-6}
 useEffect(() => {
@@ -363,7 +362,7 @@ useEffect(() => {
 }, []);
 ```
 
-This lets you use `createPortal` to render React content into `popupContainer` once it becomes available:
+Điều này cho phép bạn sử dụng `createPortal` để kết xuất nội dung React vào `popupContainer` sau khi nó khả dụng:
 
 ```js {3-6}
 return (
@@ -376,7 +375,8 @@ return (
 );
 ```
 
-Here is a complete example you can play with:
+Dưới đây là một ví dụ hoàn chỉnh mà bạn có thể thử:
+
 
 <Sandpack>
 

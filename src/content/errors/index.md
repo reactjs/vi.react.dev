@@ -1,10 +1,10 @@
 <Intro>
 
-In the minified production build of React, we avoid sending down full error messages in order to reduce the number of bytes sent over the wire.
+Trong bản dựng production đã rút gọn của React, chúng tôi tránh gửi toàn bộ thông báo lỗi để giảm số lượng byte được gửi qua mạng.
 
 </Intro>
 
 
-We highly recommend using the development build locally when debugging your app since it tracks additional debug info and provides helpful warnings about potential problems in your apps, but if you encounter an exception while using the production build, the error message will include just a link to the docs for the error.
+Chúng tôi đặc biệt khuyên bạn nên sử dụng bản dựng development cục bộ khi gỡ lỗi ứng dụng của mình vì nó theo dõi thông tin gỡ lỗi bổ sung và cung cấp các cảnh báo hữu ích về các sự cố tiềm ẩn trong ứng dụng của bạn, nhưng nếu bạn gặp phải ngoại lệ khi sử dụng bản dựng production, thông báo lỗi sẽ chỉ bao gồm một liên kết đến tài liệu về lỗi đó.
 
-For an example, see: [https://react.dev/errors/149](/errors/421).
+Ví dụ: [https://react.dev/errors/149](/errors/421).

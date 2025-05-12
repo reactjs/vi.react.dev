@@ -4,13 +4,13 @@ title: preloadModule
 
 <Note>
 
-[React-based frameworks](/learn/start-a-new-react-project) frequently handle resource loading for you, so you might not have to call this API yourself. Consult your framework's documentation for details.
+Các [framework dựa trên React](/learn/start-a-new-react-project) thường tự động xử lý việc tải tài nguyên cho bạn, vì vậy bạn có thể không cần phải gọi API này. Tham khảo tài liệu của framework để biết thêm chi tiết.
 
 </Note>
 
 <Intro>
 
-`preloadModule` lets you eagerly fetch an ESM module that you expect to use.
+`preloadModule` cho phép bạn chủ động tìm nạp một module ESM mà bạn dự định sử dụng.
 
 ```js
 preloadModule("https://example.com/module.js", {as: "script"});
@@ -22,11 +22,11 @@ preloadModule("https://example.com/module.js", {as: "script"});
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `preloadModule(href, options)` {/*preloadmodule*/}
 
-To preload an ESM module, call the `preloadModule` function from `react-dom`.
+Để tải trước một module ESM, hãy gọi hàm `preloadModule` từ `react-dom`.
 
 ```js
 import { preloadModule } from 'react-dom';
@@ -38,37 +38,36 @@ function AppRoot() {
 
 ```
 
-[See more examples below.](#usage)
+[Xem thêm các ví dụ bên dưới.](#usage)
 
-The `preloadModule` function provides the browser with a hint that it should start downloading the given module, which can save time.
+Hàm `preloadModule` cung cấp cho trình duyệt một gợi ý rằng nó nên bắt đầu tải xuống module đã cho, điều này có thể tiết kiệm thời gian.
 
-#### Parameters {/*parameters*/}
+#### Tham số {/*parameters*/}
 
-* `href`: a string. The URL of the module you want to download.
-* `options`: an object. It contains the following properties:
-  *  `as`: a required string. It must be `'script'`.
-  *  `crossOrigin`: a string. The [CORS policy](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) to use. Its possible values are `anonymous` and `use-credentials`.
-  *  `integrity`: a string. A cryptographic hash of the module, to [verify its authenticity](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity).
-  *  `nonce`: a string. A cryptographic [nonce to allow the module](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) when using a strict Content Security Policy. 
+* `href`: một chuỗi. URL của module bạn muốn tải xuống.
+* `options`: một đối tượng. Nó chứa các thuộc tính sau:
+  * `as`: một chuỗi bắt buộc. Nó phải là `'script'`.
+  * `crossOrigin`: một chuỗi. [Chính sách CORS](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/crossorigin) để sử dụng. Các giá trị có thể là `anonymous` và `use-credentials`.
+  * `integrity`: một chuỗi. Một hàm băm mật mã của module, để [xác minh tính xác thực của nó](https://developer.mozilla.org/en-US/docs/Web/Security/Subresource_Integrity).
+  * `nonce`: một chuỗi. Một [nonce mật mã để cho phép module](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes/nonce) khi sử dụng Chính sách Bảo mật Nội dung nghiêm ngặt.
 
+#### Giá trị trả về {/*returns*/}
 
-#### Returns {/*returns*/}
+`preloadModule` không trả về gì cả.
 
-`preloadModule` returns nothing.
+#### Lưu ý {/*caveats*/}
 
-#### Caveats {/*caveats*/}
-
-* Multiple calls to `preloadModule` with the same `href` have the same effect as a single call.
-* In the browser, you can call `preloadModule` in any situation: while rendering a component, in an Effect, in an event handler, and so on.
-* In server-side rendering or when rendering Server Components, `preloadModule` only has an effect if you call it while rendering a component or in an async context originating from rendering a component. Any other calls will be ignored.
+* Nhiều lệnh gọi đến `preloadModule` với cùng một `href` có cùng hiệu ứng như một lệnh gọi duy nhất.
+* Trong trình duyệt, bạn có thể gọi `preloadModule` trong mọi tình huống: trong khi hiển thị một component, trong một Effect, trong một trình xử lý sự kiện, v.v.
+* Trong quá trình hiển thị phía máy chủ hoặc khi hiển thị Server Components, `preloadModule` chỉ có hiệu lực nếu bạn gọi nó trong khi hiển thị một component hoặc trong một ngữ cảnh không đồng bộ bắt nguồn từ việc hiển thị một component. Bất kỳ lệnh gọi nào khác sẽ bị bỏ qua.
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Preloading when rendering {/*preloading-when-rendering*/}
+### Tải trước khi hiển thị {/*preloading-when-rendering*/}
 
-Call `preloadModule` when rendering a component if you know that it or its children will use a specific module.
+Gọi `preloadModule` khi hiển thị một component nếu bạn biết rằng nó hoặc các component con của nó sẽ sử dụng một module cụ thể.
 
 ```js
 import { preloadModule } from 'react-dom';
@@ -79,11 +78,11 @@ function AppRoot() {
 }
 ```
 
-If you want the browser to start executing the module immediately (rather than just downloading it), use [`preinitModule`](/reference/react-dom/preinitModule) instead. If you want to load a script that isn't an ESM module, use [`preload`](/reference/react-dom/preload).
+Nếu bạn muốn trình duyệt bắt đầu thực thi module ngay lập tức (thay vì chỉ tải xuống), hãy sử dụng [`preinitModule`](/reference/react-dom/preinitModule) thay thế. Nếu bạn muốn tải một script không phải là module ESM, hãy sử dụng [`preload`](/reference/react-dom/preload).
 
-### Preloading in an event handler {/*preloading-in-an-event-handler*/}
+### Tải trước trong một trình xử lý sự kiện {/*preloading-in-an-event-handler*/}
 
-Call `preloadModule` in an event handler before transitioning to a page or state where the module will be needed. This gets the process started earlier than if you call it during the rendering of the new page or state.
+Gọi `preloadModule` trong một trình xử lý sự kiện trước khi chuyển sang một trang hoặc trạng thái nơi module sẽ được cần đến. Điều này giúp quá trình bắt đầu sớm hơn so với việc bạn gọi nó trong quá trình hiển thị trang hoặc trạng thái mới.
 
 ```js
 import { preloadModule } from 'react-dom';

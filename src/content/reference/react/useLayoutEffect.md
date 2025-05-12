@@ -4,13 +4,13 @@ title: useLayoutEffect
 
 <Pitfall>
 
-`useLayoutEffect` can hurt performance. Prefer [`useEffect`](/reference/react/useEffect) when possible.
+`useLayoutEffect` có thể làm giảm hiệu năng. Ưu tiên sử dụng [`useEffect`](/reference/react/useEffect) khi có thể.
 
 </Pitfall>
 
 <Intro>
 
-`useLayoutEffect` is a version of [`useEffect`](/reference/react/useEffect) that fires before the browser repaints the screen.
+`useLayoutEffect` là một phiên bản của [`useEffect`](/reference/react/useEffect) được thực thi trước khi trình duyệt vẽ lại màn hình.
 
 ```js
 useLayoutEffect(setup, dependencies?)
@@ -22,11 +22,11 @@ useLayoutEffect(setup, dependencies?)
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `useLayoutEffect(setup, dependencies?)` {/*useinsertioneffect*/}
 
-Call `useLayoutEffect` to perform the layout measurements before the browser repaints the screen:
+Gọi `useLayoutEffect` để thực hiện các phép đo bố cục trước khi trình duyệt vẽ lại màn hình:
 
 ```js
 import { useState, useRef, useLayoutEffect } from 'react';
@@ -42,74 +42,73 @@ function Tooltip() {
   // ...
 ```
 
+[Xem thêm các ví dụ bên dưới.](#usage)
 
-[See more examples below.](#usage)
+#### Tham số {/*parameters*/}
 
-#### Parameters {/*parameters*/}
+* `setup`: Hàm chứa logic Effect của bạn. Hàm setup của bạn cũng có thể trả về một hàm *cleanup* (dọn dẹp) tùy chọn. Trước khi component của bạn được thêm vào DOM, React sẽ chạy hàm setup của bạn. Sau mỗi lần re-render với các dependencies đã thay đổi, React sẽ chạy hàm cleanup (nếu bạn cung cấp) với các giá trị cũ, và sau đó chạy hàm setup của bạn với các giá trị mới. Trước khi component của bạn bị xóa khỏi DOM, React sẽ chạy hàm cleanup của bạn.
 
-* `setup`: The function with your Effect's logic. Your setup function may also optionally return a *cleanup* function. Before your component is added to the DOM, React will run your setup function. After every re-render with changed dependencies, React will first run the cleanup function (if you provided it) with the old values, and then run your setup function with the new values. Before your component is removed from the DOM, React will run your cleanup function.
- 
-* **optional** `dependencies`: The list of all reactive values referenced inside of the `setup` code. Reactive values include props, state, and all the variables and functions declared directly inside your component body. If your linter is [configured for React](/learn/editor-setup#linting), it will verify that every reactive value is correctly specified as a dependency. The list of dependencies must have a constant number of items and be written inline like `[dep1, dep2, dep3]`. React will compare each dependency with its previous value using the [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison. If you omit this argument, your Effect will re-run after every re-render of the component.
+* **optional** `dependencies`: Danh sách tất cả các giá trị reactive được tham chiếu bên trong code `setup`. Các giá trị reactive bao gồm props, state, và tất cả các biến và hàm được khai báo trực tiếp bên trong phần thân component của bạn. Nếu trình lint của bạn được [cấu hình cho React](/learn/editor-setup#linting), nó sẽ xác minh rằng mọi giá trị reactive được chỉ định chính xác là một dependency. Danh sách các dependencies phải có một số lượng mục không đổi và được viết inline như `[dep1, dep2, dep3]`. React sẽ so sánh mỗi dependency với giá trị trước đó của nó bằng cách sử dụng phép so sánh [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is). Nếu bạn bỏ qua đối số này, Effect của bạn sẽ chạy lại sau mỗi lần re-render của component.
 
-#### Returns {/*returns*/}
+#### Giá trị trả về {/*returns*/}
 
-`useLayoutEffect` returns `undefined`.
+`useLayoutEffect` trả về `undefined`.
 
-#### Caveats {/*caveats*/}
+#### Lưu ý {/*caveats*/}
 
-* `useLayoutEffect` is a Hook, so you can only call it **at the top level of your component** or your own Hooks. You can't call it inside loops or conditions. If you need that, extract a component and move the Effect there.
+* `useLayoutEffect` là một Hook, vì vậy bạn chỉ có thể gọi nó **ở cấp cao nhất của component** hoặc các Hook của riêng bạn. Bạn không thể gọi nó bên trong các vòng lặp hoặc điều kiện. Nếu bạn cần điều đó, hãy trích xuất một component và di chuyển Effect đến đó.
 
-* When Strict Mode is on, React will **run one extra development-only setup+cleanup cycle** before the first real setup. This is a stress-test that ensures that your cleanup logic "mirrors" your setup logic and that it stops or undoes whatever the setup is doing. If this causes a problem, [implement the cleanup function.](/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development)
+* Khi Strict Mode được bật, React sẽ **chạy thêm một chu kỳ setup+cleanup chỉ dành cho development** trước setup thực tế đầu tiên. Đây là một bài kiểm tra áp lực để đảm bảo rằng logic cleanup của bạn "phản ánh" logic setup của bạn và nó dừng hoặc hoàn tác bất cứ điều gì setup đang làm. Nếu điều này gây ra sự cố, [hãy triển khai hàm cleanup.](/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development)
 
-* If some of your dependencies are objects or functions defined inside the component, there is a risk that they will **cause the Effect to re-run more often than needed.** To fix this, remove unnecessary [object](/reference/react/useEffect#removing-unnecessary-object-dependencies) and [function](/reference/react/useEffect#removing-unnecessary-function-dependencies) dependencies. You can also [extract state updates](/reference/react/useEffect#updating-state-based-on-previous-state-from-an-effect) and [non-reactive logic](/reference/react/useEffect#reading-the-latest-props-and-state-from-an-effect) outside of your Effect.
+* Nếu một số dependencies của bạn là các đối tượng hoặc hàm được xác định bên trong component, có một rủi ro là chúng sẽ **khiến Effect chạy lại thường xuyên hơn mức cần thiết.** Để khắc phục điều này, hãy loại bỏ các dependency [đối tượng](/reference/react/useEffect#removing-unnecessary-object-dependencies) và [hàm](/reference/react/useEffect#removing-unnecessary-function-dependencies) không cần thiết. Bạn cũng có thể [trích xuất các cập nhật state](/reference/react/useEffect#updating-state-based-on-previous-state-from-an-effect) và [logic non-reactive](/reference/react/useEffect#reading-the-latest-props-and-state-from-an-effect) ra khỏi Effect của bạn.
 
-* Effects **only run on the client.** They don't run during server rendering.
+* Các Effect **chỉ chạy trên client.** Chúng không chạy trong quá trình server rendering.
 
-* The code inside `useLayoutEffect` and all state updates scheduled from it **block the browser from repainting the screen.** When used excessively, this makes your app slow. When possible, prefer [`useEffect`.](/reference/react/useEffect)
+* Code bên trong `useLayoutEffect` và tất cả các cập nhật state được lên lịch từ nó **ngăn trình duyệt vẽ lại màn hình.** Khi được sử dụng quá mức, điều này làm cho ứng dụng của bạn chậm. Khi có thể, hãy ưu tiên [`useEffect`.](/reference/react/useEffect)
 
-* If you trigger a state update inside `useLayoutEffect`, React will execute all remaining Effects immediately including `useEffect`.
+* Nếu bạn kích hoạt một cập nhật state bên trong `useLayoutEffect`, React sẽ thực thi tất cả các Effect còn lại ngay lập tức bao gồm cả `useEffect`.
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Measuring layout before the browser repaints the screen {/*measuring-layout-before-the-browser-repaints-the-screen*/}
+### Đo lường bố cục trước khi trình duyệt vẽ lại màn hình {/*measuring-layout-before-the-browser-repaints-the-screen*/}
 
-Most components don't need to know their position and size on the screen to decide what to render. They only return some JSX. Then the browser calculates their *layout* (position and size) and repaints the screen.
+Hầu hết các component không cần biết vị trí và kích thước của chúng trên màn hình để quyết định những gì cần render. Chúng chỉ trả về một số JSX. Sau đó, trình duyệt tính toán *layout* (vị trí và kích thước) của chúng và vẽ lại màn hình.
 
-Sometimes, that's not enough. Imagine a tooltip that appears next to some element on hover. If there's enough space, the tooltip should appear above the element, but if it doesn't fit, it should appear below. In order to render the tooltip at the right final position, you need to know its height (i.e. whether it fits at the top).
+Đôi khi, điều đó là không đủ. Hãy tưởng tượng một tooltip xuất hiện bên cạnh một số phần tử khi di chuột qua. Nếu có đủ không gian, tooltip sẽ xuất hiện phía trên phần tử, nhưng nếu không vừa, nó sẽ xuất hiện bên dưới. Để render tooltip ở đúng vị trí cuối cùng, bạn cần biết chiều cao của nó (tức là nó có vừa ở trên cùng hay không).
 
-To do this, you need to render in two passes:
+Để làm điều này, bạn cần render trong hai lượt:
 
-1. Render the tooltip anywhere (even with a wrong position).
-2. Measure its height and decide where to place the tooltip.
-3. Render the tooltip *again* in the correct place.
+1. Render tooltip ở bất kỳ đâu (ngay cả với vị trí sai).
+2. Đo chiều cao của nó và quyết định nơi đặt tooltip.
+3. Render tooltip *lại* ở đúng vị trí.
 
-**All of this needs to happen before the browser repaints the screen.** You don't want the user to see the tooltip moving. Call `useLayoutEffect` to perform the layout measurements before the browser repaints the screen:
+**Tất cả những điều này cần phải xảy ra trước khi trình duyệt vẽ lại màn hình.** Bạn không muốn người dùng nhìn thấy tooltip di chuyển. Gọi `useLayoutEffect` để thực hiện các phép đo bố cục trước khi trình duyệt vẽ lại màn hình:
 
 ```js {5-8}
 function Tooltip() {
   const ref = useRef(null);
-  const [tooltipHeight, setTooltipHeight] = useState(0); // You don't know real height yet
+  const [tooltipHeight, setTooltipHeight] = useState(0); // Bạn chưa biết chiều cao thực
 
   useLayoutEffect(() => {
     const { height } = ref.current.getBoundingClientRect();
-    setTooltipHeight(height); // Re-render now that you know the real height
+    setTooltipHeight(height); // Re-render bây giờ bạn đã biết chiều cao thực
   }, []);
 
-  // ...use tooltipHeight in the rendering logic below...
+  // ...sử dụng tooltipHeight trong logic rendering bên dưới...
 }
 ```
 
-Here's how this works step by step:
+Đây là cách nó hoạt động từng bước:
 
-1. `Tooltip` renders with the initial `tooltipHeight = 0`  (so the tooltip may be wrongly positioned).
-2. React places it in the DOM and runs the code in `useLayoutEffect`.
-3. Your `useLayoutEffect` [measures the height](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect) of the tooltip content and triggers an immediate re-render.
-4. `Tooltip` renders again with the real `tooltipHeight` (so the tooltip is correctly positioned).
-5. React updates it in the DOM, and the browser finally displays the tooltip.
+1. `Tooltip` render với `tooltipHeight` ban đầu là `0` (vì vậy tooltip có thể được định vị sai).
+2. React đặt nó vào DOM và chạy code trong `useLayoutEffect`.
+3. `useLayoutEffect` của bạn [đo chiều cao](https://developer.mozilla.org/en-US/docs/Web/API/Element/getBoundingClientRect) của nội dung tooltip và kích hoạt re-render ngay lập tức.
+4. `Tooltip` render lại với `tooltipHeight` thực (vì vậy tooltip được định vị chính xác).
+5. React cập nhật nó trong DOM và trình duyệt cuối cùng hiển thị tooltip.
 
-Hover over the buttons below and see how the tooltip adjusts its position depending on whether it fits:
+Di chuột qua các nút bên dưới và xem cách tooltip điều chỉnh vị trí của nó tùy thuộc vào việc nó có vừa hay không:
 
 <Sandpack>
 
@@ -122,29 +121,29 @@ export default function App() {
       <ButtonWithTooltip
         tooltipContent={
           <div>
-            This tooltip does not fit above the button.
+            Tooltip này không vừa phía trên nút.
             <br />
-            This is why it's displayed below instead!
+            Đây là lý do tại sao nó được hiển thị bên dưới!
           </div>
         }
       >
-        Hover over me (tooltip above)
+        Di chuột qua tôi (tooltip phía trên)
       </ButtonWithTooltip>
       <div style={{ height: 50 }} />
       <ButtonWithTooltip
         tooltipContent={
-          <div>This tooltip fits above the button</div>
+          <div>Tooltip này vừa phía trên nút</div>
         }
       >
-        Hover over me (tooltip below)
+        Di chuột qua tôi (tooltip phía dưới)
       </ButtonWithTooltip>
       <div style={{ height: 50 }} />
       <ButtonWithTooltip
         tooltipContent={
-          <div>This tooltip fits above the button</div>
+          <div>Tooltip này vừa phía trên nút</div>
         }
       >
-        Hover over me (tooltip below)
+        Di chuột qua tôi (tooltip phía dưới)
       </ButtonWithTooltip>
     </div>
   );
@@ -208,7 +207,7 @@ export default function Tooltip({ children, targetRect }) {
     tooltipX = targetRect.left;
     tooltipY = targetRect.top - tooltipHeight;
     if (tooltipY < 0) {
-      // It doesn't fit above, so place below.
+      // Nó không vừa phía trên, vì vậy hãy đặt bên dưới.
       tooltipY = targetRect.bottom;
     }
   }
@@ -253,13 +252,13 @@ export default function TooltipContainer({ children, x, y, contentRef }) {
 
 </Sandpack>
 
-Notice that even though the `Tooltip` component has to render in two passes (first, with `tooltipHeight` initialized to `0` and then with the real measured height), you only see the final result. This is why you need `useLayoutEffect` instead of [`useEffect`](/reference/react/useEffect) for this example. Let's look at the difference in detail below.
+Lưu ý rằng mặc dù component `Tooltip` phải render trong hai lượt (đầu tiên, với `tooltipHeight` được khởi tạo thành `0` và sau đó với chiều cao đo được thực tế), bạn chỉ thấy kết quả cuối cùng. Đây là lý do tại sao bạn cần `useLayoutEffect` thay vì [`useEffect`](/reference/react/useEffect) cho ví dụ này. Hãy xem sự khác biệt chi tiết bên dưới.
 
 <Recipes titleText="useLayoutEffect vs useEffect" titleId="examples">
 
-#### `useLayoutEffect` blocks the browser from repainting {/*uselayouteffect-blocks-the-browser-from-repainting*/}
+#### `useLayoutEffect` ngăn trình duyệt vẽ lại {/*uselayouteffect-blocks-the-browser-from-repainting*/}
 
-React guarantees that the code inside `useLayoutEffect` and any state updates scheduled inside it will be processed **before the browser repaints the screen.** This lets you render the tooltip, measure it, and re-render the tooltip again without the user noticing the first extra render. In other words, `useLayoutEffect` blocks the browser from painting.
+React đảm bảo rằng code bên trong `useLayoutEffect` và bất kỳ cập nhật state nào được lên lịch bên trong nó sẽ được xử lý **trước khi trình duyệt vẽ lại màn hình.** Điều này cho phép bạn render tooltip, đo nó và re-render tooltip lại mà người dùng không nhận thấy lần render thêm đầu tiên. Nói cách khác, `useLayoutEffect` ngăn trình duyệt vẽ.
 
 <Sandpack>
 
@@ -272,29 +271,29 @@ export default function App() {
       <ButtonWithTooltip
         tooltipContent={
           <div>
-            This tooltip does not fit above the button.
+            Tooltip này không vừa phía trên nút.
             <br />
-            This is why it's displayed below instead!
+            Đây là lý do tại sao nó được hiển thị bên dưới!
           </div>
         }
       >
-        Hover over me (tooltip above)
+        Di chuột qua tôi (tooltip phía trên)
       </ButtonWithTooltip>
       <div style={{ height: 50 }} />
       <ButtonWithTooltip
         tooltipContent={
-          <div>This tooltip fits above the button</div>
+          <div>Tooltip này vừa phía trên nút</div>
         }
       >
-        Hover over me (tooltip below)
+        Di chuột qua tôi (tooltip phía dưới)
       </ButtonWithTooltip>
       <div style={{ height: 50 }} />
       <ButtonWithTooltip
         tooltipContent={
-          <div>This tooltip fits above the button</div>
+          <div>Tooltip này vừa phía trên nút</div>
         }
       >
-        Hover over me (tooltip below)
+        Di chuột qua tôi (tooltip phía dưới)
       </ButtonWithTooltip>
     </div>
   );
@@ -357,7 +356,7 @@ export default function Tooltip({ children, targetRect }) {
     tooltipX = targetRect.left;
     tooltipY = targetRect.top - tooltipHeight;
     if (tooltipY < 0) {
-      // It doesn't fit above, so place below.
+      // Nó không vừa phía trên, vì vậy hãy đặt bên dưới.
       tooltipY = targetRect.bottom;
     }
   }
@@ -404,9 +403,9 @@ export default function TooltipContainer({ children, x, y, contentRef }) {
 
 <Solution />
 
-#### `useEffect` does not block the browser {/*useeffect-does-not-block-the-browser*/}
+#### `useEffect` không ngăn trình duyệt {/*useeffect-does-not-block-the-browser*/}
 
-Here is the same example, but with [`useEffect`](/reference/react/useEffect) instead of `useLayoutEffect`. If you're on a slower device, you might notice that sometimes the tooltip "flickers" and you briefly see its initial position before the corrected position.
+Đây là cùng một ví dụ, nhưng với [`useEffect`](/reference/react/useEffect) thay vì `useLayoutEffect`. Nếu bạn đang sử dụng một thiết bị chậm hơn, bạn có thể nhận thấy rằng đôi khi tooltip "nhấp nháy" và bạn thấy vị trí ban đầu của nó trong thời gian ngắn trước vị trí đã sửa.
 
 <Sandpack>
 
@@ -419,29 +418,29 @@ export default function App() {
       <ButtonWithTooltip
         tooltipContent={
           <div>
-            This tooltip does not fit above the button.
+            Tooltip này không vừa phía trên nút.
             <br />
-            This is why it's displayed below instead!
+            Đây là lý do tại sao nó được hiển thị bên dưới!
           </div>
         }
       >
-        Hover over me (tooltip above)
+        Di chuột qua tôi (tooltip phía trên)
       </ButtonWithTooltip>
       <div style={{ height: 50 }} />
       <ButtonWithTooltip
         tooltipContent={
-          <div>This tooltip fits above the button</div>
+          <div>Tooltip này vừa phía trên nút</div>
         }
       >
-        Hover over me (tooltip below)
+        Di chuột qua tôi (tooltip phía dưới)
       </ButtonWithTooltip>
       <div style={{ height: 50 }} />
       <ButtonWithTooltip
         tooltipContent={
-          <div>This tooltip fits above the button</div>
+          <div>Tooltip này vừa phía trên nút</div>
         }
       >
-        Hover over me (tooltip below)
+        Di chuột qua tôi (tooltip phía dưới)
       </ButtonWithTooltip>
     </div>
   );
@@ -504,7 +503,7 @@ export default function Tooltip({ children, targetRect }) {
     tooltipX = targetRect.left;
     tooltipY = targetRect.top - tooltipHeight;
     if (tooltipY < 0) {
-      // It doesn't fit above, so place below.
+      // Nó không vừa phía trên, vì vậy hãy đặt bên dưới.
       tooltipY = targetRect.bottom;
     }
   }
@@ -549,7 +548,7 @@ export default function TooltipContainer({ children, x, y, contentRef }) {
 
 </Sandpack>
 
-To make the bug easier to reproduce, this version adds an artificial delay during rendering. React will let the browser paint the screen before it processes the state update inside `useEffect`. As a result, the tooltip flickers:
+Để giúp việc tái tạo lỗi dễ dàng hơn, phiên bản này thêm một độ trễ nhân tạo trong quá trình rendering. React sẽ cho phép trình duyệt vẽ màn hình trước khi nó xử lý cập nhật state bên trong `useEffect`. Do đó, tooltip nhấp nháy:
 
 <Sandpack>
 
@@ -562,29 +561,29 @@ export default function App() {
       <ButtonWithTooltip
         tooltipContent={
           <div>
-            This tooltip does not fit above the button.
+            Tooltip này không vừa phía trên nút.
             <br />
-            This is why it's displayed below instead!
+            Đây là lý do tại sao nó được hiển thị bên dưới!
           </div>
         }
       >
-        Hover over me (tooltip above)
+        Di chuột qua tôi (tooltip phía trên)
       </ButtonWithTooltip>
       <div style={{ height: 50 }} />
       <ButtonWithTooltip
         tooltipContent={
-          <div>This tooltip fits above the button</div>
+          <div>Tooltip này vừa phía trên nút</div>
         }
       >
-        Hover over me (tooltip below)
+        Di chuột qua tôi (tooltip phía dưới)
       </ButtonWithTooltip>
       <div style={{ height: 50 }} />
       <ButtonWithTooltip
         tooltipContent={
-          <div>This tooltip fits above the button</div>
+          <div>Tooltip này vừa phía trên nút</div>
         }
       >
-        Hover over me (tooltip below)
+        Di chuột qua tôi (tooltip phía dưới)
       </ButtonWithTooltip>
     </div>
   );
@@ -636,10 +635,10 @@ export default function Tooltip({ children, targetRect }) {
   const ref = useRef(null);
   const [tooltipHeight, setTooltipHeight] = useState(0);
 
-  // This artificially slows down rendering
+  // Điều này làm chậm quá trình rendering một cách nhân tạo
   let now = performance.now();
   while (performance.now() - now < 100) {
-    // Do nothing for a bit...
+    // Không làm gì cả trong một khoảng thời gian...
   }
 
   useEffect(() => {
@@ -653,7 +652,7 @@ export default function Tooltip({ children, targetRect }) {
     tooltipX = targetRect.left;
     tooltipY = targetRect.top - tooltipHeight;
     if (tooltipY < 0) {
-      // It doesn't fit above, so place below.
+      // Nó không vừa phía trên, vì vậy hãy đặt bên dưới.
       tooltipY = targetRect.bottom;
     }
   }
@@ -698,7 +697,7 @@ export default function TooltipContainer({ children, x, y, contentRef }) {
 
 </Sandpack>
 
-Edit this example to `useLayoutEffect` and observe that it blocks the paint even if rendering is slowed down.
+Chỉnh sửa ví dụ này thành `useLayoutEffect` và quan sát rằng nó ngăn chặn việc vẽ ngay cả khi quá trình rendering bị chậm lại.
 
 <Solution />
 
@@ -706,36 +705,36 @@ Edit this example to `useLayoutEffect` and observe that it blocks the paint even
 
 <Note>
 
-Rendering in two passes and blocking the browser hurts performance. Try to avoid this when you can.
+Rendering trong hai lượt và ngăn trình duyệt gây ảnh hưởng đến hiệu năng. Cố gắng tránh điều này khi bạn có thể.
 
 </Note>
 
 ---
 
-## Troubleshooting {/*troubleshooting*/}
+## Khắc phục sự cố {/*troubleshooting*/}
 
-### I'm getting an error: "`useLayoutEffect` does nothing on the server" {/*im-getting-an-error-uselayouteffect-does-nothing-on-the-server*/}
+### Tôi gặp lỗi: "`useLayoutEffect` không làm gì trên server" {/*im-getting-an-error-uselayouteffect-does-nothing-on-the-server*/}
 
-The purpose of `useLayoutEffect` is to let your component [use layout information for rendering:](#measuring-layout-before-the-browser-repaints-the-screen)
+Mục đích của `useLayoutEffect` là cho phép component của bạn [sử dụng thông tin bố cục để rendering:](#measuring-layout-before-the-browser-repaints-the-screen)
 
-1. Render the initial content.
-2. Measure the layout *before the browser repaints the screen.*
-3. Render the final content using the layout information you've read.
+1. Render nội dung ban đầu.
+2. Đo bố cục *trước khi trình duyệt vẽ lại màn hình.*
+3. Render nội dung cuối cùng bằng cách sử dụng thông tin bố cục bạn đã đọc.
 
-When you or your framework uses [server rendering](/reference/react-dom/server), your React app renders to HTML on the server for the initial render. This lets you show the initial HTML before the JavaScript code loads.
+Khi bạn hoặc framework của bạn sử dụng [server rendering](/reference/react-dom/server), ứng dụng React của bạn render thành HTML trên server cho lần render ban đầu. Điều này cho phép bạn hiển thị HTML ban đầu trước khi code JavaScript tải.
 
-The problem is that on the server, there is no layout information.
+Vấn đề là trên server, không có thông tin bố cục.
 
-In the [earlier example](#measuring-layout-before-the-browser-repaints-the-screen), the `useLayoutEffect` call in the `Tooltip` component lets it position itself correctly (either above or below content) depending on the content height. If you tried to render `Tooltip` as a part of the initial server HTML, this would be impossible to determine. On the server, there is no layout yet! So, even if you rendered it on the server, its position would "jump" on the client after the JavaScript loads and runs.
+Trong [ví dụ trước](#measuring-layout-before-the-browser-repaints-the-screen), lệnh gọi `useLayoutEffect` trong component `Tooltip` cho phép nó tự định vị chính xác (hoặc phía trên hoặc phía dưới nội dung) tùy thuộc vào chiều cao nội dung. Nếu bạn cố gắng render `Tooltip` như một phần của HTML server ban đầu, điều này sẽ không thể xác định được. Trên server, chưa có bố cục! Vì vậy, ngay cả khi bạn render nó trên server, vị trí của nó sẽ "nhảy" trên client sau khi JavaScript tải và chạy.
 
-Usually, components that rely on layout information don't need to render on the server anyway. For example, it probably doesn't make sense to show a `Tooltip` during the initial render. It is triggered by a client interaction.
+Thông thường, các component dựa vào thông tin bố cục không cần render trên server. Ví dụ: có lẽ không có ý nghĩa gì khi hiển thị `Tooltip` trong quá trình render ban đầu. Nó được kích hoạt bởi một tương tác của client.
 
-However, if you're running into this problem, you have a few different options:
+Tuy nhiên, nếu bạn đang gặp phải vấn đề này, bạn có một vài tùy chọn khác nhau:
 
-- Replace `useLayoutEffect` with [`useEffect`.](/reference/react/useEffect) This tells React that it's okay to display the initial render result without blocking the paint (because the original HTML will become visible before your Effect runs).
+- Thay thế `useLayoutEffect` bằng [`useEffect`.](/reference/react/useEffect) Điều này cho React biết rằng có thể hiển thị kết quả render ban đầu mà không cần chặn việc vẽ (vì HTML ban đầu sẽ hiển thị trước khi Effect của bạn chạy).
 
-- Alternatively, [mark your component as client-only.](/reference/react/Suspense#providing-a-fallback-for-server-errors-and-client-only-content) This tells React to replace its content up to the closest [`<Suspense>`](/reference/react/Suspense) boundary with a loading fallback (for example, a spinner or a glimmer) during server rendering.
+- Ngoài ra, [đánh dấu component của bạn là chỉ dành cho client.](/reference/react/Suspense#providing-a-fallback-for-server-errors-and-client-only-content) Điều này cho React biết thay thế nội dung của nó cho đến ranh giới [`<Suspense>`](/reference/react/Suspense) gần nhất bằng một fallback tải (ví dụ: một spinner hoặc một glimmer) trong quá trình server rendering.
 
-- Alternatively, you can render a component with `useLayoutEffect` only after hydration. Keep a boolean `isMounted` state that's initialized to `false`, and set it to `true` inside a `useEffect` call. Your rendering logic can then be like `return isMounted ? <RealContent /> : <FallbackContent />`. On the server and during the hydration, the user will see `FallbackContent` which should not call `useLayoutEffect`. Then React will replace it with `RealContent` which runs on the client only and can include `useLayoutEffect` calls.
+- Ngoài ra, bạn có thể render một component với `useLayoutEffect` chỉ sau khi hydration. Giữ một state boolean `isMounted` được khởi tạo thành `false` và đặt nó thành `true` bên trong một lệnh gọi `useEffect`. Logic rendering của bạn sau đó có thể giống như `return isMounted ? <RealContent /> : <FallbackContent />`. Trên server và trong quá trình hydration, người dùng sẽ thấy `FallbackContent` không nên gọi `useLayoutEffect`. Sau đó, React sẽ thay thế nó bằng `RealContent` chỉ chạy trên client và có thể bao gồm các lệnh gọi `useLayoutEffect`.
 
-- If you synchronize your component with an external data store and rely on `useLayoutEffect` for different reasons than measuring layout, consider [`useSyncExternalStore`](/reference/react/useSyncExternalStore) instead which [supports server rendering.](/reference/react/useSyncExternalStore#adding-support-for-server-rendering)
+- Nếu bạn đồng bộ hóa component của mình với một kho dữ liệu bên ngoài và dựa vào `useLayoutEffect` vì những lý do khác với đo lường bố cục, hãy cân nhắc [`useSyncExternalStore`](/reference/react/useSyncExternalStore) thay thế, [hỗ trợ server rendering.](/reference/react/useSyncExternalStore#adding-support-for-server-rendering)

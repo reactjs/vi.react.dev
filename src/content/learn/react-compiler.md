@@ -3,201 +3,201 @@ title: React Compiler
 ---
 
 <Intro>
-This page will give you an introduction to React Compiler and how to try it out successfully.
+Trang này sẽ cung cấp cho bạn phần giới thiệu về React Compiler và cách dùng thử thành công.
 </Intro>
 
 <Wip>
-These docs are still a work in progress. More documentation is available in the [React Compiler Working Group repo](https://github.com/reactwg/react-compiler/discussions), and will be upstreamed into these docs when they are more stable.
+Tài liệu này vẫn đang trong quá trình hoàn thiện. Bạn có thể tìm thêm tài liệu trong [React Compiler Working Group repo](https://github.com/reactwg/react-compiler/discussions) và sẽ được đưa vào tài liệu này khi chúng ổn định hơn.
 </Wip>
 
 <YouWillLearn>
 
-* Getting started with the compiler
-* Installing the compiler and ESLint plugin
-* Troubleshooting
+* Bắt đầu với trình biên dịch
+* Cài đặt trình biên dịch và plugin ESLint
+* Khắc phục sự cố
 
 </YouWillLearn>
 
 <Note>
-React Compiler is a new compiler currently in Beta, that we've open sourced to get early feedback from the community. While it has been used in production at companies like Meta, rolling out the compiler to production for your app will depend on the health of your codebase and how well you’ve followed the [Rules of React](/reference/rules).
+React Compiler là một trình biên dịch mới hiện đang ở giai đoạn Beta, chúng tôi đã mở mã nguồn để nhận phản hồi sớm từ cộng đồng. Mặc dù nó đã được sử dụng trong sản xuất tại các công ty như Meta, nhưng việc triển khai trình biên dịch vào sản xuất cho ứng dụng của bạn sẽ phụ thuộc vào tình trạng của codebase và mức độ tuân thủ [Rules of React](/reference/rules).
 
-The latest Beta release can be found with the `@beta` tag, and daily experimental releases with `@experimental`.
+Bạn có thể tìm thấy bản phát hành Beta mới nhất với tag `@beta` và các bản phát hành thử nghiệm hàng ngày với `@experimental`.
 </Note>
 
-React Compiler is a new compiler that we've open sourced to get early feedback from the community. It is a build-time only tool that automatically optimizes your React app. It works with plain JavaScript, and understands the [Rules of React](/reference/rules), so you don't need to rewrite any code to use it.
+React Compiler là một trình biên dịch mới mà chúng tôi đã mở mã nguồn để nhận phản hồi sớm từ cộng đồng. Nó là một công cụ chỉ chạy trong thời gian build và tự động tối ưu hóa ứng dụng React của bạn. Nó hoạt động với JavaScript thuần túy và hiểu [Rules of React](/reference/rules), vì vậy bạn không cần phải viết lại bất kỳ mã nào để sử dụng nó.
 
-The compiler also includes an [ESLint plugin](#installing-eslint-plugin-react-compiler) that surfaces the analysis from the compiler right in your editor. **We strongly recommend everyone use the linter today.** The linter does not require that you have the compiler installed, so you can use it even if you are not ready to try out the compiler.
+Trình biên dịch cũng bao gồm một [ESLint plugin](#installing-eslint-plugin-react-compiler) hiển thị các phân tích từ trình biên dịch ngay trong trình soạn thảo của bạn. **Chúng tôi đặc biệt khuyên mọi người nên sử dụng linter ngay hôm nay.** Linter không yêu cầu bạn phải cài đặt trình biên dịch, vì vậy bạn có thể sử dụng nó ngay cả khi bạn chưa sẵn sàng dùng thử trình biên dịch.
 
-The compiler is currently released as `beta`, and is available to try out on React 17+ apps and libraries. To install the Beta:
+Trình biên dịch hiện được phát hành dưới dạng `beta` và có sẵn để dùng thử trên các ứng dụng và thư viện React 17+. Để cài đặt Beta:
 
 <TerminalBlock>
 npm install -D babel-plugin-react-compiler@beta eslint-plugin-react-compiler@beta
 </TerminalBlock>
 
-Or, if you're using Yarn:
+Hoặc, nếu bạn đang sử dụng Yarn:
 
 <TerminalBlock>
 yarn add -D babel-plugin-react-compiler@beta eslint-plugin-react-compiler@beta
 </TerminalBlock>
 
-If you are not using React 19 yet, please see [the section below](#using-react-compiler-with-react-17-or-18) for further instructions.
+Nếu bạn chưa sử dụng React 19, vui lòng xem [phần bên dưới](#using-react-compiler-with-react-17-or-18) để biết thêm hướng dẫn.
 
-### What does the compiler do? {/*what-does-the-compiler-do*/}
+### Trình biên dịch làm gì? {/*what-does-the-compiler-do*/}
 
-In order to optimize applications, React Compiler automatically memoizes your code. You may be familiar today with memoization through APIs such as `useMemo`, `useCallback`, and `React.memo`. With these APIs you can tell React that certain parts of your application don't need to recompute if their inputs haven't changed, reducing work on updates. While powerful, it's easy to forget to apply memoization or apply them incorrectly. This can lead to inefficient updates as React has to check parts of your UI that don't have any _meaningful_ changes.
+Để tối ưu hóa ứng dụng, React Compiler tự động memoize code của bạn. Bạn có thể đã quen thuộc với memoization thông qua các API như `useMemo`, `useCallback` và `React.memo`. Với các API này, bạn có thể cho React biết rằng một số phần nhất định của ứng dụng không cần tính toán lại nếu đầu vào của chúng không thay đổi, giảm tải công việc khi cập nhật. Mặc dù mạnh mẽ, nhưng rất dễ quên áp dụng memoization hoặc áp dụng chúng không chính xác. Điều này có thể dẫn đến các bản cập nhật không hiệu quả vì React phải kiểm tra các phần của UI không có bất kỳ thay đổi _ý nghĩa_ nào.
 
-The compiler uses its knowledge of JavaScript and React's rules to automatically memoize values or groups of values within your components and hooks. If it detects breakages of the rules, it will automatically skip over just those components or hooks, and continue safely compiling other code.
+Trình biên dịch sử dụng kiến thức về JavaScript và các quy tắc của React để tự động memoize các giá trị hoặc nhóm giá trị trong các component và hook của bạn. Nếu nó phát hiện ra các vi phạm quy tắc, nó sẽ tự động bỏ qua các component hoặc hook đó và tiếp tục biên dịch an toàn các code khác.
 
 <Note>
-React Compiler can statically detect when Rules of React are broken, and safely opt-out of optimizing just the affected components or hooks. It is not necessary for the compiler to optimize 100% of your codebase.
+React Compiler có thể phát hiện tĩnh khi Rules of React bị vi phạm và tự động chọn không tối ưu hóa chỉ các component hoặc hook bị ảnh hưởng. Không cần thiết để trình biên dịch tối ưu hóa 100% codebase của bạn.
 </Note>
 
-If your codebase is already very well-memoized, you might not expect to see major performance improvements with the compiler. However, in practice memoizing the correct dependencies that cause performance issues is tricky to get right by hand.
+Nếu codebase của bạn đã được memoize rất tốt, bạn có thể không thấy những cải thiện lớn về hiệu suất với trình biên dịch. Tuy nhiên, trong thực tế, việc memoize các dependency chính xác gây ra các vấn đề về hiệu suất là rất khó để thực hiện bằng tay.
 
 <DeepDive>
-#### What kind of memoization does React Compiler add? {/*what-kind-of-memoization-does-react-compiler-add*/}
+#### Loại memoization nào mà React Compiler thêm vào? {/*what-kind-of-memoization-does-react-compiler-add*/}
 
-The initial release of React Compiler is primarily focused on **improving update performance** (re-rendering existing components), so it focuses on these two use cases:
+Bản phát hành ban đầu của React Compiler chủ yếu tập trung vào **cải thiện hiệu suất cập nhật** (re-rendering các component hiện có), vì vậy nó tập trung vào hai trường hợp sử dụng sau:
 
-1. **Skipping cascading re-rendering of components**
-    * Re-rendering `<Parent />` causes many components in its component tree to re-render, even though only `<Parent />` has changed
-1. **Skipping expensive calculations from outside of React**
-    * For example, calling `expensivelyProcessAReallyLargeArrayOfObjects()` inside of your component or hook that needs that data
+1. **Bỏ qua re-rendering theo tầng của các component**
+  * Re-rendering `<Parent />` khiến nhiều component trong cây component của nó re-render, mặc dù chỉ có `<Parent />` thay đổi
+2. **Bỏ qua các tính toán tốn kém từ bên ngoài React**
+  * Ví dụ: gọi `expensivelyProcessAReallyLargeArrayOfObjects()` bên trong component hoặc hook của bạn cần dữ liệu đó
 
-#### Optimizing Re-renders {/*optimizing-re-renders*/}
+#### Tối ưu hóa Re-renders {/*optimizing-re-renders*/}
 
-React lets you express your UI as a function of their current state (more concretely: their props, state, and context). In its current implementation, when a component's state changes, React will re-render that component _and all of its children_ — unless you have applied some form of manual memoization with `useMemo()`, `useCallback()`, or `React.memo()`. For example, in the following example, `<MessageButton>` will re-render whenever `<FriendList>`'s state changes:
+React cho phép bạn thể hiện UI của mình như một hàm của trạng thái hiện tại của chúng (cụ thể hơn: props, state và context của chúng). Trong implementation hiện tại, khi state của một component thay đổi, React sẽ re-render component đó _và tất cả các component con của nó_ — trừ khi bạn đã áp dụng một số hình thức memoization thủ công với `useMemo()`, `useCallback()` hoặc `React.memo()`. Ví dụ: trong ví dụ sau, `<MessageButton>` sẽ re-render bất cứ khi nào state của `<FriendList>` thay đổi:
 
 ```javascript
 function FriendList({ friends }) {
   const onlineCount = useFriendOnlineCount();
   if (friends.length === 0) {
-    return <NoFriends />;
+  return <NoFriends />;
   }
   return (
-    <div>
-      <span>{onlineCount} online</span>
-      {friends.map((friend) => (
-        <FriendListCard key={friend.id} friend={friend} />
-      ))}
-      <MessageButton />
-    </div>
+  <div>
+    <span>{onlineCount} online</span>
+    {friends.map((friend) => (
+    <FriendListCard key={friend.id} friend={friend} />
+    ))}
+    <MessageButton />
+  </div>
   );
 }
 ```
-[_See this example in the React Compiler Playground_](https://playground.react.dev/#N4Igzg9grgTgxgUxALhAMygOzgFwJYSYAEAYjHgpgCYAyeYOAFMEWuZVWEQL4CURwADrEicQgyKEANnkwIAwtEw4iAXiJQwCMhWoB5TDLmKsTXgG5hRInjRFGbXZwB0UygHMcACzWr1ABn4hEWsYBBxYYgAeADkIHQ4uAHoAPksRbisiMIiYYkYs6yiqPAA3FMLrIiiwAAcAQ0wU4GlZBSUcbklDNqikusaKkKrgR0TnAFt62sYHdmp+VRT7SqrqhOo6Bnl6mCoiAGsEAE9VUfmqZzwqLrHqM7ubolTVol5eTOGigFkEMDB6u4EAAhKA4HCEZ5DNZ9ErlLIWYTcEDcIA)
+[_Xem ví dụ này trong React Compiler Playground_](https://playground.react.dev/#N4Igzg9grgTgxgUxALhAMygOzgFwJYSYAEAYjHgpgCYAyeYOAFMEWuZVWEQL4CURwADrEicQgyKEANnkwIAwtEw4iAXiJQwCMhWoB5TDLmKsTXgG5hRInjRFGbXZwB0UygHMcACzWr1ABn4hEWsYBBxYYgAeADkIHQ4uAHoAPksRbisiMIiYYkYs6yiqPAA3FMLrIiiwAAcAQ0wU4GlZBSUcbklDNqikusaKkKrgR0TnAFt62sYHdmp+VRT7SqrqhOo6Bnl6mCoiAGsEAE9VUfmqZzwqLrHqM7ubolTVol5eTOGigFkEMDB6u4EAAhKA4HCEZ5DNZ9ErlLIWYTcEDcIA)
 
-React Compiler automatically applies the equivalent of manual memoization, ensuring that only the relevant parts of an app re-render as state changes, which is sometimes referred to as "fine-grained reactivity". In the above example, React Compiler determines that the return value of `<FriendListCard />` can be reused even as `friends` changes, and can avoid recreating this JSX _and_ avoid re-rendering `<MessageButton>` as the count changes.
+React Compiler tự động áp dụng tương đương với memoization thủ công, đảm bảo rằng chỉ các phần liên quan của ứng dụng re-render khi state thay đổi, đôi khi được gọi là "fine-grained reactivity". Trong ví dụ trên, React Compiler xác định rằng giá trị trả về của `<FriendListCard />` có thể được sử dụng lại ngay cả khi `friends` thay đổi và có thể tránh tạo lại JSX này _và_ tránh re-rendering `<MessageButton>` khi số lượng thay đổi.
 
-#### Expensive calculations also get memoized {/*expensive-calculations-also-get-memoized*/}
+#### Các tính toán tốn kém cũng được memoize {/*expensive-calculations-also-get-memoized*/}
 
-The compiler can also automatically memoize for expensive calculations used during rendering:
+Trình biên dịch cũng có thể tự động memoize cho các tính toán tốn kém được sử dụng trong quá trình rendering:
 
 ```js
-// **Not** memoized by React Compiler, since this is not a component or hook
+// **Không** được memoize bởi React Compiler, vì đây không phải là component hoặc hook
 function expensivelyProcessAReallyLargeArrayOfObjects() { /* ... */ }
 
-// Memoized by React Compiler since this is a component
+// Được memoize bởi React Compiler vì đây là một component
 function TableContainer({ items }) {
-  // This function call would be memoized:
+  // Lệnh gọi hàm này sẽ được memoize:
   const data = expensivelyProcessAReallyLargeArrayOfObjects(items);
   // ...
 }
 ```
-[_See this example in the React Compiler Playground_](https://playground.react.dev/#N4Igzg9grgTgxgUxALhAejQAgFTYHIQAuumAtgqRAJYBeCAJpgEYCemASggIZyGYDCEUgAcqAGwQwANJjBUAdokyEAFlTCZ1meUUxdMcIcIjyE8vhBiYVECAGsAOvIBmURYSonMCAB7CzcgBuCGIsAAowEIhgYACCnFxioQAyXDAA5gixMDBcLADyzvlMAFYIvGAAFACUmMCYaNiYAHStOFgAvk5OGJgAshTUdIysHNy8AkbikrIKSqpaWvqGIiZmhE6u7p7ymAAqXEwSguZcCpKV9VSEFBodtcBOmAYmYHz0XIT6ALzefgFUYKhCJRBAxeLcJIsVIZLI5PKFYplCqVa63aoAbm6u0wMAQhFguwAPPRAQA+YAfL4dIloUmBMlODogDpAA)
+[_Xem ví dụ này trong React Compiler Playground_](https://playground.react.dev/#N4Igzg9grgTgxgUxALhAejQAgFTYHIQAuumAtgqRAJYBeCAJpgEYCemASggIZyGYDCEUgAcqAGwQwANJjBUAdokyEAFlTCZ1meUUxdMcIcIjyE8vhBiYVECAGsAOvIBmURYSonMCAB7CzcgBuCGIsAAowEIhgYACCnFxioQAyXDAA5gixMDBcLADyzvlMAFYIvGAAFACUmMCYaNiYAHStOFgAvk5OGJgAshTUdIysHNy8AkbikrIKSqpaWvqGIiZmhE6u7p7ymAAqXEwSguZcCpKV9VSEFBodtcBOmAYmYHz0XIT6ALzefgFUYKhCJRBAxeLcJIsVIZLI5PKFYplCqVa63aoAbm6u0wMAQhFguwAPPRAQA+YAfL4dIloUmBMlODogDpAA)
 
-However, if `expensivelyProcessAReallyLargeArrayOfObjects` is truly an expensive function, you may want to consider implementing its own memoization outside of React, because:
+Tuy nhiên, nếu `expensivelyProcessAReallyLargeArrayOfObjects` thực sự là một hàm tốn kém, bạn có thể muốn xem xét việc triển khai memoization của riêng nó bên ngoài React, vì:
 
-- React Compiler only memoizes React components and hooks, not every function
-- React Compiler's memoization is not shared across multiple components or hooks
+- React Compiler chỉ memoize các React component và hook, không phải mọi hàm
+- Memoization của React Compiler không được chia sẻ giữa nhiều component hoặc hook
 
-So if `expensivelyProcessAReallyLargeArrayOfObjects` was used in many different components, even if the same exact items were passed down, that expensive calculation would be run repeatedly. We recommend [profiling](https://react.dev/reference/react/useMemo#how-to-tell-if-a-calculation-is-expensive) first to see if it really is that expensive before making code more complicated.
+Vì vậy, nếu `expensivelyProcessAReallyLargeArrayOfObjects` được sử dụng trong nhiều component khác nhau, ngay cả khi các item giống hệt nhau được truyền xuống, thì tính toán tốn kém đó sẽ được chạy lặp đi lặp lại. Chúng tôi khuyên bạn nên [profiling](https://react.dev/reference/react/useMemo#how-to-tell-if-a-calculation-is-expensive) trước để xem nó có thực sự tốn kém hay không trước khi làm cho code trở nên phức tạp hơn.
 </DeepDive>
 
-### Should I try out the compiler? {/*should-i-try-out-the-compiler*/}
+### Tôi có nên dùng thử trình biên dịch không? {/*should-i-try-out-the-compiler*/}
 
-Please note that the compiler is still in Beta and has many rough edges. While it has been used in production at companies like Meta, rolling out the compiler to production for your app will depend on the health of your codebase and how well you've followed the [Rules of React](/reference/rules).
+Xin lưu ý rằng trình biên dịch vẫn đang ở giai đoạn Beta và có nhiều điểm chưa hoàn thiện. Mặc dù nó đã được sử dụng trong sản xuất tại các công ty như Meta, nhưng việc triển khai trình biên dịch vào sản xuất cho ứng dụng của bạn sẽ phụ thuộc vào tình trạng của codebase và mức độ tuân thủ [Rules of React](/reference/rules).
 
-**You don't have to rush into using the compiler now. It's okay to wait until it reaches a stable release before adopting it.** However, we do appreciate trying it out in small experiments in your apps so that you can [provide feedback](#reporting-issues) to us to help make the compiler better.
+**Bạn không cần phải vội vàng sử dụng trình biên dịch ngay bây giờ. Bạn có thể đợi cho đến khi nó đạt đến bản phát hành ổn định trước khi áp dụng nó.** Tuy nhiên, chúng tôi đánh giá cao việc bạn dùng thử nó trong các thử nghiệm nhỏ trong ứng dụng của mình để bạn có thể [cung cấp phản hồi](#reporting-issues) cho chúng tôi để giúp trình biên dịch tốt hơn.
 
-## Getting Started {/*getting-started*/}
+## Bắt đầu {/*getting-started*/}
 
-In addition to these docs, we recommend checking the [React Compiler Working Group](https://github.com/reactwg/react-compiler) for additional information and discussion about the compiler.
+Ngoài các tài liệu này, chúng tôi khuyên bạn nên kiểm tra [React Compiler Working Group](https://github.com/reactwg/react-compiler) để biết thêm thông tin và thảo luận về trình biên dịch.
 
-### Installing eslint-plugin-react-compiler {/*installing-eslint-plugin-react-compiler*/}
+### Cài đặt eslint-plugin-react-compiler {/*installing-eslint-plugin-react-compiler*/}
 
-React Compiler also powers an ESLint plugin. The ESLint plugin can be used **independently** of the compiler, meaning you can use the ESLint plugin even if you don't use the compiler.
+React Compiler cũng cung cấp một ESLint plugin. ESLint plugin có thể được sử dụng **độc lập** với trình biên dịch, có nghĩa là bạn có thể sử dụng ESLint plugin ngay cả khi bạn không sử dụng trình biên dịch.
 
 <TerminalBlock>
 npm install -D eslint-plugin-react-compiler@beta
 </TerminalBlock>
 
-Then, add it to your ESLint config:
+Sau đó, thêm nó vào cấu hình ESLint của bạn:
 
 ```js
 import reactCompiler from 'eslint-plugin-react-compiler'
 
 export default [
   {
-    plugins: {
-      'react-compiler': reactCompiler,
-    },
-    rules: {
-      'react-compiler/react-compiler': 'error',
-    },
+  plugins: {
+    'react-compiler': reactCompiler,
+  },
+  rules: {
+    'react-compiler/react-compiler': 'error',
+  },
   },
 ]
 ```
 
-Or, in the deprecated eslintrc config format:
+Hoặc, trong định dạng cấu hình eslintrc không được dùng nữa:
 
 ```js
 module.exports = {
   plugins: [
-    'eslint-plugin-react-compiler',
+  'eslint-plugin-react-compiler',
   ],
   rules: {
-    'react-compiler/react-compiler': 'error',
+  'react-compiler/react-compiler': 'error',
   },
 }
 ```
 
-The ESLint plugin will display any violations of the rules of React in your editor. When it does this, it means that the compiler has skipped over optimizing that component or hook. This is perfectly okay, and the compiler can recover and continue optimizing other components in your codebase.
+ESLint plugin sẽ hiển thị bất kỳ vi phạm nào đối với các quy tắc của React trong trình soạn thảo của bạn. Khi nó làm điều này, điều đó có nghĩa là trình biên dịch đã bỏ qua việc tối ưu hóa component hoặc hook đó. Điều này hoàn toàn ổn và trình biên dịch có thể khôi phục và tiếp tục tối ưu hóa các component khác trong codebase của bạn.
 
 <Note>
-**You don't have to fix all ESLint violations straight away.** You can address them at your own pace to increase the amount of components and hooks being optimized, but it is not required to fix everything before you can use the compiler.
+**Bạn không cần phải sửa tất cả các vi phạm ESLint ngay lập tức.** Bạn có thể giải quyết chúng theo tốc độ của riêng bạn để tăng số lượng component và hook được tối ưu hóa, nhưng không bắt buộc phải sửa mọi thứ trước khi bạn có thể sử dụng trình biên dịch.
 </Note>
 
-### Rolling out the compiler to your codebase {/*using-the-compiler-effectively*/}
+### Triển khai trình biên dịch cho codebase của bạn {/*using-the-compiler-effectively*/}
 
-#### Existing projects {/*existing-projects*/}
-The compiler is designed to compile functional components and hooks that follow the [Rules of React](/reference/rules). It can also handle code that breaks those rules by bailing out (skipping over) those components or hooks. However, due to the flexible nature of JavaScript, the compiler cannot catch every possible violation and may compile with false negatives: that is, the compiler may accidentally compile a component/hook that breaks the Rules of React which can lead to undefined behavior.
+#### Các dự án hiện có {/*existing-projects*/}
+Trình biên dịch được thiết kế để biên dịch các functional component và hook tuân theo [Rules of React](/reference/rules). Nó cũng có thể xử lý code vi phạm các quy tắc đó bằng cách bỏ qua (skipping over) các component hoặc hook đó. Tuy nhiên, do tính chất linh hoạt của JavaScript, trình biên dịch không thể bắt mọi vi phạm có thể xảy ra và có thể biên dịch với false negative: nghĩa là, trình biên dịch có thể vô tình biên dịch một component/hook vi phạm Rules of React, điều này có thể dẫn đến hành vi không xác định.
 
-For this reason, to adopt the compiler successfully on existing projects, we recommend running it on a small directory in your product code first. You can do this by configuring the compiler to only run on a specific set of directories:
+Vì lý do này, để áp dụng trình biên dịch thành công trên các dự án hiện có, chúng tôi khuyên bạn nên chạy nó trên một thư mục nhỏ trong product code của bạn trước. Bạn có thể thực hiện việc này bằng cách định cấu hình trình biên dịch chỉ chạy trên một tập hợp các thư mục cụ thể:
 
 ```js {3}
 const ReactCompilerConfig = {
   sources: (filename) => {
-    return filename.indexOf('src/path/to/dir') !== -1;
+  return filename.indexOf('src/path/to/dir') !== -1;
   },
 };
 ```
 
-When you have more confidence with rolling out the compiler, you can expand coverage to other directories as well and slowly roll it out to your whole app.
+Khi bạn tự tin hơn với việc triển khai trình biên dịch, bạn có thể mở rộng phạm vi phủ sóng sang các thư mục khác và từ từ triển khai nó cho toàn bộ ứng dụng của bạn.
 
-#### New projects {/*new-projects*/}
+#### Các dự án mới {/*new-projects*/}
 
-If you're starting a new project, you can enable the compiler on your entire codebase, which is the default behavior.
+Nếu bạn đang bắt đầu một dự án mới, bạn có thể bật trình biên dịch trên toàn bộ codebase của mình, đây là hành vi mặc định.
 
-### Using React Compiler with React 17 or 18 {/*using-react-compiler-with-react-17-or-18*/}
+### Sử dụng React Compiler với React 17 hoặc 18 {/*using-react-compiler-with-react-17-or-18*/}
 
-React Compiler works best with React 19 RC. If you are unable to upgrade, you can install the extra `react-compiler-runtime` package which will allow the compiled code to run on versions prior to 19. However, note that the minimum supported version is 17.
+React Compiler hoạt động tốt nhất với React 19 RC. Nếu bạn không thể nâng cấp, bạn có thể cài đặt gói `react-compiler-runtime` bổ sung, gói này sẽ cho phép code đã biên dịch chạy trên các phiên bản trước 19. Tuy nhiên, lưu ý rằng phiên bản được hỗ trợ tối thiểu là 17.
 
 <TerminalBlock>
 npm install react-compiler-runtime@beta
 </TerminalBlock>
 
-You should also add the correct `target` to your compiler config, where `target` is the major version of React you are targeting:
+Bạn cũng nên thêm `target` chính xác vào cấu hình trình biên dịch của mình, trong đó `target` là phiên bản chính của React mà bạn đang nhắm mục tiêu:
 
 ```js {3}
 // babel.config.js
@@ -207,24 +207,24 @@ const ReactCompilerConfig = {
 
 module.exports = function () {
   return {
-    plugins: [
-      ['babel-plugin-react-compiler', ReactCompilerConfig],
-    ],
+  plugins: [
+    ['babel-plugin-react-compiler', ReactCompilerConfig],
+  ],
   };
 };
 ```
 
-### Using the compiler on libraries {/*using-the-compiler-on-libraries*/}
+### Sử dụng trình biên dịch trên các thư viện {/*using-the-compiler-on-libraries*/}
 
-React Compiler can also be used to compile libraries. Because React Compiler needs to run on the original source code prior to any code transformations, it is not possible for an application's build pipeline to compile the libraries they use. Hence, our recommendation is for library maintainers to independently compile and test their libraries with the compiler, and ship compiled code to npm.
+React Compiler cũng có thể được sử dụng để biên dịch các thư viện. Vì React Compiler cần chạy trên source code gốc trước bất kỳ chuyển đổi code nào, nên không thể để pipeline build của ứng dụng biên dịch các thư viện mà chúng sử dụng. Do đó, chúng tôi khuyên các người duy trì thư viện nên độc lập biên dịch và kiểm tra thư viện của họ bằng trình biên dịch và chuyển code đã biên dịch lên npm.
 
-Because your code is pre-compiled, users of your library will not need to have the compiler enabled in order to benefit from the automatic memoization applied to your library. If your library targets apps not yet on React 19, specify a minimum [`target` and add `react-compiler-runtime` as a direct dependency](#using-react-compiler-with-react-17-or-18). The runtime package will use the correct implementation of APIs depending on the application's version, and polyfill the missing APIs if necessary.
+Vì code của bạn được biên dịch trước, người dùng thư viện của bạn sẽ không cần bật trình biên dịch để hưởng lợi từ memoization tự động được áp dụng cho thư viện của bạn. Nếu thư viện của bạn nhắm mục tiêu đến các ứng dụng chưa có trên React 19, hãy chỉ định [`target` tối thiểu và thêm `react-compiler-runtime` làm dependency trực tiếp](#using-react-compiler-with-react-17-or-18). Gói runtime sẽ sử dụng implementation chính xác của các API tùy thuộc vào phiên bản của ứng dụng và polyfill các API bị thiếu nếu cần thiết.
 
-Library code can often require more complex patterns and usage of escape hatches. For this reason, we recommend ensuring that you have sufficient testing in order to identify any issues that might arise from using the compiler on your library. If you identify any issues, you can always opt-out the specific components or hooks with the [`'use no memo'` directive](#something-is-not-working-after-compilation).
+Code thư viện thường có thể yêu cầu các pattern phức tạp hơn và sử dụng các escape hatch. Vì lý do này, chúng tôi khuyên bạn nên đảm bảo rằng bạn có đủ thử nghiệm để xác định bất kỳ vấn đề nào có thể phát sinh từ việc sử dụng trình biên dịch trên thư viện của bạn. Nếu bạn xác định bất kỳ vấn đề nào, bạn luôn có thể chọn không sử dụng các component hoặc hook cụ thể bằng directive [`'use no memo'`](#something-is-not-working-after-compilation).
 
-Similarly to apps, it is not necessary to fully compile 100% of your components or hooks to see benefits in your library. A good starting point might be to identify the most performance sensitive parts of your library and ensuring that they don't break the [Rules of React](/reference/rules), which you can use `eslint-plugin-react-compiler` to identify.
+Tương tự như các ứng dụng, không cần thiết phải biên dịch hoàn toàn 100% component hoặc hook của bạn để thấy lợi ích trong thư viện của bạn. Một điểm khởi đầu tốt có thể là xác định các phần nhạy cảm nhất về hiệu suất của thư viện của bạn và đảm bảo rằng chúng không vi phạm [Rules of React](/reference/rules), bạn có thể sử dụng `eslint-plugin-react-compiler` để xác định.
 
-## Usage {/*installation*/}
+## Cách sử dụng {/*installation*/}
 
 ### Babel {/*usage-with-babel*/}
 
@@ -232,9 +232,9 @@ Similarly to apps, it is not necessary to fully compile 100% of your components 
 npm install babel-plugin-react-compiler@beta
 </TerminalBlock>
 
-The compiler includes a Babel plugin which you can use in your build pipeline to run the compiler.
+Trình biên dịch bao gồm một Babel plugin mà bạn có thể sử dụng trong pipeline build của mình để chạy trình biên dịch.
 
-After installing, add it to your Babel config. Please note that it's critical that the compiler run **first** in the pipeline:
+Sau khi cài đặt, hãy thêm nó vào cấu hình Babel của bạn. Xin lưu ý rằng điều quan trọng là trình biên dịch phải chạy **đầu tiên** trong pipeline:
 
 ```js {7}
 // babel.config.js
@@ -242,19 +242,19 @@ const ReactCompilerConfig = { /* ... */ };
 
 module.exports = function () {
   return {
-    plugins: [
-      ['babel-plugin-react-compiler', ReactCompilerConfig], // must run first!
-      // ...
-    ],
+  plugins: [
+    ['babel-plugin-react-compiler', ReactCompilerConfig], // must run first!
+    // ...
+  ],
   };
 };
 ```
 
-`babel-plugin-react-compiler` should run first before other Babel plugins as the compiler requires the input source information for sound analysis.
+`babel-plugin-react-compiler` phải chạy trước các Babel plugin khác vì trình biên dịch yêu cầu thông tin source đầu vào để phân tích âm thanh.
 
 ### Vite {/*usage-with-vite*/}
 
-If you use Vite, you can add the plugin to vite-plugin-react:
+Nếu bạn sử dụng Vite, bạn có thể thêm plugin vào vite-plugin-react:
 
 ```js {10}
 // vite.config.js
@@ -262,26 +262,26 @@ const ReactCompilerConfig = { /* ... */ };
 
 export default defineConfig(() => {
   return {
-    plugins: [
-      react({
-        babel: {
-          plugins: [
-            ["babel-plugin-react-compiler", ReactCompilerConfig],
-          ],
-        },
-      }),
-    ],
-    // ...
+  plugins: [
+    react({
+    babel: {
+      plugins: [
+      ["babel-plugin-react-compiler", ReactCompilerConfig],
+      ],
+    },
+    }),
+  ],
+  // ...
   };
 });
 ```
 
 ### Next.js {/*usage-with-nextjs*/}
 
-Please refer to the [Next.js docs](https://nextjs.org/docs/app/api-reference/next-config-js/reactCompiler) for more information.
+Vui lòng tham khảo [tài liệu Next.js](https://nextjs.org/docs/app/api-reference/next-config-js/reactCompiler) để biết thêm thông tin.
 
 ### Remix {/*usage-with-remix*/}
-Install `vite-plugin-babel`, and add the compiler's Babel plugin to it:
+Cài đặt `vite-plugin-babel` và thêm Babel plugin của trình biên dịch vào nó:
 
 <TerminalBlock>
 npm install vite-plugin-babel
@@ -295,66 +295,66 @@ const ReactCompilerConfig = { /* ... */ };
 
 export default defineConfig({
   plugins: [
-    remix({ /* ... */}),
-    babel({
-      filter: /\.[jt]sx?$/,
-      babelConfig: {
-        presets: ["@babel/preset-typescript"], // if you use TypeScript
-        plugins: [
-          ["babel-plugin-react-compiler", ReactCompilerConfig],
-        ],
-      },
-    }),
+  remix({ /* ... */}),
+  babel({
+    filter: /\.[jt]sx?$/,
+    babelConfig: {
+    presets: ["@babel/preset-typescript"], // if you use TypeScript
+    plugins: [
+      ["babel-plugin-react-compiler", ReactCompilerConfig],
+    ],
+    },
+  }),
   ],
 });
 ```
 
 ### Webpack {/*usage-with-webpack*/}
 
-A community webpack loader is [now available here](https://github.com/SukkaW/react-compiler-webpack).
+Một webpack loader cộng đồng [hiện có tại đây](https://github.com/SukkaW/react-compiler-webpack).
 
 ### Expo {/*usage-with-expo*/}
 
-Please refer to [Expo's docs](https://docs.expo.dev/guides/react-compiler/) to enable and use the React Compiler in Expo apps.
+Vui lòng tham khảo [tài liệu của Expo](https://docs.expo.dev/guides/react-compiler/) để bật và sử dụng React Compiler trong các ứng dụng Expo.
 
 ### Metro (React Native) {/*usage-with-react-native-metro*/}
 
-React Native uses Babel via Metro, so refer to the [Usage with Babel](#usage-with-babel) section for installation instructions.
+React Native sử dụng Babel thông qua Metro, vì vậy hãy tham khảo phần [Cách sử dụng với Babel](#usage-with-babel) để biết hướng dẫn cài đặt.
 
 ### Rspack {/*usage-with-rspack*/}
 
-Please refer to [Rspack's docs](https://rspack.dev/guide/tech/react#react-compiler) to enable and use the React Compiler in Rspack apps.
+Vui lòng tham khảo [tài liệu của Rspack](https://rspack.dev/guide/tech/react#react-compiler) để bật và sử dụng React Compiler trong các ứng dụng Rspack.
 
 ### Rsbuild {/*usage-with-rsbuild*/}
 
-Please refer to [Rsbuild's docs](https://rsbuild.dev/guide/framework/react#react-compiler) to enable and use the React Compiler in Rsbuild apps.
+Vui lòng tham khảo [tài liệu của Rsbuild](https://rsbuild.dev/guide/framework/react#react-compiler) để bật và sử dụng React Compiler trong các ứng dụng Rsbuild.
 
-## Troubleshooting {/*troubleshooting*/}
+## Khắc phục sự cố {/*troubleshooting*/}
 
-To report issues, please first create a minimal repro on the [React Compiler Playground](https://playground.react.dev/) and include it in your bug report. You can open issues in the [facebook/react](https://github.com/facebook/react/issues) repo.
+Để báo cáo sự cố, trước tiên hãy tạo một bản repro tối thiểu trên [React Compiler Playground](https://playground.react.dev/) và đưa nó vào báo cáo lỗi của bạn. Bạn có thể mở các issue trong repo [facebook/react](https://github.com/facebook/react/issues).
 
-You can also provide feedback in the React Compiler Working Group by applying to be a member. Please see [the README for more details on joining](https://github.com/reactwg/react-compiler).
+Bạn cũng có thể cung cấp phản hồi trong React Compiler Working Group bằng cách đăng ký làm thành viên. Vui lòng xem [README để biết thêm chi tiết về cách tham gia](https://github.com/reactwg/react-compiler).
 
-### What does the compiler assume? {/*what-does-the-compiler-assume*/}
+### Trình biên dịch giả định điều gì? {/*what-does-the-compiler-assume*/}
 
-React Compiler assumes that your code:
+React Compiler giả định rằng code của bạn:
 
-1. Is valid, semantic JavaScript.
-2. Tests that nullable/optional values and properties are defined before accessing them (for example, by enabling [`strictNullChecks`](https://www.typescriptlang.org/tsconfig/#strictNullChecks) if using TypeScript), i.e., `if (object.nullableProperty) { object.nullableProperty.foo }` or with optional-chaining `object.nullableProperty?.foo`.
-3. Follows the [Rules of React](https://react.dev/reference/rules).
+1. Là JavaScript hợp lệ, ngữ nghĩa.
+2. Kiểm tra xem các giá trị và thuộc tính nullable/optional có được xác định trước khi truy cập chúng hay không (ví dụ: bằng cách bật [`strictNullChecks`](https://www.typescriptlang.org/tsconfig/#strictNullChecks) nếu sử dụng TypeScript), tức là `if (object.nullableProperty) { object.nullableProperty.foo }` hoặc với optional-chaining `object.nullableProperty?.foo`.
+3. Tuân theo [Rules of React](https://react.dev/reference/rules).
 
-React Compiler can verify many of the Rules of React statically, and will safely skip compilation when it detects an error. To see the errors we recommend also installing [eslint-plugin-react-compiler](https://www.npmjs.com/package/eslint-plugin-react-compiler).
+React Compiler có thể xác minh nhiều Rules of React một cách tĩnh và sẽ bỏ qua quá trình biên dịch một cách an toàn khi phát hiện lỗi. Để xem các lỗi, chúng tôi khuyên bạn cũng nên cài đặt [eslint-plugin-react-compiler](https://www.npmjs.com/package/eslint-plugin-react-compiler).
 
-### How do I know my components have been optimized? {/*how-do-i-know-my-components-have-been-optimized*/}
+### Làm cách nào để biết các component của tôi đã được tối ưu hóa? {/*how-do-i-know-my-components-have-been-optimized*/}
 
-[React DevTools](/learn/react-developer-tools) (v5.0+) and [React Native DevTools](https://reactnative.dev/docs/react-native-devtools) have built-in support for React Compiler and will display a "Memo ✨" badge next to components that have been optimized by the compiler.
+[React DevTools](/learn/react-developer-tools) (v5.0+) và [React Native DevTools](https://reactnative.dev/docs/react-native-devtools) có hỗ trợ tích hợp cho React Compiler và sẽ hiển thị huy hiệu "Memo ✨" bên cạnh các component đã được tối ưu hóa bởi trình biên dịch.
 
-### Something is not working after compilation {/*something-is-not-working-after-compilation*/}
-If you have eslint-plugin-react-compiler installed, the compiler will display any violations of the rules of React in your editor. When it does this, it means that the compiler has skipped over optimizing that component or hook. This is perfectly okay, and the compiler can recover and continue optimizing other components in your codebase. **You don't have to fix all ESLint violations straight away.** You can address them at your own pace to increase the amount of components and hooks being optimized.
+### Có gì đó không hoạt động sau khi biên dịch {/*something-is-not-working-after-compilation*/}
+Nếu bạn đã cài đặt eslint-plugin-react-compiler, trình biên dịch sẽ hiển thị bất kỳ vi phạm nào đối với các quy tắc của React trong trình soạn thảo của bạn. Khi nó làm điều này, điều đó có nghĩa là trình biên dịch đã bỏ qua việc tối ưu hóa component hoặc hook đó. Điều này hoàn toàn ổn và trình biên dịch có thể khôi phục và tiếp tục tối ưu hóa các component khác trong codebase của bạn. **Bạn không cần phải sửa tất cả các vi phạm ESLint ngay lập tức.** Bạn có thể giải quyết chúng theo tốc độ của riêng bạn để tăng số lượng component và hook được tối ưu hóa.
 
-Due to the flexible and dynamic nature of JavaScript however, it's not possible to comprehensively detect all cases. Bugs and undefined behavior such as infinite loops may occur in those cases.
+Tuy nhiên, do tính chất linh hoạt và động của JavaScript, không thể phát hiện toàn diện tất cả các trường hợp. Các lỗi và hành vi không xác định như vòng lặp vô hạn có thể xảy ra trong những trường hợp đó.
 
-If your app doesn't work properly after compilation and you aren't seeing any ESLint errors, the compiler may be incorrectly compiling your code. To confirm this, try to make the issue go away by aggressively opting out any component or hook you think might be related via the [`"use no memo"` directive](#opt-out-of-the-compiler-for-a-component).
+Nếu ứng dụng của bạn không hoạt động bình thường sau khi biên dịch và bạn không thấy bất kỳ lỗi ESLint nào, thì trình biên dịch có thể đang biên dịch code của bạn không chính xác. Để xác nhận điều này, hãy thử làm cho sự cố biến mất bằng cách chủ động chọn không sử dụng bất kỳ component hoặc hook nào bạn cho là có liên quan thông qua directive [`"use no memo"`](#opt-out-of-the-compiler-for-a-component).
 
 ```js {2}
 function SuspiciousComponent() {
@@ -366,13 +366,13 @@ function SuspiciousComponent() {
 <Note>
 #### `"use no memo"` {/*use-no-memo*/}
 
-`"use no memo"` is a _temporary_ escape hatch that lets you opt-out components and hooks from being compiled by the React Compiler. This directive is not meant to be long lived the same way as eg [`"use client"`](/reference/rsc/use-client) is.
+`"use no memo"` là một escape hatch _tạm thời_ cho phép bạn chọn không biên dịch các component và hook bởi React Compiler. Directive này không có nghĩa là tồn tại lâu dài giống như [`"use client"`](/reference/rsc/use-client).
 
-It is not recommended to reach for this directive unless it's strictly necessary. Once you opt-out a component or hook, it is opted-out forever until the directive is removed. This means that even if you fix the code, the compiler will still skip over compiling it unless you remove the directive.
+Không nên sử dụng directive này trừ khi thực sự cần thiết. Khi bạn chọn không sử dụng một component hoặc hook, nó sẽ bị chọn không sử dụng vĩnh viễn cho đến khi directive bị xóa. Điều này có nghĩa là ngay cả khi bạn sửa code, trình biên dịch vẫn sẽ bỏ qua việc biên dịch nó trừ khi bạn xóa directive.
 </Note>
 
-When you make the error go away, confirm that removing the opt out directive makes the issue come back. Then share a bug report with us (you can try to reduce it to a small repro, or if it's open source code you can also just paste the entire source) using the [React Compiler Playground](https://playground.react.dev) so we can identify and help fix the issue.
+Khi bạn làm cho lỗi biến mất, hãy xác nhận rằng việc xóa directive chọn không sử dụng sẽ khiến sự cố quay trở lại. Sau đó, hãy chia sẻ báo cáo lỗi với chúng tôi (bạn có thể thử giảm nó xuống một bản repro nhỏ hoặc nếu đó là code nguồn mở, bạn cũng có thể chỉ cần dán toàn bộ source) bằng [React Compiler Playground](https://playground.react.dev) để chúng tôi có thể xác định và giúp khắc phục sự cố.
 
-### Other issues {/*other-issues*/}
+### Các vấn đề khác {/*other-issues*/}
 
-Please see https://github.com/reactwg/react-compiler/discussions/7.
+Vui lòng xem https://github.com/reactwg/react-compiler/discussions/7.

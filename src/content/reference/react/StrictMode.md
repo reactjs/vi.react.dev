@@ -2,11 +2,9 @@
 title: <StrictMode>
 ---
 
-
 <Intro>
 
-`<StrictMode>` lets you find common bugs in your components early during development.
-
+`<StrictMode>` cho phép bạn tìm các lỗi phổ biến trong các component của mình sớm trong quá trình phát triển.
 
 ```js
 <StrictMode>
@@ -20,11 +18,11 @@ title: <StrictMode>
 
 ---
 
-## Reference {/*reference*/}
+## Tham khảo {/*reference*/}
 
 ### `<StrictMode>` {/*strictmode*/}
 
-Use `StrictMode` to enable additional development behaviors and warnings for the component tree inside:
+Sử dụng `StrictMode` để bật các hành vi và cảnh báo phát triển bổ sung cho cây component bên trong:
 
 ```js
 import { StrictMode } from 'react';
@@ -38,33 +36,34 @@ root.render(
 );
 ```
 
-[See more examples below.](#usage)
+[Xem thêm các ví dụ bên dưới.](#usage)
 
-Strict Mode enables the following development-only behaviors:
+Strict Mode kích hoạt các hành vi chỉ dành cho quá trình phát triển sau:
 
-- Your components will [re-render an extra time](#fixing-bugs-found-by-double-rendering-in-development) to find bugs caused by impure rendering.
-- Your components will [re-run Effects an extra time](#fixing-bugs-found-by-re-running-effects-in-development) to find bugs caused by missing Effect cleanup.
-- Your components will [re-run refs callbacks an extra time](#fixing-bugs-found-by-re-running-ref-callbacks-in-development) to find bugs caused by missing ref cleanup.
-- Your components will [be checked for usage of deprecated APIs.](#fixing-deprecation-warnings-enabled-by-strict-mode)
+- Các component của bạn sẽ [render lại thêm một lần](#fixing-bugs-found-by-double-rendering-in-development) để tìm các lỗi do quá trình render không thuần túy gây ra.
+- Các component của bạn sẽ [chạy lại Effects thêm một lần](#fixing-bugs-found-by-re-running-effects-in-development) để tìm các lỗi do thiếu dọn dẹp Effect.
+- Các component của bạn sẽ [chạy lại các callback ref thêm một lần](#fixing-bugs-found-by-re-running-ref-callbacks-in-development) để tìm các lỗi do thiếu dọn dẹp ref.
+- Các component của bạn sẽ [được kiểm tra việc sử dụng các API không dùng nữa.](#fixing-deprecation-warnings-enabled-by-strict-mode)
 
 #### Props {/*props*/}
 
-`StrictMode` accepts no props.
+`StrictMode` không chấp nhận props nào.
 
-#### Caveats {/*caveats*/}
+#### Lưu ý {/*lưu-ý*/}
 
-* There is no way to opt out of Strict Mode inside a tree wrapped in `<StrictMode>`. This gives you confidence that all components inside `<StrictMode>` are checked. If two teams working on a product disagree whether they find the checks valuable, they need to either reach consensus or move `<StrictMode>` down in the tree.
+#### Lưu ý {/*caveats*/}
+
+* Không có cách nào để tắt Strict Mode bên trong một cây được bọc trong `<StrictMode>`. Điều này giúp bạn tin tưởng rằng tất cả các component bên trong `<StrictMode>` đều được kiểm tra. Nếu hai nhóm làm việc trên một sản phẩm không đồng ý về việc họ thấy các kiểm tra có giá trị hay không, họ cần đạt được sự đồng thuận hoặc di chuyển `<StrictMode>` xuống trong cây.
 
 ---
 
-## Usage {/*usage*/}
+## Cách sử dụng {/*usage*/}
 
-### Enabling Strict Mode for entire app {/*enabling-strict-mode-for-entire-app*/}
+### Bật Strict Mode cho toàn bộ ứng dụng {/*enabling-strict-mode-for-entire-app*/}
 
-Strict Mode enables extra development-only checks for the entire component tree inside the `<StrictMode>` component. These checks help you find common bugs in your components early in the development process.
+Strict Mode cho phép các kiểm tra chỉ dành cho quá trình phát triển đối với toàn bộ cây component bên trong component `<StrictMode>`. Các kiểm tra này giúp bạn tìm thấy các lỗi phổ biến trong các component của bạn sớm trong quá trình phát triển.
 
-
-To enable Strict Mode for your entire app, wrap your root component with `<StrictMode>` when you render it:
+Để bật Strict Mode cho toàn bộ ứng dụng của bạn, hãy bọc component gốc của bạn bằng `<StrictMode>` khi bạn render nó:
 
 ```js {6,8}
 import { StrictMode } from 'react';
@@ -78,28 +77,27 @@ root.render(
 );
 ```
 
-We recommend wrapping your entire app in Strict Mode, especially for newly created apps. If you use a framework that calls [`createRoot`](/reference/react-dom/client/createRoot) for you, check its documentation for how to enable Strict Mode.
+Chúng tôi khuyên bạn nên bọc toàn bộ ứng dụng của mình trong Strict Mode, đặc biệt đối với các ứng dụng mới tạo. Nếu bạn sử dụng một framework gọi [`createRoot`](/reference/react-dom/client/createRoot) cho bạn, hãy kiểm tra tài liệu của nó để biết cách bật Strict Mode.
 
-Although the Strict Mode checks **only run in development,** they help you find bugs that already exist in your code but can be tricky to reliably reproduce in production. Strict Mode lets you fix bugs before your users report them.
+Mặc dù các kiểm tra của Strict Mode **chỉ chạy trong quá trình phát triển,** nhưng chúng giúp bạn tìm thấy các lỗi đã tồn tại trong code của bạn nhưng có thể khó tái tạo một cách đáng tin cậy trong production. Strict Mode cho phép bạn sửa lỗi trước khi người dùng của bạn báo cáo chúng.
 
 <Note>
 
-Strict Mode enables the following checks in development:
+Strict Mode cho phép các kiểm tra sau trong quá trình phát triển:
 
-- Your components will [re-render an extra time](#fixing-bugs-found-by-double-rendering-in-development) to find bugs caused by impure rendering.
-- Your components will [re-run Effects an extra time](#fixing-bugs-found-by-re-running-effects-in-development) to find bugs caused by missing Effect cleanup.
-- Your components will [re-run ref callbacks an extra time](#fixing-bugs-found-by-re-running-ref-callbacks-in-development) to find bugs caused by missing ref cleanup.
-- Your components will [be checked for usage of deprecated APIs.](#fixing-deprecation-warnings-enabled-by-strict-mode)
+- Các component của bạn sẽ [render lại thêm một lần](#fixing-bugs-found-by-double-rendering-in-development) để tìm các lỗi do quá trình render không thuần túy gây ra.
+- Các component của bạn sẽ [chạy lại Effects thêm một lần](#fixing-bugs-found-by-re-running-effects-in-development) để tìm các lỗi do thiếu dọn dẹp Effect.
+- Các component của bạn sẽ [chạy lại các callback ref thêm một lần](#fixing-bugs-found-by-re-running-ref-callbacks-in-development) để tìm các lỗi do thiếu dọn dẹp ref.
+- Các component của bạn sẽ [được kiểm tra việc sử dụng các API không dùng nữa.](#fixing-deprecation-warnings-enabled-by-strict-mode)
 
-**All of these checks are development-only and do not impact the production build.**
+**Tất cả các kiểm tra này chỉ dành cho quá trình phát triển và không ảnh hưởng đến bản dựng production.**
 
 </Note>
 
 ---
+### Bật Strict Mode cho một phần của ứng dụng {/*enabling-strict-mode-for-a-part-of-the-app*/}
 
-### Enabling Strict Mode for a part of the app {/*enabling-strict-mode-for-a-part-of-the-app*/}
-
-You can also enable Strict Mode for any part of your application:
+Bạn cũng có thể bật Strict Mode cho bất kỳ phần nào của ứng dụng của bạn:
 
 ```js {7,12}
 import { StrictMode } from 'react';
@@ -120,31 +118,30 @@ function App() {
 }
 ```
 
-In this example, Strict Mode checks will not run against the `Header` and `Footer` components. However, they will run on `Sidebar` and `Content`, as well as all of the components inside them, no matter how deep.
+Trong ví dụ này, các kiểm tra của Strict Mode sẽ không chạy trên các component `Header` và `Footer`. Tuy nhiên, chúng sẽ chạy trên `Sidebar` và `Content`, cũng như tất cả các component bên trong chúng, bất kể độ sâu.
 
 <Note>
 
-When `StrictMode` is enabled for a part of the app, React will only enable behaviors that are possible in production. For example, if `<StrictMode>` is not enabled at the root of the app, it will not [re-run Effects an extra time](#fixing-bugs-found-by-re-running-effects-in-development) on initial mount, since this would cause child effects to double fire without the parent effects, which cannot happen in production.
+Khi `StrictMode` được bật cho một phần của ứng dụng, React sẽ chỉ bật các hành vi có thể xảy ra trong production. Ví dụ: nếu `<StrictMode>` không được bật ở gốc của ứng dụng, nó sẽ không [chạy lại Effects thêm một lần](#fixing-bugs-found-by-re-running-effects-in-development) khi mount ban đầu, vì điều này sẽ khiến các effect con bị kích hoạt gấp đôi mà không có các effect cha, điều này không thể xảy ra trong production.
 
 </Note>
 
 ---
+### Khắc phục các lỗi được tìm thấy bằng cách render hai lần trong quá trình phát triển {/*fixing-bugs-found-by-double-rendering-in-development*/}
 
-### Fixing bugs found by double rendering in development {/*fixing-bugs-found-by-double-rendering-in-development*/}
+[React giả định rằng mọi component bạn viết là một hàm thuần túy.](/learn/keeping-components-pure) Điều này có nghĩa là các component React bạn viết phải luôn trả về cùng một JSX với cùng một đầu vào (props, state và context).
 
-[React assumes that every component you write is a pure function.](/learn/keeping-components-pure) This means that React components you write must always return the same JSX given the same inputs (props, state, and context).
+Các component vi phạm quy tắc này hoạt động không thể đoán trước và gây ra lỗi. Để giúp bạn tìm thấy code không thuần túy một cách vô tình, Strict Mode gọi một số hàm của bạn (chỉ những hàm được cho là thuần túy) **hai lần trong quá trình phát triển.** Điều này bao gồm:
 
-Components breaking this rule behave unpredictably and cause bugs. To help you find accidentally impure code, Strict Mode calls some of your functions (only the ones that should be pure) **twice in development.** This includes:
+- Phần thân hàm component của bạn (chỉ logic cấp cao nhất, vì vậy điều này không bao gồm code bên trong trình xử lý sự kiện)
+- Các hàm mà bạn chuyển cho [`useState`](/reference/react/useState), các hàm [`set`](/reference/react/useState#setstate), [`useMemo`](/reference/react/useMemo) hoặc [`useReducer`](/reference/react/useReducer)
+- Một số phương thức component class như [`constructor`](/reference/react/Component#constructor), [`render`](/reference/react/Component#render), [`shouldComponentUpdate`](/reference/react/Component#shouldcomponentupdate) ([xem toàn bộ danh sách](https://reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects))
 
-- Your component function body (only top-level logic, so this doesn't include code inside event handlers)
-- Functions that you pass to [`useState`](/reference/react/useState), [`set` functions](/reference/react/useState#setstate), [`useMemo`](/reference/react/useMemo), or [`useReducer`](/reference/react/useReducer)
-- Some class component methods like [`constructor`](/reference/react/Component#constructor), [`render`](/reference/react/Component#render), [`shouldComponentUpdate`](/reference/react/Component#shouldcomponentupdate) ([see the whole list](https://reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects))
+Nếu một hàm là thuần túy, việc chạy nó hai lần không thay đổi hành vi của nó vì một hàm thuần túy tạo ra cùng một kết quả mỗi lần. Tuy nhiên, nếu một hàm là không thuần túy (ví dụ: nó thay đổi dữ liệu mà nó nhận được), việc chạy nó hai lần có xu hướng dễ nhận thấy (đó là điều khiến nó không thuần túy!) Điều này giúp bạn phát hiện và sửa lỗi sớm.
 
-If a function is pure, running it twice does not change its behavior because a pure function produces the same result every time. However, if a function is impure (for example, it mutates the data it receives), running it twice tends to be noticeable (that's what makes it impure!) This helps you spot and fix the bug early.
+**Đây là một ví dụ để minh họa cách render hai lần trong Strict Mode giúp bạn tìm lỗi sớm.**
 
-**Here is an example to illustrate how double rendering in Strict Mode helps you find bugs early.**
-
-This `StoryTray` component takes an array of `stories` and adds one last "Create Story" item at the end:
+Component `StoryTray` này lấy một mảng `stories` và thêm một mục "Create Story" cuối cùng vào cuối:
 
 <Sandpack>
 
@@ -311,9 +308,9 @@ li {
 
 </Sandpack>
 
-Notice how every time you hover over the `StoryTray` component, "Create Story" gets added to the list again. The intention of the code was to add it once at the end. But `StoryTray` directly modifies the `stories` array from the props. Every time `StoryTray` renders, it adds "Create Story" again at the end of the same array. In other words, `StoryTray` is not a pure function--running it multiple times produces different results.
+Lưu ý rằng mỗi khi bạn di chuột qua component `StoryTray`, "Create Story" sẽ được thêm lại vào danh sách. Mục đích của code là thêm nó một lần ở cuối. Nhưng `StoryTray` sửa đổi trực tiếp mảng `stories` từ props. Mỗi khi `StoryTray` render, nó lại thêm "Create Story" vào cuối cùng của cùng một mảng. Nói cách khác, `StoryTray` không phải là một hàm thuần túy - việc chạy nó nhiều lần sẽ tạo ra các kết quả khác nhau.
 
-To fix this problem, you can make a copy of the array, and modify that copy instead of the original one:
+Để khắc phục sự cố này, bạn có thể tạo một bản sao của mảng và sửa đổi bản sao đó thay vì bản gốc:
 
 ```js {2}
 export default function StoryTray({ stories }) {
@@ -322,9 +319,9 @@ export default function StoryTray({ stories }) {
   items.push({ id: 'create', label: 'Create Story' });
 ```
 
-This would [make the `StoryTray` function pure.](/learn/keeping-components-pure) Each time it is called, it would only modify a new copy of the array, and would not affect any external objects or variables. This solves the bug, but you had to make the component re-render more often before it became obvious that something is wrong with its behavior.
+Điều này sẽ [làm cho hàm `StoryTray` trở nên thuần khiết.](/learn/keeping-components-pure) Mỗi khi nó được gọi, nó sẽ chỉ sửa đổi một bản sao mới của mảng và sẽ không ảnh hưởng đến bất kỳ đối tượng hoặc biến bên ngoài nào. Điều này giải quyết lỗi, nhưng bạn phải làm cho component render lại thường xuyên hơn trước khi nó trở nên rõ ràng rằng có điều gì đó không ổn với hành vi của nó.
 
-**In the original example, the bug wasn't obvious. Now let's wrap the original (buggy) code in `<StrictMode>`:**
+**Trong ví dụ ban đầu, lỗi không rõ ràng. Bây giờ, hãy bọc mã gốc (có lỗi) trong `<StrictMode>`:**
 
 <Sandpack>
 
@@ -407,7 +404,7 @@ li {
 
 </Sandpack>
 
-**Strict Mode *always* calls your rendering function twice, so you can see the mistake right away** ("Create Story" appears twice). This lets you notice such mistakes early in the process. When you fix your component to render in Strict Mode, you *also* fix many possible future production bugs like the hover functionality from before:
+**Strict Mode *luôn* gọi hàm render của bạn hai lần, vì vậy bạn có thể thấy lỗi ngay lập tức** ("Create Story" xuất hiện hai lần). Điều này cho phép bạn nhận thấy những sai sót như vậy sớm trong quá trình này. Khi bạn sửa component của mình để render trong Strict Mode, bạn *cũng* sửa nhiều lỗi sản xuất có thể xảy ra trong tương lai như chức năng di chuột từ trước:
 
 <Sandpack>
 
@@ -499,29 +496,29 @@ li {
 
 </Sandpack>
 
-Without Strict Mode, it was easy to miss the bug until you added more re-renders. Strict Mode made the same bug appear right away. Strict Mode helps you find bugs before you push them to your team and to your users.
+Nếu không có Strict Mode, bạn có thể dễ dàng bỏ lỡ lỗi cho đến khi bạn thêm nhiều lần render lại. Strict Mode làm cho lỗi tương tự xuất hiện ngay lập tức. Strict Mode giúp bạn tìm lỗi trước khi bạn đẩy chúng cho nhóm của mình và cho người dùng của bạn.
 
-[Read more about keeping components pure.](/learn/keeping-components-pure)
+[Đọc thêm về cách giữ cho các component thuần khiết.](/learn/keeping-components-pure)
 
 <Note>
 
-If you have [React DevTools](/learn/react-developer-tools) installed, any `console.log` calls during the second render call will appear slightly dimmed. React DevTools also offers a setting (off by default) to suppress them completely.
-
+Nếu bạn đã cài đặt [React DevTools](/learn/react-developer-tools), bất kỳ lệnh gọi `console.log` nào trong lần gọi render thứ hai sẽ xuất hiện hơi mờ. React DevTools cũng cung cấp một cài đặt (tắt theo mặc định) để tắt chúng hoàn toàn.
 </Note>
 
+
+
 ---
+### Khắc phục các lỗi được tìm thấy bằng cách chạy lại Effects trong quá trình phát triển {/*fixing-bugs-found-by-re-running-effects-in-development*/}
 
-### Fixing bugs found by re-running Effects in development {/*fixing-bugs-found-by-re-running-effects-in-development*/}
+Strict Mode cũng có thể giúp tìm các lỗi trong [Effects.](/learn/synchronizing-with-effects)
 
-Strict Mode can also help find bugs in [Effects.](/learn/synchronizing-with-effects)
+Mỗi Effect có một số mã thiết lập và có thể có một số mã dọn dẹp. Thông thường, React gọi thiết lập khi component *mounts* (được thêm vào màn hình) và gọi dọn dẹp khi component *unmounts* (bị xóa khỏi màn hình). Sau đó, React gọi dọn dẹp và thiết lập lại nếu các dependencies của nó thay đổi kể từ lần render cuối cùng.
 
-Every Effect has some setup code and may have some cleanup code. Normally, React calls setup when the component *mounts* (is added to the screen) and calls cleanup when the component *unmounts* (is removed from the screen). React then calls cleanup and setup again if its dependencies changed since the last render.
+Khi Strict Mode được bật, React cũng sẽ chạy **một chu kỳ thiết lập + dọn dẹp bổ sung trong quá trình phát triển cho mỗi Effect.** Điều này có vẻ đáng ngạc nhiên, nhưng nó giúp tiết lộ những lỗi nhỏ khó bắt gặp theo cách thủ công.
 
-When Strict Mode is on, React will also run **one extra setup+cleanup cycle in development for every Effect.** This may feel surprising, but it helps reveal subtle bugs that are hard to catch manually.
+**Đây là một ví dụ để minh họa cách chạy lại Effects trong Strict Mode giúp bạn tìm lỗi sớm.**
 
-**Here is an example to illustrate how re-running Effects in Strict Mode helps you find bugs early.**
-
-Consider this example that connects a component to a chat:
+Hãy xem xét ví dụ này kết nối một component với một cuộc trò chuyện:
 
 <Sandpack>
 
@@ -578,9 +575,9 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-There is an issue with this code, but it might not be immediately clear.
+Có một vấn đề với mã này, nhưng nó có thể không rõ ràng ngay lập tức.
 
-To make the issue more obvious, let's implement a feature. In the example below, `roomId` is not hardcoded. Instead, the user can select the `roomId` that they want to connect to from a dropdown. Click "Open chat" and then select different chat rooms one by one. Keep track of the number of active connections in the console:
+Để làm cho vấn đề trở nên rõ ràng hơn, hãy triển khai một tính năng. Trong ví dụ dưới đây, `roomId` không được mã hóa cứng. Thay vào đó, người dùng có thể chọn `roomId` mà họ muốn kết nối từ một danh sách thả xuống. Nhấp vào "Open chat" và sau đó chọn các phòng chat khác nhau từng cái một. Theo dõi số lượng kết nối đang hoạt động trong bảng điều khiển:
 
 <Sandpack>
 
@@ -662,7 +659,7 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-You'll notice that the number of open connections always keeps growing. In a real app, this would cause performance and network problems. The issue is that [your Effect is missing a cleanup function:](/learn/synchronizing-with-effects#step-3-add-cleanup-if-needed)
+Bạn sẽ nhận thấy rằng số lượng kết nối đang mở luôn tăng lên. Trong một ứng dụng thực tế, điều này sẽ gây ra các vấn đề về hiệu suất và mạng. Vấn đề là [Effect của bạn đang thiếu một hàm dọn dẹp:](/learn/synchronizing-with-effects#step-3-add-cleanup-if-needed)
 
 ```js {4}
   useEffect(() => {
@@ -672,9 +669,9 @@ You'll notice that the number of open connections always keeps growing. In a rea
   }, [roomId]);
 ```
 
-Now that your Effect "cleans up" after itself and destroys the outdated connections, the leak is solved. However, notice that the problem did not become visible until you've added more features (the select box).
+Giờ đây, Effect của bạn "dọn dẹp" sau chính nó và phá hủy các kết nối lỗi thời, rò rỉ đã được giải quyết. Tuy nhiên, hãy lưu ý rằng sự cố không trở nên rõ ràng cho đến khi bạn thêm nhiều tính năng hơn (hộp chọn).
 
-**In the original example, the bug wasn't obvious. Now let's wrap the original (buggy) code in `<StrictMode>`:**
+**Trong ví dụ ban đầu, lỗi không rõ ràng. Bây giờ, hãy bọc mã gốc (có lỗi) trong `<StrictMode>`:**
 
 <Sandpack>
 
@@ -736,9 +733,9 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-**With Strict Mode, you immediately see that there is a problem** (the number of active connections jumps to 2). Strict Mode runs an extra setup+cleanup cycle for every Effect. This Effect has no cleanup logic, so it creates an extra connection but doesn't destroy it. This is a hint that you're missing a cleanup function.
+**Với Strict Mode, bạn sẽ thấy ngay rằng có một vấn đề** (số lượng kết nối đang hoạt động tăng lên 2). Strict Mode chạy thêm một chu kỳ thiết lập + dọn dẹp cho mỗi Effect. Effect này không có logic dọn dẹp, vì vậy nó tạo thêm một kết nối nhưng không hủy nó. Đây là một gợi ý rằng bạn đang thiếu một hàm dọn dẹp.
 
-Strict Mode lets you notice such mistakes early in the process. When you fix your Effect by adding a cleanup function in Strict Mode, you *also* fix many possible future production bugs like the select box from before:
+Strict Mode cho phép bạn nhận thấy những sai sót như vậy sớm trong quá trình này. Khi bạn sửa Effect của mình bằng cách thêm một hàm dọn dẹp trong Strict Mode, bạn *cũng* sửa nhiều lỗi sản xuất có thể xảy ra trong tương lai như hộp chọn từ trước:
 
 <Sandpack>
 
@@ -826,22 +823,23 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-Notice how the active connection count in the console doesn't keep growing anymore.
+Bạn sẽ thấy rằng số lượng kết nối đang hoạt động trong bảng điều khiển không còn tăng lên nữa.
 
-Without Strict Mode, it was easy to miss that your Effect needed cleanup. By running *setup → cleanup → setup* instead of *setup* for your Effect in development, Strict Mode made the missing cleanup logic more noticeable.
+Nếu không có Strict Mode, bạn có thể dễ dàng bỏ lỡ việc Effect của bạn cần dọn dẹp. Bằng cách chạy *thiết lập → dọn dẹp → thiết lập* thay vì *thiết lập* cho Effect của bạn trong quá trình phát triển, Strict Mode giúp bạn dễ nhận thấy logic dọn dẹp bị thiếu hơn.
 
-[Read more about implementing Effect cleanup.](/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development)
+[Đọc thêm về cách triển khai dọn dẹp Effect.](/learn/synchronizing-with-effects#how-to-handle-the-effect-firing-twice-in-development)
 
 ---
-### Fixing bugs found by re-running ref callbacks in development {/*fixing-bugs-found-by-re-running-ref-callbacks-in-development*/}
 
-Strict Mode can also help find bugs in [callbacks refs.](/learn/manipulating-the-dom-with-refs)
+### Khắc phục các lỗi được tìm thấy bằng cách chạy lại các callback ref trong quá trình phát triển {/*fixing-bugs-found-by-re-running-ref-callbacks-in-development*/}
 
-Every callback `ref` has some setup code and may have some cleanup code. Normally, React calls setup when the element is *created* (is added to the DOM) and calls cleanup when the element is *removed* (is removed from the DOM).
+Strict Mode cũng có thể giúp tìm các lỗi trong [callback refs.](/learn/manipulating-the-dom-with-refs)
 
-When Strict Mode is on, React will also run **one extra setup+cleanup cycle in development for every callback `ref`.** This may feel surprising, but it helps reveal subtle bugs that are hard to catch manually.
+Mỗi callback `ref` có một số mã thiết lập và có thể có một số mã dọn dẹp. Thông thường, React gọi thiết lập khi phần tử được *tạo* (được thêm vào DOM) và gọi dọn dẹp khi phần tử bị *xóa* (bị xóa khỏi DOM).
 
-Consider this example, which allows you to select an animal and then scroll to one of them. Notice when you switch from "Cats" to "Dogs", the console logs show that the number of animals in the list keeps growing, and the "Scroll to" buttons stop working:
+Khi Strict Mode được bật, React cũng sẽ chạy **một chu kỳ thiết lập + dọn dẹp bổ sung trong quá trình phát triển cho mỗi callback `ref`.** Điều này có vẻ đáng ngạc nhiên, nhưng nó giúp tiết lộ những lỗi nhỏ khó bắt gặp theo cách thủ công.
+
+Hãy xem xét ví dụ này, cho phép bạn chọn một animal và sau đó cuộn đến một trong số chúng. Lưu ý khi bạn chuyển từ "Cats" sang "Dogs", nhật ký bảng điều khiển cho thấy số lượng animal trong danh sách tiếp tục tăng lên và các nút "Scroll to" ngừng hoạt động:
 
 <Sandpack>
 
@@ -961,9 +959,9 @@ li {
 </Sandpack>
 
 
-**This is a production bug!** Since the ref callback doesn't remove animals from the list in the cleanup, the list of animals keeps growing. This is a memory leak that can cause performance problems in a real app, and breaks the behavior of the app.
+**Đây là một lỗi sản xuất!** Vì callback ref không xóa các animal khỏi danh sách trong quá trình dọn dẹp, danh sách các animal tiếp tục tăng lên. Đây là một rò rỉ bộ nhớ có thể gây ra các vấn đề về hiệu suất trong một ứng dụng thực tế và phá vỡ hành vi của ứng dụng.
 
-The issue is the ref callback doesn't cleanup after itself:
+Vấn đề là callback ref không tự dọn dẹp:
 
 ```js {6-8}
 <li
@@ -1102,9 +1100,9 @@ li {
 
 </Sandpack>
 
-**With Strict Mode, you immediately see that there is a problem**. Strict Mode runs an extra setup+cleanup cycle for every callback ref. This callback ref has no cleanup logic, so it adds refs but doesn't remove them. This is a hint that you're missing a cleanup function.
+**Với Strict Mode, bạn sẽ thấy ngay rằng có một vấn đề**. Strict Mode chạy thêm một chu kỳ thiết lập + dọn dẹp cho mỗi callback ref. Callback ref này không có logic dọn dẹp, vì vậy nó thêm ref nhưng không xóa chúng. Đây là một gợi ý rằng bạn đang thiếu một hàm dọn dẹp.
 
-Strict Mode lets you eagerly find mistakes in callback refs. When you fix your callback by adding a cleanup function in Strict Mode, you *also* fix many possible future production bugs like the "Scroll to" bug from before:
+Strict Mode cho phép bạn tìm thấy những sai sót trong callback ref một cách nhanh chóng. Khi bạn sửa callback của mình bằng cách thêm một hàm dọn dẹp trong Strict Mode, bạn *cũng* sửa nhiều lỗi sản xuất có thể xảy ra trong tương lai như lỗi "Scroll to" từ trước:
 
 <Sandpack>
 
@@ -1228,8 +1226,7 @@ li {
 ```
 
 </Sandpack>
-
-Now on inital mount in StrictMode, the ref callbacks are all setup, cleaned up, and setup again:
+Giờ đây, khi gắn kết ban đầu trong StrictMode, tất cả các callback ref đều được thiết lập, dọn dẹp và thiết lập lại:
 
 ```
 ...
@@ -1240,15 +1237,16 @@ Now on inital mount in StrictMode, the ref callbacks are all setup, cleaned up, 
 ✅ Adding animal to the map. Total animals: 10
 ```
 
-**This is expected.** Strict Mode confirms that the ref callbacks are cleaned up correctly, so the size never grows above the expected amount. After the fix, there are no memory leaks, and all the features work as expected.
+**Điều này là mong đợi.** Strict Mode xác nhận rằng các callback ref được dọn dẹp chính xác, vì vậy kích thước không bao giờ tăng trên mức dự kiến. Sau khi sửa lỗi, không có rò rỉ bộ nhớ và tất cả các tính năng hoạt động như mong đợi.
 
-Without Strict Mode, it was easy to miss the bug until you clicked around to app to notice broken features. Strict Mode made the bugs appear right away, before you push them to production.
+Nếu không có Strict Mode, bạn có thể dễ dàng bỏ lỡ lỗi cho đến khi bạn nhấp vào ứng dụng để nhận thấy các tính năng bị hỏng. Strict Mode làm cho các lỗi xuất hiện ngay lập tức, trước khi bạn đẩy chúng vào sản xuất.
 
---- 
-### Fixing deprecation warnings enabled by Strict Mode {/*fixing-deprecation-warnings-enabled-by-strict-mode*/}
+---
 
-React warns if some component anywhere inside a `<StrictMode>` tree uses one of these deprecated APIs:
+### Khắc phục các cảnh báo không dùng nữa được bật bởi Strict Mode {/*fixing-deprecation-warnings-enabled-by-strict-mode*/}
 
-* `UNSAFE_` class lifecycle methods like [`UNSAFE_componentWillMount`](/reference/react/Component#unsafe_componentwillmount). [See alternatives.](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#migrating-from-legacy-lifecycles)
+React cảnh báo nếu một số thành phần ở bất kỳ đâu bên trong cây `<StrictMode>` sử dụng một trong các API không dùng nữa này:
 
-These APIs are primarily used in older [class components](/reference/react/Component) so they rarely appear in modern apps.
+* Các phương thức vòng đời lớp `UNSAFE_` như [`UNSAFE_componentWillMount`](/reference/react/Component#unsafe_componentwillmount). [Xem các lựa chọn thay thế.](https://reactjs.org/blog/2018/03/27/update-on-async-rendering.html#migrating-from-legacy-lifecycles)
+
+Các API này chủ yếu được sử dụng trong các [thành phần lớp](/reference/react/Component) cũ hơn, vì vậy chúng hiếm khi xuất hiện trong các ứng dụng hiện đại.

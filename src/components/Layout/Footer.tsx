@@ -284,7 +284,7 @@ export function Footer() {
           <div
             className="text-xs text-left rtl:text-right mt-2 pe-0.5"
             dir="ltr">
-            Copyright &copy; Meta Platforms, Inc
+            Bản quyền &copy; Meta Platforms, Inc
           </div>
           <div
             className="uwu-visible text-xs cursor-pointer hover:text-link hover:dark:text-link-dark hover:underline"
@@ -292,7 +292,7 @@ export function Footer() {
               // @ts-ignore
               window.__setUwu(false);
             }}>
-            no uwu plz
+            tắt uwu
           </div>
           <div
             className="uwu-hidden text-xs cursor-pointer hover:text-link hover:dark:text-link-dark hover:underline"
@@ -303,7 +303,7 @@ export function Footer() {
             uwu?
           </div>
           <div className="uwu-visible text-xs">
-            Logo by
+            Logo bởi
             <ExternalLink
               className="ms-1"
               href="https://twitter.com/sawaratsuki1004">
@@ -313,50 +313,48 @@ export function Footer() {
         </div>
         <div className="flex flex-col">
           <FooterLink href="/learn" isHeader={true}>
-            Learn React
+            Học React
           </FooterLink>
-          <FooterLink href="/learn/">Quick Start</FooterLink>
-          <FooterLink href="/learn/installation">Installation</FooterLink>
-          <FooterLink href="/learn/describing-the-ui">
-            Describing the UI
-          </FooterLink>
+          <FooterLink href="/learn/">Bắt Đầu Nhanh</FooterLink>
+          <FooterLink href="/learn/installation">Cài Đặt</FooterLink>
+          <FooterLink href="/learn/describing-the-ui">Mô Tả UI</FooterLink>
           <FooterLink href="/learn/adding-interactivity">
-            Adding Interactivity
+            Thêm Tính Tương Tác
           </FooterLink>
-          <FooterLink href="/learn/managing-state">Managing State</FooterLink>
-          <FooterLink href="/learn/escape-hatches">Escape Hatches</FooterLink>
+          <FooterLink href="/learn/managing-state">
+            Quản Lý Trạng Thái
+          </FooterLink>
+          <FooterLink href="/learn/escape-hatches">Các Lối Thoát</FooterLink>
         </div>
         <div className="flex flex-col">
           <FooterLink href="/reference/react" isHeader={true}>
-            API Reference
+            Tham Khảo API
           </FooterLink>
           <FooterLink href="/reference/react">React APIs</FooterLink>
           <FooterLink href="/reference/react-dom">React DOM APIs</FooterLink>
         </div>
         <div className="md:col-start-2 xl:col-start-4 flex flex-col">
           <FooterLink href="/community" isHeader={true}>
-            Community
+            Cộng Đồng
           </FooterLink>
           <FooterLink href="https://github.com/facebook/react/blob/main/CODE_OF_CONDUCT.md">
-            Code of Conduct
+            Quy Tắc Ứng Xử
           </FooterLink>
-          <FooterLink href="/community/team">Meet the Team</FooterLink>
+          <FooterLink href="/community/team">Gặp Gỡ Đội Ngũ</FooterLink>
           <FooterLink href="/community/docs-contributors">
-            Docs Contributors
+            Người Đóng Góp Tài Liệu
           </FooterLink>
-          <FooterLink href="/community/acknowledgements">
-            Acknowledgements
-          </FooterLink>
+          <FooterLink href="/community/acknowledgements">Lời Cảm Ơn</FooterLink>
         </div>
         <div className="flex flex-col">
-          <FooterLink isHeader={true}>More</FooterLink>
+          <FooterLink isHeader={true}>Thêm</FooterLink>
           <FooterLink href="/blog">Blog</FooterLink>
           <FooterLink href="https://reactnative.dev/">React Native</FooterLink>
           <FooterLink href="https://opensource.facebook.com/legal/privacy">
-            Privacy
+            Quyền Riêng Tư
           </FooterLink>
           <FooterLink href="https://opensource.fb.com/legal/terms/">
-            Terms
+            Điều Khoản
           </FooterLink>
           <div className="flex flex-row items-center mt-8 gap-x-2">
             <ExternalLink
