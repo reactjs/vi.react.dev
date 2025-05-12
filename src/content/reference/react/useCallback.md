@@ -133,7 +133,7 @@ function ProductPage({ productId, referrer, theme }) {
 }
 ```
 
-**Trong JavaScript, một `function () {}` hoặc `() => {}` luôn tạo ra một hàm _khác_,** tương tự như cách literal đối tượng `{}` luôn tạo ra một đối tượng mới. Thông thường, điều này sẽ không phải là một vấn đề, nhưng nó có nghĩa là các props của `ShippingForm` sẽ không bao giờ giống nhau và tối ưu hóa [`memo`](/reference/react/memo) của bạn sẽ không hoạt động. Đây là nơi `useCallback` пригодится:
+**Trong JavaScript, một `function () {}` hoặc `() => {}` luôn tạo ra một hàm _khác_,** tương tự như cách literal đối tượng `{}` luôn tạo ra một đối tượng mới. Thông thường, điều này sẽ không phải là một vấn đề, nhưng nó có nghĩa là các props của `ShippingForm` sẽ không bao giờ giống nhau và tối ưu hóa [`memo`](/reference/react/memo) của bạn sẽ không hoạt động. Đây là nơi `useCallback` sẽ hữu ích:
 
 ```js {2,3,8,12-13}
 function ProductPage({ productId, referrer, theme }) {
