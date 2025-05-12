@@ -491,7 +491,6 @@ export default function Gallery() {
   );
 }
 ```
-```
 
 ```js src/utils.js
 export function getImageUrl(imageId, size = 's') {
