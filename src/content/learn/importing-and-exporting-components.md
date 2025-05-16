@@ -1,26 +1,26 @@
 ---
-title: Importing and Exporting Components
+title: Importing (nhập) và Exporting (Xuất) Components
 ---
 
 <Intro>
 
-The magic of components lies in their reusability: you can create components that are composed of other components. But as you nest more and more components, it often makes sense to start splitting them into different files. This lets you keep your files easy to scan and reuse components in more places.
+Ưu điểm của components nằm ở việc bạn có thể tái sử dụng chúng. Bạn có thể tạo ra components mà chứa đựng các components khác. Nhưng nếu bạn muốn lồng ghép càng nhiều components vô lẫn nhau thì nên chia các components của bạn thành các files riêng lẻ. Điều này sẽ giúp bạn thuận tiện trong việc quản lí files để tái sử dụng components ở nhiều vị trí khác nhau.
 
 </Intro>
 
 <YouWillLearn>
 
-* What a root component file is
-* How to import and export a component
-* When to use default and named imports and exports
-* How to import and export multiple components from one file
-* How to split components into multiple files
+* Khái niệm về file của root component (gốc)
+* Cách để import và export một component
+* Khi nào nên dùng default (mặc định) hoặc named (đặt tên) imports và exports
+* Cách để import và export nhiều components từ một file
+* Cách để chia nhiều components ra các files khác nhau
 
 </YouWillLearn>
 
-## The root component file {/*the-root-component-file*/}
+## File của root component {/*the-root-component-file*/}
 
-In [Your First Component](/learn/your-first-component), you made a `Profile` component and a `Gallery` component that renders it:
+Trong [Component đầu tiên của bạn](/learn/your-first-component), bạn đã tạo ra một component `Profile` và dùng một component `Gallery` khác để render nó:
 
 <Sandpack>
 
@@ -52,17 +52,17 @@ img { margin: 0 10px 10px 0; height: 90px; }
 
 </Sandpack>
 
-These currently live in a **root component file,** named `App.js` in this example. Depending on your setup, your root component could be in another file, though. If you use a framework with file-based routing, such as Next.js, your root component will be different for every page.
+Trong ví dụ trên, các components đang được đặt trong **file của root component,** với tên file là `App.js`. Tuy nhiên, tuỳ thuộc vào cách setup của bạn, root component cũng có thể được đặt trong một file khác. Nếu bạn sử dụng một framework theo cấu trúc file, như là Next.js, root component sẽ khác nhau cho mỗi trang khác nhau.
 
-## Exporting and importing a component {/*exporting-and-importing-a-component*/}
+## Exporting và importing một component {/*exporting-and-importing-a-component*/}
 
-What if you want to change the landing screen in the future and put a list of science books there? Or place all the profiles somewhere else? It makes sense to move `Gallery` and `Profile` out of the root component file. This will make them more modular and reusable in other files. You can move a component in three steps:
+Giả sử trong trường hợp bạn muốn thay đổi trang giao diện để hiển thị một danh sách về các loại sách khoa học? Hoặc bạn muốn đặt tất cả profiles ở vị trí khác? Phương thức hiệu quả là dời cả components `Gallery` và `Profile` ra khỏi file của root component. Cách này sẽ làm chúng dễ tái sử dụng hơn ở các files khác nhau. Bạn có thể dời một component với 3 bước như sau:
 
-1. **Make** a new JS file to put the components in.
-2. **Export** your function component from that file (using either [default](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/export#using_the_default_export) or [named](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/export#using_named_exports) exports).
-3. **Import** it in the file where you’ll use the component (using the corresponding technique for importing [default](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/import#importing_defaults) or [named](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/import#import_a_single_export_from_a_module) exports).
+1. **Tạo ra** một file JS mới để chứa các components.
+2. **Export** function component của bạn ra khỏi file mới tạo (bằng cách sử dụng [default](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/export#using_the_default_export) hoặc [named](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/export#using_named_exports) exports).
+3. **Import** component đó vào file mà bạn muốn dùng nó (sử dụng phương pháp import tương tự như cách bạn export ở trên với [default](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/import#importing_defaults) hoặc [named](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/import#import_a_single_export_from_a_module)).
 
-Here both `Profile` and `Gallery` have been moved out of `App.js` into a new file called `Gallery.js`. Now you can change `App.js` to import `Gallery` from `Gallery.js`:
+Ví dụ ở dưới là cách bạn dời cả hai `Profile` và `Gallery` ra khỏi `App.js` và đặt chúng vào một file mới tên `Gallery.js`. Bây giờ bạn có thể thay đổi `App.js` để import `Gallery` từ `Gallery.js`:
 
 <Sandpack>
 
@@ -104,25 +104,25 @@ img { margin: 0 10px 10px 0; height: 90px; }
 
 </Sandpack>
 
-Notice how this example is broken down into two component files now:
+Bây giờ, hãy để ý ở ví dụ trên đã chia ra thành hai files component khác nhau, bao gồm:
 
 1. `Gallery.js`:
-     - Defines the `Profile` component which is only used within the same file and is not exported.
-     - Exports the `Gallery` component as a **default export.**
+     - Thiết lập component `Profile` với mục đích sử dụng trong file và không được export ra ngoài.
+     - Export component `Gallery` bằng cách **default export.**
 2. `App.js`:
-     - Imports `Gallery` as a **default import** from `Gallery.js`.
-     - Exports the root `App` component as a **default export.**
+     - Import `Gallery` bằng cách **default import** từ file `Gallery.js`.
+     - Export root component `App` bằng cách **default export.**
 
 
 <Note>
 
-You may encounter files that leave off the `.js` file extension like so:
+Có những trường hợp mà files bỏ đi phần đuôi `.js` như ví dụ dưới đây:
 
 ```js 
 import Gallery from './Gallery';
 ```
 
-Either `'./Gallery.js'` or `'./Gallery'` will work with React, though the former is closer to how [native ES Modules](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules) work.
+Cả `'./Gallery.js'` hoặc `'./Gallery'` đều đúng với React. Tuy nhiên, sử dụng `'./Gallery.js'` sẽ thuận với cách dùng của [native ES Modules](https://developer.mozilla.org/docs/Web/JavaScript/Guide/Modules) hơn.
 
 </Note>
 
@@ -130,34 +130,33 @@ Either `'./Gallery.js'` or `'./Gallery'` will work with React, though the former
 
 #### Default vs named exports {/*default-vs-named-exports*/}
 
-There are two primary ways to export values with JavaScript: default exports and named exports. So far, our examples have only used default exports. But you can use one or both of them in the same file. **A file can have no more than one _default_ export, but it can have as many _named_ exports as you like.**
+Có hai cách chính để export giá trị bằng JavaScripts: default exports và named exports. Những ví dụ từ đầu tới giờ chỉ dùng default exports. Tuy nhiên bạn có thể sử dụng một hoặc cả hai cách trong cùng một file. **Hãy nhớ rằng mỗi file chỉ được có duy nhất một _default_ export, nhưng nó được phép có nhiều _named_ exports.**
 
-![Default and named exports](/images/docs/illustrations/i_import-export.svg)
+![Default và named exports](/images/docs/illustrations/i_import-export.svg)
 
-How you export your component dictates how you must import it. You will get an error if you try to import a default export the same way you would a named export! This chart can help you keep track:
+Cách bạn export một component sẽ quyết định cách bạn import nó. Bạn sẽ gặp lỗi nếu bạn import một default export theo cách mà bạn dùng cho named export! Bảng hướng dẫn dưới đây sẽ giúp bạn tránh lỗi này:
 
-| Syntax           | Export statement                           | Import statement                          |
+| Cú pháp           | Câu lệnh Export                           | Câu lệnh Import                          |
 | -----------      | -----------                                | -----------                               |
 | Default  | `export default function Button() {}` | `import Button from './Button.js';`     |
 | Named    | `export function Button() {}`         | `import { Button } from './Button.js';` |
 
-When you write a _default_ import, you can put any name you want after `import`. For example, you could write `import Banana from './Button.js'` instead and it would still provide you with the same default export. In contrast, with named imports, the name has to match on both sides. That's why they are called _named_ imports!
+Khi bạn dùng một _default_ import, bạn có thể dùng bất cứ tên gọi nào để đặt ở phía sau từ khoá `import`. Ví dụ như nếu bạn dùng `import Banana from './Button.js'` cho loại default export tương ứng thì bạn cũng sẽ đạt được kết quả tương tự. Tuy nhiên, với named imports, tên gọi phải đồng nhất ở cả hai phía export và import. Đó là lí do tại sao mà chúng được gọi là named imports!
 
-**People often use default exports if the file exports only one component, and use named exports if it exports multiple components and values.** Regardless of which coding style you prefer, always give meaningful names to your component functions and the files that contain them. Components without names, like `export default () => {}`, are discouraged because they make debugging harder.
+**Thông thường, mọi người dùng default exports cho các file chỉ export một component, và dùng named exports cho các file export nhiều components và các giá trị khác nhau.** Dù cho bạn có dùng bất kể phương pháp nào, hãy nhớ là luôn luôn đặt tên mang tính gợi ý cho các component functions của bạn và cho các files của chúng. Không nên sử dụng components không tên, chẳng hạn như `export default () => {}`, vì chúng sẽ gây khó khăn trong việc sửa lỗi code.
 
 </DeepDive>
 
-## Exporting and importing multiple components from the same file {/*exporting-and-importing-multiple-components-from-the-same-file*/}
+## Exporting và importing nhiều components từ cùng một file {/*exporting-and-importing-multiple-components-from-the-same-file*/}
 
-What if you want to show just one `Profile` instead of a gallery? You can export the `Profile` component, too. But `Gallery.js` already has a *default* export, and you can't have _two_ default exports. You could create a new file with a default export, or you could add a *named* export for `Profile`. **A file can only have one default export, but it can have numerous named exports!**
-
+Giả sử bạn muốn hiển thị chỉ một `Profile` thay vì là cả một gallery? Bạn có thể export component `Profile`. Tuy nhiên, `Gallery.js` đã có dùng một *default* export rồi, và bạn không được dùng _hai_ default exports trong một file. Thế nên có hai cách làm như sau là (1) bạn có thể tạo ra một file mới rồi dùng default export, hoặc (2) bạn có thể dùng một *named* export cho component `Profile`. **Một file chỉ có thể dùng một default export, nhưng nó có thể dùng nhiều named exports!**
 <Note>
 
-To reduce the potential confusion between default and named exports, some teams choose to only stick to one style (default or named), or avoid mixing them in a single file. Do what works best for you!
+Để giảm bớt việc lẫn lộn giữa default và named exports, một số teams chọn chỉ sử dụng một trong hai (default hoặc named), hoặc tránh việc dùng lẫn cả hai trong cùng một file. Hãy chọn cách hiệu quả nhất cho bạn!
 
 </Note>
 
-First, **export** `Profile` from `Gallery.js` using a named export (no `default` keyword):
+Bước đầu tiên, **export** `Profile` từ `Gallery.js` bằng named export (bỏ từ `default` ra):
 
 ```js
 export function Profile() {
@@ -165,13 +164,13 @@ export function Profile() {
 }
 ```
 
-Then, **import** `Profile` from `Gallery.js` to `App.js` using a named import (with the curly braces):
+Sau đó, **import** `Profile` từ `Gallery.js` vào `App.js` bằng named import (sử dụng cặp dấu ngoặc nhọn):
 
 ```js
 import { Profile } from './Gallery.js';
 ```
 
-Finally, **render** `<Profile />` from the `App` component:
+Bước cuối cùng, **render** `<Profile />` từ component `App`:
 
 ```js
 export default function App() {
@@ -179,7 +178,7 @@ export default function App() {
 }
 ```
 
-Now `Gallery.js` contains two exports: a default `Gallery` export, and a named `Profile` export. `App.js` imports both of them. Try editing `<Profile />` to `<Gallery />` and back in this example:
+Sau khi hoàn thành các bước trên thì hiện tại `Gallery.js` chứa hai components: một default export `Gallery`, và một named export `Profile`. `App.js` import cả hai components trên. Ở ví dụ dưới đây, bạn hãy thử đổi `<Profile />` thành `<Gallery />`, và ngược lại.
 
 <Sandpack>
 
@@ -222,24 +221,24 @@ img { margin: 0 10px 10px 0; height: 90px; }
 
 </Sandpack>
 
-Now you're using a mix of default and named exports:
+Hiện tại, bạn đang sử dụng xen lẫn cả default và named exports:
 
 * `Gallery.js`:
-  - Exports the `Profile` component as a **named export called `Profile`.**
-  - Exports the `Gallery` component as a **default export.**
+  - Export component `Profile` bằng cách **named export với tên `Profile`.**
+  - Export component `Gallery` bằng cách **default export.**
 * `App.js`:
-  - Imports `Profile` as a **named import called `Profile`** from `Gallery.js`.
-  - Imports `Gallery` as a **default import** from `Gallery.js`.
-  - Exports the root `App` component as a **default export.**
+  - Import `Profile` bằng cách **named import với tên `Profile`** từ `Gallery.js`.
+  - Import `Gallery` bằng cách **default import** từ `Gallery.js`.
+  - Export root component `App` bằng cách **default export.**
 
 <Recap>
 
-On this page you learned:
+Trong chương này, bạn đã học được:
 
-* What a root component file is
-* How to import and export a component
-* When and how to use default and named imports and exports
-* How to export multiple components from the same file
+* Khái niệm về file của root component
+* Cách để import và export một component
+* Khi nào và làm sao để sử dụng default và named imports và exports
+* Làm sao để export nhiều components từ cùng một file
 
 </Recap>
 
@@ -247,22 +246,22 @@ On this page you learned:
 
 <Challenges>
 
-#### Split the components further {/*split-the-components-further*/}
+#### Tách riêng các components thêm hơn nữa {/*split-the-components-further*/}
 
-Currently, `Gallery.js` exports both `Profile` and `Gallery`, which is a bit confusing.
+Hiện tại, việc `Gallery.js` export cả hai components `Profile` và `Gallery` đôi khi có thể gây nhầm lẫn.
 
-Move the `Profile` component to its own `Profile.js`, and then change the `App` component to render both `<Profile />` and `<Gallery />` one after another.
+Ta có thể dời component `Profile` vào một file riêng khác với tên `Profile.js`, sau đó dùng component `App` để lần lượt render cả hai `<Profile />` và `<Gallery />`.
 
-You may use either a default or a named export for `Profile`, but make sure that you use the corresponding import syntax in both `App.js` and `Gallery.js`! You can refer to the table from the deep dive above:
+Bạn có thể sử dụng default hoặc named export cho `Profile`, tuy nhiên hãy nhớ sử dụng cú pháp import cho tương ứng trong cả hai file `App.js` và `Gallery.js`! Bạn có thể xem bảng hướng dẫn phía dưới cho cách sử dụng cú pháp chính xác:
 
-| Syntax           | Export statement                           | Import statement                          |
+| Cú pháp           | Câu lệnh Export                           | Câu lệnh Import                          |
 | -----------      | -----------                                | -----------                               |
 | Default  | `export default function Button() {}` | `import Button from './Button.js';`     |
 | Named    | `export function Button() {}`         | `import { Button } from './Button.js';` |
 
 <Hint>
 
-Don't forget to import your components where they are called. Doesn't `Gallery` use `Profile`, too?
+Đừng quên import components ở nơi mà chúng được dùng. Cân nhắc xem `Gallery` có dùng `Profile` hay không?
 
 </Hint>
 
@@ -313,11 +312,11 @@ img { margin: 0 10px 10px 0; height: 90px; }
 
 </Sandpack>
 
-After you get it working with one kind of exports, make it work with the other kind.
+Sau khi bạn thành công với một phương pháp export, hãy thử với phương pháp còn lại.
 
 <Solution>
 
-This is the solution with named exports:
+Dưới đây là đáp án mà sử dụng named exports:
 
 <Sandpack>
 
@@ -367,7 +366,7 @@ img { margin: 0 10px 10px 0; height: 90px; }
 
 </Sandpack>
 
-This is the solution with default exports:
+Dưới đây là đáp án mà sử dụng default exports:
 
 <Sandpack>
 
