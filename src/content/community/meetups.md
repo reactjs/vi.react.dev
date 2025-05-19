@@ -38,7 +38,7 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 
 ## Canada {/*canada*/}
 * [Halifax, NS](https://www.meetup.com/Halifax-ReactJS-Meetup/)
-* [Montreal, QC - React Native](https://www.meetup.com/fr-FR/React-Native-MTL/)
+* [Montreal, QC](https://guild.host/react-montreal/)
 * [Vancouver, BC](https://www.meetup.com/ReactJS-Vancouver-Meetup/)
 * [Ottawa, ON](https://www.meetup.com/Ottawa-ReactJS-Meetup/)
 * [Saskatoon, SK](https://www.meetup.com/saskatoon-react-meetup/)
