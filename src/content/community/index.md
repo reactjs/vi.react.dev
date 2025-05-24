@@ -31,8 +31,4 @@ Mỗi cộng đồng bao gồm hàng nghìn người dùng React.
 
 ## Tin tức {/*news*/}
 
-<<<<<<< HEAD
-Để biết thêm tin tức mới nhất về React, [theo dõi **@reactjs** trên Twitter](https://twitter.com/reactjs) và [blog chính thức của React](/blog/) trên trang này.
-=======
-For the latest news about React, [follow **@reactjs** on Twitter](https://twitter.com/reactjs), [**@react.dev** on Bluesky](https://bsky.app/profile/react.dev) and the [official React blog](/blog/) on this website.
->>>>>>> 65d297e93b36be5370e58ab7828d022c741ecbe2
+Để biết thêm tin tức mới nhất về React, [theo dõi **@reactjs** trên Twitter](https://twitter.com/reactjs), [**@react.dev** trên Bluesky](https://bsky.app/profile/react.dev) và [blog chính thức của React](/blog/) trên website này.
