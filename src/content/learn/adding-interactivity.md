@@ -4,119 +4,27 @@ title: Thêm Tính Tương Tác
 
 <Intro>
 
-Một số thứ trên màn hình cập nhật để phản hồi lại input của người dùng. Ví dụ, click vào thư viện ảnh sẽ chuyển đổi ảnh đang hoạt động. Trong React, data thay đổi theo thời gian được gọi là *state.* Bạn có thể thêm state cho bất kỳ Component nào, và cập nhật nó khi cần thiết. Trong chương này, bạn sẽ học cách viết các Component xử lý tương tác, cập nhật state của chúng, và hiển thị output khác nhau theo thời gian.
+Một số thứ trên màn hình cập nhật để phản hồi đầu vào của người dùng. Ví dụ, nhấp vào thư viện ảnh sẽ chuyển đổi ảnh đang hoạt động. Trong React, data thay đổi theo thời gian được gọi là *state*. Bạn có thể thêm state vào bất kỳ component nào và cập nhật nó khi cần thiết. Trong chương này, bạn sẽ học cách viết các component xử lý tương tác, cập nhật state của chúng và hiển thị output khác nhau theo thời gian.
 
 </Intro>
 
 <YouWillLearn isChapter={true}>
 
-* [Cách xử lý sự kiện do người dùng khởi tạo](/learn/responding-to-events)
-* [Cách làm cho Component "nhớ" thông tin với state](/learn/state-a-components-memory)
+* [Cách xử lý các sự kiện do người dùng khởi tạo](/learn/responding-to-events)
+* [Cách làm cho component "nhớ" thông tin với state](/learn/state-a-components-memory)
 * [Cách React cập nhật UI trong hai giai đoạn](/learn/render-and-commit)
 * [Tại sao state không cập nhật ngay sau khi bạn thay đổi nó](/learn/state-as-a-snapshot)
-* [Cách xếp hàng đợi nhiều lần cập nhật state](/learn/queueing-a-series-of-state-updates)
+* [Cách xếp hàng đợi nhiều cập nhật state](/learn/queueing-a-series-of-state-updates)
 * [Cách cập nhật một object trong state](/learn/updating-objects-in-state)
 * [Cách cập nhật một array trong state](/learn/updating-arrays-in-state)
 
 </YouWillLearn>
 
-# Thêm Tính Tương Tác {/*thêm-tính-tương-tác*/}
-
-Trong phần này, bạn sẽ học cách làm cho Ứng dụng React của mình trở nên tương tác hơn bằng cách bắt sự kiện và cập nhật state.
-
-## Bắt Sự Kiện {/*bắt-sự-kiện*/}
-
-React cho phép bạn bắt các sự kiện như click chuột, nhập liệu bàn phím, và nhiều hơn nữa bằng cách thêm thuộc tính sự kiện vào những Element. Ví dụ:
-
-```jsx
-function MyButton() {
-  function handleClick() {
-    alert('Bạn đã click vào tôi!');
-  }
-
-  return (
-    <button onClick={handleClick}>
-      Click vào tôi
-    </button>
-  );
-}
-```
-
-Ở đây, thuộc tính `onClick` được sử dụng để bắt sự kiện click chuột trên button. Khi button được click, hàm `handleClick` sẽ được gọi.
-
-## Cập Nhật State {/*cập-nhật-state*/}
-
-Để làm cho UI thay đổi dựa trên hành động của người dùng, bạn cần cập nhật state. React cung cấp hook `useState` để quản lý state trong Functional Components.
-
-```jsx
-import { useState } from 'react';
-
-function MyButton() {
-  const [count, setCount] = useState(0);
-
-  function handleClick() {
-    setCount(count + 1);
-  }
-
-  return (
-    <button onClick={handleClick}>
-      Đã click {count} lần
-    </button>
-  );
-}
-```
-
-Ở ví dụ trên, mỗi lần button được click, state `count` sẽ tăng lên 1 và giao diện sẽ được render lại để hiển thị giá trị mới.
-
-## Kết Hợp Bắt Sự Kiện và State {/*kết-hợp-bắt-sự-kiện-và-state*/}
-
-Bạn có thể kết hợp nhiều sự kiện và state để xây dựng những Ứng dụng phức tạp hơn. Ví dụ, một form nhập liệu:
-
-```jsx
-import { useState } from 'react';
-
-function MyForm() {
-  const [name, setName] = useState('');
-
-  function handleChange(e) {
-    setName(e.target.value);
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    alert(`Xin chào, ${name}!`);
-  }
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <input value={name} onChange={handleChange} />
-      <button type="submit">Gửi</button>
-    </form>
-  );
-}
-```
-
-Ở đây, thuộc tính `onChange` được sử dụng để cập nhật state `name` mỗi khi người dùng nhập liệu, và `onSubmit` để xử lý khi form được gửi.
-
-## Lưu Ý {/*lưu-ý*/}
-
-- Những thuộc tính sự kiện trong React được viết theo camelCase, ví dụ: `onClick`, `onChange`.
-- Bạn nên tránh cập nhật state trực tiếp mà hãy luôn sử dụng hàm cập nhật state như `setCount`, `setName`.
-- Khi state thay đổi, React sẽ tự động render lại những Element liên quan.
-
-## Tổng Kết {/*tổng-kết*/}
-
-- Sử dụng thuộc tính sự kiện để bắt sự kiện người dùng.
-- Quản lý state với hook `useState`.
-- Kết hợp bắt sự kiện và state để xây dựng Ứng dụng tương tác.
-
-Bạn đã sẵn sàng để xây dựng những Ứng dụng React tương tác hơn!
-
 ## Phản hồi sự kiện {/*responding-to-events*/}
 
-React cho phép bạn thêm *event handler* vào JSX của mình. Event handler là những Function của riêng bạn sẽ được kích hoạt để phản hồi lại tương tác của người dùng như click, hover, focus vào các input của form, và nhiều hơn nữa.
+React cho phép bạn thêm *event handler* vào JSX của mình. Event handler là các function của riêng bạn sẽ được kích hoạt để phản hồi các tương tác của người dùng như nhấp chuột, di chuột, focus vào input của form, và nhiều hơn nữa.
 
-Các Component tích hợp sẵn như `<button>` chỉ hỗ trợ các sự kiện tích hợp sẵn của trình duyệt như `onClick`. Tuy nhiên, bạn cũng có thể tạo Component của riêng mình, và đặt tên cho các event handler Props của chúng theo bất kỳ tên cụ thể cho Ứng dụng nào mà bạn thích.
+Các component tích hợp sẵn như `<button>` chỉ hỗ trợ các sự kiện tích hợp sẵn của trình duyệt như `onClick`. Tuy nhiên, bạn cũng có thể tạo các component của riêng mình và đặt tên cho các props event handler của chúng theo bất kỳ tên cụ thể cho ứng dụng nào mà bạn thích.
 
 <Sandpack>
 
@@ -164,18 +72,18 @@ button { margin-right: 10px; }
 
 </LearnMore>
 
-## State: bộ nhớ của Component {/*state-a-components-memory*/}
+## State: bộ nhớ của component {/*state-a-components-memory*/}
 
-Component thường cần thay đổi những gì hiển thị trên màn hình kết quả của một tương tác. Nhập vào form phải cập nhật trường input, click "tiếp theo" trên carousel ảnh phải thay đổi ảnh nào được hiển thị, click "mua" đặt sản phẩm vào giỏ hàng. Component cần "nhớ" những thứ: giá trị input hiện tại, ảnh hiện tại, giỏ hàng. Trong React, loại bộ nhớ cụ thể của Component này được gọi là *state.*
+Các component thường cần thay đổi những gì hiển thị trên màn hình kết quả của một tương tác. Gõ vào form sẽ cập nhật trường input, nhấp "tiếp theo" trên carousel ảnh sẽ thay đổi ảnh nào được hiển thị, nhấp "mua" sẽ đưa sản phẩm vào giỏ hàng. Các component cần "nhớ" các thứ: giá trị input hiện tại, ảnh hiện tại, giỏ hàng. Trong React, loại bộ nhớ cụ thể của component này được gọi là *state*.
 
-Bạn có thể thêm state cho một Component với Hook [`useState`](/reference/react/useState). *Hook* là những Function đặc biệt cho phép Component của bạn sử dụng các tính năng của React (state là một trong những tính năng đó). Hook `useState` cho phép bạn khai báo một biến state. Nó nhận state ban đầu và trả về một cặp giá trị: state hiện tại, và một Function setter state cho phép bạn cập nhật nó.
+Bạn có thể thêm state vào một component với Hook [`useState`](/reference/react/useState). *Hook* là các function đặc biệt cho phép các component của bạn sử dụng các tính năng React (state là một trong những tính năng đó). Hook `useState` cho phép bạn khai báo một biến state. Nó nhận state ban đầu và trả về một cặp giá trị: state hiện tại và một function setter state cho phép bạn cập nhật nó.
 
 ```js
 const [index, setIndex] = useState(0);
 const [showMore, setShowMore] = useState(false);
 ```
 
-Đây là cách một thư viện ảnh sử dụng và cập nhật state khi click:
+Đây là cách một thư viện ảnh sử dụng và cập nhật state khi nhấp:
 
 <Sandpack>
 
@@ -211,7 +119,7 @@ export default function Gallery() {
         bởi {sculpture.artist}
       </h2>
       <h3>
-        ({index + 1} của {sculptureList.length})
+        ({index + 1} trên {sculptureList.length})
       </h3>
       <button onClick={handleMoreClick}>
         {showMore ? 'Ẩn' : 'Hiện'} chi tiết
@@ -321,35 +229,35 @@ button {
 
 <LearnMore path="/learn/state-a-components-memory">
 
-Đọc **[State: Bộ Nhớ Của Component](/learn/state-a-components-memory)** để học cách nhớ một giá trị và cập nhật nó khi có tương tác.
+Đọc **[State: Bộ Nhớ Của Component](/learn/state-a-components-memory)** để học cách nhớ một giá trị và cập nhật nó khi tương tác.
 
 </LearnMore>
 
 ## Render và commit {/*render-and-commit*/}
 
-Trước khi Component của bạn được hiển thị trên màn hình, chúng phải được render bởi React. Hiểu các bước trong quy trình này sẽ giúp bạn suy nghĩ về cách code của bạn thực thi và giải thích hành vi của nó.
+Trước khi các component của bạn được hiển thị trên màn hình, chúng phải được render bởi React. Hiểu các bước trong quá trình này sẽ giúp bạn suy nghĩ về cách code của bạn thực thi và giải thích hành vi của nó.
 
-Hãy tưởng tượng rằng Component của bạn là những đầu bếp trong bếp, lắp ráp những món ăn ngon từ các nguyên liệu. Trong kịch bản này, React là người phục vụ nhận yêu cầu từ khách hàng và mang đến cho họ đơn hàng. Quy trình yêu cầu và phục vụ UI này có ba bước:
+Hãy tưởng tượng rằng các component của bạn là những đầu bếp trong nhà bếp, pha chế những món ăn ngon từ nguyên liệu. Trong kịch bản này, React là người phục vụ nhận yêu cầu từ khách hàng và mang đến cho họ đơn hàng. Quá trình yêu cầu và phục vụ UI có ba bước:
 
-1. **Kích hoạt** một render (giao đơn hàng của khách đến bếp)
-2. **Rendering** Component (chuẩn bị đơn hàng trong bếp)
-3. **Commit** đến DOM (đặt đơn hàng lên bàn)
+1. **Kích hoạt** một render (chuyển đơn hàng của khách đến nhà bếp)
+2. **Render** component (chuẩn bị đơn hàng trong nhà bếp)
+3. **Commit** vào DOM (đặt đơn hàng lên bàn)
 
 <IllustrationBlock sequential>
-  <Illustration caption="Kích hoạt" alt="React như một server trong nhà hàng, lấy đơn hàng từ người dùng và giao chúng đến Component Kitchen." src="/images/docs/illustrations/i_render-and-commit1.png" />
-  <Illustration caption="Render" alt="Card Chef đưa cho React một Component Card mới." src="/images/docs/illustrations/i_render-and-commit2.png" />
-  <Illustration caption="Commit" alt="React giao Card đến người dùng tại bàn của họ." src="/images/docs/illustrations/i_render-and-commit3.png" />
+  <Illustration caption="Trigger" alt="React as a server in a restaurant, fetching orders from the users and delivering them to the Component Kitchen." src="/images/docs/illustrations/i_render-and-commit1.png" />
+  <Illustration caption="Render" alt="The Card Chef gives React a fresh Card component." src="/images/docs/illustrations/i_render-and-commit2.png" />
+  <Illustration caption="Commit" alt="React delivers the Card to the user at their table." src="/images/docs/illustrations/i_render-and-commit3.png" />
 </IllustrationBlock>
 
 <LearnMore path="/learn/render-and-commit">
 
-Đọc **[Render và Commit](/learn/render-and-commit)** để học về vòng đời của một bản cập nhật UI.
+Đọc **[Render và Commit](/learn/render-and-commit)** để học vòng đời của một cập nhật UI.
 
 </LearnMore>
 
 ## State như một snapshot {/*state-as-a-snapshot*/}
 
-Không giống như các biến JavaScript thông thường, React state hoạt động giống như một snapshot hơn. Thiết lập nó không thay đổi biến state mà bạn đã có, mà thay vào đó kích hoạt một re-render. Điều này có thể đáng ngạc nhiên lúc đầu!
+Không giống như các biến JavaScript thông thường, React state hoạt động giống như một snapshot hơn. Thiết lập nó không thay đổi biến state mà bạn đã có, mà thay vào đó kích hoạt một re-render. Điều này có thể gây ngạc nhiên lúc đầu!
 
 ```js
 console.log(count);  // 0
@@ -357,7 +265,7 @@ setCount(count + 1); // Yêu cầu một re-render với 1
 console.log(count);  // Vẫn là 0!
 ```
 
-Hành vi này giúp bạn tránh những bug tinh vi. Đây là một Ứng dụng chat nhỏ. Hãy thử đoán xem điều gì sẽ xảy ra nếu bạn nhấn "Gửi" trước và *sau đó* thay đổi người nhận thành Bob. Tên của ai sẽ xuất hiện trong `alert` sau năm giây?
+Hành vi này giúp bạn tránh các bug tinh vi. Đây là một ứng dụng chat nhỏ. Hãy thử đoán xem điều gì sẽ xảy ra nếu bạn nhấn "Gửi" trước *rồi sau đó* thay đổi người nhận thành Bob. Tên của ai sẽ xuất hiện trong `alert` năm giây sau?
 
 <Sandpack>
 
@@ -378,7 +286,7 @@ export default function Form() {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Đến:{' '}
+        Tới:{' '}
         <select
           value={to}
           onChange={e => setTo(e.target.value)}>
@@ -406,13 +314,13 @@ label, textarea { margin-bottom: 10px; display: block; }
 
 <LearnMore path="/learn/state-as-a-snapshot">
 
-Đọc **[State Như Một Snapshot](/learn/state-as-a-snapshot)** để học tại sao state xuất hiện "cố định" và không thay đổi bên trong event handler.
+Đọc **[State Như Một Snapshot](/learn/state-as-a-snapshot)** để học tại sao state có vẻ "cố định" và không thay đổi bên trong event handler.
 
 </LearnMore>
 
 ## Xếp hàng đợi một chuỗi cập nhật state {/*queueing-a-series-of-state-updates*/}
 
-Component này có bug: click "+3" chỉ tăng điểm một lần.
+Component này có bug: nhấp "+3" chỉ tăng điểm số một lần.
 
 <Sandpack>
 
@@ -434,7 +342,7 @@ export default function Counter() {
         increment();
         increment();
       }}>+3</button>
-      <h1>Điểm: {score}</h1>
+      <h1>Điểm số: {score}</h1>
     </>
   )
 }
@@ -458,7 +366,7 @@ setScore(score + 1); // setScore(0 + 1);
 console.log(score);  // 0
 ```
 
-Bạn có thể sửa điều này bằng cách truyền một *Function cập nhật* khi thiết lập state. Chú ý cách thay thế `setScore(score + 1)` bằng `setScore(s => s + 1)` sửa button "+3". Điều này cho phép bạn xếp hàng đợi nhiều lần cập nhật state.
+Bạn có thể sửa điều này bằng cách truyền một *updater function* khi thiết lập state. Chú ý cách thay thế `setScore(score + 1)` bằng `setScore(s => s + 1)` sửa nút "+3". Điều này cho phép bạn xếp hàng đợi nhiều cập nhật state.
 
 <Sandpack>
 
@@ -480,7 +388,7 @@ export default function Counter() {
         increment();
         increment();
       }}>+3</button>
-      <h1>Điểm: {score}</h1>
+      <h1>Điểm số: {score}</h1>
     </>
   )
 }
@@ -500,9 +408,9 @@ button { display: inline-block; margin: 10px; font-size: 20px; }
 
 ## Cập nhật object trong state {/*updating-objects-in-state*/}
 
-State có thể chứa bất kỳ loại giá trị JavaScript nào, bao gồm cả object. Nhưng bạn không nên thay đổi trực tiếp object và array mà bạn lưu giữ trong React state. Thay vào đó, khi bạn muốn cập nhật một object và array, bạn cần tạo mới một cái (hoặc tạo bản sao của cái hiện có), và sau đó cập nhật state để sử dụng bản sao đó.
+State có thể chứa bất kỳ loại giá trị JavaScript nào, bao gồm object. Nhưng bạn không nên thay đổi object và array mà bạn giữ trong React state một cách trực tiếp. Thay vào đó, khi bạn muốn cập nhật một object và array, bạn cần tạo một cái mới (hoặc tạo một bản sao của một cái hiện có), và sau đó cập nhật state để sử dụng bản sao đó.
 
-Thường thì, bạn sẽ sử dụng cú pháp spread `...` để sao chép object và array mà bạn muốn thay đổi. Ví dụ, cập nhật một object lồng nhau có thể trông như thế này:
+Thường thì, bạn sẽ sử dụng cú pháp spread `...` để sao chép object và array mà bạn muốn thay đổi. Ví dụ, cập nhật một nested object có thể trông như thế này:
 
 <Sandpack>
 
@@ -580,7 +488,7 @@ export default function Form() {
         />
       </label>
       <label>
-        Ảnh:
+        Hình ảnh:
         <input
           value={person.artwork.image}
           onChange={handleImageChange}
@@ -591,7 +499,7 @@ export default function Form() {
         {' bởi '}
         {person.name}
         <br />
-        (nằm ở {person.artwork.city})
+        (tọa lạc tại {person.artwork.city})
       </p>
       <img
         src={person.artwork.image}
@@ -675,7 +583,7 @@ export default function Form() {
         />
       </label>
       <label>
-        Ảnh:
+        Hình ảnh:
         <input
           value={person.artwork.image}
           onChange={handleImageChange}
@@ -686,7 +594,7 @@ export default function Form() {
         {' bởi '}
         {person.name}
         <br />
-        (nằm ở {person.artwork.city})
+        (tọa lạc tại {person.artwork.city})
       </p>
       <img
         src={person.artwork.image}
@@ -731,7 +639,7 @@ img { width: 200px; height: 200px; }
 
 ## Cập nhật array trong state {/*updating-arrays-in-state*/}
 
-Array là một loại object JavaScript khả biến khác mà bạn có thể lưu trữ trong state và nên đối xử như chỉ đọc. Giống như với object, khi bạn muốn cập nhật một array được lưu trữ trong state, bạn cần tạo mới một cái (hoặc tạo bản sao của cái hiện có), và sau đó đặt state để sử dụng array mới:
+Array là một loại object JavaScript có thể thay đổi khác mà bạn có thể lưu trữ trong state và nên coi như chỉ đọc. Giống như với object, khi bạn muốn cập nhật một array được lưu trữ trong state, bạn cần tạo một cái mới (hoặc tạo một bản sao của một cái hiện có), và sau đó thiết lập state để sử dụng array mới:
 
 <Sandpack>
 
@@ -761,7 +669,7 @@ export default function BucketList() {
 
   return (
     <>
-      <h1>Danh Sách Nghệ Thuật Yêu Thích</h1>
+      <h1>Danh Sách Nghệ Thuật Mong Muốn</h1>
       <h2>Danh sách nghệ thuật tôi muốn xem:</h2>
       <ItemList
         artworks={list}
@@ -825,7 +733,7 @@ export default function BucketList() {
 
   return (
     <>
-      <h1>Danh Sách Nghệ Thuật Yêu Thích</h1>
+      <h1>Danh Sách Nghệ Thuật Mong Muốn</h1>
       <h2>Danh sách nghệ thuật tôi muốn xem:</h2>
       <ItemList
         artworks={list}
@@ -887,6 +795,6 @@ function ItemList({ artworks, onToggle }) {
 
 ## Tiếp theo là gì? {/*whats-next*/}
 
-Hãy chuyển đến [Phản Hồi Sự Kiện](/learn/responding-to-events) để bắt đầu đọc chương này từng trang một!
+Hãy đến [Phản Hồi Sự Kiện](/learn/responding-to-events) để bắt đầu đọc chương này từng trang một!
 
 Hoặc, nếu bạn đã quen thuộc với những chủ đề này, tại sao không đọc về [Quản Lý State](/learn/managing-state)?
