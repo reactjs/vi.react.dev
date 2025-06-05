@@ -11,20 +11,20 @@ React là một thư viện JavaScript để render giao diện người dùng (
 <YouWillLearn isChapter={true}>
 
 * [Cách viết React component đầu tiên của bạn](/learn/your-first-component)
-* [Khi nào và cách tạo file multi-component](/learn/importing-and-exporting-components)
+* [Khi nào và cách tạo file với nhiều component](/learn/importing-and-exporting-components)
 * [Cách thêm markup vào JavaScript với JSX](/learn/writing-markup-with-jsx)
 * [Cách sử dụng dấu ngoặc nhọn với JSX để truy cập chức năng JavaScript từ component của bạn](/learn/javascript-in-jsx-with-curly-braces)
 * [Cách cấu hình component với props](/learn/passing-props-to-a-component)
 * [Cách render component theo điều kiện](/learn/conditional-rendering)
 * [Cách render nhiều component cùng lúc](/learn/rendering-lists)
 * [Cách tránh bug khó hiểu bằng cách giữ component thuần khiết](/learn/keeping-components-pure)
-* [Tại sao hiểu UI của bạn như cây cấu trúc lại hữu ích](/learn/understanding-your-ui-as-a-tree)
+* [Tại sao hiểu UI của bạn theo cấu trúc cây lại hữu ích](/learn/understanding-your-ui-as-a-tree)
 
 </YouWillLearn>
 
 ## Component đầu tiên của bạn {/*your-first-component*/}
 
-Ứng dụng React được xây dựng từ những phần UI tách biệt gọi là *component*. Một React component là một JavaScript function mà bạn có thể rắc thêm markup. Component có thể nhỏ như một nút bấm, hoặc lớn như toàn bộ trang. Đây là một component `Gallery` render ba component `Profile`:
+Ứng dụng React được xây dựng từ những phần UI độc lập gọi là *component*. Một React component là một JavaScript function mà bạn có thể thêm markup vào. Component có thể nhỏ như một nút bấm, hoặc lớn như toàn bộ trang. Đây là một component `Gallery` render ba component `Profile`:
 
 <Sandpack>
 
@@ -64,7 +64,7 @@ img { margin: 0 10px 10px 0; height: 90px; }
 
 ## Import và export component {/*importing-and-exporting-components*/}
 
-Bạn có thể khai báo nhiều component trong một file, nhưng file lớn có thể khó điều hướng. Để giải quyết điều này, bạn có thể *export* một component vào file riêng của nó, và sau đó *import* component đó từ file khác:
+Bạn có thể khai báo nhiều component trong một file, nhưng file quá nhiều component có thể khó sử dụng. Để giải quyết điều này, bạn có thể *export* một component vào file riêng của nó, và sau đó *import* component đó từ file khác:
 
 
 <Sandpack>
@@ -119,9 +119,9 @@ img { margin: 0 10px 10px 0; }
 
 ## Viết markup với JSX {/*writing-markup-with-jsx*/}
 
-Mỗi React component là một JavaScript function có thể chứa một số markup mà React render vào trình duyệt. React component sử dụng phần mở rộng cú pháp được gọi là JSX để hiện thị markup đó. JSX trông rất giống HTML, nhưng nó nghiêm ngặt hơn một chút và có thể hiển thị thông tin một cách linh động.
+Mỗi React component là một JavaScript function có thể chứa một số markup mà React render vào trình duyệt. React component sử dụng phần mở rộng cú pháp được gọi là JSX để hiển thị markup đó. JSX trông rất giống HTML, nhưng nó nghiêm ngặt hơn một chút và có thể hiển thị thông tin một cách linh động.
 
-Nếu chúng ta dán markup HTML hiện có vào một React component, nó sẽ không phải lúc nào cũng hoạt động:
+Nếu chúng ta dùng y hệt markup HTML vào một React component, nó chưa chắc sẽ hoạt động:
 
 <Sandpack>
 
@@ -150,7 +150,7 @@ img { height: 90px; }
 
 </Sandpack>
 
-Nếu bạn có HTML hiện có như thế này, bạn có thể sửa nó bằng cách sử dụng [trình chuyển đổi](https://transform.tools/html-to-jsx):
+Nếu bạn hiện có HTML như thế này, bạn có thể sửa nó bằng cách sử dụng [trình chuyển đổi](https://transform.tools/html-to-jsx):
 
 <Sandpack>
 
@@ -188,7 +188,7 @@ img { height: 90px; }
 
 ## JavaScript trong JSX với dấu ngoặc nhọn {/*javascript-in-jsx-with-curly-braces*/}
 
-JSX cho phép bạn viết markup giống HTML bên trong file JavaScript, giữ logic render và nội dung ở cùng một nơi. Đôi khi bạn sẽ muốn thêm một chút logic JavaScript hoặc tham chiếu đến một thuộc tính động bên trong markup đó. Trong tình huống này, bạn có thể sử dụng dấu ngoặc nhọn trong JSX để "mở cửa sổ" đến JavaScript:
+JSX cho phép bạn viết markup giống HTML bên trong file JavaScript, để giữ logic render và nội dung ở cùng một nơi. Đôi khi bạn sẽ muốn thêm một chút logic JavaScript hoặc tham chiếu đến một thuộc tính động bên trong markup đó. Trong tình huống này, bạn có thể sử dụng dấu ngoặc nhọn trong JSX để "mở cửa sổ" đến JavaScript:
 
 <Sandpack>
 
@@ -367,7 +367,7 @@ export default function PackingList() {
 
 Bạn sẽ thường muốn hiển thị nhiều component tương tự từ một tập hợp dữ liệu. Bạn có thể sử dụng `filter()` và `map()` của JavaScript với React để lọc và chuyển đổi mảng dữ liệu của bạn thành mảng component.
 
-Đối với mỗi item trong mảng, bạn sẽ cần chỉ định một `key`. Thông thường, bạn sẽ muốn sử dụng ID từ cơ sở dữ liệu làm `key`. Key cho phép React theo dõi vị trí của từng item trong danh sách ngay cả khi danh sách thay đổi.
+Đối với mỗi item trong mảng, bạn sẽ cần chỉ định một `key`. Thông thường, bạn sẽ muốn sử dụng ID từ cơ sở dữ liệu làm `key`. Key cho phép React xác định từng item trong danh sách ngay cả khi danh sách thay đổi.
 
 <Sandpack>
 
@@ -467,10 +467,10 @@ h2 { font-size: 20px; }
 
 Một số JavaScript function là *thuần khiết.* Một function thuần khiết:
 
-* **Chỉ quan tâm đến công việc của mình.** Nó không thay đổi bất kỳ object hoặc biến nào đã tồn tại trước khi nó được gọi.
+* **Chỉ quan tâm đến công việc của nó.** Nó không thay đổi bất kỳ object hoặc biến nào đã tồn tại trước khi nó được gọi.
 * **Cùng đầu vào, cùng đầu ra.** Với cùng đầu vào, một function thuần khiết luôn trả về cùng kết quả.
 
-Bằng cách chỉ viết component của bạn như các function thuần khiết một cách nghiêm ngặt, bạn có thể tránh được cả một loại bug khó hiểu và hành vi không thể dự đoán khi codebase của bạn phát triển. Đây là một ví dụ về component không thuần khiết:
+Bằng cách chỉ viết component của bạn như các function thuần khiết một cách nghiêm ngặt, bạn có thể tránh được một loạt bug khó hiểu và hành vi khó đoán khi codebase của bạn ngày càng lớn. Đây là một ví dụ về component không thuần khiết:
 
 <Sandpack>
 
@@ -520,15 +520,15 @@ export default function TeaSet() {
 
 <LearnMore path="/learn/keeping-components-pure">
 
-Đọc **[Giữ Component Thuần Khiết](/learn/keeping-components-pure)** để học cách viết component như những function thuần khiết, có thể dự đoán được.
+Đọc **[Giữ Component Thuần Khiết](/learn/keeping-components-pure)** để học cách viết component như những function thuần khiết, dễ dự đoán.
 
 </LearnMore>
 
-## UI của bạn như một cây cấu trúc {/*your-ui-as-a-tree*/}
+## UI của bạn theo cấu trúc cây {/*your-ui-as-a-tree*/}
 
-React sử dụng cây để mô hình hóa các mối quan hệ giữa component và module.
+React sử dụng cây để biểu diễn các mối quan hệ giữa component và module.
 
-Một React render tree là sự hiển thị của mối quan hệ cha và con giữa các component.
+Một React render tree là sự biểu hiện của mối quan hệ cha và con giữa các component.
 
 <Diagram name="generic_render_tree" height={250} width={500} alt="A tree graph with five nodes, with each node representing a component. The root node is located at the top the tree graph and is labelled 'Root Component'. It has two arrows extending down to two nodes labelled 'Component A' and 'Component C'. Each of the arrows is labelled with 'renders'. 'Component A' has a single 'renders' arrow to a node labelled 'Component B'. 'Component C' has a single 'renders' arrow to a node labelled 'Component D'.">
 
@@ -536,9 +536,9 @@ Một ví dụ về React render tree.
 
 </Diagram>
 
-Component gần đỉnh của cây, gần root component, được coi là component cấp cao nhất. Component không có component con là leaf component. Việc phân loại component này hữu ích để hiểu luồng dữ liệu và hiệu suất render.
+Component gần đỉnh của cây, gần root component, được coi là component cấp cao nhất. Component không có component con là leaf (lá) component. Việc phân loại các component này hữu ích để hiểu luồng dữ liệu và hiệu suất render.
 
-Mô hình hóa mối quan hệ giữa các JavaScript module là một cách hữu ích khác để hiểu ứng dụng của bạn. Chúng ta gọi nó là module dependency tree.
+Biểu diễn mối quan hệ giữa các JavaScript module là một cách hữu ích khác để hiểu ứng dụng của bạn. Chúng ta gọi nó là module dependency tree.
 
 <Diagram name="generic_dependency_tree" height={250} width={500} alt="Một đồ thị cây với năm node. Mỗi node đại diện cho một JavaScript module. Node cao nhất được gắn nhãn 'RootModule.js'. Nó có ba mũi tên kéo dài đến các node: 'ModuleA.js', 'ModuleB.js', và 'ModuleC.js'. Mỗi mũi tên được gắn nhãn 'imports'. Node 'ModuleC.js' có một mũi tên 'imports' duy nhất trỏ đến node được gắn nhãn 'ModuleD.js'.">
 
@@ -546,11 +546,11 @@ Một ví dụ về module dependency tree.
 
 </Diagram>
 
-Một dependency tree thường được sử dụng bởi các công cụ build để đóng gói tất cả code JavaScript liên quan cho client tải xuống và render. Kích thước bundle lớn làm giảm trải nghiệm người dùng cho ứng dụng React. Hiểu module dependency tree sẽ giúp debug những vấn đề như vậy. 
+Một dependency tree thường được sử dụng bởi các công cụ build để đóng gói tất cả code JavaScript liên quan cho client tải xuống và render. Bundle có kích thước lớn sẽ làm giảm trải nghiệm người dùng của ứng dụng React. Hiểu được module dependency tree sẽ giúp khắc phục những vấn đề như vậy.
 
 <LearnMore path="/learn/understanding-your-ui-as-a-tree">
 
-Đọc **[UI Của Bạn Như Một Cây](/learn/understanding-your-ui-as-a-tree)** để học cách tạo render tree và module dependency tree cho ứng dụng React và cách chúng là những mô hình tinh thần hữu ích để cải thiện trải nghiệm người dùng và hiệu suất.
+Đọc **[UI Của Bạn Theo Cấu Trúc Cây](/learn/understanding-your-ui-as-a-tree)** để học cách tạo render tree và module dependency tree cho ứng dụng React và cách chúng là những mô hình tư duy hữu ích để cải thiện trải nghiệm người dùng và hiệu suất.
 
 </LearnMore>
 
