@@ -119,7 +119,7 @@ img { margin: 0 10px 10px 0; }
 
 ## Viết markup với JSX {/*writing-markup-with-jsx*/}
 
-Mỗi React component là một JavaScript function có thể chứa một số markup mà React render vào trình duyệt. React component sử dụng phần mở rộng cú pháp được gọi là JSX để biểu diễn markup đó. JSX trông rất giống HTML, nhưng nó nghiêm ngặt hơn một chút và có thể hiển thị thông tin động.
+Mỗi React component là một JavaScript function có thể chứa một số markup mà React render vào trình duyệt. React component sử dụng phần mở rộng cú pháp được gọi là JSX để hiện thị markup đó. JSX trông rất giống HTML, nhưng nó nghiêm ngặt hơn một chút và có thể hiển thị thông tin một cách linh động.
 
 Nếu chúng ta dán markup HTML hiện có vào một React component, nó sẽ không phải lúc nào cũng hoạt động:
 
@@ -528,7 +528,7 @@ export default function TeaSet() {
 
 React sử dụng cây để mô hình hóa các mối quan hệ giữa component và module.
 
-Một React render tree là sự biểu diễn của mối quan hệ cha và con giữa các component. 
+Một React render tree là sự hiển thị của mối quan hệ cha và con giữa các component.
 
 <Diagram name="generic_render_tree" height={250} width={500} alt="A tree graph with five nodes, with each node representing a component. The root node is located at the top the tree graph and is labelled 'Root Component'. It has two arrows extending down to two nodes labelled 'Component A' and 'Component C'. Each of the arrows is labelled with 'renders'. 'Component A' has a single 'renders' arrow to a node labelled 'Component B'. 'Component C' has a single 'renders' arrow to a node labelled 'Component D'.">
 
