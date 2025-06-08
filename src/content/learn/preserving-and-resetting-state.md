@@ -1,28 +1,28 @@
 ---
-title: Preserving and Resetting State
+title: Bảo tồn và đặt lại State
 ---
 
 <Intro>
 
-State is isolated between components. React keeps track of which state belongs to which component based on their place in the UI tree. You can control when to preserve state and when to reset it between re-renders.
+State được cô lập giữa các component. React theo dõi state nào thuộc về component nào dựa trên vị trí của chúng trong cây UI. Bạn có thể kiểm soát khi nào bảo tồn state và khi nào đặt lại nó giữa các lần render.
 
 </Intro>
 
 <YouWillLearn>
 
-* When React chooses to preserve or reset the state
-* How to force React to reset component's state
-* How keys and types affect whether the state is preserved
+* Khi nào React chọn bảo tồn hoặc đặt lại state
+* Cách buộc React đặt lại state của component
+* Cách keys và types ảnh hưởng đến việc state có được bảo tồn hay không
 
 </YouWillLearn>
 
-## State is tied to a position in the render tree {/*state-is-tied-to-a-position-in-the-tree*/}
+## State được liên kết với một vị trí trong cây render {/*state-is-tied-to-a-position-in-the-tree*/}
 
-React builds [render trees](learn/understanding-your-ui-as-a-tree#the-render-tree) for the component structure in your UI.
+React xây dựng [cây render](learn/understanding-your-ui-as-a-tree#the-render-tree) cho cấu trúc component trong UI của bạn.
 
-When you give a component state, you might think the state "lives" inside the component. But the state is actually held inside React. React associates each piece of state it's holding with the correct component by where that component sits in the render tree.
+Khi bạn trao state cho một component, bạn có thể nghĩ rằng state "sống" bên trong component đó. Nhưng state thực sự được giữ bên trong React. React liên kết từng phần state mà nó đang giữ với component chính xác theo vị trí mà component đó nằm trong cây render.
 
-Here, there is only one `<Counter />` JSX tag, but it's rendered at two different positions:
+Ở đây, chỉ có một thẻ JSX `<Counter />`, nhưng nó được render ở hai vị trí khác nhau:
 
 <Sandpack>
 
@@ -86,23 +86,23 @@ label {
 
 </Sandpack>
 
-Here's how these look as a tree:    
+Đây là cách chúng trông như một cây:    
 
 <DiagramGroup>
 
 <Diagram name="preserving_state_tree" height={248} width={395} alt="Diagram of a tree of React components. The root node is labeled 'div' and has two children. Each of the children are labeled 'Counter' and both contain a state bubble labeled 'count' with value 0.">
 
-React tree
+Cây React
 
 </Diagram>
 
 </DiagramGroup>
 
-**These are two separate counters because each is rendered at its own position in the tree.** You don't usually have to think about these positions to use React, but it can be useful to understand how it works.
+**Đây là hai counter riêng biệt vì mỗi cái được render ở vị trí riêng của nó trong cây.** Bạn thường không cần phải suy nghĩ về những vị trí này để sử dụng React, nhưng hiểu cách nó hoạt động có thể hữu ích.
 
-In React, each component on the screen has fully isolated state. For example, if you render two `Counter` components side by side, each of them will get its own, independent, `score` and `hover` states.
+Trong React, mỗi component trên màn hình có state hoàn toàn cô lập. Ví dụ, nếu bạn render hai component `Counter` cạnh nhau, mỗi component sẽ có state `score` và `hover` riêng độc lập.
 
-Try clicking both counters and notice they don't affect each other:
+Thử click vào cả hai counter và để ý rằng chúng không ảnh hưởng lẫn nhau:
 
 <Sandpack>
 
@@ -160,21 +160,21 @@ function Counter() {
 
 </Sandpack>
 
-As you can see, when one counter is updated, only the state for that component is updated:
+Như bạn có thể thấy, khi một counter được cập nhật, chỉ state của component đó được cập nhật:
 
 
 <DiagramGroup>
 
 <Diagram name="preserving_state_increment" height={248} width={441} alt="Diagram of a tree of React components. The root node is labeled 'div' and has two children. The left child is labeled 'Counter' and contains a state bubble labeled 'count' with value 0. The right child is labeled 'Counter' and contains a state bubble labeled 'count' with value 1. The state bubble of the right child is highlighted in yellow to indicate its value has updated.">
 
-Updating state
+Cập nhật state
 
 </Diagram>
 
 </DiagramGroup>
 
 
-React will keep the state around for as long as you render the same component at the same position in the tree. To see this, increment both counters, then remove the second component by unchecking "Render the second counter" checkbox, and then add it back by ticking it again:
+React sẽ giữ state xung quanh miễn là bạn render cùng một component ở cùng vị trí trong cây. Để thấy điều này, hãy tăng cả hai counter, sau đó xóa component thứ hai bằng cách bỏ check hộp "Render the second counter", và sau đó thêm lại bằng cách tick lại:
 
 <Sandpack>
 
@@ -248,35 +248,35 @@ label {
 
 </Sandpack>
 
-Notice how the moment you stop rendering the second counter, its state disappears completely. That's because when React removes a component, it destroys its state.
+Chú ý cách ngay khi bạn ngừng render counter thứ hai, state của nó biến mất hoàn toàn. Đó là vì khi React xóa một component, nó phá hủy state của component đó.
 
 <DiagramGroup>
 
 <Diagram name="preserving_state_remove_component" height={253} width={422} alt="Diagram of a tree of React components. The root node is labeled 'div' and has two children. The left child is labeled 'Counter' and contains a state bubble labeled 'count' with value 0. The right child is missing, and in its place is a yellow 'poof' image, highlighting the component being deleted from the tree.">
 
-Deleting a component
+Xóa một component
 
 </Diagram>
 
 </DiagramGroup>
 
-When you tick "Render the second counter", a second `Counter` and its state are initialized from scratch (`score = 0`) and added to the DOM.
+Khi bạn tick "Render the second counter", một `Counter` thứ hai và state của nó được khởi tạo từ đầu (`score = 0`) và thêm vào DOM.
 
 <DiagramGroup>
 
 <Diagram name="preserving_state_add_component" height={258} width={500} alt="Diagram of a tree of React components. The root node is labeled 'div' and has two children. The left child is labeled 'Counter' and contains a state bubble labeled 'count' with value 0. The right child is labeled 'Counter' and contains a state bubble labeled 'count' with value 0. The entire right child node is highlighted in yellow, indicating that it was just added to the tree.">
 
-Adding a component
+Thêm một component
 
 </Diagram>
 
 </DiagramGroup>
 
-**React preserves a component's state for as long as it's being rendered at its position in the UI tree.** If it gets removed, or a different component gets rendered at the same position, React discards its state.
+**React bảo tồn state của một component miễn là nó đang được render ở vị trí của nó trong cây UI.** Nếu nó bị xóa, hoặc một component khác được render ở cùng vị trí, React sẽ loại bỏ state của nó.
 
-## Same component at the same position preserves state {/*same-component-at-the-same-position-preserves-state*/}
+## Cùng component ở cùng vị trí bảo tồn state {/*same-component-at-the-same-position-preserves-state*/}
 
-In this example, there are two different `<Counter />` tags:
+Trong ví dụ này, có hai thẻ `<Counter />` khác nhau:
 
 <Sandpack>
 
@@ -361,24 +361,24 @@ label {
 
 </Sandpack>
 
-When you tick or clear the checkbox, the counter state does not get reset. Whether `isFancy` is `true` or `false`, you always have a `<Counter />` as the first child of the `div` returned from the root `App` component:
+Khi bạn tick hoặc bỏ tick checkbox, state counter không bị đặt lại. Dù `isFancy` là `true` hay `false`, bạn luôn có một `<Counter />` làm con đầu tiên của `div` được trả về từ component root `App`:
 
 <DiagramGroup>
 
 <Diagram name="preserving_state_same_component" height={461} width={600} alt="Diagram with two sections separated by an arrow transitioning between them. Each section contains a layout of components with a parent labeled 'App' containing a state bubble labeled isFancy. This component has one child labeled 'div', which leads to a prop bubble containing isFancy (highlighted in purple) passed down to the only child. The last child is labeled 'Counter' and contains a state bubble with label 'count' and value 3 in both diagrams. In the left section of the diagram, nothing is highlighted and the isFancy parent state value is false. In the right section of the diagram, the isFancy parent state value has changed to true and it is highlighted in yellow, and so is the props bubble below, which has also changed its isFancy value to true.">
 
-Updating the `App` state does not reset the `Counter` because `Counter` stays in the same position
+Cập nhật state của `App` không đặt lại `Counter` vì `Counter` vẫn ở cùng vị trí
 
 </Diagram>
 
 </DiagramGroup>
 
 
-It's the same component at the same position, so from React's perspective, it's the same counter.
+Đó là cùng một component ở cùng vị trí, vì vậy từ góc nhìn của React, đó là cùng một counter.
 
 <Pitfall>
 
-Remember that **it's the position in the UI tree--not in the JSX markup--that matters to React!** This component has two `return` clauses with different `<Counter />` JSX tags inside and outside the `if`:
+Hãy nhớ rằng **vị trí trong cây UI--không phải trong markup JSX--mới quan trọng đối với React!** Component này có hai mệnh đề `return` với các thẻ JSX `<Counter />` khác nhau bên trong và bên ngoài `if`:
 
 <Sandpack>
 
@@ -476,15 +476,15 @@ label {
 
 </Sandpack>
 
-You might expect the state to reset when you tick checkbox, but it doesn't! This is because **both of these `<Counter />` tags are rendered at the same position.** React doesn't know where you place the conditions in your function. All it "sees" is the tree you return.
+Bạn có thể mong đợi state sẽ đặt lại khi bạn tick vào checkbox, nhưng nó không! Điều này xảy ra vì **cả hai thẻ `<Counter />` này đều được render ở cùng vị trí.** React không biết bạn đặt các điều kiện ở đâu trong function của bạn. Tất cả những gì nó "thấy" là cây mà bạn trả về.
 
-In both cases, the `App` component returns a `<div>` with `<Counter />` as a first child. To React, these two counters have the same "address": the first child of the first child of the root. This is how React matches them up between the previous and next renders, regardless of how you structure your logic.
+Trong cả hai trường hợp, component `App` trả về một `<div>` với `<Counter />` làm con đầu tiên. Đối với React, hai counter này có cùng "địa chỉ": con đầu tiên của con đầu tiên của root. Đây là cách React khớp chúng giữa các lần render trước và sau, bất kể bạn cấu trúc logic như thế nào.
 
 </Pitfall>
 
-## Different components at the same position reset state {/*different-components-at-the-same-position-reset-state*/}
+## Các component khác nhau ở cùng vị trí đặt lại state {/*different-components-at-the-same-position-reset-state*/}
 
-In this example, ticking the checkbox will replace `<Counter>` with a `<p>`:
+Trong ví dụ này, việc tick vào checkbox sẽ thay thế `<Counter>` bằng một `<p>`:
 
 <Sandpack>
 
@@ -561,13 +561,13 @@ label {
 
 </Sandpack>
 
-Here, you switch between _different_ component types at the same position. Initially, the first child of the `<div>` contained a `Counter`. But when you swapped in a `p`, React removed the `Counter` from the UI tree and destroyed its state.
+Ở đây, bạn chuyển đổi giữa các loại component _khác nhau_ ở cùng vị trí. Ban đầu, con đầu tiên của `<div>` chứa một `Counter`. Nhưng khi bạn thay thế bằng một `p`, React đã xóa `Counter` khỏi cây UI và phá hủy state của nó.
 
 <DiagramGroup>
 
 <Diagram name="preserving_state_diff_pt1" height={290} width={753} alt="Diagram with three sections, with an arrow transitioning each section in between. The first section contains a React component labeled 'div' with a single child labeled 'Counter' containing a state bubble labeled 'count' with value 3. The middle section has the same 'div' parent, but the child component has now been deleted, indicated by a yellow 'proof' image. The third section has the same 'div' parent again, now with a new child labeled 'p', highlighted in yellow.">
 
-When `Counter` changes to `p`, the `Counter` is deleted and the `p` is added
+Khi `Counter` thay đổi thành `p`, `Counter` bị xóa và `p` được thêm vào
 
 </Diagram>
 
@@ -577,13 +577,13 @@ When `Counter` changes to `p`, the `Counter` is deleted and the `p` is added
 
 <Diagram name="preserving_state_diff_pt2" height={290} width={753} alt="Diagram with three sections, with an arrow transitioning each section in between. The first section contains a React component labeled 'p'. The middle section has the same 'div' parent, but the child component has now been deleted, indicated by a yellow 'proof' image. The third section has the same 'div' parent again, now with a new child labeled 'Counter' containing a state bubble labeled 'count' with value 0, highlighted in yellow.">
 
-When switching back, the `p` is deleted and the `Counter` is added
+Khi chuyển đổi trở lại, `p` bị xóa và `Counter` được thêm vào
 
 </Diagram>
 
 </DiagramGroup>
 
-Also, **when you render a different component in the same position, it resets the state of its entire subtree.** To see how this works, increment the counter and then tick the checkbox:
+Ngoài ra, **khi bạn render một component khác ở cùng vị trí, nó đặt lại state của toàn bộ cây con.** Để thấy cách hoạt động, hãy tăng counter rồi tick vào checkbox:
 
 <Sandpack>
 
@@ -672,13 +672,13 @@ label {
 
 </Sandpack>
 
-The counter state gets reset when you click the checkbox. Although you render a `Counter`, the first child of the `div` changes from a `section` to a `div`. When the child `section` was removed from the DOM, the whole tree below it (including the `Counter` and its state) was destroyed as well.
+State counter bị đặt lại khi bạn click vào checkbox. Mặc dù bạn render một `Counter`, con đầu tiên của `div` thay đổi từ `section` thành `div`. Khi `section` con bị xóa khỏi DOM, toàn bộ cây bên dưới nó (bao gồm `Counter` và state của nó) cũng bị phá hủy.
 
 <DiagramGroup>
 
 <Diagram name="preserving_state_diff_same_pt1" height={350} width={794} alt="Diagram with three sections, with an arrow transitioning each section in between. The first section contains a React component labeled 'div' with a single child labeled 'section', which has a single child labeled 'Counter' containing a state bubble labeled 'count' with value 3. The middle section has the same 'div' parent, but the child components have now been deleted, indicated by a yellow 'proof' image. The third section has the same 'div' parent again, now with a new child labeled 'div', highlighted in yellow, also with a new child labeled 'Counter' containing a state bubble labeled 'count' with value 0, all highlighted in yellow.">
 
-When `section` changes to `div`, the `section` is deleted and the new `div` is added
+Khi `section` thay đổi thành `div`, `section` bị xóa và `div` mới được thêm vào
 
 </Diagram>
 
@@ -688,19 +688,19 @@ When `section` changes to `div`, the `section` is deleted and the new `div` is a
 
 <Diagram name="preserving_state_diff_same_pt2" height={350} width={794} alt="Diagram with three sections, with an arrow transitioning each section in between. The first section contains a React component labeled 'div' with a single child labeled 'div', which has a single child labeled 'Counter' containing a state bubble labeled 'count' with value 0. The middle section has the same 'div' parent, but the child components have now been deleted, indicated by a yellow 'proof' image. The third section has the same 'div' parent again, now with a new child labeled 'section', highlighted in yellow, also with a new child labeled 'Counter' containing a state bubble labeled 'count' with value 0, all highlighted in yellow.">
 
-When switching back, the `div` is deleted and the new `section` is added
+Khi chuyển đổi trở lại, `div` bị xóa và `section` mới được thêm vào
 
 </Diagram>
 
 </DiagramGroup>
 
-As a rule of thumb, **if you want to preserve the state between re-renders, the structure of your tree needs to "match up"** from one render to another. If the structure is different, the state gets destroyed because React destroys state when it removes a component from the tree.
+Theo nguyên tắc chung, **nếu bạn muốn bảo tồn state giữa các lần render, cấu trúc cây của bạn cần "khớp"** từ lần render này sang lần render khác. Nếu cấu trúc khác nhau, state sẽ bị hủy vì React hủy state khi nó xóa một component khỏi cây.
 
 <Pitfall>
 
-This is why you should not nest component function definitions.
+Đây là lý do tại sao bạn không nên lồng các định nghĩa function component.
 
-Here, the `MyTextField` component function is defined *inside* `MyComponent`:
+Ở đây, function component `MyTextField` được định nghĩa *bên trong* `MyComponent`:
 
 <Sandpack>
 
@@ -735,13 +735,13 @@ export default function MyComponent() {
 </Sandpack>
 
 
-Every time you click the button, the input state disappears! This is because a *different* `MyTextField` function is created for every render of `MyComponent`. You're rendering a *different* component in the same position, so React resets all state below. This leads to bugs and performance problems. To avoid this problem, **always declare component functions at the top level, and don't nest their definitions.**
+Mỗi lần bạn click vào button, state input sẽ biến mất! Điều này xảy ra vì một function `MyTextField` *khác* được tạo cho mỗi lần render của `MyComponent`. Bạn đang render một component *khác* ở cùng vị trí, vì vậy React đặt lại tất cả state bên dưới. Điều này dẫn đến bugs và vấn đề hiệu suất. Để tránh vấn đề này, **luôn khai báo các function component ở cấp độ cao nhất, và đừng lồng các định nghĩa của chúng.**
 
 </Pitfall>
 
-## Resetting state at the same position {/*resetting-state-at-the-same-position*/}
+## Đặt lại state ở cùng vị trí {/*resetting-state-at-the-same-position*/}
 
-By default, React preserves state of a component while it stays at the same position. Usually, this is exactly what you want, so it makes sense as the default behavior. But sometimes, you may want to reset a component's state. Consider this app that lets two players keep track of their scores during each turn:
+Theo mặc định, React bảo tồn state của một component khi nó ở cùng vị trí. Thường thì, đây chính xác là điều bạn muốn, vì vậy nó hợp lý như hành vi mặc định. Nhưng đôi khi, bạn có thể muốn đặt lại state của một component. Hãy xem xét ứng dụng này cho phép hai người chơi theo dõi điểm số của họ trong mỗi lượt:
 
 <Sandpack>
 
@@ -811,19 +811,19 @@ h1 {
 
 </Sandpack>
 
-Currently, when you change the player, the score is preserved. The two `Counter`s appear in the same position, so React sees them as *the same* `Counter` whose `person` prop has changed.
+Hiện tại, khi bạn thay đổi người chơi, điểm số được bảo tồn. Hai `Counter` xuất hiện ở cùng vị trí, vì vậy React coi chúng là *cùng một* `Counter` có prop `person` đã thay đổi.
 
-But conceptually, in this app they should be two separate counters. They might appear in the same place in the UI, but one is a counter for Taylor, and another is a counter for Sarah.
+Nhưng về mặt khái niệm, trong ứng dụng này chúng nên là hai counter riêng biệt. Chúng có thể xuất hiện ở cùng vị trí trong UI, nhưng một cái là counter cho Taylor, và cái khác là counter cho Sarah.
 
-There are two ways to reset state when switching between them:
+Có hai cách để đặt lại state khi chuyển đổi giữa chúng:
 
-1. Render components in different positions
-2. Give each component an explicit identity with `key`
+1. Render các component ở các vị trí khác nhau
+2. Trao cho mỗi component một danh tính rõ ràng với `key`
 
 
-### Option 1: Rendering a component in different positions {/*option-1-rendering-a-component-in-different-positions*/}
+### Lựa chọn 1: Render một component ở các vị trí khác nhau {/*option-1-rendering-a-component-in-different-positions*/}
 
-If you want these two `Counter`s to be independent, you can render them in two different positions:
+Nếu bạn muốn hai `Counter` này độc lập, bạn có thể render chúng ở hai vị trí khác nhau:
 
 <Sandpack>
 
@@ -894,42 +894,42 @@ h1 {
 
 </Sandpack>
 
-* Initially, `isPlayerA` is `true`. So the first position contains `Counter` state, and the second one is empty.
-* When you click the "Next player" button the first position clears but the second one now contains a `Counter`.
+* Ban đầu, `isPlayerA` là `true`. Vậy vị trí đầu tiên chứa state `Counter`, và vị trí thứ hai trống.
+* Khi bạn click button "Next player", vị trí đầu tiên được xóa nhưng vị trí thứ hai giờ chứa một `Counter`.
 
 <DiagramGroup>
 
 <Diagram name="preserving_state_diff_position_p1" height={375} width={504} alt="Diagram with a tree of React components. The parent is labeled 'Scoreboard' with a state bubble labeled isPlayerA with value 'true'. The only child, arranged to the left, is labeled Counter with a state bubble labeled 'count' and value 0. All of the left child is highlighted in yellow, indicating it was added.">
 
-Initial state
+State ban đầu
 
 </Diagram>
 
 <Diagram name="preserving_state_diff_position_p2" height={375} width={504} alt="Diagram with a tree of React components. The parent is labeled 'Scoreboard' with a state bubble labeled isPlayerA with value 'false'. The state bubble is highlighted in yellow, indicating that it has changed. The left child is replaced with a yellow 'poof' image indicating that it has been deleted and there is a new child on the right, highlighted in yellow indicating that it was added. The new child is labeled 'Counter' and contains a state bubble labeled 'count' with value 0.">
 
-Clicking "next"
+Click "next"
 
 </Diagram>
 
 <Diagram name="preserving_state_diff_position_p3" height={375} width={504} alt="Diagram with a tree of React components. The parent is labeled 'Scoreboard' with a state bubble labeled isPlayerA with value 'true'. The state bubble is highlighted in yellow, indicating that it has changed. There is a new child on the left, highlighted in yellow indicating that it was added. The new child is labeled 'Counter' and contains a state bubble labeled 'count' with value 0. The right child is replaced with a yellow 'poof' image indicating that it has been deleted.">
 
-Clicking "next" again
+Click "next" lại
 
 </Diagram>
 
 </DiagramGroup>
 
-Each `Counter`'s state gets destroyed each time it's removed from the DOM. This is why they reset every time you click the button.
+State của mỗi `Counter` bị hủy mỗi khi nó bị xóa khỏi DOM. Đây là lý do tại sao chúng đặt lại mỗi lần bạn click button.
 
-This solution is convenient when you only have a few independent components rendered in the same place. In this example, you only have two, so it's not a hassle to render both separately in the JSX.
+Giải pháp này thuận tiện khi bạn chỉ có một vài component độc lập được render ở cùng chỗ. Trong ví dụ này, bạn chỉ có hai, vì vậy việc render cả hai riêng biệt trong JSX không phiền hà.
 
-### Option 2: Resetting state with a key {/*option-2-resetting-state-with-a-key*/}
+### Lựa chọn 2: Đặt lại state với một key {/*option-2-resetting-state-with-a-key*/}
 
-There is also another, more generic, way to reset a component's state.
+Ngoài ra còn có một cách khác, tổng quát hơn, để đặt lại state của một component.
 
-You might have seen `key`s when [rendering lists.](/learn/rendering-lists#keeping-list-items-in-order-with-key) Keys aren't just for lists! You can use keys to make React distinguish between any components. By default, React uses order within the parent ("first counter", "second counter") to discern between components. But keys let you tell React that this is not just a *first* counter, or a *second* counter, but a specific counter--for example, *Taylor's* counter. This way, React will know *Taylor's* counter wherever it appears in the tree!
+Bạn có thể đã thấy `key` khi [render danh sách.](/learn/rendering-lists#keeping-list-items-in-order-with-key) Keys không chỉ dành cho danh sách! Bạn có thể sử dụng keys để làm cho React phân biệt giữa bất kỳ component nào. Theo mặc định, React sử dụng thứ tự trong parent ("counter đầu tiên", "counter thứ hai") để phân biệt giữa các component. Nhưng keys cho phép bạn nói với React rằng đây không chỉ là counter *đầu tiên*, hoặc counter *thứ hai*, mà là một counter cụ thể--ví dụ, counter *của Taylor*. Bằng cách này, React sẽ biết counter *của Taylor* bất cứ nơi nào nó xuất hiện trong cây!
 
-In this example, the two `<Counter />`s don't share state even though they appear in the same place in JSX:
+Trong ví dụ này, hai `<Counter />` không chia sẻ state mặc dù chúng xuất hiện ở cùng vị trí trong JSX:
 
 <Sandpack>
 
@@ -999,7 +999,7 @@ h1 {
 
 </Sandpack>
 
-Switching between Taylor and Sarah does not preserve the state. This is because **you gave them different `key`s:**
+Việc chuyển đổi giữa Taylor và Sarah không bảo tồn state. Điều này vì **bạn đã trao cho chúng các `key` khác nhau:**
 
 ```js
 {isPlayerA ? (
@@ -1009,19 +1009,19 @@ Switching between Taylor and Sarah does not preserve the state. This is because 
 )}
 ```
 
-Specifying a `key` tells React to use the `key` itself as part of the position, instead of their order within the parent. This is why, even though you render them in the same place in JSX, React sees them as two different counters, and so they will never share state. Every time a counter appears on the screen, its state is created. Every time it is removed, its state is destroyed. Toggling between them resets their state over and over.
+Chỉ định một `key` nói với React sử dụng chính `key` đó như một phần của vị trí, thay vì thứ tự của chúng trong parent. Đây là lý do tại sao, mặc dù bạn render chúng ở cùng vị trí trong JSX, React coi chúng là hai counter khác nhau, và vì vậy chúng sẽ không bao giờ chia sẻ state. Mỗi khi một counter xuất hiện trên màn hình, state của nó được tạo. Mỗi khi nó bị xóa, state của nó bị hủy. Việc chuyển đổi giữa chúng đặt lại state của chúng lặp đi lặp lại.
 
 <Note>
 
-Remember that keys are not globally unique. They only specify the position *within the parent*.
+Hãy nhớ rằng keys không phải là duy nhất toàn cầu. Chúng chỉ chỉ định vị trí *trong parent*.
 
 </Note>
 
-### Resetting a form with a key {/*resetting-a-form-with-a-key*/}
+### Đặt lại một form với một key {/*resetting-a-form-with-a-key*/}
 
-Resetting state with a key is particularly useful when dealing with forms.
+Đặt lại state với một key đặc biệt hữu ích khi xử lý forms.
 
-In this chat app, the `<Chat>` component contains the text input state:
+Trong ứng dụng chat này, component `<Chat>` chứa state text input:
 
 <Sandpack>
 
@@ -1116,17 +1116,17 @@ textarea {
 
 </Sandpack>
 
-Try entering something into the input, and then press "Alice" or "Bob" to choose a different recipient. You will notice that the input state is preserved because the `<Chat>` is rendered at the same position in the tree.
+Thử nhập một cái gì đó vào input, sau đó nhấn "Alice" hoặc "Bob" để chọn người nhận khác. Bạn sẽ nhận thấy rằng state input được bảo tồn vì `<Chat>` được render ở cùng vị trí trong cây.
 
-**In many apps, this may be the desired behavior, but not in a chat app!** You don't want to let the user send a message they already typed to a wrong person due to an accidental click. To fix it, add a `key`:
+**Trong nhiều ứng dụng, đây có thể là hành vi mong muốn, nhưng không phải trong ứng dụng chat!** Bạn không muốn để người dùng gửi tin nhắn mà họ đã gõ đến người sai vì click nhầm. Để sửa điều này, hãy thêm một `key`:
 
 ```js
 <Chat key={to.id} contact={to} />
 ```
 
-This ensures that when you select a different recipient, the `Chat` component will be recreated from scratch, including any state in the tree below it. React will also re-create the DOM elements instead of reusing them.
+Điều này đảm bảo rằng khi bạn chọn một người nhận khác, component `Chat` sẽ được tạo lại từ đầu, bao gồm bất kỳ state nào trong cây bên dưới nó. React cũng sẽ tạo lại các DOM elements thay vì tái sử dụng chúng.
 
-Now switching the recipient always clears the text field:
+Giờ việc chuyển đổi người nhận luôn xóa trường text:
 
 <Sandpack>
 
@@ -1223,24 +1223,33 @@ textarea {
 
 <DeepDive>
 
-#### Preserving state for removed components {/*preserving-state-for-removed-components*/}
+#### Bảo tồn state cho các component đã bị xóa {/*preserving-state-for-removed-components*/}
 
-In a real chat app, you'd probably want to recover the input state when the user selects the previous recipient again. There are a few ways to keep the state "alive" for a component that's no longer visible:
+Trong một ứng dụng chat thực tế, bạn có thể muốn khôi phục state input khi người dùng chọn lại người nhận trước đó. Có một vài cách để giữ state "sống" cho một component không còn hiển thị:
 
-- You could render _all_ chats instead of just the current one, but hide all the others with CSS. The chats would not get removed from the tree, so their local state would be preserved. This solution works great for simple UIs. But it can get very slow if the hidden trees are large and contain a lot of DOM nodes.
-- You could [lift the state up](/learn/sharing-state-between-components) and hold the pending message for each recipient in the parent component. This way, when the child components get removed, it doesn't matter, because it's the parent that keeps the important information. This is the most common solution.
-- You might also use a different source in addition to React state. For example, you probably want a message draft to persist even if the user accidentally closes the page. To implement this, you could have the `Chat` component initialize its state by reading from the [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), and save the drafts there too.
+- Bạn có thể render _tất cả_ các cuộc chat thay vì chỉ cuộc chat hiện tại, nhưng ẩn tất cả những cái khác với CSS. Các cuộc chat sẽ không bị xóa khỏi cây, vì vậy state cục bộ của chúng sẽ được bảo tồn. Giải pháp này hoạt động tuyệt vời cho UI đơn giản. Nhưng nó có thể trở nên rất chậm nếu các cây ẩn lớn và chứa nhiều DOM nodes.
+- Bạn có thể [lift state lên](/learn/sharing-state-between-components) và giữ tin nhắn đang chờ cho mỗi người nhận trong component cha. Bằng cách này, khi các component con bị xóa, không thành vấn đề, vì chính component cha giữ thông tin quan trọng. Đây là giải pháp phổ biến nhất.
+- Bạn cũng có thể sử dụng một nguồn khác ngoài React state. Ví dụ, bạn có thể muốn một bản nháp tin nhắn vẫn tồn tại ngay cả khi người dùng vô tình đóng trang. Để triển khai điều này, bạn có thể để component `Chat` khởi tạo state của nó bằng cách đọc từ [`localStorage`](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage), và lưu các bản nháp ở đó.
 
-No matter which strategy you pick, a chat _with Alice_ is conceptually distinct from a chat _with Bob_, so it makes sense to give a `key` to the `<Chat>` tree based on the current recipient.
+Bất kể bạn chọn chiến lược nào, một cuộc chat *với Alice* về mặt khái niệm khác với một cuộc chat *với Bob*, vì vậy việc trao một `key` cho cây `<Chat>` dựa trên người nhận hiện tại là hợp lý.
 
 </DeepDive>
 
 <Recap>
 
-- React keeps state for as long as the same component is rendered at the same position.
-- State is not kept in JSX tags. It's associated with the tree position in which you put that JSX.
-- You can force a subtree to reset its state by giving it a different key.
-- Don't nest component definitions, or you'll reset state by accident.
+- React giữ state miễn là cùng một component được render ở cùng vị trí.
+- State không được giữ trong các thẻ JSX. Nó được liên kết với vị trí cây mà bạn đặt JSX đó.
+- Bạn có thể buộc một cây con đặt lại state của nó bằng cách trao cho nó một key khác.
+- Đừng lồng các định nghĩa component, hoặc bạn sẽ đặt lại state một cách vô tình.
+
+</Recap>
+
+<Recap>
+
+- React giữ state miễn là cùng một component được render ở cùng vị trí.
+- State không được giữ trong các thẻ JSX. Nó được liên kết với vị trí cây mà bạn đặt JSX đó.
+- Bạn có thể buộc một cây con đặt lại state của nó bằng cách trao cho nó một key khác.
+- Đừng lồng các định nghĩa component, hoặc bạn sẽ đặt lại state một cách vô tình.
 
 </Recap>
 
@@ -1248,9 +1257,9 @@ No matter which strategy you pick, a chat _with Alice_ is conceptually distinct 
 
 <Challenges>
 
-#### Fix disappearing input text {/*fix-disappearing-input-text*/}
+#### Sửa text input biến mất {/*fix-disappearing-input-text*/}
 
-This example shows a message when you press the button. However, pressing the button also accidentally resets the input. Why does this happen? Fix it so that pressing the button does not reset the input text.
+Ví dụ này hiển thị một tin nhắn khi bạn nhấn button. Tuy nhiên, việc nhấn button cũng vô tình đặt lại input. Tại sao điều này xảy ra? Hãy sửa nó để việc nhấn button không đặt lại text input.
 
 <Sandpack>
 
@@ -1299,9 +1308,9 @@ textarea { display: block; margin: 10px 0; }
 
 <Solution>
 
-The problem is that `Form` is rendered in different positions. In the `if` branch, it is the second child of the `<div>`, but in the `else` branch, it is the first child. Therefore, the component type in each position changes. The first position changes between holding a `p` and a `Form`, while the second position changes between holding a `Form` and a `button`. React resets the state every time the component type changes.
+Vấn đề là `Form` được render ở các vị trí khác nhau. Trong nhánh `if`, nó là con thứ hai của `<div>`, nhưng trong nhánh `else`, nó là con đầu tiên. Do đó, loại component ở mỗi vị trí thay đổi. Vị trí đầu tiên thay đổi giữa việc chứa một `p` và một `Form`, trong khi vị trí thứ hai thay đổi giữa việc chứa một `Form` và một `button`. React đặt lại state mỗi khi loại component thay đổi.
 
-The easiest solution is to unify the branches so that `Form` always renders in the same position:
+Giải pháp dễ nhất là thống nhất các nhánh để `Form` luôn render ở cùng vị trí:
 
 <Sandpack>
 
@@ -1347,7 +1356,7 @@ textarea { display: block; margin: 10px 0; }
 </Sandpack>
 
 
-Technically, you could also add `null` before `<Form />` in the `else` branch to match the `if` branch structure:
+Về mặt kỹ thuật, bạn cũng có thể thêm `null` trước `<Form />` trong nhánh `else` để khớp với cấu trúc nhánh `if`:
 
 <Sandpack>
 
@@ -1395,19 +1404,19 @@ textarea { display: block; margin: 10px 0; }
 
 </Sandpack>
 
-This way, `Form` is always the second child, so it stays in the same position and keeps its state. But this approach is much less obvious and introduces a risk that someone else will remove that `null`.
+Bằng cách này, `Form` luôn là con thứ hai, vì vậy nó ở cùng vị trí và giữ state của nó. Nhưng cách tiếp cận này ít rõ ràng hơn nhiều và tạo ra rủi ro rằng người khác sẽ xóa `null` đó.
 
 </Solution>
 
-#### Swap two form fields {/*swap-two-form-fields*/}
+#### Hoán đổi hai trường form {/*swap-two-form-fields*/}
 
-This form lets you enter first and last name. It also has a checkbox controlling which field goes first. When you tick the checkbox, the "Last name" field will appear before the "First name" field.
+Form này cho phép bạn nhập họ và tên. Nó cũng có một checkbox kiểm soát trường nào đi trước. Khi bạn tick vào checkbox, trường "Last name" sẽ xuất hiện trước trường "First name".
 
-It almost works, but there is a bug. If you fill in the "First name" input and tick the checkbox, the text will stay in the first input (which is now "Last name"). Fix it so that the input text *also* moves when you reverse the order.
+Nó gần như hoạt động, nhưng có một bug. Nếu bạn điền vào input "First name" và tick vào checkbox, text sẽ vẫn ở input đầu tiên (giờ là "Last name"). Hãy sửa nó để text input *cũng* di chuyển khi bạn đảo ngược thứ tự.
 
 <Hint>
 
-It seems like for these fields, their position within the parent is not enough. Is there some way to tell React how to match up the state between re-renders?
+Có vẻ như đối với những trường này, vị trí của chúng trong parent là không đủ. Có cách nào để nói với React cách khớp state giữa các lần render không?
 
 </Hint>
 
@@ -1471,7 +1480,7 @@ label { display: block; margin: 10px 0; }
 
 <Solution>
 
-Give a `key` to both `<Field>` components in both `if` and `else` branches. This tells React how to "match up" the correct state for either `<Field>` even if their order within the parent changes:
+Trao một `key` cho cả hai component `<Field>` trong cả nhánh `if` và `else`. Điều này nói với React cách "khớp" state chính xác cho bất kỳ `<Field>` nào ngay cả khi thứ tự của chúng trong parent thay đổi:
 
 <Sandpack>
 
@@ -1533,11 +1542,11 @@ label { display: block; margin: 10px 0; }
 
 </Solution>
 
-#### Reset a detail form {/*reset-a-detail-form*/}
+#### Đặt lại một detail form {/*reset-a-detail-form*/}
 
-This is an editable contact list. You can edit the selected contact's details and then either press "Save" to update it, or "Reset" to undo your changes.
+Đây là một danh sách liên hệ có thể chỉnh sửa. Bạn có thể chỉnh sửa thông tin chi tiết của liên hệ đã chọn rồi nhấn "Save" để cập nhật nó, hoặc "Reset" để hoàn tác các thay đổi.
 
-When you select a different contact (for example, Alice), the state updates but the form keeps showing the previous contact's details. Fix it so that the form gets reset when the selected contact changes.
+Khi bạn chọn một liên hệ khác (ví dụ, Alice), state được cập nhật nhưng form vẫn hiển thị thông tin chi tiết của liên hệ trước đó. Hãy sửa nó để form được đặt lại khi liên hệ được chọn thay đổi.
 
 <Sandpack>
 
@@ -1689,7 +1698,7 @@ button {
 
 <Solution>
 
-Give `key={selectedId}` to the `EditContact` component. This way, switching between different contacts will reset the form:
+Trao `key={selectedId}` cho component `EditContact`. Bằng cách này, việc chuyển đổi giữa các liên hệ khác nhau sẽ đặt lại form:
 
 <Sandpack>
 
@@ -1842,13 +1851,13 @@ button {
 
 </Solution>
 
-#### Clear an image while it's loading {/*clear-an-image-while-its-loading*/}
+#### Xóa một hình ảnh khi nó đang loading {/*clear-an-image-while-its-loading*/}
 
-When you press "Next", the browser starts loading the next image. However, because it's displayed in the same `<img>` tag, by default you would still see the previous image until the next one loads. This may be undesirable if it's important for the text to always match the image. Change it so that the moment you press "Next", the previous image immediately clears.
+Khi bạn nhấn "Next", trình duyệt bắt đầu loading hình ảnh tiếp theo. Tuy nhiên, vì nó được hiển thị trong cùng thẻ `<img>`, theo mặc định bạn vẫn sẽ thấy hình ảnh trước đó cho đến khi hình tiếp theo tải xong. Điều này có thể không mong muốn nếu việc text luôn khớp với hình ảnh là quan trọng. Hãy thay đổi nó để ngay khi bạn nhấn "Next", hình ảnh trước đó ngay lập tức được xóa.
 
 <Hint>
 
-Is there a way to tell React to re-create the DOM instead of reusing it?
+Có cách nào để nói với React tạo lại DOM thay vì tái sử dụng nó không?
 
 </Hint>
 
@@ -1918,7 +1927,7 @@ img { width: 150px; height: 150px; }
 
 <Solution>
 
-You can provide a `key` to the `<img>` tag. When that `key` changes, React will re-create the `<img>` DOM node from scratch. This causes a brief flash when each image loads, so it's not something you'd want to do for every image in your app. But it makes sense if you want to ensure the image always matches the text.
+Bạn có thể cung cấp một `key` cho thẻ `<img>`. Khi `key` đó thay đổi, React sẽ tạo lại DOM node `<img>` từ đầu. Điều này gây ra một flash ngắn khi mỗi hình ảnh tải, vì vậy đó không phải là điều bạn muốn làm cho mọi hình ảnh trong ứng dụng của mình. Nhưng nó hợp lý nếu bạn muốn đảm bảo hình ảnh luôn khớp với text.
 
 <Sandpack>
 
@@ -1986,11 +1995,11 @@ img { width: 150px; height: 150px; }
 
 </Solution>
 
-#### Fix misplaced state in the list {/*fix-misplaced-state-in-the-list*/}
+#### Sửa state bị đặt nhầm chỗ trong danh sách {/*fix-misplaced-state-in-the-list*/}
 
-In this list, each `Contact` has state that determines whether "Show email" has been pressed for it. Press "Show email" for Alice, and then tick the "Show in reverse order" checkbox. You will notice that it's _Taylor's_ email that is expanded now, but Alice's--which has moved to the bottom--appears collapsed.
+Trong danh sách này, mỗi `Contact` có state xác định liệu "Show email" đã được nhấn cho nó hay chưa. Nhấn "Show email" cho Alice, sau đó tick vào checkbox "Show in reverse order". Bạn sẽ nhận thấy rằng email của _Taylor_ được mở rộng bây giờ, nhưng Alice--đã di chuyển xuống dưới--xuất hiện thu gọn.
 
-Fix it so that the expanded state is associated with each contact, regardless of the chosen ordering.
+Hãy sửa nó để state mở rộng được liên kết với mỗi liên hệ, bất kể thứ tự được chọn.
 
 <Sandpack>
 
@@ -2080,16 +2089,16 @@ button {
 
 <Solution>
 
-The problem is that this example was using index as a `key`:
+Vấn đề là ví dụ này đang sử dụng index như một `key`:
 
 ```js
 {displayedContacts.map((contact, i) =>
   <li key={i}>
 ```
 
-However, you want the state to be associated with _each particular contact_.
+Tuy nhiên, bạn muốn state được liên kết với *mỗi liên hệ cụ thể*.
 
-Using the contact ID as a `key` instead fixes the issue:
+Sử dụng ID của contact như một `key` thay vào đó sẽ sửa vấn đề:
 
 <Sandpack>
 
@@ -2177,7 +2186,7 @@ button {
 
 </Sandpack>
 
-State is associated with the tree position. A `key` lets you specify a named position instead of relying on order.
+State được liên kết với vị trí cây. Một `key` cho phép bạn chỉ định một vị trí được đặt tên thay vì dựa vào thứ tự.
 
 </Solution>
 
