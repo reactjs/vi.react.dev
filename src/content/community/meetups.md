@@ -88,6 +88,7 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 * [Delhi NCR](https://www.meetup.com/React-Delhi-NCR/)
 * [Mumbai](https://reactmumbai.dev)
 * [Pune](https://www.meetup.com/ReactJS-and-Friends/)
+* [Rajasthan](https://reactrajasthan.com)
 
 ## Indonesia {/*indonesia*/}
 * [Indonesia](https://www.meetup.com/reactindonesia/)
