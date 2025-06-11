@@ -151,7 +151,7 @@ button {
 
 </Sandpack>
 
-`handleClick` là một trình xử lý sự kiện đang cập nhật một biến cục bộ, `index`. Nhưng hai điều ngăn cản sự thay đổi đó được hiển thị:
+`handleClick` là một trình xử lý sự kiện đang cập nhật một biến cục bộ (local), `index`. Nhưng hai điều ngăn cản sự thay đổi đó được hiển thị:
 
 1. **Các biến cục bộ không tồn tại giữa các lần render.** Khi React render component này lần thứ hai, nó sẽ render lại từ đầu - nó không xem xét bất kỳ thay đổi nào đối với các biến cục bộ.
 2. **Thay đổi các biến cục bộ sẽ không kích hoạt render.** React không nhận ra rằng nó cần render lại component với dữ liệu mới.
@@ -188,7 +188,7 @@ const [index, setIndex] = useState(0);
 
 `index` là một biến state và `setIndex` là hàm setter.
 
-> Cú pháp `[` và `]` ở đây được gọi là [array destructuring](https://javascript.info/destructuring-assignment) và nó cho phép bạn đọc giá trị từ một mảng. Mảng được trả về bởi `useState` luôn có đúng hai mục.
+> Cú pháp `[` và `]` ở đây được gọi là [array destructuring](https://javascript.info/destructuring-assignment) và nó cho phép bạn đọc giá trị từ một mảng (array). Mảng được trả về bởi `useState` luôn có đúng hai mục.
 
 Đây là cách chúng hoạt động cùng nhau trong `handleClick`:
 
@@ -341,7 +341,7 @@ State chỉ là một trong những tính năng đó, nhưng bạn sẽ gặp c�
 
 <Pitfall>
 
-**Hooks—các hàm bắt đầu bằng `use`—chỉ có thể được gọi ở cấp độ trên cùng của các component của bạn hoặc [Hooks của riêng bạn.](/learn/reusing-logic-with-custom-hooks)** Bạn không thể gọi Hooks bên trong các điều kiện, vòng lặp, hoặc các hàm lồng ghép khác. Hooks là các hàm, nhưng sẽ hữu ích khi nghĩ về chúng như là các khai báo không điều kiện về các nhu cầu của component của bạn. Bạn "sử dụng" các tính năng của React ở đầu component của bạn tương tự như cách bạn "nhập khẩu" các mô-đun ở đầu file của bạn.
+**Hooks—các hàm bắt đầu bằng `use`—chỉ có thể được gọi ở cấp độ trên cùng của các component của bạn hoặc [Hooks của riêng bạn.](/learn/reusing-logic-with-custom-hooks)** Bạn không thể gọi Hooks bên trong các điều kiện, vòng lặp, hoặc các hàm lồng ghép khác. Hooks là các hàm, nhưng sẽ hữu ích khi nghĩ về chúng như là các khai báo không điều kiện về các nhu cầu của component của bạn. Bạn "sử dụng (use)" các tính năng của React ở đầu component của bạn tương tự như cách bạn "import" các mô-đun ở đầu file của bạn.
 
 </Pitfall>
 
@@ -361,7 +361,7 @@ Quy ước là đặt tên cho cặp này như `const [something, setSomething]`
 
 </Note>
 
-Tham số duy nhất của `useState` là **giá trị ban đầu** của biến state của bạn. Trong ví dụ này, giá trị ban đầu của `index` được đặt thành `0` với `useState(0)`.
+Đối số (Argument) duy nhất của `useState` là **giá trị ban đầu** của biến state của bạn. Trong ví dụ này, giá trị ban đầu của `index` được đặt thành `0` với `useState(0)`.
 
 Mỗi khi component của bạn được render, `useState` sẽ trả về một mảng chứa hai giá trị:
 
@@ -376,7 +376,7 @@ const [index, setIndex] = useState(0);
 
 1. **Component của bạn được render lần đầu tiên.** Bởi vì bạn đã truyền `0` cho `useState` như là giá trị ban đầu cho `index`, nó sẽ trả về `[0, setIndex]`. React nhớ rằng giá trị state mới nhất là `0`.
 2. **Bạn cập nhật state.** Khi người dùng nhấp vào nút, nó gọi `setIndex(index + 1)`. `index` là `0`, vì vậy nó là `setIndex(1)`. Điều này nói với React rằng bây giờ hãy nhớ `index` là `1` và kích hoạt một lần render khác.
-3. **Lần render thứ hai của component của bạn.** React vẫn thấy `useState(0)`, nhưng vì React *nhớ* rằng bạn đã đặt `index` thành `1`, nó trả về `[1, setIndex]` thay thế.
+3. **Lần render thứ hai của component của bạn.** React vẫn thấy `useState(0)`, nhưng vì React *nhớ* rằng bạn đã đặt `index` thành `1`, nên thay vào đó nó trả về `[1, setIndex]`.
 4. Và cứ thế tiếp tục!
 
 ## Cung cấp nhiều biến state cho một component {/*giving-a-component-multiple-state-variables*/}
@@ -520,7 +520,7 @@ button {
 
 </Sandpack>
 
-Việc sử dụng nhiều biến state là điều hợp lý nếu chúng không liên quan đến nhau, như `index` và `showMore` trong ví dụ này. Nhưng nếu bạn thấy rằng bạn thường xuyên thay đổi hai biến state cùng lúc, thì bạn có thể dễ dàng hơn nếu kết hợp chúng thành một biến state duy nhất. Ví dụ, nếu bạn có một form với nhiều trường, thì thuận tiện hơn khi sử dụng một biến state duy nhất giữ một object thay vì mỗi trường một biến state riêng. Đọc thêm tại [Chọn Cấu Trúc State](/learn/choosing-the-state-structure) để biết thêm mẹo.
+Việc sử dụng nhiều biến state là điều hợp lý nếu chúng không liên quan đến nhau, như `index` và `showMore` trong ví dụ này. Nhưng nếu bạn thấy rằng bạn thường xuyên thay đổi hai biến state cùng lúc, thì bạn có thể dễ dàng hơn nếu kết hợp chúng thành một biến state duy nhất. Ví dụ, nếu bạn có một form với nhiều trường, thì thuận tiện hơn khi sử dụng một biến state duy nhất để giữ một object thay vì dùng một biến state riêng cho mỗi trường. Đọc thêm tại [Chọn Cấu Trúc State](/learn/choosing-the-state-structure) để biết thêm mẹo.
 
 <DeepDive>
 
@@ -730,7 +730,7 @@ Bạn không cần hiểu nó để sử dụng React, nhưng bạn có thể th
 
 ## State được cô lập và riêng tư {/*state-is-isolated-and-private*/}
 
-State là cục bộ cho từng thể hiện của component trên màn hình. Nói cách khác, **nếu bạn render cùng một component hai lần, mỗi bản sao sẽ có state hoàn toàn tách biệt!** Việc thay đổi state ở một bản sao sẽ không ảnh hưởng đến bản sao kia.
+State là cục bộ cho từng phiên bản của component trên màn hình. Nói cách khác, **nếu bạn render cùng một component hai lần, mỗi bản sao sẽ có state hoàn toàn tách biệt!** Việc thay đổi state ở một bản sao sẽ không ảnh hưởng đến bản sao kia.
 
 Ví dụ này, component `Gallery` từ ví dụ trước được render hai lần mà không thay đổi logic nào. Hãy thử nhấp vào các nút bên trong mỗi gallery. Bạn sẽ thấy state của chúng hoàn toàn độc lập:
 
@@ -891,11 +891,11 @@ button {
 
 </Sandpack>
 
-Điều này làm cho state khác với các biến thông thường mà bạn có thể khai báo ở đầu mô-đun của bạn. State không gắn liền với một cuộc gọi hàm cụ thể hoặc một vị trí trong mã, nhưng nó "cục bộ" cho vị trí cụ thể trên màn hình. Bạn đã render hai component `<Gallery />`, vì vậy state của chúng được lưu trữ riêng biệt.
+Điều này làm cho state khác với các biến thông thường mà bạn có thể khai báo ở đầu mô-đun của bạn. State không gắn liền với một cuộc gọi hàm cụ thể hoặc một vị trí trong code, nhưng nó "cục bộ" cho vị trí cụ thể trên màn hình. Bạn đã render hai component `<Gallery />`, vì vậy state của chúng được lưu trữ riêng biệt.
 
 Cũng lưu ý rằng component `Page` không "biết" bất kỳ điều gì về state của `Gallery` hoặc thậm chí liệu nó có hay không. Khác với props, **state hoàn toàn riêng tư với component khai báo nó.** Component cha không thể thay đổi nó. Điều này cho phép bạn thêm state vào bất kỳ component nào hoặc loại bỏ nó mà không ảnh hưởng đến phần còn lại của các component.
 
-Điều gì sẽ xảy ra nếu bạn muốn cả hai phòng trưng bày giữ cho các state của chúng đồng bộ? Cách đúng để làm điều đó trong React là *loại bỏ* state khỏi các component con và thêm nó vào cha gần nhất của chúng. Một vài trang tiếp theo sẽ tập trung vào việc tổ chức state của một component đơn lẻ, nhưng chúng ta sẽ trở lại chủ đề này trong [Chia Sẻ State Giữa Các Component.](/learn/sharing-state-between-components)
+Điều gì sẽ xảy ra nếu bạn muốn cả hai phòng trưng bày (gallery) giữ cho các state của chúng đồng bộ? Cách đúng để làm điều đó trong React là *loại bỏ* state khỏi các component con và thêm nó vào component cha gần nhất của chúng. Một vài trang tiếp theo sẽ tập trung vào việc tổ chức state của một component đơn lẻ, nhưng chúng ta sẽ trở lại chủ đề này trong [Chia Sẻ State Giữa Các Component.](/learn/sharing-state-between-components)
 
 <Recap>
 
@@ -1219,7 +1219,7 @@ img { width: 120px; height: 120px; }
 
 </Sandpack>
 
-Chú ý cách `hasPrev` và `hasNext` được sử dụng *cả* cho JSX trả về và bên trong các hàm xử lý sự kiện! Mẫu này rất tiện dụng vì các hàm xử lý sự kiện ["nắm bắt"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) mọi biến được khai báo trong quá trình render.
+Chú ý cách `hasPrev` và `hasNext` được sử dụng *cho cả* JSX trả về và bên trong các hàm xử lý sự kiện! Mẫu này rất tiện dụng vì các hàm xử lý sự kiện ["nắm bắt"](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures) mọi biến được khai báo trong quá trình render.
 
 </Solution>
 
@@ -1331,7 +1331,7 @@ h1 { margin-top: 10px; }
 
 <Hint>
 
-Bạn có bất kỳ giới hạn nào về _vị trí_ mà Hooks có thể được gọi không? Component này có vi phạm quy tắc nào không? Kiểm tra xem có nhận xét nào vô hiệu hóa kiểm tra linter checks--this thường là nơi ẩn lỗi!
+Bạn có bất kỳ giới hạn nào về _vị trí_ mà Hooks có thể được gọi không? Component này có vi phạm quy tắc nào không? Kiểm tra xem có nhận xét nào vô hiệu hóa kiểm tra linter--đây thường là nơi ẩn lỗi!
 
 </Hint>
 
@@ -1370,7 +1370,7 @@ export default function FeedbackForm() {
 
 <Solution>
 
-Hooks chỉ được gọi ở cấp độ trên cùng của hàm component. Ở đây, định nghĩa `isSent` đầu tiên tuân theo quy tắc này, nhưng định nghĩa `message` lại được lồng trong một điều kiện.
+Hooks chỉ có thể được gọi ở cấp độ trên cùng của hàm component. Ở đây, định nghĩa `isSent` đầu tiên tuân theo quy tắc này, nhưng định nghĩa `message` lại được lồng trong một điều kiện.
 
 Đưa nó ra khỏi điều kiện để sửa lỗi:
 
@@ -1452,7 +1452,7 @@ Nếu linter của bạn đã được [cấu hình cho React](/learn/editor-set
 
 #### Loại bỏ state không cần thiết {/*remove-unnecessary-state*/}
 
-Khi bạn nhấn nút, ví dụ này sẽ yêu cầu tên người dùng và sau đó hiển thị một alert chào họ. Bạn đã cố dùng state để lưu tên, nhưng vì lý do nào đó lần đầu tiên nó hiển thị "Hello, !", và sau đó mỗi lần sau lại hiện "Hello, [name]!" với giá trị nhập trước đó.
+Khi bạn nhấn nút, ví dụ này sẽ yêu cầu tên người dùng và sau đó hiển thị một thông báo để chào họ. Bạn đã cố dùng state để lưu tên, nhưng vì lý do nào đó lần đầu tiên nó hiển thị "Hello, !", và sau đó mỗi lần sau lại hiện "Hello, [name]!" với giá trị nhập trước đó.
 
 Để sửa code này, hãy loại bỏ biến state không cần thiết. (Chúng ta sẽ thảo luận về [tại sao điều này không hoạt động](/learn/state-as-a-snapshot) sau.)
 
