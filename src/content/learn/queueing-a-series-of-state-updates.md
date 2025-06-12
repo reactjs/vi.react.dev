@@ -1,23 +1,23 @@
 ---
-title: Queueing a Series of State Updates
+title: Xếp hàng đợi cho một chuỗi các cập nhật state
 ---
 
 <Intro>
 
-Setting a state variable will queue another render. But sometimes you might want to perform multiple operations on the value before queueing the next render. To do this, it helps to understand how React batches state updates.
+Thiết lập một biến state sẽ đưa một lần render khác vào hàng đợi. Nhưng đôi khi bạn có thể muốn thực hiện nhiều thao tác trên giá trị đó trước khi đưa lần render tiếp theo vào hàng đợi. Để làm điều này, sẽ hữu ích khi hiểu cách React gom nhóm các cập nhật state.
 
 </Intro>
 
 <YouWillLearn>
 
-* What "batching" is and how React uses it to process multiple state updates
-* How to apply several updates to the same state variable in a row
+* "Batching" là gì và React sử dụng nó như thế nào để xử lý nhiều cập nhật state
+* Cách áp dụng liên tiếp nhiều cập nhật cho cùng một biến state
 
 </YouWillLearn>
 
-## React batches state updates {/*react-batches-state-updates*/}
+## React gom nhóm các cập nhật state {/*react-batches-state-updates*/}
 
-You might expect that clicking the "+3" button will increment the counter three times because it calls `setNumber(number + 1)` three times:
+Bạn có thể nghĩ rằng việc nhấp vào nút "+3" sẽ tăng bộ đếm ba lần bởi vì nó gọi `setNumber(number + 1)` ba lần:
 
 <Sandpack>
 
@@ -47,7 +47,7 @@ h1 { display: inline-block; margin: 10px; width: 30px; text-align: center; }
 
 </Sandpack>
 
-However, as you might recall from the previous section, [each render's state values are fixed](/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time), so the value of `number` inside the first render's event handler is always `0`, no matter how many times you call `setNumber(1)`:
+Tuy nhiên, như bạn có thể nhớ lại từ phần trước, [giá trị state của mỗi lần render được cố định](/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time), vì vậy giá trị của `number` bên trong event handler của lần render đầu tiên luôn là `0`, bất kể bạn gọi `setNumber(1)` bao nhiêu lần:
 
 ```js
 setNumber(0 + 1);
@@ -55,21 +55,21 @@ setNumber(0 + 1);
 setNumber(0 + 1);
 ```
 
-But there is one other factor at play here. **React waits until *all* code in the event handlers has run before processing your state updates.** This is why the re-render only happens *after* all these `setNumber()` calls.
+Nhưng có một yếu tố khác đang tác động ở đây. **React chờ đợi cho đến khi *tất cả* code trong các event handler đã chạy xong trước khi xử lý các cập nhật state của bạn.** Đây là lý do tại sao việc render lại chỉ xảy ra *sau* tất cả các lệnh gọi `setNumber()` này.
 
-This might remind you of a waiter taking an order at the restaurant. A waiter doesn't run to the kitchen at the mention of your first dish! Instead, they let you finish your order, let you make changes to it, and even take orders from other people at the table.
+Điều này có thể gợi nhớ đến một người phục vụ nhận đơn hàng tại nhà hàng. Người phục vụ không chạy đến bếp ngay khi nghe thấy món đầu tiên của bạn! Thay vào đó, họ để bạn hoàn thành đơn hàng, để bạn thực hiện các thay đổi, và thậm chí nhận đơn hàng từ những người khác tại bàn.
 
 <Illustration src="/images/docs/illustrations/i_react-batching.png"  alt="An elegant cursor at a restaurant places and order multiple times with React, playing the part of the waiter. After she calls setState() multiple times, the waiter writes down the last one she requested as her final order." />
 
-This lets you update multiple state variables--even from multiple components--without triggering too many [re-renders.](/learn/render-and-commit#re-renders-when-state-updates) But this also means that the UI won't be updated until _after_ your event handler, and any code in it, completes. This behavior, also known as **batching,** makes your React app run much faster. It also avoids dealing with confusing "half-finished" renders where only some of the variables have been updated.
+Điều này cho phép bạn cập nhật nhiều biến state--thậm chí từ nhiều component--mà không kích hoạt quá nhiều [lần render lại.](/learn/render-and-commit#re-renders-when-state-updates) Nhưng điều này cũng có nghĩa là UI sẽ không được cập nhật cho đến _sau_ khi event handler của bạn, và bất kỳ code nào trong đó, hoàn thành. Hành vi này, còn được gọi là **batching,** làm cho ứng dụng React của bạn chạy nhanh hơn nhiều. Nó cũng tránh việc phải đối phó với các lần render "chưa hoàn thành" gây nhầm lẫn khi chỉ một số biến được cập nhật.
 
-**React does not batch across *multiple* intentional events like clicks**--each click is handled separately. Rest assured that React only does batching when it's generally safe to do. This ensures that, for example, if the first button click disables a form, the second click would not submit it again.
+**React không gom nhóm qua *nhiều* sự kiện có chủ ý như click**--mỗi click được xử lý riêng biệt. Hãy yên tâm rằng React chỉ thực hiện batching khi nó thường an toàn để làm như vậy. Điều này đảm bảo rằng, ví dụ, nếu click nút đầu tiên vô hiệu hóa một form, click thứ hai sẽ không gửi nó lần nữa.
 
-## Updating the same state multiple times before the next render {/*updating-the-same-state-multiple-times-before-the-next-render*/}
+## Cập nhật cùng một state nhiều lần trước lần render tiếp theo {/*updating-the-same-state-multiple-times-before-the-next-render*/}
 
-It is an uncommon use case, but if you would like to update the same state variable multiple times before the next render, instead of passing the *next state value* like `setNumber(number + 1)`, you can pass a *function* that calculates the next state based on the previous one in the queue, like `setNumber(n => n + 1)`. It is a way to tell React to "do something with the state value" instead of just replacing it.
+Đây là một trường hợp sử dụng không phổ biến, nhưng nếu bạn muốn cập nhật cùng một biến state nhiều lần trước lần render tiếp theo, thay vì truyền *giá trị state tiếp theo* như `setNumber(number + 1)`, bạn có thể truyền một *function* tính toán state tiếp theo dựa trên state trước đó trong hàng đợi, như `setNumber(n => n + 1)`. Đây là cách để nói với React "làm điều gì đó với giá trị state" thay vì chỉ thay thế nó.
 
-Try incrementing the counter now:
+Hãy thử tăng bộ đếm ngay bây giờ:
 
 <Sandpack>
 
@@ -99,10 +99,10 @@ h1 { display: inline-block; margin: 10px; width: 30px; text-align: center; }
 
 </Sandpack>
 
-Here, `n => n + 1` is called an **updater function.** When you pass it to a state setter:
+Ở đây, `n => n + 1` được gọi là **updater function.** Khi bạn truyền nó cho một state setter:
 
-1. React queues this function to be processed after all the other code in the event handler has run.
-2. During the next render, React goes through the queue and gives you the final updated state.
+1. React đưa function này vào hàng đợi để được xử lý sau khi tất cả code khác trong event handler đã chạy.
+2. Trong lần render tiếp theo, React duyệt qua hàng đợi và cung cấp cho bạn state cuối cùng đã cập nhật.
 
 ```js
 setNumber(n => n + 1);
@@ -110,26 +110,27 @@ setNumber(n => n + 1);
 setNumber(n => n + 1);
 ```
 
-Here's how React works through these lines of code while executing the event handler:
+Đây là cách React xử lý các dòng code này khi thực thi event handler:
 
-1. `setNumber(n => n + 1)`: `n => n + 1` is a function. React adds it to a queue.
-1. `setNumber(n => n + 1)`: `n => n + 1` is a function. React adds it to a queue.
-1. `setNumber(n => n + 1)`: `n => n + 1` is a function. React adds it to a queue.
+1. `setNumber(n => n + 1)`: `n => n + 1` là một function. React thêm nó vào hàng đợi.
+1. `setNumber(n => n + 1)`: `n => n + 1` là một function. React thêm nó vào hàng đợi.
+1. `setNumber(n => n + 1)`: `n => n + 1` là một function. React thêm nó vào hàng đợi.
 
-When you call `useState` during the next render, React goes through the queue. The previous `number` state was `0`, so that's what React passes to the first updater function as the `n` argument. Then React takes the return value of your previous updater function and passes it to the next updater as `n`, and so on:
+Khi bạn gọi `useState` trong lần render tiếp theo, React duyệt qua hàng đợi. State `number` trước đó là `0`, vì vậy đó là những gì React truyền cho updater function đầu tiên làm tham số `n`. Sau đó React lấy giá trị trả về của updater function trước đó và truyền nó cho updater tiếp theo làm `n`, và cứ thế:
 
-|  queued update | `n` | returns |
+|  cập nhật trong hàng đợi | `n` | trả về |
 |--------------|---------|-----|
 | `n => n + 1` | `0` | `0 + 1 = 1` |
 | `n => n + 1` | `1` | `1 + 1 = 2` |
 | `n => n + 1` | `2` | `2 + 1 = 3` |
 
-React stores `3` as the final result and returns it from `useState`.
+React lưu trữ `3` là kết quả cuối cùng và trả về nó từ `useState`.
 
-This is why clicking "+3" in the above example correctly increments the value by 3.
-### What happens if you update state after replacing it {/*what-happens-if-you-update-state-after-replacing-it*/}
+Đây là lý do tại sao việc nhấp "+3" trong ví dụ trên đúng cách tăng giá trị lên 3.
 
-What about this event handler? What do you think `number` will be in the next render?
+### Điều gì xảy ra nếu bạn cập nhật state sau khi thay thế nó {/*what-happens-if-you-update-state-after-replacing-it*/}
+
+Còn event handler này thì sao? Bạn nghĩ `number` sẽ là gì trong lần render tiếp theo?
 
 ```js
 <button onClick={() => {
@@ -165,29 +166,29 @@ h1 { display: inline-block; margin: 10px; width: 30px; text-align: center; }
 
 </Sandpack>
 
-Here's what this event handler tells React to do:
+Đây là những gì event handler này yêu cầu React thực hiện:
 
-1. `setNumber(number + 5)`: `number` is `0`, so `setNumber(0 + 5)`. React adds *"replace with `5`"* to its queue.
-2. `setNumber(n => n + 1)`: `n => n + 1` is an updater function. React adds *that function* to its queue.
+1. `setNumber(number + 5)`: `number` là `0`, vì vậy `setNumber(0 + 5)`. React thêm *"thay thế bằng `5`"* vào hàng đợi của nó.
+2. `setNumber(n => n + 1)`: `n => n + 1` là một updater function. React thêm *function đó* vào hàng đợi của nó.
 
-During the next render, React goes through the state queue:
+Trong lần render tiếp theo, React duyệt qua hàng đợi state:
 
-|   queued update       | `n` | returns |
+|   cập nhật trong hàng đợi       | `n` | trả về |
 |--------------|---------|-----|
-| "replace with `5`" | `0` (unused) | `5` |
+| "thay thế bằng `5`" | `0` (không sử dụng) | `5` |
 | `n => n + 1` | `5` | `5 + 1 = 6` |
 
-React stores `6` as the final result and returns it from `useState`. 
+React lưu trữ `6` là kết quả cuối cùng và trả về nó từ `useState`.
 
 <Note>
 
-You may have noticed that `setState(5)` actually works like `setState(n => 5)`, but `n` is unused!
+Bạn có thể đã nhận thấy rằng `setState(5)` thực tế hoạt động như `setState(n => 5)`, nhưng `n` không được sử dụng!
 
 </Note>
 
-### What happens if you replace state after updating it {/*what-happens-if-you-replace-state-after-updating-it*/}
+### Điều gì xảy ra nếu bạn thay thế state sau khi cập nhật nó {/*what-happens-if-you-replace-state-after-updating-it*/}
 
-Let's try one more example. What do you think `number` will be in the next render?
+Hãy thử thêm một ví dụ nữa. Bạn nghĩ `number` sẽ là gì trong lần render tiếp theo?
 
 ```js
 <button onClick={() => {
@@ -225,32 +226,32 @@ h1 { display: inline-block; margin: 10px; width: 30px; text-align: center; }
 
 </Sandpack>
 
-Here's how React works through these lines of code while executing this event handler:
+Đây là cách React xử lý các dòng code này khi thực thi event handler này:
 
-1. `setNumber(number + 5)`: `number` is `0`, so `setNumber(0 + 5)`. React adds *"replace with `5`"* to its queue.
-2. `setNumber(n => n + 1)`: `n => n + 1` is an updater function. React adds *that function* to its queue.
-3. `setNumber(42)`: React adds *"replace with `42`"* to its queue.
+1. `setNumber(number + 5)`: `number` là `0`, vì vậy `setNumber(0 + 5)`. React thêm *"thay thế bằng `5`"* vào hàng đợi của nó.
+2. `setNumber(n => n + 1)`: `n => n + 1` là một updater function. React thêm *function đó* vào hàng đợi của nó.
+3. `setNumber(42)`: React thêm *"thay thế bằng `42`"* vào hàng đợi của nó.
 
-During the next render, React goes through the state queue:
+Trong lần render tiếp theo, React duyệt qua hàng đợi state:
 
-|   queued update       | `n` | returns |
+|   cập nhật trong hàng đợi       | `n` | trả về |
 |--------------|---------|-----|
-| "replace with `5`" | `0` (unused) | `5` |
+| "thay thế bằng `5`" | `0` (không sử dụng) | `5` |
 | `n => n + 1` | `5` | `5 + 1 = 6` |
-| "replace with `42`" | `6` (unused) | `42` |
+| "thay thế bằng `42`" | `6` (không sử dụng) | `42` |
 
-Then React stores `42` as the final result and returns it from `useState`.
+Sau đó React lưu trữ `42` là kết quả cuối cùng và trả về nó từ `useState`.
 
-To summarize, here's how you can think of what you're passing to the `setNumber` state setter:
+Để tóm tắt, đây là cách bạn có thể nghĩ về những gì bạn đang truyền cho state setter `setNumber`:
 
-* **An updater function** (e.g. `n => n + 1`) gets added to the queue.
-* **Any other value** (e.g. number `5`) adds "replace with `5`" to the queue, ignoring what's already queued.
+* **Một updater function** (ví dụ `n => n + 1`) được thêm vào hàng đợi.
+* **Bất kỳ giá trị nào khác** (ví dụ số `5`) thêm "thay thế bằng `5`" vào hàng đợi, bỏ qua những gì đã có trong hàng đợi.
 
-After the event handler completes, React will trigger a re-render. During the re-render, React will process the queue. Updater functions run during rendering, so **updater functions must be [pure](/learn/keeping-components-pure)** and only *return* the result. Don't try to set state from inside of them or run other side effects. In Strict Mode, React will run each updater function twice (but discard the second result) to help you find mistakes.
+Sau khi event handler hoàn thành, React sẽ kích hoạt một lần render lại. Trong quá trình render lại, React sẽ xử lý hàng đợi. Các updater function chạy trong quá trình rendering, vì vậy **các updater function phải [thuần khiết](/learn/keeping-components-pure)** và chỉ *trả về* kết quả. Đừng cố gắng set state từ bên trong chúng hoặc chạy các side effect khác. Trong Strict Mode, React sẽ chạy mỗi updater function hai lần (nhưng bỏ qua kết quả lần thứ hai) để giúp bạn tìm ra lỗi.
 
-### Naming conventions {/*naming-conventions*/}
+### Quy ước đặt tên {/*naming-conventions*/}
 
-It's common to name the updater function argument by the first letters of the corresponding state variable:
+Thông thường người ta đặt tên cho tham số của updater function bằng các chữ cái đầu của biến state tương ứng:
 
 ```js
 setEnabled(e => !e);
@@ -258,13 +259,13 @@ setLastName(ln => ln.reverse());
 setFriendCount(fc => fc * 2);
 ```
 
-If you prefer more verbose code, another common convention is to repeat the full state variable name, like `setEnabled(enabled => !enabled)`, or to use a prefix like `setEnabled(prevEnabled => !prevEnabled)`.
+Nếu bạn thích code chi tiết hơn, một quy ước phổ biến khác là lặp lại tên đầy đủ của biến state, như `setEnabled(enabled => !enabled)`, hoặc sử dụng tiền tố như `setEnabled(prevEnabled => !prevEnabled)`.
 
 <Recap>
 
-* Setting state does not change the variable in the existing render, but it requests a new render.
-* React processes state updates after event handlers have finished running. This is called batching.
-* To update some state multiple times in one event, you can use `setNumber(n => n + 1)` updater function.
+* Thiết lập state không thay đổi biến trong lần render hiện tại, nhưng nó yêu cầu một lần render mới.
+* React xử lý các cập nhật state sau khi các event handler đã chạy xong. Điều này được gọi là batching.
+* Để cập nhật một số state nhiều lần trong một sự kiện, bạn có thể sử dụng updater function `setNumber(n => n + 1)`.
 
 </Recap>
 
@@ -272,13 +273,13 @@ If you prefer more verbose code, another common convention is to repeat the full
 
 <Challenges>
 
-#### Fix a request counter {/*fix-a-request-counter*/}
+#### Sửa bộ đếm yêu cầu {/*fix-a-request-counter*/}
 
-You're working on an art marketplace app that lets the user submit multiple orders for an art item at the same time. Each time the user presses the "Buy" button, the "Pending" counter should increase by one. After three seconds, the "Pending" counter should decrease, and the "Completed" counter should increase.
+Bạn đang làm việc trên một ứng dụng thị trường nghệ thuật cho phép người dùng gửi nhiều đơn hàng cho một tác phẩm nghệ thuật cùng một lúc. Mỗi khi người dùng nhấn nút "Buy", bộ đếm "Pending" sẽ tăng lên một. Sau ba giây, bộ đếm "Pending" sẽ giảm xuống, và bộ đếm "Completed" sẽ tăng lên.
 
-However, the "Pending" counter does not behave as intended. When you press "Buy", it decreases to `-1` (which should not be possible!). And if you click fast twice, both counters seem to behave unpredictably.
+Tuy nhiên, bộ đếm "Pending" không hoạt động như dự định. Khi bạn nhấn "Buy", nó giảm xuống `-1` (điều này không thể xảy ra!). Và nếu bạn nhấp nhanh hai lần, cả hai bộ đếm dường như hoạt động không thể đoán trước.
 
-Why does this happen? Fix both counters.
+Tại sao điều này xảy ra? Hãy sửa cả hai bộ đếm.
 
 <Sandpack>
 
@@ -322,7 +323,7 @@ function delay(ms) {
 
 <Solution>
 
-Inside the `handleClick` event handler, the values of `pending` and `completed` correspond to what they were at the time of the click event. For the first render, `pending` was `0`, so `setPending(pending - 1)` becomes `setPending(-1)`, which is wrong. Since you want to *increment* or *decrement* the counters, rather than set them to a concrete value determined during the click, you can instead pass the updater functions:
+Bên trong event handler `handleClick`, các giá trị của `pending` và `completed` tương ứng với những gì chúng có tại thời điểm sự kiện click. Đối với lần render đầu tiên, `pending` là `0`, vì vậy `setPending(pending - 1)` trở thành `setPending(-1)`, điều này sai. Vì bạn muốn *tăng* hoặc *giảm* các bộ đếm, thay vì set chúng thành một giá trị cụ thể được xác định trong lúc click, bạn có thể truyền các updater function thay thế:
 
 <Sandpack>
 
@@ -364,23 +365,23 @@ function delay(ms) {
 
 </Sandpack>
 
-This ensures that when you increment or decrement a counter, you do it in relation to its *latest* state rather than what the state was at the time of the click.
+Điều này đảm bảo rằng khi bạn tăng hoặc giảm một bộ đếm, bạn làm điều đó liên quan đến state *mới nhất* của nó thay vì state tại thời điểm click.
 
 </Solution>
 
-#### Implement the state queue yourself {/*implement-the-state-queue-yourself*/}
+#### Tự triển khai hàng đợi state {/*implement-the-state-queue-yourself*/}
 
-In this challenge, you will reimplement a tiny part of React from scratch! It's not as hard as it sounds.
+Trong thử thách này, bạn sẽ tự triển khai một phần nhỏ của React từ đầu! Nó không khó như nghe có vẻ.
 
-Scroll through the sandbox preview. Notice that it shows **four test cases.** They correspond to the examples you've seen earlier on this page. Your task is to implement the `getFinalState` function so that it returns the correct result for each of those cases. If you implement it correctly, all four tests should pass.
+Cuộn qua bản xem trước sandbox. Lưu ý rằng nó hiển thị **bốn test case.** Chúng tương ứng với các ví dụ bạn đã thấy trước đó trên trang này. Nhiệm vụ của bạn là triển khai function `getFinalState` để nó trả về kết quả chính xác cho mỗi trường hợp đó. Nếu bạn triển khai chính xác, tất cả bốn bài test sẽ pass.
 
-You will receive two arguments: `baseState` is the initial state (like `0`), and the `queue` is an array which contains a mix of numbers (like `5`) and updater functions (like `n => n + 1`) in the order they were added.
+Bạn sẽ nhận được hai tham số: `baseState` là state ban đầu (như `0`), và `queue` là một mảng chứa hỗn hợp các số (như `5`) và các updater function (như `n => n + 1`) theo thứ tự chúng được thêm vào.
 
-Your task is to return the final state, just like the tables on this page show!
+Nhiệm vụ của bạn là trả về state cuối cùng, giống như các bảng trên trang này hiển thị!
 
 <Hint>
 
-If you're feeling stuck, start with this code structure:
+Nếu bạn cảm thấy bế tắc, hãy bắt đầu với cấu trúc code này:
 
 ```js
 export function getFinalState(baseState, queue) {
@@ -398,7 +399,7 @@ export function getFinalState(baseState, queue) {
 }
 ```
 
-Fill out the missing lines!
+Điền vào các dòng còn thiếu!
 
 </Hint>
 
@@ -495,7 +496,7 @@ function TestCase({
 
 <Solution>
 
-This is the exact algorithm described on this page that React uses to calculate the final state:
+Đây chính xác là thuật toán được mô tả trên trang này mà React sử dụng để tính toán state cuối cùng:
 
 <Sandpack>
 
@@ -596,7 +597,7 @@ function TestCase({
 
 </Sandpack>
 
-Now you know how this part of React works!
+Bây giờ bạn đã biết cách phần này của React hoạt động!
 
 </Solution>
 
