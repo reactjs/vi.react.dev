@@ -1,35 +1,35 @@
 ---
-title: Escape Hatches
+title: Lối Thoát (Escape Hatches)
 ---
 
 <Intro>
 
-Some of your components may need to control and synchronize with systems outside of React. For example, you might need to focus an input using the browser API, play and pause a video player implemented without React, or connect and listen to messages from a remote server. In this chapter, you'll learn the escape hatches that let you "step outside" React and connect to external systems. Most of your application logic and data flow should not rely on these features.
+Một số component của bạn có thể cần kiểm soát và đồng bộ hóa với các hệ thống bên ngoài React. Ví dụ, bạn có thể cần focus một input bằng browser API, phát và tạm dừng một video player được triển khai không sử dụng React, hoặc kết nối và lắng nghe tin nhắn từ một server từ xa. Trong chương này, bạn sẽ học các lối thoát (escape hatches) cho phép bạn "bước ra ngoài" React và kết nối với các hệ thống bên ngoài. Phần lớn logic ứng dụng và data flow của bạn không nên dựa vào những tính năng này.
 
 </Intro>
 
 <YouWillLearn isChapter={true}>
 
-* [How to "remember" information without re-rendering](/learn/referencing-values-with-refs)
-* [How to access DOM elements managed by React](/learn/manipulating-the-dom-with-refs)
-* [How to synchronize components with external systems](/learn/synchronizing-with-effects)
-* [How to remove unnecessary Effects from your components](/learn/you-might-not-need-an-effect)
-* [How an Effect's lifecycle is different from a component's](/learn/lifecycle-of-reactive-effects)
-* [How to prevent some values from re-triggering Effects](/learn/separating-events-from-effects)
-* [How to make your Effect re-run less often](/learn/removing-effect-dependencies)
-* [How to share logic between components](/learn/reusing-logic-with-custom-hooks)
+* [Cách "nhớ" thông tin mà không cần re-render](/learn/referencing-values-with-refs)
+* [Cách truy cập các DOM element được quản lý bởi React](/learn/manipulating-the-dom-with-refs)
+* [Cách đồng bộ hóa component với các hệ thống bên ngoài](/learn/synchronizing-with-effects)
+* [Cách loại bỏ những Effect không cần thiết khỏi component của bạn](/learn/you-might-not-need-an-effect)
+* [Cách lifecycle của Effect khác với lifecycle của một component](/learn/lifecycle-of-reactive-effects)
+* [Cách ngăn một số giá trị khỏi việc re-trigger Effect](/learn/separating-events-from-effects)
+* [Cách làm cho Effect của bạn re-run ít thường xuyên hơn](/learn/removing-effect-dependencies)
+* [Cách chia sẻ logic giữa các component](/learn/reusing-logic-with-custom-hooks)
 
 </YouWillLearn>
 
-## Referencing values with refs {/*referencing-values-with-refs*/}
+## Nhớ giá trị với refs {/*referencing-values-with-refs*/}
 
-When you want a component to "remember" some information, but you don't want that information to [trigger new renders](/learn/render-and-commit), you can use a *ref*:
+Khi bạn muốn một component "nhớ" một số thông tin, nhưng bạn không muốn thông tin đó [trigger render mới](/learn/render-and-commit), bạn có thể sử dụng một *ref*:
 
 ```js
 const ref = useRef(0);
 ```
 
-Like state, refs are retained by React between re-renders. However, setting state re-renders a component. Changing a ref does not! You can access the current value of that ref through the `ref.current` property.
+Giống như state, refs được React giữ lại giữa các lần re-render. Tuy nhiên, việc thiết lập state sẽ re-render một component. Thay đổi một ref thì không! Bạn có thể truy cập giá trị hiện tại của ref đó thông qua thuộc tính `ref.current`.
 
 <Sandpack>
 
@@ -54,17 +54,17 @@ export default function Counter() {
 
 </Sandpack>
 
-A ref is like a secret pocket of your component that React doesn't track. For example, you can use refs to store [timeout IDs](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#return_value), [DOM elements](https://developer.mozilla.org/en-US/docs/Web/API/Element), and other objects that don't impact the component's rendering output.
+Một ref giống như một ngăn bí mật của component mà React không theo dõi. Ví dụ, bạn có thể sử dụng refs để lưu trữ [timeout IDs](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout#return_value), [DOM elements](https://developer.mozilla.org/en-US/docs/Web/API/Element), và các object khác không ảnh hưởng đến kết quả render của component.
 
 <LearnMore path="/learn/referencing-values-with-refs">
 
-Read **[Referencing Values with Refs](/learn/referencing-values-with-refs)** to learn how to use refs to remember information.
+Đọc **[Nhớ giá trị với Refs](/learn/referencing-values-with-refs)** để học cách sử dụng refs để nhớ thông tin.
 
 </LearnMore>
 
-## Manipulating the DOM with refs {/*manipulating-the-dom-with-refs*/}
+## Thao tác DOM với refs {/*manipulating-the-dom-with-refs*/}
 
-React automatically updates the DOM to match your render output, so your components won't often need to manipulate it. However, sometimes you might need access to the DOM elements managed by React—for example, to focus a node, scroll to it, or measure its size and position. There is no built-in way to do those things in React, so you will need a ref to the DOM node. For example, clicking the button will focus the input using a ref:
+React tự động cập nhật DOM để phù hợp với kết quả render của bạn, vì vậy component của bạn thường sẽ không cần thao tác với DOM. Tuy nhiên, thỉnh thoảng bạn có thể cần truy cập vào các DOM element được quản lý bởi React—ví dụ, để focus một node, scroll tới nó, hoặc đo kích thước và vị trí của nó. Không có cách built-in nào để làm những việc đó trong React, vì vậy bạn sẽ cần một ref tới DOM node. Ví dụ, nhấp vào button sẽ focus input bằng cách sử dụng một ref:
 
 <Sandpack>
 
@@ -93,15 +93,15 @@ export default function Form() {
 
 <LearnMore path="/learn/manipulating-the-dom-with-refs">
 
-Read **[Manipulating the DOM with Refs](/learn/manipulating-the-dom-with-refs)** to learn how to access DOM elements managed by React.
+Đọc **[Thao tác DOM với Refs](/learn/manipulating-the-dom-with-refs)** để học cách truy cập các DOM element được quản lý bởi React.
 
 </LearnMore>
 
-## Synchronizing with Effects {/*synchronizing-with-effects*/}
+## Đồng bộ hóa với Effects {/*synchronizing-with-effects*/}
 
-Some components need to synchronize with external systems. For example, you might want to control a non-React component based on the React state, set up a server connection, or send an analytics log when a component appears on the screen. Unlike event handlers, which let you handle particular events, *Effects* let you run some code after rendering. Use them to synchronize your component with a system outside of React.
+Một số component cần đồng bộ hóa với các hệ thống bên ngoài. Ví dụ, bạn có thể muốn kiểm soát một component không phải React dựa trên React state, thiết lập kết nối server, hoặc gửi analytics log khi một component xuất hiện trên màn hình. Không giống như event handlers, cho phép bạn xử lý các sự kiện cụ thể, *Effects* cho phép bạn chạy một số code sau khi render. Sử dụng chúng để đồng bộ hóa component của bạn với một hệ thống bên ngoài React.
 
-Press Play/Pause a few times and see how the video player stays synchronized to the `isPlaying` prop value:
+Nhấn Play/Pause một vài lần và xem video player làm thế nào để đồng bộ với giá trị prop `isPlaying`:
 
 <Sandpack>
 
@@ -145,7 +145,7 @@ video { width: 250px; }
 
 </Sandpack>
 
-Many Effects also "clean up" after themselves. For example, an Effect that sets up a connection to a chat server should return a *cleanup function* that tells React how to disconnect your component from that server:
+Nhiều Effect cũng "dọn dẹp" sau chính chúng. Ví dụ, một Effect thiết lập kết nối tới chat server nên trả về một *cleanup function* để báo cho React biết cách ngắt kết nối component của bạn khỏi server đó:
 
 <Sandpack>
 
@@ -183,23 +183,23 @@ input { display: block; margin-bottom: 20px; }
 
 </Sandpack>
 
-In development, React will immediately run and clean up your Effect one extra time. This is why you see `"✅ Connecting..."` printed twice. This ensures that you don't forget to implement the cleanup function.
+Trong môi trường development, React sẽ ngay lập tức chạy và dọn dẹp Effect của bạn thêm một lần nữa. Đó là lý do tại sao bạn thấy `"✅ Connecting..."` được in ra hai lần. Điều này đảm bảo rằng bạn không quên triển khai cleanup function.
 
 <LearnMore path="/learn/synchronizing-with-effects">
 
-Read **[Synchronizing with Effects](/learn/synchronizing-with-effects)** to learn how to synchronize components with external systems.
+Đọc **[Đồng bộ hóa với Effects](/learn/synchronizing-with-effects)** để học cách đồng bộ hóa component với các hệ thống bên ngoài.
 
 </LearnMore>
 
-## You Might Not Need An Effect {/*you-might-not-need-an-effect*/}
+## Có thể bạn không cần một Effect {/*you-might-not-need-an-effect*/}
 
-Effects are an escape hatch from the React paradigm. They let you "step outside" of React and synchronize your components with some external system. If there is no external system involved (for example, if you want to update a component's state when some props or state change), you shouldn't need an Effect. Removing unnecessary Effects will make your code easier to follow, faster to run, and less error-prone.
+Effects là một lối thoát khỏi React paradigm. Chúng cho phép bạn "bước ra ngoài" React và đồng bộ hóa component của bạn với một số hệ thống bên ngoài. Nếu không có hệ thống bên ngoài nào liên quan (ví dụ, nếu bạn muốn cập nhật state của một component khi một số props hoặc state thay đổi), bạn không nên cần một Effect. Loại bỏ những Effect không cần thiết sẽ làm cho code của bạn dễ theo dõi hơn, chạy nhanh hơn, và ít dễ gây lỗi hơn.
 
-There are two common cases in which you don't need Effects:
-- **You don't need Effects to transform data for rendering.**
-- **You don't need Effects to handle user events.**
+Có hai trường hợp phổ biến mà bạn không cần Effects:
+- **Bạn không cần Effects để transform data cho việc render.**
+- **Bạn không cần Effects để xử lý user events.**
 
-For example, you don't need an Effect to adjust some state based on other state:
+Ví dụ, bạn không cần một Effect để điều chỉnh một số state dựa trên state khác:
 
 ```js {5-9}
 function Form() {
@@ -215,7 +215,7 @@ function Form() {
 }
 ```
 
-Instead, calculate as much as you can while rendering:
+Thay vào đó, hãy tính toán nhiều nhất có thể trong khi render:
 
 ```js {4-5}
 function Form() {
@@ -227,19 +227,19 @@ function Form() {
 }
 ```
 
-However, you *do* need Effects to synchronize with external systems. 
+Tuy nhiên, bạn *vẫn* cần Effects để đồng bộ hóa với các hệ thống bên ngoài.
 
 <LearnMore path="/learn/you-might-not-need-an-effect">
 
-Read **[You Might Not Need an Effect](/learn/you-might-not-need-an-effect)** to learn how to remove unnecessary Effects.
+Đọc **[Có thể bạn không cần một Effect](/learn/you-might-not-need-an-effect)** để học cách loại bỏ những Effect không cần thiết.
 
 </LearnMore>
 
-## Lifecycle of reactive effects {/*lifecycle-of-reactive-effects*/}
+## Lifecycle của reactive effects {/*lifecycle-of-reactive-effects*/}
 
-Effects have a different lifecycle from components. Components may mount, update, or unmount. An Effect can only do two things: to start synchronizing something, and later to stop synchronizing it. This cycle can happen multiple times if your Effect depends on props and state that change over time.
+Effects có một lifecycle khác với component. Component có thể mount, update, hoặc unmount. Một Effect chỉ có thể làm hai việc: bắt đầu đồng bộ hóa cái gì đó, và sau đó ngừng đồng bộ hóa nó. Chu kỳ này có thể xảy ra nhiều lần nếu Effect của bạn phụ thuộc vào props và state thay đổi theo thời gian.
 
-This Effect depends on the value of the `roomId` prop. Props are *reactive values,* which means they can change on a re-render. Notice that the Effect *re-synchronizes* (and re-connects to the server) if `roomId` changes:
+Effect này phụ thuộc vào giá trị của prop `roomId`. Props là *reactive values,* có nghĩa là chúng có thể thay đổi khi re-render. Lưu ý rằng Effect *re-synchronizes* (và kết nối lại với server) nếu `roomId` thay đổi:
 
 <Sandpack>
 
@@ -302,25 +302,25 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-React provides a linter rule to check that you've specified your Effect's dependencies correctly. If you forget to specify `roomId` in the list of dependencies in the above example, the linter will find that bug automatically.
+React cung cấp một linter rule để kiểm tra rằng bạn đã chỉ định dependencies của Effect một cách chính xác. Nếu bạn quên chỉ định `roomId` trong danh sách dependencies trong ví dụ trên, linter sẽ tự động tìm ra bug đó.
 
 <LearnMore path="/learn/lifecycle-of-reactive-effects">
 
-Read **[Lifecycle of Reactive Events](/learn/lifecycle-of-reactive-effects)** to learn how an Effect's lifecycle is different from a component's.
+Đọc **[Lifecycle của Reactive Effects](/learn/lifecycle-of-reactive-effects)** để học cách lifecycle của một Effect khác với lifecycle của một component.
 
 </LearnMore>
 
-## Separating events from Effects {/*separating-events-from-effects*/}
+## Tách biệt events khỏi Effects {/*separating-events-from-effects*/}
 
 <Wip>
 
-This section describes an **experimental API that has not yet been released** in a stable version of React.
+Phần này mô tả một **experimental API chưa được phát hành** trong phiên bản ổn định của React.
 
 </Wip>
 
-Event handlers only re-run when you perform the same interaction again. Unlike event handlers, Effects re-synchronize if any of the values they read, like props or state, are different than during last render. Sometimes, you want a mix of both behaviors: an Effect that re-runs in response to some values but not others.
+Event handlers chỉ re-run khi bạn thực hiện lại cùng một tương tác. Không giống như event handlers, Effects re-synchronize nếu bất kỳ giá trị nào mà chúng đọc, như props hoặc state, khác so với lần render cuối cùng. Thỉnh thoảng, bạn muốn một sự kết hợp của cả hai hành vi: một Effect re-run để phản hồi với một số giá trị nhưng không phải với những giá trị khác.
 
-All code inside Effects is *reactive.* It will run again if some reactive value it reads has changed due to a re-render. For example, this Effect will re-connect to the chat if either `roomId` or `theme` have changed:
+Tất cả code bên trong Effects đều *reactive.* Nó sẽ chạy lại nếu một số reactive value mà nó đọc đã thay đổi do re-render. Ví dụ, Effect này sẽ kết nối lại với chat nếu `roomId` hoặc `theme` đã thay đổi:
 
 <Sandpack>
 
@@ -448,7 +448,7 @@ label { display: block; margin-top: 10px; }
 
 </Sandpack>
 
-This is not ideal. You want to re-connect to the chat only if the `roomId` has changed. Switching the `theme` shouldn't re-connect to the chat! Move the code reading `theme` out of your Effect into an *Effect Event*:
+Điều này không lý tưởng. Bạn muốn kết nối lại với chat chỉ khi `roomId` đã thay đổi. Việc chuyển đổi `theme` không nên kết nối lại với chat! Di chuyển code đọc `theme` ra khỏi Effect của bạn vào một *Effect Event*:
 
 <Sandpack>
 
@@ -581,19 +581,19 @@ label { display: block; margin-top: 10px; }
 
 </Sandpack>
 
-Code inside Effect Events isn't reactive, so changing the `theme` no longer makes your Effect re-connect.
+Code bên trong Effect Events không reactive, vì vậy việc thay đổi `theme` không còn làm cho Effect của bạn kết nối lại.
 
 <LearnMore path="/learn/separating-events-from-effects">
 
-Read **[Separating Events from Effects](/learn/separating-events-from-effects)** to learn how to prevent some values from re-triggering Effects.
+Đọc **[Tách biệt Events khỏi Effects](/learn/separating-events-from-effects)** để học cách ngăn một số giá trị khỏi việc re-trigger Effects.
 
 </LearnMore>
 
-## Removing Effect dependencies {/*removing-effect-dependencies*/}
+## Loại bỏ Effect dependencies {/*removing-effect-dependencies*/}
 
-When you write an Effect, the linter will verify that you've included every reactive value (like props and state) that the Effect reads in the list of your Effect's dependencies. This ensures that your Effect remains synchronized with the latest props and state of your component. Unnecessary dependencies may cause your Effect to run too often, or even create an infinite loop. The way you remove them depends on the case.
+Khi bạn viết một Effect, linter sẽ xác minh rằng bạn đã bao gồm mọi reactive value (như props và state) mà Effect đọc trong danh sách dependencies của Effect. Điều này đảm bảo rằng Effect của bạn vẫn đồng bộ với props và state mới nhất của component. Dependencies không cần thiết có thể khiến Effect của bạn chạy quá thường xuyên, hoặc thậm chí tạo ra vòng lặp vô hạn. Cách bạn loại bỏ chúng phụ thuộc vào trường hợp.
 
-For example, this Effect depends on the `options` object which gets re-created every time you edit the input:
+Ví dụ, Effect này phụ thuộc vào object `options` được tạo lại mỗi khi bạn chỉnh sửa input:
 
 <Sandpack>
 
@@ -668,7 +668,7 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-You don't want the chat to re-connect every time you start typing a message in that chat. To fix this problem, move creation of the `options` object inside the Effect so that the Effect only depends on the `roomId` string:
+Bạn không muốn chat kết nối lại mỗi khi bạn bắt đầu gõ tin nhắn trong chat đó. Để khắc phục vấn đề này, hãy di chuyển việc tạo object `options` vào bên trong Effect để Effect chỉ phụ thuộc vào chuỗi `roomId`:
 
 <Sandpack>
 
@@ -742,19 +742,19 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-Notice that you didn't start by editing the dependency list to remove the `options` dependency. That would be wrong. Instead, you changed the surrounding code so that the dependency became *unnecessary.* Think of the dependency list as a list of all the reactive values used by your Effect's code. You don't intentionally choose what to put on that list. The list describes your code. To change the dependency list, change the code.
+Lưu ý rằng bạn không bắt đầu bằng việc chỉnh sửa danh sách dependency để loại bỏ dependency `options`. Điều đó sẽ là sai. Thay vào đó, bạn đã thay đổi code xung quanh để dependency trở nên *không cần thiết.* Hãy nghĩ về danh sách dependency như một danh sách tất cả các reactive values được sử dụng bởi code Effect của bạn. Bạn không cố ý chọn những gì để đưa vào danh sách đó. Danh sách mô tả code của bạn. Để thay đổi danh sách dependency, hãy thay đổi code.
 
 <LearnMore path="/learn/removing-effect-dependencies">
 
-Read **[Removing Effect Dependencies](/learn/removing-effect-dependencies)** to learn how to make your Effect re-run less often.
+Đọc **[Loại bỏ Effect Dependencies](/learn/removing-effect-dependencies)** để học cách làm cho Effect của bạn re-run ít thường xuyên hơn.
 
 </LearnMore>
 
-## Reusing logic with custom Hooks {/*reusing-logic-with-custom-hooks*/}
+## Tái sử dụng logic với custom Hooks {/*reusing-logic-with-custom-hooks*/}
 
-React comes with built-in Hooks like `useState`, `useContext`, and `useEffect`. Sometimes, you’ll wish that there was a Hook for some more specific purpose: for example, to fetch data, to keep track of whether the user is online, or to connect to a chat room. To do this, you can create your own Hooks for your application's needs.
+React đi kèm với các built-in Hooks như `useState`, `useContext`, và `useEffect`. Thỉnh thoảng, bạn sẽ mong muốn có một Hook cho một số mục đích cụ thể hơn: ví dụ, để fetch data, để theo dõi xem user có online không, hoặc để kết nối tới một chat room. Để làm điều này, bạn có thể tạo các Hook của riêng mình cho nhu cầu của ứng dụng.
 
-In this example, the `usePointerPosition` custom Hook tracks the cursor position, while `useDelayedValue` custom Hook returns a value that's "lagging behind" the value you passed by a certain number of milliseconds. Move the cursor over the sandbox preview area to see a moving trail of dots following the cursor:
+Trong ví dụ này, custom Hook `usePointerPosition` theo dõi vị trí con trỏ chuột, trong khi custom Hook `useDelayedValue` trả về một giá trị "chậm trễ" so với giá trị bạn truyền vào một số milliseconds. Di chuyển con trỏ chuột qua vùng preview sandbox để thấy một dãy các chấm di chuyển theo con trỏ chuột:
 
 <Sandpack>
 
@@ -835,14 +835,14 @@ body { min-height: 300px; }
 
 </Sandpack>
 
-You can create custom Hooks, compose them together, pass data between them, and reuse them between components. As your app grows, you will write fewer Effects by hand because you'll be able to reuse custom Hooks you already wrote. There are also many excellent custom Hooks maintained by the React community.
+Bạn có thể tạo custom Hooks, kết hợp chúng với nhau, truyền data giữa chúng, và tái sử dụng chúng giữa các component. Khi ứng dụng của bạn phát triển, bạn sẽ viết ít Effects bằng tay hơn vì bạn sẽ có thể tái sử dụng custom Hooks mà bạn đã viết. Cũng có nhiều custom Hooks xuất sắc được duy trì bởi cộng đồng React.
 
 <LearnMore path="/learn/reusing-logic-with-custom-hooks">
 
-Read **[Reusing Logic with Custom Hooks](/learn/reusing-logic-with-custom-hooks)** to learn how to share logic between components.
+Đọc **[Tái sử dụng Logic với Custom Hooks](/learn/reusing-logic-with-custom-hooks)** để học cách chia sẻ logic giữa các component.
 
 </LearnMore>
 
-## What's next? {/*whats-next*/}
+## Tiếp theo là gì? {/*whats-next*/}
 
-Head over to [Referencing Values with Refs](/learn/referencing-values-with-refs) to start reading this chapter page by page!
+Hãy chuyển đến [Nhớ giá trị với Refs](/learn/referencing-values-with-refs) để bắt đầu đọc chương này từng trang một!
