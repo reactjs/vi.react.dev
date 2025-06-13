@@ -1,37 +1,37 @@
 ---
-title: 'Referencing Values with Refs'
+title: 'Tham chiếu giá trị với ref'
 ---
 
 <Intro>
 
-When you want a component to "remember" some information, but you don't want that information to [trigger new renders](/learn/render-and-commit), you can use a *ref*.
+Khi bạn muốn một component "nhớ" một thông tin nào đó, nhưng bạn không muốn thông tin đó [kích hoạt render mới](/learn/render-and-commit), bạn có thể sử dụng *ref*.
 
 </Intro>
 
 <YouWillLearn>
 
-- How to add a ref to your component
-- How to update a ref's value
-- How refs are different from state
-- How to use refs safely
+- Cách thêm ref vào component của bạn
+- Cách cập nhật giá trị của ref
+- Sự khác biệt giữa ref và state
+- Cách sử dụng ref một cách an toàn
 
 </YouWillLearn>
 
-## Adding a ref to your component {/*adding-a-ref-to-your-component*/}
+## Thêm ref vào component của bạn {/*adding-a-ref-to-your-component*/}
 
-You can add a ref to your component by importing the `useRef` Hook from React:
+Bạn có thể thêm ref vào component của mình bằng cách import Hook `useRef` từ React:
 
 ```js
 import { useRef } from 'react';
 ```
 
-Inside your component, call the `useRef` Hook and pass the initial value that you want to reference as the only argument. For example, here is a ref to the value `0`:
+Bên trong component, gọi Hook `useRef` và truyền giá trị khởi tạo mà bạn muốn tham chiếu làm đối số duy nhất. Ví dụ, đây là một ref trỏ tới giá trị `0`:
 
 ```js
 const ref = useRef(0);
 ```
 
-`useRef` returns an object like this:
+`useRef` trả về một object như sau:
 
 ```js
 { 
@@ -41,9 +41,9 @@ const ref = useRef(0);
 
 <Illustration src="/images/docs/illustrations/i_ref.png" alt="An arrow with 'current' written on it stuffed into a pocket with 'ref' written on it." />
 
-You can access the current value of that ref through the `ref.current` property. This value is intentionally mutable, meaning you can both read and write to it. It's like a secret pocket of your component that React doesn't track. (This is what makes it an "escape hatch" from React's one-way data flow--more on that below!)
+Bạn có thể truy cập giá trị hiện tại của ref thông qua thuộc tính `ref.current`. Giá trị này có thể thay đổi được, nghĩa là bạn có thể đọc và ghi vào nó. Nó giống như một "túi bí mật" của component mà React không theo dõi. (Đây là lý do nó được gọi là "lối thoát" khỏi luồng dữ liệu một chiều của React—sẽ nói rõ hơn bên dưới!)
 
-Here, a button will increment `ref.current` on every click:
+Ở ví dụ sau, một button sẽ tăng `ref.current` mỗi lần click:
 
 <Sandpack>
 
@@ -68,20 +68,20 @@ export default function Counter() {
 
 </Sandpack>
 
-The ref points to a number, but, like [state](/learn/state-a-components-memory), you could point to anything: a string, an object, or even a function. Unlike state, ref is a plain JavaScript object with the `current` property that you can read and modify.
+Ref này trỏ tới một số, nhưng, giống như [state](/learn/state-a-components-memory), bạn có thể trỏ tới bất cứ thứ gì: một chuỗi, một object, hoặc thậm chí một function. Khác với state, ref là một object JavaScript thuần với thuộc tính `current` mà bạn có thể đọc và sửa đổi.
 
-Note that **the component doesn't re-render with every increment.** Like state, refs are retained by React between re-renders. However, setting state re-renders a component. Changing a ref does not!
+Lưu ý rằng **component sẽ không re-render mỗi lần tăng giá trị.** Giống như state, ref được React giữ lại giữa các lần re-render. Tuy nhiên, khi set state sẽ làm component re-render. Thay đổi ref thì không!
 
-## Example: building a stopwatch {/*example-building-a-stopwatch*/}
+## Ví dụ: xây dựng đồng hồ bấm giờ {/*example-building-a-stopwatch*/}
 
-You can combine refs and state in a single component. For example, let's make a stopwatch that the user can start or stop by pressing a button. In order to display how much time has passed since the user pressed "Start", you will need to keep track of when the Start button was pressed and what the current time is. **This information is used for rendering, so you'll keep it in state:**
+Bạn có thể kết hợp ref và state trong cùng một component. Ví dụ, hãy tạo một đồng hồ bấm giờ mà người dùng có thể bắt đầu hoặc dừng bằng cách nhấn nút. Để hiển thị thời gian đã trôi qua kể từ khi người dùng nhấn "Start", bạn cần theo dõi thời điểm nhấn Start và thời gian hiện tại. **Thông tin này được dùng để render, nên bạn sẽ lưu nó trong state:**
 
 ```js
 const [startTime, setStartTime] = useState(null);
 const [now, setNow] = useState(null);
 ```
 
-When the user presses "Start", you'll use [`setInterval`](https://developer.mozilla.org/docs/Web/API/setInterval) in order to update the time every 10 milliseconds:
+Khi người dùng nhấn "Start", bạn sẽ dùng [`setInterval`](https://developer.mozilla.org/docs/Web/API/setInterval) để cập nhật thời gian mỗi 10 mili giây:
 
 <Sandpack>
 
@@ -121,7 +121,7 @@ export default function Stopwatch() {
 
 </Sandpack>
 
-When the "Stop" button is pressed, you need to cancel the existing interval so that it stops updating the `now` state variable. You can do this by calling [`clearInterval`](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval), but you need to give it the interval ID that was previously returned by the `setInterval` call when the user pressed Start. You need to keep the interval ID somewhere. **Since the interval ID is not used for rendering, you can keep it in a ref:**
+Khi nhấn nút "Stop", bạn cần hủy interval hiện tại để nó ngừng cập nhật biến state `now`. Bạn có thể làm điều này bằng cách gọi [`clearInterval`](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval), nhưng bạn cần truyền vào ID interval đã được trả về từ `setInterval` khi người dùng nhấn Start. Bạn cần lưu ID interval ở đâu đó. **Vì interval ID không dùng để render, bạn có thể lưu nó trong ref:**
 
 <Sandpack>
 
@@ -168,20 +168,20 @@ export default function Stopwatch() {
 
 </Sandpack>
 
-When a piece of information is used for rendering, keep it in state. When a piece of information is only needed by event handlers and changing it doesn't require a re-render, using a ref may be more efficient.
+Khi một thông tin được dùng để render, hãy lưu nó trong state. Khi một thông tin chỉ cần cho event handler và thay đổi nó không cần re-render, dùng ref sẽ hiệu quả hơn.
 
-## Differences between refs and state {/*differences-between-refs-and-state*/}
+## Sự khác biệt giữa ref và state {/*differences-between-refs-and-state*/}
 
-Perhaps you're thinking refs seem less "strict" than state—you can mutate them instead of always having to use a state setting function, for instance. But in most cases, you'll want to use state. Refs are an "escape hatch" you won't need often. Here's how state and refs compare:
+Có thể bạn nghĩ ref có vẻ "lỏng lẻo" hơn state—bạn có thể thay đổi trực tiếp thay vì luôn phải dùng hàm set state, chẳng hạn. Nhưng trong hầu hết trường hợp, bạn nên dùng state. Ref là "lối thoát" mà bạn sẽ không cần dùng thường xuyên. So sánh giữa state và ref:
 
-| refs                                                                                  | state                                                                                                                     |
+| ref                                                                                  | state                                                                                                                     |
 | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `useRef(initialValue)` returns `{ current: initialValue }`                            | `useState(initialValue)` returns the current value of a state variable and a state setter function ( `[value, setValue]`) |
-| Doesn't trigger re-render when you change it.                                         | Triggers re-render when you change it.                                                                                    |
-| Mutable—you can modify and update `current`'s value outside of the rendering process. | "Immutable"—you must use the state setting function to modify state variables to queue a re-render.                       |
-| You shouldn't read (or write) the `current` value during rendering. | You can read state at any time. However, each render has its own [snapshot](/learn/state-as-a-snapshot) of state which does not change.
+| `useRef(initialValue)` trả về `{ current: initialValue }`                            | `useState(initialValue)` trả về giá trị hiện tại của biến state và một hàm set state (`[value, setValue]`) |
+| Không kích hoạt re-render khi bạn thay đổi nó.                                         | Kích hoạt re-render khi bạn thay đổi nó.                                                                                    |
+| Có thể thay đổi—bạn có thể sửa đổi giá trị `current` bên ngoài quá trình render. | "Không thể thay đổi trực tiếp"—bạn phải dùng hàm set state để sửa đổi biến state và xếp hàng re-render.                       |
+| Bạn không nên đọc (hoặc ghi) giá trị `current` trong quá trình render. | Bạn có thể đọc state bất cứ lúc nào. Tuy nhiên, mỗi lần render sẽ có [snapshot](/learn/state-as-a-snapshot) riêng của state và không thay đổi.
 
-Here is a counter button that's implemented with state:
+Đây là một button đếm số lần nhấn được cài đặt bằng state:
 
 <Sandpack>
 
@@ -205,9 +205,9 @@ export default function Counter() {
 
 </Sandpack>
 
-Because the `count` value is displayed, it makes sense to use a state value for it. When the counter's value is set with `setCount()`, React re-renders the component and the screen updates to reflect the new count.
+Vì giá trị `count` được hiển thị, nên hợp lý khi dùng state cho nó. Khi giá trị counter được set bằng `setCount()`, React sẽ re-render component và màn hình sẽ cập nhật giá trị mới.
 
-If you tried to implement this with a ref, React would never re-render the component, so you'd never see the count change! See how clicking this button **does not update its text**:
+Nếu bạn thử cài đặt bằng ref, React sẽ không bao giờ re-render component, nên bạn sẽ không thấy giá trị count thay đổi! Xem ví dụ dưới đây, **click button sẽ không cập nhật text**:
 
 <Sandpack>
 
@@ -232,13 +232,13 @@ export default function Counter() {
 
 </Sandpack>
 
-This is why reading `ref.current` during render leads to unreliable code. If you need that, use state instead.
+Đây là lý do việc đọc `ref.current` trong render sẽ dẫn đến code khó dự đoán. Nếu bạn cần điều này, hãy dùng state thay vì ref.
 
 <DeepDive>
 
-#### How does useRef work inside? {/*how-does-use-ref-work-inside*/}
+#### useRef hoạt động như thế nào bên trong? {/*how-does-use-ref-work-inside*/}
 
-Although both `useState` and `useRef` are provided by React, in principle `useRef` could be implemented _on top of_ `useState`. You can imagine that inside of React, `useRef` is implemented like this:
+Mặc dù cả `useState` và `useRef` đều được cung cấp bởi React, về nguyên tắc, `useRef` có thể được cài đặt _dựa trên_ `useState`. Bạn có thể hình dung bên trong React, `useRef` được cài đặt như sau:
 
 ```js
 // Inside of React
@@ -248,52 +248,52 @@ function useRef(initialValue) {
 }
 ```
 
-During the first render, `useRef` returns `{ current: initialValue }`. This object is stored by React, so during the next render the same object will be returned. Note how the state setter is unused in this example. It is unnecessary because `useRef` always needs to return the same object!
+Trong lần render đầu tiên, `useRef` trả về `{ current: initialValue }`. Object này được React lưu lại, nên ở lần render tiếp theo, cùng một object sẽ được trả về. Lưu ý hàm set state không được dùng ở ví dụ này. Nó không cần thiết vì `useRef` luôn trả về cùng một object!
 
-React provides a built-in version of `useRef` because it is common enough in practice. But you can think of it as a regular state variable without a setter. If you're familiar with object-oriented programming, refs might remind you of instance fields--but instead of `this.something` you write `somethingRef.current`.
+React cung cấp sẵn `useRef` vì nó đủ phổ biến trong thực tế. Nhưng bạn có thể coi nó như một biến state không có setter. Nếu bạn quen với lập trình hướng đối tượng, ref có thể khiến bạn liên tưởng đến các trường instance—nhưng thay vì `this.something` bạn sẽ viết `somethingRef.current`.
 
 </DeepDive>
 
-## When to use refs {/*when-to-use-refs*/}
+## Khi nào nên dùng ref {/*when-to-use-refs*/}
 
-Typically, you will use a ref when your component needs to "step outside" React and communicate with external APIs—often a browser API that won't impact the appearance of the component. Here are a few of these rare situations:
+Thông thường, bạn sẽ dùng ref khi component cần "bước ra ngoài" React và giao tiếp với các API bên ngoài—thường là API trình duyệt mà không ảnh hưởng đến giao diện component. Một số trường hợp hiếm gặp này gồm:
 
-- Storing [timeout IDs](https://developer.mozilla.org/docs/Web/API/setTimeout)
-- Storing and manipulating [DOM elements](https://developer.mozilla.org/docs/Web/API/Element), which we cover on [the next page](/learn/manipulating-the-dom-with-refs)
-- Storing other objects that aren't necessary to calculate the JSX.
+- Lưu [timeout ID](https://developer.mozilla.org/docs/Web/API/setTimeout)
+- Lưu trữ và thao tác với [DOM element](https://developer.mozilla.org/docs/Web/API/Element), sẽ được nói ở [trang tiếp theo](/learn/manipulating-the-dom-with-refs)
+- Lưu các object khác không cần thiết để tính toán JSX.
 
-If your component needs to store some value, but it doesn't impact the rendering logic, choose refs.
+Nếu component của bạn cần lưu một giá trị, nhưng nó không ảnh hưởng đến logic render, hãy chọn ref.
 
-## Best practices for refs {/*best-practices-for-refs*/}
+## Best practices cho ref {/*best-practices-for-refs*/}
 
-Following these principles will make your components more predictable:
+Làm theo các nguyên tắc sau sẽ giúp component của bạn dễ dự đoán hơn:
 
-- **Treat refs as an escape hatch.** Refs are useful when you work with external systems or browser APIs. If much of your application logic and data flow relies on refs, you might want to rethink your approach.
-- **Don't read or write `ref.current` during rendering.** If some information is needed during rendering, use [state](/learn/state-a-components-memory) instead. Since React doesn't know when `ref.current` changes, even reading it while rendering makes your component's behavior difficult to predict. (The only exception to this is code like `if (!ref.current) ref.current = new Thing()` which only sets the ref once during the first render.)
+- **Xem ref như một lối thoát.** Ref hữu ích khi bạn làm việc với hệ thống bên ngoài hoặc API trình duyệt. Nếu phần lớn logic và luồng dữ liệu của ứng dụng dựa vào ref, bạn nên xem lại cách tiếp cận.
+- **Không đọc hoặc ghi `ref.current` trong quá trình render.** Nếu một thông tin cần thiết khi render, hãy dùng [state](/learn/state-a-components-memory) thay vì ref. Vì React không biết khi nào `ref.current` thay đổi, ngay cả việc đọc nó khi render cũng khiến hành vi component khó đoán. (Ngoại lệ duy nhất là code như `if (!ref.current) ref.current = new Thing()` chỉ set ref một lần ở render đầu tiên.)
 
-Limitations of React state don't apply to refs. For example, state acts like a [snapshot for every render](/learn/state-as-a-snapshot) and [doesn't update synchronously.](/learn/queueing-a-series-of-state-updates) But when you mutate the current value of a ref, it changes immediately:
+Những giới hạn của state không áp dụng cho ref. Ví dụ, state hoạt động như một [snapshot cho mỗi lần render](/learn/state-as-a-snapshot) và [không cập nhật đồng bộ.](/learn/queueing-a-series-of-state-updates) Nhưng khi bạn thay đổi giá trị hiện tại của ref, nó thay đổi ngay lập tức:
 
 ```js
 ref.current = 5;
 console.log(ref.current); // 5
 ```
 
-This is because **the ref itself is a regular JavaScript object,** and so it behaves like one.
+Bởi vì **ref thực chất là một object JavaScript thuần,** nên nó hoạt động như vậy.
 
-You also don't need to worry about [avoiding mutation](/learn/updating-objects-in-state) when you work with a ref. As long as the object you're mutating isn't used for rendering, React doesn't care what you do with the ref or its contents.
+Bạn cũng không cần lo về [tránh mutation](/learn/updating-objects-in-state) khi làm việc với ref. Miễn là object bạn thay đổi không dùng để render, React không quan tâm bạn làm gì với ref hoặc nội dung của nó.
 
-## Refs and the DOM {/*refs-and-the-dom*/}
+## Ref và DOM {/*refs-and-the-dom*/}
 
-You can point a ref to any value. However, the most common use case for a ref is to access a DOM element. For example, this is handy if you want to focus an input programmatically. When you pass a ref to a `ref` attribute in JSX, like `<div ref={myRef}>`, React will put the corresponding DOM element into `myRef.current`. Once the element is removed from the DOM, React will update `myRef.current` to be `null`. You can read more about this in [Manipulating the DOM with Refs.](/learn/manipulating-the-dom-with-refs)
+Bạn có thể trỏ ref tới bất kỳ giá trị nào. Tuy nhiên, trường hợp phổ biến nhất là dùng ref để truy cập DOM element. Ví dụ, điều này rất tiện nếu bạn muốn focus input bằng code. Khi bạn truyền ref vào thuộc tính `ref` trong JSX, như `<div ref={myRef}>`, React sẽ gán DOM element tương ứng vào `myRef.current`. Khi element bị xóa khỏi DOM, React sẽ cập nhật `myRef.current` thành `null`. Bạn có thể đọc thêm ở [Thao tác DOM với ref.](/learn/manipulating-the-dom-with-refs)
 
 <Recap>
 
-- Refs are an escape hatch to hold onto values that aren't used for rendering. You won't need them often.
-- A ref is a plain JavaScript object with a single property called `current`, which you can read or set.
-- You can ask React to give you a ref by calling the `useRef` Hook.
-- Like state, refs let you retain information between re-renders of a component.
-- Unlike state, setting the ref's `current` value does not trigger a re-render.
-- Don't read or write `ref.current` during rendering. This makes your component hard to predict.
+- Ref là lối thoát để giữ giá trị không dùng cho render. Bạn sẽ không cần dùng thường xuyên.
+- Ref là một object JavaScript thuần với thuộc tính duy nhất là `current`, bạn có thể đọc hoặc gán giá trị cho nó.
+- Bạn có thể yêu cầu React cấp cho bạn một ref bằng cách gọi Hook `useRef`.
+- Giống như state, ref giúp bạn giữ thông tin giữa các lần re-render của component.
+- Khác với state, set giá trị `current` của ref sẽ không kích hoạt re-render.
+- Đừng đọc hoặc ghi `ref.current` trong quá trình render. Điều này khiến component khó dự đoán.
 
 </Recap>
 
@@ -301,13 +301,13 @@ You can point a ref to any value. However, the most common use case for a ref is
 
 <Challenges>
 
-#### Fix a broken chat input {/*fix-a-broken-chat-input*/}
+#### Sửa input chat bị lỗi {/*fix-a-broken-chat-input*/}
 
-Type a message and click "Send". You will notice there is a three second delay before you see the "Sent!" alert. During this delay, you can see an "Undo" button. Click it. This "Undo" button is supposed to stop the "Sent!" message from appearing. It does this by calling [`clearTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/clearTimeout) for the timeout ID saved during `handleSend`. However, even after "Undo" is clicked, the "Sent!" message still appears. Find why it doesn't work, and fix it.
+Nhập một tin nhắn và click "Send". Bạn sẽ thấy có độ trễ ba giây trước khi hiện alert "Sent!". Trong lúc chờ, bạn sẽ thấy nút "Undo". Click vào đó. Nút "Undo" này đáng lẽ phải ngăn không cho hiện thông báo "Sent!". Nó làm điều này bằng cách gọi [`clearTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/clearTimeout) với timeout ID đã lưu trong `handleSend`. Tuy nhiên, ngay cả khi đã click "Undo", thông báo "Sent!" vẫn xuất hiện. Hãy tìm lý do và sửa lại.
 
 <Hint>
 
-Regular variables like `let timeoutID` don't "survive" between re-renders because every render runs your component (and initializes its variables) from scratch. Should you keep the timeout ID somewhere else?
+Biến thông thường như `let timeoutID` sẽ không "sống sót" qua các lần re-render vì mỗi lần render sẽ chạy lại component (và khởi tạo lại biến). Bạn nên lưu timeout ID ở đâu?
 
 </Hint>
 
@@ -360,7 +360,7 @@ export default function Chat() {
 
 <Solution>
 
-Whenever your component re-renders (such as when you set state), all local variables get initialized from scratch. This is why you can't save the timeout ID in a local variable like `timeoutID` and then expect another event handler to "see" it in the future. Instead, store it in a ref, which React will preserve between renders.
+Mỗi lần component re-render (ví dụ khi set state), tất cả biến cục bộ sẽ được khởi tạo lại từ đầu. Đó là lý do bạn không thể lưu timeout ID vào biến cục bộ như `timeoutID` rồi mong event handler khác "nhìn thấy" nó sau này. Thay vào đó, hãy lưu nó trong ref, React sẽ giữ lại giữa các lần render.
 
 <Sandpack>
 
@@ -412,9 +412,9 @@ export default function Chat() {
 </Solution>
 
 
-#### Fix a component failing to re-render {/*fix-a-component-failing-to-re-render*/}
+#### Sửa component không re-render {/*fix-a-component-failing-to-re-render*/}
 
-This button is supposed to toggle between showing "On" and "Off". However, it always shows "Off". What is wrong with this code? Fix it.
+Button này đáng lẽ phải chuyển đổi giữa "On" và "Off". Tuy nhiên, nó luôn hiển thị "Off". Sai ở đâu? Hãy sửa lại.
 
 <Sandpack>
 
@@ -438,7 +438,7 @@ export default function Toggle() {
 
 <Solution>
 
-In this example, the current value of a ref is used to calculate the rendering output: `{isOnRef.current ? 'On' : 'Off'}`. This is a sign that this information should not be in a ref, and should have instead been put in state. To fix it, remove the ref and use state instead:
+Ở ví dụ này, giá trị hiện tại của ref được dùng để tính toán khi render: `{isOnRef.current ? 'On' : 'Off'}`. Đây là dấu hiệu cho thấy thông tin này không nên lưu trong ref, mà nên lưu trong state. Để sửa, hãy bỏ ref và dùng state:
 
 <Sandpack>
 
@@ -462,17 +462,17 @@ export default function Toggle() {
 
 </Solution>
 
-#### Fix debouncing {/*fix-debouncing*/}
+#### Sửa debounce {/*fix-debouncing*/}
 
-In this example, all button click handlers are ["debounced".](https://kettanaito.com/blog/debounce-vs-throttle) To see what this means, press one of the buttons. Notice how the message appears a second later. If you press the button while waiting for the message, the timer will reset. So if you keep clicking the same button fast many times, the message won't appear until a second *after* you stop clicking. Debouncing lets you delay some action until the user "stops doing things".
+Ở ví dụ này, tất cả handler click của button đều được ["debounce".](https://kettanaito.com/blog/debounce-vs-throttle) Để thấy điều này, hãy nhấn một button. Chú ý thông báo xuất hiện sau một giây. Nếu bạn nhấn button khi đang chờ, timer sẽ reset. Nếu bạn nhấn liên tục thật nhanh, thông báo sẽ chỉ xuất hiện *sau* khi bạn dừng nhấn một giây. Debounce giúp bạn trì hoãn một hành động cho đến khi người dùng "ngừng thao tác".
 
-This example works, but not quite as intended. The buttons are not independent. To see the problem, click one of the buttons, and then immediately click another button. You'd expect that after a delay, you would see both button's messages. But only the last button's message shows up. The first button's message gets lost.
+Ví dụ này hoạt động, nhưng chưa đúng ý. Các button không độc lập. Để thấy vấn đề, nhấn một button, rồi ngay lập tức nhấn button khác. Bạn sẽ mong sau một lúc sẽ thấy cả hai thông báo. Nhưng chỉ có thông báo của button cuối cùng xuất hiện. Thông báo của button đầu bị mất.
 
-Why are the buttons interfering with each other? Find and fix the issue.
+Tại sao các button lại ảnh hưởng lẫn nhau? Hãy tìm và sửa lỗi này.
 
 <Hint>
 
-The last timeout ID variable is shared between all `DebouncedButton` components. This is why clicking one button resets another button's timeout. Can you store a separate timeout ID for each button?
+Biến timeout ID cuối cùng được chia sẻ giữa tất cả component DebouncedButton. Đó là lý do nhấn một button sẽ reset timeout của button khác. Bạn có thể lưu timeout riêng cho từng button không?
 
 </Hint>
 
@@ -525,7 +525,7 @@ button { display: block; margin: 10px; }
 
 <Solution>
 
-A variable like `timeoutID` is shared between all components. This is why clicking on the second button resets the first button's pending timeout. To fix this, you can keep timeout in a ref. Each button will get its own ref, so they won't conflict with each other. Notice how clicking two buttons fast will show both messages.
+Biến như `timeoutID` được chia sẻ giữa tất cả component. Đó là lý do nhấn button thứ hai sẽ reset timeout đang chờ của button đầu. Để sửa, bạn có thể lưu timeout trong ref. Mỗi button sẽ có một ref riêng, nên chúng không ảnh hưởng nhau. Hãy thử nhấn hai button liên tiếp, bạn sẽ thấy cả hai thông báo xuất hiện.
 
 <Sandpack>
 
@@ -577,11 +577,11 @@ button { display: block; margin: 10px; }
 
 </Solution>
 
-#### Read the latest state {/*read-the-latest-state*/}
+#### Đọc state mới nhất {/*read-the-latest-state*/}
 
-In this example, after you press "Send", there is a small delay before the message is shown. Type "hello", press Send, and then quickly edit the input again. Despite your edits, the alert would still show "hello" (which was the value of state [at the time](/learn/state-as-a-snapshot#state-over-time) the button was clicked).
+Ở ví dụ này, sau khi bạn nhấn "Send", sẽ có một độ trễ nhỏ trước khi tin nhắn được hiển thị. Hãy nhập "hello", nhấn Send, rồi nhanh chóng chỉnh sửa input. Dù bạn đã chỉnh sửa, alert vẫn hiển thị "hello" (đó là giá trị state [tại thời điểm](/learn/state-as-a-snapshot#state-over-time) nhấn button).
 
-Usually, this behavior is what you want in an app. However, there may be occasional cases where you want some asynchronous code to read the *latest* version of some state. Can you think of a way to make the alert show the *current* input text rather than what it was at the time of the click?
+Thông thường, hành vi này là điều bạn muốn trong ứng dụng. Tuy nhiên, đôi khi bạn muốn một đoạn code bất đồng bộ đọc *state mới nhất*. Bạn có nghĩ ra cách nào để alert hiển thị *input hiện tại* thay vì giá trị tại thời điểm click không?
 
 <Sandpack>
 
@@ -616,7 +616,7 @@ export default function Chat() {
 
 <Solution>
 
-State works [like a snapshot](/learn/state-as-a-snapshot), so you can't read the latest state from an asynchronous operation like a timeout. However, you can keep the latest input text in a ref. A ref is mutable, so you can read the `current` property at any time. Since the current text is also used for rendering, in this example, you will need *both* a state variable (for rendering), *and* a ref (to read it in the timeout). You will need to update the current ref value manually.
+State hoạt động [như một snapshot](/learn/state-as-a-snapshot), nên bạn không thể đọc state mới nhất từ một thao tác bất đồng bộ như timeout. Tuy nhiên, bạn có thể lưu input mới nhất vào ref. Ref có thể thay đổi, nên bạn có thể đọc thuộc tính `current` bất cứ lúc nào. Vì text hiện tại cũng dùng để render, trong ví dụ này, bạn sẽ cần *cả* biến state (để render), *và* ref (để đọc trong timeout). Bạn cần cập nhật giá trị ref thủ công.
 
 <Sandpack>
 
