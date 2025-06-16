@@ -1,16 +1,16 @@
 ---
-title: Xếp hàng đợi cho một chuỗi các cập nhật state
+title: Xử lí hàng đợi cho một chuỗi các cập nhật state liên tiếp
 ---
 
 <Intro>
 
-Thiết lập một biến state sẽ đưa một lần render khác vào hàng đợi. Nhưng đôi khi bạn có thể muốn thực hiện nhiều thao tác trên giá trị đó trước khi đưa lần render tiếp theo vào hàng đợi. Để làm điều này, sẽ hữu ích khi hiểu cách React gom nhóm các cập nhật state.
+Thiết lập một biến state sẽ đưa một lần render khác vào hàng đợi. Nhưng đôi khi bạn có thể muốn thực hiện nhiều thao tác trên giá trị đó trước khi đưa lần render tiếp theo vào hàng đợi. Để làm điều này, bạn nên hiểu cách React gom nhóm các cập nhật state.
 
 </Intro>
 
 <YouWillLearn>
 
-* "Batching" là gì và React sử dụng nó như thế nào để xử lý nhiều cập nhật state
+* "Batching" (gom nhóm) là gì và React sử dụng nó như thế nào để xử lý nhiều cập nhật state
 * Cách áp dụng liên tiếp nhiều cập nhật cho cùng một biến state
 
 </YouWillLearn>
@@ -99,7 +99,7 @@ h1 { display: inline-block; margin: 10px; width: 30px; text-align: center; }
 
 </Sandpack>
 
-Ở đây, `n => n + 1` được gọi là **updater function.** Khi bạn truyền nó cho một state setter:
+Ở đây, `n => n + 1` được gọi là **updater (cập nhật) function.** Khi bạn truyền nó cho một state setter:
 
 1. React đưa function này vào hàng đợi để được xử lý sau khi tất cả code khác trong event handler đã chạy.
 2. Trong lần render tiếp theo, React duyệt qua hàng đợi và cung cấp cho bạn state cuối cùng đã cập nhật.
@@ -116,7 +116,7 @@ setNumber(n => n + 1);
 1. `setNumber(n => n + 1)`: `n => n + 1` là một function. React thêm nó vào hàng đợi.
 1. `setNumber(n => n + 1)`: `n => n + 1` là một function. React thêm nó vào hàng đợi.
 
-Khi bạn gọi `useState` trong lần render tiếp theo, React duyệt qua hàng đợi. State `number` trước đó là `0`, vì vậy đó là những gì React truyền cho updater function đầu tiên làm tham số `n`. Sau đó React lấy giá trị trả về của updater function trước đó và truyền nó cho updater tiếp theo làm `n`, và cứ thế:
+Khi bạn gọi `useState` trong lần render tiếp theo, React duyệt qua hàng đợi. State `number` trước đó là `0`, vì vậy đó là giá trị React truyền cho updater function đầu tiên làm tham số `n`. Sau đó React lấy giá trị trả về của updater function trước đó và truyền nó cho updater tiếp theo làm `n`, và cứ thế:
 
 |  cập nhật trong hàng đợi | `n` | trả về |
 |--------------|---------|-----|
@@ -247,7 +247,7 @@ Sau đó React lưu trữ `42` là kết quả cuối cùng và trả về nó t
 * **Một updater function** (ví dụ `n => n + 1`) được thêm vào hàng đợi.
 * **Bất kỳ giá trị nào khác** (ví dụ số `5`) thêm "thay thế bằng `5`" vào hàng đợi, bỏ qua những gì đã có trong hàng đợi.
 
-Sau khi event handler hoàn thành, React sẽ kích hoạt một lần render lại. Trong quá trình render lại, React sẽ xử lý hàng đợi. Các updater function chạy trong quá trình rendering, vì vậy **các updater function phải [thuần khiết](/learn/keeping-components-pure)** và chỉ *trả về* kết quả. Đừng cố gắng set state từ bên trong chúng hoặc chạy các side effect khác. Trong Strict Mode, React sẽ chạy mỗi updater function hai lần (nhưng bỏ qua kết quả lần thứ hai) để giúp bạn tìm ra lỗi.
+Sau khi event handler hoàn thành, React sẽ kích hoạt một lần render lại. Trong quá trình render lại, React sẽ xử lý hàng đợi. Các updater function chạy trong quá trình rendering, vì vậy **các updater function phải [thuần khiết](/learn/keeping-components-pure)** và chỉ *trả về* kết quả. Đừng cố gắng set state từ bên trong chúng hoặc chạy các side effect (hiệu ứng ngoài lề) khác. Trong Strict Mode, React sẽ chạy mỗi updater function hai lần (nhưng bỏ qua kết quả lần thứ hai) để giúp bạn tìm ra lỗi.
 
 ### Quy ước đặt tên {/*naming-conventions*/}
 
@@ -263,7 +263,7 @@ Nếu bạn thích code chi tiết hơn, một quy ước phổ biến khác là
 
 <Recap>
 
-* Thiết lập state không thay đổi biến trong lần render hiện tại, nhưng nó yêu cầu một lần render mới.
+* Thiết lập state không thay đổi biến trong lần render hiện tại, nhưng nó kích hoạt một lần render mới.
 * React xử lý các cập nhật state sau khi các event handler đã chạy xong. Điều này được gọi là batching.
 * Để cập nhật một số state nhiều lần trong một sự kiện, bạn có thể sử dụng updater function `setNumber(n => n + 1)`.
 
@@ -275,9 +275,9 @@ Nếu bạn thích code chi tiết hơn, một quy ước phổ biến khác là
 
 #### Sửa bộ đếm yêu cầu {/*fix-a-request-counter*/}
 
-Bạn đang làm việc trên một ứng dụng thị trường nghệ thuật cho phép người dùng gửi nhiều đơn hàng cho một tác phẩm nghệ thuật cùng một lúc. Mỗi khi người dùng nhấn nút "Buy", bộ đếm "Pending" sẽ tăng lên một. Sau ba giây, bộ đếm "Pending" sẽ giảm xuống, và bộ đếm "Completed" sẽ tăng lên.
+Bạn đang xây dựng một ứng dụng thị trường để buôn bán nghệ thuật mà cho phép người dùng gửi nhiều đơn hàng cho một tác phẩm nghệ thuật cùng một lúc. Mỗi khi người dùng nhấn nút "Buy (Mua hàng)", bộ đếm "Pending (Đang xử lí)" sẽ tăng lên một. Sau ba giây, bộ đếm "Pending" sẽ giảm xuống, và bộ đếm "Completed (Hoàn tất)" sẽ tăng lên.
 
-Tuy nhiên, bộ đếm "Pending" không hoạt động như dự định. Khi bạn nhấn "Buy", nó giảm xuống `-1` (điều này không thể xảy ra!). Và nếu bạn nhấp nhanh hai lần, cả hai bộ đếm dường như hoạt động không thể đoán trước.
+Tuy nhiên, bộ đếm "Pending" không hoạt động như dự định. Khi bạn nhấn "Buy", nó giảm xuống `-1` (điều này không nên xảy ra!). Và nếu bạn nhấp nhanh hai lần, cả hai bộ đếm dường như hoạt động một cách khó đoán.
 
 Tại sao điều này xảy ra? Hãy sửa cả hai bộ đếm.
 
@@ -323,7 +323,7 @@ function delay(ms) {
 
 <Solution>
 
-Bên trong event handler `handleClick`, các giá trị của `pending` và `completed` tương ứng với những gì chúng có tại thời điểm sự kiện click. Đối với lần render đầu tiên, `pending` là `0`, vì vậy `setPending(pending - 1)` trở thành `setPending(-1)`, điều này sai. Vì bạn muốn *tăng* hoặc *giảm* các bộ đếm, thay vì set chúng thành một giá trị cụ thể được xác định trong lúc click, bạn có thể truyền các updater function thay thế:
+Bên trong event handler `handleClick`, các giá trị của `pending` và `completed` tương ứng với những gì chúng có tại thời điểm sự kiện click xảy ra. Đối với lần render đầu tiên, `pending` là `0`, vì vậy `setPending(pending - 1)` trở thành `setPending(-1)`, điều này sai. Vì bạn muốn *tăng* hoặc *giảm* các bộ đếm, thay vì gán chúng thành một giá trị cụ thể được xác định trong lúc click, bạn có thể truyền các updater function thay thế:
 
 <Sandpack>
 
@@ -365,15 +365,15 @@ function delay(ms) {
 
 </Sandpack>
 
-Điều này đảm bảo rằng khi bạn tăng hoặc giảm một bộ đếm, bạn làm điều đó liên quan đến state *mới nhất* của nó thay vì state tại thời điểm click.
+Điều này đảm bảo rằng khi bạn tăng hoặc giảm một bộ đếm, bạn thực hiện nó dựa trên state *mới nhất* của bộ đếm thay vì state tại thời điểm click.
 
 </Solution>
 
 #### Tự triển khai hàng đợi state {/*implement-the-state-queue-yourself*/}
 
-Trong thử thách này, bạn sẽ tự triển khai một phần nhỏ của React từ đầu! Nó không khó như nghe có vẻ.
+Trong thử thách này, bạn sẽ tự triển khai một phần nhỏ của React từ đầu! Nó không khó như bạn nghĩ.
 
-Cuộn qua bản xem trước sandbox. Lưu ý rằng nó hiển thị **bốn test case.** Chúng tương ứng với các ví dụ bạn đã thấy trước đó trên trang này. Nhiệm vụ của bạn là triển khai function `getFinalState` để nó trả về kết quả chính xác cho mỗi trường hợp đó. Nếu bạn triển khai chính xác, tất cả bốn bài test sẽ pass.
+Hãy xem qua sandbox ở dưới. Lưu ý rằng nó hiển thị **bốn bài test.** Chúng tương ứng với các ví dụ bạn đã thấy trước đó trên trang này. Nhiệm vụ của bạn là triển khai function `getFinalState` để nó trả về kết quả chính xác cho mỗi trường hợp đó. Nếu bạn triển khai chính xác, bạn sẽ vượt qua bốn bài test.
 
 Bạn sẽ nhận được hai tham số: `baseState` là state ban đầu (như `0`), và `queue` là một mảng chứa hỗn hợp các số (như `5`) và các updater function (như `n => n + 1`) theo thứ tự chúng được thêm vào.
 
@@ -381,7 +381,7 @@ Nhiệm vụ của bạn là trả về state cuối cùng, giống như các b�
 
 <Hint>
 
-Nếu bạn cảm thấy bế tắc, hãy bắt đầu với cấu trúc code này:
+Nếu bạn không có ý tưởng, hãy bắt đầu với cấu trúc code này:
 
 ```js
 export function getFinalState(baseState, queue) {
@@ -597,7 +597,7 @@ function TestCase({
 
 </Sandpack>
 
-Bây giờ bạn đã biết cách phần này của React hoạt động!
+Bây giờ bạn đã biết cách React hoạt động như thế nào trong phần này!
 
 </Solution>
 
