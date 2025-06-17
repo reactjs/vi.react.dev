@@ -4,7 +4,7 @@ title: Quản Lý State
 
 <Intro>
 
-Khi ứng dụng của bạn ngày càng lớn, việc có ý thức hơn về cách tổ chức state và luồng data chảy giữa các component sẽ rất hữu ích. State dư thừa hoặc trùng lặp là nguyên nhân phổ biến gây ra một loạt bug khó hiểu. Trong chương này, bạn sẽ học cách cấu trúc state một cách tốt, cách giữ cho logic cập nhật state dễ bảo trì, và cách chia sẻ state giữa các component cách xa nhau.
+Khi ứng dụng của bạn ngày càng lớn, việc có ý thức hơn về cách tổ chức state và luồng data chảy giữa các component sẽ rất hữu ích. State dư thừa hoặc trùng lặp là nguyên nhân phổ biến gây ra một loạt bug khó hiểu. Trong chương này, bạn sẽ học cách cấu trúc state một cách tốt, cách giữ cho logic cập nhật state dễ bảo trì, và cách chia sẻ state giữa các component ở xa nhau.
 
 </Intro>
 
@@ -16,13 +16,13 @@ Khi ứng dụng của bạn ngày càng lớn, việc có ý thức hơn về c
 * [Cách kiểm soát việc state được bảo tồn hay reset](/learn/preserving-and-resetting-state)
 * [Cách hợp nhất logic state phức tạp trong một function](/learn/extracting-state-logic-into-a-reducer)
 * [Cách truyền thông tin mà không cần "prop drilling"](/learn/passing-data-deeply-with-context)
-* [Cách mở rộng quản lý state khi ứng dụng ngày càng lớn](/learn/scaling-up-with-reducer-and-context)
+* [Cách mở rộng quản lý state khi ứng dụng phát triển](/learn/scaling-up-with-reducer-and-context)
 
 </YouWillLearn>
 
 ## Phản ứng với đầu vào thông qua state {/*reacting-to-input-with-state*/}
 
-Với React, bạn sẽ không sửa đổi UI trực tiếp từ code. Ví dụ, bạn sẽ không viết các lệnh như "vô hiệu hóa nút", "kích hoạt nút", "hiển thị thông báo thành công", v.v. Thay vào đó, bạn sẽ mô tả UI mà bạn muốn thấy cho các trạng thái visual khác nhau của component ("trạng thái ban đầu", "trạng thái đang nhập", "trạng thái thành công"), sau đó kích hoạt những thay đổi state để phản ứng với đầu vào của người dùng. Điều này tương tự như cách các nhà thiết kế suy nghĩ về UI.
+Với React, bạn sẽ không sửa đổi UI trực tiếp từ code. Ví dụ, bạn sẽ không viết các lệnh như "vô hiệu hóa nút", "kích hoạt nút", "hiển thị thông báo thành công", v.v. Thay vào đó, bạn sẽ mô tả UI mà bạn muốn thấy cho các trạng thái visual khác nhau của component ("trạng thái ban đầu", "trạng thái đang nhập", "trạng thái thành công"), sau đó kích hoạt những thay đổi state để phản hồi đầu vào của người dùng. Điều này tương tự như cách các nhà thiết kế suy nghĩ về UI.
 
 Đây là một form quiz được xây dựng bằng React. Lưu ý cách nó sử dụng biến state `status` để xác định có nên kích hoạt hay vô hiệu hóa nút submit, và có nên hiển thị thông báo thành công thay vào đó.
 
@@ -108,13 +108,13 @@ function submitForm(answer) {
 
 <LearnMore path="/learn/reacting-to-input-with-state">
 
-Đọc **[Phản Ứng Với Đầu Vào Thông Qua State](/learn/reacting-to-input-with-state)** để học cách tiếp cận các tương tác với mô hình tư duy điều khiển bằng state.
+Đọc **[Phản Hồi Đầu Vào Thông Qua State](/learn/reacting-to-input-with-state)** để học cách tiếp cận các tương tác với mô hình tư duy điều khiển bằng state.
 
 </LearnMore>
 
 ## Chọn cấu trúc state {/*choosing-the-state-structure*/}
 
-Cấu trúc state tốt có thể tạo ra sự khác biệt giữa một component dễ dàng sửa đổi và debug, và một component có hành vi khó đoán với một loạt bug khó hiểu. Nguyên tắc quan trọng nhất là state không nên chứa thông tin dư thừa hoặc trùng lặp. Nếu có state không cần thiết, thật dễ dàng để quên cập nhật nó và tạo ra bug!
+Cấu trúc state tốt có thể tạo ra sự khác biệt giữa một component dễ dàng sửa đổi và debug, và một component có hành vi khó đoán với một loạt bug khó hiểu. Nguyên tắc quan trọng nhất là state không nên chứa thông tin dư thừa hoặc trùng lặp. Nếu có state không cần thiết, rất dễ quên cập nhật nó và tạo ra bug!
 
 Ví dụ, form này có biến state `fullName` **dư thừa**:
 
@@ -169,7 +169,7 @@ label { display: block; margin-bottom: 5px; }
 
 </Sandpack>
 
-Bạn có thể loại bỏ nó và đơn giản hóa code bằng cách tính toán `fullName` trong khi component đang render:
+Bạn có thể loại bỏ nó và đơn giản hóa code bằng cách tính toán `fullName` khi component đang render:
 
 <Sandpack>
 
@@ -221,7 +221,7 @@ label { display: block; margin-bottom: 5px; }
 
 </Sandpack>
 
-Điều này có thể trông như một thay đổi nhỏ, nhưng một loạt bug khó hiểu trong các ứng dụng React được sửa theo cách này.
+Điều này có vẻ như một thay đổi nhỏ, nhưng nhiều bug khó hiểu trong các ứng dụng React được sửa theo cách này.
 
 <LearnMore path="/learn/choosing-the-state-structure">
 
@@ -399,7 +399,7 @@ textarea {
 
 </Sandpack>
 
-React cho phép bạn ghi đè hành vi mặc định và *bắt buộc* một component reset state của nó bằng cách truyền cho nó một `key` khác, như `<Chat key={email} />`. Điều này báo cho React biết rằng nếu người nhận khác nhau, nó nên được coi là một component `Chat` *khác* cần được tạo lại từ đầu với data mới (và UI như inputs). Giờ đây việc chuyển đổi giữa các người nhận sẽ reset trường input--mặc dù bạn render cùng một component.
+React cho phép bạn ghi đè hành vi mặc định và *bắt buộc* một component reset state của nó bằng cách truyền cho nó một `key` khác, như `<Chat key={email} />`. Điều này báo cho React biết rằng nếu người nhận khác nhau, nó nên được coi là một component `Chat` *khác* cần được tạo lại từ đầu với data mới (và UI như input). Giờ đây việc chuyển đổi giữa các người nhận sẽ reset trường input—mặc dù bạn render cùng một component.
 
 <Sandpack>
 
@@ -502,7 +502,7 @@ textarea {
 
 ## Trích xuất logic state vào reducer {/*extracting-state-logic-into-a-reducer*/}
 
-Các component có nhiều cập nhật state được phân tán qua nhiều event handler có thể trở nên khó sử dụng. Trong những trường hợp này, bạn có thể hợp nhất tất cả logic cập nhật state bên ngoài component của bạn trong một function duy nhất, được gọi là "reducer". Các event handler của bạn trở nên ngắn gọn vì chúng chỉ chỉ định "actions" của người dùng. Ở cuối file, function reducer chỉ định cách state nên cập nhật để phản ứng với từng action!
+Các component có nhiều cập nhật state được phân tán qua nhiều event handler có thể trở nên phức tạp. Trong những trường hợp này, bạn có thể hợp nhất tất cả logic cập nhật state bên ngoài component của bạn trong một function duy nhất, được gọi là "reducer". Các event handler của bạn trở nên ngắn gọn vì chúng chỉ chỉ định "action" của người dùng. Ở cuối file, function reducer chỉ định cách state nên cập nhật để phản hồi từng action!
 
 <Sandpack>
 
@@ -699,9 +699,9 @@ ul, li { margin: 0; padding: 0; }
 
 ## Truyền data sâu với context {/*passing-data-deeply-with-context*/}
 
-Thông thường, bạn sẽ truyền thông tin từ component cha đến component con thông qua props. Nhưng việc truyền props có thể trở nên bất tiện nếu bạn cần truyền một prop qua nhiều component, hoặc nếu nhiều component cần cùng một thông tin. Context cho phép component cha làm cho một số thông tin có sẵn cho bất kỳ component nào theo cấu trúc cây bên dưới nó—bất kể nó sâu đến đâu—mà không cần truyền nó một cách rõ ràng thông qua props.
+Thông thường, bạn sẽ truyền thông tin từ component cha đến component con thông qua props. Nhưng việc truyền props có thể trở nên bất tiện nếu bạn cần truyền một prop qua nhiều component, hoặc nếu nhiều component cần cùng một thông tin. Context cho phép component cha cung cấp một số thông tin cho bất kỳ component nào trong cây con bên dưới nó—bất kể nó sâu đến đâu—mà không cần truyền một cách rõ ràng thông qua props.
 
-Ở đây, component `Heading` xác định cấp độ heading của nó bằng cách "hỏi" `Section` gần nhất về cấp độ của nó. Mỗi `Section` theo dõi cấp độ riêng của nó bằng cách hỏi `Section` cha và cộng thêm một. Mọi `Section` cung cấp thông tin cho tất cả các component bên dưới nó mà không cần truyền props--nó thực hiện điều đó thông qua context.
+Ở đây, component `Heading` xác định cấp độ heading của nó bằng cách "hỏi" `Section` gần nhất về cấp độ của nó. Mỗi `Section` theo dõi cấp độ riêng của nó bằng cách hỏi `Section` cha và cộng thêm một. Mọi `Section` cung cấp thông tin cho tất cả các component bên dưới nó mà không cần truyền props—nó thực hiện điều đó thông qua context.
 
 <Sandpack>
 
@@ -803,7 +803,7 @@ export const LevelContext = createContext(0);
 
 Reducer cho phép bạn tổng hợp logic cập nhật state của component. Context cho phép bạn truyền thông tin xuống sâu cho các component khác. Bạn có thể kết hợp reducer và context cùng nhau để quản lý state của một màn hình phức tạp.
 
-Với cách tiếp cận này, một component cha có state phức tạp sẽ quản lý nó bằng reducer. Các component khác ở bất kỳ vị trí sâu nào theo cấu trúc cây có thể đọc state của nó thông qua context. Chúng cũng có thể dispatch các action để cập nhật state đó.
+Với cách tiếp cận này, một component cha có state phức tạp sẽ quản lý nó bằng reducer. Các component khác ở bất kỳ vị trí sâu nào trong cây có thể đọc state của nó thông qua context. Chúng cũng có thể dispatch các action để cập nhật state đó.
 
 <Sandpack>
 
@@ -1006,12 +1006,12 @@ ul, li { margin: 0; padding: 0; }
 
 <LearnMore path="/learn/scaling-up-with-reducer-and-context">
 
-Đọc **[Mở Rộng Với Reducer và Context](/learn/scaling-up-with-reducer-and-context)** để học cách quản lý state mở rộng trong một ứng dụng ngày càng lớn.
+Đọc **[Mở Rộng Với Reducer và Context](/learn/scaling-up-with-reducer-and-context)** để học cách quản lý state mở rộng trong một ứng dụng đang phát triển.
 
 </LearnMore>
 
 ## Tiếp theo là gì? {/*whats-next*/}
 
-Hãy chuyển đến [Phản Ứng Với Đầu Vào Thông Qua State](/learn/reacting-to-input-with-state) để bắt đầu đọc chương này từng trang!
+Hãy chuyển đến [Phản Hồi Đầu Vào Thông Qua State](/learn/reacting-to-input-with-state) để bắt đầu đọc chương này từng trang!
 
 Hoặc, nếu bạn đã quen thuộc với những chủ đề này, tại sao không đọc về [Escape Hatches](/learn/escape-hatches)?
