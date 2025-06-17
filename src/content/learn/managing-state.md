@@ -20,7 +20,7 @@ Khi ứng dụng của bạn ngày càng lớn, việc có ý thức hơn về c
 
 </YouWillLearn>
 
-## Phản ứng với đầu vào thông qua state {/*reacting-to-input-with-state*/}
+## Phản hồi đầu vào thông qua state {/*reacting-to-input-with-state*/}
 
 Với React, bạn sẽ không sửa đổi UI trực tiếp từ code. Ví dụ, bạn sẽ không viết các lệnh như "vô hiệu hóa nút", "kích hoạt nút", "hiển thị thông báo thành công", v.v. Thay vào đó, bạn sẽ mô tả UI mà bạn muốn thấy cho các trạng thái visual khác nhau của component ("trạng thái ban đầu", "trạng thái đang nhập", "trạng thái thành công"), sau đó kích hoạt những thay đổi state để phản hồi đầu vào của người dùng. Điều này tương tự như cách các nhà thiết kế suy nghĩ về UI.
 
