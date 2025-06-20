@@ -1,26 +1,26 @@
 ---
-title: 'Removing Effect Dependencies'
+title: 'Loại bỏ các dependency không cần thiết của Effect'
 ---
 
 <Intro>
 
-When you write an Effect, the linter will verify that you've included every reactive value (like props and state) that the Effect reads in the list of your Effect's dependencies. This ensures that your Effect remains synchronized with the latest props and state of your component. Unnecessary dependencies may cause your Effect to run too often, or even create an infinite loop. Follow this guide to review and remove unnecessary dependencies from your Effects.
+Khi bạn viết một Effect, linter sẽ xác minh rằng bạn đã bao gồm mọi giá trị reactive (như props và state) mà Effect đọc trong danh sách các dependency của Effect đó. Điều này đảm bảo rằng Effect của bạn luôn đồng bộ với props và state mới nhất của component. Các dependency không cần thiết có thể khiến Effect chạy quá thường xuyên, hoặc thậm chí tạo ra một vòng lặp vô hạn. Hãy làm theo hướng dẫn này để xem xét và loại bỏ các dependency không cần thiết khỏi Effect của bạn.
 
 </Intro>
 
 <YouWillLearn>
 
-- How to fix infinite Effect dependency loops
-- What to do when you want to remove a dependency
-- How to read a value from your Effect without "reacting" to it
-- How and why to avoid object and function dependencies
-- Why suppressing the dependency linter is dangerous, and what to do instead
+- Cách sửa vòng lặp dependency Effect vô hạn
+- Phải làm gì khi bạn muốn loại bỏ một dependency
+- Cách đọc một giá trị từ Effect mà không "phản ứng" với nó
+- Cách và tại sao nên tránh các dependency là object và function
+- Tại sao việc bỏ qua dependency linter là nguy hiểm, và phải làm gì thay thế
 
 </YouWillLearn>
 
-## Dependencies should match the code {/*dependencies-should-match-the-code*/}
+## Các dependency nên khớp với code {/*dependencies-should-match-the-code*/}
 
-When you write an Effect, you first specify how to [start and stop](/learn/lifecycle-of-reactive-effects#the-lifecycle-of-an-effect) whatever you want your Effect to be doing:
+Khi bạn viết một Effect, trước tiên bạn chỉ định cách [bắt đầu và dừng](/learn/lifecycle-of-reactive-effects#the-lifecycle-of-an-effect) những gì bạn muốn Effect thực hiện:
 
 ```js {5-7}
 const serverUrl = 'https://localhost:1234';
@@ -34,7 +34,7 @@ function ChatRoom({ roomId }) {
 }
 ```
 
-Then, if you leave the Effect dependencies empty (`[]`), the linter will suggest the correct dependencies:
+Sau đó, nếu bạn để các dependency của Effect trống (`[]`), linter sẽ gợi ý các dependency đúng:
 
 <Sandpack>
 
@@ -96,7 +96,7 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-Fill them in according to what the linter says:
+Điền chúng theo những gì linter nói:
 
 ```js {6}
 function ChatRoom({ roomId }) {
@@ -109,7 +109,7 @@ function ChatRoom({ roomId }) {
 }
 ```
 
-[Effects "react" to reactive values.](/learn/lifecycle-of-reactive-effects#effects-react-to-reactive-values) Since `roomId` is a reactive value (it can change due to a re-render), the linter verifies that you've specified it as a dependency. If `roomId` receives a different value, React will re-synchronize your Effect. This ensures that the chat stays connected to the selected room and "reacts" to the dropdown:
+[Effect "phản ứng" với các giá trị reactive.](/learn/lifecycle-of-reactive-effects#effects-react-to-reactive-values) Vì `roomId` là một giá trị reactive (nó có thể thay đổi do một lần render lại), linter xác minh rằng bạn đã chỉ định nó như một dependency. Nếu `roomId` nhận một giá trị khác, React sẽ đồng bộ lại Effect của bạn. Điều này đảm bảo rằng cuộc trò chuyện luôn kết nối với phòng được chọn và "phản ứng" với dropdown:
 
 <Sandpack>
 
@@ -171,9 +171,9 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-### To remove a dependency, prove that it's not a dependency {/*to-remove-a-dependency-prove-that-its-not-a-dependency*/}
+### Để loại bỏ một dependency, hãy chứng minh rằng nó không phải là dependency {/*to-remove-a-dependency-prove-that-its-not-a-dependency*/}
 
-Notice that you can't "choose" the dependencies of your Effect. Every <CodeStep step={2}>reactive value</CodeStep> used by your Effect's code must be declared in your dependency list. The dependency list is determined by the surrounding code:
+Lưu ý rằng bạn không thể "chọn" các dependency của Effect. Mọi <CodeStep step={2}>giá trị reactive</CodeStep> được sử dụng bởi code Effect của bạn đều phải được khai báo trong danh sách dependency của bạn. Danh sách dependency được xác định bởi code xung quanh:
 
 ```js [[2, 3, "roomId"], [2, 5, "roomId"], [2, 8, "roomId"]]
 const serverUrl = 'https://localhost:1234';
@@ -188,7 +188,7 @@ function ChatRoom({ roomId }) { // This is a reactive value
 }
 ```
 
-[Reactive values](/learn/lifecycle-of-reactive-effects#all-variables-declared-in-the-component-body-are-reactive) include props and all variables and functions declared directly inside of your component. Since `roomId` is a reactive value, you can't remove it from the dependency list. The linter wouldn't allow it:
+[Giá trị reactive](/learn/lifecycle-of-reactive-effects#all-variables-declared-in-the-component-body-are-reactive) bao gồm props và tất cả các biến và function được khai báo trực tiếp bên trong component của bạn. Vì `roomId` là một giá trị reactive, bạn không thể loại bỏ nó khỏi danh sách dependency. Linter sẽ không cho phép:
 
 ```js {8}
 const serverUrl = 'https://localhost:1234';
@@ -203,9 +203,9 @@ function ChatRoom({ roomId }) {
 }
 ```
 
-And the linter would be right! Since `roomId` may change over time, this would introduce a bug in your code.
+Và linter sẽ đúng! Vì `roomId` có thể thay đổi theo thời gian, điều này sẽ tạo ra một bug trong code của bạn.
 
-**To remove a dependency, "prove" to the linter that it *doesn't need* to be a dependency.** For example, you can move `roomId` out of your component to prove that it's not reactive and won't change on re-renders:
+**Để loại bỏ một dependency, hãy "chứng minh" cho linter rằng nó *không cần* phải là một dependency.** Ví dụ, bạn có thể di chuyển `roomId` ra khỏi component để chứng minh rằng nó không reactive và sẽ không thay đổi khi render lại:
 
 ```js {2,9}
 const serverUrl = 'https://localhost:1234';
@@ -221,7 +221,7 @@ function ChatRoom() {
 }
 ```
 
-Now that `roomId` is not a reactive value (and can't change on a re-render), it doesn't need to be a dependency:
+Bây giờ `roomId` không phải là một giá trị reactive (và không thể thay đổi khi render lại), nó không cần phải là một dependency:
 
 <Sandpack>
 
@@ -263,23 +263,23 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-This is why you could now specify an [empty (`[]`) dependency list.](/learn/lifecycle-of-reactive-effects#what-an-effect-with-empty-dependencies-means) Your Effect *really doesn't* depend on any reactive value anymore, so it *really doesn't* need to re-run when any of the component's props or state change.
+Đây là lý do tại sao bây giờ bạn có thể chỉ định [danh sách dependency trống (`[]`)](/learn/lifecycle-of-reactive-effects#what-an-effect-with-empty-dependencies-means). Effect của bạn *thực sự không* phụ thuộc vào bất kỳ giá trị reactive nào nữa, vì vậy nó *thực sự không* cần chạy lại khi bất kỳ props hoặc state nào của component thay đổi.
 
-### To change the dependencies, change the code {/*to-change-the-dependencies-change-the-code*/}
+### Để thay đổi các dependency, hãy thay đổi code {/*to-change-the-dependencies-change-the-code*/}
 
-You might have noticed a pattern in your workflow:
+Bạn có thể nhận thấy một mô hình trong quy trình làm việc của mình:
 
-1. First, you **change the code** of your Effect or how your reactive values are declared.
-2. Then, you follow the linter and adjust the dependencies to **match the code you have changed.**
-3. If you're not happy with the list of dependencies, you **go back to the first step** (and change the code again).
+1. Trước tiên, bạn **thay đổi code** của Effect hoặc cách các giá trị reactive được khai báo.
+2. Sau đó, bạn làm theo linter và điều chỉnh các dependency để **khớp với code bạn đã thay đổi.**
+3. Nếu bạn không hài lòng với danh sách dependency, bạn **quay lại bước đầu tiên** (và thay đổi code lại).
 
-The last part is important. **If you want to change the dependencies, change the surrounding code first.** You can think of the dependency list as [a list of all the reactive values used by your Effect's code.](/learn/lifecycle-of-reactive-effects#react-verifies-that-you-specified-every-reactive-value-as-a-dependency) You don't *choose* what to put on that list. The list *describes* your code. To change the dependency list, change the code.
+Phần cuối cùng rất quan trọng. **Nếu bạn muốn thay đổi các dependency, hãy thay đổi code xung quanh trước.** Bạn có thể nghĩ về danh sách dependency như [một danh sách tất cả các giá trị reactive được sử dụng bởi code Effect của bạn.](/learn/lifecycle-of-reactive-effects#react-verifies-that-you-specified-every-reactive-value-as-a-dependency) Bạn không *chọn* cái gì để đưa vào danh sách đó. Danh sách *mô tả* code của bạn. Để thay đổi danh sách dependency, hãy thay đổi code.
 
-This might feel like solving an equation. You might start with a goal (for example, to remove a dependency), and you need to "find" the code matching that goal. Not everyone finds solving equations fun, and the same thing could be said about writing Effects! Luckily, there is a list of common recipes that you can try below.
+Điều này có thể giống như việc giải một phương trình. Bạn có thể bắt đầu với một mục tiêu (ví dụ, để loại bỏ một dependency), và bạn cần "tìm" code phù hợp với mục tiêu đó. Không phải ai cũng thấy việc giải phương trình thú vị, và điều tương tự có thể nói về việc viết Effect! May mắn thay, có một danh sách các công thức phổ biến mà bạn có thể thử bên dưới.
 
 <Pitfall>
 
-If you have an existing codebase, you might have some Effects that suppress the linter like this:
+Nếu bạn có một codebase hiện có, bạn có thể có một số Effect bỏ qua linter như thế này:
 
 ```js {3-4}
 useEffect(() => {
@@ -289,17 +289,17 @@ useEffect(() => {
 }, []);
 ```
 
-**When dependencies don't match the code, there is a very high risk of introducing bugs.** By suppressing the linter, you "lie" to React about the values your Effect depends on.
+**Khi các dependency không khớp với code, có nguy cơ rất cao sẽ tạo ra bug.** Bằng cách bỏ qua linter, bạn "nói dối" React về các giá trị mà Effect của bạn phụ thuộc vào.
 
-Instead, use the techniques below.
+Thay vào đó, hãy sử dụng các kỹ thuật bên dưới.
 
 </Pitfall>
 
 <DeepDive>
 
-#### Why is suppressing the dependency linter so dangerous? {/*why-is-suppressing-the-dependency-linter-so-dangerous*/}
+#### Tại sao việc bỏ qua dependency linter lại nguy hiểm? {/*why-is-suppressing-the-dependency-linter-so-dangerous*/}
 
-Suppressing the linter leads to very unintuitive bugs that are hard to find and fix. Here's one example:
+Việc bỏ qua linter dẫn đến những bug rất khó hiểu và khó tìm và sửa. Đây là một ví dụ:
 
 <Sandpack>
 
@@ -348,31 +348,31 @@ button { margin: 10px; }
 
 </Sandpack>
 
-Let's say that you wanted to run the Effect "only on mount". You've read that [empty (`[]`) dependencies](/learn/lifecycle-of-reactive-effects#what-an-effect-with-empty-dependencies-means) do that, so you've decided to ignore the linter, and forcefully specified `[]` as the dependencies.
+Giả sử bạn muốn chạy Effect "chỉ khi mount". Bạn đã đọc rằng [dependency trống (`[]`)](/learn/lifecycle-of-reactive-effects#what-an-effect-with-empty-dependencies-means) làm điều đó, vì vậy bạn quyết định bỏ qua linter, và cưỡng chế chỉ định `[]` làm dependency.
 
-This counter was supposed to increment every second by the amount configurable with the two buttons. However, since you "lied" to React that this Effect doesn't depend on anything, React forever keeps using the `onTick` function from the initial render. [During that render,](/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time) `count` was `0` and `increment` was `1`. This is why `onTick` from that render always calls `setCount(0 + 1)` every second, and you always see `1`. Bugs like this are harder to fix when they're spread across multiple components.
+Bộ đếm này được cho là sẽ tăng mỗi giây theo số lượng có thể cấu hình bằng hai nút. Tuy nhiên, vì bạn đã "nói dối" React rằng Effect này không phụ thuộc vào gì, React mãi mãi tiếp tục sử dụng function `onTick` từ lần render ban đầu. [Trong lần render đó,](/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time) `count` là `0` và `increment` là `1`. Đây là lý do tại sao `onTick` từ lần render đó luôn gọi `setCount(0 + 1)` mỗi giây, và bạn luôn thấy `1`. Những bug như thế này khó sửa hơn khi chúng lan rộng qua nhiều component.
 
-There's always a better solution than ignoring the linter! To fix this code, you need to add `onTick` to the dependency list. (To ensure the interval is only setup once, [make `onTick` an Effect Event.](/learn/separating-events-from-effects#reading-latest-props-and-state-with-effect-events))
+Luôn có một giải pháp tốt hơn việc bỏ qua linter! Để sửa code này, bạn cần thêm `onTick` vào danh sách dependency. (Để đảm bảo interval chỉ được thiết lập một lần, [làm `onTick` thành một Effect Event.](/learn/separating-events-from-effects#reading-latest-props-and-state-with-effect-events))
 
-**We recommend treating the dependency lint error as a compilation error. If you don't suppress it, you will never see bugs like this.** The rest of this page documents the alternatives for this and other cases.
+**Chúng tôi khuyến nghị coi lỗi lint dependency như một lỗi biên dịch. Nếu bạn không bỏ qua nó, bạn sẽ không bao giờ thấy những bug như thế này.** Phần còn lại của trang này tài liệu hóa các giải pháp thay thế cho trường hợp này và các trường hợp khác.
 
 </DeepDive>
 
-## Removing unnecessary dependencies {/*removing-unnecessary-dependencies*/}
+## Loại bỏ các dependency không cần thiết {/*removing-unnecessary-dependencies*/}
 
-Every time you adjust the Effect's dependencies to reflect the code, look at the dependency list. Does it make sense for the Effect to re-run when any of these dependencies change? Sometimes, the answer is "no":
+Mỗi khi bạn điều chỉnh các dependency của Effect để phản ánh code, hãy nhìn vào danh sách dependency. Có hợp lý không khi Effect chạy lại khi bất kỳ dependency nào trong số này thay đổi? Đôi khi, câu trả lời là "không":
 
-* You might want to re-execute *different parts* of your Effect under different conditions.
-* You might want to only read the *latest value* of some dependency instead of "reacting" to its changes.
-* A dependency may change too often *unintentionally* because it's an object or a function.
+* Bạn có thể muốn thực thi lại *các phần khác nhau* của Effect trong những điều kiện khác nhau.
+* Bạn có thể chỉ muốn đọc *giá trị mới nhất* của một số dependency thay vì "phản ứng" với những thay đổi của nó.
+* Một dependency có thể thay đổi quá thường xuyên *một cách không cố ý* vì nó là một object hoặc function.
 
-To find the right solution, you'll need to answer a few questions about your Effect. Let's walk through them.
+Để tìm giải pháp đúng, bạn sẽ cần trả lời một vài câu hỏi về Effect của mình. Hãy cùng xem qua chúng.
 
-### Should this code move to an event handler? {/*should-this-code-move-to-an-event-handler*/}
+### Code này có nên chuyển sang event handler không? {/*should-this-code-move-to-an-event-handler*/}
 
-The first thing you should think about is whether this code should be an Effect at all.
+Điều đầu tiên bạn nên nghĩ đến là liệu code này có nên là một Effect hay không.
 
-Imagine a form. On submit, you set the `submitted` state variable to `true`. You need to send a POST request and show a notification. You've put this logic inside an Effect that "reacts" to `submitted` being `true`:
+Hãy tưởng tượng một form. Khi submit, bạn đặt biến state `submitted` thành `true`. Bạn cần gửi một POST request và hiển thị một thông báo. Bạn đã đặt logic này bên trong một Effect "phản ứng" với `submitted` là `true`:
 
 ```js {6-8}
 function Form() {
@@ -394,7 +394,7 @@ function Form() {
 }
 ```
 
-Later, you want to style the notification message according to the current theme, so you read the current theme. Since `theme` is declared in the component body, it is a reactive value, so you add it as a dependency:
+Sau đó, bạn muốn tạo kiểu cho thông báo theo theme hiện tại, vì vậy bạn đọc theme hiện tại. Vì `theme` được khai báo trong thân component, nó là một giá trị reactive, vì vậy bạn thêm nó như một dependency:
 
 ```js {3,9,11}
 function Form() {
@@ -417,9 +417,9 @@ function Form() {
 }
 ```
 
-By doing this, you've introduced a bug. Imagine you submit the form first and then switch between Dark and Light themes. The `theme` will change, the Effect will re-run, and so it will display the same notification again!
+Bằng cách làm điều này, bạn đã tạo ra một bug. Hãy tưởng tượng bạn submit form trước, sau đó chuyển đổi giữa theme Dark và Light. `theme` sẽ thay đổi, Effect sẽ chạy lại, và vì vậy nó sẽ hiển thị cùng một thông báo lần nữa!
 
-**The problem here is that this shouldn't be an Effect in the first place.** You want to send this POST request and show the notification in response to *submitting the form,* which is a particular interaction. To run some code in response to particular interaction, put that logic directly into the corresponding event handler:
+**Vấn đề ở đây là điều này không nên là một Effect ngay từ đầu.** Bạn muốn gửi POST request này và hiển thị thông báo để phản hồi việc *submit form,* đó là một tương tác cụ thể. Để chạy một số code phản hồi tương tác cụ thể, hãy đặt logic đó trực tiếp vào event handler tương ứng:
 
 ```js {6-7}
 function Form() {
@@ -435,13 +435,13 @@ function Form() {
 }
 ```
 
-Now that the code is in an event handler, it's not reactive--so it will only run when the user submits the form. Read more about [choosing between event handlers and Effects](/learn/separating-events-from-effects#reactive-values-and-reactive-logic) and [how to delete unnecessary Effects.](/learn/you-might-not-need-an-effect)
+Bây giờ code ở trong event handler, nó không phải là reactive--vì vậy nó sẽ chỉ chạy khi người dùng submit form. Đọc thêm về [lựa chọn giữa event handler và Effect](/learn/separating-events-from-effects#reactive-values-and-reactive-logic) và [cách xóa các Effect không cần thiết.](/learn/you-might-not-need-an-effect)
 
-### Is your Effect doing several unrelated things? {/*is-your-effect-doing-several-unrelated-things*/}
+### Effect của bạn có đang làm nhiều việc không liên quan không? {/*is-your-effect-doing-several-unrelated-things*/}
 
-The next question you should ask yourself is whether your Effect is doing several unrelated things.
+Câu hỏi tiếp theo bạn nên tự hỏi là liệu Effect của bạn có đang làm nhiều việc không liên quan.
 
-Imagine you're creating a shipping form where the user needs to choose their city and area. You fetch the list of `cities` from the server according to the selected `country` to show them in a dropdown:
+Hãy tưởng tượng bạn đang tạo một form vận chuyển nơi người dùng cần chọn thành phố và khu vực của họ. Bạn fetch danh sách `cities` từ server theo `country` được chọn để hiển thị chúng trong dropdown:
 
 ```js
 function ShippingForm({ country }) {
@@ -465,9 +465,9 @@ function ShippingForm({ country }) {
   // ...
 ```
 
-This is a good example of [fetching data in an Effect.](/learn/you-might-not-need-an-effect#fetching-data) You are synchronizing the `cities` state with the network according to the `country` prop. You can't do this in an event handler because you need to fetch as soon as `ShippingForm` is displayed and whenever the `country` changes (no matter which interaction causes it).
+Đây là một ví dụ tốt về [fetch data trong Effect.](/learn/you-might-not-need-an-effect#fetching-data) Bạn đang đồng bộ state `cities` với mạng theo prop `country`. Bạn không thể làm điều này trong event handler vì bạn cần fetch ngay khi `ShippingForm` được hiển thị và bất cứ khi nào `country` thay đổi (bất kể tương tác nào gây ra).
 
-Now let's say you're adding a second select box for city areas, which should fetch the `areas` for the currently selected `city`. You might start by adding a second `fetch` call for the list of areas inside the same Effect:
+Bây giờ, giả sử bạn đang thêm một select box thứ hai cho các khu vực thành phố, sẽ fetch `areas` cho `city` hiện tại được chọn. Bạn có thể bắt đầu bằng cách thêm một cuộc gọi `fetch` thứ hai cho danh sách các khu vực bên trong cùng một Effect:
 
 ```js {15-24,28}
 function ShippingForm({ country }) {
@@ -502,14 +502,14 @@ function ShippingForm({ country }) {
   // ...
 ```
 
-However, since the Effect now uses the `city` state variable, you've had to add `city` to the list of dependencies. That, in turn, introduced a problem: when the user selects a different city, the Effect will re-run and call `fetchCities(country)`. As a result, you will be unnecessarily refetching the list of cities many times.
+Tuy nhiên, vì Effect bây giờ sử dụng biến state `city`, bạn đã phải thêm `city` vào danh sách dependency. Điều đó, lần lượt, gây ra một vấn đề: khi người dùng chọn một thành phố khác, Effect sẽ chạy lại và gọi `fetchCities(country)`. Kết quả là, bạn sẽ fetch lại danh sách các thành phố một cách không cần thiết nhiều lần.
 
-**The problem with this code is that you're synchronizing two different unrelated things:**
+**Vấn đề với code này là bạn đang đồng bộ hai thứ khác nhau không liên quan:**
 
-1. You want to synchronize the `cities` state to the network based on the `country` prop.
-1. You want to synchronize the `areas` state to the network based on the `city` state.
+1. Bạn muốn đồng bộ state `cities` với mạng dựa trên prop `country`.
+1. Bạn muốn đồng bộ state `areas` với mạng dựa trên state `city`.
 
-Split the logic into two Effects, each of which reacts to the prop that it needs to synchronize with:
+Chia logic thành hai Effect, mỗi Effect phản ứng với prop mà nó cần đồng bộ:
 
 ```js {19-33}
 function ShippingForm({ country }) {
@@ -549,13 +549,13 @@ function ShippingForm({ country }) {
   // ...
 ```
 
-Now the first Effect only re-runs if the `country` changes, while the second Effect re-runs when the `city` changes. You've separated them by purpose: two different things are synchronized by two separate Effects. Two separate Effects have two separate dependency lists, so they won't trigger each other unintentionally.
+Bây giờ Effect đầu tiên chỉ chạy lại nếu `country` thay đổi, trong khi Effect thứ hai chạy lại khi `city` thay đổi. Bạn đã tách chúng theo mục đích: hai thứ khác nhau được đồng bộ bởi hai Effect riêng biệt. Hai Effect riêng biệt có hai danh sách dependency riêng biệt, vì vậy chúng sẽ không kích hoạt lẫn nhau một cách không cố ý.
 
-The final code is longer than the original, but splitting these Effects is still correct. [Each Effect should represent an independent synchronization process.](/learn/lifecycle-of-reactive-effects#each-effect-represents-a-separate-synchronization-process) In this example, deleting one Effect doesn't break the other Effect's logic. This means they *synchronize different things,* and it's good to split them up. If you're concerned about duplication, you can improve this code by [extracting repetitive logic into a custom Hook.](/learn/reusing-logic-with-custom-hooks#when-to-use-custom-hooks)
+Code cuối cùng dài hơn bản gốc, nhưng tách các Effect này vẫn đúng. [Mỗi Effect nên đại diện cho một quá trình đồng bộ độc lập.](/learn/lifecycle-of-reactive-effects#each-effect-represents-a-separate-synchronization-process) Trong ví dụ này, xóa một Effect không phá vỡ logic của Effect khác. Điều này có nghĩa là chúng *đồng bộ những thứ khác nhau,* và việc tách chúng ra là tốt. Nếu bạn lo lắng về việc trùng lặp, bạn có thể cải thiện code này bằng cách [trích xuất logic lặp lại thành một custom Hook.](/learn/reusing-logic-with-custom-hooks#when-to-use-custom-hooks)
 
-### Are you reading some state to calculate the next state? {/*are-you-reading-some-state-to-calculate-the-next-state*/}
+### Bạn có đang đọc một số state để tính toán state tiếp theo không? {/*are-you-reading-some-state-to-calculate-the-next-state*/}
 
-This Effect updates the `messages` state variable with a newly created array every time a new message arrives:
+Effect này cập nhật biến state `messages` với một array mới được tạo mỗi khi có tin nhắn mới đến:
 
 ```js {2,6-8}
 function ChatRoom({ roomId }) {
@@ -569,7 +569,7 @@ function ChatRoom({ roomId }) {
     // ...
 ```
 
-It uses the `messages` variable to [create a new array](/learn/updating-arrays-in-state) starting with all the existing messages and adds the new message at the end. However, since `messages` is a reactive value read by an Effect, it must be a dependency:
+Nó sử dụng biến `messages` để [tạo một array mới](/learn/updating-arrays-in-state) bắt đầu với tất cả các tin nhắn hiện có và thêm tin nhắn mới vào cuối. Tuy nhiên, vì `messages` là một giá trị reactive được đọc bởi Effect, nó phải là một dependency:
 
 ```js {7,10}
 function ChatRoom({ roomId }) {
@@ -585,11 +585,11 @@ function ChatRoom({ roomId }) {
   // ...
 ```
 
-And making `messages` a dependency introduces a problem.
+Và việc làm `messages` thành dependency gây ra một vấn đề.
 
-Every time you receive a message, `setMessages()` causes the component to re-render with a new `messages` array that includes the received message. However, since this Effect now depends on `messages`, this will *also* re-synchronize the Effect. So every new message will make the chat re-connect. The user would not like that!
+Mỗi khi bạn nhận được tin nhắn, `setMessages()` khiến component render lại với một array `messages` mới bao gồm tin nhắn đã nhận. Tuy nhiên, vì Effect này bây giờ phụ thuộc vào `messages`, điều này cũng sẽ đồng bộ lại Effect. Vì vậy, mỗi tin nhắn mới sẽ làm cho chat kết nối lại. Người dùng sẽ không thích điều đó!
 
-To fix the issue, don't read `messages` inside the Effect. Instead, pass an [updater function](/reference/react/useState#updating-state-based-on-the-previous-state) to `setMessages`:
+Để sửa vấn đề, đừng đọc `messages` bên trong Effect. Thay vào đó, truyền một [updater function](/reference/react/useState#updating-state-based-on-the-previous-state) cho `setMessages`:
 
 ```js {7,10}
 function ChatRoom({ roomId }) {
@@ -605,17 +605,17 @@ function ChatRoom({ roomId }) {
   // ...
 ```
 
-**Notice how your Effect does not read the `messages` variable at all now.** You only need to pass an updater function like `msgs => [...msgs, receivedMessage]`. React [puts your updater function in a queue](/learn/queueing-a-series-of-state-updates) and will provide the `msgs` argument to it during the next render. This is why the Effect itself doesn't need to depend on `messages` anymore. As a result of this fix, receiving a chat message will no longer make the chat re-connect.
+**Lưu ý cách Effect của bạn không đọc biến `messages` chút nào bây giờ.** Bạn chỉ cần truyền một updater function như `msgs => [...msgs, receivedMessage]`. React [đặt updater function của bạn vào một hàng đợi](/learn/queueing-a-series-of-state-updates) và sẽ cung cấp tham số `msgs` cho nó trong lần render tiếp theo. Đây là lý do tại sao bản thân Effect không cần phụ thuộc vào `messages` nữa. Kết quả của việc sửa này, việc nhận tin nhắn chat sẽ không còn làm cho chat kết nối lại.
 
-### Do you want to read a value without "reacting" to its changes? {/*do-you-want-to-read-a-value-without-reacting-to-its-changes*/}
+### Bạn có muốn đọc một giá trị mà không "phản ứng" với những thay đổi của nó không? {/*do-you-want-to-read-a-value-without-reacting-to-its-changes*/}
 
 <Wip>
 
-This section describes an **experimental API that has not yet been released** in a stable version of React.
+Phần này mô tả một **API thử nghiệm chưa được phát hành** trong phiên bản ổn định của React.
 
 </Wip>
 
-Suppose that you want to play a sound when the user receives a new message unless `isMuted` is `true`:
+Giả sử bạn muốn phát âm thanh khi người dùng nhận tin nhắn mới trừ khi `isMuted` là `true`:
 
 ```js {3,10-12}
 function ChatRoom({ roomId }) {
@@ -634,7 +634,7 @@ function ChatRoom({ roomId }) {
     // ...
 ```
 
-Since your Effect now uses `isMuted` in its code, you have to add it to the dependencies:
+Vì Effect của bạn bây giờ sử dụng `isMuted` trong code, bạn phải thêm nó vào dependency:
 
 ```js {10,15}
 function ChatRoom({ roomId }) {
@@ -655,9 +655,9 @@ function ChatRoom({ roomId }) {
   // ...
 ```
 
-The problem is that every time `isMuted` changes (for example, when the user presses the "Muted" toggle), the Effect will re-synchronize, and reconnect to the chat. This is not the desired user experience! (In this example, even disabling the linter would not work--if you do that, `isMuted` would get "stuck" with its old value.)
+Vấn đề là mỗi khi `isMuted` thay đổi (ví dụ, khi người dùng nhấn nút "Muted"), Effect sẽ đồng bộ lại và kết nối lại với chat. Đây không phải là trải nghiệm người dùng mong muốn! (Trong ví dụ này, ngay cả việc vô hiệu hóa linter cũng không hoạt động--nếu bạn làm vậy, `isMuted` sẽ bị "kẹt" với giá trị cũ.)
 
-To solve this problem, you need to extract the logic that shouldn't be reactive out of the Effect. You don't want this Effect to "react" to the changes in `isMuted`. [Move this non-reactive piece of logic into an Effect Event:](/learn/separating-events-from-effects#declaring-an-effect-event)
+Để giải quyết vấn đề này, bạn cần trích xuất logic không nên là reactive ra khỏi Effect. Bạn không muốn Effect này "phản ứng" với những thay đổi trong `isMuted`. [Di chuyển đoạn logic không reactive này vào một Effect Event:](/learn/separating-events-from-effects#declaring-an-effect-event)
 
 ```js {1,7-12,18,21}
 import { useState, useEffect, useEffectEvent } from 'react';
@@ -684,11 +684,11 @@ function ChatRoom({ roomId }) {
   // ...
 ```
 
-Effect Events let you split an Effect into reactive parts (which should "react" to reactive values like `roomId` and their changes) and non-reactive parts (which only read their latest values, like `onMessage` reads `isMuted`). **Now that you read `isMuted` inside an Effect Event, it doesn't need to be a dependency of your Effect.** As a result, the chat won't re-connect when you toggle the "Muted" setting on and off, solving the original issue!
+Effect Event cho phép bạn chia một Effect thành các phần reactive (nên "phản ứng" với các giá trị reactive như `roomId` và những thay đổi của chúng) và các phần không reactive (chỉ đọc các giá trị mới nhất của chúng, như `onMessage` đọc `isMuted`). **Bây giờ bạn đọc `isMuted` bên trong Effect Event, nó không cần phải là dependency của Effect.** Kết quả là, chat sẽ không kết nối lại khi bạn bật/tắt cài đặt "Muted", giải quyết vấn đề ban đầu!
 
-#### Wrapping an event handler from the props {/*wrapping-an-event-handler-from-the-props*/}
+#### Bao bọc event handler từ props {/*wrapping-an-event-handler-from-the-props*/}
 
-You might run into a similar problem when your component receives an event handler as a prop:
+Bạn có thể gặp phải vấn đề tương tự khi component nhận event handler như một prop:
 
 ```js {1,8,11}
 function ChatRoom({ roomId, onReceiveMessage }) {
@@ -705,7 +705,7 @@ function ChatRoom({ roomId, onReceiveMessage }) {
   // ...
 ```
 
-Suppose that the parent component passes a *different* `onReceiveMessage` function on every render:
+Giả sử component cha truyền một function `onReceiveMessage` *khác* trong mỗi lần render:
 
 ```js {3-5}
 <ChatRoom
@@ -716,7 +716,7 @@ Suppose that the parent component passes a *different* `onReceiveMessage` functi
 />
 ```
 
-Since `onReceiveMessage` is a dependency, it would cause the Effect to re-synchronize after every parent re-render. This would make it re-connect to the chat. To solve this, wrap the call in an Effect Event:
+Vì `onReceiveMessage` là một dependency, nó sẽ khiến Effect đồng bộ lại sau mỗi lần component cha render lại. Điều này sẽ làm cho nó kết nối lại với chat. Để giải quyết điều này, hãy bao bọc cuộc gọi trong Effect Event:
 
 ```js {4-6,12,15}
 function ChatRoom({ roomId, onReceiveMessage }) {
@@ -737,13 +737,13 @@ function ChatRoom({ roomId, onReceiveMessage }) {
   // ...
 ```
 
-Effect Events aren't reactive, so you don't need to specify them as dependencies. As a result, the chat will no longer re-connect even if the parent component passes a function that's different on every re-render.
+Effect Event không phải là reactive, vì vậy bạn không cần chỉ định chúng làm dependency. Kết quả là, chat sẽ không còn kết nối lại ngay cả khi component cha truyền một function khác trong mỗi lần render lại.
 
-#### Separating reactive and non-reactive code {/*separating-reactive-and-non-reactive-code*/}
+#### Tách code reactive và không reactive {/*separating-reactive-and-non-reactive-code*/}
 
-In this example, you want to log a visit every time `roomId` changes. You want to include the current `notificationCount` with every log, but you *don't* want a change to `notificationCount` to trigger a log event.
+Trong ví dụ này, bạn muốn ghi log một lần visit mỗi khi `roomId` thay đổi. Bạn muốn bao gồm `notificationCount` hiện tại với mọi log, nhưng bạn *không* muốn một thay đổi trong `notificationCount` kích hoạt sự kiện log.
 
-The solution is again to split out the non-reactive code into an Effect Event:
+Giải pháp một lần nữa là tách code không reactive vào Effect Event:
 
 ```js {2-4,7}
 function Chat({ roomId, notificationCount }) {
@@ -758,11 +758,11 @@ function Chat({ roomId, notificationCount }) {
 }
 ```
 
-You want your logic to be reactive with regards to `roomId`, so you read `roomId` inside of your Effect. However, you don't want a change to `notificationCount` to log an extra visit, so you read `notificationCount` inside of the Effect Event. [Learn more about reading the latest props and state from Effects using Effect Events.](/learn/separating-events-from-effects#reading-latest-props-and-state-with-effect-events)
+Bạn muốn logic của mình reactive đối với `roomId`, vì vậy bạn đọc `roomId` bên trong Effect. Tuy nhiên, bạn không muốn thay đổi `notificationCount` ghi log thêm visit, vì vậy bạn đọc `notificationCount` bên trong Effect Event. [Tìm hiểu thêm về việc đọc props và state mới nhất từ Effect bằng Effect Event.](/learn/separating-events-from-effects#reading-latest-props-and-state-with-effect-events)
 
-### Does some reactive value change unintentionally? {/*does-some-reactive-value-change-unintentionally*/}
+### Có giá trị reactive nào thay đổi một cách không cố ý không? {/*does-some-reactive-value-change-unintentionally*/}
 
-Sometimes, you *do* want your Effect to "react" to a certain value, but that value changes more often than you'd like--and might not reflect any actual change from the user's perspective. For example, let's say that you create an `options` object in the body of your component, and then read that object from inside of your Effect:
+Đôi khi, bạn *thực sự* muốn Effect "phản ứng" với một giá trị nhất định, nhưng giá trị đó thay đổi thường xuyên hơn bạn muốn--và có thể không phản ánh bất kỳ thay đổi thực tế nào từ góc độ người dùng. Ví dụ, giả sử bạn tạo một object `options` trong thân component của mình, và sau đó đọc object đó từ bên trong Effect:
 
 ```js {3-6,9}
 function ChatRoom({ roomId }) {
@@ -778,7 +778,7 @@ function ChatRoom({ roomId }) {
     // ...
 ```
 
-This object is declared in the component body, so it's a [reactive value.](/learn/lifecycle-of-reactive-effects#effects-react-to-reactive-values) When you read a reactive value like this inside an Effect, you declare it as a dependency. This ensures your Effect "reacts" to its changes:
+Object này được khai báo trong thân component, vì vậy nó là một [giá trị reactive.](/learn/lifecycle-of-reactive-effects#effects-react-to-reactive-values) Khi bạn đọc một giá trị reactive như thế này bên trong Effect, bạn khai báo nó như một dependency. Điều này đảm bảo Effect của bạn "phản ứng" với những thay đổi của nó:
 
 ```js {3,6}
   // ...
@@ -790,7 +790,7 @@ This object is declared in the component body, so it's a [reactive value.](/lear
   // ...
 ```
 
-It is important to declare it as a dependency! This ensures, for example, that if the `roomId` changes, your Effect will re-connect to the chat with the new `options`. However, there is also a problem with the code above. To see it, try typing into the input in the sandbox below, and watch what happens in the console:
+Việc khai báo nó như một dependency là rất quan trọng! Điều này đảm bảo, ví dụ, nếu `roomId` thay đổi, Effect của bạn sẽ kết nối lại với chat với `options` mới. Tuy nhiên, cũng có một vấn đề với code ở trên. Để thấy điều đó, hãy thử gõ vào input trong sandbox bên dưới, và xem điều gì xảy ra trong console:
 
 <Sandpack>
 
@@ -867,11 +867,11 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-In the sandbox above, the input only updates the `message` state variable. From the user's perspective, this should not affect the chat connection. However, every time you update the `message`, your component re-renders. When your component re-renders, the code inside of it runs again from scratch.
+Trong sandbox ở trên, input chỉ cập nhật biến state `message`. Từ góc độ người dùng, điều này không nên ảnh hưởng đến kết nối chat. Tuy nhiên, mỗi khi bạn cập nhật `message`, component của bạn sẽ render lại. Khi component render lại, code bên trong nó chạy lại từ đầu.
 
-A new `options` object is created from scratch on every re-render of the `ChatRoom` component. React sees that the `options` object is a *different object* from the `options` object created during the last render. This is why it re-synchronizes your Effect (which depends on `options`), and the chat re-connects as you type.
+Một object `options` mới được tạo từ đầu mỗi khi `ChatRoom` component render lại. React thấy rằng object `options` là một *object khác* với object `options` được tạo trong lần render trước. Đây là lý do tại sao nó đồng bộ lại Effect của bạn (phụ thuộc vào `options`), và chat kết nối lại khi bạn gõ.
 
-**This problem only affects objects and functions. In JavaScript, each newly created object and function is considered distinct from all the others. It doesn't matter that the contents inside of them may be the same!**
+**Vấn đề này chỉ ảnh hưởng đến object và function. Trong JavaScript, mỗi object và function mới được tạo ra đều được coi là khác biệt với tất cả các object/function khác. Không quan trọng nội dung bên trong chúng có giống nhau hay không!**
 
 ```js {7-8}
 // During the first render
@@ -884,13 +884,13 @@ const options2 = { serverUrl: 'https://localhost:1234', roomId: 'music' };
 console.log(Object.is(options1, options2)); // false
 ```
 
-**Object and function dependencies can make your Effect re-synchronize more often than you need.** 
+**Các dependency là object và function có thể khiến Effect đồng bộ lại thường xuyên hơn bạn cần.** 
 
-This is why, whenever possible, you should try to avoid objects and functions as your Effect's dependencies. Instead, try moving them outside the component, inside the Effect, or extracting primitive values out of them.
+Đây là lý do tại sao, bất cứ khi nào có thể, bạn nên cố gắng tránh các object và function làm dependency của Effect. Thay vào đó, hãy thử di chuyển chúng ra ngoài component, vào trong Effect, hoặc trích xuất các giá trị nguyên thủy từ chúng.
 
-#### Move static objects and functions outside your component {/*move-static-objects-and-functions-outside-your-component*/}
+#### Di chuyển các object và function tĩnh ra ngoài component {/*move-static-objects-and-functions-outside-your-component*/}
 
-If the object does not depend on any props and state, you can move that object outside your component:
+Nếu object không phụ thuộc vào bất kỳ props và state nào, bạn có thể di chuyển object đó ra ngoài component:
 
 ```js {1-4,13}
 const options = {
@@ -909,9 +909,9 @@ function ChatRoom() {
   // ...
 ```
 
-This way, you *prove* to the linter that it's not reactive. It can't change as a result of a re-render, so it doesn't need to be a dependency. Now re-rendering `ChatRoom` won't cause your Effect to re-synchronize.
+Bằng cách này, bạn *chứng minh* cho linter rằng nó không reactive. Nó không thể thay đổi do kết quả của việc render lại, vì vậy nó không cần phải là một dependency. Bây giờ việc render lại `ChatRoom` sẽ không khiến Effect của bạn đồng bộ lại.
 
-This works for functions too:
+Điều này cũng hoạt động cho function:
 
 ```js {1-6,12}
 function createOptions() {
@@ -933,11 +933,11 @@ function ChatRoom() {
   // ...
 ```
 
-Since `createOptions` is declared outside your component, it's not a reactive value. This is why it doesn't need to be specified in your Effect's dependencies, and why it won't ever cause your Effect to re-synchronize.
+Vì `createOptions` được khai báo bên ngoài component của bạn, nó không phải là một giá trị reactive. Đây là lý do tại sao nó không cần được chỉ định trong các dependency của Effect, và tại sao nó sẽ không bao giờ khiến Effect của bạn đồng bộ lại.
 
-#### Move dynamic objects and functions inside your Effect {/*move-dynamic-objects-and-functions-inside-your-effect*/}
+#### Di chuyển các object và function động vào trong Effect {/*move-dynamic-objects-and-functions-inside-your-effect*/}
 
-If your object depends on some reactive value that may change as a result of a re-render, like a `roomId` prop, you can't pull it *outside* your component. You can, however, move its creation *inside* of your Effect's code:
+Nếu object của bạn phụ thuộc vào một số giá trị reactive có thể thay đổi do kết quả của việc render lại, như một prop `roomId`, bạn không thể kéo nó ra *bên ngoài* component. Tuy nhiên, bạn có thể di chuyển việc tạo nó *vào trong* code Effect của bạn:
 
 ```js {7-10,11,14}
 const serverUrl = 'https://localhost:1234';
@@ -957,7 +957,7 @@ function ChatRoom({ roomId }) {
   // ...
 ```
 
-Now that `options` is declared inside of your Effect, it is no longer a dependency of your Effect. Instead, the only reactive value used by your Effect is `roomId`. Since `roomId` is not an object or function, you can be sure that it won't be *unintentionally* different. In JavaScript, numbers and strings are compared by their content:
+Bây giờ `options` được khai báo bên trong Effect của bạn, nó không còn là dependency của Effect nữa. Thay vào đó, giá trị reactive duy nhất được sử dụng bởi Effect là `roomId`. Vì `roomId` không phải là object hoặc function, bạn có thể chắc chắn rằng nó sẽ không *vô tình* khác biệt. Trong JavaScript, number và string được so sánh theo nội dung của chúng:
 
 ```js {7-8}
 // During the first render
@@ -970,7 +970,7 @@ const roomId2 = 'music';
 console.log(Object.is(roomId1, roomId2)); // true
 ```
 
-Thanks to this fix, the chat no longer re-connects if you edit the input:
+Nhờ vào sửa chữa này, chat không còn kết nối lại nếu bạn chỉnh sửa input:
 
 <Sandpack>
 
@@ -1044,9 +1044,9 @@ button { margin-left: 10px; }
 
 </Sandpack>
 
-However, it *does* re-connect when you change the `roomId` dropdown, as you would expect.
+Tuy nhiên, nó *có* kết nối lại khi bạn thay đổi dropdown `roomId`, như bạn mong đợi.
 
-This works for functions, too:
+Điều này cũng hoạt động với các function:
 
 ```js {7-12,14}
 const serverUrl = 'https://localhost:1234';
@@ -1070,11 +1070,11 @@ function ChatRoom({ roomId }) {
   // ...
 ```
 
-You can write your own functions to group pieces of logic inside your Effect. As long as you also declare them *inside* your Effect, they're not reactive values, and so they don't need to be dependencies of your Effect.
+Bạn có thể viết các function của riêng mình để nhóm các phần logic bên trong Effect. Miễn là bạn cũng khai báo chúng *bên trong* Effect, chúng không phải là giá trị reactive, và vì vậy chúng không cần phải là dependency của Effect.
 
-#### Read primitive values from objects {/*read-primitive-values-from-objects*/}
+#### Đọc các giá trị nguyên thủy từ object {/*read-primitive-values-from-objects*/}
 
-Sometimes, you may receive an object from props:
+Đôi khi, bạn có thể nhận một object từ props:
 
 ```js {1,5,8}
 function ChatRoom({ options }) {
@@ -1088,7 +1088,7 @@ function ChatRoom({ options }) {
   // ...
 ```
 
-The risk here is that the parent component will create the object during rendering:
+Rủi ro ở đây là component cha sẽ tạo object trong quá trình rendering:
 
 ```js {3-6}
 <ChatRoom
@@ -1100,7 +1100,7 @@ The risk here is that the parent component will create the object during renderi
 />
 ```
 
-This would cause your Effect to re-connect every time the parent component re-renders. To fix this, read information from the object *outside* the Effect, and avoid having object and function dependencies:
+Điều này sẽ khiến Effect của bạn kết nối lại mỗi khi component cha render lại. Để sửa điều này, hãy đọc thông tin từ object *bên ngoài* Effect, và tránh có các dependency là object và function:
 
 ```js {4,7-8,12}
 function ChatRoom({ options }) {
@@ -1118,11 +1118,11 @@ function ChatRoom({ options }) {
   // ...
 ```
 
-The logic gets a little repetitive (you read some values from an object outside an Effect, and then create an object with the same values inside the Effect). But it makes it very explicit what information your Effect *actually* depends on. If an object is re-created unintentionally by the parent component, the chat would not re-connect. However, if `options.roomId` or `options.serverUrl` really are different, the chat would re-connect.
+Logic trở nên hơi lặp lại (bạn đọc một số giá trị từ object bên ngoài Effect, và sau đó tạo một object với các giá trị giống nhau bên trong Effect). Nhưng nó làm cho việc Effect của bạn *thực sự* phụ thuộc vào thông tin gì trở nên rất rõ ràng. Nếu một object được tạo lại một cách không cố ý bởi component cha, chat sẽ không kết nối lại. Tuy nhiên, nếu `options.roomId` hoặc `options.serverUrl` thực sự khác, chat sẽ kết nối lại.
 
-#### Calculate primitive values from functions {/*calculate-primitive-values-from-functions*/}
+#### Tính toán các giá trị nguyên thủy từ function {/*calculate-primitive-values-from-functions*/}
 
-The same approach can work for functions. For example, suppose the parent component passes a function:
+Cách tiếp cận tương tự có thể hoạt động cho function. Ví dụ, giả sử component cha truyền một function:
 
 ```js {3-8}
 <ChatRoom
@@ -1136,7 +1136,7 @@ The same approach can work for functions. For example, suppose the parent compon
 />
 ```
 
-To avoid making it a dependency (and causing it to re-connect on re-renders), call it outside the Effect. This gives you the `roomId` and `serverUrl` values that aren't objects, and that you can read from inside your Effect:
+Để tránh làm cho nó trở thành dependency (và khiến nó kết nối lại khi render lại), hãy gọi nó bên ngoài Effect. Điều này cung cấp cho bạn các giá trị `roomId` và `serverUrl` không phải là object, và bạn có thể đọc từ bên trong Effect:
 
 ```js {1,4}
 function ChatRoom({ getOptions }) {
@@ -1154,32 +1154,32 @@ function ChatRoom({ getOptions }) {
   // ...
 ```
 
-This only works for [pure](/learn/keeping-components-pure) functions because they are safe to call during rendering. If your function is an event handler, but you don't want its changes to re-synchronize your Effect, [wrap it into an Effect Event instead.](#do-you-want-to-read-a-value-without-reacting-to-its-changes)
+Điều này chỉ hoạt động cho các [function thuần khiết](/learn/keeping-components-pure) vì chúng an toàn để gọi trong quá trình rendering. Nếu function của bạn là một event handler, nhưng bạn không muốn những thay đổi của nó đồng bộ lại Effect, [hãy bao bọc nó vào một Effect Event thay thế.](#do-you-want-to-read-a-value-without-reacting-to-its-changes)
 
 <Recap>
 
-- Dependencies should always match the code.
-- When you're not happy with your dependencies, what you need to edit is the code.
-- Suppressing the linter leads to very confusing bugs, and you should always avoid it.
-- To remove a dependency, you need to "prove" to the linter that it's not necessary.
-- If some code should run in response to a specific interaction, move that code to an event handler.
-- If different parts of your Effect should re-run for different reasons, split it into several Effects.
-- If you want to update some state based on the previous state, pass an updater function.
-- If you want to read the latest value without "reacting" it, extract an Effect Event from your Effect.
-- In JavaScript, objects and functions are considered different if they were created at different times.
-- Try to avoid object and function dependencies. Move them outside the component or inside the Effect.
+- Các dependency nên luôn khớp với code.
+- Khi bạn không hài lòng với các dependency, điều bạn cần chỉnh sửa là code.
+- Việc bỏ qua linter dẫn đến những bug rất khó hiểu, và bạn nên luôn tránh điều đó.
+- Để loại bỏ một dependency, bạn cần "chứng minh" cho linter rằng nó không cần thiết.
+- Nếu một số code nên chạy để phản hồi một tương tác cụ thể, hãy di chuyển code đó vào một event handler.
+- Nếu các phần khác nhau của Effect nên chạy lại vì những lý do khác nhau, hãy chia nó thành nhiều Effect.
+- Nếu bạn muốn cập nhật một số state dựa trên state trước đó, hãy truyền một updater function.
+- Nếu bạn muốn đọc giá trị mới nhất mà không "phản ứng" với nó, hãy trích xuất một Effect Event từ Effect của bạn.
+- Trong JavaScript, các object và function được coi là khác nhau nếu chúng được tạo ra ở những thời điểm khác nhau.
+- Hãy cố gắng tránh các dependency là object và function. Di chuyển chúng ra ngoài component hoặc vào trong Effect.
 
 </Recap>
 
 <Challenges>
 
-#### Fix a resetting interval {/*fix-a-resetting-interval*/}
+#### Sửa interval bị reset {/*fix-a-resetting-interval*/}
 
-This Effect sets up an interval that ticks every second. You've noticed something strange happening: it seems like the interval gets destroyed and re-created every time it ticks. Fix the code so that the interval doesn't get constantly re-created.
+Effect này thiết lập một interval tick mỗi giây. Bạn nhận thấy có điều gì đó lạ xảy ra: có vẻ như interval bị hủy và tạo lại mỗi khi nó tick. Hãy sửa code để interval không bị tạo lại liên tục.
 
 <Hint>
 
-It seems like this Effect's code depends on `count`. Is there some way to not need this dependency? There should be a way to update the `count` state based on its previous value without adding a dependency on that value.
+Có vẻ như code Effect này phụ thuộc vào `count`. Có cách nào để không cần dependency này không? Nên có cách để cập nhật state `count` dựa trên giá trị trước đó mà không cần thêm dependency vào giá trị đó.
 
 </Hint>
 
@@ -1211,9 +1211,9 @@ export default function Timer() {
 
 <Solution>
 
-You want to update the `count` state to be `count + 1` from inside the Effect. However, this makes your Effect depend on `count`, which changes with every tick, and that's why your interval gets re-created on every tick.
+Bạn muốn cập nhật state `count` thành `count + 1` từ bên trong Effect. Tuy nhiên, điều này khiến Effect của bạn phụ thuộc vào `count`, thay đổi với mỗi tick, và đó là lý do tại sao interval của bạn bị tạo lại ở mỗi tick.
 
-To solve this, use the [updater function](/reference/react/useState#updating-state-based-on-the-previous-state) and write `setCount(c => c + 1)` instead of `setCount(count + 1)`:
+Để giải quyết điều này, hãy sử dụng [updater function](/reference/react/useState#updating-state-based-on-the-previous-state) và viết `setCount(c => c + 1)` thay vì `setCount(count + 1)`:
 
 <Sandpack>
 
@@ -1241,19 +1241,19 @@ export default function Timer() {
 
 </Sandpack>
 
-Instead of reading `count` inside the Effect, you pass a `c => c + 1` instruction ("increment this number!") to React. React will apply it on the next render. And since you don't need to read the value of `count` inside your Effect anymore, you can keep your Effect's dependencies empty (`[]`). This prevents your Effect from re-creating the interval on every tick.
+Thay vì đọc `count` bên trong Effect, bạn truyền một chỉ thị `c => c + 1` ("tăng số này lên!") cho React. React sẽ áp dụng nó trong lần render tiếp theo. Và vì bạn không cần đọc giá trị của `count` bên trong Effect nữa, bạn có thể giữ cho các dependency của Effect trống (`[]`). Điều này ngăn Effect của bạn tạo lại interval ở mỗi tick.
 
 </Solution>
 
-#### Fix a retriggering animation {/*fix-a-retriggering-animation*/}
+#### Sửa animation bị kích hoạt lại {/*fix-a-retriggering-animation*/}
 
-In this example, when you press "Show", a welcome message fades in. The animation takes a second. When you press "Remove", the welcome message immediately disappears. The logic for the fade-in animation is implemented in the `animation.js` file as plain JavaScript [animation loop.](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) You don't need to change that logic. You can treat it as a third-party library. Your Effect creates an instance of `FadeInAnimation` for the DOM node, and then calls `start(duration)` or `stop()` to control the animation. The `duration` is controlled by a slider. Adjust the slider and see how the animation changes.
+Trong ví dụ này, khi bạn nhấn "Show", một thông báo chào mừng sẽ fade in. Animation mất một giây. Khi bạn nhấn "Remove", thông báo chào mừng biến mất ngay lập tức. Logic cho animation fade-in được triển khai trong file `animation.js` như một [animation loop](https://developer.mozilla.org/en-US/docs/Web/API/window/requestAnimationFrame) JavaScript thuần. Bạn không cần thay đổi logic đó. Bạn có thể coi nó như một thư viện bên thứ ba. Effect của bạn tạo một instance của `FadeInAnimation` cho DOM node, và sau đó gọi `start(duration)` hoặc `stop()` để điều khiển animation. `duration` được điều khiển bằng một slider. Điều chỉnh slider và xem animation thay đổi như thế nào.
 
-This code already works, but there is something you want to change. Currently, when you move the slider that controls the `duration` state variable, it retriggers the animation. Change the behavior so that the Effect does not "react" to the `duration` variable. When you press "Show", the Effect should use the current `duration` on the slider. However, moving the slider itself should not by itself retrigger the animation.
+Code này đã hoạt động, nhưng có điều gì đó bạn muốn thay đổi. Hiện tại, khi bạn di chuyển slider điều khiển biến state `duration`, nó kích hoạt lại animation. Thay đổi hành vi để Effect không "phản ứng" với biến `duration`. Khi bạn nhấn "Show", Effect nên sử dụng `duration` hiện tại trên slider. Tuy nhiên, việc di chuyển slider bản thân nó không nên kích hoạt lại animation.
 
 <Hint>
 
-Is there a line of code inside the Effect that should not be reactive? How can you move non-reactive code out of the Effect?
+Có một dòng code bên trong Effect không nên là reactive không? Làm thế nào bạn có thể di chuyển code không reactive ra khỏi Effect?
 
 </Hint>
 
@@ -1382,7 +1382,7 @@ html, body { min-height: 300px; }
 
 <Solution>
 
-Your Effect needs to read the latest value of `duration`, but you don't want it to "react" to changes in `duration`. You use `duration` to start the animation, but starting animation isn't reactive. Extract the non-reactive line of code into an Effect Event, and call that function from your Effect.
+Effect của bạn cần đọc giá trị mới nhất của `duration`, nhưng bạn không muốn nó "phản ứng" với những thay đổi trong `duration`. Bạn sử dụng `duration` để bắt đầu animation, nhưng việc bắt đầu animation không phải là reactive. Trích xuất dòng code không reactive vào một Effect Event, và gọi function đó từ Effect của bạn.
 
 <Sandpack>
 
@@ -1505,19 +1505,19 @@ html, body { min-height: 300px; }
 
 </Sandpack>
 
-Effect Events like `onAppear` are not reactive, so you can read `duration` inside without retriggering the animation.
+Effect Event như `onAppear` không phải là reactive, vì vậy bạn có thể đọc `duration` bên trong mà không kích hoạt lại animation.
 
 </Solution>
 
-#### Fix a reconnecting chat {/*fix-a-reconnecting-chat*/}
+#### Sửa chat bị kết nối lại {/*fix-a-reconnecting-chat*/}
 
-In this example, every time you press "Toggle theme", the chat re-connects. Why does this happen? Fix the mistake so that the chat re-connects only when you edit the Server URL or choose a different chat room.
+Trong ví dụ này, mỗi khi bạn nhấn "Toggle theme", chat sẽ kết nối lại. Tại sao điều này xảy ra? Hãy sửa lỗi để chat chỉ kết nối lại khi bạn chỉnh sửa Server URL hoặc chọn một phòng chat khác.
 
-Treat `chat.js` as an external third-party library: you can consult it to check its API, but don't edit it.
+Coi `chat.js` như một thư viện bên thứ ba: bạn có thể tham khảo nó để kiểm tra API, nhưng đừng chỉnh sửa nó.
 
 <Hint>
 
-There's more than one way to fix this, but ultimately you want to avoid having an object as your dependency.
+Có nhiều cách để sửa điều này, nhưng cuối cùng bạn muốn tránh có một object làm dependency của mình.
 
 </Hint>
 
@@ -1611,9 +1611,9 @@ label, button { display: block; margin-bottom: 5px; }
 
 <Solution>
 
-Your Effect is re-running because it depends on the `options` object. Objects can be re-created unintentionally, you should try to avoid them as dependencies of your Effects whenever possible.
+Effect của bạn đang chạy lại vì nó phụ thuộc vào object `options`. Các object có thể được tạo lại một cách không cố ý, bạn nên cố gắng tránh chúng làm dependency của Effect bất cứ khi nào có thể.
 
-The least invasive fix is to read `roomId` and `serverUrl` right outside the Effect, and then make the Effect depend on those primitive values (which can't change unintentionally). Inside the Effect, create an object and pass it to `createConnection`:
+Cách sửa ít xâm lấn nhất là đọc `roomId` và `serverUrl` ngay bên ngoài Effect, và sau đó làm cho Effect phụ thuộc vào những giá trị nguyên thủy đó (không thể thay đổi một cách không cố ý). Bên trong Effect, tạo một object và truyền nó cho `createConnection`:
 
 <Sandpack>
 
@@ -1707,7 +1707,7 @@ label, button { display: block; margin-bottom: 5px; }
 
 </Sandpack>
 
-It would be even better to replace the object `options` prop with the more specific `roomId` and `serverUrl` props:
+Sẽ tốt hơn nữa nếu thay thế prop object `options` bằng các prop cụ thể hơn là `roomId` và `serverUrl`:
 
 <Sandpack>
 
@@ -1798,25 +1798,25 @@ label, button { display: block; margin-bottom: 5px; }
 
 </Sandpack>
 
-Sticking to primitive props where possible makes it easier to optimize your components later.
+Giữ các prop nguyên thủy bất cứ khi nào có thể sẽ giúp việc tối ưu hóa component của bạn dễ dàng hơn sau này.
 
 </Solution>
 
-#### Fix a reconnecting chat, again {/*fix-a-reconnecting-chat-again*/}
+#### Sửa chat bị kết nối lại, lần nữa {/*fix-a-reconnecting-chat-again*/}
 
-This example connects to the chat either with or without encryption. Toggle the checkbox and notice the different messages in the console when the encryption is on and off. Try changing the room. Then, try toggling the theme. When you're connected to a chat room, you will receive new messages every few seconds. Verify that their color matches the theme you've picked.
+Ví dụ này kết nối với chat có hoặc không có mã hóa. Bật/tắt checkbox và chú ý các thông báo khác nhau trong console khi mã hóa được bật và tắt. Thử thay đổi phòng. Sau đó, thử bật/tắt theme. Khi bạn kết nối với một phòng chat, bạn sẽ nhận được tin nhắn mới vài giây một lần. Xác minh rằng màu của chúng khớp với theme bạn đã chọn.
 
-In this example, the chat re-connects every time you try to change the theme. Fix this. After the fix, changing the theme should not re-connect the chat, but toggling encryption settings or changing the room should re-connect.
+Trong ví dụ này, chat kết nối lại mỗi khi bạn cố gắng thay đổi theme. Hãy sửa điều này. Sau khi sửa, việc thay đổi theme không nên kết nối lại chat, nhưng việc bật/tắt cài đặt mã hóa hoặc thay đổi phòng thì nên kết nối lại.
 
-Don't change any code in `chat.js`. Other than that, you can change any code as long as it results in the same behavior. For example, you may find it helpful to change which props are being passed down.
+Đừng thay đổi bất kỳ code nào trong `chat.js`. Ngoài ra, bạn có thể thay đổi bất kỳ code nào miễn là nó tạo ra cùng một hành vi. Ví dụ, bạn có thể thấy hữu ích khi thay đổi props nào được truyền xuống.
 
 <Hint>
 
-You're passing down two functions: `onMessage` and `createConnection`. Both of them are created from scratch every time `App` re-renders. They are considered to be new values every time, which is why they re-trigger your Effect.
+Bạn đang truyền xuống hai function: `onMessage` và `createConnection`. Cả hai đều được tạo từ đầu mỗi khi `App` render lại. Chúng được coi là các giá trị mới mỗi lần, đó là lý do tại sao chúng kích hoạt lại Effect của bạn.
 
-One of these functions is an event handler. Do you know some way to call an event handler an Effect without "reacting" to the new values of the event handler function? That would come in handy!
+Một trong những function này là event handler. Bạn có biết cách nào để gọi một event handler trong Effect mà không "phản ứng" với các giá trị mới của function event handler không? Điều đó sẽ rất hữu ích!
 
-Another of these functions only exists to pass some state to an imported API method. Is this function really necessary? What is the essential information that's being passed down? You might need to move some imports from `App.js` to `ChatRoom.js`.
+Một function khác chỉ tồn tại để truyền một số state cho một phương thức API đã import. Function này có thực sự cần thiết không? Thông tin quan trọng nào đang được truyền xuống? Bạn có thể cần di chuyển một số import từ `App.js` sang `ChatRoom.js`.
 
 </Hint>
 
@@ -2031,11 +2031,11 @@ label, button { display: block; margin-bottom: 5px; }
 
 <Solution>
 
-There's more than one correct way to solve this, but here is one possible solution.
+Có nhiều cách đúng để giải quyết điều này, nhưng đây là một giải pháp có thể.
 
-In the original example, toggling the theme caused different `onMessage` and `createConnection` functions to be created and passed down. Since the Effect depended on these functions, the chat would re-connect every time you toggle the theme.
+Trong ví dụ ban đầu, việc bật/tắt theme khiến các function `onMessage` và `createConnection` khác nhau được tạo và truyền xuống. Vì Effect phụ thuộc vào những function này, chat sẽ kết nối lại mỗi khi bạn bật/tắt theme.
 
-To fix the problem with `onMessage`, you needed to wrap it into an Effect Event:
+Để sửa vấn đề với `onMessage`, bạn cần bao bọc nó vào một Effect Event:
 
 ```js {1,2,6}
 export default function ChatRoom({ roomId, createConnection, onMessage }) {
@@ -2047,9 +2047,9 @@ export default function ChatRoom({ roomId, createConnection, onMessage }) {
     // ...
 ```
 
-Unlike the `onMessage` prop, the `onReceiveMessage` Effect Event is not reactive. This is why it doesn't need to be a dependency of your Effect. As a result, changes to `onMessage` won't cause the chat to re-connect.
+Không giống như prop `onMessage`, Effect Event `onReceiveMessage` không phải là reactive. Đó là lý do tại sao nó không cần phải là dependency của Effect. Kết quả là, những thay đổi trong `onMessage` sẽ không khiến chat kết nối lại.
 
-You can't do the same with `createConnection` because it *should* be reactive. You *want* the Effect to re-trigger if the user switches between an encrypted and an unencryption connection, or if the user switches the current room. However, because `createConnection` is a function, you can't check whether the information it reads has *actually* changed or not. To solve this, instead of passing `createConnection` down from the `App` component, pass the raw `roomId` and `isEncrypted` values:
+Bạn không thể làm điều tương tự với `createConnection` vì nó *nên* là reactive. Bạn *muốn* Effect kích hoạt lại nếu người dùng chuyển đổi giữa kết nối mã hóa và không mã hóa, hoặc nếu người dùng chuyển đổi phòng hiện tại. Tuy nhiên, vì `createConnection` là một function, bạn không thể kiểm tra liệu thông tin mà nó đọc có *thực sự* thay đổi hay không. Để giải quyết điều này, thay vì truyền `createConnection` xuống từ component `App`, hãy truyền các giá trị `roomId` và `isEncrypted` thô:
 
 ```js {2-3}
       <ChatRoom
@@ -2061,7 +2061,7 @@ You can't do the same with `createConnection` because it *should* be reactive. Y
       />
 ```
 
-Now you can move the `createConnection` function *inside* the Effect instead of passing it down from the `App`:
+Bây giờ bạn có thể di chuyển function `createConnection` *vào trong* Effect thay vì truyền nó xuống từ `App`:
 
 ```js {1-4,6,10-20}
 import {
@@ -2087,7 +2087,7 @@ export default function ChatRoom({ roomId, isEncrypted, onMessage }) {
     // ...
 ```
 
-After these two changes, your Effect no longer depends on any function values:
+Sau hai thay đổi này, Effect của bạn không còn phụ thuộc vào bất kỳ giá trị function nào:
 
 ```js {1,8,10,21}
 export default function ChatRoom({ roomId, isEncrypted, onMessage }) { // Reactive values
@@ -2113,7 +2113,7 @@ export default function ChatRoom({ roomId, isEncrypted, onMessage }) { // Reacti
   }, [roomId, isEncrypted]); // ✅ All dependencies declared
 ```
 
-As a result, the chat re-connects only when something meaningful (`roomId` or `isEncrypted`) changes:
+Kết quả là, chat chỉ kết nối lại khi có điều gì đó có ý nghĩa (`roomId` hoặc `isEncrypted`) thay đổi:
 
 <Sandpack>
 
