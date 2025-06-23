@@ -75,7 +75,7 @@
           "path": "/learn/your-first-component"
         },
         {
-          "title": "Importing và Exporting Components",
+          "title": "Nhập (Importing) và Xuất (Exporting) các Component",
           "path": "/learn/importing-and-exporting-components"
         },
         {
@@ -83,11 +83,11 @@
           "path": "/learn/writing-markup-with-jsx"
         },
         {
-          "title": "JavaScript in JSX with Curly Braces",
+          "title": "JavaScript trong JSX với dấu ngoặc nhọn",
           "path": "/learn/javascript-in-jsx-with-curly-braces"
         },
         {
-          "title": "Passing Props to a Component",
+          "title": "Truyền props vào một Component",
           "path": "/learn/passing-props-to-a-component"
         },
         {

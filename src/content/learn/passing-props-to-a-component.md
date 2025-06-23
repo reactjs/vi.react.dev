@@ -1,26 +1,26 @@
 ---
-title: Passing Props to a Component
+title: Truyền Props vào một Component
 ---
 
 <Intro>
 
-React components use *props* to communicate with each other. Every parent component can pass some information to its child components by giving them props. Props might remind you of HTML attributes, but you can pass any JavaScript value through them, including objects, arrays, and functions.
+Các component trong React sử dụng *props* để giao tiếp với nhau. Mỗi component cha có thể truyền một số thông tin cho các component con của nó bằng cách cung cấp các props. Props có thể khiến bạn liên tưởng đến các thuộc tính trong HTML, nhưng bạn có thể truyền bất kỳ giá trị JavaScript nào thông qua chúng, bao gồm cả đối tượng (objects), mảng (arrays) và hàm (functions).
 
 </Intro>
 
 <YouWillLearn>
 
-* How to pass props to a component
-* How to read props from a component
-* How to specify default values for props
-* How to pass some JSX to a component
-* How props change over time
+* Làm thế nào để truyền props vào một component
+* Làm thế nào để đọc props từ một component
+* Làm thế nào để đặt giá trị mặc định cho props
+* Làm thế nào để truyền JSX cho một component
+* Props thay đổi như thế nào theo thời gian
 
 </YouWillLearn>
 
-## Familiar props {/*familiar-props*/}
+## Những props thường gặp {/*familiar-props*/}
 
-Props are the information that you pass to a JSX tag. For example, `className`, `src`, `alt`, `width`, and `height` are some of the props you can pass to an `<img>`:
+Props là thông tin mà bạn truyền vào một thẻ JSX. Ví dụ như, `className`, `src`, `alt`, `width`, và `height` là một vài props mà bạn có thể truyền vào thẻ `<img>`:
 
 <Sandpack>
 
@@ -51,11 +51,11 @@ body { min-height: 120px; }
 
 </Sandpack>
 
-The props you can pass to an `<img>` tag are predefined (ReactDOM conforms to [the HTML standard](https://www.w3.org/TR/html52/semantics-embedded-content.html#the-img-element)). But you can pass any props to *your own* components, such as `<Avatar>`, to customize them. Here's how!
+Các props mà bạn có thể truyền vào thẻ `<img>` đã được định nghĩa sẵn (ReactDOM tuân theo [tiêu chuẩn HTML](https://www.w3.org/TR/html52/semantics-embedded-content.html#the-img-element)). Nhưng bạn có thể truyền bất kỳ props nào vào *component do bạn tự tạo ra*, chẳng hạn như `<Avatar>`, để tùy chỉnh chúng. Sau đây là cách thực hiện!
 
-## Passing props to a component {/*passing-props-to-a-component*/}
+## Truyền props vào một component {/*passing-props-to-a-component*/}
 
-In this code, the `Profile` component isn't passing any props to its child component, `Avatar`:
+Trong đoạn code này, component `Profile` không truyền bất cứ props nào đến component con của nó, `Avatar`:
 
 ```js
 export default function Profile() {
@@ -65,11 +65,11 @@ export default function Profile() {
 }
 ```
 
-You can give `Avatar` some props in two steps.
+Bạn có thể cung cấp vài props cho component `Avatar` qua hai bước.
 
-### Step 1: Pass props to the child component {/*step-1-pass-props-to-the-child-component*/}
+### Bước 1: Truyền props đến component con {/*step-1-pass-props-to-the-child-component*/}
 
-First, pass some props to `Avatar`. For example, let's pass two props: `person` (an object), and `size` (a number):
+Đầu tiên, truyền vài props đến component `Avatar`. Ví dụ, hãy truyền hai props: `person` (một đối tượng - object), và `size` (một con số - number):
 
 ```js
 export default function Profile() {
@@ -84,25 +84,25 @@ export default function Profile() {
 
 <Note>
 
-If double curly braces after `person=` confuse you, recall [they're merely an object](/learn/javascript-in-jsx-with-curly-braces#using-double-curlies-css-and-other-objects-in-jsx) inside the JSX curlies.
+Nếu bạn thấy dấu ngoặc nhọn đôi sau `person=` gây nhầm lẫn, hãy nhớ rằng [chúng chỉ đơn giản là một đối tượng - object](/learn/javascript-in-jsx-with-curly-braces#using-double-curlies-css-and-other-objects-in-jsx) bên trong dấu ngoặc nhọn của JSX.
 
 </Note>
 
-Now you can read these props inside the `Avatar` component.
+Bây giờ bạn có thể đọc những props này bên trong component `Avatar`.
 
-### Step 2: Read props inside the child component {/*step-2-read-props-inside-the-child-component*/}
+### Bước 2: Đọc props trong component con {/*step-2-read-props-inside-the-child-component*/}
 
-You can read these props by listing their names `person, size` separated by the commas inside `({` and `})` directly after `function Avatar`. This lets you use them inside the `Avatar` code, like you would with a variable.
+Bạn có thể đọc các props này bằng cách liệt kê tên của chúng là `person, size` cách nhau bằng dấu phẩy, bên trong `({` và `})` ngay sau `function Avatar`. Cách này cho phép bạn sử dụng chúng bên trong code của `Avatar`, giống như bạn sử dụng các biến thông thường.
 
 ```js
 function Avatar({ person, size }) {
-  // person and size are available here
+  // person và size có sẵn ở đây
 }
 ```
 
-Add some logic to `Avatar` that uses the `person` and `size` props for rendering, and you're done.
+Thêm một số logic vào `Avatar` sử dụng các props `person` và `size` để hiển thị, và bạn hoàn tất.
 
-Now you can configure `Avatar` to render in many different ways with different props. Try tweaking the values!
+Bây giờ bạn có thể cấu hình `Avatar` để hiển thị theo nhiều cách khác nhau với các props khác nhau. Hãy thử thay đổi các giá trị nhé!
 
 <Sandpack>
 
@@ -168,9 +168,9 @@ body { min-height: 120px; }
 
 </Sandpack>
 
-Props let you think about parent and child components independently. For example, you can change the `person` or the `size` props inside `Profile` without having to think about how `Avatar` uses them. Similarly, you can change how the `Avatar` uses these props, without looking at the `Profile`.
+Props giúp bạn suy nghĩ về components cha và con một cách độc lập. Ví dụ, bạn có thể thay đổi các props `person` hoặc `size` bên trong component `Profile` mà không phải suy nghĩ về cách component `Avatar` sử dụng chúng. Tương tự, bạn có thể thay đổi cách component `Avatar` sử dụng những props này mà không cần phải xem xét về component `Profile`.
 
-You can think of props like "knobs" that you can adjust. They serve the same role as arguments serve for functions—in fact, props _are_ the only argument to your component! React component functions accept a single argument, a `props` object:
+Bạn có thể nghĩ về props như những "núm điều chỉnh" mà bạn có thể tùy chỉnh. Chúng có vai trò giống như các đối số (arguments) của hàm — thực ra, props _chính là_ đối số duy nhất của component của bạn! Các hàm component React nhận một đối số duy nhất, đó là một đối tượng (object) `props`:
 
 ```js
 function Avatar(props) {
@@ -180,11 +180,11 @@ function Avatar(props) {
 }
 ```
 
-Usually you don't need the whole `props` object itself, so you destructure it into individual props.
+Thông thường, bạn không cần toàn bộ đối tượng (object) `props`, vì vậy bạn sẽ dùng kỹ thuật destructuring để lấy riêng từng prop.
 
 <Pitfall>
 
-**Don't miss the pair of `{` and `}` curlies** inside of `(` and `)` when declaring props:
+**Đừng bỏ sót cặp dấu ngoặc nhọn `{` và `}`** bên trong dấu ngoặc đơn `(` và `)` khi khai báo props:
 
 ```js
 function Avatar({ person, size }) {
@@ -192,7 +192,7 @@ function Avatar({ person, size }) {
 }
 ```
 
-This syntax is called ["destructuring"](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Unpacking_fields_from_objects_passed_as_a_function_parameter) and is equivalent to reading properties from a function parameter:
+Cú pháp này được gọi là ["destructuring"](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment#Unpacking_fields_from_objects_passed_as_a_function_parameter) và tương đương với việc đọc các thuộc tính từ một tham số của hàm (function):
 
 ```js
 function Avatar(props) {
@@ -204,9 +204,9 @@ function Avatar(props) {
 
 </Pitfall>
 
-## Specifying a default value for a prop {/*specifying-a-default-value-for-a-prop*/}
+## Chỉ định một giá trị mặc định cho một prop {/*specifying-a-default-value-for-a-prop*/}
 
-If you want to give a prop a default value to fall back on when no value is specified, you can do it with the destructuring by putting `=` and the default value right after the parameter:
+Nếu bạn muốn gán cho một prop một giá trị mặc định để sử dụng khi không có giá trị được chỉ định, bạn có thể làm điều đó bằng cách sử dụng destructuring và đặt dấu `=` cùng với giá trị mặc định ngay sau tham số:
 
 ```js
 function Avatar({ person, size = 100 }) {
@@ -214,13 +214,13 @@ function Avatar({ person, size = 100 }) {
 }
 ```
 
-Now, if `<Avatar person={...} />` is rendered with no `size` prop, the `size` will be set to `100`.
+Bây giờ, nếu `<Avatar person={...} />` được hiển thị mà không có prop `size`, thì `size` sẽ được gán giá trị là `100`.
 
-The default value is only used if the `size` prop is missing or if you pass `size={undefined}`. But if you pass `size={null}` or `size={0}`, the default value will **not** be used.
+Giá trị mặc định chỉ được dùng nếu prop `size` bị bỏ qua hoặc nếu bạn truyền `size={undefined}`. Nhưng nếu bạn truyền `size={null}` hoặc `size={0}` thì giá trị mặc định sẽ **không** được dùng.
 
-## Forwarding props with the JSX spread syntax {/*forwarding-props-with-the-jsx-spread-syntax*/}
+## Chuyển props bằng cú pháp spread của JSX {/*forwarding-props-with-the-jsx-spread-syntax*/}
 
-Sometimes, passing props gets very repetitive:
+Đôi khi, việc truyền props trở nên rất lặp đi lặp lại:
 
 ```js
 function Profile({ person, size, isSepia, thickBorder }) {
@@ -237,7 +237,7 @@ function Profile({ person, size, isSepia, thickBorder }) {
 }
 ```
 
-There's nothing wrong with repetitive code—it can be more legible. But at times you may value conciseness. Some components forward all of their props to their children, like how this `Profile` does with `Avatar`. Because they don't use any of their props directly, it can make sense to use a more concise "spread" syntax:
+Việc viết code lặp lại không có gì sai—thậm chí còn giúp dễ đọc hơn. Tuy nhiên, đôi khi bạn có thể ưu tiên sự ngắn gọn. Một số component chuyển tiếp toàn bộ props của chúng đến các component con, giống như `Profile` chuyển tiếp cho `Avatar`. Vì những component này không sử dụng trực tiếp bất kỳ prop nào, nên việc sử dụng cú pháp "spread" ngắn gọn sẽ hợp lý hơn:
 
 ```js
 function Profile(props) {
@@ -249,13 +249,13 @@ function Profile(props) {
 }
 ```
 
-This forwards all of `Profile`'s props to the `Avatar` without listing each of their names.
+Dòng này sẽ chuyển tiếp tất cả các props của `Profile` sang `Avatar` mà không cần liệt kê từng tên prop một.
 
-**Use spread syntax with restraint.** If you're using it in every other component, something is wrong. Often, it indicates that you should split your components and pass children as JSX. More on that next!
+**Hãy sử dụng cú pháp spread một cách cẩn trọng.** Nếu bạn dùng nó trong hầu hết các component, có thể đang có vấn đề trong cách thiết kế. Thường thì điều đó cho thấy bạn nên tách nhỏ các component và truyền nội dung con dưới dạng JSX. Phần tiếp theo sẽ nói rõ hơn về điều này!
 
-## Passing JSX as children {/*passing-jsx-as-children*/}
+## Truyền JSX dưới hình thức con (children) {/*passing-jsx-as-children*/}
 
-It is common to nest built-in browser tags:
+Việc lồng các thẻ trình duyệt có sẵn (built-in browser tags) là điều rất phổ biến:
 
 ```js
 <div>
@@ -263,7 +263,7 @@ It is common to nest built-in browser tags:
 </div>
 ```
 
-Sometimes you'll want to nest your own components the same way:
+Đôi khi, bạn cũng sẽ muốn lồng các component do chính bạn tạo ra theo cách tương tự:
 
 ```js
 <Card>
@@ -271,7 +271,7 @@ Sometimes you'll want to nest your own components the same way:
 </Card>
 ```
 
-When you nest content inside a JSX tag, the parent component will receive that content in a prop called `children`. For example, the `Card` component below will receive a `children` prop set to `<Avatar />` and render it in a wrapper div:
+Khi bạn lồng nội dung bên trong một thẻ JSX, component cha sẽ nhận nội dung đó thông qua một prop có tên là `children`. Ví dụ, component `Card` dưới đây sẽ nhận prop `children` là `<Avatar />` và hiển thị nó bên trong một thẻ div bao ngoài:
 
 <Sandpack>
 
@@ -347,17 +347,17 @@ export function getImageUrl(person, size = 's') {
 
 </Sandpack>
 
-Try replacing the `<Avatar>` inside `<Card>` with some text to see how the `Card` component can wrap any nested content. It doesn't need to "know" what's being rendered inside of it. You will see this flexible pattern in many places.
+Hãy thử thay thế `<Avatar>` bên trong `<Card>` bằng một đoạn văn bản để thấy cách component `Card` có thể bao bọc bất kỳ nội dung lồng nào. Nó không cần phải "biết" chính xác thứ gì đang được hiển thị bên trong. Bạn sẽ thấy mẫu thiết kế linh hoạt này được sử dụng rất phổ biến ở nhiều nơi.
 
-You can think of a component with a `children` prop as having a "hole" that can be "filled in" by its parent components with arbitrary JSX. You will often use the `children` prop for visual wrappers: panels, grids, etc.
+Bạn có thể hình dung một component có prop `children` giống như một "chỗ trống" mà các component cha có thể "lấp đầy" bằng bất kỳ JSX nào. Bạn sẽ thường sử dụng prop `children` cho các thành phần bao bọc giao diện, chẳng hạn như: bảng (panel), lưới (grid), v.v.
 
 <Illustration src="/images/docs/illustrations/i_children-prop.png" alt='A puzzle-like Card tile with a slot for "children" pieces like text and Avatar' />
 
-## How props change over time {/*how-props-change-over-time*/}
+## Props thay đổi như thế nào theo thời gian {/*how-props-change-over-time*/}
 
-The `Clock` component below receives two props from its parent component: `color` and `time`. (The parent component's code is omitted because it uses [state](/learn/state-a-components-memory), which we won't dive into just yet.)
+Component `Clock` dưới đây nhận hai props từ component cha của nó: `color` và `time`. (Code của component cha được lược bỏ vì nó sử dụng [state](/learn/state-a-components-memory), phần mà chúng ta chưa đi sâu vào lúc này.)
 
-Try changing the color in the select box below:
+Hãy thử thay đổi màu trong hộp chọn bên dưới:
 
 <Sandpack>
 
@@ -407,21 +407,21 @@ export default function App() {
 
 </Sandpack>
 
-This example illustrates that **a component may receive different props over time.** Props are not always static! Here, the `time` prop changes every second, and the `color` prop changes when you select another color. Props reflect a component's data at any point in time, rather than only in the beginning.
+Ví dụ này minh họa rằng **một component có thể nhận các props khác nhau theo thời gian**. Props không phải lúc nào cũng tĩnh! Ở đây, prop `time` thay đổi mỗi giây, và prop `color` thay đổi khi bạn chọn một màu khác. Props phản ánh dữ liệu của component tại bất kỳ thời điểm nào, chứ không chỉ ở lúc khởi đầu.
 
-However, props are [immutable](https://en.wikipedia.org/wiki/Immutable_object)—a term from computer science meaning "unchangeable". When a component needs to change its props (for example, in response to a user interaction or new data), it will have to "ask" its parent component to pass it _different props_—a new object! Its old props will then be cast aside, and eventually the JavaScript engine will reclaim the memory taken by them.
+Tuy nhiên, props là [bất biến (immutable)](https://en.wikipedia.org/wiki/Immutable_object) — một thuật ngữ trong khoa học máy tính có nghĩa là "không thể thay đổi". Khi một component cần thay đổi props của nó (ví dụ, phản ứng với tương tác người dùng hoặc dữ liệu mới), nó sẽ phải "yêu cầu" component cha truyền cho nó _props khác_ — một đối tượng (object) mới! Các props cũ sẽ bị bỏ qua, và cuối cùng trình thông dịch JavaScript sẽ giải phóng bộ nhớ mà chúng chiếm dụng.
 
-**Don't try to "change props".** When you need to respond to the user input (like changing the selected color), you will need to "set state", which you can learn about in [State: A Component's Memory.](/learn/state-a-components-memory)
+**Đừng cố "thay đổi props"**. Khi bạn cần phản hồi tương tác của người dùng (chẳng hạn như thay đổi màu được chọn), bạn sẽ cần phải "đặt state" (set state), phần mà bạn có thể tìm hiểu trong [State: Một bộ nhớ của Component.](/learn/state-a-components-memory)
 
 <Recap>
 
-* To pass props, add them to the JSX, just like you would with HTML attributes.
-* To read props, use the `function Avatar({ person, size })` destructuring syntax.
-* You can specify a default value like `size = 100`, which is used for missing and `undefined` props.
-* You can forward all props with `<Avatar {...props} />` JSX spread syntax, but don't overuse it!
-* Nested JSX like `<Card><Avatar /></Card>` will appear as `Card` component's `children` prop.
-* Props are read-only snapshots in time: every render receives a new version of props.
-* You can't change props. When you need interactivity, you'll need to set state.
+* Để truyền props, bạn chỉ cần thêm chúng vào JSX, giống như cách bạn sử dụng các thuộc tính trong HTML.
+* Để đọc props, hãy sử dụng cú pháp destructuring `function Avatar({ person, size })`.
+* Bạn có thể chỉ định giá trị mặc định như `size = 100`, giá trị này sẽ được dùng khi prop bị thiếu hoặc có giá trị `undefined`.
+* Bạn có thể chuyển tiếp tất cả props bằng cú pháp JSX spread `<Avatar {...props} />`, nhưng đừng lạm dụng nó!
+* JSX lồng nhau như `<Card><Avatar /></Card>` sẽ xuất hiện dưới dạng prop `children` của component `Card`.
+* Props là các ảnh chụp (snapshot) chỉ đọc theo thời gian: mỗi lần render sẽ nhận một phiên bản mới của props.
+* Bạn không thể thay đổi props. Khi bạn cần tương tác với nó, bạn phải sử dụng set state.
 
 </Recap>
 
@@ -429,9 +429,9 @@ However, props are [immutable](https://en.wikipedia.org/wiki/Immutable_object)�
 
 <Challenges>
 
-#### Extract a component {/*extract-a-component*/}
+#### Tách một component {/*extract-a-component*/}
 
-This `Gallery` component contains some very similar markup for two profiles. Extract a `Profile` component out of it to reduce the duplication. You'll need to choose what props to pass to it.
+Component `Gallery` này chứa một số đoạn mã rất giống nhau cho hai profile. Hãy tách một component `Profile` ra khỏi nó để giảm sự trùng lặp. Bạn sẽ cần quyết định các props nào sẽ truyền cho component đó.
 
 <Sandpack>
 
@@ -524,15 +524,15 @@ li { margin: 5px; }
 
 <Hint>
 
-Start by extracting the markup for one of the scientists. Then find the pieces that don't match it in the second example, and make them configurable by props.
+Bắt đầu bằng cách tách phần mã (markup) cho một trong các nhà khoa học ra. Sau đó, tìm những phần khác biệt trong ví dụ thứ hai và làm cho chúng có thể tùy chỉnh được thông qua props.
 
 </Hint>
 
 <Solution>
 
-In this solution, the `Profile` component accepts multiple props: `imageId` (a string), `name` (a string), `profession` (a string), `awards` (an array of strings), `discovery` (a string), and `imageSize` (a number).
+Với giải pháp này, component `Profile` nhận nhiều props: `imageId` (một chuỗi - string), `name` (một chuỗi - string), `profession` (một chuỗi - string), `awards` (một mảng chuỗi - array của strings), `discovery` (một chuỗi - string), và `imageSize` (một con số - number).
 
-Note that the `imageSize` prop has a default value, which is why we don't pass it to the component.
+Chú ý rằng prop `imageSize` có một giá trị mặc định, cái mà chúng ta không truyền nó đến component.
 
 <Sandpack>
 
@@ -630,9 +630,9 @@ li { margin: 5px; }
 
 </Sandpack>
 
-Note how you don't need a separate `awardCount` prop if `awards` is an array. Then you can use `awards.length` to count the number of awards. Remember that props can take any values, and that includes arrays too!
+Lưu ý rằng bạn không cần một prop riêng biệt `awardCount` nếu `awards` là một mảng (array). Khi đó, bạn có thể dùng `awards.length` để đếm số lượng giải thưởng. Hãy nhớ rằng props có thể nhận bất kỳ giá trị nào, bao gồm cả mảng (array)!
 
-Another solution, which is more similar to the earlier examples on this page, is to group all information about a person in a single object, and pass that object as one prop:
+Một giải pháp khác, tương tự hơn với các ví dụ trước trên trang này, là gom tất cả thông tin về một người thành một đối tượng duy nhất (a single object), rồi truyền đối tượng đó dưới dạng một prop:
 
 <Sandpack>
 
@@ -727,15 +727,15 @@ li { margin: 5px; }
 
 </Sandpack>
 
-Although the syntax looks slightly different because you're describing properties of a JavaScript object rather than a collection of JSX attributes, these examples are mostly equivalent, and you can pick either approach.
+Mặc dù cú pháp trông hơi khác vì bạn đang mô tả các thuộc tính của một đối tượng JavaScript thay vì một tập hợp các thuộc tính JSX, nhưng các ví dụ này về cơ bản là tương đương, và bạn có thể chọn theo cách nào cũng được.
 
 </Solution>
 
-#### Adjust the image size based on a prop {/*adjust-the-image-size-based-on-a-prop*/}
+#### Thay đổi kích thước của image dựa trên một prop {/*adjust-the-image-size-based-on-a-prop*/}
 
-In this example, `Avatar` receives a numeric `size` prop which determines the `<img>` width and height. The `size` prop is set to `40` in this example. However, if you open the image in a new tab, you'll notice that the image itself is larger (`160` pixels). The real image size is determined by which thumbnail size you're requesting.
+Trong ví dụ này, component `Avatar` nhận một prop số `size` dùng để xác định chiều rộng và chiều cao của thẻ `<img>`. Prop `size` được đặt là `40` trong ví dụ này. Tuy nhiên, nếu bạn mở hình ảnh trong tab mới, bạn sẽ nhận thấy ảnh gốc có kích thước lớn hơn (`160` pixel). Kích thước thực tế của ảnh được quyết định bởi kích thước ảnh thu nhỏ (thumbnail) mà bạn yêu cầu.
 
-Change the `Avatar` component to request the closest image size based on the `size` prop. Specifically, if the `size` is less than `90`, pass `'s'` ("small") rather than `'b'` ("big") to the `getImageUrl` function. Verify that your changes work by rendering avatars with different values of the `size` prop and opening images in a new tab.
+Hãy thay đổi component `Avatar` để yêu cầu kích thước ảnh gần nhất dựa trên prop `size`. Cụ thể, nếu `size` nhỏ hơn `90`, hãy truyền `'s'` (tức "small" - nhỏ) thay vì `'b'` ("big" - lớn) cho hàm `getImageUrl`. Kiểm tra xem thay đổi của bạn có hoạt động bằng cách render các avatar với các giá trị `size` khác nhau và mở ảnh trong tab mới.
 
 <Sandpack>
 
@@ -786,7 +786,7 @@ export function getImageUrl(person, size) {
 
 <Solution>
 
-Here is how you could go about it:
+Đây là cách bạn có thể thực hiện:
 
 <Sandpack>
 
@@ -848,7 +848,7 @@ export function getImageUrl(person, size) {
 
 </Sandpack>
 
-You could also show a sharper image for high DPI screens by taking [`window.devicePixelRatio`](https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio) into account:
+Bạn cũng có thể hiển thị hình ảnh sắc nét hơn trên màn hình có mật độ điểm ảnh cao bằng cách tính đến [`window.devicePixelRatio`](https://developer.mozilla.org/en-US/docs/Web/API/Window/devicePixelRatio):
 
 <Sandpack>
 
@@ -919,13 +919,13 @@ export function getImageUrl(person, size) {
 
 </Sandpack>
 
-Props let you encapsulate logic like this inside the `Avatar` component (and change it later if needed) so that everyone can use the `<Avatar>` component without thinking about how the images are requested and resized.
+Props cho phép bạn đóng gói logic như thế này bên trong component `Avatar` (và thay đổi sau nếu cần), để ai cũng có thể sử dụng component `<Avatar>` mà không phải lo lắng về cách hình ảnh được yêu cầu và thay đổi kích thước.
 
 </Solution>
 
-#### Passing JSX in a `children` prop {/*passing-jsx-in-a-children-prop*/}
+#### Truyền JSX vào một prop `children` {/*passing-jsx-in-a-children-prop*/}
 
-Extract a `Card` component from the markup below, and use the `children` prop to pass different JSX to it:
+Hãy tách một component `Card` từ đoạn mã bên dưới, và sử dụng prop `children` để truyền các JSX khác nhau vào nó:
 
 <Sandpack>
 
@@ -983,13 +983,13 @@ h1 {
 
 <Hint>
 
-Any JSX you put inside of a component's tag will be passed as the `children` prop to that component.
+Bất kỳ JSX nào bạn đặt bên trong thẻ của một component sẽ được truyền vào component đó thông qua prop `children`.
 
 </Hint>
 
 <Solution>
 
-This is how you can use the `Card` component in both places:
+Đây là cách bạn có thể sử dụng component `Card` ở cả hai chỗ:
 
 <Sandpack>
 
@@ -1051,7 +1051,7 @@ h1 {
 
 </Sandpack>
 
-You can also make `title` a separate prop if you want every `Card` to always have a title:
+Bạn cũng có thể làm `title` thành một prop riêng nếu bạn muốn mỗi `Card` luôn có một tiêu đề:
 
 <Sandpack>
 
