@@ -1,65 +1,65 @@
 ---
-title: 'Synchronizing with Effects'
+title: 'Đồng bộ hóa với Effect'
 ---
 
 <Intro>
 
-Some components need to synchronize with external systems. For example, you might want to control a non-React component based on the React state, set up a server connection, or send an analytics log when a component appears on the screen. *Effects* let you run some code after rendering so that you can synchronize your component with some system outside of React.
+Một số component cần đồng bộ hóa với các hệ thống bên ngoài. Ví dụ, bạn có thể muốn điều khiển một component không phải React dựa trên state của React, thiết lập kết nối server, hoặc gửi log phân tích khi một component xuất hiện trên màn hình. *Effect* cho phép bạn chạy một số code sau khi render để có thể đồng bộ hóa component của bạn với một số hệ thống bên ngoài React.
 
 </Intro>
 
 <YouWillLearn>
 
-- What Effects are
-- How Effects are different from events
-- How to declare an Effect in your component
-- How to skip re-running an Effect unnecessarily
-- Why Effects run twice in development and how to fix them
+- Effect là gì
+- Effect khác với event như thế nào
+- Cách khai báo một Effect trong component của bạn
+- Cách bỏ qua việc chạy lại Effect một cách không cần thiết
+- Tại sao Effect chạy hai lần trong quá trình phát triển và cách khắc phục chúng
 
 </YouWillLearn>
 
-## What are Effects and how are they different from events? {/*what-are-effects-and-how-are-they-different-from-events*/}
+## Effect là gì và chúng khác với event như thế nào? {/*what-are-effects-and-how-are-they-different-from-events*/}
 
-Before getting to Effects, you need to be familiar with two types of logic inside React components:
+Trước khi đến với Effect, bạn cần làm quen với hai loại logic bên trong các component React:
 
-- **Rendering code** (introduced in [Describing the UI](/learn/describing-the-ui)) lives at the top level of your component. This is where you take the props and state, transform them, and return the JSX you want to see on the screen. [Rendering code must be pure.](/learn/keeping-components-pure) Like a math formula, it should only _calculate_ the result, but not do anything else.
+- **Code render** (được giới thiệu trong [Mô tả UI](/learn/describing-the-ui)) tồn tại ở cấp độ cao nhất của component của bạn. Đây là nơi bạn lấy props và state, chuyển đổi chúng, và trả về JSX mà bạn muốn thấy trên màn hình. [Code render phải thuần khiết.](/learn/keeping-components-pure) Giống như một công thức toán học, nó chỉ nên *tính toán* kết quả, nhưng không làm gì khác.
 
-- **Event handlers** (introduced in [Adding Interactivity](/learn/adding-interactivity)) are nested functions inside your components that *do* things rather than just calculate them. An event handler might update an input field, submit an HTTP POST request to buy a product, or navigate the user to another screen. Event handlers contain ["side effects"](https://en.wikipedia.org/wiki/Side_effect_(computer_science)) (they change the program's state) caused by a specific user action (for example, a button click or typing).
+- **Event handler** (được giới thiệu trong [Thêm tính tương tác](/learn/adding-interactivity)) là những function lồng nhau bên trong component của bạn mà *thực hiện* những việc thay vì chỉ tính toán chúng. Một event handler có thể cập nhật một trường input, gửi một HTTP POST request để mua một sản phẩm, hoặc điều hướng người dùng đến màn hình khác. Event handler chứa ["side effect"](https://en.wikipedia.org/wiki/Side_effect_(computer_science)) (chúng thay đổi state của chương trình) được gây ra bởi một hành động cụ thể của người dùng (ví dụ, click nút hoặc gõ phím).
 
-Sometimes this isn't enough. Consider a `ChatRoom` component that must connect to the chat server whenever it's visible on the screen. Connecting to a server is not a pure calculation (it's a side effect) so it can't happen during rendering. However, there is no single particular event like a click that causes `ChatRoom` to be displayed.
+Đôi khi điều này chưa đủ. Hãy xem xét một component `ChatRoom` mà phải kết nối với chat server mỗi khi nó hiển thị trên màn hình. Kết nối với server không phải là một phép tính thuần khiết (đó là một side effect) nên nó không thể xảy ra trong quá trình rendering. Tuy nhiên, không có một event cụ thể nào như click mà khiến `ChatRoom` được hiển thị.
 
-***Effects* let you specify side effects that are caused by rendering itself, rather than by a particular event.** Sending a message in the chat is an *event* because it is directly caused by the user clicking a specific button. However, setting up a server connection is an *Effect* because it should happen no matter which interaction caused the component to appear. Effects run at the end of a [commit](/learn/render-and-commit) after the screen updates. This is a good time to synchronize the React components with some external system (like network or a third-party library).
+***Effect* cho phép bạn chỉ định các side effect được gây ra bởi chính quá trình rendering, thay vì bởi một event cụ thể.** Gửi tin nhắn trong chat là một *event* vì nó được gây ra trực tiếp bởi người dùng click vào một nút cụ thể. Tuy nhiên, thiết lập kết nối server là một *Effect* vì nó nên xảy ra bất kể tương tác nào khiến component xuất hiện. Effect chạy ở cuối của một [commit](/learn/render-and-commit) sau khi màn hình cập nhật. Đây là thời điểm tốt để đồng bộ hóa các component React với một hệ thống bên ngoài (như mạng hoặc thư viện bên thứ ba).
 
 <Note>
 
-Here and later in this text, capitalized "Effect" refers to the React-specific definition above, i.e. a side effect caused by rendering. To refer to the broader programming concept, we'll say "side effect".
+Ở đây và sau này trong văn bản này, "Effect" viết hoa đề cập đến định nghĩa cụ thể của React ở trên, tức là một side effect được gây ra bởi rendering. Để đề cập đến khái niệm lập trình rộng hơn, chúng ta sẽ nói "side effect".
 
 </Note>
 
 
-## You might not need an Effect {/*you-might-not-need-an-effect*/}
+## Bạn có thể không cần Effect {/*you-might-not-need-an-effect*/}
 
-**Don't rush to add Effects to your components.** Keep in mind that Effects are typically used to "step out" of your React code and synchronize with some *external* system. This includes browser APIs, third-party widgets, network, and so on. If your Effect only adjusts some state based on other state, [you might not need an Effect.](/learn/you-might-not-need-an-effect)
+**Đừng vội vàng thêm Effect vào component của bạn.** Hãy nhớ rằng Effect thường được sử dụng để "thoát ra" khỏi code React của bạn và đồng bộ hóa với một hệ thống *bên ngoài* nào đó. Điều này bao gồm các API trình duyệt, widget bên thứ ba, mạng, v.v. Nếu Effect của bạn chỉ điều chỉnh một số state dựa trên state khác, [bạn có thể không cần Effect.](/learn/you-might-not-need-an-effect)
 
-## How to write an Effect {/*how-to-write-an-effect*/}
+## Cách viết một Effect {/*how-to-write-an-effect*/}
 
-To write an Effect, follow these three steps:
+Để viết một Effect, hãy làm theo ba bước sau:
 
-1. **Declare an Effect.** By default, your Effect will run after every [commit](/learn/render-and-commit).
-2. **Specify the Effect dependencies.** Most Effects should only re-run *when needed* rather than after every render. For example, a fade-in animation should only trigger when a component appears. Connecting and disconnecting to a chat room should only happen when the component appears and disappears, or when the chat room changes. You will learn how to control this by specifying *dependencies.*
-3. **Add cleanup if needed.** Some Effects need to specify how to stop, undo, or clean up whatever they were doing. For example, "connect" needs "disconnect", "subscribe" needs "unsubscribe", and "fetch" needs either "cancel" or "ignore". You will learn how to do this by returning a *cleanup function*.
+1. **Khai báo một Effect.** Theo mặc định, Effect của bạn sẽ chạy sau mỗi [commit](/learn/render-and-commit).
+2. **Chỉ định các dependency của Effect.** Hầu hết các Effect chỉ nên chạy lại *khi cần thiết* thay vì sau mỗi lần render. Ví dụ, animation fade-in chỉ nên kích hoạt khi một component xuất hiện. Kết nối và ngắt kết nối với phòng chat chỉ nên xảy ra khi component xuất hiện và biến mất, hoặc khi phòng chat thay đổi. Bạn sẽ học cách điều khiển điều này bằng cách chỉ định *dependency.*
+3. **Thêm cleanup nếu cần.** Một số Effect cần chỉ định cách dừng, hoàn tác, hoặc dọn dẹp bất cứ thứ gì chúng đang làm. Ví dụ, "connect" cần "disconnect", "subscribe" cần "unsubscribe", và "fetch" cần "cancel" hoặc "ignore". Bạn sẽ học cách thực hiện điều này bằng cách trả về một *cleanup function*.
 
-Let's look at each of these steps in detail.
+Hãy xem xét từng bước một cách chi tiết.
 
-### Step 1: Declare an Effect {/*step-1-declare-an-effect*/}
+### Bước 1: Khai báo một Effect {/*step-1-declare-an-effect*/}
 
-To declare an Effect in your component, import the [`useEffect` Hook](/reference/react/useEffect) from React:
+Để khai báo một Effect trong component của bạn, hãy import Hook [`useEffect`](/reference/react/useEffect) từ React:
 
 ```js
 import { useEffect } from 'react';
 ```
 
-Then, call it at the top level of your component and put some code inside your Effect:
+Sau đó, gọi nó ở cấp độ cao nhất của component và đặt một số code bên trong Effect của bạn:
 
 ```js {2-4}
 function MyComponent() {
@@ -70,15 +70,15 @@ function MyComponent() {
 }
 ```
 
-Every time your component renders, React will update the screen *and then* run the code inside `useEffect`. In other words, **`useEffect` "delays" a piece of code from running until that render is reflected on the screen.**
+Mỗi khi component của bạn render, React sẽ cập nhật màn hình *và sau đó* chạy code bên trong `useEffect`. Nói cách khác, **`useEffect` "trì hoãn" một đoạn code khỏi việc chạy cho đến khi lần render đó được phản ánh trên màn hình.**
 
-Let's see how you can use an Effect to synchronize with an external system. Consider a `<VideoPlayer>` React component. It would be nice to control whether it's playing or paused by passing an `isPlaying` prop to it:
+Hãy xem cách bạn có thể sử dụng Effect để đồng bộ hóa với một hệ thống bên ngoài. Hãy xem xét một component React `<VideoPlayer>`. Sẽ rất tuyệt nếu có thể điều khiển việc nó đang phát hay tạm dừng bằng cách truyền một prop `isPlaying` cho nó:
 
 ```js
 <VideoPlayer isPlaying={isPlaying} />;
 ```
 
-Your custom `VideoPlayer` component renders the built-in browser [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) tag:
+Component `VideoPlayer` tùy chỉnh của bạn render thẻ [`<video>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/video) có sẵn trong trình duyệt:
 
 ```js
 function VideoPlayer({ src, isPlaying }) {
@@ -87,11 +87,11 @@ function VideoPlayer({ src, isPlaying }) {
 }
 ```
 
-However, the browser `<video>` tag does not have an `isPlaying` prop. The only way to control it is to manually call the [`play()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play) and [`pause()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause) methods on the DOM element. **You need to synchronize the value of `isPlaying` prop, which tells whether the video _should_ currently be playing, with calls like `play()` and `pause()`.**
+Tuy nhiên, thẻ `<video>` của trình duyệt không có prop `isPlaying`. Cách duy nhất để điều khiển nó là gọi thủ công các method [`play()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/play) và [`pause()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLMediaElement/pause) trên DOM element. **Bạn cần đồng bộ hóa giá trị của prop `isPlaying`, cho biết liệu video *nên* đang phát hay không, với các lệnh gọi như `play()` và `pause()`.**
 
-We'll need to first [get a ref](/learn/manipulating-the-dom-with-refs) to the `<video>` DOM node.
+Trước tiên chúng ta cần [lấy một ref](/learn/manipulating-the-dom-with-refs) đến DOM node `<video>`.
 
-You might be tempted to try to call `play()` or `pause()` during rendering, but that isn't correct:
+Bạn có thể muốn thử gọi `play()` hoặc `pause()` trong quá trình rendering, nhưng điều đó không đúng:
 
 <Sandpack>
 
@@ -133,11 +133,11 @@ video { width: 250px; }
 
 </Sandpack>
 
-The reason this code isn't correct is that it tries to do something with the DOM node during rendering. In React, [rendering should be a pure calculation](/learn/keeping-components-pure) of JSX and should not contain side effects like modifying the DOM.
+Lý do code này không đúng là vì nó cố gắng làm điều gì đó với DOM node trong quá trình rendering. Trong React, [rendering nên là một phép tính thuần khiết](/learn/keeping-components-pure) của JSX và không nên chứa các side effect như sửa đổi DOM.
 
-Moreover, when `VideoPlayer` is called for the first time, its DOM does not exist yet! There isn't a DOM node yet to call `play()` or `pause()` on, because React doesn't know what DOM to create until you return the JSX.
+Hơn nữa, khi `VideoPlayer` được gọi lần đầu tiên, DOM của nó chưa tồn tại! Chưa có DOM node nào để gọi `play()` hoặc `pause()` trên đó, vì React không biết DOM nào cần tạo cho đến khi bạn trả về JSX.
 
-The solution here is to **wrap the side effect with `useEffect` to move it out of the rendering calculation:**
+Giải pháp ở đây là **bọc side effect bằng `useEffect` để đưa nó ra khỏi phép tính rendering:**
 
 ```js {6,12}
 import { useEffect, useRef } from 'react';
@@ -157,11 +157,11 @@ function VideoPlayer({ src, isPlaying }) {
 }
 ```
 
-By wrapping the DOM update in an Effect, you let React update the screen first. Then your Effect runs.
+Bằng cách bọc cập nhật DOM trong một Effect, bạn để React cập nhật màn hình trước. Sau đó Effect của bạn chạy.
 
-When your `VideoPlayer` component renders (either the first time or if it re-renders), a few things will happen. First, React will update the screen, ensuring the `<video>` tag is in the DOM with the right props. Then React will run your Effect. Finally, your Effect will call `play()` or `pause()` depending on the value of `isPlaying`.
+Khi component `VideoPlayer` của bạn render (hoặc lần đầu tiên hoặc nếu nó render lại), một vài điều sẽ xảy ra. Đầu tiên, React sẽ cập nhật màn hình, đảm bảo thẻ `<video>` có trong DOM với các props đúng. Sau đó React sẽ chạy Effect của bạn. Cuối cùng, Effect của bạn sẽ gọi `play()` hoặc `pause()` tùy thuộc vào giá trị của `isPlaying`.
 
-Press Play/Pause multiple times and see how the video player stays synchronized to the `isPlaying` value:
+Nhấn Play/Pause nhiều lần và xem cách video player được đồng bộ hóa với giá trị `isPlaying`:
 
 <Sandpack>
 
@@ -205,13 +205,13 @@ video { width: 250px; }
 
 </Sandpack>
 
-In this example, the "external system" you synchronized to React state was the browser media API. You can use a similar approach to wrap legacy non-React code (like jQuery plugins) into declarative React components.
+Trong ví dụ này, "hệ thống bên ngoài" mà bạn đồng bộ hóa với state React là API media của trình duyệt. Bạn có thể sử dụng cách tiếp cận tương tự để bọc code legacy không phải React (như plugin jQuery) thành các component React khai báo.
 
-Note that controlling a video player is much more complex in practice. Calling `play()` may fail, the user might play or pause using the built-in browser controls, and so on. This example is very simplified and incomplete.
+Lưu ý rằng việc điều khiển video player phức tạp hơn nhiều trong thực tế. Gọi `play()` có thể thất bại, người dùng có thể phát hoặc tạm dừng bằng cách sử dụng các điều khiển tích hợp sẵn của trình duyệt, v.v. Ví dụ này rất đơn giản hóa và không hoàn chỉnh.
 
 <Pitfall>
 
-By default, Effects run after *every* render. This is why code like this will **produce an infinite loop:**
+Theo mặc định, Effect chạy sau *mỗi* lần render. Đây là lý do tại sao code như thế này sẽ **tạo ra một vòng lặp vô hạn:**
 
 ```js
 const [count, setCount] = useState(0);
@@ -220,20 +220,20 @@ useEffect(() => {
 });
 ```
 
-Effects run as a *result* of rendering. Setting state *triggers* rendering. Setting state immediately in an Effect is like plugging a power outlet into itself. The Effect runs, it sets the state, which causes a re-render, which causes the Effect to run, it sets the state again, this causes another re-render, and so on.
+Effect chạy như một *kết quả* của rendering. Thiết lập state *kích hoạt* rendering. Thiết lập state ngay lập tức trong một Effect giống như cắm ổ cắm điện vào chính nó. Effect chạy, nó thiết lập state, điều này gây ra render lại, điều này khiến Effect chạy, nó thiết lập state lại, điều này gây ra render lại khác, và cứ thế.
 
-Effects should usually synchronize your components with an *external* system. If there's no external system and you only want to adjust some state based on other state, [you might not need an Effect.](/learn/you-might-not-need-an-effect)
+Effect thường nên đồng bộ hóa component của bạn với một hệ thống *bên ngoài*. Nếu không có hệ thống bên ngoài và bạn chỉ muốn điều chỉnh một số state dựa trên state khác, [bạn có thể không cần Effect.](/learn/you-might-not-need-an-effect)
 
 </Pitfall>
 
-### Step 2: Specify the Effect dependencies {/*step-2-specify-the-effect-dependencies*/}
+### Bước 2: Chỉ định các dependency của Effect {/*step-2-specify-the-effect-dependencies*/}
 
-By default, Effects run after *every* render. Often, this is **not what you want:**
+Theo mặc định, Effect chạy sau *mỗi* lần render. Thường thì, điều này **không phải là những gì bạn muốn:**
 
-- Sometimes, it's slow. Synchronizing with an external system is not always instant, so you might want to skip doing it unless it's necessary. For example, you don't want to reconnect to the chat server on every keystroke.
-- Sometimes, it's wrong. For example, you don't want to trigger a component fade-in animation on every keystroke. The animation should only play once when the component appears for the first time.
+- Đôi khi, nó chậm. Đồng bộ hóa với một hệ thống bên ngoài không phải lúc nào cũng tức thì, vì vậy bạn có thể muốn bỏ qua việc thực hiện nó trừ khi cần thiết. Ví dụ, bạn không muốn kết nối lại với chat server mỗi lần gõ phím.
+- Đôi khi, nó sai. Ví dụ, bạn không muốn kích hoạt animation fade-in của component mỗi lần gõ phím. Animation chỉ nên phát một lần khi component xuất hiện lần đầu tiên.
 
-To demonstrate the issue, here is the previous example with a few `console.log` calls and a text input that updates the parent component's state. Notice how typing causes the Effect to re-run:
+Để minh họa vấn đề, đây là ví dụ trước với một vài lệnh gọi `console.log` và một text input cập nhật state của component cha. Hãy chú ý cách gõ phím khiến Effect chạy lại:
 
 <Sandpack>
 
@@ -281,7 +281,7 @@ video { width: 250px; }
 
 </Sandpack>
 
-You can tell React to **skip unnecessarily re-running the Effect** by specifying an array of *dependencies* as the second argument to the `useEffect` call. Start by adding an empty `[]` array to the above example on line 14:
+Bạn có thể yêu cầu React **bỏ qua việc chạy lại Effect một cách không cần thiết** bằng cách chỉ định một mảng *dependency* làm tham số thứ hai cho lệnh gọi `useEffect`. Bắt đầu bằng cách thêm một mảng `[]` rỗng vào ví dụ trên ở dòng 14:
 
 ```js {3}
   useEffect(() => {
@@ -289,7 +289,7 @@ You can tell React to **skip unnecessarily re-running the Effect** by specifying
   }, []);
 ```
 
-You should see an error saying `React Hook useEffect has a missing dependency: 'isPlaying'`:
+Bạn sẽ thấy một lỗi cho biết `React Hook useEffect has a missing dependency: 'isPlaying'`:
 
 <Sandpack>
 
@@ -337,7 +337,7 @@ video { width: 250px; }
 
 </Sandpack>
 
-The problem is that the code inside of your Effect *depends on* the `isPlaying` prop to decide what to do, but this dependency was not explicitly declared. To fix this issue, add `isPlaying` to the dependency array:
+Vấn đề là code bên trong Effect của bạn *phụ thuộc vào* prop `isPlaying` để quyết định làm gì, nhưng dependency này không được khai báo rõ ràng. Để khắc phục vấn đề này, hãy thêm `isPlaying` vào mảng dependency:
 
 ```js {2,7}
   useEffect(() => {
@@ -349,7 +349,7 @@ The problem is that the code inside of your Effect *depends on* the `isPlaying` 
   }, [isPlaying]); // ...so it must be declared here!
 ```
 
-Now all dependencies are declared, so there is no error. Specifying `[isPlaying]` as the dependency array tells React that it should skip re-running your Effect if `isPlaying` is the same as it was during the previous render. With this change, typing into the input doesn't cause the Effect to re-run, but pressing Play/Pause does:
+Bây giờ tất cả dependency đều được khai báo, nên không có lỗi. Chỉ định `[isPlaying]` làm mảng dependency yêu cầu React bỏ qua việc chạy lại Effect của bạn nếu `isPlaying` giống như trong lần render trước. Với thay đổi này, gõ vào input không khiến Effect chạy lại, nhưng nhấn Play/Pause thì có:
 
 <Sandpack>
 
@@ -397,13 +397,13 @@ video { width: 250px; }
 
 </Sandpack>
 
-The dependency array can contain multiple dependencies. React will only skip re-running the Effect if *all* of the dependencies you specify have exactly the same values as they had during the previous render. React compares the dependency values using the [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is) comparison. See the [`useEffect` reference](/reference/react/useEffect#reference) for details.
+Mảng dependency có thể chứa nhiều dependency. React sẽ chỉ bỏ qua việc chạy lại Effect nếu *tất cả* các dependency bạn chỉ định có chính xác cùng giá trị như chúng có trong lần render trước. React so sánh các giá trị dependency bằng cách sử dụng so sánh [`Object.is`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is). Xem [tài liệu tham khảo `useEffect`](/reference/react/useEffect#reference) để biết chi tiết.
 
-**Notice that you can't "choose" your dependencies.** You will get a lint error if the dependencies you specified don't match what React expects based on the code inside your Effect. This helps catch many bugs in your code. If you don't want some code to re-run, [*edit the Effect code itself* to not "need" that dependency.](/learn/lifecycle-of-reactive-effects#what-to-do-when-you-dont-want-to-re-synchronize)
+**Lưu ý rằng bạn không thể "chọn" dependency của mình.** Bạn sẽ gặp lỗi lint nếu các dependency bạn chỉ định không khớp với những gì React mong đợi dựa trên code bên trong Effect của bạn. Điều này giúp phát hiện nhiều bug trong code của bạn. Nếu bạn không muốn một số code chạy lại, [*chỉnh sửa chính code Effect* để không "cần" dependency đó.](/learn/lifecycle-of-reactive-effects#what-to-do-when-you-dont-want-to-re-synchronize)
 
 <Pitfall>
 
-The behaviors without the dependency array and with an *empty* `[]` dependency array are different:
+Hành vi không có mảng dependency và có mảng dependency *rỗng* `[]` là khác nhau:
 
 ```js {3,7,11}
 useEffect(() => {
@@ -419,15 +419,15 @@ useEffect(() => {
 }, [a, b]);
 ```
 
-We'll take a close look at what "mount" means in the next step.
+Chúng ta sẽ xem xét kỹ ý nghĩa của "mount" trong bước tiếp theo.
 
 </Pitfall>
 
 <DeepDive>
 
-#### Why was the ref omitted from the dependency array? {/*why-was-the-ref-omitted-from-the-dependency-array*/}
+#### Tại sao ref bị bỏ qua khỏi mảng dependency? {/*why-was-the-ref-omitted-from-the-dependency-array*/}
 
-This Effect uses _both_ `ref` and `isPlaying`, but only `isPlaying` is declared as a dependency:
+Effect này sử dụng *cả* `ref` và `isPlaying`, nhưng chỉ `isPlaying` được khai báo làm dependency:
 
 ```js {9}
 function VideoPlayer({ src, isPlaying }) {
@@ -441,7 +441,7 @@ function VideoPlayer({ src, isPlaying }) {
   }, [isPlaying]);
 ```
 
-This is because the `ref` object has a *stable identity:* React guarantees [you'll always get the same object](/reference/react/useRef#returns) from the same `useRef` call on every render. It never changes, so it will never by itself cause the Effect to re-run. Therefore, it does not matter whether you include it or not. Including it is fine too:
+Điều này là vì object `ref` có *danh tính ổn định:* React đảm bảo [bạn sẽ luôn nhận được cùng một object](/reference/react/useRef#returns) từ cùng một lệnh gọi `useRef` trong mỗi lần render. Nó không bao giờ thay đổi, vì vậy nó sẽ không bao giờ tự gây ra Effect chạy lại. Do đó, việc bạn có bao gồm nó hay không không quan trọng. Bao gồm nó cũng không sao:
 
 ```js {9}
 function VideoPlayer({ src, isPlaying }) {
@@ -455,17 +455,17 @@ function VideoPlayer({ src, isPlaying }) {
   }, [isPlaying, ref]);
 ```
 
-The [`set` functions](/reference/react/useState#setstate) returned by `useState` also have stable identity, so you will often see them omitted from the dependencies too. If the linter lets you omit a dependency without errors, it is safe to do.
+[Các function `set`](/reference/react/useState#setstate) được trả về bởi `useState` cũng có danh tính ổn định, vì vậy bạn sẽ thường thấy chúng bị bỏ qua khỏi các dependency. Nếu linter cho phép bạn bỏ qua một dependency mà không có lỗi, thì việc làm đó là an toàn.
 
-Omitting always-stable dependencies only works when the linter can "see" that the object is stable. For example, if `ref` was passed from a parent component, you would have to specify it in the dependency array. However, this is good because you can't know whether the parent component always passes the same ref, or passes one of several refs conditionally. So your Effect _would_ depend on which ref is passed.
+Bỏ qua các dependency luôn ổn định chỉ hoạt động khi linter có thể "thấy" rằng object đó ổn định. Ví dụ, nếu `ref` được truyền từ component cha, bạn sẽ phải chỉ định nó trong mảng dependency. Tuy nhiên, điều này tốt vì bạn không thể biết liệu component cha luôn truyền cùng một ref, hay truyền một trong vài ref có điều kiện. Vì vậy Effect của bạn *sẽ* phụ thuộc vào ref nào được truyền.
 
 </DeepDive>
 
-### Step 3: Add cleanup if needed {/*step-3-add-cleanup-if-needed*/}
+### Bước 3: Thêm cleanup nếu cần {/*step-3-add-cleanup-if-needed*/}
 
-Consider a different example. You're writing a `ChatRoom` component that needs to connect to the chat server when it appears. You are given a `createConnection()` API that returns an object with `connect()` and `disconnect()` methods. How do you keep the component connected while it is displayed to the user?
+Hãy xem xét một ví dụ khác. Bạn đang viết một component `ChatRoom` cần kết nối với chat server khi nó xuất hiện. Bạn được cung cấp một API `createConnection()` trả về một object với các method `connect()` và `disconnect()`. Làm thế nào để giữ component kết nối trong khi nó được hiển thị cho người dùng?
 
-Start by writing the Effect logic:
+Bắt đầu bằng cách viết logic Effect:
 
 ```js
 useEffect(() => {
@@ -474,7 +474,7 @@ useEffect(() => {
 });
 ```
 
-It would be slow to connect to the chat after every re-render, so you add the dependency array:
+Sẽ chậm nếu kết nối với chat sau mỗi lần render lại, vì vậy bạn thêm mảng dependency:
 
 ```js {4}
 useEffect(() => {
@@ -483,9 +483,9 @@ useEffect(() => {
 }, []);
 ```
 
-**The code inside the Effect does not use any props or state, so your dependency array is `[]` (empty). This tells React to only run this code when the component "mounts", i.e. appears on the screen for the first time.**
+**Code bên trong Effect không sử dụng bất kỳ props hoặc state nào, vì vậy mảng dependency của bạn là `[]` (rỗng). Điều này yêu cầu React chỉ chạy code này khi component "mount", tức là xuất hiện trên màn hình lần đầu tiên.**
 
-Let's try running this code:
+Hãy thử chạy code này:
 
 <Sandpack>
 
@@ -522,15 +522,15 @@ input { display: block; margin-bottom: 20px; }
 
 </Sandpack>
 
-This Effect only runs on mount, so you might expect `"✅ Connecting..."` to be printed once in the console. **However, if you check the console, `"✅ Connecting..."` gets printed twice. Why does it happen?**
+Effect này chỉ chạy khi mount, vì vậy bạn có thể mong đợi rằng `"✅ Connecting..."` được in một lần trong console. **Tuy nhiên, nếu bạn kiểm tra console, `"✅ Connecting..."` được in hai lần. Tại sao điều này xảy ra?**
 
-Imagine the `ChatRoom` component is a part of a larger app with many different screens. The user starts their journey on the `ChatRoom` page. The component mounts and calls `connection.connect()`. Then imagine the user navigates to another screen--for example, to the Settings page. The `ChatRoom` component unmounts. Finally, the user clicks Back and `ChatRoom` mounts again. This would set up a second connection--but the first connection was never destroyed! As the user navigates across the app, the connections would keep piling up.
+Hãy tưởng tượng component `ChatRoom` là một phần của ứng dụng lớn hơn với nhiều màn hình khác nhau. Người dùng bắt đầu hành trình của họ trên trang `ChatRoom`. Component mount và gọi `connection.connect()`. Sau đó hãy tưởng tượng người dùng điều hướng đến màn hình khác--ví dụ, đến trang Settings. Component `ChatRoom` unmount. Cuối cùng, người dùng click Back và `ChatRoom` mount lại. Điều này sẽ thiết lập kết nối thứ hai--nhưng kết nối đầu tiên không bao giờ bị hủy! Khi người dùng điều hướng qua ứng dụng, các kết nối sẽ tiếp tục chồng chất.
 
-Bugs like this are easy to miss without extensive manual testing. To help you spot them quickly, in development React remounts every component once immediately after its initial mount.
+Bug như thế này dễ bỏ sót nếu không có kiểm thử thủ công toàn diện. Để giúp bạn phát hiện chúng nhanh chóng, trong quá trình phát triển React remount mỗi component một lần ngay sau khi mount ban đầu.
 
-Seeing the `"✅ Connecting..."` log twice helps you notice the real issue: your code doesn't close the connection when the component unmounts.
+Thấy log `"✅ Connecting..."` hai lần giúp bạn nhận ra vấn đề thực sự: code của bạn không đóng kết nối khi component unmount.
 
-To fix the issue, return a *cleanup function* from your Effect:
+Để khắc phục vấn đề, hãy trả về một *cleanup function* từ Effect của bạn:
 
 ```js {4-6}
   useEffect(() => {
@@ -542,7 +542,7 @@ To fix the issue, return a *cleanup function* from your Effect:
   }, []);
 ```
 
-React will call your cleanup function each time before the Effect runs again, and one final time when the component unmounts (gets removed). Let's see what happens when the cleanup function is implemented:
+React sẽ gọi cleanup function của bạn mỗi lần trước khi Effect chạy lại, và một lần cuối cùng khi component unmount (bị loại bỏ). Hãy xem điều gì xảy ra khi cleanup function được triển khai:
 
 <Sandpack>
 
@@ -580,29 +580,29 @@ input { display: block; margin-bottom: 20px; }
 
 </Sandpack>
 
-Now you get three console logs in development:
+Bây giờ bạn có ba log console trong quá trình phát triển:
 
 1. `"✅ Connecting..."`
 2. `"❌ Disconnected."`
 3. `"✅ Connecting..."`
 
-**This is the correct behavior in development.** By remounting your component, React verifies that navigating away and back would not break your code. Disconnecting and then connecting again is exactly what should happen! When you implement the cleanup well, there should be no user-visible difference between running the Effect once vs running it, cleaning it up, and running it again. There's an extra connect/disconnect call pair because React is probing your code for bugs in development. This is normal--don't try to make it go away!
+**Đây là hành vi đúng trong quá trình phát triển.** Bằng cách remount component của bạn, React xác minh rằng việc điều hướng đi và quay lại sẽ không làm hỏng code của bạn. Ngắt kết nối rồi kết nối lại chính xác là những gì nên xảy ra! Khi bạn triển khai cleanup tốt, không nên có sự khác biệt có thể nhìn thấy đối với người dùng giữa việc chạy Effect một lần so với chạy nó, dọn dẹp nó, và chạy lại. Có một cặp lệnh gọi connect/disconnect thêm vì React đang kiểm tra code của bạn để tìm bug trong quá trình phát triển. Điều này bình thường--đừng cố gắng làm cho nó biến mất!
 
-**In production, you would only see `"✅ Connecting..."` printed once.** Remounting components only happens in development to help you find Effects that need cleanup. You can turn off [Strict Mode](/reference/react/StrictMode) to opt out of the development behavior, but we recommend keeping it on. This lets you find many bugs like the one above.
+**Trong production, bạn sẽ chỉ thấy `"✅ Connecting..."` được in một lần.** Remount component chỉ xảy ra trong quá trình phát triển để giúp bạn tìm các Effect cần cleanup. Bạn có thể tắt [Strict Mode](/reference/react/StrictMode) để thoát khỏi hành vi phát triển, nhưng chúng tôi khuyên bạn nên giữ nó. Điều này cho phép bạn tìm nhiều bug như ví dụ trên.
 
-## How to handle the Effect firing twice in development? {/*how-to-handle-the-effect-firing-twice-in-development*/}
+## Cách xử lý Effect kích hoạt hai lần trong quá trình phát triển? {/*how-to-handle-the-effect-firing-twice-in-development*/}
 
-React intentionally remounts your components in development to find bugs like in the last example. **The right question isn't "how to run an Effect once", but "how to fix my Effect so that it works after remounting".**
+React cố ý remount component của bạn trong quá trình phát triển để tìm bug như trong ví dụ cuối. **Câu hỏi đúng không phải là "làm thế nào để chạy Effect một lần", mà là "làm thế nào để sửa Effect của tôi để nó hoạt động sau khi remount".**
 
-Usually, the answer is to implement the cleanup function.  The cleanup function should stop or undo whatever the Effect was doing. The rule of thumb is that the user shouldn't be able to distinguish between the Effect running once (as in production) and a _setup → cleanup → setup_ sequence (as you'd see in development).
+Thường thì, câu trả lời là triển khai cleanup function. Cleanup function nên dừng hoặc hoàn tác bất cứ thứ gì Effect đang làm. Nguyên tắc chung là người dùng không nên có thể phân biệt giữa Effect chạy một lần (như trong production) và chuỗi *setup → cleanup → setup* (như bạn sẽ thấy trong quá trình phát triển).
 
-Most of the Effects you'll write will fit into one of the common patterns below.
+Hầu hết các Effect bạn sẽ viết sẽ phù hợp với một trong các pattern phổ biến dưới đây.
 
 <Pitfall>
 
-#### Don't use refs to prevent Effects from firing {/*dont-use-refs-to-prevent-effects-from-firing*/}
+#### Đừng sử dụng ref để ngăn Effect kích hoạt {/*dont-use-refs-to-prevent-effects-from-firing*/}
 
-A common pitfall for preventing Effects firing twice in development is to use a `ref` to prevent the Effect from running more than once. For example, you could "fix" the above bug with a `useRef`:
+Một cạm bẫy phổ biến khi ngăn Effect kích hoạt hai lần trong quá trình phát triển là sử dụng `ref` để ngăn Effect chạy quá một lần. Ví dụ, bạn có thể "sửa" bug trên bằng `useRef`:
 
 ```js {1,3-4}
   const connectionRef = useRef(null);
@@ -615,19 +615,19 @@ A common pitfall for preventing Effects firing twice in development is to use a 
   }, []);
 ```
 
-This makes it so you only see `"✅ Connecting..."` once in development, but it doesn't fix the bug.
+Điều này làm cho bạn chỉ thấy `"✅ Connecting..."` một lần trong quá trình phát triển, nhưng nó không sửa bug.
 
-When the user navigates away, the connection still isn't closed and when they navigate back, a new connection is created. As the user navigates across the app, the connections would keep piling up, the same as it would before the "fix". 
+Khi người dùng điều hướng đi, kết nối vẫn không được đóng và khi họ điều hướng lại, một kết nối mới được tạo. Khi người dùng điều hướng qua ứng dụng, các kết nối sẽ tiếp tục chồng chất, giống như trước khi có "bản sửa".
 
-To fix the bug, it is not enough to just make the Effect run once. The effect needs to work after re-mounting, which means the connection needs to be cleaned up like in the solution above.
+Để sửa bug, không đủ để chỉ làm Effect chạy một lần. Effect cần hoạt động sau khi remount, có nghĩa là kết nối cần được dọn dẹp như trong giải pháp ở trên.
 
-See the examples below for how to handle common patterns.
+Xem các ví dụ dưới đây để biết cách xử lý các pattern phổ biến.
 
 </Pitfall>
 
-### Controlling non-React widgets {/*controlling-non-react-widgets*/}
+### Điều khiển widget không phải React {/*controlling-non-react-widgets*/}
 
-Sometimes you need to add UI widgets that aren't written in React. For example, let's say you're adding a map component to your page. It has a `setZoomLevel()` method, and you'd like to keep the zoom level in sync with a `zoomLevel` state variable in your React code. Your Effect would look similar to this:
+Đôi khi bạn cần thêm widget UI không được viết bằng React. Ví dụ, giả sử bạn đang thêm một component bản đồ vào trang của mình. Nó có method `setZoomLevel()`, và bạn muốn giữ mức độ zoom đồng bộ với biến state `zoomLevel` trong code React của bạn. Effect của bạn sẽ trông tương tự như thế này:
 
 ```js
 useEffect(() => {
@@ -636,9 +636,9 @@ useEffect(() => {
 }, [zoomLevel]);
 ```
 
-Note that there is no cleanup needed in this case. In development, React will call the Effect twice, but this is not a problem because calling `setZoomLevel` twice with the same value does not do anything. It may be slightly slower, but this doesn't matter because it won't remount needlessly in production.
+Lưu ý rằng không cần cleanup trong trường hợp này. Trong quá trình phát triển, React sẽ gọi Effect hai lần, nhưng điều này không phải là vấn đề vì gọi `setZoomLevel` hai lần với cùng giá trị không làm gì cả. Nó có thể hơi chậm, nhưng điều này không quan trọng vì nó sẽ không remount một cách không cần thiết trong production.
 
-Some APIs may not allow you to call them twice in a row. For example, the [`showModal`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal) method of the built-in [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement) element throws if you call it twice. Implement the cleanup function and make it close the dialog:
+Một số API có thể không cho phép bạn gọi chúng hai lần liên tiếp. Ví dụ, method [`showModal`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement/showModal) của element [`<dialog>`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLDialogElement) có sẵn sẽ throw nếu bạn gọi nó hai lần. Triển khai cleanup function và làm cho nó đóng dialog:
 
 ```js {4}
 useEffect(() => {
@@ -648,11 +648,11 @@ useEffect(() => {
 }, []);
 ```
 
-In development, your Effect will call `showModal()`, then immediately `close()`, and then `showModal()` again. This has the same user-visible behavior as calling `showModal()` once, as you would see in production.
+Trong quá trình phát triển, Effect của bạn sẽ gọi `showModal()`, sau đó ngay lập tức `close()`, và sau đó `showModal()` lại. Điều này có cùng hành vi có thể thấy với người dùng như việc gọi `showModal()` một lần, như bạn sẽ thấy trong production.
 
-### Subscribing to events {/*subscribing-to-events*/}
+### Đăng ký event {/*subscribing-to-events*/}
 
-If your Effect subscribes to something, the cleanup function should unsubscribe:
+Nếu Effect của bạn đăng ký điều gì đó, cleanup function nên hủy đăng ký:
 
 ```js {6}
 useEffect(() => {
@@ -664,11 +664,11 @@ useEffect(() => {
 }, []);
 ```
 
-In development, your Effect will call `addEventListener()`, then immediately `removeEventListener()`, and then `addEventListener()` again with the same handler. So there would be only one active subscription at a time. This has the same user-visible behavior as calling `addEventListener()` once, as in production.
+Trong quá trình phát triển, Effect của bạn sẽ gọi `addEventListener()`, sau đó ngay lập tức `removeEventListener()`, và sau đó `addEventListener()` lại với cùng handler. Vì vậy sẽ chỉ có một subscription hoạt động tại một thời điểm. Điều này có cùng hành vi có thể thấy với người dùng như việc gọi `addEventListener()` một lần, như trong production.
 
-### Triggering animations {/*triggering-animations*/}
+### Kích hoạt animation {/*triggering-animations*/}
 
-If your Effect animates something in, the cleanup function should reset the animation to the initial values:
+Nếu Effect của bạn animate điều gì đó vào, cleanup function nên reset animation về giá trị ban đầu:
 
 ```js {4-6}
 useEffect(() => {
@@ -680,11 +680,11 @@ useEffect(() => {
 }, []);
 ```
 
-In development, opacity will be set to `1`, then to `0`, and then to `1` again. This should have the same user-visible behavior as setting it to `1` directly, which is what would happen in production. If you use a third-party animation library with support for tweening, your cleanup function should reset the timeline to its initial state.
+Trong quá trình phát triển, opacity sẽ được set thành `1`, sau đó thành `0`, và sau đó thành `1` lại. Điều này nên có cùng hành vi có thể thấy với người dùng như việc set nó thành `1` trực tiếp, đó là những gì sẽ xảy ra trong production. Nếu bạn sử dụng thư viện animation bên thứ ba có hỗ trợ tweening, cleanup function của bạn nên reset timeline về state ban đầu.
 
 ### Fetching data {/*fetching-data*/}
 
-If your Effect fetches something, the cleanup function should either [abort the fetch](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) or ignore its result:
+Nếu Effect của bạn fetch điều gì đó, cleanup function nên [abort fetch](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) hoặc bỏ qua kết quả của nó:
 
 ```js {2,6,13-15}
 useEffect(() => {
@@ -705,11 +705,11 @@ useEffect(() => {
 }, [userId]);
 ```
 
-You can't "undo" a network request that already happened, but your cleanup function should ensure that the fetch that's _not relevant anymore_ does not keep affecting your application. If the `userId` changes from `'Alice'` to `'Bob'`, cleanup ensures that the `'Alice'` response is ignored even if it arrives after `'Bob'`.
+Bạn không thể "hoàn tác" một network request đã xảy ra, nhưng cleanup function của bạn nên đảm bảo rằng fetch *không còn liên quan nữa* không tiếp tục ảnh hưởng đến ứng dụng của bạn. Nếu `userId` thay đổi từ `'Alice'` thành `'Bob'`, cleanup đảm bảo rằng response `'Alice'` bị bỏ qua ngay cả khi nó đến sau `'Bob'`.
 
-**In development, you will see two fetches in the Network tab.** There is nothing wrong with that. With the approach above, the first Effect will immediately get cleaned up so its copy of the `ignore` variable will be set to `true`. So even though there is an extra request, it won't affect the state thanks to the `if (!ignore)` check.
+**Trong quá trình phát triển, bạn sẽ thấy hai lần fetch trong tab Network.** Không có gì sai với điều đó. Với cách tiếp cận trên, Effect đầu tiên sẽ ngay lập tức được dọn dẹp nên bản copy của biến `ignore` sẽ được set thành `true`. Vì vậy mặc dù có một request thêm, nó sẽ không ảnh hưởng đến state nhờ vào kiểm tra `if (!ignore)`.
 
-**In production, there will only be one request.** If the second request in development is bothering you, the best approach is to use a solution that deduplicates requests and caches their responses between components:
+**Trong production, sẽ chỉ có một request.** Nếu request thứ hai trong quá trình phát triển làm phần bạn, cách tiếp cận tốt nhất là sử dụng một giải pháp deduplicate request và cache response giữa các component:
 
 ```js
 function TodoList() {
@@ -717,31 +717,31 @@ function TodoList() {
   // ...
 ```
 
-This will not only improve the development experience, but also make your application feel faster. For example, the user pressing the Back button won't have to wait for some data to load again because it will be cached. You can either build such a cache yourself or use one of the many alternatives to manual fetching in Effects.
+Điều này sẽ không chỉ cải thiện trải nghiệm phát triển, mà còn làm cho ứng dụng của bạn cảm thấy nhanh hơn. Ví dụ, người dùng nhấn nút Back sẽ không phải đợi một số data load lại vì nó sẽ được cache. Bạn có thể tự xây dựng cache như vậy hoặc sử dụng một trong nhiều lựa chọn thay thế cho việc fetch thủ công trong Effect.
 
 <DeepDive>
 
-#### What are good alternatives to data fetching in Effects? {/*what-are-good-alternatives-to-data-fetching-in-effects*/}
+#### Các lựa chọn thay thế tốt cho việc fetch data trong Effect là gì? {/*what-are-good-alternatives-to-data-fetching-in-effects*/}
 
-Writing `fetch` calls inside Effects is a [popular way to fetch data](https://www.robinwieruch.de/react-hooks-fetch-data/), especially in fully client-side apps. This is, however, a very manual approach and it has significant downsides:
+Viết các lệnh gọi `fetch` bên trong Effect là một [cách phổ biến để fetch data](https://www.robinwieruch.de/react-hooks-fetch-data/), đặc biệt là trong các ứng dụng hoàn toàn chạy phía client. Tuy nhiên, đây là một cách tiếp cận rất thủ công và có những nhược điểm đáng kể:
 
-- **Effects don't run on the server.** This means that the initial server-rendered HTML will only include a loading state with no data. The client computer will have to download all JavaScript and render your app only to discover that now it needs to load the data. This is not very efficient.
-- **Fetching directly in Effects makes it easy to create "network waterfalls".** You render the parent component, it fetches some data, renders the child components, and then they start fetching their data. If the network is not very fast, this is significantly slower than fetching all data in parallel.
-- **Fetching directly in Effects usually means you don't preload or cache data.** For example, if the component unmounts and then mounts again, it would have to fetch the data again.
-- **It's not very ergonomic.** There's quite a bit of boilerplate code involved when writing `fetch` calls in a way that doesn't suffer from bugs like [race conditions.](https://maxrozen.com/race-conditions-fetching-data-react-with-useeffect)
+- **Effect không chạy trên server.** Điều này có nghĩa là HTML server-rendered ban đầu sẽ chỉ bao gồm trạng thái loading mà không có data. Máy tính client sẽ phải tải tất cả JavaScript và render ứng dụng của bạn chỉ để phát hiện ra rằng bây giờ nó cần load data. Điều này không hiệu quả lắm.
+- **Fetch trực tiếp trong Effect dễ tạo ra "network waterfall".** Bạn render component cha, nó fetch một số data, render các component con, và sau đó chúng bắt đầu fetch data của chúng. Nếu mạng không nhanh lắm, điều này chậm hơn đáng kể so với việc fetch tất cả data song song.
+- **Fetch trực tiếp trong Effect thường có nghĩa là bạn không preload hoặc cache data.** Ví dụ, nếu component unmount rồi mount lại, nó sẽ phải fetch data lại.
+- **Nó không thân thiện với người dùng lắm.** Có khá nhiều boilerplate code liên quan khi viết các lệnh gọi `fetch` theo cách không gặp phải bug như [race condition.](https://maxrozen.com/race-conditions-fetching-data-react-with-useeffect)
 
-This list of downsides is not specific to React. It applies to fetching data on mount with any library. Like with routing, data fetching is not trivial to do well, so we recommend the following approaches:
+Danh sách nhược điểm này không dành riêng cho React. Nó áp dụng cho việc fetch data khi mount với bất kỳ thư viện nào. Giống như với routing, data fetching không đơn giản để làm tốt, vì vậy chúng tôi khuyến nghị các cách tiếp cận sau:
 
-- **If you use a [framework](/learn/start-a-new-react-project#production-grade-react-frameworks), use its built-in data fetching mechanism.** Modern React frameworks have integrated data fetching mechanisms that are efficient and don't suffer from the above pitfalls.
-- **Otherwise, consider using or building a client-side cache.** Popular open source solutions include [React Query](https://tanstack.com/query/latest), [useSWR](https://swr.vercel.app/), and [React Router 6.4+.](https://beta.reactrouter.com/en/main/start/overview) You can build your own solution too, in which case you would use Effects under the hood, but add logic for deduplicating requests, caching responses, and avoiding network waterfalls (by preloading data or hoisting data requirements to routes).
+- **Nếu bạn sử dụng một [framework](/learn/start-a-new-react-project#production-grade-react-frameworks), hãy sử dụng cơ chế fetch data tích hợp sẵn của nó.** Các framework React hiện đại có cơ chế fetch data tích hợp hiệu quả và không gặp phải các cạm bẫy trên.
+- **Nếu không, hãy xem xét sử dụng hoặc xây dựng cache phía client.** Các giải pháp mã nguồn mở phổ biến bao gồm [React Query](https://tanstack.com/query/latest), [useSWR](https://swr.vercel.app/), và [React Router 6.4+.](https://beta.reactrouter.com/en/main/start/overview) Bạn cũng có thể xây dựng giải pháp của riêng mình, trong trường hợp đó bạn sẽ sử dụng Effect bên dưới, nhưng thêm logic để deduplicate request, cache response, và tránh network waterfall (bằng cách preload data hoặc đưa yêu cầu data lên route).
 
-You can continue fetching data directly in Effects if neither of these approaches suit you.
+Bạn có thể tiếp tục fetch data trực tiếp trong Effect nếu không có cách tiếp cận nào trong số này phù hợp với bạn.
 
 </DeepDive>
 
-### Sending analytics {/*sending-analytics*/}
+### Gửi phân tích {/*sending-analytics*/}
 
-Consider this code that sends an analytics event on the page visit:
+Hãy xem xét code này gửi một event phân tích khi ghé thăm trang:
 
 ```js
 useEffect(() => {
@@ -749,15 +749,15 @@ useEffect(() => {
 }, [url]);
 ```
 
-In development, `logVisit` will be called twice for every URL, so you might be tempted to try to fix that. **We recommend keeping this code as is.** Like with earlier examples, there is no *user-visible* behavior difference between running it once and running it twice. From a practical point of view, `logVisit` should not do anything in development because you don't want the logs from the development machines to skew the production metrics. Your component remounts every time you save its file, so it logs extra visits in development anyway.
+Trong quá trình phát triển, `logVisit` sẽ được gọi hai lần cho mỗi URL, vì vậy bạn có thể muốn thử sửa điều đó. **Chúng tôi khuyến nghị giữ code này như vậy.** Giống như với các ví dụ trước, không có sự khác biệt hành vi *có thể nhìn thấy* giữa việc chạy nó một lần và chạy nó hai lần. Từ góc độ thực tế, `logVisit` không nên làm gì trong quá trình phát triển vì bạn không muốn log từ máy phát triển làm lệch các số liệu production. Component của bạn remount mỗi khi bạn lưu file của nó, vì vậy nó log thêm các lần visit trong quá trình phát triển.
 
-**In production, there will be no duplicate visit logs.**
+**Trong production, sẽ không có log visit trùng lặp.**
 
-To debug the analytics events you're sending, you can deploy your app to a staging environment (which runs in production mode) or temporarily opt out of [Strict Mode](/reference/react/StrictMode) and its development-only remounting checks. You may also send analytics from the route change event handlers instead of Effects. For more precise analytics, [intersection observers](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) can help track which components are in the viewport and how long they remain visible.
+Để debug các event phân tích bạn đang gửi, bạn có thể deploy ứng dụng của mình lên môi trường staging (chạy ở chế độ production) hoặc tạm thời thoát khỏi [Strict Mode](/reference/react/StrictMode) và các kiểm tra remount chỉ dành cho phát triển. Bạn cũng có thể gửi phân tích từ các event handler thay đổi route thay vì Effect. Để phân tích chính xác hơn, [intersection observer](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) có thể giúp theo dõi component nào trong viewport và chúng hiển thị bao lâu.
 
-### Not an Effect: Initializing the application {/*not-an-effect-initializing-the-application*/}
+### Không phải Effect: Khởi tạo ứng dụng {/*not-an-effect-initializing-the-application*/}
 
-Some logic should only run once when the application starts. You can put it outside your components:
+Một số logic chỉ nên chạy một lần khi ứng dụng khởi động. Bạn có thể đặt nó bên ngoài component của mình:
 
 ```js {2-3}
 if (typeof window !== 'undefined') { // Check if we're running in the browser.
@@ -770,11 +770,11 @@ function App() {
 }
 ```
 
-This guarantees that such logic only runs once after the browser loads the page.
+Điều này đảm bảo rằng logic như vậy chỉ chạy một lần sau khi trình duyệt load trang.
 
-### Not an Effect: Buying a product {/*not-an-effect-buying-a-product*/}
+### Không phải Effect: Mua sản phẩm {/*not-an-effect-buying-a-product*/}
 
-Sometimes, even if you write a cleanup function, there's no way to prevent user-visible consequences of running the Effect twice. For example, maybe your Effect sends a POST request like buying a product:
+Đôi khi, ngay cả khi bạn viết cleanup function, không có cách nào để ngăn chặn hậu quả có thể nhìn thấy của việc chạy Effect hai lần. Ví dụ, có thể Effect của bạn gửi một POST request như mua sản phẩm:
 
 ```js {2-3}
 useEffect(() => {
@@ -783,9 +783,9 @@ useEffect(() => {
 }, []);
 ```
 
-You wouldn't want to buy the product twice. However, this is also why you shouldn't put this logic in an Effect. What if the user goes to another page and then presses Back? Your Effect would run again. You don't want to buy the product when the user *visits* a page; you want to buy it when the user *clicks* the Buy button.
+Bạn sẽ không muốn mua sản phẩm hai lần. Tuy nhiên, đây cũng là lý do tại sao bạn không nên đặt logic này trong Effect. Điều gì sẽ xảy ra nếu người dùng đi đến trang khác rồi nhấn Back? Effect của bạn sẽ chạy lại. Bạn không muốn mua sản phẩm khi người dùng *ghé thăm* một trang; bạn muốn mua nó khi người dùng *click* nút Buy.
 
-Buying is not caused by rendering; it's caused by a specific interaction. It should run only when the user presses the button. **Delete the Effect and move your `/api/buy` request into the Buy button event handler:**
+Mua hàng không được gây ra bởi rendering; nó được gây ra bởi một tương tác cụ thể. Nó chỉ nên chạy khi người dùng nhấn nút. **Xóa Effect và di chuyển request `/api/buy` của bạn vào event handler của nút Buy:**
 
 ```js {2-3}
   function handleClick() {
@@ -794,13 +794,13 @@ Buying is not caused by rendering; it's caused by a specific interaction. It sho
   }
 ```
 
-**This illustrates that if remounting breaks the logic of your application, this usually uncovers existing bugs.** From a user's perspective, visiting a page shouldn't be different from visiting it, clicking a link, then pressing Back to view the page again. React verifies that your components abide by this principle by remounting them once in development.
+**Điều này minh họa rằng nếu remount phá vỡ logic của ứng dụng, điều này thường phát hiện ra các bug hiện có.** Từ góc độ người dùng, ghé thăm một trang không nên khác với việc ghé thăm nó, click vào một link, rồi nhấn Back để xem trang lại. React xác minh rằng component của bạn tuân thủ nguyên tắc này bằng cách remount chúng một lần trong quá trình phát triển.
 
-## Putting it all together {/*putting-it-all-together*/}
+## Kết hợp tất cả lại {/*putting-it-all-together*/}
 
-This playground can help you "get a feel" for how Effects work in practice.
+Playground này có thể giúp bạn "làm quen" với cách Effect hoạt động trong thực tế.
 
-This example uses [`setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout) to schedule a console log with the input text to appear three seconds after the Effect runs. The cleanup function cancels the pending timeout. Start by pressing "Mount the component":
+Ví dụ này sử dụng [`setTimeout`](https://developer.mozilla.org/en-US/docs/Web/API/setTimeout) để lên lịch cho console log với văn bản input xuất hiện ba giây sau khi Effect chạy. Hàm cleanup sẽ hủy timeout đang chờ. Bắt đầu bằng cách nhấn "Mount the component":
 
 <Sandpack>
 
@@ -854,21 +854,21 @@ export default function App() {
 
 </Sandpack>
 
-You will see three logs at first: `Schedule "a" log`, `Cancel "a" log`, and `Schedule "a" log` again. Three second later there will also be a log saying `a`. As you learned earlier, the extra schedule/cancel pair is because React remounts the component once in development to verify that you've implemented cleanup well.
+Bạn sẽ thấy ba log đầu tiên: `Schedule "a" log`, `Cancel "a" log`, và `Schedule "a" log` lại. Ba giây sau cũng sẽ có một log nói `a`. Như bạn đã học trước đó, cặp schedule/cancel thêm là vì React remount component một lần trong quá trình phát triển để xác minh rằng bạn đã triển khai cleanup tốt.
 
-Now edit the input to say `abc`. If you do it fast enough, you'll see `Schedule "ab" log` immediately followed by `Cancel "ab" log` and `Schedule "abc" log`. **React always cleans up the previous render's Effect before the next render's Effect.** This is why even if you type into the input fast, there is at most one timeout scheduled at a time. Edit the input a few times and watch the console to get a feel for how Effects get cleaned up.
+Bây giờ chỉnh sửa input để nói `abc`. Nếu bạn làm đủ nhanh, bạn sẽ thấy `Schedule "ab" log` ngay lập tức theo sau bởi `Cancel "ab" log` và `Schedule "abc" log`. **React luôn dọn dẹp Effect của lần render trước trước khi Effect của lần render tiếp theo.** Đây là lý do tại sao ngay cả khi bạn gõ vào input nhanh, có tối đa một timeout được lên lịch tại một thời điểm. Chỉnh sửa input một vài lần và xem console để làm quen với cách Effect được dọn dẹp.
 
-Type something into the input and then immediately press "Unmount the component". Notice how unmounting cleans up the last render's Effect. Here, it clears the last timeout before it has a chance to fire.
+Gõ gì đó vào input và sau đó ngay lập tức nhấn "Unmount the component". Chú ý cách unmount dọn dẹp Effect của lần render cuối cùng. Ở đây, nó xóa timeout cuối cùng trước khi nó có cơ hội kích hoạt.
 
-Finally, edit the component above and comment out the cleanup function so that the timeouts don't get cancelled. Try typing `abcde` fast. What do you expect to happen in three seconds? Will `console.log(text)` inside the timeout print the *latest* `text` and produce five `abcde` logs? Give it a try to check your intuition!
+Cuối cùng, chỉnh sửa component ở trên và comment out cleanup function để các timeout không bị hủy. Thử gõ `abcde` nhanh. Bạn nghĩ điều gì sẽ xảy ra trong ba giây? `console.log(text)` bên trong timeout sẽ in `text` *mới nhất* và tạo ra năm log `abcde`? Hãy thử để kiểm tra trực giác của bạn!
 
-Three seconds later, you should see a sequence of logs (`a`, `ab`, `abc`, `abcd`, and `abcde`) rather than five `abcde` logs. **Each Effect "captures" the `text` value from its corresponding render.**  It doesn't matter that the `text` state changed: an Effect from the render with `text = 'ab'` will always see `'ab'`. In other words, Effects from each render are isolated from each other. If you're curious how this works, you can read about [closures](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures).
+Ba giây sau, bạn sẽ thấy một chuỗi log (`a`, `ab`, `abc`, `abcd`, và `abcde`) thay vì năm log `abcde`. **Mỗi Effect "bắt" giá trị `text` từ lần render tương ứng của nó.** Không quan trọng rằng state `text` đã thay đổi: một Effect từ lần render với `text = 'ab'` sẽ luôn thấy `'ab'`. Nói cách khác, Effect từ mỗi lần render được cô lập với nhau. Nếu bạn tò mò về cách hoạt động, bạn có thể đọc về [closure](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures).
 
 <DeepDive>
 
 #### Each render has its own Effects {/*each-render-has-its-own-effects*/}
 
-You can think of `useEffect` as "attaching" a piece of behavior to the render output. Consider this Effect:
+Bạn có thể nghĩ về `useEffect` như việc "gắn kết" một hành vi vào kết quả render. Xem xét Effect này:
 
 ```js
 export default function ChatRoom({ roomId }) {
@@ -882,11 +882,11 @@ export default function ChatRoom({ roomId }) {
 }
 ```
 
-Let's see what exactly happens as the user navigates around the app.
+Hãy xem chính xác điều gì xảy ra khi người dùng điều hướng xung quanh ứng dụng.
 
 #### Initial render {/*initial-render*/}
 
-The user visits `<ChatRoom roomId="general" />`. Let's [mentally substitute](/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time) `roomId` with `'general'`:
+Người dùng truy cập `<ChatRoom roomId="general" />`. Hãy [thay thế tâm lý](/learn/state-as-a-snapshot#rendering-takes-a-snapshot-in-time) `roomId` với `'general'`:
 
 ```js
   // JSX for the first render (roomId = "general")
@@ -906,7 +906,7 @@ The user visits `<ChatRoom roomId="general" />`. Let's [mentally substitute](/le
   ['general']
 ```
 
-React runs this Effect, which connects to the `'general'` chat room.
+React chạy Effect này, kết nối với chat room `'general'`.
 
 #### Re-render with same dependencies {/*re-render-with-same-dependencies*/}
 
@@ -917,9 +917,9 @@ Let's say `<ChatRoom roomId="general" />` re-renders. The JSX output is the same
   return <h1>Welcome to general!</h1>;
 ```
 
-React sees that the rendering output has not changed, so it doesn't update the DOM.
+React thấy rằng kết quả rendering không thay đổi, nên nó không cập nhật DOM.
 
-The Effect from the second render looks like this:
+Effect từ lần render thứ hai trông như thế này:
 
 ```js
   // Effect for the second render (roomId = "general")
@@ -932,20 +932,20 @@ The Effect from the second render looks like this:
   ['general']
 ```
 
-React compares `['general']` from the second render with `['general']` from the first render. **Because all dependencies are the same, React *ignores* the Effect from the second render.** It never gets called.
+React so sánh `['general']` từ lần render thứ hai với `['general']` từ lần render đầu tiên. **Vì tất cả các dependency đều giống nhau, React *bỏ qua* Effect từ lần render thứ hai.** Nó không bao giờ được gọi.
 
 #### Re-render with different dependencies {/*re-render-with-different-dependencies*/}
 
-Then, the user visits `<ChatRoom roomId="travel" />`. This time, the component returns different JSX:
+Sau đó, người dùng truy cập `<ChatRoom roomId="travel" />`. Lần này, component trả về JSX khác:
 
 ```js
   // JSX for the third render (roomId = "travel")
   return <h1>Welcome to travel!</h1>;
 ```
 
-React updates the DOM to change `"Welcome to general"` into `"Welcome to travel"`.
+React cập nhật DOM để thay đổi `"Welcome to general"` thành `"Welcome to travel"`.
 
-The Effect from the third render looks like this:
+Effect từ lần render thứ ba trông như thế này:
 
 ```js
   // Effect for the third render (roomId = "travel")
@@ -958,43 +958,43 @@ The Effect from the third render looks like this:
   ['travel']
 ```
 
-React compares `['travel']` from the third render with `['general']` from the second render. One dependency is different: `Object.is('travel', 'general')` is `false`. The Effect can't be skipped.
+React so sánh `['travel']` từ lần render thứ ba với `['general']` từ lần render thứ hai. Một dependency khác nhau: `Object.is('travel', 'general')` là `false`. Effect không thể bị bỏ qua.
 
-**Before React can apply the Effect from the third render, it needs to clean up the last Effect that _did_ run.** The second render's Effect was skipped, so React needs to clean up the first render's Effect. If you scroll up to the first render, you'll see that its cleanup calls `disconnect()` on the connection that was created with `createConnection('general')`. This disconnects the app from the `'general'` chat room.
+**Trước khi React có thể áp dụng Effect từ lần render thứ ba, nó cần dọn dẹp Effect cuối cùng đã chạy.** Effect của lần render thứ hai đã bị bỏ qua, vì vậy React cần dọn dẹp Effect của lần render đầu tiên. Nếu bạn cuộn lên lần render đầu tiên, bạn sẽ thấy rằng cleanup của nó gọi `disconnect()` trên kết nối được tạo với `createConnection('general')`. Điều này ngắt kết nối ứng dụng khỏi phòng chat `'general'`.
 
-After that, React runs the third render's Effect. It connects to the `'travel'` chat room.
+Sau đó, React chạy Effect của lần render thứ ba. Nó kết nối với phòng chat `'travel'`.
 
 #### Unmount {/*unmount*/}
 
-Finally, let's say the user navigates away, and the `ChatRoom` component unmounts. React runs the last Effect's cleanup function. The last Effect was from the third render. The third render's cleanup destroys the `createConnection('travel')` connection. So the app disconnects from the `'travel'` room.
+Cuối cùng, giả sử người dùng điều hướng đi, và component `ChatRoom` unmount. React chạy cleanup function của Effect cuối cùng. Effect cuối cùng là từ lần render thứ ba. Cleanup của lần render thứ ba hủy kết nối `createConnection('travel')`. Vì vậy ứng dụng ngắt kết nối khỏi phòng `'travel'`.
 
-#### Development-only behaviors {/*development-only-behaviors*/}
+#### Hành vi chỉ dành cho phát triển {/*development-only-behaviors*/}
 
-When [Strict Mode](/reference/react/StrictMode) is on, React remounts every component once after mount (state and DOM are preserved). This [helps you find Effects that need cleanup](#step-3-add-cleanup-if-needed) and exposes bugs like race conditions early. Additionally, React will remount the Effects whenever you save a file in development. Both of these behaviors are development-only.
+Khi [Strict Mode](/reference/react/StrictMode) được bật, React remount mỗi component một lần trong quá trình phát triển. Điều này giúp phát hiện nhiều bug như race condition. Ngoài ra, React sẽ remount các Effect bất cứ khi nào bạn lưu file trong quá trình phát triển. Cả hai hành vi này chỉ dành cho phát triển.
 
 </DeepDive>
 
 <Recap>
 
-- Unlike events, Effects are caused by rendering itself rather than a particular interaction.
-- Effects let you synchronize a component with some external system (third-party API, network, etc).
-- By default, Effects run after every render (including the initial one).
-- React will skip the Effect if all of its dependencies have the same values as during the last render.
-- You can't "choose" your dependencies. They are determined by the code inside the Effect.
-- Empty dependency array (`[]`) corresponds to the component "mounting", i.e. being added to the screen.
-- In Strict Mode, React mounts components twice (in development only!) to stress-test your Effects.
-- If your Effect breaks because of remounting, you need to implement a cleanup function.
-- React will call your cleanup function before the Effect runs next time, and during the unmount.
+- Không giống như event, Effect được gây ra bởi chính quá trình rendering thay vì một tương tác cụ thể.
+- Effect cho phép bạn đồng bộ hóa một component với hệ thống bên ngoài (API bên thứ ba, mạng, v.v.).
+- Theo mặc định, Effect chạy sau mỗi lần render (bao gồm cả lần đầu tiên).
+- React sẽ bỏ qua Effect nếu tất cả dependency của nó có cùng giá trị như trong lần render cuối.
+- Bạn không thể "chọn" dependency của mình. Chúng được xác định bởi code bên trong Effect.
+- Mảng dependency rỗng (`[]`) tương ứng với component "mounting", tức là được thêm vào màn hình.
+- Trong Strict Mode, React mount component hai lần (chỉ trong quá trình phát triển!) để stress-test Effect của bạn.
+- Nếu Effect của bạn bị hỏng vì remounting, bạn cần triển khai cleanup function.
+- React sẽ gọi cleanup function của bạn trước khi Effect chạy lần tiếp theo, và trong quá trình unmount.
 
 </Recap>
 
 <Challenges>
 
-#### Focus a field on mount {/*focus-a-field-on-mount*/}
+#### Focus một trường khi mount {/*focus-a-field-on-mount*/}
 
-In this example, the form renders a `<MyInput />` component.
+Trong ví dụ này, form render một component `<MyInput />`.
 
-Use the input's [`focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) method to make `MyInput` automatically focus when it appears on the screen. There is already a commented out implementation, but it doesn't quite work. Figure out why it doesn't work, and fix it. (If you're familiar with the `autoFocus` attribute, pretend that it does not exist: we are reimplementing the same functionality from scratch.)
+Sử dụng method [`focus()`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLElement/focus) của input để làm cho `MyInput` tự động focus khi nó xuất hiện trên màn hình. Đã có một implementation được comment out, nhưng nó không hoạt động hoàn toàn. Tìm hiểu tại sao nó không hoạt động, và sửa nó. (Nếu bạn quen thuộc với thuộc tính `autoFocus`, hãy giả vờ rằng nó không tồn tại: chúng ta đang triển khai lại cùng chức năng từ đầu.)
 
 <Sandpack>
 
@@ -1070,15 +1070,15 @@ body {
 </Sandpack>
 
 
-To verify that your solution works, press "Show form" and verify that the input receives focus (becomes highlighted and the cursor is placed inside). Press "Hide form" and "Show form" again. Verify the input is highlighted again.
+Để xác minh rằng giải pháp của bạn hoạt động, nhấn "Show form" và xác minh rằng input nhận được focus (được highlight và con trỏ được đặt bên trong). Nhấn "Hide form" và "Show form" lại. Xác minh input được highlight lại.
 
-`MyInput` should only focus _on mount_ rather than after every render. To verify that the behavior is right, press "Show form" and then repeatedly press the "Make it uppercase" checkbox. Clicking the checkbox should _not_ focus the input above it.
+`MyInput` chỉ nên focus *khi mount* thay vì sau mỗi lần render. Để xác minh rằng hành vi đúng, nhấn "Show form" và sau đó nhấn checkbox "Make it uppercase" nhiều lần. Click checkbox *không* nên focus input ở trên nó.
 
 <Solution>
 
-Calling `ref.current.focus()` during render is wrong because it is a *side effect*. Side effects should either be placed inside an event handler or be declared with `useEffect`. In this case, the side effect is _caused_ by the component appearing rather than by any specific interaction, so it makes sense to put it in an Effect.
+Gọi `ref.current.focus()` trong quá trình render là sai vì đó là một *side effect*. Side effect nên được đặt bên trong event handler hoặc được khai báo với `useEffect`. Trong trường hợp này, side effect được *gây ra* bởi việc component xuất hiện thay vì bởi bất kỳ tương tác cụ thể nào, vì vậy có lý khi đặt nó trong Effect.
 
-To fix the mistake, wrap the `ref.current.focus()` call into an Effect declaration. Then, to ensure that this Effect runs only on mount rather than after every render, add the empty `[]` dependencies to it.
+Để sửa lỗi, bọc lệnh gọi `ref.current.focus()` vào một khai báo Effect. Sau đó, để đảm bảo rằng Effect này chỉ chạy khi mount thay vì sau mỗi lần render, thêm dependency `[]` rỗng vào nó.
 
 <Sandpack>
 
@@ -1156,13 +1156,13 @@ body {
 
 </Solution>
 
-#### Focus a field conditionally {/*focus-a-field-conditionally*/}
+#### Focus một trường có điều kiện {/*focus-a-field-conditionally*/}
 
-This form renders two `<MyInput />` components.
+Form này render hai component `<MyInput />`.
 
-Press "Show form" and notice that the second field automatically gets focused. This is because both of the `<MyInput />` components try to focus the field inside. When you call `focus()` for two input fields in a row, the last one always "wins".
+Nhấn "Show form" và chú ý rằng trường thứ hai tự động được focus. Điều này là vì cả hai component `<MyInput />` đều cố gắng focus trường bên trong. Khi bạn gọi `focus()` cho hai trường input liên tiếp, trường cuối cùng luôn "thắng".
 
-Let's say you want to focus the first field. The first `MyInput` component now receives a boolean `shouldFocus` prop set to `true`. Change the logic so that `focus()` is only called if the `shouldFocus` prop received by `MyInput` is `true`.
+Giả sử bạn muốn focus trường đầu tiên. Component `MyInput` đầu tiên nhận một prop boolean `shouldFocus` được set thành `true`. Thay đổi logic để `focus()` chỉ được gọi nếu prop `shouldFocus` mà `MyInput` nhận được là `true`.
 
 <Sandpack>
 
@@ -1242,17 +1242,17 @@ body {
 
 </Sandpack>
 
-To verify your solution, press "Show form" and "Hide form" repeatedly. When the form appears, only the *first* input should get focused. This is because the parent component renders the first input with `shouldFocus={true}` and the second input with `shouldFocus={false}`. Also check that both inputs still work and you can type into both of them.
+Để xác minh giải pháp của bạn, nhấn "Show form" và "Hide form" nhiều lần. Khi form xuất hiện, chỉ input *đầu tiên* nên được focus. Điều này là vì component cha render input đầu tiên với `shouldFocus={true}` và input thứ hai với `shouldFocus={false}`. Cũng kiểm tra rằng cả hai input vẫn hoạt động và bạn có thể gõ vào cả hai.
 
 <Hint>
 
-You can't declare an Effect conditionally, but your Effect can include conditional logic.
+Bạn không thể khai báo Effect có điều kiện, nhưng Effect của bạn có thể bao gồm logic có điều kiện.
 
 </Hint>
 
 <Solution>
 
-Put the conditional logic inside the Effect. You will need to specify `shouldFocus` as a dependency because you are using it inside the Effect. (This means that if some input's `shouldFocus` changes from `false` to `true`, it will focus after mount.)
+Đặt logic có điều kiện bên trong Effect. Bạn sẽ cần chỉ định `shouldFocus` làm dependency vì bạn đang sử dụng nó bên trong Effect. (Điều này có nghĩa là nếu `shouldFocus` của một input nào đó thay đổi từ `false` thành `true`, nó sẽ focus sau khi mount.)
 
 <Sandpack>
 
@@ -1400,9 +1400,9 @@ body {
 
 <Solution>
 
-When [Strict Mode](/reference/react/StrictMode) is on (like in the sandboxes on this site), React remounts each component once in development. This causes the interval to be set up twice, and this is why each second the counter increments twice.
+Khi [Strict Mode](/reference/react/StrictMode) được bật (như trong các sandbox trên trang này), React remount mỗi component một lần trong quá trình phát triển. Điều này khiến interval được thiết lập hai lần, và đây là lý do tại sao mỗi giây bộ đếm tăng hai lần.
 
-However, React's behavior is not the *cause* of the bug: the bug already exists in the code. React's behavior makes the bug more noticeable. The real cause is that this Effect starts a process but doesn't provide a way to clean it up.
+Tuy nhiên, hành vi của React không phải là *nguyên nhân* của bug: bug đã tồn tại trong code. Hành vi của React làm cho bug trở nên rõ ràng hơn. Nguyên nhân thực sự là Effect này bắt đầu một tiến trình nhưng không cung cấp cách để dọn dẹp nó.
 
 To fix this code, save the interval ID returned by `setInterval`, and implement a cleanup function with [`clearInterval`](https://developer.mozilla.org/en-US/docs/Web/API/clearInterval):
 
@@ -1464,7 +1464,7 @@ In development, React will still remount your component once to verify that you'
 
 #### Fix fetching inside an Effect {/*fix-fetching-inside-an-effect*/}
 
-This component shows the biography for the selected person. It loads the biography by calling an asynchronous function `fetchBio(person)` on mount and whenever `person` changes. That asynchronous function returns a [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) which eventually resolves to a string. When fetching is done, it calls `setBio` to display that string under the select box.
+Component này hiển thị tiểu sử cho người được chọn. Nó tải tiểu sử bằng cách gọi một function bất đồng bộ `fetchBio(person)` khi mount và bất cứ khi nào `person` thay đổi. Function bất đồng bộ đó trả về một [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) mà cuối cùng resolve thành một string. Khi fetching hoàn thành, nó gọi `setBio` để hiển thị string đó dưới select box.
 
 <Sandpack>
 
@@ -1514,9 +1514,9 @@ export async function fetchBio(person) {
 </Sandpack>
 
 
-There is a bug in this code. Start by selecting "Alice". Then select "Bob" and then immediately after that select "Taylor". If you do this fast enough, you will notice that bug: Taylor is selected, but the paragraph below says "This is Bob's bio."
+Có một bug trong code này. Bắt đầu bằng cách chọn "Alice". Sau đó chọn "Bob" và ngay sau đó chọn "Taylor". Nếu bạn làm điều này đủ nhanh, bạn sẽ nhận thấy bug đó: Taylor được chọn, nhưng đoạn văn bên dưới nói "This is Bob's bio."
 
-Why does this happen? Fix the bug inside this Effect.
+Tại sao điều này xảy ra? Hãy sửa bug bên trong Effect này.
 
 <Hint>
 
@@ -1526,18 +1526,18 @@ If an Effect fetches something asynchronously, it usually needs cleanup.
 
 <Solution>
 
-To trigger the bug, things need to happen in this order:
+Để kích hoạt bug, mọi thứ cần xảy ra theo thứ tự này:
 
-- Selecting `'Bob'` triggers `fetchBio('Bob')`
-- Selecting `'Taylor'` triggers `fetchBio('Taylor')`
-- **Fetching `'Taylor'` completes *before* fetching `'Bob'`**
-- The Effect from the `'Taylor'` render calls `setBio('This is Taylor’s bio')`
-- Fetching `'Bob'` completes
-- The Effect from the `'Bob'` render calls `setBio('This is Bob’s bio')`
+- Chọn `'Bob'` kích hoạt `fetchBio('Bob')`
+- Chọn `'Taylor'` kích hoạt `fetchBio('Taylor')`
+- **Fetching `'Taylor'` hoàn thành *trước* fetching `'Bob'`**
+- Effect từ lần render `'Taylor'` gọi `setBio('This is Taylor's bio')`
+- Fetching `'Bob'` hoàn thành
+- Effect từ lần render `'Bob'` gọi `setBio('This is Bob's bio')`
 
-This is why you see Bob's bio even though Taylor is selected. Bugs like this are called [race conditions](https://en.wikipedia.org/wiki/Race_condition) because two asynchronous operations are "racing" with each other, and they might arrive in an unexpected order.
+Đây là lý do tại sao bạn thấy bio của Bob mặc dù Taylor được chọn. Những bug như thế này được gọi là [race conditions](https://en.wikipedia.org/wiki/Race_condition) vì hai thao tác bất đồng bộ đang "chạy đua" với nhau, và chúng có thể đến theo thứ tự không mong muốn.
 
-To fix this race condition, add a cleanup function:
+Để sửa race condition này, hãy thêm một cleanup function:
 
 <Sandpack>
 
@@ -1591,16 +1591,16 @@ export async function fetchBio(person) {
 
 </Sandpack>
 
-Each render's Effect has its own `ignore` variable. Initially, the `ignore` variable is set to `false`. However, if an Effect gets cleaned up (such as when you select a different person), its `ignore` variable becomes `true`. So now it doesn't matter in which order the requests complete. Only the last person's Effect will have `ignore` set to `false`, so it will call `setBio(result)`. Past Effects have been cleaned up, so the `if (!ignore)` check will prevent them from calling `setBio`:
+Effect của mỗi lần render có biến `ignore` riêng của nó. Ban đầu, biến `ignore` được đặt thành `false`. Tuy nhiên, nếu Effect bị dọn dẹp (chẳng hạn khi bạn chọn một người khác), biến `ignore` của nó trở thành `true`. Vì vậy bây giờ không quan trọng các request hoàn thành theo thứ tự nào. Chỉ Effect của người cuối cùng sẽ có `ignore` được đặt thành `false`, nên nó sẽ gọi `setBio(result)`. Các Effect trước đó đã được dọn dẹp, vì vậy việc kiểm tra `if (!ignore)` sẽ ngăn chúng gọi `setBio`:
 
-- Selecting `'Bob'` triggers `fetchBio('Bob')`
-- Selecting `'Taylor'` triggers `fetchBio('Taylor')` **and cleans up the previous (Bob's) Effect**
-- Fetching `'Taylor'` completes *before* fetching `'Bob'`
-- The Effect from the `'Taylor'` render calls `setBio('This is Taylor’s bio')`
-- Fetching `'Bob'` completes
-- The Effect from the `'Bob'` render **does not do anything because its `ignore` flag was set to `true`**
+- Chọn `'Bob'` kích hoạt `fetchBio('Bob')`
+- Chọn `'Taylor'` kích hoạt `fetchBio('Taylor')` **và dọn dẹp Effect trước đó (của Bob)**
+- Fetching `'Taylor'` hoàn thành *trước* fetching `'Bob'`
+- Effect từ lần render `'Taylor'` gọi `setBio('This is Taylor's bio')`
+- Fetching `'Bob'` hoàn thành
+- Effect từ lần render `'Bob'` **không làm gì vì flag `ignore` của nó được đặt thành `true`**
 
-In addition to ignoring the result of an outdated API call, you can also use [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) to cancel the requests that are no longer needed. However, by itself this is not enough to protect against race conditions. More asynchronous steps could be chained after the fetch, so using an explicit flag like `ignore` is the most reliable way to fix this type of problem.
+Ngoài việc bỏ qua kết quả của một lời gọi API lỗi thời, bạn cũng có thể sử dụng [`AbortController`](https://developer.mozilla.org/en-US/docs/Web/API/AbortController) để hủy các request không còn cần thiết. Tuy nhiên, bản thân điều này không đủ để bảo vệ chống lại race conditions. Nhiều bước bất đồng bộ có thể được nối tiếp sau fetch, vì vậy việc sử dụng một flag rõ ràng như `ignore` là cách đáng tin cậy nhất để sửa loại vấn đề này.
 
 </Solution>
 
