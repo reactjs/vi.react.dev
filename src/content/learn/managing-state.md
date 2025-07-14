@@ -4,14 +4,14 @@ title: Quản Lý State
 
 <Intro>
 
-Khi ứng dụng của bạn ngày càng lớn, việc có ý thức hơn về cách tổ chức state và luồng data chảy giữa các component sẽ rất hữu ích. State dư thừa hoặc trùng lặp là nguyên nhân phổ biến gây ra một loạt bug khó hiểu. Trong chương này, bạn sẽ học cách cấu trúc state một cách tốt, cách giữ cho logic cập nhật state dễ bảo trì, và cách chia sẻ state giữa các component ở xa nhau.
+Khi ứng dụng của bạn ngày càng lớn, việc có chủ ý hơn về cách tổ chức state và luồng data chảy giữa các component sẽ rất hữu ích. State dư thừa hoặc trùng lặp là nguyên nhân phổ biến gây ra một loạt bug khó hiểu. Trong chương này, bạn sẽ học cách cấu trúc state một cách chặt chẽ, cách giữ cho logic cập nhật state dễ bảo trì, và cách chia sẻ state giữa các component ở xa nhau.
 
 </Intro>
 
 <YouWillLearn isChapter={true}>
 
-* [Cách suy nghĩ về thay đổi UI như những thay đổi state](/learn/reacting-to-input-with-state)
-* [Cách cấu trúc state một cách tốt](/learn/choosing-the-state-structure)
+* [Cách suy nghĩ về thay đổi UI khi state thay đổi](/learn/reacting-to-input-with-state)
+* [Cách cấu trúc state một cách chặt chẽ](/learn/choosing-the-state-structure)
 * [Cách "nâng state lên" để chia sẻ giữa các component](/learn/sharing-state-between-components)
 * [Cách kiểm soát việc state được bảo tồn hay reset](/learn/preserving-and-resetting-state)
 * [Cách hợp nhất logic state phức tạp trong một function](/learn/extracting-state-logic-into-a-reducer)
@@ -114,7 +114,7 @@ function submitForm(answer) {
 
 ## Chọn cấu trúc state {/*choosing-the-state-structure*/}
 
-Cấu trúc state tốt có thể tạo ra sự khác biệt giữa một component dễ dàng sửa đổi và debug, và một component có hành vi khó đoán với một loạt bug khó hiểu. Nguyên tắc quan trọng nhất là state không nên chứa thông tin dư thừa hoặc trùng lặp. Nếu có state không cần thiết, rất dễ quên cập nhật nó và tạo ra bug!
+Cấu trúc state tốt có thể tạo ra sự khác biệt giữa một component dễ dàng sửa đổi và debug, và một component có hành vi khó đoán với một loạt bug khó hiểu. Nguyên tắc quan trọng nhất là state không nên chứa thông tin dư thừa hoặc trùng lặp. Nếu có state không cần thiết, ta rất dễ quên cập nhật nó và tạo ra bug!
 
 Ví dụ, form này có biến state `fullName` **dư thừa**:
 
@@ -225,7 +225,7 @@ label { display: block; margin-bottom: 5px; }
 
 <LearnMore path="/learn/choosing-the-state-structure">
 
-Đọc **[Chọn Cấu Trúc State](/learn/choosing-the-state-structure)** để học cách thiết kế hình dạng state để tránh bug.
+Đọc **[Chọn Cấu Trúc State](/learn/choosing-the-state-structure)** để học cách thiết kế cấu trúc state để tránh bug.
 
 </LearnMore>
 
@@ -699,7 +699,7 @@ ul, li { margin: 0; padding: 0; }
 
 ## Truyền data sâu với context {/*passing-data-deeply-with-context*/}
 
-Thông thường, bạn sẽ truyền thông tin từ component cha đến component con thông qua props. Nhưng việc truyền props có thể trở nên bất tiện nếu bạn cần truyền một prop qua nhiều component, hoặc nếu nhiều component cần cùng một thông tin. Context cho phép component cha cung cấp một số thông tin cho bất kỳ component nào trong cây con bên dưới nó—bất kể nó sâu đến đâu—mà không cần truyền một cách rõ ràng thông qua props.
+Thông thường, bạn sẽ truyền thông tin từ component cha đến component con thông qua props. Nhưng việc truyền props có thể trở nên bất tiện nếu bạn cần truyền một prop qua nhiều component, hoặc nếu nhiều component cần cùng một thông tin. Context cho phép component cha cung cấp một số thông tin cho bất kỳ component nào ở bên dưới nó trong cấu trúc cây—bất kể nó sâu đến đâu—mà không cần truyền một cách rõ ràng thông qua props.
 
 Ở đây, component `Heading` xác định cấp độ heading của nó bằng cách "hỏi" `Section` gần nhất về cấp độ của nó. Mỗi `Section` theo dõi cấp độ riêng của nó bằng cách hỏi `Section` cha và cộng thêm một. Mọi `Section` cung cấp thông tin cho tất cả các component bên dưới nó mà không cần truyền props—nó thực hiện điều đó thông qua context.
 
@@ -801,9 +801,9 @@ export const LevelContext = createContext(0);
 
 ## Mở rộng với reducer và context {/*scaling-up-with-reducer-and-context*/}
 
-Reducer cho phép bạn tổng hợp logic cập nhật state của component. Context cho phép bạn truyền thông tin xuống sâu cho các component khác. Bạn có thể kết hợp reducer và context cùng nhau để quản lý state của một màn hình phức tạp.
+Reducer cho phép bạn tổng hợp logic cập nhật state của component. Context cho phép bạn truyền thông tin xuống sâu cho các component khác. Bạn có thể kết hợp reducer và context cùng nhau để quản lý state của một giao diện phức tạp.
 
-Với cách tiếp cận này, một component cha có state phức tạp sẽ quản lý nó bằng reducer. Các component khác ở bất kỳ vị trí sâu nào trong cây có thể đọc state của nó thông qua context. Chúng cũng có thể dispatch các action để cập nhật state đó.
+Với cách tiếp cận này, một component cha có state phức tạp sẽ quản lý nó bằng reducer. Các component khác ở bất kỳ vị trí nào sâu trong cây đều có thể đọc state của nó thông qua context. Chúng cũng có thể dispatch các action để cập nhật state đó.
 
 <Sandpack>
 
