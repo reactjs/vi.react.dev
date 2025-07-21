@@ -215,11 +215,7 @@ Khi mà một component con cần dữ liệu từ cha, [hãy truyền nó qua p
 
 Hầu hết các ứng dụng React đều sử dụng component từ đầu đến cuối. Điều này có nghĩa là bạn không chỉ sử dụng component cho những phần có thể tái sử dụng như các nút (button) mà còn cho các phần lớn hơn như sidebar, các danh sách và đích đến cuối, các trang hoàn chỉnh! Component là một cách tiện lợi để tổ chức code UI và markup, ngay cả khi một số chúng chỉ được sử dụng một lần.
 
-<<<<<<< HEAD
-[Các framwork React](/learn/start-a-new-react-project) nâng điều này lên một tầm cao mới. Thay vì chỉ sử dụng một trang HTML rỗng và để React "điều khiển" việc quản lý trang với JavaScript, chúng *cũng* tạo ra HTML tự động từ các React component của bạn. Điều này khiến cho ứng dụng của bạn có thể hiển thị một số nội dung trước khi code JavaScript chạy.
-=======
-[React-based frameworks](/learn/creating-a-react-app) take this a step further. Instead of using an empty HTML file and letting React "take over" managing the page with JavaScript, they *also* generate the HTML automatically from your React components. This allows your app to show some content before the JavaScript code loads.
->>>>>>> d52b3ec734077fd56f012fc2b30a67928d14cc73
+[Các framwork React](/learn/creating-a-react-app) nâng điều này lên một tầm cao mới. Thay vì chỉ sử dụng một trang HTML rỗng và để React "điều khiển" việc quản lý trang với JavaScript, chúng *cũng* tạo ra HTML tự động từ các React component của bạn. Điều này khiến cho ứng dụng của bạn có thể hiển thị một số nội dung trước khi code JavaScript chạy.
 
 Tuy vậy, rất nhiều website chỉ dùng React để [thêm tương tác cho các trang HTML đã có sẵn](/learn/add-react-to-an-existing-project#using-react-for-a-part-of-your-existing-page). Họ có rất nhiều các root component thay vì một cái cho cả trang. Bạn có thể dùng nhiều hoặc ít React tùy thích.
 
