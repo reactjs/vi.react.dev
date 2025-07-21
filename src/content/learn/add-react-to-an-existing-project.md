@@ -149,11 +149,7 @@ root.render(<NavigationBar />);
 
 Chú ý là nội dung HTML ban đầu từ `index.html` được giữ nguyên, nhưng component  `NavigationBar` React của bạn giờ đây hiển thị bên trong `<nav id="navigation">` từ trong HTML của bạn. Hãy đọc [`tài liệu sử dụng createRoot`](/reference/react-dom/client/createRoot#rendering-a-page-partially-built-with-react) để tìm hiểu thêm về cách hiển thị các component React trong một trang HTML hiện có.
 
-<<<<<<< HEAD
-Khi bạn sử dụng React với một dự án tồn tại trước đó, thường thì bạn sẽ bắt đầu với những component tương tác nhỏ (như nút bấm), và sau đó dần dần "tiến lên trước" cho tới khi toàn bộ trang web của bạn được xây dựng bằng React. Khi bạn đạt đến đó, chúng tôi khuyến nghị hãy chuyển đổi sang một [React framework](/learn/start-a-new-react-project) ngay sau đó để có thể sử dụng tối ưu React.
-=======
-When you adopt React in an existing project, it's common to start with small interactive components (like buttons), and then gradually keep "moving upwards" until eventually your entire page is built with React. If you ever reach that point, we recommend migrating to [a React framework](/learn/creating-a-react-app) right after to get the most out of React.
->>>>>>> d52b3ec734077fd56f012fc2b30a67928d14cc73
+Khi bạn sử dụng React với một dự án tồn tại trước đó, thường thì bạn sẽ bắt đầu với những component tương tác nhỏ (như nút bấm), và sau đó dần dần "tiến lên trước" cho tới khi toàn bộ trang web của bạn được xây dựng bằng React. Khi bạn đạt đến đó, chúng tôi khuyến nghị hãy chuyển đổi sang một [React framework](/learn/creating-a-react-app) ngay sau đó để có thể sử dụng tối ưu React.
 
 ## Sử dụng React Native trong một ứng dụng di động native hiện có {/*using-react-native-in-an-existing-native-mobile-app*/}
 
