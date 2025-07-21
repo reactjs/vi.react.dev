@@ -214,8 +214,7 @@ JSX chuyển thành JavaScript và các thuộc tính được viết bằng JSX
 />
 ```
 
-You can [find all these attributes in the list of DOM component props.](/reference/react-dom/components/common) If you get one wrong, don't worry—React will print a message with a possible correction to the [browser console.](https://developer.mozilla.org/docs/Tools/Browser_Console)
-Bạn có thể [tìm tất cả các thuộc tính này trong danh sách các DOM component props.](/reference/react-dom/comComponents/common) Nếu bạn có một thuộc tính sai, đừng lo lắng—React sẽ đưa ra một thông báo có thể sửa lỗi trên [console của trình duyệt.](https://developer.mozilla.org/docs/Tools/Browser_Console)
+Bạn có thể [tìm tất cả các thuộc tính này trong danh sách các DOM component props.](/reference/react-dom/components/common) Nếu bạn có một thuộc tính sai, đừng lo lắng—React sẽ đưa ra một thông báo có thể sửa lỗi trên [console của trình duyệt.](https://developer.mozilla.org/docs/Tools/Browser_Console)
 
 <Pitfall>
 
