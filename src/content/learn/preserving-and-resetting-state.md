@@ -1244,15 +1244,6 @@ Bất kể bạn chọn chiến lược nào, một cuộc chat *với Alice* v�
 
 </Recap>
 
-<Recap>
-
-- React giữ state miễn là cùng một component được render ở cùng vị trí.
-- State không được giữ trong các thẻ JSX. Nó được liên kết với vị trí cây mà bạn đặt JSX đó.
-- Bạn có thể buộc một cây con đặt lại state của nó bằng cách trao cho nó một key khác.
-- Đừng lồng các định nghĩa component, hoặc bạn sẽ đặt lại state một cách vô tình.
-
-</Recap>
-
 
 
 <Challenges>
@@ -1997,7 +1988,7 @@ img { width: 150px; height: 150px; }
 
 #### Sửa state bị đặt nhầm chỗ trong danh sách {/*fix-misplaced-state-in-the-list*/}
 
-Trong danh sách này, mỗi `Contact` có state xác định liệu "Show email" đã được nhấn cho nó hay chưa. Nhấn "Show email" cho Alice, sau đó tick vào checkbox "Show in reverse order". Bạn sẽ nhận thấy rằng email của _Taylor_ được mở rộng bây giờ, nhưng Alice--đã di chuyển xuống dưới--xuất hiện thu gọn.
+Trong danh sách này, mỗi `Contact` có state xác định liệu "Show email" đã được nhấn cho nó hay chưa. Nhấn "Show email" cho Alice, sau đó tick vào checkbox "Show in reverse order". Bạn sẽ nhận thấy rằng email của _Taylor_ được mở rộng bây giờ, nhưng email của Alice--đã bị di chuyển xuống dưới--bị thu gọn.
 
 Hãy sửa nó để state mở rộng được liên kết với mỗi liên hệ, bất kể thứ tự được chọn.
 
