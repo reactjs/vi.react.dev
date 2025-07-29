@@ -4,14 +4,14 @@ title: Chia Sẻ State Giữa Các Component
 
 <Intro>
 
-Đôi khi, bạn muốn state của hai component luôn thay đổi cùng nhau. Để làm được điều này, hãy loại bỏ state khỏi cả hai component, di chuyển nó lên parent gần nhất chung của chúng, và sau đó truyền xuống cho chúng thông qua props. Điều này được gọi là *lifting state up*, và đây là một trong những việc phổ biến nhất mà bạn sẽ làm khi viết code React.
+Đôi khi, bạn muốn state của hai component luôn thay đổi cùng nhau. Để làm được điều này, hãy loại bỏ state khỏi cả hai component, di chuyển nó lên parent gần nhất chung của chúng, và sau đó truyền xuống cho chúng thông qua props. Điều này được gọi là *lifting state up* (đẩy state lên), và đây là một trong những việc phổ biến nhất mà bạn sẽ làm khi viết code React.
 
 </Intro>
 
 <YouWillLearn>
 
-- Cách chia sẻ state giữa các component bằng cách lifting nó lên
-- Controlled và uncontrolled component là gì
+- Cách chia sẻ state giữa các component bằng cách lifting (đẩy) nó lên
+- Controlled (kiểm soát) và uncontrolled (không kiểm soát) component là gì
 
 </YouWillLearn>
 
@@ -286,7 +286,7 @@ Khi state `activeIndex` của `Accordion` thay đổi thành `1`, `Panel` thứ 
 
 <DeepDive>
 
-#### Controlled và uncontrolled component {/*controlled-and-uncontrolled-components*/}
+#### Controlled (Kiểm soát) và uncontrolled (Không kiểm soát) component {/*controlled-and-uncontrolled-components*/}Controlled và uncontrolled component {/*controlled-and-uncontrolled-components*/}
 
 Thông thường người ta gọi một component có một số local state là "uncontrolled". Ví dụ, component `Panel` ban đầu với biến state `isActive` là uncontrolled vì parent của nó không thể ảnh hưởng đến việc panel có active hay không.
 
@@ -296,7 +296,7 @@ Uncontrolled component dễ sử dụng hơn trong parent của chúng vì chún
 
 Trong thực tế, "controlled" và "uncontrolled" không phải là thuật ngữ kỹ thuật nghiêm ngặt--mỗi component thường có hỗn hợp cả local state và props. Tuy nhiên, đây là một cách hữu ích để nói về cách các component được thiết kế và khả năng chúng cung cấp.
 
-Khi viết một component, hãy xem xét thông tin nào trong đó nên được controlled (thông qua props), và thông tin nào nên là uncontrolled (thông qua state). Nhưng bạn luôn có thể thay đổi ý kiến và refactor sau.
+Khi viết một component, hãy xem xét thông tin nào trong đó nên được controlled (thông qua props), và thông tin nào nên là uncontrolled (thông qua state). Nhưng bạn luôn có thể thay đổi ý kiến và cải tiến sau.
 
 </DeepDive>
 
