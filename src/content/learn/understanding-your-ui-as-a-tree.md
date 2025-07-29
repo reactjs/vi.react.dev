@@ -14,7 +14,7 @@ React, và nhiều thư viện UI khác, mô hình hóa UI theo cấu trúc cây
 
 * React "nhìn" cấu trúc component như thế nào
 * Render tree là gì và nó hữu ích cho việc gì
-* Module dependency tree là gì và nó hữu ích cho việc gì
+* Module dependency (phụ thuộc vào module) tree là gì và nó hữu ích cho việc gì
 
 </YouWillLearn>
 
@@ -136,13 +136,13 @@ Nút gốc trong render tree của React là [component gốc](/learn/importing-
 
 Bạn sẽ nhận thấy trong render tree ở trên, không có đề cập đến các thẻ HTML mà mỗi component render. Điều này là do render tree chỉ được tạo thành từ các React [component](learn/your-first-component#components-ui-building-blocks).
 
-React, với tư cách là một framework UI, là platform agnostic. Trên react.dev, chúng tôi trình bày các ví dụ render cho web, sử dụng HTML markup làm UI primitives. Nhưng một ứng dụng React cũng có thể render cho nền tảng di động hoặc desktop, có thể sử dụng các UI primitives khác như [UIView](https://developer.apple.com/documentation/uikit/uiview) hoặc [FrameworkElement](https://learn.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement?view=windowsdesktop-7.0).
+React, với tư cách là một framework UI, là platform agnostic (không phụ thuộc vào nền tảng). Trên react.dev, chúng tôi trình bày các ví dụ render cho web, sử dụng HTML markup làm UI primitives. Nhưng một ứng dụng React cũng có thể render cho nền tảng di động hoặc desktop, có thể sử dụng các UI primitives khác như [UIView](https://developer.apple.com/documentation/uikit/uiview) hoặc [FrameworkElement](https://learn.microsoft.com/en-us/dotnet/api/system.windows.frameworkelement?view=windowsdesktop-7.0).
 
 Các platform UI primitives này không phải là một phần của React. React render trees có thể cung cấp thông tin chi tiết cho ứng dụng React của chúng ta bất kể ứng dụng của bạn render cho nền tảng nào.
 
 </DeepDive>
 
-Một render tree đại diện cho một lần render duy nhất của ứng dụng React. Với [conditional rendering](/learn/conditional-rendering), một component cha có thể render các con khác nhau tùy thuộc vào dữ liệu được truyền.
+Một render tree đại diện cho một lần render duy nhất của ứng dụng React. Với [conditional rendering (render theo điều kiện)](/learn/conditional-rendering), một component cha có thể render các con khác nhau tùy thuộc vào dữ liệu được truyền.
 
 Chúng ta có thể cập nhật ứng dụng để render có điều kiện hoặc một câu trích dẫn truyền cảm hứng hoặc màu sắc.
 
@@ -270,7 +270,7 @@ Module dependency tree cho ứng dụng Inspirations.
 
 </Diagram>
 
-Nút gốc của cây là root module, còn được gọi là entrypoint file. Nó thường là module chứa component gốc.
+Nút gốc của cây là root module, còn được gọi là file mở đầu. Nó thường là module chứa component gốc.
 
 So sánh với render tree của cùng ứng dụng, có những cấu trúc tương tự nhưng một số khác biệt đáng chú ý:
 
@@ -292,7 +292,7 @@ Khi ứng dụng của bạn phát triển, thường kích thước bundle cũn
 * Render trees giúp xác định những component cấp cao và leaf component. Các component cấp cao ảnh hưởng đến hiệu suất render của tất cả component bên dưới chúng và các leaf component thường được re-render thường xuyên. Xác định chúng rất hữu ích để hiểu và debug hiệu suất render.
 * Dependency trees đại diện cho các module dependencies trong ứng dụng React.
 * Dependency trees được sử dụng bởi các build tools để bundle mã cần thiết để ship ứng dụng.
-* Dependency trees hữu ích để debug kích thước bundle lớn làm chậm thời gian vẽ và tìm ra cơ hội để tối ưu hóa mã được bundle.
+* Dependency trees hữu ích để debug các bundle có kích thước lớn làm chậm thời gian hiện thị và giúp phát hiện cơ hội để tối ưu hóa mã code được bundle.
 
 </Recap>
 
