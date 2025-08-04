@@ -137,6 +137,7 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 ## Bồ Đào Nha {/*portugal*/}
 * [Lisbon](https://www.meetup.com/JavaScript-Lisbon/)
 
+<<<<<<< HEAD
 ## Scotland (Vương Quốc Anh) {/*scotland-uk*/}
 * [Edinburgh](https://www.meetup.com/React-Scotland/)
 
@@ -144,6 +145,9 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 * [Singapore - React Knowledgeable](https://reactknowledgeable.org/)
 
 ## Tây Ban Nha {/*spain*/}
+=======
+## Spain {/*spain*/}
+>>>>>>> e07ac94bc2c1ffd817b13930977be93325e5bea9
 * [Barcelona](https://www.meetup.com/ReactJS-Barcelona/)
 
 ## Sri Lanka {/*sri-lanka*/}
