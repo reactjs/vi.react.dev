@@ -11,7 +11,7 @@ React có thể thay đổi tư duy của bạn về cách thiết kế và xây
 
 ## Bắt đầu với dữ liệu mẫu {/*start-with-the-mockup*/}
 
-Tưỡng tượng bạn đã có sẵn một API dưới dạng JSON được chuẩn bị bỡi người thiết kế sản phẩm.
+Tưởng tượng bạn đã có sẵn một API dưới dạng JSON được chuẩn bị bởi người thiết kế sản phẩm.
 
 Dữ liệu từ API JSON có một số ví dụ sau:
 ```json
