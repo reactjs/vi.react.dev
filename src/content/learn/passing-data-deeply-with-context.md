@@ -1,33 +1,33 @@
 ---
-title: Passing Data Deeply with Context
+title: Truyền Dữ Liệu Sâu Với Context
 ---
 
 <Intro>
 
-Usually, you will pass information from a parent component to a child component via props. But passing props can become verbose and inconvenient if you have to pass them through many components in the middle, or if many components in your app need the same information. *Context* lets the parent component make some information available to any component in the tree below it—no matter how deep—without passing it explicitly through props.
+Thông thường, bạn sẽ truyền thông tin từ component cha tới component con thông qua props. Nhưng việc truyền props có thể trở nên dài dòng và bất tiện nếu bạn phải truyền chúng qua nhiều component ở giữa, hoặc nếu nhiều component trong ứng dụng của bạn cần cùng thông tin đó. *Context* cho phép component cha cung cấp một số thông tin cho bất kỳ component nào trong cây bên dưới nó—bất kể sâu đến đâu—mà không cần truyền một cách rõ ràng thông qua props.
 
 </Intro>
 
 <YouWillLearn>
 
-- What "prop drilling" is
-- How to replace repetitive prop passing with context
-- Common use cases for context
-- Common alternatives to context
+- "Prop drilling" là gì
+- Cách thay thế việc truyền props lặp đi lặp lại bằng context
+- Các trường hợp sử dụng phổ biến cho context
+- Các phương án thay thế phổ biến cho context
 
 </YouWillLearn>
 
-## The problem with passing props {/*the-problem-with-passing-props*/}
+## Vấn đề với việc truyền props {/*the-problem-with-passing-props*/}
 
-[Passing props](/learn/passing-props-to-a-component) is a great way to explicitly pipe data through your UI tree to the components that use it.
+[Truyền props](/learn/passing-props-to-a-component) là một cách tuyệt vời để truyền dữ liệu một cách rõ ràng qua cây UI của bạn tới những component sử dụng nó.
 
-But passing props can become verbose and inconvenient when you need to pass some prop deeply through the tree, or if many components need the same prop. The nearest common ancestor could be far removed from the components that need data, and [lifting state up](/learn/sharing-state-between-components) that high can lead to a situation called "prop drilling".
+Nhưng việc truyền props có thể trở nên dài dòng và bất tiện khi bạn cần truyền một prop sâu qua cây, hoặc nếu nhiều component cần cùng một prop. Tổ tiên chung gần nhất có thể ở xa những component cần dữ liệu, và [nâng state lên](/learn/sharing-state-between-components) cao như vậy có thể dẫn đến tình huống được gọi là "prop drilling".
 
 <DiagramGroup>
 
 <Diagram name="passing_data_lifting_state" height={160} width={608} captionPosition="top" alt="Diagram with a tree of three components. The parent contains a bubble representing a value highlighted in purple. The value flows down to each of the two children, both highlighted in purple." >
 
-Lifting state up
+Nâng state lên
 
 </Diagram>
 <Diagram name="passing_data_prop_drilling" height={430} width={608} captionPosition="top" alt="Diagram with a tree of ten nodes, each node with two children or less. The root node contains a bubble representing a value highlighted in purple. The value flows down through the two children, each of which pass the value but do not contain it. The left child passes the value down to two children which are both highlighted purple. The right child of the root passes the value through to one of its two children - the right one, which is highlighted purple. That child passed the value through its single child, which passes it down to both of its two children, which are highlighted purple.">
@@ -38,11 +38,11 @@ Prop drilling
 
 </DiagramGroup>
 
-Wouldn't it be great if there were a way to "teleport" data to the components in the tree that need it without passing props? With React's context feature, there is!
+Sẽ thật tuyệt nếu có cách "dịch chuyển" dữ liệu tới những component trong cây cần nó mà không cần truyền props? Với tính năng context của React, điều đó hoàn toàn có thể!
 
-## Context: an alternative to passing props {/*context-an-alternative-to-passing-props*/}
+## Context: một phương án thay thế cho việc truyền props {/*context-an-alternative-to-passing-props*/}
 
-Context lets a parent component provide data to the entire tree below it. There are many uses for context. Here is one example. Consider this `Heading` component that accepts a `level` for its size:
+Context cho phép component cha cung cấp dữ liệu cho toàn bộ cây bên dưới nó. Có nhiều cách sử dụng cho context. Đây là một ví dụ. Hãy xem xét component `Heading` này chấp nhận một `level` cho kích thước của nó:
 
 <Sandpack>
 
@@ -106,7 +106,7 @@ export default function Heading({ level, children }) {
 
 </Sandpack>
 
-Let's say you want multiple headings within the same `Section` to always have the same size:
+Giả sử bạn muốn nhiều heading trong cùng một `Section` luôn có cùng kích thước:
 
 <Sandpack>
 
@@ -180,7 +180,7 @@ export default function Heading({ level, children }) {
 
 </Sandpack>
 
-Currently, you pass the `level` prop to each `<Heading>` separately:
+Hiện tại, bạn truyền prop `level` tới từng `<Heading>` riêng biệt:
 
 ```js
 <Section>
@@ -190,7 +190,7 @@ Currently, you pass the `level` prop to each `<Heading>` separately:
 </Section>
 ```
 
-It would be nice if you could pass the `level` prop to the `<Section>` component instead and remove it from the `<Heading>`. This way you could enforce that all headings in the same section have the same size:
+Sẽ thật tuyệt nếu bạn có thể truyền prop `level` tới component `<Section>` thay vì vào `<Heading>`. Cách này bạn có thể đảm bảo rằng tất cả các heading trong cùng một section có cùng kích thước:
 
 ```js
 <Section level={3}>
@@ -200,35 +200,35 @@ It would be nice if you could pass the `level` prop to the `<Section>` component
 </Section>
 ```
 
-But how can the `<Heading>` component know the level of its closest `<Section>`? **That would require some way for a child to "ask" for data from somewhere above in the tree.**
+Nhưng làm thế nào component `<Heading>` có thể biết level của `<Section>` gần nhất? **Điều đó cần có cách nào đó để component con "hỏi" dữ liệu từ đâu đó ở trên trong cây.**
 
-You can't do it with props alone. This is where context comes into play. You will do it in three steps:
+Bạn không thể làm được điều đó chỉ với props. Đây là lúc context xuất hiện. Bạn sẽ làm điều đó trong ba bước:
 
-1. **Create** a context. (You can call it `LevelContext`, since it's for the heading level.)
-2. **Use** that context from the component that needs the data. (`Heading` will use `LevelContext`.)
-3. **Provide** that context from the component that specifies the data. (`Section` will provide `LevelContext`.)
+1. **Tạo** một context. (Bạn có thể gọi nó là `LevelContext`, vì nó dành cho heading level.)
+2. **Sử dụng** context đó từ component cần dữ liệu. (`Heading` sẽ sử dụng `LevelContext`.)
+3. **Cung cấp** context đó từ component chỉ định dữ liệu. (`Section` sẽ cung cấp `LevelContext`.)
 
-Context lets a parent--even a distant one!--provide some data to the entire tree inside of it.
+Context cho phép component cha—thậm chí là component rất xa!—cung cấp một số dữ liệu cho toàn bộ cây bên trong nó.
 
 <DiagramGroup>
 
 <Diagram name="passing_data_context_close" height={160} width={608} captionPosition="top" alt="Diagram with a tree of three components. The parent contains a bubble representing a value highlighted in orange which projects down to the two children, each highlighted in orange." >
 
-Using context in close children
+Sử dụng context trong những component con gần
 
 </Diagram>
 
 <Diagram name="passing_data_context_far" height={430} width={608} captionPosition="top" alt="Diagram with a tree of ten nodes, each node with two children or less. The root parent node contains a bubble representing a value highlighted in orange. The value projects down directly to four leaves and one intermediate component in the tree, which are all highlighted in orange. None of the other intermediate components are highlighted.">
 
-Using context in distant children
+Sử dụng context trong những component con xa
 
 </Diagram>
 
 </DiagramGroup>
 
-### Step 1: Create the context {/*step-1-create-the-context*/}
+### Bước 1: Tạo context {/*step-1-create-the-context*/}
 
-First, you need to create the context. You'll need to **export it from a file** so that your components can use it:
+Đầu tiên, bạn cần tạo context. Bạn sẽ cần **export nó từ một file** để các component của bạn có thể sử dụng nó:
 
 <Sandpack>
 
@@ -308,18 +308,18 @@ export const LevelContext = createContext(1);
 
 </Sandpack>
 
-The only argument to `createContext` is the _default_ value. Here, `1` refers to the biggest heading level, but you could pass any kind of value (even an object). You will see the significance of the default value in the next step.
+Tham số duy nhất của `createContext` là giá trị _mặc định_. Ở đây, `1` tham chiếu tới level heading lớn nhất, nhưng bạn có thể truyền bất kỳ loại giá trị nào (thậm chí là một object). Bạn sẽ thấy ý nghĩa của giá trị mặc định trong bước tiếp theo.
 
-### Step 2: Use the context {/*step-2-use-the-context*/}
+### Bước 2: Sử dụng context {/*step-2-use-the-context*/}
 
-Import the `useContext` Hook from React and your context:
+Import Hook `useContext` từ React và context của bạn:
 
 ```js
 import { useContext } from 'react';
 import { LevelContext } from './LevelContext.js';
 ```
 
-Currently, the `Heading` component reads `level` from props:
+Hiện tại, component `Heading` đọc `level` từ props:
 
 ```js
 export default function Heading({ level, children }) {
@@ -327,7 +327,7 @@ export default function Heading({ level, children }) {
 }
 ```
 
-Instead, remove the `level` prop and read the value from the context you just imported, `LevelContext`:
+Thay vào đó, hãy xóa prop `level` và đọc giá trị từ context bạn vừa import, `LevelContext`:
 
 ```js {2}
 export default function Heading({ children }) {
@@ -336,9 +336,9 @@ export default function Heading({ children }) {
 }
 ```
 
-`useContext` is a Hook. Just like `useState` and `useReducer`, you can only call a Hook immediately inside a React component (not inside loops or conditions). **`useContext` tells React that the `Heading` component wants to read the `LevelContext`.**
+`useContext` là một Hook. Giống như `useState` và `useReducer`, bạn chỉ có thể gọi Hook ngay bên trong component React (không bên trong vòng lặp hoặc điều kiện). **`useContext` thông báo cho React rằng component `Heading` muốn đọc `LevelContext`.**
 
-Now that the `Heading` component doesn't have a `level` prop, you don't need to pass the level prop to `Heading` in your JSX like this anymore:
+Bây giờ component `Heading` không có prop `level`, bạn không cần truyền prop level tới `Heading` trong JSX của bạn như thế này nữa:
 
 ```js
 <Section>
@@ -348,7 +348,7 @@ Now that the `Heading` component doesn't have a `level` prop, you don't need to 
 </Section>
 ```
 
-Update the JSX so that it's the `Section` that receives it instead:
+Cập nhật JSX để `Section` nhận nó thay vào đó:
 
 ```jsx
 <Section level={4}>
@@ -358,7 +358,7 @@ Update the JSX so that it's the `Section` that receives it instead:
 </Section>
 ```
 
-As a reminder, this is the markup that you were trying to get working:
+Như một lời nhắc, đây là markup mà bạn đang cố gắng làm cho hoạt động:
 
 <Sandpack>
 
@@ -442,13 +442,13 @@ export const LevelContext = createContext(1);
 
 </Sandpack>
 
-Notice this example doesn't quite work, yet! All the headings have the same size because **even though you're *using* the context, you have not *provided* it yet.** React doesn't know where to get it!
+Chú ý ví dụ này vẫn chưa hoạt động hoàn toàn! Tất cả các heading có cùng kích thước bởi vì **mặc dù bạn đang *sử dụng* context, bạn vẫn chưa *cung cấp* nó.** React không biết lấy nó từ đâu!
 
-If you don't provide the context, React will use the default value you've specified in the previous step. In this example, you specified `1` as the argument to `createContext`, so `useContext(LevelContext)` returns `1`, setting all those headings to `<h1>`. Let's fix this problem by having each `Section` provide its own context.
+Nếu bạn không cung cấp context, React sẽ sử dụng giá trị mặc định mà bạn đã chỉ định trong bước trước. Trong ví dụ này, bạn đã chỉ định `1` làm tham số cho `createContext`, vì vậy `useContext(LevelContext)` trả về `1`, thiết lập tất cả những heading đó thành `<h1>`. Hãy khắc phục vấn đề này bằng cách để mỗi `Section` cung cấp context riêng của nó.
 
-### Step 3: Provide the context {/*step-3-provide-the-context*/}
+### Bước 3: Cung cấp context {/*step-3-provide-the-context*/}
 
-The `Section` component currently renders its children:
+Component `Section` hiện tại render children của nó:
 
 ```js
 export default function Section({ children }) {
@@ -460,7 +460,7 @@ export default function Section({ children }) {
 }
 ```
 
-**Wrap them with a context provider** to provide the `LevelContext` to them:
+**Bọc chúng bằng context provider** để cung cấp `LevelContext` cho chúng:
 
 ```js {1,6,8}
 import { LevelContext } from './LevelContext.js';
@@ -476,7 +476,7 @@ export default function Section({ level, children }) {
 }
 ```
 
-This tells React: "if any component inside this `<Section>` asks for `LevelContext`, give them this `level`." The component will use the value of the nearest `<LevelContext>` in the UI tree above it.
+Điều này nói với React: "nếu bất kỳ component nào bên trong `<Section>` này hỏi về `LevelContext`, hãy cung cấp cho chúng `level` này." Component sẽ sử dụng giá trị của `<LevelContext>` gần nhất trong cây UI phía trên nó.
 
 <Sandpack>
 
@@ -564,15 +564,15 @@ export const LevelContext = createContext(1);
 
 </Sandpack>
 
-It's the same result as the original code, but you did not need to pass the `level` prop to each `Heading` component! Instead, it "figures out" its heading level by asking the closest `Section` above:
+Kết quả giống như code gốc, nhưng bạn không cần truyền prop `level` tới từng component `Heading`! Thay vào đó, nó "tìm ra" heading level bằng cách hỏi `Section` gần nhất phía trên:
 
-1. You pass a `level` prop to the `<Section>`.
-2. `Section` wraps its children into `<LevelContext value={level}>`.
-3. `Heading` asks the closest value of `LevelContext` above with `useContext(LevelContext)`.
+1. Bạn truyền prop `level` tới `<Section>`.
+2. `Section` bọc children của nó vào `<LevelContext value={level}>`.
+3. `Heading` hỏi giá trị gần nhất của `LevelContext` phía trên bằng `useContext(LevelContext)`.
 
-## Using and providing context from the same component {/*using-and-providing-context-from-the-same-component*/}
+## Sử dụng và cung cấp context từ cùng một component {/*using-and-providing-context-from-the-same-component*/}
 
-Currently, you still have to specify each section's `level` manually:
+Hiện tại, bạn vẫn phải chỉ định `level` của từng section thủ công:
 
 ```js
 export default function Page() {
@@ -585,7 +585,7 @@ export default function Page() {
           ...
 ```
 
-Since context lets you read information from a component above, each `Section` could read the `level` from the `Section` above, and pass `level + 1` down automatically. Here is how you could do it:
+Vì context cho phép bạn đọc thông tin từ component phía trên, mỗi `Section` có thể đọc `level` từ `Section` phía trên, và truyền `level + 1` xuống tự động. Đây là cách bạn có thể làm điều đó:
 
 ```js src/Section.js {5,8}
 import { useContext } from 'react';
@@ -603,7 +603,7 @@ export default function Section({ children }) {
 }
 ```
 
-With this change, you don't need to pass the `level` prop *either* to the `<Section>` or to the `<Heading>`:
+Với thay đổi này, bạn không cần truyền prop `level` *cho cả* `<Section>` *lẫn* `<Heading>`:
 
 <Sandpack>
 
@@ -695,19 +695,19 @@ export const LevelContext = createContext(0);
 
 </Sandpack>
 
-Now both `Heading` and `Section` read the `LevelContext` to figure out how "deep" they are. And the `Section` wraps its children into the `LevelContext` to specify that anything inside of it is at a "deeper" level.
+Bây giờ cả `Heading` và `Section` đều đọc `LevelContext` để tìm hiểu chúng "sâu" đến mức nào. Và `Section` bọc children của nó vào `LevelContext` để chỉ định rằng bất cứ thứ gì bên trong nó đều ở level "sâu hơn".
 
 <Note>
 
-This example uses heading levels because they show visually how nested components can override context. But context is useful for many other use cases too. You can pass down any information needed by the entire subtree: the current color theme, the currently logged in user, and so on.
+Ví dụ này sử dụng heading level bởi vì chúng hiển thị trực quan cách các component lồng nhau có thể ghi đè context. Nhưng context cũng hữu ích cho nhiều trường hợp sử dụng khác. Bạn có thể truyền xuống bất kỳ thông tin nào cần thiết cho toàn bộ cây con: chủ đề màu hiện tại, người dùng hiện đang đăng nhập, v.v.
 
 </Note>
 
-## Context passes through intermediate components {/*context-passes-through-intermediate-components*/}
+## Context truyền qua các component trung gian {/*context-passes-through-intermediate-components*/}
 
-You can insert as many components as you like between the component that provides context and the one that uses it. This includes both built-in components like `<div>` and components you might build yourself.
+Bạn có thể chèn bao nhiêu component tùy thích giữa component cung cấp context và component sử dụng nó. Điều này bao gồm cả những component có sẵn như `<div>` và những component bạn có thể tự xây dựng.
 
-In this example, the same `Post` component (with a dashed border) is rendered at two different nesting levels. Notice that the `<Heading>` inside of it gets its level automatically from the closest `<Section>`:
+Trong ví dụ này, cùng một component `Post` (với đường viền nét đứt) được render ở hai level lồng nhau khác nhau. Chú ý rằng `<Heading>` bên trong nó tự động lấy level từ `<Section>` gần nhất:
 
 <Sandpack>
 
@@ -832,58 +832,58 @@ export const LevelContext = createContext(0);
 
 </Sandpack>
 
-You didn't do anything special for this to work. A `Section` specifies the context for the tree inside it, so you can insert a `<Heading>` anywhere, and it will have the correct size. Try it in the sandbox above!
+Bạn không làm gì đặc biệt để điều này hoạt động. `Section` chỉ định context cho cây bên trong nó, vì vậy bạn có thể chèn `<Heading>` bất cứ đâu, và nó sẽ có kích thước chính xác. Hãy thử trong sandbox phía trên!
 
-**Context lets you write components that "adapt to their surroundings" and display themselves differently depending on _where_ (or, in other words, _in which context_) they are being rendered.**
+**Context cho phép bạn viết các component "thích ứng với môi trường xung quanh" và hiển thị khác nhau tùy thuộc vào *nơi* (hay nói cách khác, *trong context nào*) chúng được render.**
 
-How context works might remind you of [CSS property inheritance.](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance) In CSS, you can specify `color: blue` for a `<div>`, and any DOM node inside of it, no matter how deep, will inherit that color unless some other DOM node in the middle overrides it with `color: green`. Similarly, in React, the only way to override some context coming from above is to wrap children into a context provider with a different value.
+Cách context hoạt động có thể nhắc bạn nhớ tới [kế thừa thuộc tính CSS.](https://developer.mozilla.org/en-US/docs/Web/CSS/inheritance) Trong CSS, bạn có thể chỉ định `color: blue` cho một `<div>`, và bất kỳ DOM node nào bên trong nó, dù sâu đến đâu, sẽ kế thừa màu đó trừ khi một DOM node khác ở giữa ghi đè nó bằng `color: green`. Tương tự, trong React, cách duy nhất để ghi đè một context nào đó từ phía trên là bọc children vào context provider với giá trị khác.
 
-In CSS, different properties like `color` and `background-color` don't override each other. You can set all  `<div>`'s `color` to red without impacting `background-color`. Similarly, **different React contexts don't override each other.** Each context that you make with `createContext()` is completely separate from other ones, and ties together components using and providing *that particular* context. One component may use or provide many different contexts without a problem.
+Trong CSS, các thuộc tính khác nhau như `color` và `background-color` không ghi đè lẫn nhau. Bạn có thể thiết lập `color` của tất cả `<div>` thành màu đỏ mà không ảnh hưởng đến `background-color`. Tương tự, **các context React khác nhau không ghi đè lẫn nhau.** Mỗi context mà bạn tạo bằng `createContext()` hoàn toàn tách biệt với những cái khác, và liên kết các component sử dụng và cung cấp *context cụ thể đó*. Một component có thể sử dụng hoặc cung cấp nhiều context khác nhau mà không gặp vấn đề gì.
 
-## Before you use context {/*before-you-use-context*/}
+## Trước khi bạn sử dụng context {/*before-you-use-context*/}
 
-Context is very tempting to use! However, this also means it's too easy to overuse it. **Just because you need to pass some props several levels deep doesn't mean you should put that information into context.**
+Context rất hấp dẫn để sử dụng! Tuy nhiên, điều này cũng có nghĩa là rất dễ lạm dụng nó. **Chỉ vì bạn cần truyền một số props sâu qua nhiều level không có nghĩa là bạn nên đưa thông tin đó vào context.**
 
-Here's a few alternatives you should consider before using context:
+Dưới đây là một số phương án thay thế bạn nên cân nhắc trước khi sử dụng context:
 
-1. **Start by [passing props.](/learn/passing-props-to-a-component)** If your components are not trivial, it's not unusual to pass a dozen props down through a dozen components. It may feel like a slog, but it makes it very clear which components use which data! The person maintaining your code will be glad you've made the data flow explicit with props.
-2. **Extract components and [pass JSX as `children`](/learn/passing-props-to-a-component#passing-jsx-as-children) to them.** If you pass some data through many layers of intermediate components that don't use that data (and only pass it further down), this often means that you forgot to extract some components along the way. For example, maybe you pass data props like `posts` to visual components that don't use them directly, like `<Layout posts={posts} />`. Instead, make `Layout` take `children` as a prop, and render `<Layout><Posts posts={posts} /></Layout>`. This reduces the number of layers between the component specifying the data and the one that needs it.
+1. **Bắt đầu bằng [truyền props.](/learn/passing-props-to-a-component)** Nếu các component của bạn không quá phức tạp, việc truyền một tá props qua một tá component là điều không bất thường. Có thể cảm thấy cực nhọc, nhưng nó làm cho việc component nào sử dụng dữ liệu nào trở nên rất rõ ràng! Người duy trì code của bạn sẽ rất vui khi bạn đã làm luồng dữ liệu trở nên rõ ràng bằng props.
+2. **Trích xuất component và [truyền JSX làm `children`](/learn/passing-props-to-a-component#passing-jsx-as-children) cho chúng.** Nếu bạn truyền một số dữ liệu qua nhiều layer của những component trung gian không sử dụng dữ liệu đó (và chỉ truyền nó xuống), điều này thường có nghĩa là bạn đã quên trích xuất một số component dọc đường. Ví dụ, có thể bạn truyền data props như `posts` tới những component trực quan không sử dụng chúng trực tiếp, như `<Layout posts={posts} />`. Thay vào đó, hãy để `Layout` nhận `children` làm prop, và render `<Layout><Posts posts={posts} /></Layout>`. Điều này giảm số lượng layer giữa component chỉ định dữ liệu và component cần nó.
 
-If neither of these approaches works well for you, consider context.
+Nếu cả hai cách tiếp cận này đều không phù hợp với bạn, hãy cân nhắc context.
 
-## Use cases for context {/*use-cases-for-context*/}
+## Các trường hợp sử dụng cho context {/*use-cases-for-context*/}
 
-* **Theming:** If your app lets the user change its appearance (e.g. dark mode), you can put a context provider at the top of your app, and use that context in components that need to adjust their visual look.
-* **Current account:** Many components might need to know the currently logged in user. Putting it in context makes it convenient to read it anywhere in the tree. Some apps also let you operate multiple accounts at the same time (e.g. to leave a comment as a different user). In those cases, it can be convenient to wrap a part of the UI into a nested provider with a different current account value.
-* **Routing:** Most routing solutions use context internally to hold the current route. This is how every link "knows" whether it's active or not. If you build your own router, you might want to do it too.
-* **Managing state:** As your app grows, you might end up with a lot of state closer to the top of your app. Many distant components below may want to change it. It is common to [use a reducer together with context](/learn/scaling-up-with-reducer-and-context) to manage complex state and pass it down to distant components without too much hassle.
+- **Theming:** Nếu ứng dụng của bạn cho phép người dùng thay đổi giao diện (ví dụ như dark mode), bạn có thể đặt context provider ở đầu ứng dụng, và sử dụng context đó trong những component cần điều chỉnh giao diện trực quan.
+- **Tài khoản hiện tại:** Nhiều component có thể cần biết người dùng hiện đang đăng nhập. Đưa nó vào context giúp việc đọc nó ở bất cứ đâu trong cây trở nên tiện lợi. Một số ứng dụng cũng cho phép bạn vận hành nhiều tài khoản cùng lúc (ví dụ để bình luận dưới tư cách người dùng khác). Trong những trường hợp đó, việc bọc một phần UI vào provider lồng nhau với giá trị tài khoản hiện tại khác có thể rất tiện lợi.
+- **Routing:** Hầu hết các giải pháp routing sử dụng context bên trong để giữ route hiện tại. Đây là cách mỗi link "biết" nó có đang hoạt động hay không. Nếu bạn xây dựng router riêng, bạn có thể muốn làm điều đó cũng vậy.
+- **Quản lý state:** Khi ứng dụng của bạn phát triển, bạn có thể kết thúc với rất nhiều state gần đầu ứng dụng. Nhiều component xa ở bên dưới có thể muốn thay đổi nó. Việc [sử dụng reducer cùng với context](/learn/scaling-up-with-reducer-and-context) để quản lý state phức tạp và truyền nó xuống những component xa mà không gặp quá nhiều rắc rối là điều phổ biến.
   
-Context is not limited to static values. If you pass a different value on the next render, React will update all the components reading it below! This is why context is often used in combination with state.
+Context không giới hạn ở những giá trị tĩnh. Nếu bạn truyền giá trị khác vào lần render tiếp theo, React sẽ cập nhật tất cả các component đang đọc nó bên dưới! Đây là lý do tại sao context thường được sử dụng kết hợp với state.
 
-In general, if some information is needed by distant components in different parts of the tree, it's a good indication that context will help you.
+Nhìn chung, nếu một số thông tin cần thiết cho những component xa trong các phần khác nhau của cây, đó là dấu hiệu tốt cho thấy context sẽ giúp ích cho bạn.
 
 <Recap>
 
-* Context lets a component provide some information to the entire tree below it.
-* To pass context:
-  1. Create and export it with `export const MyContext = createContext(defaultValue)`.
-  2. Pass it to the `useContext(MyContext)` Hook to read it in any child component, no matter how deep.
-  3. Wrap children into `<MyContext value={...}>` to provide it from a parent.
-* Context passes through any components in the middle.
-* Context lets you write components that "adapt to their surroundings".
-* Before you use context, try passing props or passing JSX as `children`.
+- Context cho phép component cung cấp một số thông tin cho toàn bộ cây bên dưới nó.
+- Để truyền context:
+  1. Tạo và export nó bằng `export const MyContext = createContext(defaultValue)`.
+  2. Truyền nó tới Hook `useContext(MyContext)` để đọc nó trong bất kỳ component con nào, dù sâu đến đâu.
+  3. Bọc children vào `<MyContext value={...}>` để cung cấp nó từ component cha.
+- Context truyền qua bất kỳ component nào ở giữa.
+- Context cho phép bạn viết các component "thích ứng với môi trường xung quanh".
+- Trước khi sử dụng context, hãy thử truyền props hoặc truyền JSX làm `children`.
 
 </Recap>
 
 <Challenges>
 
-#### Replace prop drilling with context {/*replace-prop-drilling-with-context*/}
+#### Thay thế prop drilling bằng context {/*replace-prop-drilling-with-context*/}
 
-In this example, toggling the checkbox changes the `imageSize` prop passed to each `<PlaceImage>`. The checkbox state is held in the top-level `App` component, but each `<PlaceImage>` needs to be aware of it.
+Trong ví dụ này, việc toggle checkbox thay đổi prop `imageSize` được truyền tới mỗi `<PlaceImage>`. Trạng thái checkbox được giữ trong component `App` cấp cao nhất, nhưng mỗi `<PlaceImage>` cần biết về nó.
 
-Currently, `App` passes `imageSize` to `List`, which passes it to each `Place`, which passes it to the `PlaceImage`. Remove the `imageSize` prop, and instead pass it from the `App` component directly to `PlaceImage`.
+Hiện tại, `App` truyền `imageSize` tới `List`, sau đó truyền nó tới mỗi `Place`, rồi truyền nó tới `PlaceImage`. Hãy loại bỏ prop `imageSize`, và thay vào đó truyền nó từ component `App` trực tiếp tới `PlaceImage`.
 
-You can declare context in `Context.js`.
+Bạn có thể khai báo context trong `Context.js`.
 
 <Sandpack>
 
@@ -1020,9 +1020,9 @@ li {
 
 <Solution>
 
-Remove `imageSize` prop from all the components.
+Loại bỏ prop `imageSize` từ tất cả các component.
 
-Create and export `ImageSizeContext` from `Context.js`. Then wrap the List into `<ImageSizeContext value={imageSize}>` to pass the value down, and `useContext(ImageSizeContext)` to read it in the `PlaceImage`:
+Tạo và export `ImageSizeContext` từ `Context.js`. Sau đó bọc List vào `<ImageSizeContext value={imageSize}>` để truyền giá trị xuống, và `useContext(ImageSizeContext)` để đọc nó trong `PlaceImage`:
 
 <Sandpack>
 
@@ -1157,7 +1157,7 @@ li {
 
 </Sandpack>
 
-Note how components in the middle don't need to pass `imageSize` anymore.
+Lưu ý cách những component ở giữa không cần truyền `imageSize` nữa.
 
 </Solution>
 
