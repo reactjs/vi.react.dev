@@ -58,6 +58,7 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 * [Manchester](https://www.meetup.com/Manchester-React-User-Group/)
 * [React.JS Girls London](https://www.meetup.com/ReactJS-Girls-London/)
 * [React Advanced London](https://guild.host/react-advanced-london)
+* [React Native Liverpool](https://www.meetup.com/react-native-liverpool/)
 * [React Native London](https://guild.host/RNLDN)
 
 ## Phần Lan {/*finland*/}
@@ -137,7 +138,14 @@ Bạn đã có React.js meetup tại quốc gia của bạn chưa? Thêm nó và
 ## Bồ Đào Nha {/*portugal*/}
 * [Lisbon](https://www.meetup.com/JavaScript-Lisbon/)
 
+<<<<<<< HEAD
 ## Tây Ban Nha {/*spain*/}
+=======
+## Scotland (UK) {/*scotland-uk*/}
+* [Edinburgh](https://www.meetup.com/react-edinburgh/)
+
+## Spain {/*spain*/}
+>>>>>>> d34c6a2c6fa49fc6f64b07aa4fa979d86d41c4e8
 * [Barcelona](https://www.meetup.com/ReactJS-Barcelona/)
 
 ## Sri Lanka {/*sri-lanka*/}
