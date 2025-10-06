@@ -1,21 +1,6 @@
 ---
 title: <Activity>
-version: experimental
 ---
-
-<Experimental>
-
-**This API is experimental and is not available in a stable version of React yet.**
-
-You can try it by upgrading React packages to the most recent experimental version:
-
-- `react@experimental`
-- `react-dom@experimental`
-- `eslint-plugin-react-hooks@experimental`
-
-Experimental versions of React may contain bugs. Don't use them in production.
-
-</Experimental>
 
 <Intro>
 
@@ -51,7 +36,7 @@ While hidden, children still re-render in response to new props, albeit at a low
 
 When the boundary becomes <CodeStep step={3}>visible</CodeStep> again, React will reveal the children with their previous state restored, and re-create their Effects.
 
-In this way, Activity can thought of as a mechanism for rendering "background activity". Rather than completely discarding content that's likely to become visible again, you can use Activity to maintain and restore that content's UI and internal state, while ensuring hidden content has no unwanted side effects.
+In this way, Activity can be thought of as a mechanism for rendering "background activity". Rather than completely discarding content that's likely to become visible again, you can use Activity to maintain and restore that content's UI and internal state, while ensuring that your hidden content has no unwanted side effects.
 
 [See more examples below.](#usage)
 
@@ -62,7 +47,7 @@ In this way, Activity can thought of as a mechanism for rendering "background ac
 
 #### Caveats {/*caveats*/}
 
-- When used with `<ViewTransition>`, hidden activities that reveal in a transition will activate an "enter" animation. Visible Activities hidden in a transition will activate an "exit" animation.
+- If an Activity is rendered inside of a [ViewTransition](/reference/react/ViewTransition), and it becomes visible as a result of an update caused by [startTransition](/reference/react/startTransition), it will activate the ViewTransition's `enter` animation. If it becomes hidden, it will activate its `exit` animation.
 
 ---
 
@@ -70,7 +55,7 @@ In this way, Activity can thought of as a mechanism for rendering "background ac
 
 ### Restoring the state of hidden components {/*restoring-the-state-of-hidden-components*/}
 
-Typically in React, when you want to conditionally show or hide a component, you mount and unmount it:
+In React, when you want to conditionally show or hide a component, you typically mount or unmount it based on that condition:
 
 ```jsx
 {isShowingSidebar && (
@@ -88,11 +73,11 @@ When you hide a component using an Activity boundary instead, React will "save" 
 </Activity>
 ```
 
-This makes it possible to restore components to their previous state.
+This makes it possible to hide and then later restore components in the state they were previously in.
 
-The following example has a sidebar with an expandable section – you can press "Overview" to reveal the three subitems below it. The main app area also has a button that hides and shows the sidebar.
+The following example has a sidebar with an expandable section. You can press "Overview" to reveal the three subitems below it. The main app area also has a button that hides and shows the sidebar.
 
-Try expanding the Overview section, then toggling the sidebar closed and open:
+Try expanding the Overview section, and then toggling the sidebar closed then open:
 
 <Sandpack>
 
@@ -179,23 +164,6 @@ h1 {
 }
 ```
 
-```json package.json hidden
-{
-  "dependencies": {
-    "react": "experimental",
-    "react-dom": "experimental",
-    "react-scripts": "latest",
-    "toastify-js": "1.12.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
-}
-```
-
 </Sandpack>
 
 The Overview section always starts out collapsed. Because we unmount the sidebar when `isShowingSidebar` flips to `false`, all its internal state is lost.
@@ -221,7 +189,8 @@ and check out the new behavior:
 <Sandpack>
 
 ```js src/App.js active
-import { unstable_Activity as Activity, useState } from 'react';
+import { useState } from 'react'; import { unstable_Activity, Activity as ActivityStable} from 'react'; let Activity = ActivityStable ?? unstable_Activity;
+
 import Sidebar from './Sidebar.js';
 
 export default function App() {
@@ -300,23 +269,6 @@ h1 {
 }
 .indicator.down {
   rotate: 180deg;
-}
-```
-
-```json package.json hidden
-{
-  "dependencies": {
-    "react": "experimental",
-    "react-dom": "experimental",
-    "react-scripts": "latest",
-    "toastify-js": "1.12.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
 }
 ```
 
@@ -414,23 +366,6 @@ b { display: inline-block; margin-right: 10px; }
 .pending { color: #777; }
 ```
 
-```json package.json hidden
-{
-  "dependencies": {
-    "react": "experimental",
-    "react-dom": "experimental",
-    "react-scripts": "latest",
-    "toastify-js": "1.12.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
-}
-```
-
 </Sandpack>
 
 This is because we're fully unmounting `Contact` in `App`. When the Contact tab unmounts, the `<textarea>` element's internal DOM state is lost.
@@ -440,7 +375,7 @@ If we switch to using an Activity boundary to show and hide the active tab, we c
 <Sandpack>
 
 ```js src/App.js active
-import { useState, unstable_Activity as Activity } from 'react';
+import { useState } from 'react'; import { unstable_Activity, Activity as ActivityStable} from 'react'; let Activity = ActivityStable ?? unstable_Activity;
 import TabButton from './TabButton.js';
 import Home from './Home.js';
 import Contact from './Contact.js';
@@ -521,23 +456,6 @@ body { height: 275px; }
 button { margin-right: 10px }
 b { display: inline-block; margin-right: 10px; }
 .pending { color: #777; }
-```
-
-```json package.json hidden
-{
-  "dependencies": {
-    "react": "experimental",
-    "react-dom": "experimental",
-    "react-scripts": "latest",
-    "toastify-js": "1.12.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
-}
 ```
 
 </Sandpack>
@@ -690,23 +608,6 @@ b { display: inline-block; margin-right: 10px; }
 video { width: 300px; margin-top: 10px; aspect-ratio: 16/9; }
 ```
 
-```json package.json hidden
-{
-  "dependencies": {
-    "react": "experimental",
-    "react-dom": "experimental",
-    "react-scripts": "latest",
-    "toastify-js": "1.12.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
-}
-```
-
 </Sandpack>
 
 This is because `App` doesn't mount `Posts` until its tab is active.
@@ -718,7 +619,7 @@ Try clicking the Posts tab now:
 <Sandpack>
 
 ```js src/App.js
-import { useState, Suspense, unstable_Activity as Activity } from 'react';
+import { useState, Suspense } from 'react';  import { unstable_Activity, Activity as ActivityStable} from 'react'; let Activity = ActivityStable ?? unstable_Activity;
 import TabButton from './TabButton.js';
 import Home from './Home.js';
 import Posts from './Posts.js';
@@ -841,23 +742,6 @@ button { margin-right: 10px }
 b { display: inline-block; margin-right: 10px; }
 .pending { color: #777; }
 video { width: 300px; margin-top: 10px; aspect-ratio: 16/9; }
-```
-
-```json package.json hidden
-{
-  "dependencies": {
-    "react": "experimental",
-    "react-dom": "experimental",
-    "react-scripts": "latest",
-    "toastify-js": "1.12.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
-}
 ```
 
 </Sandpack>
@@ -1112,23 +996,6 @@ b { display: inline-block; margin-right: 10px; }
 video { width: 300px; margin-top: 10px; aspect-ratio: 16/9; }
 ```
 
-```json package.json hidden
-{
-  "dependencies": {
-    "react": "experimental",
-    "react-dom": "experimental",
-    "react-scripts": "latest",
-    "toastify-js": "1.12.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
-}
-```
-
 </Sandpack>
 
 The video stops playing as expected.
@@ -1142,7 +1009,7 @@ Let's update `App` to hide the inactive tab with a hidden Activity boundary inst
 <Sandpack>
 
 ```js src/App.js active
-import { useState, unstable_Activity as Activity } from 'react';
+import { useState } from 'react'; import { unstable_Activity, Activity as ActivityStable} from 'react'; let Activity = ActivityStable ?? unstable_Activity;
 import TabButton from './TabButton.js';
 import Home from './Home.js';
 import Video from './Video.js';
@@ -1222,23 +1089,6 @@ b { display: inline-block; margin-right: 10px; }
 video { width: 300px; margin-top: 10px; aspect-ratio: 16/9; }
 ```
 
-```json package.json hidden
-{
-  "dependencies": {
-    "react": "experimental",
-    "react-dom": "experimental",
-    "react-scripts": "latest",
-    "toastify-js": "1.12.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
-}
-```
-
 </Sandpack>
 
 Whoops! The video and audio continue to play even after it's been hidden, because the tab's `<video>` element is still in the DOM.
@@ -1276,7 +1126,7 @@ Let's see the new behavior. Try playing the video, switching to the Home tab, th
 <Sandpack>
 
 ```js src/App.js active
-import { useState, unstable_Activity as Activity } from 'react';
+import { useState } from 'react';  import { unstable_Activity, Activity as ActivityStable} from 'react'; let Activity = ActivityStable ?? unstable_Activity;
 import TabButton from './TabButton.js';
 import Home from './Home.js';
 import Video from './Video.js';
@@ -1367,23 +1217,6 @@ button { margin-right: 10px }
 b { display: inline-block; margin-right: 10px; }
 .pending { color: #777; }
 video { width: 300px; margin-top: 10px; aspect-ratio: 16/9; }
-```
-
-```json package.json hidden
-{
-  "dependencies": {
-    "react": "experimental",
-    "react-dom": "experimental",
-    "react-scripts": "latest",
-    "toastify-js": "1.12.0"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
-  }
-}
 ```
 
 </Sandpack>
