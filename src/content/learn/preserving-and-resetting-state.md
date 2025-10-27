@@ -704,7 +704,7 @@ Theo nguyên tắc chung, **nếu bạn muốn bảo tồn state giữa các l�
 
 <Sandpack>
 
-```js
+```js {expectedErrors: {'react-compiler': [7]}}
 import { useState } from 'react';
 
 export default function MyComponent() {
