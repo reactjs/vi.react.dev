@@ -1,31 +1,31 @@
 ---
-title: 'Tutorial: Tic-Tac-Toe'
+title: 'Hướng dẫn: Tic-Tac-Toe'
 ---
 
 <Intro>
 
-You will build a small tic-tac-toe game during this tutorial. This tutorial does not assume any existing React knowledge. The techniques you'll learn in the tutorial are fundamental to building any React app, and fully understanding it will give you a deep understanding of React.
+Trong hướng dẫn này, bạn sẽ xây dựng một trò chơi tic-tac-toe nhỏ. Hướng dẫn này không yêu cầu kiến thức React sẵn có. Các kỹ thuật bạn sẽ học trong hướng dẫn là nền tảng để xây dựng bất kỳ ứng dụng React nào, và việc hiểu đầy đủ nó sẽ giúp bạn có hiểu biết sâu sắc về React.
 
 </Intro>
 
 <Note>
 
-This tutorial is designed for people who prefer to **learn by doing** and want to quickly try making something tangible. If you prefer learning each concept step by step, start with [Describing the UI.](/learn/describing-the-ui)
+Hướng dẫn này được thiết kế cho những người thích **học qua thực hành** và muốn nhanh chóng thử làm một cái gì đó cụ thể. Nếu bạn thích học từng khái niệm từng bước một, hãy bắt đầu với [Mô tả UI.](/learn/describing-the-ui)
 
 </Note>
 
-The tutorial is divided into several sections:
+Hướng dẫn được chia thành nhiều phần:
 
-- [Setup for the tutorial](#setup-for-the-tutorial) will give you **a starting point** to follow the tutorial.
-- [Overview](#overview) will teach you **the fundamentals** of React: components, props, and state.
-- [Completing the game](#completing-the-game) will teach you **the most common techniques** in React development.
-- [Adding time travel](#adding-time-travel) will give you **a deeper insight** into the unique strengths of React.
+- [Thiết lập cho hướng dẫn](#setup-for-the-tutorial) sẽ cung cấp cho bạn **điểm bắt đầu** để theo dõi hướng dẫn.
+- [Tổng quan](#overview) sẽ dạy bạn **những điều cơ bản** của React: components, props, và state.
+- [Hoàn thiện trò chơi](#completing-the-game) sẽ dạy bạn **các kỹ thuật phổ biến nhất** trong phát triển React.
+- [Thêm tính năng du hành thời gian](#adding-time-travel) sẽ cho bạn **cái nhìn sâu sắc hơn** về những điểm mạnh độc đáo của React.
 
-### What are you building? {/*what-are-you-building*/}
+### Bạn sẽ xây dựng gì? {/*what-are-you-building*/}
 
-In this tutorial, you'll build an interactive tic-tac-toe game with React.
+Trong hướng dẫn này, bạn sẽ xây dựng một trò chơi tic-tac-toe tương tác với React.
 
-You can see what it will look like when you're finished here:
+Bạn có thể xem trò chơi sẽ trông như thế nào khi hoàn thành ở đây:
 
 <Sandpack>
 
@@ -194,15 +194,15 @@ body {
 
 </Sandpack>
 
-If the code doesn't make sense to you yet, or if you are unfamiliar with the code's syntax, don't worry! The goal of this tutorial is to help you understand React and its syntax.
+Nếu mã code chưa có ý nghĩa với bạn, hoặc nếu bạn chưa quen với cú pháp của code, đừng lo lắng! Mục tiêu của hướng dẫn này là giúp bạn hiểu React và cú pháp của nó.
 
-We recommend that you check out the tic-tac-toe game above before continuing with the tutorial. One of the features that you'll notice is that there is a numbered list to the right of the game's board. This list gives you a history of all of the moves that have occurred in the game, and it is updated as the game progresses.
+Chúng tôi khuyên bạn nên xem qua trò chơi tic-tac-toe ở trên trước khi tiếp tục với hướng dẫn. Một trong những tính năng mà bạn sẽ nhận thấy là có một danh sách đánh số ở bên phải bảng chơi. Danh sách này cung cấp lịch sử tất cả các nước đi đã xảy ra trong trò chơi, và nó được cập nhật khi trò chơi diễn ra.
 
-Once you've played around with the finished tic-tac-toe game, keep scrolling. You'll start with a simpler template in this tutorial. Our next step is to set you up so that you can start building the game.
+Sau khi bạn đã chơi thử với trò chơi tic-tac-toe đã hoàn thành, hãy tiếp tục cuộn xuống. Bạn sẽ bắt đầu với một template đơn giản hơn trong hướng dẫn này. Bước tiếp theo của chúng tôi là thiết lập để bạn có thể bắt đầu xây dựng trò chơi.
 
-## Setup for the tutorial {/*setup-for-the-tutorial*/}
+## Thiết lập cho hướng dẫn {/*setup-for-the-tutorial*/}
 
-In the live code editor below, click **Fork** in the top-right corner to open the editor in a new tab using the website CodeSandbox. CodeSandbox lets you write code in your browser and preview how your users will see the app you've created. The new tab should display an empty square and the starter code for this tutorial.
+Trong trình soạn thảo code trực tiếp bên dưới, nhấp vào **Fork** ở góc trên bên phải để mở trình soạn thảo trong tab mới sử dụng trang web CodeSandbox. CodeSandbox cho phép bạn viết code trong trình duyệt và xem trước cách người dùng sẽ thấy ứng dụng mà bạn đã tạo. Tab mới sẽ hiển thị một ô vuông trống và mã code khởi đầu cho hướng dẫn này.
 
 <Sandpack>
 
@@ -261,33 +261,33 @@ body {
 
 <Note>
 
-You can also follow this tutorial using your local development environment. To do this, you need to:
+Bạn cũng có thể theo dõi hướng dẫn này bằng cách sử dụng môi trường phát triển local của mình. Để làm điều này, bạn cần:
 
-1. Install [Node.js](https://nodejs.org/en/)
-1. In the CodeSandbox tab you opened earlier, press the top-left corner button to open the menu, and then choose **Download Sandbox** in that menu to download an archive of the files locally
-1. Unzip the archive, then open a terminal and `cd` to the directory you unzipped
-1. Install the dependencies with `npm install`
-1. Run `npm start` to start a local server and follow the prompts to view the code running in a browser
+1. Cài đặt [Node.js](https://nodejs.org/en/)
+1. Trong tab CodeSandbox mà bạn đã mở trước đó, nhấn nút ở góc trên bên trái để mở menu, sau đó chọn **Download Sandbox** trong menu đó để tải xuống một file nén của các file về máy local
+1. Giải nén file đó, sau đó mở terminal và `cd` vào thư mục bạn đã giải nén
+1. Cài đặt các dependencies bằng `npm install`
+1. Chạy `npm start` để khởi động server local và làm theo các hướng dẫn để xem code chạy trong trình duyệt
 
-If you get stuck, don't let this stop you! Follow along online instead and try a local setup again later.
+Nếu bạn gặp khó khăn, đừng để điều này làm bạn dừng lại! Thay vào đó, hãy tiếp tục theo dõi trực tuyến và thử thiết lập local lại sau.
 
 </Note>
 
-## Overview {/*overview*/}
+## Tổng quan {/*overview*/}
 
-Now that you're set up, let's get an overview of React!
+Bây giờ bạn đã thiết lập xong, hãy tìm hiểu tổng quan về React!
 
-### Inspecting the starter code {/*inspecting-the-starter-code*/}
+### Kiểm tra mã code khởi đầu {/*inspecting-the-starter-code*/}
 
-In CodeSandbox you'll see three main sections:
+Trong CodeSandbox, bạn sẽ thấy ba phần chính:
 
 ![CodeSandbox with starter code](../images/tutorial/react-starter-code-codesandbox.png)
 
-1. The _Files_ section with a list of files like `App.js`, `index.js`, `styles.css` and a folder called `public`
-1. The _code editor_ where you'll see the source code of your selected file
-1. The _browser_ section where you'll see how the code you've written will be displayed
+1. Phần _Files_ với danh sách các file như `App.js`, `index.js`, `styles.css` và một thư mục có tên `public`
+1. Trình _soạn thảo code_ nơi bạn sẽ thấy mã nguồn của file bạn đã chọn
+1. Phần _browser_ nơi bạn sẽ thấy cách code bạn đã viết sẽ được hiển thị
 
-The `App.js` file should be selected in the _Files_ section. The contents of that file in the _code editor_ should be:
+File `App.js` nên được chọn trong phần _Files_. Nội dung của file đó trong trình _soạn thảo code_ sẽ là:
 
 ```jsx
 export default function Square() {
@@ -295,15 +295,15 @@ export default function Square() {
 }
 ```
 
-The _browser_ section should be displaying a square with an X in it like this:
+Phần _browser_ nên hiển thị một ô vuông có chữ X bên trong như sau:
 
 ![x-filled square](../images/tutorial/x-filled-square.png)
 
-Now let's have a look at the files in the starter code.
+Bây giờ hãy xem các file trong mã code khởi đầu.
 
 #### `App.js` {/*appjs*/}
 
-The code in `App.js` creates a _component_. In React, a component is a piece of reusable code that represents a part of a user interface. Components are used to render, manage, and update the UI elements in your application. Let's look at the component line by line to see what's going on:
+Mã code trong `App.js` tạo ra một _component_. Trong React, một component là một đoạn code có thể tái sử dụng đại diện cho một phần của giao diện người dùng. Components được sử dụng để render, quản lý và cập nhật các phần tử UI trong ứng dụng của bạn. Hãy xem component từng dòng một để hiểu điều gì đang xảy ra:
 
 ```js {1}
 export default function Square() {
@@ -311,7 +311,7 @@ export default function Square() {
 }
 ```
 
-The first line defines a function called `Square`. The `export` JavaScript keyword makes this function accessible outside of this file. The `default` keyword tells other files using your code that it's the main function in your file.
+Dòng đầu tiên định nghĩa một function có tên `Square`. Từ khóa JavaScript `export` làm cho function này có thể truy cập được từ bên ngoài file này. Từ khóa `default` cho các file khác sử dụng code của bạn biết rằng đây là function chính trong file của bạn.
 
 ```js {2}
 export default function Square() {
@@ -319,15 +319,15 @@ export default function Square() {
 }
 ```
 
-The second line returns a button. The `return` JavaScript keyword means whatever comes after is returned as a value to the caller of the function. `<button>` is a *JSX element*. A JSX element is a combination of JavaScript code and HTML tags that describes what you'd like to display. `className="square"` is a button property or *prop* that tells CSS how to style the button. `X` is the text displayed inside of the button and `</button>` closes the JSX element to indicate that any following content shouldn't be placed inside the button.
+Dòng thứ hai trả về một button. Từ khóa JavaScript `return` có nghĩa là bất cứ thứ gì đi sau nó sẽ được trả về như một giá trị cho người gọi function. `<button>` là một *phần tử JSX*. Một phần tử JSX là sự kết hợp giữa mã JavaScript và các thẻ HTML mô tả những gì bạn muốn hiển thị. `className="square"` là một thuộc tính button hoặc *prop* cho CSS biết cách tạo kiểu cho button. `X` là văn bản được hiển thị bên trong button và `</button>` đóng phần tử JSX để chỉ ra rằng bất kỳ nội dung nào sau đó không nên được đặt bên trong button.
 
 #### `styles.css` {/*stylescss*/}
 
-Click on the file labeled `styles.css` in the _Files_ section of CodeSandbox. This file defines the styles for your React app. The first two _CSS selectors_ (`*` and `body`) define the style of large parts of your app while the `.square` selector defines the style of any component where the `className` property is set to `square`. In your code, that would match the button from your Square component in the `App.js` file.
+Nhấp vào file có nhãn `styles.css` trong phần _Files_ của CodeSandbox. File này định nghĩa các kiểu cho ứng dụng React của bạn. Hai _bộ chọn CSS_ đầu tiên (`*` và `body`) định nghĩa kiểu cho các phần lớn của ứng dụng của bạn trong khi bộ chọn `.square` định nghĩa kiểu cho bất kỳ component nào có thuộc tính `className` được đặt thành `square`. Trong code của bạn, điều đó sẽ khớp với button từ component Square của bạn trong file `App.js`.
 
 #### `index.js` {/*indexjs*/}
 
-Click on the file labeled `index.js` in the _Files_ section of CodeSandbox. You won't be editing this file during the tutorial but it is the bridge between the component you created in the `App.js` file and the web browser.
+Nhấp vào file có nhãn `index.js` trong phần _Files_ của CodeSandbox. Bạn sẽ không chỉnh sửa file này trong suốt hướng dẫn nhưng nó là cầu nối giữa component bạn đã tạo trong file `App.js` và trình duyệt web.
 
 ```jsx
 import { StrictMode } from 'react';
@@ -337,20 +337,20 @@ import './styles.css';
 import App from './App';
 ```
 
-Lines 1-5 bring all the necessary pieces together: 
+Các dòng 1-5 tập hợp tất cả các phần cần thiết lại với nhau: 
 
 * React
-* React's library to talk to web browsers (React DOM)
-* the styles for your components
-* the component you created in `App.js`.
+* Thư viện React để giao tiếp với trình duyệt web (React DOM)
+* các kiểu cho components của bạn
+* component bạn đã tạo trong `App.js`.
 
-The remainder of the file brings all the pieces together and injects the final product into `index.html` in the `public` folder.
+Phần còn lại của file tập hợp tất cả các phần lại với nhau và chèn sản phẩm cuối cùng vào `index.html` trong thư mục `public`.
 
-### Building the board {/*building-the-board*/}
+### Xây dựng bảng chơi {/*building-the-board*/}
 
-Let's get back to `App.js`. This is where you'll spend the rest of the tutorial.
+Hãy quay lại `App.js`. Đây là nơi bạn sẽ dành phần còn lại của hướng dẫn.
 
-Currently the board is only a single square, but you need nine! If you just try and copy paste your square to make two squares like this:
+Hiện tại bảng chơi chỉ có một ô vuông, nhưng bạn cần chín ô! Nếu bạn chỉ thử và sao chép dán ô vuông của mình để tạo hai ô vuông như thế này:
 
 ```js {2}
 export default function Square() {
