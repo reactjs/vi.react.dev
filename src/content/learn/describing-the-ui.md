@@ -474,7 +474,7 @@ Bằng cách chỉ viết component của bạn như các function thuần khi�
 
 <Sandpack>
 
-```js
+```js {expectedErrors: {'react-compiler': [5]}}
 let guest = 0;
 
 function Cup() {
