@@ -55,7 +55,7 @@ Trong ví dụ này, một đối tượng được lưu trữ trong state để
 
 <Sandpack>
 
-```js
+```js {expectedErrors: {'react-compiler': [11]}}
 import { useState } from 'react';
 
 export default function MovingDot() {
@@ -209,7 +209,7 @@ Những field input này không hoạt động bởi vì những hàm xử lý `
 
 <Sandpack>
 
-```js
+```js {expectedErrors: {'react-compiler': [11, 15, 19]}}
 import { useState } from 'react';
 
 export default function Form() {
@@ -836,7 +836,7 @@ Nhiệm vụ của bạn là sửa tất cả các lỗi này. Khi bạn sửa c
 
 <Sandpack>
 
-```js
+```js {expectedErrors: {'react-compiler': [11]}}
 import { useState } from 'react';
 
 export default function Scoreboard() {
@@ -992,7 +992,7 @@ Nếu có điều gì đó thay đổi một cách không mong đợi, có thể
 
 <Sandpack>
 
-```js src/App.js
+```js {expectedErrors: {'react-compiler': [17]}} src/App.js
 import { useState } from 'react';
 import Background from './Background.js';
 import Box from './Box.js';
@@ -1297,7 +1297,7 @@ select { margin-bottom: 10px; }
 
 <Sandpack>
 
-```js src/App.js
+```js {expectedErrors: {'react-compiler': [18]}} src/App.js
 import { useState } from 'react';
 import { useImmer } from 'use-immer';
 import Background from './Background.js';
