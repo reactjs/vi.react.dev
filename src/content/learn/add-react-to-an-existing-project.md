@@ -20,9 +20,15 @@ Giả sử bạn có một ứng dụng web tại `example.com` được phát t
 
 Đây là cách chúng tôi đề xuất để cài đặt:
 
+<<<<<<< HEAD
 1. **Xây dựng phần React của ứng dụng của bạn** sử dụng một trong những [nền tảng ứng dụng (framework) sử dụng React](/learn/start-a-new-react-project).
 2. **Chỉ định `/some-app` là *đường dẫn gốc*** trong cấu hình ứng dụng của bạn. (xem hướng dẫn với: [Next.js](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath), [Gatsby](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/)).
 3. **Cấu hình máy chủ của bạn hoặc một proxy** để tất cả các requests ở `/some-app/` được xử lý bởi ứng dụng React của bạn.
+=======
+1. **Build the React part of your app** using one of the [React-based frameworks](/learn/creating-a-react-app).
+2. **Specify `/some-app` as the *base path*** in your framework's configuration (here's how: [Next.js](https://nextjs.org/docs/app/api-reference/config/next-config-js/basePath), [Gatsby](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/path-prefix/)).
+3. **Configure your server or a proxy** so that all requests under `/some-app/` are handled by your React app.
+>>>>>>> 2da4f7fbd90ddc09835c9f85d61fd5644a271abc
 
 Điều này đảm bảo phần React của ứng dụng của bạn có thể được [hưởng lợi từ các tiêu chuẩn tốt nhất](/learn/build-a-react-app-from-scratch#consider-using-a-framework) đã được tích hợp sẵn trong các Frameworks đó.
 
@@ -149,7 +155,11 @@ root.render(<NavigationBar />);
 
 Chú ý là nội dung HTML ban đầu từ `index.html` được giữ nguyên, nhưng component  `NavigationBar` React của bạn giờ đây hiển thị bên trong `<nav id="navigation">` từ trong HTML của bạn. Hãy đọc [`tài liệu sử dụng createRoot`](/reference/react-dom/client/createRoot#rendering-a-page-partially-built-with-react) để tìm hiểu thêm về cách hiển thị các component React trong một trang HTML hiện có.
 
+<<<<<<< HEAD
 Khi bạn sử dụng React với một dự án tồn tại trước đó, thường thì bạn sẽ bắt đầu với những component tương tác nhỏ (như nút bấm), và sau đó dần dần "tiến lên trước" cho tới khi toàn bộ trang web của bạn được xây dựng bằng React. Khi bạn đạt đến đó, chúng tôi khuyến nghị hãy chuyển đổi sang một [React framework](/learn/start-a-new-react-project) ngay sau đó để có thể sử dụng tối ưu React.
+=======
+When you adopt React in an existing project, it's common to start with small interactive components (like buttons), and then gradually keep "moving upwards" until eventually your entire page is built with React. If you ever reach that point, we recommend migrating to [a React framework](/learn/creating-a-react-app) right after to get the most out of React.
+>>>>>>> 2da4f7fbd90ddc09835c9f85d61fd5644a271abc
 
 ## Sử dụng React Native trong một ứng dụng di động native hiện có {/*using-react-native-in-an-existing-native-mobile-app*/}
 
