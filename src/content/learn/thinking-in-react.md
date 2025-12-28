@@ -37,7 +37,13 @@ Bản thiết kế của sản phẩm như sau:
 
 Tùy thuộc vào nền tảng của bạn, bạn có thể nghĩ đến việc chia thiết kế thành các thành phần theo những cách khác nhau:
 
+<<<<<<< HEAD
 * **Programming**--sử dụng các kỹ thuật tương tự để quyết định liệu bạn có nên tạo một hàm hoặc đối tượng mới hay không. Một trong các kỹ thuật như vậy là [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle) (đơn nhiệm), có nghĩa là lý tưởng nhất mỗi thành phần nên chỉ đảm nhiệm một nhiệm vụ. Nếu nó ngày càng phát triển, nó nên được phân tách thành các thành phần con nhỏ hơn.
+=======
+* **Programming**--use the same techniques for deciding if you should create a new function or object. One such technique is the [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns), that is, a component should ideally only be concerned with one thing. If it ends up growing, it should be decomposed into smaller subcomponents. 
+* **CSS**--consider what you would make class selectors for. (However, components are a bit less granular.)
+* **Design**--consider how you would organize the design's layers.
+>>>>>>> d271a7ac11d2bf0d6e95ebdfacaf1038421f9be0
 
 * **CSS**--xem xét bạn sẽ tạo các lựa chọn lớp cho điều gì. (Tuy nhiên, các thành phần ít chi tiết hơn một chút.)
 * **Design**--xem xét cách bạn sẽ tổ chức các lớp thiết kế.
