@@ -4,7 +4,7 @@ title: useId
 
 <Intro>
 
-`useId` is a React Hook for generating unique IDs that can be passed to accessibility attributes.
+`useId` là một React Hook dùng để sinh ra các ID duy nhất có thể được dùng để truyền vào các thuộc tính accessibility.
 
 ```js
 const id = useId()
@@ -20,7 +20,7 @@ const id = useId()
 
 ### `useId()` {/*useid*/}
 
-Call `useId` at the top level of your component to generate a unique ID:
+Gọi `useId` ở top level của component để sinh ra một ID duy nhất:
 
 ```js
 import { useId } from 'react';
@@ -30,37 +30,37 @@ function PasswordField() {
   // ...
 ```
 
-[See more examples below.](#usage)
+[Xem nhiều ví dụ hơn ở bên dưới.](#usage)
 
-#### Parameters {/*parameters*/}
+#### Tham số {/*parameters*/}
 
-`useId` does not take any parameters.
+`useId` không nhận tham số.
 
-#### Returns {/*returns*/}
+#### Trả về {/*returns*/}
 
-`useId` returns a unique ID string associated with this particular `useId` call in this particular component.
+`useId` trả về một ID dạng chuỗi duy nhất với lần gọi `useId` trong component hiện tại.
 
-#### Caveats {/*caveats*/}
+#### Lưu ý {/*caveats*/}
 
-* `useId` is a Hook, so you can only call it **at the top level of your component** or your own Hooks. You can't call it inside loops or conditions. If you need that, extract a new component and move the state into it.
+* `useId` là một Hook, vì vậy bạn chỉ có thể gọi nó **ở top level của component**  hoặc các Hook tuỳ chỉnh của bạn. Bạn không thể gọi nó bên trong vòng lặp hoặc trong câu lệnh điều kiện. Nếu bạn cần làm vậy, hãy tách nó thành một component mới và di chuyển state vào đó.
 
-* `useId` **should not be used to generate keys** in a list. [Keys should be generated from your data.](/learn/rendering-lists#where-to-get-your-key)
+* `useId` **không nên được sử dụng để sinh key** cho danh sách. [Key nên được tạo từ dữ liệu của bạn.](/learn/rendering-lists#where-to-get-your-key)
 
-* `useId` currently cannot be used in [async Server Components](/reference/rsc/server-components#async-components-with-server-components).
+* `useId` hiện tại không thể sử dụng trong [async Server Component](/reference/rsc/server-components#async-components-with-server-components).
 
 ---
 
-## Usage {/*usage*/}
+## Sử dụng {/*usage*/}
 
 <Pitfall>
 
-**Do not call `useId` to generate keys in a list.** [Keys should be generated from your data.](/learn/rendering-lists#where-to-get-your-key)
+**Không gọi `useId` để sinh key trong một danh sách.** [Key nên được tạo từ dữ liệu của bạn.](/learn/rendering-lists#where-to-get-your-key)
 
 </Pitfall>
 
-### Generating unique IDs for accessibility attributes {/*generating-unique-ids-for-accessibility-attributes*/}
+### Sinh ID duy nhất cho các thuộc tính accessibility {/*generating-unique-ids-for-accessibility-attributes*/}
 
-Call `useId` at the top level of your component to generate a unique ID:
+Gọi `useId` tại top level của component để sinh ra một ID duy nhất:
 
 ```js [[1, 4, "passwordHintId"]]
 import { useId } from 'react';
@@ -70,7 +70,7 @@ function PasswordField() {
   // ...
 ```
 
-You can then pass the <CodeStep step={1}>generated ID</CodeStep> to different attributes:
+Sau đó bạn có thể truyền <CodeStep step={1}>ID đã sinh ra</CodeStep> vào các thuộc tính khác:
 
 ```js [[1, 2, "passwordHintId"], [1, 3, "passwordHintId"]]
 <>
@@ -79,26 +79,26 @@ You can then pass the <CodeStep step={1}>generated ID</CodeStep> to different at
 </>
 ```
 
-**Let's walk through an example to see when this is useful.**
+**Hãy xem một ví dụ để thấy khi nào nó hữu ích.**
 
-[HTML accessibility attributes](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) like [`aria-describedby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby) let you specify that two tags are related to each other. For example, you can specify that an element (like an input) is described by another element (like a paragraph).
+[HTML accessibility attributes](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) như [`aria-describedby`](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Attributes/aria-describedby) cho bạn chỉ định rằng hai thẻ có liên quan với nhau. Ví dụ, bạn có thể chỉ định rằng một phần tử (như input) được mô tả bởi một phần tử khác (như đoạn văn).
 
-In regular HTML, you would write it like this:
+Trong HTML thuần, bạn sẽ viết như sau:
 
 ```html {5,8}
 <label>
-  Password:
+  Mật khẩu:
   <input
     type="password"
     aria-describedby="password-hint"
   />
 </label>
 <p id="password-hint">
-  The password should contain at least 18 characters
+  Mật khẩu nên chứa ít nhất 18 ký tự
 </p>
 ```
 
-However, hardcoding IDs like this is not a good practice in React. A component may be rendered more than once on the page--but IDs have to be unique! Instead of hardcoding an ID, generate a unique ID with `useId`:
+Tuy nhiên, việc hardcode ID như thế không phải là một practice tốt trong React. một component có thể được render nhiều lần trên trang--nhưng ID thì phải là duy nhất! Thay vì hardcode một ID, hãy sinh ra một ID duy nhất với `useId`:
 
 ```js {4,11,14}
 import { useId } from 'react';
@@ -108,21 +108,21 @@ function PasswordField() {
   return (
     <>
       <label>
-        Password:
+        Mật khẩu:
         <input
           type="password"
           aria-describedby={passwordHintId}
         />
       </label>
       <p id={passwordHintId}>
-        The password should contain at least 18 characters
+        Mật khẩu nên chứa ít nhất 18 ký tự
       </p>
     </>
   );
 }
 ```
 
-Now, even if `PasswordField` appears multiple times on the screen, the generated IDs won't clash.
+Và giờ, ngay cả khi bạn render nhiều instance của `PasswordField`, các ID được sinh ra sẽ không bị trùng lặp:
 
 <Sandpack>
 
@@ -134,14 +134,14 @@ function PasswordField() {
   return (
     <>
       <label>
-        Password:
+        Mật khẩu:
         <input
           type="password"
           aria-describedby={passwordHintId}
         />
       </label>
       <p id={passwordHintId}>
-        The password should contain at least 18 characters
+        Mật khẩu nên chứa ít nhất 18 ký tự
       </p>
     </>
   );
@@ -150,9 +150,9 @@ function PasswordField() {
 export default function App() {
   return (
     <>
-      <h2>Choose password</h2>
+      <h2>Tạo mật khẩu</h2>
       <PasswordField />
-      <h2>Confirm password</h2>
+      <h2>Xác nhận mật khẩu</h2>
       <PasswordField />
     </>
   );
@@ -165,33 +165,33 @@ input { margin: 5px; }
 
 </Sandpack>
 
-[Watch this video](https://www.youtube.com/watch?v=0dNzNcuEuOo) to see the difference in the user experience with assistive technologies.
+[Xem video này](https://www.youtube.com/watch?v=0dNzNcuEuOo) để thấy sự khác biệt trong trải nghiệm người dùng với các công nghệ hỗ trợ.
 
 <Pitfall>
 
-With [server rendering](/reference/react-dom/server), **`useId` requires an identical component tree on the server and the client**. If the trees you render on the server and the client don't match exactly, the generated IDs won't match.
+Với [server rendering](/reference/react-dom/server), **`useId` yêu cầu component tree phải giống hệt nhau trên server và client**. Nếu cây bạn render trên server và client không khớp hoàn toàn, các ID được sinh ra sẽ không khớp.
 
 </Pitfall>
 
 <DeepDive>
 
-#### Why is useId better than an incrementing counter? {/*why-is-useid-better-than-an-incrementing-counter*/}
+#### Tại sao useId tốt hơn một counter tăng dần {/*why-is-useid-better-than-an-incrementing-counter*/}
 
-You might be wondering why `useId` is better than incrementing a global variable like `nextId++`.
+Bạn có thể sẽ thắc mắc tại sao `useId` lại tốt hơn là tăng một biến toàn cục như `nextId++`.
 
-The primary benefit of `useId` is that React ensures that it works with [server rendering.](/reference/react-dom/server) During server rendering, your components generate HTML output. Later, on the client, [hydration](/reference/react-dom/client/hydrateRoot) attaches your event handlers to the generated HTML. For hydration to work, the client output must match the server HTML.
+Lợi ích chính của `useId` là React đảm bảo rằng nó hoạt động với [server rendering.](/reference/react-dom/server) Trong server rendering, các component của bạn sinh ra output HTML. Sau đó, trên client, [hydration](/reference/react-dom/client/hydrateRoot) gắn các event handler của bạn vào HTML đã sinh ra. Để hydration hoạt động, output trên client phải khớp với HTML trên server.
 
-This is very difficult to guarantee with an incrementing counter because the order in which the Client Components are hydrated may not match the order in which the server HTML was emitted. By calling `useId`, you ensure that hydration will work, and the output will match between the server and the client.
+Điều này quá khó để đảm bảo với một biến đếm tăng dần vì thứ tự mà các Client Component được hydrated có thể không khớp với thứ tự mà HTML trên server được sinh ra. Bằng cách gọi `useId`, bạn đảm bảo rằng hydration sẽ hoạt động, và output sẽ khớp giữa server và client.
 
-Inside React, `useId` is generated from the "parent path" of the calling component. This is why, if the client and the server tree are the same, the "parent path" will match up regardless of rendering order.
+Trong React, `useId` được sinh ra từ "parent path" của component gọi nó. Đây là lý do tại sao, nếu cây trên client và server giống nhau, "parent path" sẽ khớp với nhau bất kể thứ tự render.
 
 </DeepDive>
 
 ---
 
-### Generating IDs for several related elements {/*generating-ids-for-several-related-elements*/}
+### Sinh ID cho nhiều phần tử liên quan {/*generating-ids-for-several-related-elements*/}
 
-If you need to give IDs to multiple related elements, you can call `useId` to generate a shared prefix for them: 
+Nếu bạn cần gán ID cho nhiều phần tử liên quan, bạn có thể gọi `useId` để sinh ra một tiền tố (prefix) dùng chung cho chúng:
 
 <Sandpack>
 
@@ -202,29 +202,30 @@ export default function Form() {
   const id = useId();
   return (
     <form>
-      <label htmlFor={id + '-firstName'}>First Name:</label>
-      <input id={id + '-firstName'} type="text" />
-      <hr />
-      <label htmlFor={id + '-lastName'}>Last Name:</label>
+      <label htmlFor={id + '-lastName'}>Họ:</label>
       <input id={id + '-lastName'} type="text" />
+      <hr />
+      <label htmlFor={id + '-firstName'}>Tên:</label>
+      <input id={id + '-firstName'} type="text" />
     </form>
   );
 }
 ```
 
 ```css
+label { min-width: 50px; display: inline-block; }
 input { margin: 5px; }
 ```
 
 </Sandpack>
 
-This lets you avoid calling `useId` for every single element that needs a unique ID.
+Điều này giúp bạn tránh phải gọi `useId` cho từng phần tử cần ID duy nhất.
 
 ---
 
-### Specifying a shared prefix for all generated IDs {/*specifying-a-shared-prefix-for-all-generated-ids*/}
+### Đặt tiền tố dùng chung cho tất cả ID được sinh ra {/*specifying-a-shared-prefix-for-all-generated-ids*/}
 
-If you render multiple independent React applications on a single page, pass `identifierPrefix` as an option to your [`createRoot`](/reference/react-dom/client/createRoot#parameters) or [`hydrateRoot`](/reference/react-dom/client/hydrateRoot) calls. This ensures that the IDs generated by the two different apps never clash because every identifier generated with `useId` will start with the distinct prefix you've specified.
+Nếu bạn render nhiều ứng dụng React độc lập trên một trang, hãy truyền `identifierPrefix` như một tuỳ chọn vào các lệnh gọi [`createRoot`](/reference/react-dom/client/createRoot#parameters) hoặc [`hydrateRoot`](/reference/react-dom/client/hydrateRoot). Điều này đảm bảo rằng các ID được sinh ra bởi hai ứng dụng khác nhau sẽ không bao giờ bị trùng lặp vì mỗi ID được sinh ra với `useId` sẽ bắt đầu với tiền tố riêng biệt mà bạn đã chỉ định.
 
 <Sandpack>
 
@@ -248,14 +249,14 @@ function PasswordField() {
   return (
     <>
       <label>
-        Password:
+        Mật khẩu:
         <input
           type="password"
           aria-describedby={passwordHintId}
         />
       </label>
       <p id={passwordHintId}>
-        The password should contain at least 18 characters
+        Mật khẩu nên chứa ít nhất 18 ký tự
       </p>
     </>
   );
@@ -264,7 +265,7 @@ function PasswordField() {
 export default function App() {
   return (
     <>
-      <h2>Choose password</h2>
+      <h2>Tạo mật khẩu</h2>
       <PasswordField />
     </>
   );
@@ -307,9 +308,9 @@ input { margin: 5px; }
 
 ---
 
-### Using the same ID prefix on the client and the server {/*using-the-same-id-prefix-on-the-client-and-the-server*/}
+### Sử dụng cùng một tiền tố ID trên client và server {/*using-the-same-id-prefix-on-the-client-and-the-server*/}
 
-If you [render multiple independent React apps on the same page](#specifying-a-shared-prefix-for-all-generated-ids), and some of these apps are server-rendered, make sure that the `identifierPrefix` you pass to the [`hydrateRoot`](/reference/react-dom/client/hydrateRoot) call on the client side is the same as the `identifierPrefix` you pass to the [server APIs](/reference/react-dom/server) such as [`renderToPipeableStream`.](/reference/react-dom/server/renderToPipeableStream)
+Nếu bạn [render nhiều ứng dụng React độc lập trên cùng một trang](#specifying-a-shared-prefix-for-all-generated-ids), và một số trong các ứng dụng này được server-rendered, hãy đảm bảo rằng `identifierPrefix` bạn truyền vào lệnh gọi [`hydrateRoot`](/reference/react-dom/client/hydrateRoot) ở phía client giống với `identifierPrefix` bạn truyền vào các [API server](/reference/react-dom/server) như [`renderToPipeableStream`.](/reference/react-dom/server/renderToPipeableStream)
 
 ```js
 // Server
@@ -333,4 +334,4 @@ const root = hydrateRoot(
 );
 ```
 
-You do not need to pass `identifierPrefix` if you only have one React app on the page.
+Bạn không cần truyền `identifierPrefix` nếu bạn chỉ có một ứng dụng React trên trang.
