@@ -1719,7 +1719,11 @@ export const initialTravelPlan = {
   },
   34: {
     id: 34,
+<<<<<<< HEAD
     title: 'Châu Đại Dương',
+=======
+    title: 'Oceania',
+>>>>>>> bd87c394dc1daf0e54759126f847fcfa927e5a75
     childIds: [35, 36, 37, 38, 39, 40, 41],   
   },
   35: {
