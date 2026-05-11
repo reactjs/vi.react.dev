@@ -63,7 +63,7 @@ Theo truyền thống, khi tạo ra các trang web, các nhà phát triển web 
 export default function Profile() {
   return (
     <img
-      src="https://i.imgur.com/MK3eW3Am.jpg"
+      src="https://react.dev/images/docs/scientists/MK3eW3Am.jpg"
       alt="Katherine Johnson"
     />
   )
@@ -99,7 +99,7 @@ Component trả về một thẻ `<img />` với thuộc tính `src` và `alt`. 
 Câu lệnh return có thể được viết hết ở trong một dòng, như trong component này:
 
 ```js
-return <img src="https://i.imgur.com/MK3eW3As.jpg" alt="Katherine Johnson" />;
+return <img src="https://react.dev/images/docs/scientists/MK3eW3As.jpg" alt="Katherine Johnson" />;
 ```
 
 Nhưng nếu markup của bạn không ở cùng một dòng với từ khóa `return`, bạn sẽ phải bao nó ở trong một cặp dấu ngoặc:
@@ -107,7 +107,7 @@ Nhưng nếu markup của bạn không ở cùng một dòng với từ khóa `r
 ```js
 return (
   <div>
-    <img src="https://i.imgur.com/MK3eW3As.jpg" alt="Katherine Johnson" />
+    <img src="https://react.dev/images/docs/scientists/MK3eW3As.jpg" alt="Katherine Johnson" />
   </div>
 );
 ```
@@ -128,7 +128,7 @@ Giờ thì bạn đã định nghĩa component `Profile`, bạn có thể lồng
 function Profile() {
   return (
     <img
-      src="https://i.imgur.com/MK3eW3As.jpg"
+      src="https://react.dev/images/docs/scientists/MK3eW3As.jpg"
       alt="Katherine Johnson"
     />
   );
@@ -164,9 +164,9 @@ Và `Profile` thì lại chứa nhiều HTML hơn nữa: `<img />`. Cuối cùng
 ```html
 <section>
   <h1>Amazing scientists</h1>
-  <img src="https://i.imgur.com/MK3eW3As.jpg" alt="Katherine Johnson" />
-  <img src="https://i.imgur.com/MK3eW3As.jpg" alt="Katherine Johnson" />
-  <img src="https://i.imgur.com/MK3eW3As.jpg" alt="Katherine Johnson" />
+  <img src="https://react.dev/images/docs/scientists/MK3eW3As.jpg" alt="Katherine Johnson" />
+  <img src="https://react.dev/images/docs/scientists/MK3eW3As.jpg" alt="Katherine Johnson" />
+  <img src="https://react.dev/images/docs/scientists/MK3eW3As.jpg" alt="Katherine Johnson" />
 </section>
 ```
 
@@ -215,7 +215,11 @@ Khi mà một component con cần dữ liệu từ cha, [hãy truyền nó qua p
 
 Hầu hết các ứng dụng React đều sử dụng component từ đầu đến cuối. Điều này có nghĩa là bạn không chỉ sử dụng component cho những phần có thể tái sử dụng như các nút (button) mà còn cho các phần lớn hơn như sidebar, các danh sách và đích đến cuối, các trang hoàn chỉnh! Component là một cách tiện lợi để tổ chức code UI và markup, ngay cả khi một số chúng chỉ được sử dụng một lần.
 
+<<<<<<< HEAD
 [Các framwork React](/learn/start-a-new-react-project) nâng điều này lên một tầm cao mới. Thay vì chỉ sử dụng một trang HTML rỗng và để React "điều khiển" việc quản lý trang với JavaScript, chúng *cũng* tạo ra HTML tự động từ các React component của bạn. Điều này khiến cho ứng dụng của bạn có thể hiển thị một số nội dung trước khi code JavaScript chạy.
+=======
+[React-based frameworks](/learn/creating-a-react-app) take this a step further. Instead of using an empty HTML file and letting React "take over" managing the page with JavaScript, they *also* generate the HTML automatically from your React components. This allows your app to show some content before the JavaScript code loads.
+>>>>>>> abe931a8cb3aee3e8b15ef7e187214789164162a
 
 Tuy vậy, rất nhiều website chỉ dùng React để [thêm tương tác cho các trang HTML đã có sẵn](/learn/add-react-to-an-existing-project#using-react-for-a-part-of-your-existing-page). Họ có rất nhiều các root component thay vì một cái cho cả trang. Bạn có thể dùng nhiều hoặc ít React tùy thích.
 
@@ -248,7 +252,7 @@ Phần sandbox này không chạy vì root component chưa được export:
 function Profile() {
   return (
     <img
-      src="https://i.imgur.com/lICfvbD.jpg"
+      src="https://react.dev/images/docs/scientists/lICfvbD.jpg"
       alt="Aklilu Lemma"
     />
   );
@@ -273,7 +277,7 @@ Thêm `export default` trước định nghĩa hàm như sau:
 export default function Profile() {
   return (
     <img
-      src="https://i.imgur.com/lICfvbD.jpg"
+      src="https://react.dev/images/docs/scientists/lICfvbD.jpg"
       alt="Aklilu Lemma"
     />
   );
@@ -306,7 +310,7 @@ Bạn có thể gặp lỗi "Unexpected token" khi đang cố sửa lỗi này. 
 ```js
 export default function Profile() {
   return
-    <img src="https://i.imgur.com/jA8hHMpm.jpg" alt="Katsuko Saruhashi" />;
+    <img src="https://react.dev/images/docs/scientists/jA8hHMpm.jpg" alt="Katsuko Saruhashi" />;
 }
 ```
 
@@ -324,7 +328,7 @@ Bạn có thể sửa component này bằng cách di chuyển câu lệnh `retur
 
 ```js
 export default function Profile() {
-  return <img src="https://i.imgur.com/jA8hHMpm.jpg" alt="Katsuko Saruhashi" />;
+  return <img src="https://react.dev/images/docs/scientists/jA8hHMpm.jpg" alt="Katsuko Saruhashi" />;
 }
 ```
 
@@ -341,9 +345,9 @@ Hoặc bằng cách bao JSX markup ở trong ngoặc đơn với mở ngoặc đ
 ```js
 export default function Profile() {
   return (
-    <img 
-      src="https://i.imgur.com/jA8hHMpm.jpg" 
-      alt="Katsuko Saruhashi" 
+    <img
+      src="https://react.dev/images/docs/scientists/jA8hHMpm.jpg"
+      alt="Katsuko Saruhashi"
     />
   );
 }
@@ -367,7 +371,7 @@ Có gì đó không đúng với cách khai báo và sử dụng component `Prof
 function profile() {
   return (
     <img
-      src="https://i.imgur.com/QIrZWGIs.jpg"
+      src="https://react.dev/images/docs/scientists/QIrZWGIs.jpg"
       alt="Alan L. Hart"
     />
   );
@@ -403,7 +407,7 @@ Thay đổi `function profile()` thành `function Profile()`, và sau đó thay 
 function Profile() {
   return (
     <img
-      src="https://i.imgur.com/QIrZWGIs.jpg"
+      src="https://react.dev/images/docs/scientists/QIrZWGIs.jpg"
       alt="Alan L. Hart"
     />
   );
