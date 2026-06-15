@@ -107,7 +107,11 @@ Nó trả về <CodeStep step={3}>snapshot</CodeStep> của dữ liệu trong st
 
 React sẽ sử dụng các hàm này để giữ cho component của bạn được đăng ký với store và re-render nó khi có thay đổi.
 
+<<<<<<< HEAD
 Ví dụ, trong sandbox bên dưới, `todosStore` được triển khai như một external store chứa dữ liệu bên ngoài React. `TodosApp` component kết nối với external store bằng Hook `useSyncExternalStore`. 
+=======
+For example, in the sandbox below, `todosStore` is implemented as an external store that stores data outside of React. The `TodosApp` component connects to that external store with the `useSyncExternalStore` Hook.
+>>>>>>> 6ec61348646040795fdaa9de14a9bec603260f87
 
 <Sandpack>
 
@@ -413,14 +417,19 @@ function ChatIndicator() {
   function subscribe() {
     // ...
   }
-  
+
   const isOnline = useSyncExternalStore(subscribe, getSnapshot);
 
   // ...
 }
 ```
+<<<<<<< HEAD
   
 React sẽ resubscribe với store của bạn nếu bạn truyền một hàm `subscribe` khác nhau giữa các lần re-renders. Nếu điều này gây ra vấn đề về hiệu suất và bạn muốn tránh việc resubscribing, hãy di chuyển hàm `subscribe` ra bên ngoài:
+=======
+
+React will resubscribe to your store if you pass a different `subscribe` function between re-renders. If this causes performance issues and you'd like to avoid resubscribing, move the `subscribe` function outside:
+>>>>>>> 6ec61348646040795fdaa9de14a9bec603260f87
 
 ```js {1-4}
 // ✅ Luôn luôn cùng một function, để React sẽ không phải resubscribe
@@ -442,7 +451,7 @@ function ChatIndicator({ userId }) {
   const subscribe = useCallback(() => {
     // ...
   }, [userId]);
-  
+
   const isOnline = useSyncExternalStore(subscribe, getSnapshot);
 
   // ...
