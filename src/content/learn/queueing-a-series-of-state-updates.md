@@ -178,7 +178,11 @@ Trong lần render tiếp theo, React duyệt qua hàng đợi state:
 | "thay thế bằng `5`" | `0` (không sử dụng) | `5` |
 | `n => n + 1` | `5` | `5 + 1 = 6` |
 
+<<<<<<< HEAD
 React lưu trữ `6` là kết quả cuối cùng và trả về nó từ `useState`.
+=======
+React stores `6` as the final result and returns it from `useState`.
+>>>>>>> 6ec61348646040795fdaa9de14a9bec603260f87
 
 <Note>
 
@@ -306,7 +310,7 @@ export default function RequestTracker() {
         Completed: {completed}
       </h3>
       <button onClick={handleClick}>
-        Buy     
+        Buy
       </button>
     </>
   );
@@ -350,7 +354,7 @@ export default function RequestTracker() {
         Completed: {completed}
       </h3>
       <button onClick={handleClick}>
-        Buy     
+        Buy
       </button>
     </>
   );

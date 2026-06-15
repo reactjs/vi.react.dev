@@ -37,7 +37,13 @@ Bản thiết kế của sản phẩm như sau:
 
 Tùy thuộc vào nền tảng của bạn, bạn có thể nghĩ đến việc chia thiết kế thành các thành phần theo những cách khác nhau:
 
+<<<<<<< HEAD
 * **Programming**--sử dụng các kỹ thuật tương tự để quyết định liệu bạn có nên tạo một hàm hoặc đối tượng mới hay không. Một trong các kỹ thuật như vậy là [single responsibility principle](https://en.wikipedia.org/wiki/Single_responsibility_principle) (đơn nhiệm), có nghĩa là lý tưởng nhất mỗi thành phần nên chỉ đảm nhiệm một nhiệm vụ. Nếu nó ngày càng phát triển, nó nên được phân tách thành các thành phần con nhỏ hơn.
+=======
+* **Programming**--use the same techniques for deciding if you should create a new function or object. One such technique is the [separation of concerns](https://en.wikipedia.org/wiki/Separation_of_concerns), that is, a component should ideally only be concerned with one thing. If it ends up growing, it should be decomposed into smaller subcomponents.
+* **CSS**--consider what you would make class selectors for. (However, components are a bit less granular.)
+* **Design**--consider how you would organize the design's layers.
+>>>>>>> 6ec61348646040795fdaa9de14a9bec603260f87
 
 * **CSS**--xem xét bạn sẽ tạo các lựa chọn lớp cho điều gì. (Tuy nhiên, các thành phần ít chi tiết hơn một chút.)
 * **Design**--xem xét cách bạn sẽ tổ chức các lớp thiết kế.
@@ -238,6 +244,13 @@ Hãy đi qua từng phần một lần nữa:
 
 Điều này có nghĩa là chỉ có văn bản tìm kiếm và giá trị của hộp tìm kiếm là state! Làm rất tốt!
 
+<<<<<<< HEAD
+=======
+1. The original list of products is **passed in as props, so it's not state.**
+2. The search text seems to be state since it changes over time and can't be computed from anything.
+3. The value of the checkbox seems to be state since it changes over time and can't be computed from anything.
+4. The filtered list of products **isn't state because it can be computed** by taking the original list of products and filtering it according to the search text and value of the checkbox.
+>>>>>>> 6ec61348646040795fdaa9de14a9bec603260f87
 
 
 <DeepDive>
@@ -271,6 +284,7 @@ Sau khi xác định được dữ liệu state cần thiết cho ứng dụng c
 Ở bước trước, bạn đã tìm thấy hai phần state trong ứng dụng này: văn bản đầu vào tìm kiếm và giá trị của hộp kiểm. Trong ví dụ này, chúng luôn xuất hiện cùng nhau, vì vậy hợp lý để đặt chúng vào cùng một nơi.
 
 
+<<<<<<< HEAD
 Bây giờ chúng ta hãy xem lại chiến lược của chúng ta cho state:
 
 1. **Xác định các thành phần sử dụng trạng thái (state):**
@@ -282,22 +296,31 @@ Bây giờ chúng ta hãy xem lại chiến lược của chúng ta cho state:
 Vì vậy, các giá trị trạng thái sẽ được lưu trong `FilterableProductTable`. 
 
 Thêm trạng thái vào thành phần với [`useState()` Hook.](/reference/react/useState) Hooks là các hàm đặc biệt cho phép bạn "kết nối vào" React. Thêm hai biến trạng thái ở đầu `FilterableProductTable` và chỉ định trạng thái ban đầu của chúng:
+=======
+1. **Identify components that use state:**
+    * `ProductTable` needs to filter the product list based on that state (search text and checkbox value).
+    * `SearchBar` needs to display that state (search text and checkbox value).
+2. **Find their common parent:** The first parent component both components share is `FilterableProductTable`.
+3. **Decide where the state lives**: We'll keep the filter text and checked state values in `FilterableProductTable`.
+
+So the state values will live in `FilterableProductTable`.
+>>>>>>> 6ec61348646040795fdaa9de14a9bec603260f87
 
 
 ```js
 function FilterableProductTable({ products }) {
   const [filterText, setFilterText] = useState('');
-  const [inStockOnly, setInStockOnly] = useState(false);  
+  const [inStockOnly, setInStockOnly] = useState(false);
 ```
 
 Sau đó, truyền `filterText` và `inStockOnly` tới `ProductTable` và `SearchBar` như là props:
 
 ```js
 <div>
-  <SearchBar 
-    filterText={filterText} 
+  <SearchBar
+    filterText={filterText}
     inStockOnly={inStockOnly} />
-  <ProductTable 
+  <ProductTable
     products={products}
     filterText={filterText}
     inStockOnly={inStockOnly} />
@@ -318,10 +341,10 @@ function FilterableProductTable({ products }) {
 
   return (
     <div>
-      <SearchBar 
-        filterText={filterText} 
+      <SearchBar
+        filterText={filterText}
         inStockOnly={inStockOnly} />
-      <ProductTable 
+      <ProductTable
         products={products}
         filterText={filterText}
         inStockOnly={inStockOnly} />
@@ -399,13 +422,13 @@ function ProductTable({ products, filterText, inStockOnly }) {
 function SearchBar({ filterText, inStockOnly }) {
   return (
     <form>
-      <input 
-        type="text" 
-        value={filterText} 
+      <input
+        type="text"
+        value={filterText}
         placeholder="Search..."/>
       <label>
-        <input 
-          type="checkbox" 
+        <input
+          type="checkbox"
           checked={inStockOnly} />
         {' '}
         Only show products in stock
@@ -464,9 +487,9 @@ Trong môi trường sandbox phía trên, `ProductTable` và `SearchBar` đọc 
 function SearchBar({ filterText, inStockOnly }) {
   return (
     <form>
-      <input 
-        type="text" 
-        value={filterText} 
+      <input
+        type="text"
+        value={filterText}
         placeholder="Search..."/>
 ```
 
@@ -475,7 +498,11 @@ Tuy nhiên, bạn vẫn chưa thêm bất kì dòng code nào tương tác đư�
 
 ## Step 5: Thêm dữ liệu nghịch đảo {/*step-5-add-inverse-data-flow*/}
 
+<<<<<<< HEAD
 Hiện tại ứng dụng của bạn hiển thị đúng với dữ liệu props và state được truyền xuống theo thứ tự hướng xuống. Nhưng để thay đổi trạng thái theo đầu vào của người dùng, bạn cần hỗ trợ dữ liệu truyền ngược lại: các thành phần biểu mẫu sâu trong cấu trúc cần cập nhật trạng thái trong `FilterableProductTable`.
+=======
+Currently your app renders correctly with props and state flowing down the hierarchy. But to change the state according to user input, you will need to support data flowing the other way: the form components deep in the hierarchy need to update the state in `FilterableProductTable`.
+>>>>>>> 6ec61348646040795fdaa9de14a9bec603260f87
 
 React làm cho luồng dữ liệu này rõ ràng, nhưng nó yêu cầu một chút việc gõ phím hơn so với ràng buộc dữ liệu hai chiều. Nếu bạn thử gõ hoặc chọn hộp kiểm trong ví dụ ở trên, bạn sẽ thấy rằng React bỏ qua đầu vào của bạn. Điều này là có chủ ý. Bằng cách viết `<input value={filterText} />`, bạn đã đặt thuộc tính `value` của `input` luôn bằng với `filterText` state được truyền vào từ `FilterableProductTable`. Vì `filterText` state không bao giờ được thiết lập, nên đầu vào không bao giờ thay đổi.
 
@@ -488,8 +515,8 @@ function FilterableProductTable({ products }) {
 
   return (
     <div>
-      <SearchBar 
-        filterText={filterText} 
+      <SearchBar
+        filterText={filterText}
         inStockOnly={inStockOnly}
         onFilterTextChange={setFilterText}
         onInStockOnlyChange={setInStockOnly} />
@@ -532,13 +559,13 @@ function FilterableProductTable({ products }) {
 
   return (
     <div>
-      <SearchBar 
-        filterText={filterText} 
-        inStockOnly={inStockOnly} 
-        onFilterTextChange={setFilterText} 
+      <SearchBar
+        filterText={filterText}
+        inStockOnly={inStockOnly}
+        onFilterTextChange={setFilterText}
         onInStockOnlyChange={setInStockOnly} />
-      <ProductTable 
-        products={products} 
+      <ProductTable
+        products={products}
         filterText={filterText}
         inStockOnly={inStockOnly} />
     </div>
@@ -620,14 +647,14 @@ function SearchBar({
 }) {
   return (
     <form>
-      <input 
-        type="text" 
-        value={filterText} placeholder="Search..." 
+      <input
+        type="text"
+        value={filterText} placeholder="Search..."
         onChange={(e) => onFilterTextChange(e.target.value)} />
       <label>
-        <input 
-          type="checkbox" 
-          checked={inStockOnly} 
+        <input
+          type="checkbox"
+          checked={inStockOnly}
           onChange={(e) => onInStockOnlyChange(e.target.checked)} />
         {' '}
         Only show products in stock
