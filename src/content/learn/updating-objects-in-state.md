@@ -55,7 +55,7 @@ Trong ví dụ này, một đối tượng được lưu trữ trong state để
 
 <Sandpack>
 
-```js
+```js {expectedErrors: {'react-compiler': [11]}}
 import { useState } from 'react';
 
 export default function MovingDot() {
@@ -199,7 +199,7 @@ setPosition({
 
 Biến đổi (mutation) chỉ là vấn đề khi bạn thay đổi những đối tượng **hiện có** bên trong state. Biến đổi một đối tượng bạn vừa tạo ra thì okay bởi vì **không đoạn code nào tham chiếu tới nó cả.** Thay đổi nó sẽ không ảnh hưởng tới thứ mà đang phụ thuộc vào nó. Đây được gọi là một "local mutation" hay biến đổi cục bộ. Bạn thậm chí có thể thực hiện "local mutation" [trong khi rendering.](/learn/keeping-components-pure#local-mutation-your-components-little-secret) Rất tiện lợi và hoàn toàn bình thường!
 
-</DeepDive>  
+</DeepDive>
 
 ## Sao chép những đối tượng với cú pháp spread {/*copying-objects-with-the-spread-syntax*/}
 
@@ -209,7 +209,7 @@ Những field input này không hoạt động bởi vì những hàm xử lý `
 
 <Sandpack>
 
-```js
+```js {expectedErrors: {'react-compiler': [11, 15, 19]}}
 import { useState } from 'react';
 
 export default function Form() {
@@ -296,10 +296,14 @@ setPerson({
 });
 ```
 
+<<<<<<< HEAD
 Bây giờ thì form này hoạt động! 
 
 Hãy để ý cách bạn không khai báo một biến state riêng rẽ cho mỗi trường input. Đối với những form lớn, việc gộp tất cả dữ liệu trong một đối tượng là rất thuận tiện--miễn là bạn update nó một cách chính xác.
 
+=======
+Now the form works!
+>>>>>>> 8bb31acb86bf68fa33d97dd0f1b834dfa71e2b1a
 
 
 <Sandpack>
@@ -375,7 +379,11 @@ input { margin-left: 5px; margin-bottom: 5px; }
 
 </Sandpack>
 
+<<<<<<< HEAD
 Hãy chú ý rằng cú pháp phân tán (spread) `...` là "nông"--nó chỉ sao chép sâu một level. Điều này giúp cho việc sao chép diễn ra nhanh chóng, nhưng đồng nghĩa với việc nếu bạn muốn update một thuộc tính được lồng ghép (nested), bạn sẽ phải sử dụng nó hơn một lần.
+=======
+Note that the `...` spread syntax is "shallow"--it only copies things one level deep. This makes it fast, but it also means that if you want to update a nested property, you'll have to use it more than once.
+>>>>>>> 8bb31acb86bf68fa33d97dd0f1b834dfa71e2b1a
 
 <DeepDive>
 
@@ -459,7 +467,7 @@ const [person, setPerson] = useState({
   artwork: {
     title: 'Blue Nana',
     city: 'Hamburg',
-    image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+    image: 'https://react.dev/images/docs/scientists/Sd1AgUOm.jpg',
   }
 });
 ```
@@ -503,7 +511,7 @@ export default function Form() {
     artwork: {
       title: 'Blue Nana',
       city: 'Hamburg',
-      image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+      image: 'https://react.dev/images/docs/scientists/Sd1AgUOm.jpg',
     }
   });
 
@@ -581,8 +589,8 @@ export default function Form() {
         <br />
         (located in {person.artwork.city})
       </p>
-      <img 
-        src={person.artwork.image} 
+      <img
+        src={person.artwork.image}
         alt={person.artwork.title}
       />
     </>
@@ -611,7 +619,7 @@ let obj = {
   artwork: {
     title: 'Blue Nana',
     city: 'Hamburg',
-    image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+    image: 'https://react.dev/images/docs/scientists/Sd1AgUOm.jpg',
   }
 };
 ```
@@ -622,7 +630,7 @@ Tuy nhiên, "nesting" là một cách không chính xác để nghĩ về cách 
 let obj1 = {
   title: 'Blue Nana',
   city: 'Hamburg',
-  image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+  image: 'https://react.dev/images/docs/scientists/Sd1AgUOm.jpg',
 };
 
 let obj2 = {
@@ -637,7 +645,7 @@ let obj2 = {
 let obj1 = {
   title: 'Blue Nana',
   city: 'Hamburg',
-  image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+  image: 'https://react.dev/images/docs/scientists/Sd1AgUOm.jpg',
 };
 
 let obj2 = {
@@ -653,7 +661,7 @@ let obj3 = {
 
 Nếu bạn biến đổi `obj3.artwork.city`, thì nó sẽ ảnh hưởng tới cả `obj2.artwork.city` và `obj1.city`. Điều này bởi vì `obj3.artwork`, `obj2.artwork`, và `obj1` là cùng một đối tượng. Điều này khó để nhận thấy khi bạn nghĩ về objects như việc nested. Thay vì vậy, chúng là những đối tượng tách biệt cùng trỏ vào nhau nhờ vào các thuộc tính.
 
-</DeepDive>  
+</DeepDive>
 
 ### Viết ngắn gọn logic của việc update state với Immer {/*write-concise-update-logic-with-immer*/}
 
@@ -693,7 +701,7 @@ export default function Form() {
     artwork: {
       title: 'Blue Nana',
       city: 'Hamburg',
-      image: 'https://i.imgur.com/Sd1AgUOm.jpg',
+      image: 'https://react.dev/images/docs/scientists/Sd1AgUOm.jpg',
     }
   });
 
@@ -758,8 +766,8 @@ export default function Form() {
         <br />
         (located in {person.artwork.city})
       </p>
-      <img 
-        src={person.artwork.image} 
+      <img
+        src={person.artwork.image}
         alt={person.artwork.title}
       />
     </>
@@ -836,7 +844,7 @@ Nhiệm vụ của bạn là sửa tất cả các lỗi này. Khi bạn sửa c
 
 <Sandpack>
 
-```js
+```js {expectedErrors: {'react-compiler': [11]}}
 import { useState } from 'react';
 
 export default function Scoreboard() {
@@ -992,7 +1000,7 @@ Nếu có điều gì đó thay đổi một cách không mong đợi, có thể
 
 <Sandpack>
 
-```js src/App.js
+```js {expectedErrors: {'react-compiler': [17]}} src/App.js
 import { useState } from 'react';
 import Background from './Background.js';
 import Box from './Box.js';
@@ -1297,7 +1305,7 @@ select { margin-bottom: 10px; }
 
 <Sandpack>
 
-```js src/App.js
+```js {expectedErrors: {'react-compiler': [18]}} src/App.js
 import { useState } from 'react';
 import { useImmer } from 'use-immer';
 import Background from './Background.js';
