@@ -32,7 +32,7 @@ React là một thư viện JavaScript để render giao diện người dùng (
 function Profile() {
   return (
     <img
-      src="https://i.imgur.com/MK3eW3As.jpg"
+      src="https://react.dev/images/docs/scientists/MK3eW3As.jpg"
       alt="Katherine Johnson"
     />
   );
@@ -98,7 +98,7 @@ export default function Gallery() {
 export default function Profile() {
   return (
     <img
-      src="https://i.imgur.com/QIrZWGIs.jpg"
+      src="https://react.dev/images/docs/scientists/QIrZWGIs.jpg"
       alt="Alan L. Hart"
     />
   );
@@ -131,7 +131,7 @@ export default function TodoList() {
     // This doesn't quite work!
     <h1>Hedy Lamarr's Todos</h1>
     <img
-      src="https://i.imgur.com/yXOvdOSs.jpg"
+      src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
       alt="Hedy Lamarr"
       class="photo"
     >
@@ -160,7 +160,7 @@ export default function TodoList() {
     <>
       <h1>Hedy Lamarr's Todos</h1>
       <img
-        src="https://i.imgur.com/yXOvdOSs.jpg"
+        src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
         alt="Hedy Lamarr"
         className="photo"
       />
@@ -207,7 +207,7 @@ export default function TodoList() {
       <h1>{person.name}'s Todos</h1>
       <img
         className="avatar"
-        src="https://i.imgur.com/7vQD0fPs.jpg"
+        src="https://react.dev/images/docs/scientists/7vQD0fPs.jpg"
         alt="Gregorio Y. Zara"
       />
       <ul>
@@ -282,7 +282,7 @@ function Card({ children }) {
 ```js src/utils.js
 export function getImageUrl(person, size = 's') {
   return (
-    'https://i.imgur.com/' +
+    'https://react.dev/images/docs/scientists/' +
     person.imageId +
     size +
     '.jpg'
@@ -435,7 +435,7 @@ export const people = [{
 ```js src/utils.js
 export function getImageUrl(person) {
   return (
-    'https://i.imgur.com/' +
+    'https://react.dev/images/docs/scientists/' +
     person.imageId +
     's.jpg'
   );
@@ -474,7 +474,7 @@ Bằng cách chỉ viết component của bạn như các function thuần khi�
 
 <Sandpack>
 
-```js
+```js {expectedErrors: {'react-compiler': [5]}}
 let guest = 0;
 
 function Cup() {
@@ -526,9 +526,15 @@ export default function TeaSet() {
 
 ## UI của bạn theo cấu trúc cây {/*your-ui-as-a-tree*/}
 
+<<<<<<< HEAD
 React sử dụng cây để biểu diễn các mối quan hệ giữa component và module.
 
 Một React render tree là sự biểu hiện của mối quan hệ cha và con giữa các component.
+=======
+React uses trees to model the relationships between components and modules.
+
+A React render tree is a representation of the parent and child relationship between components.
+>>>>>>> 152a471aa9ac2f6f0f3e64c04f39da790d40cf61
 
 <Diagram name="generic_render_tree" height={250} width={500} alt="A tree graph with five nodes, with each node representing a component. The root node is located at the top the tree graph and is labelled 'Root Component'. It has two arrows extending down to two nodes labelled 'Component A' and 'Component C'. Each of the arrows is labelled with 'renders'. 'Component A' has a single 'renders' arrow to a node labelled 'Component B'. 'Component C' has a single 'renders' arrow to a node labelled 'Component D'.">
 
@@ -538,7 +544,11 @@ Một ví dụ về React render tree.
 
 Component gần đỉnh của cây, gần root component, được coi là component cấp cao nhất. Component không có component con là leaf (lá) component. Việc phân loại các component này hữu ích để hiểu luồng dữ liệu và hiệu suất render.
 
+<<<<<<< HEAD
 Biểu diễn mối quan hệ giữa các JavaScript module là một cách hữu ích khác để hiểu ứng dụng của bạn. Chúng ta gọi nó là module dependency tree.
+=======
+Modelling the relationship between JavaScript modules is another useful way to understand your app. We refer to it as a module dependency tree.
+>>>>>>> 152a471aa9ac2f6f0f3e64c04f39da790d40cf61
 
 <Diagram name="generic_dependency_tree" height={250} width={500} alt="Một đồ thị cây với năm node. Mỗi node đại diện cho một JavaScript module. Node cao nhất được gắn nhãn 'RootModule.js'. Nó có ba mũi tên kéo dài đến các node: 'ModuleA.js', 'ModuleB.js', và 'ModuleC.js'. Mỗi mũi tên được gắn nhãn 'imports'. Node 'ModuleC.js' có một mũi tên 'imports' duy nhất trỏ đến node được gắn nhãn 'ModuleD.js'.">
 
@@ -546,7 +556,11 @@ Một ví dụ về module dependency tree.
 
 </Diagram>
 
+<<<<<<< HEAD
 Một dependency tree thường được sử dụng bởi các công cụ build để đóng gói tất cả code JavaScript liên quan cho client tải xuống và render. Bundle có kích thước lớn sẽ làm giảm trải nghiệm người dùng của ứng dụng React. Hiểu được module dependency tree sẽ giúp khắc phục những vấn đề như vậy.
+=======
+A dependency tree is often used by build tools to bundle all the relevant JavaScript code for the client to download and render. A large bundle size regresses user experience for React apps. Understanding the module dependency tree is helpful to debug such issues.
+>>>>>>> 152a471aa9ac2f6f0f3e64c04f39da790d40cf61
 
 <LearnMore path="/learn/understanding-your-ui-as-a-tree">
 
