@@ -31,7 +31,11 @@ Một số trình soạn thảo đi kèm với các tính năng này được t�
 
 ### Linting {/*linting*/}
 
+<<<<<<< HEAD
 Các trình kiểm tra lỗi code (linters) giúp phát hiện các vấn đề trong code của bạn khi bạn viết nó, giúp bạn sửa chúng sớm. [ESLint](https://eslint.org/) là một linter mã nguồn mở rất phổ biến.
+=======
+Code linters find problems in your code as you write, helping you fix them early. [ESLint](https://eslint.org/) is a popular, open source linter for JavaScript.
+>>>>>>> 2639f369946f763fff9a2572b0d7c4b9e2f83ebd
 
 * [Cài đặt ESLint với cấu hình khuyến nghị cho React](https://www.npmjs.com/package/eslint-config-react-app) (hãy chắc chắn bạn đã [cài đặt Node!](https://nodejs.org/en/download/current/))
 * [Tích hợp ESLint vào VSCode với tiện ích mở rộng chính thức](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
