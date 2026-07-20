@@ -462,7 +462,11 @@ export default function Menu() {
 
   return (
     <>
+<<<<<<< HEAD
       <h2>Bạn muốn dùng món gì?</h2>
+=======
+      <h2>What's your travel snack?</h2>
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
       <ul>
         {items.map((item, index) => (
           <li key={item.id}>
@@ -808,7 +812,7 @@ export const initialTravelPlan = {
     }, {
       id: 48,
       title: 'Green Hill',
-      childPlaces: []      
+      childPlaces: []
     }]
   }]
 };
@@ -886,7 +890,7 @@ export const initialTravelPlan = {
     id: 2,
     title: 'Châu Phi',
     childIds: [3, 4, 5, 6 , 7, 8, 9]
-  }, 
+  },
   3: {
     id: 3,
     title: 'Botswana',
@@ -906,7 +910,7 @@ export const initialTravelPlan = {
     id: 6,
     title: 'Madagascar',
     childIds: []
-  }, 
+  },
   7: {
     id: 7,
     title: 'Morocco',
@@ -924,8 +928,13 @@ export const initialTravelPlan = {
   },
   10: {
     id: 10,
+<<<<<<< HEAD
     title: 'Châu Mỹ',
     childIds: [11, 12, 13, 14, 15, 16, 17, 18],   
+=======
+    title: 'Americas',
+    childIds: [11, 12, 13, 14, 15, 16, 17, 18],
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
   },
   11: {
     id: 11,
@@ -941,7 +950,7 @@ export const initialTravelPlan = {
     id: 13,
     title: 'Barbados',
     childIds: []
-  }, 
+  },
   14: {
     id: 14,
     title: 'Canada',
@@ -969,8 +978,13 @@ export const initialTravelPlan = {
   },
   19: {
     id: 19,
+<<<<<<< HEAD
     title: 'Châu Á',
     childIds: [20, 21, 22, 23, 24, 25],   
+=======
+    title: 'Asia',
+    childIds: [20, 21, 22, 23, 24, 25],
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
   },
   20: {
     id: 20,
@@ -1004,8 +1018,13 @@ export const initialTravelPlan = {
   },
   26: {
     id: 26,
+<<<<<<< HEAD
     title: 'Châu Âu',
     childIds: [27, 28, 29, 30, 31, 32, 33],   
+=======
+    title: 'Europe',
+    childIds: [27, 28, 29, 30, 31, 32, 33],
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
   },
   27: {
     id: 27,
@@ -1044,8 +1063,13 @@ export const initialTravelPlan = {
   },
   34: {
     id: 34,
+<<<<<<< HEAD
     title: 'Châu Đại Dương',
     childIds: [35, 36, 37, 38, 39, 40, 41],   
+=======
+    title: 'Oceania',
+    childIds: [35, 36, 37, 38, 39, 40, 41],
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
   },
   35: {
     id: 35,
@@ -1222,7 +1246,7 @@ export const initialTravelPlan = {
     id: 2,
     title: 'Châu Phi',
     childIds: [3, 4, 5, 6 , 7, 8, 9]
-  }, 
+  },
   3: {
     id: 3,
     title: 'Botswana',
@@ -1242,7 +1266,7 @@ export const initialTravelPlan = {
     id: 6,
     title: 'Madagascar',
     childIds: []
-  }, 
+  },
   7: {
     id: 7,
     title: 'Morocco',
@@ -1260,8 +1284,13 @@ export const initialTravelPlan = {
   },
   10: {
     id: 10,
+<<<<<<< HEAD
     title: 'Châu Mỹ',
     childIds: [11, 12, 13, 14, 15, 16, 17, 18],   
+=======
+    title: 'Americas',
+    childIds: [11, 12, 13, 14, 15, 16, 17, 18],
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
   },
   11: {
     id: 11,
@@ -1277,7 +1306,7 @@ export const initialTravelPlan = {
     id: 13,
     title: 'Barbados',
     childIds: []
-  }, 
+  },
   14: {
     id: 14,
     title: 'Canada',
@@ -1305,8 +1334,13 @@ export const initialTravelPlan = {
   },
   19: {
     id: 19,
+<<<<<<< HEAD
     title: 'Châu Á',
     childIds: [20, 21, 22, 23, 24, 25],   
+=======
+    title: 'Asia',
+    childIds: [20, 21, 22, 23, 24, 25],
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
   },
   20: {
     id: 20,
@@ -1340,8 +1374,13 @@ export const initialTravelPlan = {
   },
   26: {
     id: 26,
+<<<<<<< HEAD
     title: 'Châu Âu',
     childIds: [27, 28, 29, 30, 31, 32, 33],   
+=======
+    title: 'Europe',
+    childIds: [27, 28, 29, 30, 31, 32, 33],
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
   },
   27: {
     id: 27,
@@ -1380,8 +1419,13 @@ export const initialTravelPlan = {
   },
   34: {
     id: 34,
+<<<<<<< HEAD
     title: 'Châu Đại Dương',
     childIds: [35, 36, 37, 38, 39, 40, 41],   
+=======
+    title: 'Oceania',
+    childIds: [35, 36, 37, 38, 39, 40, 41],
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
   },
   35: {
     id: 35,
@@ -1561,7 +1605,7 @@ export const initialTravelPlan = {
     id: 2,
     title: 'Châu Phi',
     childIds: [3, 4, 5, 6 , 7, 8, 9]
-  }, 
+  },
   3: {
     id: 3,
     title: 'Botswana',
@@ -1581,7 +1625,7 @@ export const initialTravelPlan = {
     id: 6,
     title: 'Madagascar',
     childIds: []
-  }, 
+  },
   7: {
     id: 7,
     title: 'Morocco',
@@ -1599,8 +1643,13 @@ export const initialTravelPlan = {
   },
   10: {
     id: 10,
+<<<<<<< HEAD
     title: 'Châu Mỹ',
     childIds: [11, 12, 13, 14, 15, 16, 17, 18],   
+=======
+    title: 'Americas',
+    childIds: [11, 12, 13, 14, 15, 16, 17, 18],
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
   },
   11: {
     id: 11,
@@ -1616,7 +1665,7 @@ export const initialTravelPlan = {
     id: 13,
     title: 'Barbados',
     childIds: []
-  }, 
+  },
   14: {
     id: 14,
     title: 'Canada',
@@ -1644,8 +1693,13 @@ export const initialTravelPlan = {
   },
   19: {
     id: 19,
+<<<<<<< HEAD
     title: 'Châu Á',
     childIds: [20, 21, 22, 23, 24, 25],   
+=======
+    title: 'Asia',
+    childIds: [20, 21, 22, 23, 24, 25,],
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
   },
   20: {
     id: 20,
@@ -1679,8 +1733,13 @@ export const initialTravelPlan = {
   },
   26: {
     id: 26,
+<<<<<<< HEAD
     title: 'Châu Âu',
     childIds: [27, 28, 29, 30, 31, 32, 33],   
+=======
+    title: 'Europe',
+    childIds: [27, 28, 29, 30, 31, 32, 33],
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
   },
   27: {
     id: 27,
@@ -1719,8 +1778,13 @@ export const initialTravelPlan = {
   },
   34: {
     id: 34,
+<<<<<<< HEAD
     title: 'Châu Đại Dương',
     childIds: [35, 36, 37, 38, 39, 40, 41],   
+=======
+    title: 'Oceania',
+    childIds: [35, 36, 37, 38, 39, 40, 41],
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
   },
   35: {
     id: 35,
@@ -1825,6 +1889,7 @@ button { margin: 10px; }
 
 <Recap>
 
+<<<<<<< HEAD
 * Nếu hai state luôn luôn cập nhật cùng nhau, hãy xem xét việc gộp chúng thành một.
 * Chọn cẩn thận các biến state của bạn để tránh tạo ra các trạng thái "không thể xảy ra".
 * Cấu trúc state của bạn sao cho giảm khả năng bạn sẽ mắc lỗi khi cập nhật nó.
@@ -1832,6 +1897,15 @@ button { margin: 10px; }
 * Không đặt props *vào* state trừ khi bạn muốn ngăn cập nhật.
 * Đối với UI như chọn lựa, giữ ID hoặc index trong state thay vì chính object đó.
 * Nếu việc cập nhật state lồng nhau quá phức tạp, hãy thử làm phẳng nó.
+=======
+* If two state variables always update together, consider merging them into one.
+* Choose your state variables carefully to avoid creating "impossible" states.
+* Structure your state in a way that reduces the chances that you'll make a mistake updating it.
+* Avoid redundant and duplicate state so that you don't need to keep it in sync.
+* Don't put props *into* state unless you specifically want to prevent updates.
+* For UI patterns like selection, keep ID or index in state instead of the object itself.
+* If updating deeply nested state is complicated, try flattening it.
+>>>>>>> 6be2b020a0cabf2fd6dbff5c42c399b8ac323bca
 
 </Recap>
 
@@ -2064,7 +2138,7 @@ export default function TravelPlan() {
   }
 
   return (
-    <>  
+    <>
       <AddItem
         onAddItem={handleAddItem}
       />
@@ -2199,7 +2273,7 @@ export default function TravelPlan() {
   }
 
   return (
-    <>  
+    <>
       <AddItem
         onAddItem={handleAddItem}
       />
@@ -2352,7 +2426,7 @@ export default function Letter({
         isHighlighted ? 'highlighted' : ''
       }
       onFocus={() => {
-        onHover(letter);        
+        onHover(letter);
       }}
       onPointerMove={() => {
         onHover(letter);
@@ -2461,7 +2535,7 @@ export default function Letter({
         isHighlighted ? 'highlighted' : ''
       }
       onFocus={() => {
-        onHover(letter.id);        
+        onHover(letter.id);
       }}
       onPointerMove={() => {
         onHover(letter.id);
