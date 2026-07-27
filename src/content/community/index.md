@@ -10,9 +10,13 @@ React có một cộng đồng hàng triệu lập trình viên. Trên trang nà
 
 ## Code of Conduct {/*code-of-conduct*/}
 
+<<<<<<< HEAD
 Trước khi tham gia vào cộng đồng React, [vui lòng đọc Quy tắc ứng xử của chúng tôi](https://github.com/facebook/react/blob/main/CODE_OF_CONDUCT.md). Chúng tôi đã áp dụng [Giao ước cộng tác viên](https://www.contributor-covenant.org/) và chúng tôi hi vọng các thành viên trong cộng đồng sẽ tuân thủ các qui tắc.
 
 Before participating in React's communities, [please read our Code of Conduct.](https://github.com/facebook/react/blob/main/CODE_OF_CONDUCT.md) We have adopted the [Contributor Covenant](https://www.contributor-covenant.org/) and we expect that all community members adhere to the guidelines within.
+=======
+Before participating in React's communities, [please read our Code of Conduct.](https://github.com/react/react/blob/main/CODE_OF_CONDUCT.md) We have adopted the [Contributor Covenant](https://www.contributor-covenant.org/) and we expect that all community members adhere to the guidelines within.
+>>>>>>> 7b6c3ceb9dd97249e9dce4a8a94e61aed6424698
 
 ## Stack Overflow {/*stack-overflow*/}
 
