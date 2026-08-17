@@ -323,7 +323,11 @@ Trong một ứng dụng React, nhiều component sẽ có state riêng của ch
 
 #### Input đồng bộ {/*synced-inputs*/}
 
+<<<<<<< HEAD
 Hai input này độc lập với nhau. Hãy làm cho chúng luôn đồng bộ: chỉnh sửa một input nên cập nhật input khác với cùng văn bản, và ngược lại.
+=======
+These two inputs are independent. Make them stay in sync: editing one input should update the other input with the same text, and vice versa.
+>>>>>>> 383a1e9239c8c084a16a19daa4fc2a7ad04e2a3a
 
 <Hint>
 
@@ -571,7 +575,7 @@ function SearchBar({ query, onChange }) {
 function List({ items }) {
   return (
     <table>
-      <tbody> 
+      <tbody>
         {items.map(food => (
           <tr key={food.id}>
             <td>{food.name}</td>

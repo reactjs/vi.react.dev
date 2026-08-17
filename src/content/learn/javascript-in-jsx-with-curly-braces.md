@@ -28,7 +28,7 @@ export default function Avatar() {
   return (
     <img
       className="avatar"
-      src="https://i.imgur.com/7vQD0fPs.jpg"
+      src="https://react.dev/images/docs/scientists/7vQD0fPs.jpg"
       alt="Gregorio Y. Zara"
     />
   );
@@ -41,7 +41,11 @@ export default function Avatar() {
 
 </Sandpack>
 
+<<<<<<< HEAD
 Ở đây, `"https://i.imgur.com/7vQD0fPs.jpg"` và `"Gregorio Y. Zara"` đang được truyền như các chuỗi.
+=======
+Here, `"https://react.dev/images/docs/scientists/7vQD0fPs.jpg"` and `"Gregorio Y. Zara"` are being passed as strings.
+>>>>>>> 383a1e9239c8c084a16a19daa4fc2a7ad04e2a3a
 
 Nhưng nếu bạn muốn chỉ định thuộc tính `src` hoặc văn bản `alt` một cách linh động thì sao? Bạn có thể **sử dụng một giá trị từ JavaScript bằng cách thay thế `"` và `"` bằng dấu `{` và `}`**:
 
@@ -49,7 +53,7 @@ Nhưng nếu bạn muốn chỉ định thuộc tính `src` hoặc văn bản `a
 
 ```js
 export default function Avatar() {
-  const avatar = 'https://i.imgur.com/7vQD0fPs.jpg';
+  const avatar = 'https://react.dev/images/docs/scientists/7vQD0fPs.jpg';
   const description = 'Gregorio Y. Zara';
   return (
     <img
@@ -190,7 +194,7 @@ export default function TodoList() {
       <h1>{person.name}'s Todos</h1>
       <img
         className="avatar"
-        src="https://i.imgur.com/7vQD0fPs.jpg"
+        src="https://react.dev/images/docs/scientists/7vQD0fPs.jpg"
         alt="Gregorio Y. Zara"
       />
       <ul>
@@ -266,7 +270,7 @@ export default function TodoList() {
       <h1>{person}'s Todos</h1>
       <img
         className="avatar"
-        src="https://i.imgur.com/7vQD0fPs.jpg"
+        src="https://react.dev/images/docs/scientists/7vQD0fPs.jpg"
         alt="Gregorio Y. Zara"
       />
       <ul>
@@ -314,7 +318,7 @@ export default function TodoList() {
       <h1>{person.name}'s Todos</h1>
       <img
         className="avatar"
-        src="https://i.imgur.com/7vQD0fPs.jpg"
+        src="https://react.dev/images/docs/scientists/7vQD0fPs.jpg"
         alt="Gregorio Y. Zara"
       />
       <ul>
@@ -358,7 +362,7 @@ export default function TodoList() {
       <h1>{person.name}'s Todos</h1>
       <img
         className="avatar"
-        src="https://i.imgur.com/7vQD0fPs.jpg"
+        src="https://react.dev/images/docs/scientists/7vQD0fPs.jpg"
         alt="Gregorio Y. Zara"
       />
       <ul>
@@ -388,7 +392,7 @@ Di chuyển URL hình ảnh vào một thuộc tính gọi là `person.imageUrl`
 ```js
 const person = {
   name: 'Gregorio Y. Zara',
-  imageUrl: "https://i.imgur.com/7vQD0fPs.jpg",
+  imageUrl: "https://react.dev/images/docs/scientists/7vQD0fPs.jpg",
   theme: {
     backgroundColor: 'black',
     color: 'pink'
@@ -428,7 +432,11 @@ body > div > div { padding: 20px; }
 
 Trong đối tượng dưới đây, URL hình ảnh đầy đủ được chia thành bốn phần: URL cơ sở, `imageId`, `imageSize`, và phần mở rộng tệp (file).
 
+<<<<<<< HEAD
 Chúng ta muốn URL hình ảnh kết hợp các thuộc tính này lại với nhau: URL cơ sở (luôn luôn là `'https://i.imgur.com/'`), `imageId` (`'7vQD0fP'`), `imageSize` (`'s'`), và phần mở rộng tệp (file) (luôn luôn là `'.jpg'`). Có gì đó sai với cách thẻ `<img>` xác định thuộc tính `src` của nó.
+=======
+We want the image URL to combine these attributes together: base URL (always `'https://react.dev/images/docs/scientists/'`), `imageId` (`'7vQD0fP'`), `imageSize` (`'s'`), and file extension (always `'.jpg'`). However, something is wrong with how the `<img>` tag specifies its `src`.
+>>>>>>> 383a1e9239c8c084a16a19daa4fc2a7ad04e2a3a
 
 Bạn có thể sửa nó?
 
@@ -436,7 +444,7 @@ Bạn có thể sửa nó?
 
 ```js
 
-const baseUrl = 'https://i.imgur.com/';
+const baseUrl = 'https://react.dev/images/docs/scientists/';
 const person = {
   name: 'Gregorio Y. Zara',
   imageId: '7vQD0fP',
@@ -487,7 +495,7 @@ Bạn có thể viết nó dạng `src={baseUrl + person.imageId + person.imageS
 <Sandpack>
 
 ```js
-const baseUrl = 'https://i.imgur.com/';
+const baseUrl = 'https://react.dev/images/docs/scientists/';
 const person = {
   name: 'Gregorio Y. Zara',
   imageId: '7vQD0fP',
@@ -564,7 +572,7 @@ export default function TodoList() {
 ```js src/utils.js
 export function getImageUrl(person) {
   return (
-    'https://i.imgur.com/' +
+    'https://react.dev/images/docs/scientists/' +
     person.imageId +
     person.imageSize +
     '.jpg'
