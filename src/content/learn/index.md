@@ -144,7 +144,7 @@ Bạn cũng có thể đặt các biểu thức phức tạp hơn bên trong cá
 ```js
 const user = {
   name: 'Hedy Lamarr',
-  imageUrl: 'https://i.imgur.com/yXOvdOSs.jpg',
+  imageUrl: 'https://react.dev/images/docs/scientists/yXOvdOSs.jpg',
   imageSize: 90,
 };
 
@@ -337,7 +337,11 @@ function MyButton() {
 }
 ```
 
+<<<<<<< HEAD
 React sẽ gọi lại hàm của thành phần của bạn. Lần này, `count` sẽ là `1`. Sau đó sẽ là `2`. Và tiếp tục như vậy.
+=======
+Calling `setCount` tells React to call your component function again. This is called a *re-render*. This time, `count` will be `1`. Then it will be `2`. And so on.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 Nếu bạn render cùng một thành phần nhiều lần, mỗi cái sẽ có trạng thái riêng của nó. Nhấp vào mỗi nút một cách riêng lẻ:
 

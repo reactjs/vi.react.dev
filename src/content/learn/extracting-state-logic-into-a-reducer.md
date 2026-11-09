@@ -874,7 +874,11 @@ Reducer không phải là không có nhược điểm! Đây là một vài các
 - **Testing:** Reducer là một pure function không phụ thuộc vào component của bạn. Điều này có nghĩa là bạn có thể export và test nó riêng biệt trong cô lập. Mặc dù nói chung tốt nhất là test component trong môi trường thực tế hơn, đối với logic cập nhật state phức tạp, có thể hữu ích để khẳng định rằng reducer của bạn trả về một state cụ thể cho một initial state và action cụ thể.
 - **Sở thích cá nhân:** Một số người thích reducer, những người khác thì không. Điều đó ổn. Đó là vấn đề sở thích. Bạn luôn có thể chuyển đổi giữa `useState` và `useReducer` qua lại: chúng tương đương!
 
+<<<<<<< HEAD
 Chúng tôi khuyên sử dụng reducer nếu bạn thường gặp bug do cập nhật state không chính xác trong một số component, và muốn giới thiệu thêm cấu trúc vào code của nó. Bạn không phải sử dụng reducer cho mọi thứ: cứ thoải mái kết hợp và phối hợp! Bạn thậm chí có thể `useState` và `useReducer` trong cùng một component.
+=======
+We recommend using a reducer if you often encounter bugs due to incorrect state updates in some component, and want to introduce more structure to its code. You don't have to use reducers for everything: feel free to mix and match! You can even use `useState` and `useReducer` in the same component.
+>>>>>>> f5fa1e82edacdf8c6bfc4dfd9cf52029a96d5fd3
 
 ## Viết reducer tốt {/*writing-reducers-well*/}
 
