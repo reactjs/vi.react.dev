@@ -70,9 +70,9 @@ Giả sử bạn có một đoạn HTML (hoàn toàn hợp lệ):
 
 ```html
 <h1>Hedy Lamarr's Todos</h1>
-<img 
-  src="https://i.imgur.com/yXOvdOSs.jpg" 
-  alt="Hedy Lamarr" 
+<img
+  src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
+  alt="Hedy Lamarr"
   class="photo"
 >
 <ul>
@@ -102,9 +102,9 @@ export default function TodoList() {
   return (
     // This doesn't quite work!
     <h1>Hedy Lamarr's Todos</h1>
-    <img 
-      src="https://i.imgur.com/yXOvdOSs.jpg" 
-      alt="Hedy Lamarr" 
+    <img
+      src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
+      alt="Hedy Lamarr"
       class="photo"
     >
     <ul>
@@ -141,9 +141,9 @@ Ví dụ, bạn có thể sử dụng `<div>`:
 ```js {1,11}
 <div>
   <h1>Hedy Lamarr's Todos</h1>
-  <img 
-    src="https://i.imgur.com/yXOvdOSs.jpg" 
-    alt="Hedy Lamarr" 
+  <img
+    src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
+    alt="Hedy Lamarr"
     class="photo"
   >
   <ul>
@@ -158,9 +158,9 @@ Nếu bạn không muốn thêm một thẻ `<div>` vào giao diện, bạn có 
 ```js {1,11}
 <>
   <h1>Hedy Lamarr's Todos</h1>
-  <img 
-    src="https://i.imgur.com/yXOvdOSs.jpg" 
-    alt="Hedy Lamarr" 
+  <img
+    src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
+    alt="Hedy Lamarr"
     class="photo"
   >
   <ul>
@@ -187,9 +187,9 @@ Image và danh sách các mục của Hedy Lamarr trông như sau:
 
 ```js {2-6,8-10}
 <>
-  <img 
-    src="https://i.imgur.com/yXOvdOSs.jpg" 
-    alt="Hedy Lamarr" 
+  <img
+    src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
+    alt="Hedy Lamarr"
     class="photo"
    />
   <ul>
@@ -207,9 +207,9 @@ JSX chuyển thành JavaScript và các thuộc tính được viết bằng JSX
 Đây là lý do tại sao trong React, nhiều thuộc tính HTML và SVG được viết bằng CamelCase. Ví dụ: thay vì `stroke-width` bạn sử dụng `strokeWidth`. Vì `class` là một từ dành riêng, nên trong React bạn viết `className`, được đặt tên theo [thuộc tính DOM tương ứng](https://developer.mozilla.org/en-US/docs/Web/API/Element/className):
 
 ```js {4}
-<img 
-  src="https://i.imgur.com/yXOvdOSs.jpg" 
-  alt="Hedy Lamarr" 
+<img
+  src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
+  alt="Hedy Lamarr"
   className="photo"
 />
 ```
@@ -235,10 +235,10 @@ export default function TodoList() {
   return (
     <>
       <h1>Hedy Lamarr's Todos</h1>
-      <img 
-        src="https://i.imgur.com/yXOvdOSs.jpg" 
-        alt="Hedy Lamarr" 
-        className="photo" 
+      <img
+        src="https://react.dev/images/docs/scientists/yXOvdOSs.jpg"
+        alt="Hedy Lamarr"
+        className="photo"
       />
       <ul>
         <li>Invent new traffic lights</li>
